@@ -6,9 +6,11 @@ import { Trans } from "@lingui/react/macro";
 import {
   BrainIcon,
   BriefcaseIcon,
+  EyeIcon,
   GearSixIcon,
   KeyIcon,
   ReadCvLogoIcon,
+  SealCheckIcon,
   ShieldCheckIcon,
   UserCircleIcon,
   WarningIcon,
@@ -54,6 +56,11 @@ const appSidebarItems = [
     label: msg`Job Search`,
     href: "/dashboard/job-search",
   },
+  {
+    icon: <SealCheckIcon />,
+    label: msg`Verification`,
+    href: "/dashboard/verification",
+  },
 ] as const satisfies SidebarItem[];
 
 const settingsSidebarItems = [
@@ -86,6 +93,11 @@ const settingsSidebarItems = [
     icon: <BriefcaseIcon />,
     label: msg`Job Search API`,
     href: "/dashboard/settings/job-search",
+  },
+  {
+    icon: <EyeIcon />,
+    label: msg`Privacy`,
+    href: "/dashboard/settings/privacy",
   },
   {
     icon: <WarningIcon />,

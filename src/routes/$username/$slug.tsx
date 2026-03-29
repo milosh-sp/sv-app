@@ -9,6 +9,7 @@ import type { ResumeData } from "@/schema/resume/data";
 
 import { LoadingScreen } from "@/components/layout/loading-screen";
 import { ResumePreview } from "@/components/resume/preview";
+import { VerificationProvider } from "@/components/resume/shared/verification-context";
 import { useResumeStore } from "@/components/resume/store/resume";
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
@@ -25,7 +26,16 @@ export const Route = createFileRoute("/$username/$slug")({
       orpc.resume.getBySlug.queryOptions({ input: { username, slug } }),
     );
 
-    return { resume: resume as LoaderData };
+    let verificationStatuses: { id: string; sectionType: string; itemId: string; itemLabel: string; status: string; badgeVisible: boolean }[] = [];
+    try {
+      verificationStatuses = await context.queryClient.ensureQueryData(
+        orpc.verification.getStatus.queryOptions({ input: { resumeId: (resume as LoaderData).id } }),
+      );
+    } catch {
+      // If verification fetch fails (e.g., not authenticated), continue without badges
+    }
+
+    return { resume: resume as LoaderData, verificationStatuses };
   },
   head: ({ loaderData }) => ({
     meta: [{ title: loaderData ? `${loaderData.resume.name} - Reactive Resume` : "Reactive Resume" }],
@@ -50,6 +60,7 @@ export const Route = createFileRoute("/$username/$slug")({
 
 function RouteComponent() {
   const { username, slug } = Route.useParams();
+  const { verificationStatuses } = Route.useLoaderData();
   const isReady = useResumeStore((state) => state.isReady);
   const initialize = useResumeStore((state) => state.initialize);
 
@@ -74,11 +85,13 @@ function RouteComponent() {
 
   return (
     <>
-      <div
-        className={cn("mx-auto max-w-[210mm]", "print:m-0 print:block print:max-w-full print:px-0", "md:my-4 md:px-4")}
-      >
-        <ResumePreview className="space-y-4" pageClassName="print:w-full! w-full max-w-full" />
-      </div>
+      <VerificationProvider statuses={verificationStatuses}>
+        <div
+          className={cn("mx-auto max-w-[210mm]", "print:m-0 print:block print:max-w-full print:px-0", "md:my-4 md:px-4")}
+        >
+          <ResumePreview className="space-y-4" pageClassName="print:w-full! w-full max-w-full" />
+        </div>
+      </VerificationProvider>
 
       <Button
         size="lg"

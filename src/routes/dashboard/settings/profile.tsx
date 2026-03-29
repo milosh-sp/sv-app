@@ -1,7 +1,15 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
-import { CheckIcon, UserCircleIcon, WarningIcon } from "@phosphor-icons/react";
+import {
+  CalendarCheckIcon,
+  CheckIcon,
+  ClockIcon,
+  SealCheckIcon,
+  UserCircleIcon,
+  WarningIcon,
+} from "@phosphor-icons/react";
+import { useMutation, useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute, useRouter } from "@tanstack/react-router";
 import { AnimatePresence, motion } from "motion/react";
 import { useMemo } from "react";
@@ -15,6 +23,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { authClient } from "@/integrations/auth/client";
+import { orpc } from "@/integrations/orpc/client";
 
 import { DashboardHeader } from "../-components/header";
 
@@ -237,6 +246,100 @@ function RouteComponent() {
           </AnimatePresence>
         </motion.form>
       </Form>
+      <Separator />
+
+      <IdentityVerificationBlock />
+    </div>
+  );
+}
+
+function IdentityVerificationBlock() {
+  const { data: calLink } = useSuspenseQuery(
+    orpc.verification.getCalLink.queryOptions(),
+  );
+
+  const { data: identityStatus } = useSuspenseQuery(
+    orpc.verification.getIdentityStatus.queryOptions(),
+  );
+
+  const { mutate: requestIdentity, isPending } = useMutation(
+    orpc.verification.requestIdentity.mutationOptions(),
+  );
+
+  const status: string = identityStatus?.status ?? "not_requested";
+
+  const handleRequest = () => {
+    requestIdentity(undefined, {
+      onSuccess: () => {
+        toast.success(t`Identity verification requested. Please complete the scheduled call.`);
+        if (calLink) {
+          window.open(calLink, "_blank");
+        }
+      },
+      onError: (error) => {
+        toast.error(error.message);
+      },
+    });
+  };
+
+  if (!calLink) {
+    return (
+      <div className="grid max-w-xl gap-3" data-testid="identity-verification-unavailable">
+        <h3 className="flex items-center gap-x-2 text-sm font-medium">
+          <SealCheckIcon className="size-4" />
+          <Trans>Identity Verification</Trans>
+        </h3>
+        <p className="text-xs text-muted-foreground">
+          <Trans>Identity verification is not currently available.</Trans>
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="grid max-w-xl gap-3" data-testid="identity-verification-block">
+      <h3 className="flex items-center gap-x-2 text-sm font-medium">
+        <SealCheckIcon className="size-4" />
+        <Trans>Identity Verification</Trans>
+      </h3>
+
+      {match(status)
+        .with("not_requested", () => (
+          <div className="space-y-3">
+            <p className="text-xs text-muted-foreground">
+              <Trans>
+                Verify your identity through a short video call. This adds trust to your resume.
+              </Trans>
+            </p>
+            <Button size="sm" onClick={handleRequest} disabled={isPending}>
+              <CalendarCheckIcon className="mr-2 size-4" />
+              <Trans>Schedule Identity Verification</Trans>
+            </Button>
+          </div>
+        ))
+        .with("pending", "claimed", "verdict_pending", () => (
+          <div className="flex items-center gap-x-2 text-xs text-amber-600" data-testid="identity-pending">
+            <ClockIcon className="size-4" />
+            <Trans>Identity verification is pending review.</Trans>
+          </div>
+        ))
+        .with("approved", () => (
+          <div className="flex items-center gap-x-2 text-xs text-green-700" data-testid="identity-approved">
+            <CheckIcon className="size-4" />
+            <Trans>Your identity has been verified.</Trans>
+          </div>
+        ))
+        .otherwise(() => (
+          <div className="space-y-3">
+            <p className="text-xs text-muted-foreground">
+              <Trans>Your previous identity verification was unsuccessful. You may try again.</Trans>
+            </p>
+            <Button size="sm" onClick={handleRequest} disabled={isPending}>
+              <CalendarCheckIcon className="mr-2 size-4" />
+              <Trans>Retry Identity Verification</Trans>
+            </Button>
+          </div>
+        ))}
     </div>
   );
 }

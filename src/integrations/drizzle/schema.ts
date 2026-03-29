@@ -401,6 +401,216 @@ export const oauthConsent = pg.pgTable(
   (t) => [pg.index().on(t.userId, t.clientId)],
 );
 
+// --- Verification Feature Enums ---
+
+export const adminRoleEnum = pg.pgEnum("admin_role", ["skill_verdict_admin", "reviewer_admin"]);
+
+export const verificationSectionTypeEnum = pg.pgEnum("verification_section_type", [
+  "skill",
+  "experience",
+  "project",
+  "identity",
+]);
+
+export const verificationStatusEnum = pg.pgEnum("verification_status", [
+  "pending",
+  "claimed",
+  "verdict_pending",
+  "approved",
+  "rejected",
+  "issue",
+]);
+
+export const verificationMethodEnum = pg.pgEnum("verification_method", [
+  "document_upload",
+  "freelancer_link",
+  "identity_call",
+]);
+
+export const changeRequestStatusEnum = pg.pgEnum("change_request_status", ["pending", "approved", "rejected"]);
+
+export const metadataActionEnum = pg.pgEnum("metadata_action", [
+  "claimed",
+  "verdict_submitted",
+  "approved",
+  "rejected",
+  "flagged",
+  "overridden",
+]);
+
+export const documentTypeEnum = pg.pgEnum("document_type", ["payslip", "contract", "freelancer_link"]);
+
+// --- Verification Feature Tables ---
+
+export const adminRoles = pg.pgTable(
+  "admin_roles",
+  {
+    id: pg
+      .uuid("id")
+      .notNull()
+      .primaryKey()
+      .$defaultFn(() => generateId()),
+    userId: pg
+      .uuid("user_id")
+      .notNull()
+      .unique()
+      .references(() => user.id, { onDelete: "cascade" }),
+    role: adminRoleEnum("role").notNull(),
+    createdAt: pg.timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [pg.index().on(t.userId)],
+);
+
+export const reviewerProfiles = pg.pgTable(
+  "reviewer_profiles",
+  {
+    id: pg
+      .uuid("id")
+      .notNull()
+      .primaryKey()
+      .$defaultFn(() => generateId()),
+    adminId: pg
+      .uuid("admin_id")
+      .notNull()
+      .unique()
+      .references(() => user.id, { onDelete: "cascade" }),
+    firstName: pg.text("first_name").notNull(),
+    lastName: pg.text("last_name").notNull(),
+    title: pg.text("title").notNull(),
+    publicProfileUrl: pg.text("public_profile_url").notNull().unique(),
+    consentGiven: pg.boolean("consent_given").notNull().default(false),
+    consentGivenAt: pg.timestamp("consent_given_at", { withTimezone: true }),
+    createdAt: pg.timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+    updatedAt: pg
+      .timestamp("updated_at", { withTimezone: true })
+      .notNull()
+      .defaultNow()
+      .$onUpdate(() => /* @__PURE__ */ new Date()),
+  },
+  (t) => [pg.index().on(t.adminId)],
+);
+
+export const reviewerProfileChangeRequests = pg.pgTable(
+  "reviewer_profile_change_requests",
+  {
+    id: pg
+      .uuid("id")
+      .notNull()
+      .primaryKey()
+      .$defaultFn(() => generateId()),
+    adminId: pg
+      .uuid("admin_id")
+      .notNull()
+      .references(() => reviewerProfiles.adminId, { onDelete: "cascade" }),
+    requestedFirstName: pg.text("requested_first_name"),
+    requestedTitle: pg.text("requested_title"),
+    status: changeRequestStatusEnum("status").notNull().default("pending"),
+    requestedAt: pg.timestamp("requested_at", { withTimezone: true }).notNull().defaultNow(),
+    resolvedAt: pg.timestamp("resolved_at", { withTimezone: true }),
+    resolvedByAdminId: pg.uuid("resolved_by_admin_id"),
+    rejectionReason: pg.text("rejection_reason"),
+  },
+  (t) => [pg.index().on(t.adminId), pg.index().on(t.status)],
+);
+
+export const verificationRequests = pg.pgTable(
+  "verification_requests",
+  {
+    id: pg
+      .uuid("id")
+      .notNull()
+      .primaryKey()
+      .$defaultFn(() => generateId()),
+    userId: pg
+      .uuid("user_id")
+      .notNull()
+      .references(() => user.id, { onDelete: "cascade" }),
+    resumeId: pg.uuid("resume_id").references(() => resume.id, { onDelete: "set null" }),
+    sectionType: verificationSectionTypeEnum("section_type").notNull(),
+    itemId: pg.uuid("item_id").notNull(),
+    itemLabel: pg.text("item_label").notNull(),
+    status: verificationStatusEnum("status").notNull().default("pending"),
+    method: verificationMethodEnum("method"),
+    submittedAt: pg.timestamp("submitted_at", { withTimezone: true }).notNull().defaultNow(),
+    claimedAt: pg.timestamp("claimed_at", { withTimezone: true }),
+    claimedByAdminId: pg.uuid("claimed_by_admin_id"),
+    resolvedAt: pg.timestamp("resolved_at", { withTimezone: true }),
+    reviewerNote: pg.text("reviewer_note"),
+    badgeVisible: pg.boolean("badge_visible").notNull().default(true),
+    calendarLinkSentAt: pg.timestamp("calendar_link_sent_at", { withTimezone: true }),
+  },
+  (t) => [
+    pg.unique().on(t.userId, t.resumeId, t.itemId),
+    pg.index().on(t.userId),
+    pg.index().on(t.resumeId),
+    pg.index().on(t.status),
+  ],
+);
+
+export const verificationMetadata = pg.pgTable(
+  "verification_metadata",
+  {
+    id: pg
+      .uuid("id")
+      .notNull()
+      .primaryKey()
+      .$defaultFn(() => generateId()),
+    verificationRequestId: pg
+      .uuid("verification_request_id")
+      .notNull()
+      .references(() => verificationRequests.id, { onDelete: "cascade" }),
+    adminId: pg.uuid("admin_id").notNull(),
+    adminRole: adminRoleEnum("admin_role").notNull(),
+    action: metadataActionEnum("action").notNull(),
+    notes: pg.text("notes"),
+    reviewerSnapshotFirstName: pg.text("reviewer_snapshot_first_name"),
+    reviewerSnapshotLastName: pg.text("reviewer_snapshot_last_name"),
+    reviewerSnapshotTitle: pg.text("reviewer_snapshot_title"),
+    reviewerPublicProfileUrl: pg.text("reviewer_public_profile_url"),
+    actedAt: pg.timestamp("acted_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [pg.index().on(t.verificationRequestId), pg.index().on(t.adminId)],
+);
+
+export const verificationDocuments = pg.pgTable(
+  "verification_documents",
+  {
+    id: pg
+      .uuid("id")
+      .notNull()
+      .primaryKey()
+      .$defaultFn(() => generateId()),
+    verificationRequestId: pg
+      .uuid("verification_request_id")
+      .notNull()
+      .references(() => verificationRequests.id, { onDelete: "cascade" }),
+    fileUrl: pg.text("file_url").notNull(),
+    documentType: documentTypeEnum("document_type").notNull(),
+    uploadedAt: pg.timestamp("uploaded_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [pg.index().on(t.verificationRequestId)],
+);
+
+export const resumeVerificationSettings = pg.pgTable("resume_verification_settings", {
+  id: pg
+    .uuid("id")
+    .notNull()
+    .primaryKey()
+    .$defaultFn(() => generateId()),
+  resumeId: pg
+    .uuid("resume_id")
+    .notNull()
+    .unique()
+    .references(() => resume.id, { onDelete: "cascade" }),
+  showTimeline: pg.boolean("show_timeline").notNull().default(false),
+  createdAt: pg.timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  updatedAt: pg
+    .timestamp("updated_at", { withTimezone: true })
+    .notNull()
+    .defaultNow()
+    .$onUpdate(() => /* @__PURE__ */ new Date()),
+});
+
 export const relations = defineRelations(
   {
     user,
@@ -417,6 +627,13 @@ export const relations = defineRelations(
     oauthRefreshToken,
     oauthAccessToken,
     oauthConsent,
+    adminRoles,
+    reviewerProfiles,
+    reviewerProfileChangeRequests,
+    verificationRequests,
+    verificationMetadata,
+    verificationDocuments,
+    resumeVerificationSettings,
   },
   (r) => ({
     user: {
@@ -430,6 +647,18 @@ export const relations = defineRelations(
       oauthRefreshTokens: r.many.oauthRefreshToken(),
       oauthAccessTokens: r.many.oauthAccessToken(),
       oauthConsents: r.many.oauthConsent(),
+      adminRole: r.one.adminRoles({
+        from: r.user.id,
+        to: r.adminRoles.userId,
+      }),
+      reviewerProfile: r.one.reviewerProfiles({
+        from: r.user.id,
+        to: r.reviewerProfiles.adminId,
+      }),
+      verificationRequests: r.many.verificationRequests({
+        from: r.user.id,
+        to: r.verificationRequests.userId,
+      }),
     },
     session: {
       user: r.one.user({
@@ -471,6 +700,14 @@ export const relations = defineRelations(
       statistics: r.one.resumeStatistics({
         from: r.resume.id,
         to: r.resumeStatistics.resumeId,
+      }),
+      verificationSettings: r.one.resumeVerificationSettings({
+        from: r.resume.id,
+        to: r.resumeVerificationSettings.resumeId,
+      }),
+      verificationRequests: r.many.verificationRequests({
+        from: r.resume.id,
+        to: r.verificationRequests.resumeId,
       }),
     },
     resumeStatistics: {
@@ -531,6 +768,64 @@ export const relations = defineRelations(
       user: r.one.user({
         from: r.oauthConsent.userId,
         to: r.user.id,
+      }),
+    },
+    adminRoles: {
+      user: r.one.user({
+        from: r.adminRoles.userId,
+        to: r.user.id,
+      }),
+    },
+    reviewerProfiles: {
+      user: r.one.user({
+        from: r.reviewerProfiles.adminId,
+        to: r.user.id,
+      }),
+      changeRequests: r.many.reviewerProfileChangeRequests({
+        from: r.reviewerProfiles.adminId,
+        to: r.reviewerProfileChangeRequests.adminId,
+      }),
+    },
+    reviewerProfileChangeRequests: {
+      reviewerProfile: r.one.reviewerProfiles({
+        from: r.reviewerProfileChangeRequests.adminId,
+        to: r.reviewerProfiles.adminId,
+      }),
+    },
+    verificationRequests: {
+      user: r.one.user({
+        from: r.verificationRequests.userId,
+        to: r.user.id,
+      }),
+      resume: r.one.resume({
+        from: r.verificationRequests.resumeId,
+        to: r.resume.id,
+      }),
+      metadata: r.many.verificationMetadata({
+        from: r.verificationRequests.id,
+        to: r.verificationMetadata.verificationRequestId,
+      }),
+      documents: r.many.verificationDocuments({
+        from: r.verificationRequests.id,
+        to: r.verificationDocuments.verificationRequestId,
+      }),
+    },
+    verificationMetadata: {
+      verificationRequest: r.one.verificationRequests({
+        from: r.verificationMetadata.verificationRequestId,
+        to: r.verificationRequests.id,
+      }),
+    },
+    verificationDocuments: {
+      verificationRequest: r.one.verificationRequests({
+        from: r.verificationDocuments.verificationRequestId,
+        to: r.verificationRequests.id,
+      }),
+    },
+    resumeVerificationSettings: {
+      resume: r.one.resume({
+        from: r.resumeVerificationSettings.resumeId,
+        to: r.resume.id,
       }),
     },
   }),

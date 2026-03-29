@@ -6,24 +6,37 @@ import { cn } from "@/utils/style";
 
 import { LinkedTitle } from "../linked-title";
 import { PageLink } from "../page-link";
+import { VerificationBadge } from "../verification-badge";
+import { useVerificationStatus } from "../verification-context";
 
 type ProjectsItemProps = SectionItem<"projects"> & {
   className?: string;
 };
 
 export function ProjectsItem({ className, ...item }: ProjectsItemProps) {
+  const verification = useVerificationStatus(item.id);
+
   return (
     <div className={cn("projects-item", className)}>
       {/* Header */}
       <div className="section-item-header projects-item-header">
         {/* Row 1 */}
         <div className="flex items-start justify-between gap-x-2">
-          <LinkedTitle
-            title={item.name}
-            website={item.website}
-            showLinkInTitle={item.options?.showLinkInTitle}
-            className="section-item-title projects-item-title"
-          />
+          <div className="flex items-center gap-x-1.5">
+            <LinkedTitle
+              title={item.name}
+              website={item.website}
+              showLinkInTitle={item.options?.showLinkInTitle}
+              className="section-item-title projects-item-title"
+            />
+            {verification && (
+              <VerificationBadge
+                requestId={verification.id}
+                status={verification.status}
+                badgeVisible={verification.badgeVisible}
+              />
+            )}
+          </div>
           <span className="section-item-metadata projects-item-period shrink-0 text-end">{item.period}</span>
         </div>
       </div>
