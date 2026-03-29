@@ -81,6 +81,12 @@ export const verificationRouter = {
       });
     }),
 
+  listTimelineSettings: protectedProcedure
+    .output(verificationDto.listTimelineSettings.output)
+    .handler(async ({ context }) => {
+      return await verificationService.listTimelineSettingsForUser(context.user.id);
+    }),
+
   getAllStatuses: protectedProcedure.handler(async ({ context }) => {
     return await verificationService.getAllStatuses(context.user.id);
   }),

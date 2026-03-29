@@ -4,6 +4,7 @@ import { and, desc, eq, inArray } from "drizzle-orm";
 import { db } from "@/integrations/drizzle/client";
 import { sendVerificationStatusEmail } from "@/integrations/email/verification";
 import {
+  resume,
   resumeVerificationSettings,
   reviewerProfiles,
   user,
@@ -337,7 +338,45 @@ export const verificationService = {
     return updated!;
   },
 
+  listTimelineSettingsForUser: async (userId: string) => {
+    const publicResumes = await db
+      .select({ id: resume.id, name: resume.name })
+      .from(resume)
+      .where(and(eq(resume.userId, userId), eq(resume.isPublic, true)));
+
+    if (publicResumes.length === 0) {
+      return [];
+    }
+
+    const resumeIds = publicResumes.map((r) => r.id);
+    const settingsRows = await db
+      .select({
+        resumeId: resumeVerificationSettings.resumeId,
+        showTimeline: resumeVerificationSettings.showTimeline,
+      })
+      .from(resumeVerificationSettings)
+      .where(inArray(resumeVerificationSettings.resumeId, resumeIds));
+
+    const settingsByResumeId = new Map(settingsRows.map((s) => [s.resumeId, s.showTimeline]));
+
+    return publicResumes.map((r) => ({
+      resumeId: r.id,
+      name: r.name,
+      showTimeline: settingsByResumeId.get(r.id) ?? false,
+    }));
+  },
+
   toggleTimeline: async (input: { userId: string; resumeId: string; show: boolean }) => {
+    const [owned] = await db
+      .select({ id: resume.id })
+      .from(resume)
+      .where(and(eq(resume.id, input.resumeId), eq(resume.userId, input.userId)))
+      .limit(1);
+
+    if (!owned) {
+      throw new ORPCError("NOT_FOUND", { message: "Resume not found" });
+    }
+
     const [existing] = await db
       .select({ id: resumeVerificationSettings.id })
       .from(resumeVerificationSettings)

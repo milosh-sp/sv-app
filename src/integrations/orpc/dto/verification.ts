@@ -55,6 +55,15 @@ export const verificationDto = {
       show: z.boolean(),
     }),
   },
+  listTimelineSettings: {
+    output: z.array(
+      z.object({
+        resumeId: z.string().uuid(),
+        name: z.string(),
+        showTimeline: z.boolean(),
+      }),
+    ),
+  },
   getBadgeDetail: {
     input: z.object({
       requestId: z.string().uuid(),

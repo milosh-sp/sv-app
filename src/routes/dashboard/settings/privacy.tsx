@@ -1,7 +1,7 @@
 import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
 import { EyeIcon } from "@phosphor-icons/react";
-import { useMutation, useSuspenseQuery } from "@tanstack/react-query";
+import { useMutation, useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "motion/react";
 import { toast } from "sonner";
@@ -101,20 +101,38 @@ function RouteComponent() {
 }
 
 function TimelineToggle() {
-  const { mutate: toggleTimeline } = useMutation(
-    orpc.verification.toggleTimeline.mutationOptions(),
-  );
+  const queryClient = useQueryClient();
+  const { data: rows } = useSuspenseQuery(orpc.verification.listTimelineSettings.queryOptions());
 
-  const handleToggle = (resumeId: string, show: boolean) => {
-    toggleTimeline(
-      { resumeId, show },
-      {
-        onError: (error) => {
-          toast.error(error.message);
-        },
-      },
+  const { mutate: toggleTimeline, isPending, variables } = useMutation({
+    ...orpc.verification.toggleTimeline.mutationOptions(),
+    onSuccess: () => {
+      void queryClient.invalidateQueries({
+        queryKey: orpc.verification.listTimelineSettings.queryOptions().queryKey,
+      });
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
+  });
+
+  if (rows.length === 0) {
+    return (
+      <div className="space-y-3">
+        <h3 className="text-sm font-medium">
+          <Trans>Verification History Timeline</Trans>
+        </h3>
+        <p className="text-xs text-muted-foreground">
+          <Trans>
+            Show or hide the verification timeline on your public CV. This is off by default.
+          </Trans>
+        </p>
+        <p className="text-xs text-muted-foreground" data-testid="timeline-toggle-empty">
+          <Trans>Make at least one resume public to control the timeline on your public CV.</Trans>
+        </p>
+      </div>
     );
-  };
+  }
 
   return (
     <div className="space-y-3">
@@ -127,18 +145,26 @@ function TimelineToggle() {
         </Trans>
       </p>
 
-      <div className="flex items-center justify-between rounded border p-3">
-        <Label className="text-sm">
-          <Trans>Show Timeline on Public CV</Trans>
-        </Label>
-        <Switch
-          defaultChecked={false}
-          onCheckedChange={(checked: boolean) => {
-            handleToggle("default", checked);
-          }}
-          size="sm"
-          data-testid="timeline-toggle"
-        />
+      <div className="space-y-3">
+        {rows.map((row) => (
+          <div
+            key={row.resumeId}
+            className="flex items-center justify-between gap-3 rounded border p-3"
+          >
+            <Label className="min-w-0 truncate text-sm">
+              {rows.length > 1 ? row.name : <Trans>Show Timeline on Public CV</Trans>}
+            </Label>
+            <Switch
+              checked={row.showTimeline}
+              disabled={isPending && variables?.resumeId === row.resumeId}
+              onCheckedChange={(checked: boolean) => {
+                toggleTimeline({ resumeId: row.resumeId, show: checked });
+              }}
+              size="sm"
+              data-testid="timeline-toggle"
+            />
+          </div>
+        ))}
       </div>
     </div>
   );
