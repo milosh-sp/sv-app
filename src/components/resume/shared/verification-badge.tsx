@@ -6,6 +6,10 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip
 import { orpc } from "@/integrations/orpc/client";
 import { cn } from "@/utils/style";
 
+/** Explicit colors: resume preview sets IconContext to `--page-primary-color`, which would tint these badges red. */
+const VERIFIED_BADGE_COLOR = "rgb(22 163 74)";
+const PENDING_BADGE_COLOR = "rgb(245 158 11)";
+
 type VerificationBadgeProps = {
   requestId: string;
   status: string;
@@ -29,7 +33,8 @@ export function VerificationBadge({ requestId, status, badgeVisible, className }
 
   return (
     <ClockIcon
-      className={cn("inline-block size-3.5 text-amber-500", className)}
+      className={cn("inline-block size-3.5", className)}
+      color={PENDING_BADGE_COLOR}
       weight="fill"
       data-testid="verification-badge-pending"
     />
@@ -44,7 +49,8 @@ function VerifiedBadge({ requestId, className }: { requestId: string; className?
   if (!detail) {
     return (
       <CheckCircleIcon
-        className={cn("inline-block size-3.5 text-green-600", className)}
+        className={cn("inline-block size-3.5", className)}
+        color={VERIFIED_BADGE_COLOR}
         weight="fill"
         data-testid="verification-badge-verified"
       />
@@ -57,7 +63,8 @@ function VerifiedBadge({ requestId, className }: { requestId: string; className?
         render={
           <span className="inline-flex cursor-default" data-testid="verification-badge-verified">
             <CheckCircleIcon
-              className={cn("inline-block size-3.5 text-green-600", className)}
+              className={cn("inline-block size-3.5", className)}
+              color={VERIFIED_BADGE_COLOR}
               weight="fill"
             />
           </span>
