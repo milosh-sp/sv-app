@@ -4,9 +4,9 @@ import type { VerificationStatus } from "./verification-context";
 
 describe("Badge display rules", () => {
   const statuses: VerificationStatus[] = [
-    { id: "1", sectionType: "skill", itemId: "s1", itemLabel: "TypeScript", status: "approved", badgeVisible: true },
+    { id: "1", sectionType: "skill", itemId: "s1", itemLabel: "TypeScript", status: "verified", badgeVisible: true },
     { id: "2", sectionType: "skill", itemId: "s2", itemLabel: "React", status: "pending", badgeVisible: true },
-    { id: "3", sectionType: "experience", itemId: "e1", itemLabel: "Acme", status: "approved", badgeVisible: false },
+    { id: "3", sectionType: "experience", itemId: "e1", itemLabel: "Acme", status: "verified", badgeVisible: false },
     { id: "4", sectionType: "project", itemId: "p1", itemLabel: "MyApp", status: "rejected", badgeVisible: true },
     { id: "5", sectionType: "skill", itemId: "s3", itemLabel: "Go", status: "claimed", badgeVisible: true },
     { id: "6", sectionType: "skill", itemId: "s4", itemLabel: "Rust", status: "verdict_pending", badgeVisible: true },
@@ -14,7 +14,7 @@ describe("Badge display rules", () => {
 
   const shouldShowBadge = (status: VerificationStatus): string | null => {
     if (!status.badgeVisible) return null;
-    if (status.status === "approved") return "checkmark";
+    if (status.status === "verified") return "checkmark";
     if (["pending", "claimed", "verdict_pending"].includes(status.status)) return "clock";
     return null;
   };
@@ -45,7 +45,7 @@ describe("Badge display rules", () => {
 
   it("should find correct status by itemId", () => {
     const findStatus = (itemId: string) => statuses.find((s) => s.itemId === itemId);
-    expect(findStatus("s1")?.status).toBe("approved");
+    expect(findStatus("s1")?.status).toBe("verified");
     expect(findStatus("e1")?.badgeVisible).toBe(false);
     expect(findStatus("nonexistent")).toBeUndefined();
   });

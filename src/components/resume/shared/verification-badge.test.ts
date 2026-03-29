@@ -4,13 +4,13 @@ describe("VerificationBadge display rules", () => {
   const shouldRender = (status: string, badgeVisible: boolean): string | null => {
     if (!badgeVisible) return null;
     if (status === "rejected" || status === "issue") return null;
-    if (status === "approved") return "checkmark";
+    if (status === "verified") return "checkmark";
     if (status === "pending" || status === "claimed" || status === "verdict_pending") return "clock";
     return null;
   };
 
-  it("should show checkmark for approved with visible badge", () => {
-    expect(shouldRender("approved", true)).toBe("checkmark");
+  it("should show checkmark for verified with visible badge", () => {
+    expect(shouldRender("verified", true)).toBe("checkmark");
   });
 
   it("should show clock for pending with visible badge", () => {
@@ -34,7 +34,7 @@ describe("VerificationBadge display rules", () => {
   });
 
   it("should show nothing when badgeVisible is false", () => {
-    expect(shouldRender("approved", false)).toBeNull();
+    expect(shouldRender("verified", false)).toBeNull();
     expect(shouldRender("pending", false)).toBeNull();
   });
 

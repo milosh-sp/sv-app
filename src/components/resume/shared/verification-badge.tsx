@@ -18,13 +18,13 @@ export function VerificationBadge({ requestId, status, badgeVisible, className }
 
   if (status === "rejected" || status === "issue") return null;
 
-  const isApproved = status === "approved";
+  const isVerified = status === "verified";
   const isPending = status === "pending" || status === "claimed" || status === "verdict_pending";
 
-  if (!isApproved && !isPending) return null;
+  if (!isVerified && !isPending) return null;
 
-  if (isApproved) {
-    return <ApprovedBadge requestId={requestId} className={className} />;
+  if (isVerified) {
+    return <VerifiedBadge requestId={requestId} className={className} />;
   }
 
   return (
@@ -36,7 +36,7 @@ export function VerificationBadge({ requestId, status, badgeVisible, className }
   );
 }
 
-function ApprovedBadge({ requestId, className }: { requestId: string; className?: string }) {
+function VerifiedBadge({ requestId, className }: { requestId: string; className?: string }) {
   const { data: detail } = useQuery(
     orpc.verification.getBadgeDetail.queryOptions({ input: { requestId } }),
   );
@@ -46,7 +46,7 @@ function ApprovedBadge({ requestId, className }: { requestId: string; className?
       <CheckCircleIcon
         className={cn("inline-block size-3.5 text-green-600", className)}
         weight="fill"
-        data-testid="verification-badge-approved"
+        data-testid="verification-badge-verified"
       />
     );
   }
@@ -55,7 +55,7 @@ function ApprovedBadge({ requestId, className }: { requestId: string; className?
     <Tooltip>
       <TooltipTrigger
         render={
-          <span className="inline-flex cursor-default" data-testid="verification-badge-approved">
+          <span className="inline-flex cursor-default" data-testid="verification-badge-verified">
             <CheckCircleIcon
               className={cn("inline-block size-3.5 text-green-600", className)}
               weight="fill"

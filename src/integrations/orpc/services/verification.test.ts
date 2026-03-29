@@ -231,8 +231,8 @@ describe("verificationService.requestIdentity", () => {
 });
 
 describe("verificationService.toggleBadge", () => {
-  it("should toggle when approved", async () => {
-    mockLimit.mockReturnValueOnce([{ status: "approved", userId: "user-1" }]);
+  it("should toggle when verified", async () => {
+    mockLimit.mockReturnValueOnce([{ status: "verified", userId: "user-1" }]);
     mockReturning.mockResolvedValueOnce([{ id: "req-1", badgeVisible: false }]);
 
     const result = await verificationService.toggleBadge({
@@ -244,7 +244,7 @@ describe("verificationService.toggleBadge", () => {
     expect(result.badgeVisible).toBe(false);
   });
 
-  it("should error when not approved", async () => {
+  it("should error when not verified", async () => {
     mockLimit.mockReturnValueOnce([{ status: "pending", userId: "user-1" }]);
 
     await expect(
@@ -253,7 +253,7 @@ describe("verificationService.toggleBadge", () => {
         requestId: "req-1",
         visible: false,
       }),
-    ).rejects.toThrow("Badge visibility can only be toggled for approved requests");
+    ).rejects.toThrow("Badge visibility can only be toggled for verified requests");
   });
 
   it("should error when not found", async () => {
@@ -287,7 +287,7 @@ describe("verificationService.getBadgeDetail", () => {
   });
 
   it("should return identity label for identity type", async () => {
-    mockLimit.mockReturnValueOnce([{ id: "req-1", status: "approved", sectionType: "identity" }]);
+    mockLimit.mockReturnValueOnce([{ id: "req-1", status: "verified", sectionType: "identity" }]);
 
     const result = await verificationService.getBadgeDetail("req-1");
 
@@ -295,7 +295,7 @@ describe("verificationService.getBadgeDetail", () => {
   });
 
   it("should return role label for experience type", async () => {
-    mockLimit.mockReturnValueOnce([{ id: "req-1", status: "approved", sectionType: "experience" }]);
+    mockLimit.mockReturnValueOnce([{ id: "req-1", status: "verified", sectionType: "experience" }]);
 
     const result = await verificationService.getBadgeDetail("req-1");
 
@@ -304,7 +304,7 @@ describe("verificationService.getBadgeDetail", () => {
 
   it("should return snapshot data for skill type", async () => {
     mockLimit
-      .mockReturnValueOnce([{ id: "req-1", status: "approved", sectionType: "skill" }])
+      .mockReturnValueOnce([{ id: "req-1", status: "verified", sectionType: "skill" }])
       .mockReturnValueOnce([
         {
           reviewerSnapshotFirstName: "Jane",
@@ -325,7 +325,7 @@ describe("verificationService.getBadgeDetail", () => {
 
   it("should return snapshot data for project type", async () => {
     mockLimit
-      .mockReturnValueOnce([{ id: "req-1", status: "approved", sectionType: "project" }])
+      .mockReturnValueOnce([{ id: "req-1", status: "verified", sectionType: "project" }])
       .mockReturnValueOnce([
         {
           reviewerSnapshotFirstName: "John",
@@ -348,7 +348,7 @@ describe("verificationService.getBadgeDetail", () => {
 describe("verificationService.getStatus", () => {
   it("should return verification statuses for a resume", async () => {
     const statuses = [
-      { id: "req-1", sectionType: "skill", itemId: "item-1", itemLabel: "TS", status: "approved", badgeVisible: true },
+      { id: "req-1", sectionType: "skill", itemId: "item-1", itemLabel: "TS", status: "verified", badgeVisible: true },
     ];
     mockFrom.mockReturnValueOnce({ where: vi.fn(() => statuses), limit: mockLimit, orderBy: mockOrderBy });
 
@@ -359,7 +359,7 @@ describe("verificationService.getStatus", () => {
 
   it("should not include internal fields", async () => {
     const statuses = [
-      { id: "req-1", sectionType: "skill", itemId: "item-1", itemLabel: "TS", status: "approved", badgeVisible: true },
+      { id: "req-1", sectionType: "skill", itemId: "item-1", itemLabel: "TS", status: "verified", badgeVisible: true },
     ];
     mockFrom.mockReturnValueOnce({ where: vi.fn(() => statuses), limit: mockLimit, orderBy: mockOrderBy });
 
@@ -374,7 +374,7 @@ describe("verificationService.getStatus", () => {
 describe("verificationService.getHistory", () => {
   it("should return history without reviewerNote or admin identity", async () => {
     const history = [
-      { id: "req-1", sectionType: "skill", itemLabel: "TS", status: "approved", submittedAt: new Date(), resolvedAt: new Date() },
+      { id: "req-1", sectionType: "skill", itemLabel: "TS", status: "verified", submittedAt: new Date(), resolvedAt: new Date() },
     ];
     mockFrom.mockReturnValueOnce({
       where: vi.fn(() => ({ orderBy: vi.fn(() => history) })),
@@ -428,7 +428,7 @@ describe("verificationService.submitVerdict", () => {
       verificationService.submitVerdict({
         requestId: "req-1",
         adminId: "admin-1",
-        verdict: "approved",
+        verdict: "verified",
       }),
     ).rejects.toThrow("Consent must be given");
   });
@@ -440,7 +440,7 @@ describe("verificationService.submitVerdict", () => {
       verificationService.submitVerdict({
         requestId: "req-1",
         adminId: "admin-1",
-        verdict: "approved",
+        verdict: "verified",
       }),
     ).rejects.toThrow("Only the claiming reviewer");
   });
@@ -452,7 +452,7 @@ describe("verificationService.submitVerdict", () => {
       verificationService.submitVerdict({
         requestId: "req-1",
         adminId: "admin-1",
-        verdict: "approved",
+        verdict: "verified",
       }),
     ).rejects.toThrow("must be in claimed status");
   });
@@ -466,7 +466,7 @@ describe("verificationService.submitVerdict", () => {
       verificationService.submitVerdict({
         requestId: "req-1",
         adminId: "admin-1",
-        verdict: "approved",
+        verdict: "verified",
       }),
     ).rejects.toThrow("Reviewer profile not found");
   });
@@ -480,7 +480,7 @@ describe("verificationService.reviewExperience", () => {
       verificationService.reviewExperience({
         requestId: "req-1",
         adminId: "sva-1",
-        action: "approved",
+        action: "verified",
       }),
     ).rejects.toThrow("must be a pending experience request");
   });
@@ -492,7 +492,7 @@ describe("verificationService.reviewExperience", () => {
       verificationService.reviewExperience({
         requestId: "req-1",
         adminId: "sva-1",
-        action: "approved",
+        action: "verified",
       }),
     ).rejects.toThrow("must be a pending experience request");
   });
@@ -518,7 +518,7 @@ describe("verificationService.confirmVerdict", () => {
 
 describe("verificationService.overrideVerdict", () => {
   it("should error if not verdict_pending", async () => {
-    mockLimit.mockReturnValueOnce([{ id: "req-1", status: "approved" }]);
+    mockLimit.mockReturnValueOnce([{ id: "req-1", status: "verified" }]);
 
     await expect(
       verificationService.overrideVerdict({

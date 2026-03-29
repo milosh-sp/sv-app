@@ -14,12 +14,12 @@ import {
 
 import { getStorageService, uploadFile } from "./storage";
 
-const ACTIVE_STATUSES = ["pending", "claimed", "verdict_pending", "approved"] as const;
-const FINAL_STATUSES = ["approved", "rejected", "issue"] as const;
+const ACTIVE_STATUSES = ["pending", "claimed", "verdict_pending", "verified"] as const;
+const FINAL_STATUSES = ["verified", "rejected", "issue"] as const;
 
 async function sendFinalStatusEmail(
   request: { userId: string; itemLabel: string; sectionType: string },
-  status: "approved" | "rejected" | "issue",
+  status: "verified" | "rejected" | "issue",
 ) {
   try {
     const [userData] = await db
@@ -310,8 +310,8 @@ export const verificationService = {
       throw new ORPCError("FORBIDDEN", { message: "Not authorized" });
     }
 
-    if (request.status !== "approved") {
-      throw new ORPCError("BAD_REQUEST", { message: "Badge visibility can only be toggled for approved requests" });
+    if (request.status !== "verified") {
+      throw new ORPCError("BAD_REQUEST", { message: "Badge visibility can only be toggled for verified requests" });
     }
 
     const [updated] = await db
@@ -359,7 +359,7 @@ export const verificationService = {
       .where(eq(verificationRequests.id, requestId))
       .limit(1);
 
-    if (!request || request.status !== "approved") {
+    if (!request || request.status !== "verified") {
       return null;
     }
 
@@ -382,7 +382,7 @@ export const verificationService = {
       .where(
         and(
           eq(verificationMetadata.verificationRequestId, requestId),
-          inArray(verificationMetadata.action, ["approved", "overridden"]),
+          inArray(verificationMetadata.action, ["verified", "overridden"]),
         ),
       )
       .limit(1);
@@ -492,7 +492,7 @@ export const verificationService = {
   submitVerdict: async (input: {
     requestId: string;
     adminId: string;
-    verdict: "approved" | "rejected" | "issue";
+    verdict: "verified" | "rejected" | "issue";
     notes?: string;
   }) => {
     const [request] = await db
@@ -612,7 +612,7 @@ export const verificationService = {
   reviewExperience: async (input: {
     requestId: string;
     adminId: string;
-    action: "approved" | "rejected" | "issue";
+    action: "verified" | "rejected" | "issue";
     notes?: string;
   }) => {
     const [request] = await db
@@ -703,7 +703,7 @@ export const verificationService = {
     const [updated] = await db
       .update(verificationRequests)
       .set({
-        status: "approved",
+        status: "verified",
         resolvedAt: new Date(),
       })
       .where(eq(verificationRequests.id, input.requestId))
@@ -713,12 +713,12 @@ export const verificationService = {
       verificationRequestId: input.requestId,
       adminId: input.adminId,
       adminRole: "skill_verdict_admin",
-      action: "approved",
+      action: "verified",
     });
 
     await sendFinalStatusEmail(
       { userId: request.userId, itemLabel: request.itemLabel, sectionType: request.sectionType },
-      "approved",
+      "verified",
     );
 
     return updated!;
@@ -727,7 +727,7 @@ export const verificationService = {
   overrideVerdict: async (input: {
     requestId: string;
     adminId: string;
-    action: "approved" | "rejected" | "issue";
+    action: "verified" | "rejected" | "issue";
     reason: string;
   }) => {
     const [request] = await db

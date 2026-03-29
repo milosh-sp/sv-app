@@ -7,12 +7,12 @@ interface VerificationEmailInput {
   supportEmail?: string;
 }
 
-export const sendVerificationApprovedEmail = async (input: VerificationEmailInput) => {
+export const sendVerificationVerifiedEmail = async (input: VerificationEmailInput) => {
   await sendEmail({
     to: input.to,
-    subject: `Verification Approved: ${input.itemLabel}`,
+    subject: `Verification Complete: ${input.itemLabel}`,
     text: [
-      `Your ${input.sectionType} verification for "${input.itemLabel}" has been approved.`,
+      `Your ${input.sectionType} verification for "${input.itemLabel}" has been verified.`,
       "",
       "The verification badge is now visible on your public CV.",
       "You can toggle badge visibility in your Privacy Settings.",
@@ -51,12 +51,12 @@ export const sendVerificationIssueEmail = async (input: VerificationEmailInput) 
 };
 
 export const sendVerificationStatusEmail = async (
-  status: "approved" | "rejected" | "issue",
+  status: "verified" | "rejected" | "issue",
   input: VerificationEmailInput,
 ) => {
   switch (status) {
-    case "approved": {
-      return await sendVerificationApprovedEmail(input);
+    case "verified": {
+      return await sendVerificationVerifiedEmail(input);
     }
     case "rejected": {
       return await sendVerificationRejectedEmail(input);

@@ -31,7 +31,7 @@ describe("verification enums", () => {
       "pending",
       "claimed",
       "verdict_pending",
-      "approved",
+      "verified",
       "rejected",
       "issue",
     ]);
@@ -49,7 +49,7 @@ describe("verification enums", () => {
     expect(metadataActionEnum.enumValues).toEqual([
       "claimed",
       "verdict_submitted",
-      "approved",
+      "verified",
       "rejected",
       "flagged",
       "overridden",

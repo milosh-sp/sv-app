@@ -7,7 +7,7 @@ vi.mock("./service", () => ({
 }));
 
 const {
-  sendVerificationApprovedEmail,
+  sendVerificationVerifiedEmail,
   sendVerificationRejectedEmail,
   sendVerificationIssueEmail,
   sendVerificationStatusEmail,
@@ -17,9 +17,9 @@ beforeEach(() => {
   vi.clearAllMocks();
 });
 
-describe("sendVerificationApprovedEmail", () => {
-  it("should send approved email with correct subject and body", async () => {
-    await sendVerificationApprovedEmail({
+describe("sendVerificationVerifiedEmail", () => {
+  it("should send verified email with correct subject and body", async () => {
+    await sendVerificationVerifiedEmail({
       to: "user@test.com",
       itemLabel: "TypeScript",
       sectionType: "skill",
@@ -28,9 +28,9 @@ describe("sendVerificationApprovedEmail", () => {
     expect(mockSendEmail).toHaveBeenCalledOnce();
     const call = mockSendEmail.mock.calls[0]![0];
     expect(call.to).toBe("user@test.com");
-    expect(call.subject).toContain("Approved");
+    expect(call.subject).toContain("Verification Complete");
     expect(call.subject).toContain("TypeScript");
-    expect(call.text).toContain("approved");
+    expect(call.text).toContain("verified");
   });
 });
 
@@ -80,15 +80,15 @@ describe("sendVerificationIssueEmail", () => {
 });
 
 describe("sendVerificationStatusEmail", () => {
-  it("should dispatch approved email", async () => {
-    await sendVerificationStatusEmail("approved", {
+  it("should dispatch verified email", async () => {
+    await sendVerificationStatusEmail("verified", {
       to: "user@test.com",
       itemLabel: "TypeScript",
       sectionType: "skill",
     });
 
     expect(mockSendEmail).toHaveBeenCalledOnce();
-    expect(mockSendEmail.mock.calls[0]![0].subject).toContain("Approved");
+    expect(mockSendEmail.mock.calls[0]![0].subject).toContain("Verification Complete");
   });
 
   it("should dispatch rejected email", async () => {
@@ -115,7 +115,7 @@ describe("sendVerificationStatusEmail", () => {
 
   it("should NOT send email for intermediate states", async () => {
     // Ensure no email is sent for states that aren't final
-    // The function only accepts "approved" | "rejected" | "issue" by type,
+    // The function only accepts "verified" | "rejected" | "issue" by type,
     // so the guard is at the type level
     expect(mockSendEmail).not.toHaveBeenCalled();
   });

@@ -103,7 +103,7 @@ function RouteComponent() {
   }, [resumeData]);
 
   const countVerified = (items: ResumeItem[]) =>
-    items.filter((item) => getStatusForItem(item.id)?.status === "approved").length;
+    items.filter((item) => getStatusForItem(item.id)?.status === "verified").length;
 
   const invalidateStatuses = () => {
     void queryClient.invalidateQueries({ queryKey: orpc.verification.getAllStatuses.queryOptions().queryKey });
@@ -651,7 +651,7 @@ function ExperienceItemRow({
 function StatusIcon({ status }: { status: string | undefined }) {
   if (!status) return null;
 
-  if (status === "approved") {
+  if (status === "verified") {
     return <CheckCircleIcon className="size-4 text-green-600" weight="fill" />;
   }
   if (status === "pending" || status === "claimed" || status === "verdict_pending") {
@@ -674,7 +674,7 @@ function StatusBadge({ status }: { status: string }) {
 
   const colorClass = (() => {
     const s = displayStatus(status);
-    if (s === "approved") return "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400";
+    if (s === "verified") return "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400";
     if (s === "pending") return "bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-400";
     if (s === "rejected") return "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400";
     if (s === "issue") return "bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-400";

@@ -22,7 +22,7 @@ function RouteComponent() {
     orpc.verification.getAllStatuses.queryOptions(),
   );
 
-  const approvedItems = statuses.filter((s) => s.status === "approved");
+  const approvedItems = statuses.filter((s) => s.status === "verified");
 
   const { mutate: toggleBadge } = useMutation(
     orpc.verification.toggleBadge.mutationOptions(),
@@ -64,7 +64,7 @@ function RouteComponent() {
 
           {approvedItems.length === 0 ? (
             <p className="text-xs text-muted-foreground" data-testid="no-approved-items">
-              <Trans>No approved verification items yet.</Trans>
+              <Trans>No verified items yet.</Trans>
             </p>
           ) : (
             <div className="space-y-3">

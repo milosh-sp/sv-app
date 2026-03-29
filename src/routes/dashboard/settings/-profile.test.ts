@@ -1,12 +1,12 @@
 import { describe, expect, it } from "vite-plus/test";
 
 describe("IdentityVerificationBlock states", () => {
-  it("should have 4 defined states: not_requested, pending, approved, unavailable", () => {
-    const states = ["not_requested", "pending", "approved", "unavailable"];
+  it("should have 4 defined states: not_requested, pending, verified, unavailable", () => {
+    const states = ["not_requested", "pending", "verified", "unavailable"];
     expect(states).toHaveLength(4);
     expect(states).toContain("not_requested");
     expect(states).toContain("pending");
-    expect(states).toContain("approved");
+    expect(states).toContain("verified");
     expect(states).toContain("unavailable");
   });
 

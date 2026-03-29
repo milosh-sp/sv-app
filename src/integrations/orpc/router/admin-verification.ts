@@ -25,7 +25,7 @@ export const adminVerificationRouter = {
     .input(
       z.object({
         requestId: z.string().uuid(),
-        verdict: z.enum(["approved", "rejected", "issue"]),
+        verdict: z.enum(["verified", "rejected", "issue"]),
         notes: z.string().optional(),
       }),
     )
@@ -65,7 +65,7 @@ export const adminVerificationRouter = {
     .input(
       z.object({
         requestId: z.string().uuid(),
-        action: z.enum(["approved", "rejected", "issue"]),
+        action: z.enum(["verified", "rejected", "issue"]),
         notes: z.string().optional(),
       }),
     )
@@ -95,7 +95,7 @@ export const adminVerificationRouter = {
     .input(
       z.object({
         requestId: z.string().uuid(),
-        action: z.enum(["approved", "rejected", "issue"]),
+        action: z.enum(["verified", "rejected", "issue"]),
         reason: z.string().min(1),
       }),
     )

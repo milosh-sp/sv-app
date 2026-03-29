@@ -416,7 +416,7 @@ export const verificationStatusEnum = pg.pgEnum("verification_status", [
   "pending",
   "claimed",
   "verdict_pending",
-  "approved",
+  "verified",
   "rejected",
   "issue",
 ]);
@@ -432,7 +432,7 @@ export const changeRequestStatusEnum = pg.pgEnum("change_request_status", ["pend
 export const metadataActionEnum = pg.pgEnum("metadata_action", [
   "claimed",
   "verdict_submitted",
-  "approved",
+  "verified",
   "rejected",
   "flagged",
   "overridden",

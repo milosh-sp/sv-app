@@ -39,8 +39,8 @@ describe("Verification Dashboard", () => {
       expect(displayStatus("verdict_pending")).toBe("pending");
     });
 
-    it("should display approved as approved", () => {
-      expect(displayStatus("approved")).toBe("approved");
+    it("should display verified as verified", () => {
+      expect(displayStatus("verified")).toBe("verified");
     });
 
     it("should display rejected as rejected", () => {
@@ -53,7 +53,7 @@ describe("Verification Dashboard", () => {
   });
 
   describe("active request detection", () => {
-    const ACTIVE_STATUSES = ["pending", "claimed", "verdict_pending", "approved"];
+    const ACTIVE_STATUSES = ["pending", "claimed", "verdict_pending", "verified"];
 
     const hasActiveRequest = (status: string | undefined) =>
       status !== undefined && ACTIVE_STATUSES.includes(status);
@@ -70,8 +70,8 @@ describe("Verification Dashboard", () => {
       expect(hasActiveRequest("verdict_pending")).toBe(true);
     });
 
-    it("should detect approved as active", () => {
-      expect(hasActiveRequest("approved")).toBe(true);
+    it("should detect verified as active", () => {
+      expect(hasActiveRequest("verified")).toBe(true);
     });
 
     it("should not detect rejected as active", () => {
@@ -105,8 +105,8 @@ describe("Verification Dashboard", () => {
       expect(canRetry("pending")).toBe(false);
     });
 
-    it("should not allow retry for approved", () => {
-      expect(canRetry("approved")).toBe(false);
+    it("should not allow retry for verified", () => {
+      expect(canRetry("verified")).toBe(false);
     });
 
     it("should not allow retry for undefined (no previous request)", () => {
@@ -182,7 +182,7 @@ describe("Verification Dashboard", () => {
 
   describe("status lookup from verification statuses", () => {
     const statuses = [
-      { itemId: "s1", status: "approved", resumeId: "r1" },
+      { itemId: "s1", status: "verified", resumeId: "r1" },
       { itemId: "p1", status: "pending", resumeId: "r1" },
       { itemId: "e1", status: "rejected", resumeId: "r1" },
       { itemId: "s1", status: "pending", resumeId: "r2" },
@@ -193,7 +193,7 @@ describe("Verification Dashboard", () => {
 
     it("should find existing status for a resume item", () => {
       const result = getStatusForItem("s1", "r1");
-      expect(result?.status).toBe("approved");
+      expect(result?.status).toBe("verified");
     });
 
     it("should return undefined for items without a status", () => {
@@ -205,13 +205,13 @@ describe("Verification Dashboard", () => {
       const r1 = getStatusForItem("s1", "r1");
       const r2 = getStatusForItem("s1", "r2");
 
-      expect(r1?.status).toBe("approved");
+      expect(r1?.status).toBe("verified");
       expect(r2?.status).toBe("pending");
     });
   });
 
   describe("verified count calculation", () => {
-    it("should count only approved items from the resume", () => {
+    it("should count only verified items from the resume", () => {
       const resumeItems = [
         { id: "s1", label: "TypeScript" },
         { id: "s2", label: "React" },
@@ -219,14 +219,14 @@ describe("Verification Dashboard", () => {
       ];
 
       const statuses = [
-        { itemId: "s1", status: "approved" },
+        { itemId: "s1", status: "verified" },
         { itemId: "s2", status: "pending" },
       ];
 
       const getStatus = (itemId: string) => statuses.find((s) => s.itemId === itemId);
 
       const verifiedCount = resumeItems.filter(
-        (item) => getStatus(item.id)?.status === "approved",
+        (item) => getStatus(item.id)?.status === "verified",
       ).length;
 
       expect(verifiedCount).toBe(1);

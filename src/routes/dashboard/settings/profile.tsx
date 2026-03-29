@@ -323,7 +323,7 @@ function IdentityVerificationBlock() {
             <Trans>Identity verification is pending review.</Trans>
           </div>
         ))
-        .with("approved", () => (
+        .with("verified", () => (
           <div className="flex items-center gap-x-2 text-xs text-green-700" data-testid="identity-approved">
             <CheckIcon className="size-4" />
             <Trans>Your identity has been verified.</Trans>
