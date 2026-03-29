@@ -3,10 +3,6 @@ import { and, desc, eq, inArray } from "drizzle-orm";
 
 import { db } from "@/integrations/drizzle/client";
 import {
-  sendIdentityVerificationRequestedEmail,
-  sendVerificationStatusEmail,
-} from "@/integrations/email/verification";
-import {
   resume,
   resumeVerificationSettings,
   reviewerProfiles,
@@ -15,7 +11,7 @@ import {
   verificationMetadata,
   verificationRequests,
 } from "@/integrations/drizzle/schema";
-
+import { sendIdentityVerificationRequestedEmail, sendVerificationStatusEmail } from "@/integrations/email/verification";
 import { env } from "@/utils/env";
 
 import { getStorageService, uploadFile } from "./storage";
@@ -28,11 +24,7 @@ async function sendFinalStatusEmail(
   status: "verified" | "rejected" | "issue",
 ) {
   try {
-    const [userData] = await db
-      .select({ email: user.email })
-      .from(user)
-      .where(eq(user.id, request.userId))
-      .limit(1);
+    const [userData] = await db.select({ email: user.email }).from(user).where(eq(user.id, request.userId)).limit(1);
 
     if (userData?.email) {
       await sendVerificationStatusEmail(status, {
@@ -51,10 +43,7 @@ function isFinalStatus(status: string): status is (typeof FINAL_STATUSES)[number
 }
 
 async function guardActiveRequest(userId: string, resumeId: string | null, itemId: string) {
-  const baseConditions = [
-    eq(verificationRequests.userId, userId),
-    eq(verificationRequests.itemId, itemId),
-  ];
+  const baseConditions = [eq(verificationRequests.userId, userId), eq(verificationRequests.itemId, itemId)];
 
   if (resumeId) {
     baseConditions.push(eq(verificationRequests.resumeId, resumeId));
@@ -222,11 +211,7 @@ export const verificationService = {
     try {
       const calLink = env.CAL_COM_LINK;
       if (calLink) {
-        const [userData] = await db
-          .select({ email: user.email })
-          .from(user)
-          .where(eq(user.id, userId))
-          .limit(1);
+        const [userData] = await db.select({ email: user.email }).from(user).where(eq(user.id, userId)).limit(1);
 
         if (userData?.email) {
           await sendIdentityVerificationRequestedEmail({ to: userData.email, calLink });
@@ -263,12 +248,7 @@ export const verificationService = {
         status: verificationRequests.status,
       })
       .from(verificationRequests)
-      .where(
-        and(
-          eq(verificationRequests.userId, userId),
-          eq(verificationRequests.sectionType, "identity"),
-        ),
-      )
+      .where(and(eq(verificationRequests.userId, userId), eq(verificationRequests.sectionType, "identity")))
       .orderBy(desc(verificationRequests.submittedAt))
       .limit(1);
 
@@ -287,12 +267,7 @@ export const verificationService = {
         submittedAt: verificationRequests.submittedAt,
       })
       .from(verificationRequests)
-      .where(
-        and(
-          eq(verificationRequests.userId, input.userId),
-          eq(verificationRequests.resumeId, input.resumeId),
-        ),
-      );
+      .where(and(eq(verificationRequests.userId, input.userId), eq(verificationRequests.resumeId, input.resumeId)));
   },
 
   getStatusByResumeId: async (resumeId: string) => {
@@ -321,12 +296,7 @@ export const verificationService = {
         resolvedAt: verificationRequests.resolvedAt,
       })
       .from(verificationRequests)
-      .where(
-        and(
-          eq(verificationRequests.userId, input.userId),
-          eq(verificationRequests.itemId, input.itemId),
-        ),
-      )
+      .where(and(eq(verificationRequests.userId, input.userId), eq(verificationRequests.itemId, input.itemId)))
       .orderBy(desc(verificationRequests.submittedAt));
 
     return requests;
@@ -466,10 +436,7 @@ export const verificationService = {
       return { type: "reviewer" as const, label: "Verified", profileUrl: null };
     }
 
-    const displayName = [
-      metadata.reviewerSnapshotFirstName,
-      metadata.reviewerSnapshotLastName,
-    ]
+    const displayName = [metadata.reviewerSnapshotFirstName, metadata.reviewerSnapshotLastName]
       .filter(Boolean)
       .join(" ");
 
@@ -507,7 +474,11 @@ export const verificationService = {
 
   claimCase: async (input: { requestId: string; adminId: string }) => {
     const [request] = await db
-      .select({ id: verificationRequests.id, status: verificationRequests.status, claimedByAdminId: verificationRequests.claimedByAdminId })
+      .select({
+        id: verificationRequests.id,
+        status: verificationRequests.status,
+        claimedByAdminId: verificationRequests.claimedByAdminId,
+      })
       .from(verificationRequests)
       .where(eq(verificationRequests.id, input.requestId))
       .limit(1);
@@ -644,16 +615,15 @@ export const verificationService = {
         submittedAt: verificationRequests.submittedAt,
       })
       .from(verificationRequests)
-      .where(
-        and(
-          eq(verificationRequests.status, "pending"),
-          eq(verificationRequests.sectionType, "experience"),
-        ),
-      );
+      .where(and(eq(verificationRequests.status, "pending"), eq(verificationRequests.sectionType, "experience")));
 
     const requestIds = requests.map((r) => r.id);
 
-    if (requestIds.length === 0) return requests.map((r) => ({ ...r, documents: [] as { id: string; fileUrl: string; documentType: string; uploadedAt: Date }[] }));
+    if (requestIds.length === 0)
+      return requests.map((r) => ({
+        ...r,
+        documents: [] as { id: string; fileUrl: string; documentType: string; uploadedAt: Date }[],
+      }));
 
     const docs = await db
       .select({
@@ -720,7 +690,7 @@ export const verificationService = {
       .where(eq(verificationRequests.id, input.requestId))
       .returning();
 
-    const metadataAction = input.action === "issue" ? "flagged" as const : input.action;
+    const metadataAction = input.action === "issue" ? ("flagged" as const) : input.action;
 
     await db.insert(verificationMetadata).values({
       verificationRequestId: input.requestId,
@@ -888,12 +858,7 @@ export const verificationService = {
       })
       .from(verificationRequests)
       .innerJoin(user, eq(verificationRequests.userId, user.id))
-      .where(
-        and(
-          eq(verificationRequests.sectionType, "identity"),
-          eq(verificationRequests.status, "pending"),
-        ),
-      )
+      .where(and(eq(verificationRequests.sectionType, "identity"), eq(verificationRequests.status, "pending")))
       .orderBy(desc(verificationRequests.submittedAt));
   },
 

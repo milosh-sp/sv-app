@@ -64,9 +64,7 @@ function RouteComponent() {
     enabled: !!activeResumeId,
   });
 
-  const { data: statuses } = useSuspenseQuery(
-    orpc.verification.getAllStatuses.queryOptions(),
-  );
+  const { data: statuses } = useSuspenseQuery(orpc.verification.getAllStatuses.queryOptions());
 
   const resumeStatuses = useMemo(
     () => statuses.filter((s) => s.resumeId === activeResumeId),
@@ -266,8 +264,7 @@ function SkillProjectItemRow({
   const requestProject = useMutation(orpc.verification.requestProject.mutationOptions());
   const isPending = requestSkill.isPending || requestProject.isPending;
 
-  const canRetry = existingStatus &&
-    ["rejected", "issue"].includes(existingStatus.status);
+  const canRetry = existingStatus && ["rejected", "issue"].includes(existingStatus.status);
 
   const handleRequest = () => {
     const mutate = sectionType === "skill" ? requestSkill.mutate : requestProject.mutate;
@@ -296,17 +293,10 @@ function SkillProjectItemRow({
         </div>
 
         <div className="flex items-center gap-x-2">
-          {existingStatus && (
-            <StatusBadge status={existingStatus.status} />
-          )}
+          {existingStatus && <StatusBadge status={existingStatus.status} />}
 
           {(!existingStatus || canRetry) && !confirming && (
-            <Button
-              size="sm"
-              variant="outline"
-              className="h-7 text-xs"
-              onClick={() => setConfirming(true)}
-            >
+            <Button size="sm" variant="outline" className="h-7 text-xs" onClick={() => setConfirming(true)}>
               <PaperPlaneRightIcon className="mr-1.5 size-3" />
               {canRetry ? <Trans>Retry</Trans> : <Trans>Request</Trans>}
             </Button>
@@ -326,24 +316,14 @@ function SkillProjectItemRow({
               >
                 <Trans>Confirm</Trans>
               </Button>
-              <Button
-                size="sm"
-                variant="ghost"
-                className="h-6 px-2 text-xs"
-                onClick={() => setConfirming(false)}
-              >
+              <Button size="sm" variant="ghost" className="h-6 px-2 text-xs" onClick={() => setConfirming(false)}>
                 <Trans>Cancel</Trans>
               </Button>
             </div>
           )}
 
           {existingStatus && (
-            <Button
-              variant="ghost"
-              size="sm"
-              className="size-6 p-0"
-              onClick={() => setHistoryOpen(!historyOpen)}
-            >
+            <Button variant="ghost" size="sm" className="size-6 p-0" onClick={() => setHistoryOpen(!historyOpen)}>
               {historyOpen ? <CaretDownIcon className="size-3" /> : <CaretRightIcon className="size-3" />}
             </Button>
           )}
@@ -430,8 +410,7 @@ function ExperienceItemRow({
 
   const isSubmitting = requestExperience.isPending || uploadDocument.isPending;
 
-  const canRetry = existingStatus &&
-    ["rejected", "issue"].includes(existingStatus.status);
+  const canRetry = existingStatus && ["rejected", "issue"].includes(existingStatus.status);
 
   const resetFlow = () => {
     setStep("idle");
@@ -473,8 +452,9 @@ function ExperienceItemRow({
       {
         onSuccess: () => {
           if (method === "document_upload" && selectedFile) {
-            const docType: "payslip" | "contract" =
-              selectedFile.name.toLowerCase().includes("payslip") ? "payslip" : "contract";
+            const docType: "payslip" | "contract" = selectedFile.name.toLowerCase().includes("payslip")
+              ? "payslip"
+              : "contract";
 
             uploadDocument.mutate(
               {
@@ -519,29 +499,17 @@ function ExperienceItemRow({
         </div>
 
         <div className="flex items-center gap-x-2">
-          {existingStatus && (
-            <StatusBadge status={existingStatus.status} />
-          )}
+          {existingStatus && <StatusBadge status={existingStatus.status} />}
 
           {(!existingStatus || canRetry) && step === "idle" && (
-            <Button
-              size="sm"
-              variant="outline"
-              className="h-7 text-xs"
-              onClick={() => setStep("method")}
-            >
+            <Button size="sm" variant="outline" className="h-7 text-xs" onClick={() => setStep("method")}>
               <PaperPlaneRightIcon className="mr-1.5 size-3" />
               {canRetry ? <Trans>Retry</Trans> : <Trans>Verify</Trans>}
             </Button>
           )}
 
           {existingStatus && (
-            <Button
-              variant="ghost"
-              size="sm"
-              className="size-6 p-0"
-              onClick={() => setHistoryOpen(!historyOpen)}
-            >
+            <Button variant="ghost" size="sm" className="size-6 p-0" onClick={() => setHistoryOpen(!historyOpen)}>
               {historyOpen ? <CaretDownIcon className="size-3" /> : <CaretRightIcon className="size-3" />}
             </Button>
           )}
@@ -567,21 +535,11 @@ function ExperienceItemRow({
               <FileTextIcon className="mr-1.5 size-3.5" />
               <Trans>Upload Document</Trans>
             </Button>
-            <Button
-              size="sm"
-              variant="outline"
-              className="h-8 text-xs"
-              onClick={handleFreelancerLink}
-            >
+            <Button size="sm" variant="outline" className="h-8 text-xs" onClick={handleFreelancerLink}>
               <LinkIcon className="mr-1.5 size-3.5" />
               <Trans>Freelancer Profile Link</Trans>
             </Button>
-            <Button
-              size="sm"
-              variant="ghost"
-              className="h-8 text-xs"
-              onClick={resetFlow}
-            >
+            <Button size="sm" variant="ghost" className="h-8 text-xs" onClick={resetFlow}>
               <Trans>Cancel</Trans>
             </Button>
           </div>
@@ -596,12 +554,7 @@ function ExperienceItemRow({
           </p>
           <div className="flex items-center gap-2">
             <FileUploadButton onUpload={handleFileSelected} isUploading={false} />
-            <Button
-              size="sm"
-              variant="ghost"
-              className="h-8 text-xs"
-              onClick={resetFlow}
-            >
+            <Button size="sm" variant="ghost" className="h-8 text-xs" onClick={resetFlow}>
               <Trans>Cancel</Trans>
             </Button>
           </div>
@@ -620,7 +573,7 @@ function ExperienceItemRow({
               value={freelancerUrl}
               onChange={(e) => setFreelancerUrl(e.target.value)}
               placeholder="https://www.upwork.com/freelancers/~..."
-              className="h-8 flex-1 rounded-md border bg-transparent px-3 text-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+              className="h-8 flex-1 rounded-md border bg-transparent px-3 text-sm placeholder:text-muted-foreground focus-visible:ring-1 focus-visible:ring-ring focus-visible:outline-none"
             />
             <Button
               size="sm"
@@ -631,12 +584,7 @@ function ExperienceItemRow({
             >
               <Trans>Continue</Trans>
             </Button>
-            <Button
-              size="sm"
-              variant="ghost"
-              className="h-8 text-xs"
-              onClick={resetFlow}
-            >
+            <Button size="sm" variant="ghost" className="h-8 text-xs" onClick={resetFlow}>
               <Trans>Cancel</Trans>
             </Button>
           </div>
@@ -648,13 +596,9 @@ function ExperienceItemRow({
         <div className="mt-3 space-y-2 border-t pt-3">
           <p className="text-xs text-muted-foreground">
             {method === "document_upload" && selectedFile ? (
-              <Trans>
-                File selected: {selectedFile.name}. Submit your verification request?
-              </Trans>
+              <Trans>File selected: {selectedFile.name}. Submit your verification request?</Trans>
             ) : (
-              <Trans>
-                Profile link: {freelancerUrl}. Submit your verification request?
-              </Trans>
+              <Trans>Profile link: {freelancerUrl}. Submit your verification request?</Trans>
             )}
           </p>
           <div className="flex items-center gap-2">
@@ -668,13 +612,7 @@ function ExperienceItemRow({
               <PaperPlaneRightIcon className="mr-1.5 size-3" />
               {isSubmitting ? <Trans>Submitting...</Trans> : <Trans>Submit Request</Trans>}
             </Button>
-            <Button
-              size="sm"
-              variant="ghost"
-              className="h-8 text-xs"
-              disabled={isSubmitting}
-              onClick={resetFlow}
-            >
+            <Button size="sm" variant="ghost" className="h-8 text-xs" disabled={isSubmitting} onClick={resetFlow}>
               <Trans>Cancel</Trans>
             </Button>
           </div>
@@ -721,17 +659,11 @@ function StatusBadge({ status }: { status: string }) {
     return "bg-muted";
   })();
 
-  return (
-    <span className={`rounded-full px-2 py-0.5 text-xs capitalize ${colorClass}`}>
-      {displayStatus(status)}
-    </span>
-  );
+  return <span className={`rounded-full px-2 py-0.5 text-xs capitalize ${colorClass}`}>{displayStatus(status)}</span>;
 }
 
 function VerificationHistory({ itemId }: { itemId: string }) {
-  const { data: history, isLoading } = useQuery(
-    orpc.verification.getHistory.queryOptions({ input: { itemId } }),
-  );
+  const { data: history, isLoading } = useQuery(orpc.verification.getHistory.queryOptions({ input: { itemId } }));
 
   if (isLoading) {
     return (
@@ -764,13 +696,7 @@ function VerificationHistory({ itemId }: { itemId: string }) {
   );
 }
 
-function FileUploadButton({
-  onUpload,
-  isUploading,
-}: {
-  onUpload: (file: File) => void;
-  isUploading: boolean;
-}) {
+function FileUploadButton({ onUpload, isUploading }: { onUpload: (file: File) => void; isUploading: boolean }) {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleChange = useCallback(
@@ -785,13 +711,7 @@ function FileUploadButton({
 
   return (
     <>
-      <input
-        ref={inputRef}
-        type="file"
-        accept=".pdf,.jpg,.jpeg,.png"
-        className="hidden"
-        onChange={handleChange}
-      />
+      <input ref={inputRef} type="file" accept=".pdf,.jpg,.jpeg,.png" className="hidden" onChange={handleChange} />
       <Button
         variant="outline"
         size="sm"

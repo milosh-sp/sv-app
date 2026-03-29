@@ -255,13 +255,9 @@ function RouteComponent() {
 
 function IdentityVerificationBlock() {
   const { data: calLink } = useSuspenseQuery(orpc.verification.getCalLink.queryOptions());
-  const { data: identityStatus, refetch } = useSuspenseQuery(
-    orpc.verification.getIdentityStatus.queryOptions(),
-  );
+  const { data: identityStatus, refetch } = useSuspenseQuery(orpc.verification.getIdentityStatus.queryOptions());
 
-  const { mutate: requestIdentity, isPending } = useMutation(
-    orpc.verification.requestIdentity.mutationOptions(),
-  );
+  const { mutate: requestIdentity, isPending } = useMutation(orpc.verification.requestIdentity.mutationOptions());
 
   const { mutate: cancelIdentity, isPending: isCancelling } = useMutation({
     ...orpc.verification.cancelIdentity.mutationOptions(),
@@ -323,9 +319,7 @@ function IdentityVerificationBlock() {
         .with("not_requested", () => (
           <div className="space-y-3">
             <p className="text-xs text-muted-foreground">
-              <Trans>
-                Verify your identity through a short video call. This adds trust to your resume.
-              </Trans>
+              <Trans>Verify your identity through a short video call. This adds trust to your resume.</Trans>
             </p>
             {calLink ? (
               <Button size="sm" onClick={handleRequest} disabled={isPending}>
@@ -343,16 +337,10 @@ function IdentityVerificationBlock() {
           <div className="space-y-3" data-testid="identity-pending">
             <p className="text-xs text-muted-foreground">
               <Trans>
-                Your verification call has been scheduled. Our team will review and confirm your
-                identity shortly.
+                Your verification call has been scheduled. Our team will review and confirm your identity shortly.
               </Trans>
             </p>
-            <Button
-              size="sm"
-              variant="outline"
-              onClick={() => cancelIdentity(undefined)}
-              disabled={isCancelling}
-            >
+            <Button size="sm" variant="outline" onClick={() => cancelIdentity(undefined)} disabled={isCancelling}>
               <Trans>Cancel Verification</Trans>
             </Button>
           </div>

@@ -18,9 +18,7 @@ export const Route = createFileRoute("/builder/$resumeId/")({
 
 function RouteComponent() {
   const { resumeId } = Route.useParams();
-  const { data: verificationStatuses } = useQuery(
-    orpc.verification.getStatus.queryOptions({ input: { resumeId } }),
-  );
+  const { data: verificationStatuses } = useQuery(orpc.verification.getStatus.queryOptions({ input: { resumeId } }));
 
   useHotkeys(
     ["ctrl+s", "meta+s"],

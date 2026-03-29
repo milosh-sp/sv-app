@@ -5,11 +5,7 @@ import { flagsRouter } from "./flags";
 import { jobsRouter } from "./jobs";
 import { printerRouter } from "./printer";
 import { resumeRouter } from "./resume";
-import {
-  adminReviewerProfilesRouter,
-  publicReviewerProfileRouter,
-  reviewerProfileRouter,
-} from "./reviewer-profile";
+import { adminReviewerProfilesRouter, publicReviewerProfileRouter, reviewerProfileRouter } from "./reviewer-profile";
 import { statisticsRouter } from "./statistics";
 import { storageRouter } from "./storage";
 import { verificationRouter } from "./verification";

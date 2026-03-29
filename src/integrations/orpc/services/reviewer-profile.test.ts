@@ -121,9 +121,7 @@ describe("reviewerProfileService.updateDirect", () => {
   });
 
   it("should error with no fields to update", async () => {
-    await expect(
-      reviewerProfileService.updateDirect({ adminId: "admin-1" }),
-    ).rejects.toThrow("No fields to update");
+    await expect(reviewerProfileService.updateDirect({ adminId: "admin-1" })).rejects.toThrow("No fields to update");
   });
 });
 
@@ -185,9 +183,9 @@ describe("reviewerProfileService.requestChange", () => {
   });
 
   it("should error if no fields provided", async () => {
-    await expect(
-      reviewerProfileService.requestChange({ adminId: "admin-1" }),
-    ).rejects.toThrow("At least one field must be provided");
+    await expect(reviewerProfileService.requestChange({ adminId: "admin-1" })).rejects.toThrow(
+      "At least one field must be provided",
+    );
   });
 });
 

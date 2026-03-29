@@ -26,7 +26,14 @@ export const Route = createFileRoute("/$username/$slug")({
       orpc.resume.getBySlug.queryOptions({ input: { username, slug } }),
     );
 
-    let verificationStatuses: { id: string; sectionType: string; itemId: string; itemLabel: string; status: string; badgeVisible: boolean }[] = [];
+    let verificationStatuses: {
+      id: string;
+      sectionType: string;
+      itemId: string;
+      itemLabel: string;
+      status: string;
+      badgeVisible: boolean;
+    }[] = [];
     try {
       verificationStatuses = await context.queryClient.ensureQueryData(
         orpc.verification.getStatus.queryOptions({ input: { resumeId: (resume as LoaderData).id } }),
@@ -87,7 +94,11 @@ function RouteComponent() {
     <>
       <VerificationProvider statuses={verificationStatuses}>
         <div
-          className={cn("mx-auto max-w-[210mm]", "print:m-0 print:block print:max-w-full print:px-0", "md:my-4 md:px-4")}
+          className={cn(
+            "mx-auto max-w-[210mm]",
+            "print:m-0 print:block print:max-w-full print:px-0",
+            "md:my-4 md:px-4",
+          )}
         >
           <ResumePreview className="space-y-4" pageClassName="print:w-full! w-full max-w-full" />
         </div>

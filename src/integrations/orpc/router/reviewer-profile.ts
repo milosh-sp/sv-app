@@ -79,9 +79,7 @@ export const reviewerProfileRouter = {
 };
 
 export const publicReviewerProfileRouter = {
-  get: publicProcedure
-    .input(z.object({ adminId: z.string().uuid() }))
-    .handler(async ({ input }) => {
-      return await reviewerProfileService.getPublicProfile(input.adminId);
-    }),
+  get: publicProcedure.input(z.object({ adminId: z.string().uuid() })).handler(async ({ input }) => {
+    return await reviewerProfileService.getPublicProfile(input.adminId);
+  }),
 };

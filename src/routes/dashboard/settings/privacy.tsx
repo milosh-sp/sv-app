@@ -18,15 +18,11 @@ export const Route = createFileRoute("/dashboard/settings/privacy")({
 });
 
 function RouteComponent() {
-  const { data: statuses } = useSuspenseQuery(
-    orpc.verification.getAllStatuses.queryOptions(),
-  );
+  const { data: statuses } = useSuspenseQuery(orpc.verification.getAllStatuses.queryOptions());
 
   const approvedItems = statuses.filter((s) => s.status === "verified");
 
-  const { mutate: toggleBadge } = useMutation(
-    orpc.verification.toggleBadge.mutationOptions(),
-  );
+  const { mutate: toggleBadge } = useMutation(orpc.verification.toggleBadge.mutationOptions());
 
   const handleBadgeToggle = (requestId: string, visible: boolean) => {
     toggleBadge(
@@ -57,9 +53,7 @@ function RouteComponent() {
             <Trans>Verification Badges</Trans>
           </h3>
           <p className="text-xs text-muted-foreground">
-            <Trans>
-              Control which verification badges are visible on your public CV.
-            </Trans>
+            <Trans>Control which verification badges are visible on your public CV.</Trans>
           </p>
 
           {approvedItems.length === 0 ? (
@@ -69,21 +63,14 @@ function RouteComponent() {
           ) : (
             <div className="space-y-3">
               {approvedItems.map((item) => (
-                <div
-                  key={item.id}
-                  className="flex items-center justify-between rounded border p-3"
-                >
+                <div key={item.id} className="flex items-center justify-between rounded border p-3">
                   <div>
                     <p className="text-sm">{item.itemLabel}</p>
-                    <p className="text-xs capitalize text-muted-foreground">
-                      {item.sectionType}
-                    </p>
+                    <p className="text-xs text-muted-foreground capitalize">{item.sectionType}</p>
                   </div>
                   <Switch
                     defaultChecked={item.badgeVisible}
-                    onCheckedChange={(checked: boolean) =>
-                      handleBadgeToggle(item.id, checked)
-                    }
+                    onCheckedChange={(checked: boolean) => handleBadgeToggle(item.id, checked)}
                     size="sm"
                   />
                 </div>
@@ -104,7 +91,11 @@ function TimelineToggle() {
   const queryClient = useQueryClient();
   const { data: rows } = useSuspenseQuery(orpc.verification.listTimelineSettings.queryOptions());
 
-  const { mutate: toggleTimeline, isPending, variables } = useMutation({
+  const {
+    mutate: toggleTimeline,
+    isPending,
+    variables,
+  } = useMutation({
     ...orpc.verification.toggleTimeline.mutationOptions(),
     onSuccess: () => {
       void queryClient.invalidateQueries({
@@ -123,9 +114,7 @@ function TimelineToggle() {
           <Trans>Verification History Timeline</Trans>
         </h3>
         <p className="text-xs text-muted-foreground">
-          <Trans>
-            Show or hide the verification timeline on your public CV. This is off by default.
-          </Trans>
+          <Trans>Show or hide the verification timeline on your public CV. This is off by default.</Trans>
         </p>
         <p className="text-xs text-muted-foreground" data-testid="timeline-toggle-empty">
           <Trans>Make at least one resume public to control the timeline on your public CV.</Trans>
@@ -140,17 +129,12 @@ function TimelineToggle() {
         <Trans>Verification History Timeline</Trans>
       </h3>
       <p className="text-xs text-muted-foreground">
-        <Trans>
-          Show or hide the verification timeline on your public CV. This is off by default.
-        </Trans>
+        <Trans>Show or hide the verification timeline on your public CV. This is off by default.</Trans>
       </p>
 
       <div className="space-y-3">
         {rows.map((row) => (
-          <div
-            key={row.resumeId}
-            className="flex items-center justify-between gap-3 rounded border p-3"
-          >
+          <div key={row.resumeId} className="flex items-center justify-between gap-3 rounded border p-3">
             <Label className="min-w-0 truncate text-sm">
               {rows.length > 1 ? row.name : <Trans>Show Timeline on Public CV</Trans>}
             </Label>

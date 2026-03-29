@@ -108,11 +108,7 @@ export const serverOnlyProcedure = publicProcedure.use(async ({ context, next })
 });
 
 export const skillVerdictAdminProcedure = protectedProcedure.use(async ({ context, next }) => {
-  const [role] = await db
-    .select()
-    .from(adminRoles)
-    .where(eq(adminRoles.userId, context.user.id))
-    .limit(1);
+  const [role] = await db.select().from(adminRoles).where(eq(adminRoles.userId, context.user.id)).limit(1);
 
   if (!role || role.role !== "skill_verdict_admin") {
     throw new ORPCError("FORBIDDEN", { message: "Skill Verdict Admin role required" });
@@ -122,11 +118,7 @@ export const skillVerdictAdminProcedure = protectedProcedure.use(async ({ contex
 });
 
 export const reviewerAdminProcedure = protectedProcedure.use(async ({ context, next }) => {
-  const [role] = await db
-    .select()
-    .from(adminRoles)
-    .where(eq(adminRoles.userId, context.user.id))
-    .limit(1);
+  const [role] = await db.select().from(adminRoles).where(eq(adminRoles.userId, context.user.id)).limit(1);
 
   if (!role || role.role !== "reviewer_admin") {
     throw new ORPCError("FORBIDDEN", { message: "Reviewer Admin role required" });

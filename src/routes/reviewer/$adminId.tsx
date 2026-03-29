@@ -31,9 +31,7 @@ export const Route = createFileRoute("/reviewer/$adminId")({
 
 function RouteComponent() {
   const { adminId } = Route.useParams();
-  const { data: profile } = useQuery(
-    orpc.reviewer.publicProfile.get.queryOptions({ input: { adminId } }),
-  );
+  const { data: profile } = useQuery(orpc.reviewer.publicProfile.get.queryOptions({ input: { adminId } }));
 
   if (!profile) return null;
 
@@ -66,8 +64,8 @@ function RouteComponent() {
           </p>
           <p className="text-xs text-muted-foreground/70">
             <Trans>
-              This page shows live profile information. Verification snapshots captured at the
-              time of review may differ from the current details shown here.
+              This page shows live profile information. Verification snapshots captured at the time of review may differ
+              from the current details shown here.
             </Trans>
           </p>
         </div>

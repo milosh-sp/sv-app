@@ -42,9 +42,7 @@ export function VerificationBadge({ requestId, status, badgeVisible, className }
 }
 
 function VerifiedBadge({ requestId, className }: { requestId: string; className?: string }) {
-  const { data: detail } = useQuery(
-    orpc.verification.getBadgeDetail.queryOptions({ input: { requestId } }),
-  );
+  const { data: detail } = useQuery(orpc.verification.getBadgeDetail.queryOptions({ input: { requestId } }));
 
   if (!detail) {
     return (
@@ -98,12 +96,7 @@ function BadgeTooltipContent({ detail }: { detail: BadgeDetail }) {
       {detail.profileUrl && (
         <>
           {" — "}
-          <Link
-            to={detail.profileUrl}
-            className="underline"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <Link to={detail.profileUrl} className="underline" target="_blank" rel="noopener noreferrer">
             View profile
           </Link>
         </>

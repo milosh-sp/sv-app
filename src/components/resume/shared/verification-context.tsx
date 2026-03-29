@@ -24,11 +24,7 @@ export function VerificationProvider({
   statuses: VerificationStatus[];
   children: React.ReactNode;
 }) {
-  return (
-    <VerificationContext value={{ statuses }}>
-      {children}
-    </VerificationContext>
-  );
+  return <VerificationContext value={{ statuses }}>{children}</VerificationContext>;
 }
 
 export function useVerificationStatus(itemId: string): VerificationStatus | undefined {

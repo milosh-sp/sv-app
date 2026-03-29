@@ -55,8 +55,7 @@ describe("Verification Dashboard", () => {
   describe("active request detection", () => {
     const ACTIVE_STATUSES = ["pending", "claimed", "verdict_pending", "verified"];
 
-    const hasActiveRequest = (status: string | undefined) =>
-      status !== undefined && ACTIVE_STATUSES.includes(status);
+    const hasActiveRequest = (status: string | undefined) => status !== undefined && ACTIVE_STATUSES.includes(status);
 
     it("should detect pending as active", () => {
       expect(hasActiveRequest("pending")).toBe(true);
@@ -90,8 +89,7 @@ describe("Verification Dashboard", () => {
   describe("retry eligibility", () => {
     const RETRYABLE_STATUSES = ["rejected", "issue"];
 
-    const canRetry = (status: string | undefined) =>
-      status !== undefined && RETRYABLE_STATUSES.includes(status);
+    const canRetry = (status: string | undefined) => status !== undefined && RETRYABLE_STATUSES.includes(status);
 
     it("should allow retry for rejected", () => {
       expect(canRetry("rejected")).toBe(true);
@@ -125,9 +123,7 @@ describe("Verification Dashboard", () => {
           ],
         },
         projects: {
-          items: [
-            { id: "p1", name: "Portfolio", hidden: false },
-          ],
+          items: [{ id: "p1", name: "Portfolio", hidden: false }],
         },
         experience: {
           items: [
@@ -150,8 +146,7 @@ describe("Verification Dashboard", () => {
     });
 
     it("should exclude hidden items", () => {
-      const skills = mockResumeData.sections.skills.items
-        .filter((item) => !item.hidden);
+      const skills = mockResumeData.sections.skills.items.filter((item) => !item.hidden);
 
       expect(skills).toHaveLength(2);
       expect(skills.find((s) => s.id === "s2")).toBeUndefined();
@@ -225,9 +220,7 @@ describe("Verification Dashboard", () => {
 
       const getStatus = (itemId: string) => statuses.find((s) => s.itemId === itemId);
 
-      const verifiedCount = resumeItems.filter(
-        (item) => getStatus(item.id)?.status === "verified",
-      ).length;
+      const verifiedCount = resumeItems.filter((item) => getStatus(item.id)?.status === "verified").length;
 
       expect(verifiedCount).toBe(1);
     });

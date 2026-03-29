@@ -2,18 +2,10 @@ import { ORPCError } from "@orpc/server";
 import { and, eq } from "drizzle-orm";
 
 import { db } from "@/integrations/drizzle/client";
-import {
-  reviewerProfileChangeRequests,
-  reviewerProfiles,
-} from "@/integrations/drizzle/schema";
+import { reviewerProfileChangeRequests, reviewerProfiles } from "@/integrations/drizzle/schema";
 
 export const reviewerProfileService = {
-  create: async (input: {
-    adminId: string;
-    firstName: string;
-    lastName: string;
-    title: string;
-  }) => {
+  create: async (input: { adminId: string; firstName: string; lastName: string; title: string }) => {
     const publicProfileUrl = `/reviewer/${input.adminId}`;
 
     const [existing] = await db
@@ -40,12 +32,7 @@ export const reviewerProfileService = {
     return profile!;
   },
 
-  updateDirect: async (input: {
-    adminId: string;
-    firstName?: string;
-    lastName?: string;
-    title?: string;
-  }) => {
+  updateDirect: async (input: { adminId: string; firstName?: string; lastName?: string; title?: string }) => {
     const updates: Record<string, unknown> = {};
     if (input.firstName !== undefined) updates.firstName = input.firstName;
     if (input.lastName !== undefined) updates.lastName = input.lastName;
@@ -69,11 +56,7 @@ export const reviewerProfileService = {
   },
 
   getByAdminId: async (adminId: string) => {
-    const [profile] = await db
-      .select()
-      .from(reviewerProfiles)
-      .where(eq(reviewerProfiles.adminId, adminId))
-      .limit(1);
+    const [profile] = await db.select().from(reviewerProfiles).where(eq(reviewerProfiles.adminId, adminId)).limit(1);
 
     if (!profile) {
       throw new ORPCError("NOT_FOUND", { message: "Reviewer profile not found" });
@@ -119,11 +102,7 @@ export const reviewerProfileService = {
     return updated;
   },
 
-  requestChange: async (input: {
-    adminId: string;
-    firstName?: string;
-    title?: string;
-  }) => {
+  requestChange: async (input: { adminId: string; firstName?: string; title?: string }) => {
     if (!input.firstName && !input.title) {
       throw new ORPCError("BAD_REQUEST", { message: "At least one field must be provided" });
     }
@@ -210,10 +189,7 @@ export const reviewerProfileService = {
       if (request.requestedTitle) profileUpdates.title = request.requestedTitle;
 
       if (Object.keys(profileUpdates).length > 0) {
-        await db
-          .update(reviewerProfiles)
-          .set(profileUpdates)
-          .where(eq(reviewerProfiles.adminId, request.adminId));
+        await db.update(reviewerProfiles).set(profileUpdates).where(eq(reviewerProfiles.adminId, request.adminId));
       }
     }
 

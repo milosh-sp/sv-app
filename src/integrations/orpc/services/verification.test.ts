@@ -329,16 +329,14 @@ describe("verificationService.getBadgeDetail", () => {
   });
 
   it("should return snapshot data for skill type", async () => {
-    mockLimit
-      .mockReturnValueOnce([{ id: "req-1", status: "verified", sectionType: "skill" }])
-      .mockReturnValueOnce([
-        {
-          reviewerSnapshotFirstName: "Jane",
-          reviewerSnapshotLastName: "Smith",
-          reviewerSnapshotTitle: "Senior Engineer at Meta",
-          reviewerPublicProfileUrl: "/reviewer/admin-1",
-        },
-      ]);
+    mockLimit.mockReturnValueOnce([{ id: "req-1", status: "verified", sectionType: "skill" }]).mockReturnValueOnce([
+      {
+        reviewerSnapshotFirstName: "Jane",
+        reviewerSnapshotLastName: "Smith",
+        reviewerSnapshotTitle: "Senior Engineer at Meta",
+        reviewerPublicProfileUrl: "/reviewer/admin-1",
+      },
+    ]);
 
     const result = await verificationService.getBadgeDetail("req-1");
 
@@ -350,16 +348,14 @@ describe("verificationService.getBadgeDetail", () => {
   });
 
   it("should return snapshot data for project type", async () => {
-    mockLimit
-      .mockReturnValueOnce([{ id: "req-1", status: "verified", sectionType: "project" }])
-      .mockReturnValueOnce([
-        {
-          reviewerSnapshotFirstName: "John",
-          reviewerSnapshotLastName: "Doe",
-          reviewerSnapshotTitle: "Staff Engineer",
-          reviewerPublicProfileUrl: "/reviewer/admin-2",
-        },
-      ]);
+    mockLimit.mockReturnValueOnce([{ id: "req-1", status: "verified", sectionType: "project" }]).mockReturnValueOnce([
+      {
+        reviewerSnapshotFirstName: "John",
+        reviewerSnapshotLastName: "Doe",
+        reviewerSnapshotTitle: "Staff Engineer",
+        reviewerPublicProfileUrl: "/reviewer/admin-2",
+      },
+    ]);
 
     const result = await verificationService.getBadgeDetail("req-1");
 
@@ -400,7 +396,14 @@ describe("verificationService.getStatus", () => {
 describe("verificationService.getHistory", () => {
   it("should return history without reviewerNote or admin identity", async () => {
     const history = [
-      { id: "req-1", sectionType: "skill", itemLabel: "TS", status: "verified", submittedAt: new Date(), resolvedAt: new Date() },
+      {
+        id: "req-1",
+        sectionType: "skill",
+        itemLabel: "TS",
+        status: "verified",
+        submittedAt: new Date(),
+        resolvedAt: new Date(),
+      },
     ];
     mockFrom.mockReturnValueOnce({
       where: vi.fn(() => ({ orderBy: vi.fn(() => history) })),
@@ -422,25 +425,25 @@ describe("verificationService.claimCase", () => {
   it("should error if already claimed", async () => {
     mockLimit.mockReturnValueOnce([{ id: "req-1", status: "pending", claimedByAdminId: "admin-2" }]);
 
-    await expect(
-      verificationService.claimCase({ requestId: "req-1", adminId: "admin-1" }),
-    ).rejects.toThrow("already claimed");
+    await expect(verificationService.claimCase({ requestId: "req-1", adminId: "admin-1" })).rejects.toThrow(
+      "already claimed",
+    );
   });
 
   it("should error if not pending", async () => {
     mockLimit.mockReturnValueOnce([{ id: "req-1", status: "claimed", claimedByAdminId: null }]);
 
-    await expect(
-      verificationService.claimCase({ requestId: "req-1", adminId: "admin-1" }),
-    ).rejects.toThrow("not pending");
+    await expect(verificationService.claimCase({ requestId: "req-1", adminId: "admin-1" })).rejects.toThrow(
+      "not pending",
+    );
   });
 
   it("should error if not found", async () => {
     mockLimit.mockReturnValueOnce([]);
 
-    await expect(
-      verificationService.claimCase({ requestId: "req-1", adminId: "admin-1" }),
-    ).rejects.toThrow("not found");
+    await expect(verificationService.claimCase({ requestId: "req-1", adminId: "admin-1" })).rejects.toThrow(
+      "not found",
+    );
   });
 });
 
@@ -528,17 +531,17 @@ describe("verificationService.confirmVerdict", () => {
   it("should error if not verdict_pending", async () => {
     mockLimit.mockReturnValueOnce([{ id: "req-1", status: "claimed" }]);
 
-    await expect(
-      verificationService.confirmVerdict({ requestId: "req-1", adminId: "sva-1" }),
-    ).rejects.toThrow("must be in verdict_pending status");
+    await expect(verificationService.confirmVerdict({ requestId: "req-1", adminId: "sva-1" })).rejects.toThrow(
+      "must be in verdict_pending status",
+    );
   });
 
   it("should error if not found", async () => {
     mockLimit.mockReturnValueOnce([]);
 
-    await expect(
-      verificationService.confirmVerdict({ requestId: "non-existent", adminId: "sva-1" }),
-    ).rejects.toThrow("not found");
+    await expect(verificationService.confirmVerdict({ requestId: "non-existent", adminId: "sva-1" })).rejects.toThrow(
+      "not found",
+    );
   });
 });
 
@@ -576,7 +579,9 @@ describe("verificationService.getDocuments", () => {
       { id: "doc-1", fileUrl: "uploads/user-1/item-1/file.pdf", documentType: "contract", uploadedAt: new Date() },
     ];
     // First query: check request exists (select→from→where→limit)
-    mockFrom.mockReturnValueOnce({ where: vi.fn().mockReturnValue({ limit: vi.fn().mockReturnValue([{ id: "req-1" }]) }) });
+    mockFrom.mockReturnValueOnce({
+      where: vi.fn().mockReturnValue({ limit: vi.fn().mockReturnValue([{ id: "req-1" }]) }),
+    });
     // Second query: get documents (select→from→where)
     mockFrom.mockReturnValueOnce({ where: vi.fn().mockReturnValue(docs) });
 
@@ -592,7 +597,9 @@ describe("verificationService.getDocuments", () => {
   });
 
   it("should return empty array if no documents attached", async () => {
-    mockFrom.mockReturnValueOnce({ where: vi.fn().mockReturnValue({ limit: vi.fn().mockReturnValue([{ id: "req-1" }]) }) });
+    mockFrom.mockReturnValueOnce({
+      where: vi.fn().mockReturnValue({ limit: vi.fn().mockReturnValue([{ id: "req-1" }]) }),
+    });
     mockFrom.mockReturnValueOnce({ where: vi.fn().mockReturnValue([]) });
 
     const result = await verificationService.getDocuments("req-1");
