@@ -45,20 +45,19 @@ function isFinalStatus(status: string): status is (typeof FINAL_STATUSES)[number
 }
 
 async function guardActiveRequest(userId: string, resumeId: string | null, itemId: string) {
-  const conditions = [
+  const baseConditions = [
     eq(verificationRequests.userId, userId),
     eq(verificationRequests.itemId, itemId),
-    inArray(verificationRequests.status, [...ACTIVE_STATUSES]),
   ];
 
   if (resumeId) {
-    conditions.push(eq(verificationRequests.resumeId, resumeId));
+    baseConditions.push(eq(verificationRequests.resumeId, resumeId));
   }
 
   const [existing] = await db
     .select({ id: verificationRequests.id, status: verificationRequests.status })
     .from(verificationRequests)
-    .where(and(...conditions))
+    .where(and(...baseConditions, inArray(verificationRequests.status, [...ACTIVE_STATUSES])))
     .limit(1);
 
   if (existing) {
@@ -66,6 +65,12 @@ async function guardActiveRequest(userId: string, resumeId: string | null, itemI
       message: `An active verification request already exists (status: ${existing.status})`,
     });
   }
+
+  // On retry: delete old rejected/issue rows so the unique constraint doesn't block the new insert.
+  // Cascade deletes associated metadata and documents.
+  await db
+    .delete(verificationRequests)
+    .where(and(...baseConditions, inArray(verificationRequests.status, ["rejected", "issue"])));
 }
 
 export const verificationService = {
@@ -161,6 +166,7 @@ export const verificationService = {
     itemLabel: string;
     method: "document_upload" | "freelancer_link";
     documentId?: string;
+    freelancerUrl?: string;
   }) => {
     await guardActiveRequest(input.userId, input.resumeId, input.itemId);
 
@@ -176,6 +182,14 @@ export const verificationService = {
         method: input.method,
       })
       .returning();
+
+    if (input.method === "freelancer_link" && input.freelancerUrl) {
+      await db.insert(verificationDocuments).values({
+        verificationRequestId: request!.id,
+        fileUrl: input.freelancerUrl,
+        documentType: "freelancer_link",
+      });
+    }
 
     return request!;
   },

@@ -30,6 +30,7 @@ export const verificationDto = {
       itemLabel: z.string().min(1),
       method: z.enum(["document_upload", "freelancer_link"]),
       documentId: z.string().uuid().optional(),
+      freelancerUrl: z.string().url().optional(),
     }),
   },
   getStatus: {

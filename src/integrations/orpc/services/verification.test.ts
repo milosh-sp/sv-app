@@ -10,11 +10,15 @@ const mockOrderBy = vi.fn((): any => []);
 const mockFrom = vi.fn((): any => ({ where: mockWhere, limit: mockLimit, orderBy: mockOrderBy }));
 const mockSelect = vi.fn((): any => ({ from: mockFrom }));
 
+const mockDeleteWhere = vi.fn((): any => undefined);
+const mockDelete = vi.fn((): any => ({ where: mockDeleteWhere }));
+
 vi.mock("@/integrations/drizzle/client", () => ({
   db: {
     select: mockSelect,
     insert: vi.fn((): any => ({ values: mockValues })),
     update: vi.fn((): any => ({ set: mockSet })),
+    delete: mockDelete,
   },
 }));
 
@@ -198,6 +202,28 @@ describe("verificationService.requestExperience", () => {
 
     expect(result.status).toBe("pending");
     expect(result.method).toBe("freelancer_link");
+  });
+
+  it("should store freelancer URL as a document when provided", async () => {
+    mockLimit.mockReturnValueOnce([]);
+    const request = { id: "req-5", sectionType: "experience", status: "pending", method: "freelancer_link" };
+    mockReturning.mockResolvedValueOnce([request]);
+
+    const { db } = await import("@/integrations/drizzle/client");
+    const insertSpy = vi.spyOn(db, "insert");
+
+    const result = await verificationService.requestExperience({
+      userId: "user-1",
+      resumeId: "resume-1",
+      itemId: "item-5",
+      itemLabel: "Freelance Gig",
+      method: "freelancer_link",
+      freelancerUrl: "https://www.upwork.com/freelancers/~abc",
+    });
+
+    expect(result.status).toBe("pending");
+    expect(insertSpy).toHaveBeenCalledTimes(2);
+    insertSpy.mockRestore();
   });
 });
 

@@ -406,7 +406,7 @@ function ExperienceVerificationSection({
   );
 }
 
-type ExperienceStep = "idle" | "method" | "upload" | "confirm";
+type ExperienceStep = "idle" | "method" | "upload" | "link_input" | "confirm";
 
 function ExperienceItemRow({
   item,
@@ -423,6 +423,7 @@ function ExperienceItemRow({
   const [step, setStep] = useState<ExperienceStep>("idle");
   const [method, setMethod] = useState<"document_upload" | "freelancer_link" | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [freelancerUrl, setFreelancerUrl] = useState("");
 
   const uploadDocument = useMutation(orpc.verification.uploadDocument.mutationOptions());
   const requestExperience = useMutation(orpc.verification.requestExperience.mutationOptions());
@@ -436,6 +437,7 @@ function ExperienceItemRow({
     setStep("idle");
     setMethod(null);
     setSelectedFile(null);
+    setFreelancerUrl("");
   };
 
   const handleFileSelected = (file: File) => {
@@ -454,7 +456,7 @@ function ExperienceItemRow({
 
   const handleFreelancerLink = () => {
     setMethod("freelancer_link");
-    setStep("confirm");
+    setStep("link_input");
   };
 
   const handleSubmitExperience = () => {
@@ -466,6 +468,7 @@ function ExperienceItemRow({
         itemId: item.id,
         itemLabel: item.label,
         method,
+        ...(method === "freelancer_link" && freelancerUrl ? { freelancerUrl } : {}),
       },
       {
         onSuccess: () => {
@@ -605,6 +608,41 @@ function ExperienceItemRow({
         </div>
       )}
 
+      {/* Freelancer link input step */}
+      {step === "link_input" && (
+        <div className="mt-3 space-y-2 border-t pt-3">
+          <p className="text-xs text-muted-foreground">
+            <Trans>Enter your freelancer profile URL (e.g. Upwork, Fiverr, Toptal):</Trans>
+          </p>
+          <div className="flex items-center gap-2">
+            <input
+              type="url"
+              value={freelancerUrl}
+              onChange={(e) => setFreelancerUrl(e.target.value)}
+              placeholder="https://www.upwork.com/freelancers/~..."
+              className="h-8 flex-1 rounded-md border bg-transparent px-3 text-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+            />
+            <Button
+              size="sm"
+              variant="default"
+              className="h-8 text-xs"
+              disabled={!freelancerUrl.trim()}
+              onClick={() => setStep("confirm")}
+            >
+              <Trans>Continue</Trans>
+            </Button>
+            <Button
+              size="sm"
+              variant="ghost"
+              className="h-8 text-xs"
+              onClick={resetFlow}
+            >
+              <Trans>Cancel</Trans>
+            </Button>
+          </div>
+        </div>
+      )}
+
       {/* Confirmation step */}
       {step === "confirm" && (
         <div className="mt-3 space-y-2 border-t pt-3">
@@ -614,7 +652,9 @@ function ExperienceItemRow({
                 File selected: {selectedFile.name}. Submit your verification request?
               </Trans>
             ) : (
-              <Trans>Submit verification via freelancer profile link?</Trans>
+              <Trans>
+                Profile link: {freelancerUrl}. Submit your verification request?
+              </Trans>
             )}
           </p>
           <div className="flex items-center gap-2">
