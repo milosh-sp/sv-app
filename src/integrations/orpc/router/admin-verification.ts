@@ -107,4 +107,17 @@ export const adminVerificationRouter = {
         reason: input.reason,
       });
     }),
+
+  listIdentityQueue: skillVerdictAdminProcedure.handler(async () => {
+    return await verificationService.listIdentityQueue();
+  }),
+
+  verifyIdentity: skillVerdictAdminProcedure
+    .input(z.object({ requestId: z.string().uuid() }))
+    .handler(async ({ context, input }) => {
+      return await verificationService.verifyIdentity({
+        requestId: input.requestId,
+        adminId: context.user.id,
+      });
+    }),
 };

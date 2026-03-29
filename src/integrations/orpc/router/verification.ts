@@ -99,6 +99,10 @@ export const verificationRouter = {
     return await verificationService.getIdentityStatus(context.user.id);
   }),
 
+  cancelIdentity: protectedProcedure.handler(async ({ context }) => {
+    return await verificationService.cancelIdentity(context.user.id);
+  }),
+
   getBadgeDetail: publicProcedure
     .input(verificationDto.getBadgeDetail.input)
     .handler(async ({ input }) => {

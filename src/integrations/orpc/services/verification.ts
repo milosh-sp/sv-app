@@ -2,7 +2,10 @@ import { ORPCError } from "@orpc/server";
 import { and, desc, eq, inArray } from "drizzle-orm";
 
 import { db } from "@/integrations/drizzle/client";
-import { sendVerificationStatusEmail } from "@/integrations/email/verification";
+import {
+  sendIdentityVerificationRequestedEmail,
+  sendVerificationStatusEmail,
+} from "@/integrations/email/verification";
 import {
   resume,
   resumeVerificationSettings,
@@ -12,6 +15,8 @@ import {
   verificationMetadata,
   verificationRequests,
 } from "@/integrations/drizzle/schema";
+
+import { env } from "@/utils/env";
 
 import { getStorageService, uploadFile } from "./storage";
 
@@ -213,6 +218,23 @@ export const verificationService = {
         calendarLinkSentAt: new Date(),
       })
       .returning();
+
+    try {
+      const calLink = env.CAL_COM_LINK;
+      if (calLink) {
+        const [userData] = await db
+          .select({ email: user.email })
+          .from(user)
+          .where(eq(user.id, userId))
+          .limit(1);
+
+        if (userData?.email) {
+          await sendIdentityVerificationRequestedEmail({ to: userData.email, calLink });
+        }
+      }
+    } catch {
+      // Email failures should not block the main flow
+    }
 
     return request!;
   },
@@ -826,6 +848,100 @@ export const verificationService = {
         input.action,
       );
     }
+
+    return updated!;
+  },
+
+  cancelIdentity: async (userId: string) => {
+    const [request] = await db
+      .select({ id: verificationRequests.id, status: verificationRequests.status })
+      .from(verificationRequests)
+      .where(
+        and(
+          eq(verificationRequests.userId, userId),
+          eq(verificationRequests.sectionType, "identity"),
+          eq(verificationRequests.status, "pending"),
+        ),
+      )
+      .limit(1);
+
+    if (!request) {
+      throw new ORPCError("NOT_FOUND", {
+        message: "No cancellable identity verification request found.",
+      });
+    }
+
+    await db.delete(verificationRequests).where(eq(verificationRequests.id, request.id));
+  },
+
+  listIdentityQueue: async () => {
+    return await db
+      .select({
+        id: verificationRequests.id,
+        userId: verificationRequests.userId,
+        itemLabel: verificationRequests.itemLabel,
+        status: verificationRequests.status,
+        submittedAt: verificationRequests.submittedAt,
+        calendarLinkSentAt: verificationRequests.calendarLinkSentAt,
+        userName: user.name,
+        userEmail: user.email,
+      })
+      .from(verificationRequests)
+      .innerJoin(user, eq(verificationRequests.userId, user.id))
+      .where(
+        and(
+          eq(verificationRequests.sectionType, "identity"),
+          eq(verificationRequests.status, "pending"),
+        ),
+      )
+      .orderBy(desc(verificationRequests.submittedAt));
+  },
+
+  verifyIdentity: async (input: { requestId: string; adminId: string }) => {
+    const [request] = await db
+      .select({
+        id: verificationRequests.id,
+        status: verificationRequests.status,
+        sectionType: verificationRequests.sectionType,
+        userId: verificationRequests.userId,
+        itemLabel: verificationRequests.itemLabel,
+      })
+      .from(verificationRequests)
+      .where(eq(verificationRequests.id, input.requestId))
+      .limit(1);
+
+    if (!request) {
+      throw new ORPCError("NOT_FOUND", { message: "Verification request not found" });
+    }
+
+    if (request.sectionType !== "identity") {
+      throw new ORPCError("BAD_REQUEST", { message: "Request is not an identity verification" });
+    }
+
+    if (request.status !== "pending") {
+      throw new ORPCError("BAD_REQUEST", { message: "Identity request must be in pending status" });
+    }
+
+    const [updated] = await db
+      .update(verificationRequests)
+      .set({
+        status: "verified",
+        resolvedAt: new Date(),
+      })
+      .where(eq(verificationRequests.id, input.requestId))
+      .returning();
+
+    await db.insert(verificationMetadata).values({
+      verificationRequestId: input.requestId,
+      adminId: input.adminId,
+      adminRole: "skill_verdict_admin",
+      action: "verified",
+    });
+
+    await sendFinalStatusEmail(
+      { userId: request.userId, itemLabel: request.itemLabel, sectionType: request.sectionType },
+      "verified",
+    );
 
     return updated!;
   },

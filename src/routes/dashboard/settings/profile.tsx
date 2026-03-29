@@ -254,11 +254,8 @@ function RouteComponent() {
 }
 
 function IdentityVerificationBlock() {
-  const { data: calLink } = useSuspenseQuery(
-    orpc.verification.getCalLink.queryOptions(),
-  );
-
-  const { data: identityStatus } = useSuspenseQuery(
+  const { data: calLink } = useSuspenseQuery(orpc.verification.getCalLink.queryOptions());
+  const { data: identityStatus, refetch } = useSuspenseQuery(
     orpc.verification.getIdentityStatus.queryOptions(),
   );
 
@@ -266,12 +263,24 @@ function IdentityVerificationBlock() {
     orpc.verification.requestIdentity.mutationOptions(),
   );
 
+  const { mutate: cancelIdentity, isPending: isCancelling } = useMutation({
+    ...orpc.verification.cancelIdentity.mutationOptions(),
+    onSuccess: () => {
+      void refetch();
+      toast.success(t`Identity verification request cancelled.`);
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
+  });
+
   const status: string = identityStatus?.status ?? "not_requested";
 
   const handleRequest = () => {
     requestIdentity(undefined, {
       onSuccess: () => {
-        toast.success(t`Identity verification requested. Please complete the scheduled call.`);
+        void refetch();
+        toast.success(t`Identity verification requested. Please check your email for next steps.`);
         if (calLink) {
           window.open(calLink, "_blank");
         }
@@ -282,25 +291,32 @@ function IdentityVerificationBlock() {
     });
   };
 
-  if (!calLink) {
-    return (
-      <div className="grid max-w-xl gap-3" data-testid="identity-verification-unavailable">
-        <h3 className="flex items-center gap-x-2 text-sm font-medium">
-          <SealCheckIcon className="size-4" />
-          <Trans>Identity Verification</Trans>
-        </h3>
-        <p className="text-xs text-muted-foreground">
-          <Trans>Identity verification is not currently available.</Trans>
-        </p>
-      </div>
-    );
-  }
+  const statusBadge = match(status)
+    .with("verified", () => (
+      <span className="flex items-center gap-x-1 text-xs font-medium text-green-700">
+        <CheckIcon className="size-3.5" />
+        <Trans>Verified</Trans>
+      </span>
+    ))
+    .with("pending", "claimed", "verdict_pending", () => (
+      <span className="flex items-center gap-x-1 text-xs font-medium text-amber-600">
+        <ClockIcon className="size-3.5" />
+        <Trans>Pending</Trans>
+      </span>
+    ))
+    .otherwise(() => (
+      <span className="text-xs font-medium text-muted-foreground">
+        <Trans>Unverified</Trans>
+      </span>
+    ));
 
   return (
     <div className="grid max-w-xl gap-3" data-testid="identity-verification-block">
       <h3 className="flex items-center gap-x-2 text-sm font-medium">
         <SealCheckIcon className="size-4" />
         <Trans>Identity Verification</Trans>
+        <span className="mx-1 text-muted-foreground/40">·</span>
+        {statusBadge}
       </h3>
 
       {match(status)
@@ -311,33 +327,52 @@ function IdentityVerificationBlock() {
                 Verify your identity through a short video call. This adds trust to your resume.
               </Trans>
             </p>
-            <Button size="sm" onClick={handleRequest} disabled={isPending}>
-              <CalendarCheckIcon className="mr-2 size-4" />
-              <Trans>Schedule Identity Verification</Trans>
-            </Button>
+            {calLink ? (
+              <Button size="sm" onClick={handleRequest} disabled={isPending}>
+                <CalendarCheckIcon className="mr-2 size-4" />
+                <Trans>Schedule Identity Verification</Trans>
+              </Button>
+            ) : (
+              <p className="text-xs text-muted-foreground/60">
+                <Trans>Scheduling is not currently available.</Trans>
+              </p>
+            )}
           </div>
         ))
         .with("pending", "claimed", "verdict_pending", () => (
-          <div className="flex items-center gap-x-2 text-xs text-amber-600" data-testid="identity-pending">
-            <ClockIcon className="size-4" />
-            <Trans>Identity verification is pending review.</Trans>
+          <div className="space-y-3" data-testid="identity-pending">
+            <p className="text-xs text-muted-foreground">
+              <Trans>
+                Your verification call has been scheduled. Our team will review and confirm your
+                identity shortly.
+              </Trans>
+            </p>
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={() => cancelIdentity(undefined)}
+              disabled={isCancelling}
+            >
+              <Trans>Cancel Verification</Trans>
+            </Button>
           </div>
         ))
         .with("verified", () => (
-          <div className="flex items-center gap-x-2 text-xs text-green-700" data-testid="identity-approved">
-            <CheckIcon className="size-4" />
-            <Trans>Your identity has been verified.</Trans>
-          </div>
+          <p className="text-xs text-muted-foreground" data-testid="identity-approved">
+            <Trans>Your identity has been verified and your profile is trusted.</Trans>
+          </p>
         ))
         .otherwise(() => (
           <div className="space-y-3">
             <p className="text-xs text-muted-foreground">
               <Trans>Your previous identity verification was unsuccessful. You may try again.</Trans>
             </p>
-            <Button size="sm" onClick={handleRequest} disabled={isPending}>
-              <CalendarCheckIcon className="mr-2 size-4" />
-              <Trans>Retry Identity Verification</Trans>
-            </Button>
+            {calLink && (
+              <Button size="sm" onClick={handleRequest} disabled={isPending}>
+                <CalendarCheckIcon className="mr-2 size-4" />
+                <Trans>Retry Identity Verification</Trans>
+              </Button>
+            )}
           </div>
         ))}
     </div>

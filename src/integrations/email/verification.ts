@@ -1,5 +1,26 @@
 import { sendEmail } from "./service";
 
+interface IdentityVerificationRequestedInput {
+  to: string;
+  calLink: string;
+}
+
+export const sendIdentityVerificationRequestedEmail = async (input: IdentityVerificationRequestedInput) => {
+  await sendEmail({
+    to: input.to,
+    subject: "Schedule Your Identity Verification Call",
+    text: [
+      "Thank you for requesting identity verification.",
+      "",
+      "To complete the process, please schedule a short video call using the link below:",
+      "",
+      input.calLink,
+      "",
+      "After the call, our team will verify your identity and update your profile status.",
+    ].join("\n"),
+  });
+};
+
 interface VerificationEmailInput {
   to: string;
   itemLabel: string;
