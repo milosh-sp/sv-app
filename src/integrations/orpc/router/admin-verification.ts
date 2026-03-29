@@ -38,6 +38,25 @@ export const adminVerificationRouter = {
       });
     }),
 
+  getDocuments: skillVerdictAdminProcedure
+    .input(z.object({ requestId: z.string().uuid() }))
+    .handler(async ({ input }) => {
+      return await verificationService.getDocuments(input.requestId);
+    }),
+
+  downloadDocument: skillVerdictAdminProcedure
+    .input(z.object({ documentId: z.string().uuid() }))
+    .handler(async ({ input }) => {
+      const doc = await verificationService.downloadDocument(input.documentId);
+      return {
+        id: doc.id,
+        fileUrl: doc.fileUrl,
+        documentType: doc.documentType,
+        contentType: doc.contentType,
+        size: doc.size,
+      };
+    }),
+
   listExperienceQueue: skillVerdictAdminProcedure.handler(async () => {
     return await verificationService.listExperienceQueue();
   }),

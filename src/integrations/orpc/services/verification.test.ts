@@ -18,6 +18,14 @@ vi.mock("@/integrations/drizzle/client", () => ({
   },
 }));
 
+const mockStorageRead = vi.fn();
+
+vi.mock("./storage", () => ({
+  getStorageService: () => ({
+    read: mockStorageRead,
+  }),
+}));
+
 vi.mock("@/integrations/drizzle/schema", () => ({
   verificationRequests: {
     id: "id",
@@ -533,5 +541,70 @@ describe("verificationService.overrideVerdict", () => {
         reason: "Override",
       }),
     ).rejects.toThrow("not found");
+  });
+});
+
+describe("verificationService.getDocuments", () => {
+  it("should return documents for a valid request", async () => {
+    const docs = [
+      { id: "doc-1", fileUrl: "uploads/user-1/item-1/file.pdf", documentType: "contract", uploadedAt: new Date() },
+    ];
+    // First query: check request exists (select→from→where→limit)
+    mockFrom.mockReturnValueOnce({ where: vi.fn().mockReturnValue({ limit: vi.fn().mockReturnValue([{ id: "req-1" }]) }) });
+    // Second query: get documents (select→from→where)
+    mockFrom.mockReturnValueOnce({ where: vi.fn().mockReturnValue(docs) });
+
+    const result = await verificationService.getDocuments("req-1");
+
+    expect(result).toEqual(docs);
+  });
+
+  it("should error if request not found", async () => {
+    mockFrom.mockReturnValueOnce({ where: vi.fn().mockReturnValue({ limit: vi.fn().mockReturnValue([]) }) });
+
+    await expect(verificationService.getDocuments("non-existent")).rejects.toThrow("not found");
+  });
+
+  it("should return empty array if no documents attached", async () => {
+    mockFrom.mockReturnValueOnce({ where: vi.fn().mockReturnValue({ limit: vi.fn().mockReturnValue([{ id: "req-1" }]) }) });
+    mockFrom.mockReturnValueOnce({ where: vi.fn().mockReturnValue([]) });
+
+    const result = await verificationService.getDocuments("req-1");
+
+    expect(result).toEqual([]);
+  });
+});
+
+describe("verificationService.downloadDocument", () => {
+  it("should return file data for a valid document", async () => {
+    const doc = { id: "doc-1", fileUrl: "uploads/user-1/file.pdf", documentType: "contract" };
+    mockFrom.mockReturnValueOnce({ where: vi.fn().mockReturnValue({ limit: vi.fn().mockReturnValue([doc]) }) });
+    mockStorageRead.mockResolvedValueOnce({
+      data: new Uint8Array([1, 2, 3]),
+      size: 3,
+      contentType: "application/pdf",
+    });
+
+    const result = await verificationService.downloadDocument("doc-1");
+
+    expect(result.id).toBe("doc-1");
+    expect(result.contentType).toBe("application/pdf");
+    expect(result.size).toBe(3);
+    expect(result.data).toEqual(new Uint8Array([1, 2, 3]));
+    expect(mockStorageRead).toHaveBeenCalledWith("uploads/user-1/file.pdf");
+  });
+
+  it("should error if document not found in DB", async () => {
+    mockFrom.mockReturnValueOnce({ where: vi.fn().mockReturnValue({ limit: vi.fn().mockReturnValue([]) }) });
+
+    await expect(verificationService.downloadDocument("non-existent")).rejects.toThrow("Document not found");
+  });
+
+  it("should error if file not found in storage", async () => {
+    const doc = { id: "doc-1", fileUrl: "uploads/user-1/missing.pdf", documentType: "contract" };
+    mockFrom.mockReturnValueOnce({ where: vi.fn().mockReturnValue({ limit: vi.fn().mockReturnValue([doc]) }) });
+    mockStorageRead.mockResolvedValueOnce(null);
+
+    await expect(verificationService.downloadDocument("doc-1")).rejects.toThrow("not found in storage");
   });
 });

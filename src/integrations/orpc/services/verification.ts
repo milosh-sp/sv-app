@@ -12,6 +12,8 @@ import {
   verificationRequests,
 } from "@/integrations/drizzle/schema";
 
+import { getStorageService, uploadFile } from "./storage";
+
 const ACTIVE_STATUSES = ["pending", "claimed", "verdict_pending", "approved"] as const;
 const FINAL_STATUSES = ["approved", "rejected", "issue"] as const;
 
@@ -104,34 +106,47 @@ export const verificationService = {
   },
 
   uploadDocument: async (input: {
-    verificationRequestId?: string;
+    userId: string;
     resumeId: string;
     itemId: string;
-    fileUrl: string;
+    file: File;
     documentType: "payslip" | "contract" | "freelancer_link";
   }) => {
-    let requestId = input.verificationRequestId;
+    const [req] = await db
+      .select({ id: verificationRequests.id })
+      .from(verificationRequests)
+      .where(
+        and(
+          eq(verificationRequests.resumeId, input.resumeId),
+          eq(verificationRequests.itemId, input.itemId),
+          eq(verificationRequests.userId, input.userId),
+        ),
+      )
+      .limit(1);
 
-    if (!requestId) {
-      const [req] = await db
-        .select({ id: verificationRequests.id })
-        .from(verificationRequests)
-        .where(
-          and(
-            eq(verificationRequests.resumeId, input.resumeId),
-            eq(verificationRequests.itemId, input.itemId),
-          ),
-        )
-        .limit(1);
-
-      requestId = req?.id;
+    if (!req) {
+      throw new ORPCError("NOT_FOUND", {
+        message: "No verification request found for this item. Submit a verification request first.",
+      });
     }
+
+    const fileBuffer = await input.file.arrayBuffer();
+    const data = new Uint8Array(fileBuffer);
+
+    const result = await uploadFile({
+      userId: input.userId,
+      resumeId: input.resumeId,
+      itemId: input.itemId,
+      data,
+      contentType: input.file.type || "application/octet-stream",
+      type: "document",
+    });
 
     const [doc] = await db
       .insert(verificationDocuments)
       .values({
-        verificationRequestId: requestId ?? "00000000-0000-0000-0000-000000000000",
-        fileUrl: input.fileUrl,
+        verificationRequestId: req.id,
+        fileUrl: result.url,
         documentType: input.documentType,
       })
       .returning();
@@ -543,7 +558,7 @@ export const verificationService = {
   // --- Admin: Skill Verdict Admin procedures ---
 
   listExperienceQueue: async () => {
-    return await db
+    const requests = await db
       .select({
         id: verificationRequests.id,
         sectionType: verificationRequests.sectionType,
@@ -560,6 +575,38 @@ export const verificationService = {
           eq(verificationRequests.sectionType, "experience"),
         ),
       );
+
+    const requestIds = requests.map((r) => r.id);
+
+    if (requestIds.length === 0) return requests.map((r) => ({ ...r, documents: [] as { id: string; fileUrl: string; documentType: string; uploadedAt: Date }[] }));
+
+    const docs = await db
+      .select({
+        id: verificationDocuments.id,
+        verificationRequestId: verificationDocuments.verificationRequestId,
+        fileUrl: verificationDocuments.fileUrl,
+        documentType: verificationDocuments.documentType,
+        uploadedAt: verificationDocuments.uploadedAt,
+      })
+      .from(verificationDocuments)
+      .where(inArray(verificationDocuments.verificationRequestId, requestIds));
+
+    const docsByRequestId = new Map<string, typeof docs>();
+    for (const doc of docs) {
+      const existing = docsByRequestId.get(doc.verificationRequestId) ?? [];
+      existing.push(doc);
+      docsByRequestId.set(doc.verificationRequestId, existing);
+    }
+
+    return requests.map((r) => ({
+      ...r,
+      documents: (docsByRequestId.get(r.id) ?? []).map((d) => ({
+        id: d.id,
+        fileUrl: d.fileUrl,
+        documentType: d.documentType,
+        uploadedAt: d.uploadedAt,
+      })),
+    }));
   },
 
   reviewExperience: async (input: {
@@ -728,5 +775,61 @@ export const verificationService = {
     }
 
     return updated!;
+  },
+
+  // --- Admin: Document access ---
+
+  getDocuments: async (requestId: string) => {
+    const [request] = await db
+      .select({ id: verificationRequests.id })
+      .from(verificationRequests)
+      .where(eq(verificationRequests.id, requestId))
+      .limit(1);
+
+    if (!request) {
+      throw new ORPCError("NOT_FOUND", { message: "Verification request not found" });
+    }
+
+    return await db
+      .select({
+        id: verificationDocuments.id,
+        fileUrl: verificationDocuments.fileUrl,
+        documentType: verificationDocuments.documentType,
+        uploadedAt: verificationDocuments.uploadedAt,
+      })
+      .from(verificationDocuments)
+      .where(eq(verificationDocuments.verificationRequestId, requestId));
+  },
+
+  downloadDocument: async (documentId: string) => {
+    const [doc] = await db
+      .select({
+        id: verificationDocuments.id,
+        fileUrl: verificationDocuments.fileUrl,
+        documentType: verificationDocuments.documentType,
+      })
+      .from(verificationDocuments)
+      .where(eq(verificationDocuments.id, documentId))
+      .limit(1);
+
+    if (!doc) {
+      throw new ORPCError("NOT_FOUND", { message: "Document not found" });
+    }
+
+    const storageService = getStorageService();
+    const result = await storageService.read(doc.fileUrl);
+
+    if (!result) {
+      throw new ORPCError("NOT_FOUND", { message: "Document file not found in storage" });
+    }
+
+    return {
+      id: doc.id,
+      fileUrl: doc.fileUrl,
+      documentType: doc.documentType,
+      contentType: result.contentType ?? "application/octet-stream",
+      size: result.size,
+      data: result.data,
+    };
   },
 };

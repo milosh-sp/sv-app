@@ -25,8 +25,11 @@ export const verificationRouter = {
 
   uploadDocument: protectedProcedure
     .input(verificationDto.uploadDocument.input)
-    .handler(async ({ input }) => {
-      return await verificationService.uploadDocument(input);
+    .handler(async ({ context, input }) => {
+      return await verificationService.uploadDocument({
+        userId: context.user.id,
+        ...input,
+      });
     }),
 
   requestExperience: protectedProcedure

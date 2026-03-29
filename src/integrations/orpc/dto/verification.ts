@@ -19,7 +19,7 @@ export const verificationDto = {
     input: z.object({
       resumeId: z.string().uuid(),
       itemId: z.string().uuid(),
-      fileUrl: z.string().min(1),
+      file: z.instanceof(File),
       documentType: z.enum(["payslip", "contract", "freelancer_link"]),
     }),
   },

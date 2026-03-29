@@ -470,7 +470,6 @@ function ExperienceItemRow({
       {
         onSuccess: () => {
           if (method === "document_upload" && selectedFile) {
-            const fileUrl = `uploads/${resumeId}/${item.id}/${selectedFile.name}`;
             const docType: "payslip" | "contract" =
               selectedFile.name.toLowerCase().includes("payslip") ? "payslip" : "contract";
 
@@ -478,7 +477,7 @@ function ExperienceItemRow({
               {
                 resumeId,
                 itemId: item.id,
-                fileUrl,
+                file: selectedFile,
                 documentType: docType,
               },
               {

@@ -69,6 +69,11 @@ function buildPdfKey(userId: string, resumeId: string): string {
   return `uploads/${userId}/pdfs/${resumeId}/${timestamp}.pdf`;
 }
 
+function buildDocumentKey(userId: string, resumeId: string, itemId: string): string {
+  const timestamp = Date.now();
+  return `uploads/${userId}/documents/${resumeId}/${itemId}/${timestamp}`;
+}
+
 function buildPublicUrl(path: string): string {
   return new URL(path, env.APP_URL).toString();
 }
@@ -331,7 +336,7 @@ export function getStorageService(): StorageService {
 }
 
 // High-level upload types
-type UploadType = "picture" | "screenshot" | "pdf";
+type UploadType = "picture" | "screenshot" | "pdf" | "document";
 
 interface UploadFileInput {
   userId: string;
@@ -339,6 +344,7 @@ interface UploadFileInput {
   contentType: string;
   type: UploadType;
   resumeId?: string;
+  itemId?: string;
 }
 
 interface UploadFileResult {
@@ -362,6 +368,11 @@ export async function uploadFile(input: UploadFileInput): Promise<UploadFileResu
     case "pdf":
       if (!input.resumeId) throw new Error("resumeId is required for pdf uploads");
       key = buildPdfKey(input.userId, input.resumeId);
+      break;
+    case "document":
+      if (!input.resumeId) throw new Error("resumeId is required for document uploads");
+      if (!input.itemId) throw new Error("itemId is required for document uploads");
+      key = buildDocumentKey(input.userId, input.resumeId, input.itemId);
       break;
   }
 
