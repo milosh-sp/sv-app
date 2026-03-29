@@ -689,9 +689,20 @@ function StatusBadge({ status }: { status: string }) {
 }
 
 function VerificationHistory({ itemId }: { itemId: string }) {
-  const { data: history } = useSuspenseQuery(
+  const { data: history, isLoading } = useQuery(
     orpc.verification.getHistory.queryOptions({ input: { itemId } }),
   );
+
+  if (isLoading) {
+    return (
+      <div className="mt-2 flex items-center gap-x-2 border-t pt-2">
+        <ClockIcon className="size-3 animate-spin text-muted-foreground" />
+        <span className="text-xs text-muted-foreground">
+          <Trans>Loading history...</Trans>
+        </span>
+      </div>
+    );
+  }
 
   if (!history || history.length === 0) {
     return (
