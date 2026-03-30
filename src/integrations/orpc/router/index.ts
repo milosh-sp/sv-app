@@ -1,3 +1,4 @@
+import { adminAiRouter } from "./admin-ai";
 import { adminVerificationRouter } from "./admin-verification";
 import { aiRouter } from "./ai";
 import { authRouter } from "./auth";
@@ -21,6 +22,7 @@ export default {
   storage: storageRouter,
   verification: verificationRouter,
   admin: {
+    ai: adminAiRouter,
     reviewerProfiles: adminReviewerProfilesRouter,
     verification: adminVerificationRouter,
   },

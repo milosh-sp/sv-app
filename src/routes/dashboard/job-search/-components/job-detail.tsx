@@ -19,7 +19,7 @@ import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "@/components/ui/sheet";
-import { useAIStore } from "@/integrations/ai/store";
+import { useAiIntegration } from "@/integrations/ai/use-ai-integration";
 
 import { formatSalary, isValidExternalUrl } from "./job-utils";
 import { TailorDialog } from "./tailor-dialog";
@@ -31,7 +31,7 @@ type Props = {
 };
 
 export function JobDetailSheet({ job, open, onOpenChange }: Props) {
-  const isAIEnabled = useAIStore((s) => s.enabled);
+  const { canUse: isAIEnabled } = useAiIntegration();
   const [tailorOpen, setTailorOpen] = useState(false);
 
   if (!job) return null;

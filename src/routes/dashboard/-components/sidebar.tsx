@@ -89,11 +89,6 @@ const settingsSidebarItems = [
     href: "/dashboard/settings/api-keys",
   },
   {
-    icon: <BrainIcon />,
-    label: msg`Artificial Intelligence`,
-    href: "/dashboard/settings/ai",
-  },
-  {
     icon: <BriefcaseIcon />,
     label: msg`Job Search API`,
     href: "/dashboard/settings/job-search",
@@ -115,6 +110,11 @@ const adminSidebarItems = [
     icon: <ShieldStarIcon />,
     label: msg`Experience Queue`,
     href: "/dashboard/admin",
+  },
+  {
+    icon: <BrainIcon />,
+    label: msg`Global AI`,
+    href: "/dashboard/admin/ai",
   },
 ] as const satisfies SidebarItem[];
 

@@ -461,6 +461,22 @@ export const adminRoles = pg.pgTable(
   (t) => [pg.index().on(t.userId)],
 );
 
+/** Singleton row (`id` = `default`) — global AI provider credentials managed by Skill Verdict admins. */
+export const globalAiSettings = pg.pgTable("global_ai_settings", {
+  id: pg.text("id").primaryKey().default("default"),
+  provider: pg.text("provider").notNull(),
+  model: pg.text("model").notNull(),
+  apiKey: pg.text("api_key").notNull(),
+  baseURL: pg.text("base_url").notNull().default(""),
+  connectionTestOk: pg.boolean("connection_test_ok").notNull().default(false),
+  updatedAt: pg
+    .timestamp("updated_at", { withTimezone: true })
+    .notNull()
+    .defaultNow()
+    .$onUpdate(() => /* @__PURE__ */ new Date()),
+  updatedByUserId: pg.uuid("updated_by_user_id").references(() => user.id, { onDelete: "set null" }),
+});
+
 export const reviewerProfiles = pg.pgTable(
   "reviewer_profiles",
   {
@@ -628,6 +644,7 @@ export const relations = defineRelations(
     oauthAccessToken,
     oauthConsent,
     adminRoles,
+    globalAiSettings,
     reviewerProfiles,
     reviewerProfileChangeRequests,
     verificationRequests,
@@ -773,6 +790,12 @@ export const relations = defineRelations(
     adminRoles: {
       user: r.one.user({
         from: r.adminRoles.userId,
+        to: r.user.id,
+      }),
+    },
+    globalAiSettings: {
+      updatedBy: r.one.user({
+        from: r.globalAiSettings.updatedByUserId,
         to: r.user.id,
       }),
     },

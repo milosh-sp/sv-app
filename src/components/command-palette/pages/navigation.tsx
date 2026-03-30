@@ -1,18 +1,20 @@
 import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
 import {
+  BrainIcon,
   GearIcon,
   HouseSimpleIcon,
   KeyIcon,
-  OpenAiLogoIcon,
   ReadCvLogoIcon,
   ShieldCheckIcon,
   UserCircleIcon,
   WarningIcon,
 } from "@phosphor-icons/react";
+import { useQuery } from "@tanstack/react-query";
 import { useNavigate, useRouteContext } from "@tanstack/react-router";
 
 import { CommandItem } from "@/components/ui/command";
+import { orpc } from "@/integrations/orpc/client";
 
 import { useCommandPaletteStore } from "../store";
 import { BaseCommandGroup } from "./base";
@@ -22,6 +24,12 @@ export function NavigationCommandGroup() {
   const { session } = useRouteContext({ strict: false });
   const reset = useCommandPaletteStore((state) => state.reset);
   const pushPage = useCommandPaletteStore((state) => state.pushPage);
+
+  const { isSuccess: isSkillVerdictAdmin } = useQuery({
+    ...orpc.admin.verification.listExperienceQueue.queryOptions(),
+    retry: false,
+    staleTime: 5 * 60 * 1000,
+  });
 
   const onNavigate = async (path: string) => {
     await navigate({ to: path });
@@ -94,14 +102,16 @@ export function NavigationCommandGroup() {
           <Trans>API Keys</Trans>
         </CommandItem>
 
-        <CommandItem
-          keywords={[t`Artificial Intelligence`]}
-          value="navigation.settings.ai"
-          onSelect={() => onNavigate("/dashboard/settings/ai")}
-        >
-          <OpenAiLogoIcon />
-          <Trans>Artificial Intelligence</Trans>
-        </CommandItem>
+        {isSkillVerdictAdmin && (
+          <CommandItem
+            keywords={[t`Global AI`, t`Admin AI`]}
+            value="navigation.admin.ai"
+            onSelect={() => onNavigate("/dashboard/admin/ai")}
+          >
+            <BrainIcon />
+            <Trans>Global AI</Trans>
+          </CommandItem>
+        )}
 
         <CommandItem
           keywords={[t`Danger Zone`]}
