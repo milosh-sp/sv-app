@@ -13,12 +13,17 @@ import {
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
+import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
 import { toast } from "sonner";
 
+import type { RouterOutput } from "@/integrations/orpc/client";
+
+import { ResumePreview } from "@/components/resume/preview";
+import { VerificationProvider } from "@/components/resume/shared/verification-context";
+import { useResumeStore } from "@/components/resume/store/resume";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
-import type { RouterOutput } from "@/integrations/orpc/client";
 import { orpc } from "@/integrations/orpc/client";
 
 import { DashboardHeader } from "../-components/header";
@@ -34,7 +39,11 @@ type ReviewAction = "verified" | "rejected" | "issue";
 function RouteComponent() {
   const [activeTab, setActiveTab] = useState<"queue" | "verdicts">("queue");
 
-  const { data: queue, isLoading: queueLoading, isError: queueError } = useQuery({
+  const {
+    data: queue,
+    isLoading: queueLoading,
+    isError: queueError,
+  } = useQuery({
     ...orpc.admin.verification.listExperienceQueue.queryOptions(),
     retry: false,
   });
@@ -47,7 +56,7 @@ function RouteComponent() {
 
       <Separator />
 
-      <div className="flex gap-x-1 rounded-lg border p-1 w-fit">
+      <div className="flex w-fit gap-x-1 rounded-lg border p-1">
         <Button
           size="sm"
           variant={activeTab === "queue" ? "default" : "ghost"}
@@ -71,9 +80,7 @@ function RouteComponent() {
         </Button>
       </div>
 
-      {activeTab === "queue" && (
-        <ExperienceQueueTab items={queue ?? []} isLoading={queueLoading} />
-      )}
+      {activeTab === "queue" && <ExperienceQueueTab items={queue ?? []} isLoading={queueLoading} />}
 
       {activeTab === "verdicts" && <PendingVerdictsTab />}
     </div>
@@ -105,18 +112,32 @@ function ExperienceQueueTab({ items, isLoading }: { items: ExperienceQueueItem[]
     );
   }
 
+  const [expandedId, setExpandedId] = useState<string | null>(null);
+
   return (
-    <div className="max-w-3xl space-y-3">
+    <div className="max-w-4xl space-y-3">
       {items.map((item) => (
-        <ExperienceQueueRow key={item.id} item={item} />
+        <ExperienceQueueRow
+          key={item.id}
+          item={item}
+          expanded={expandedId === item.id}
+          onExpandedChange={(open) => setExpandedId(open ? item.id : null)}
+        />
       ))}
     </div>
   );
 }
 
-function ExperienceQueueRow({ item }: { item: ExperienceQueueItem }) {
+function ExperienceQueueRow({
+  item,
+  expanded,
+  onExpandedChange,
+}: {
+  item: ExperienceQueueItem;
+  expanded: boolean;
+  onExpandedChange: (open: boolean) => void;
+}) {
   const queryClient = useQueryClient();
-  const [expanded, setExpanded] = useState(false);
   const [action, setAction] = useState<ReviewAction>("verified");
   const [notes, setNotes] = useState("");
   const [confirming, setConfirming] = useState(false);
@@ -150,11 +171,23 @@ function ExperienceQueueRow({ item }: { item: ExperienceQueueItem }) {
   };
 
   return (
-    <div className="rounded-lg border p-4 space-y-3">
+    <div className="space-y-3 rounded-lg border p-4">
       <div className="flex items-start justify-between gap-x-3">
-        <div className="space-y-1">
+        <div className="min-w-0 space-y-1">
           <p className="text-sm font-medium">{item.itemLabel}</p>
-          <div className="flex items-center gap-x-2 flex-wrap">
+          {item.user ? (
+            <p className="truncate text-xs text-muted-foreground">
+              {item.user.name}
+              <span className="mx-1.5 opacity-60">·</span>
+              {item.user.email}
+              <span className="mx-1.5 opacity-60">·</span>@{item.user.username}
+            </p>
+          ) : (
+            <p className="text-xs text-muted-foreground">
+              <Trans>Unknown applicant</Trans>
+            </p>
+          )}
+          <div className="flex flex-wrap items-center gap-x-2">
             <StatusBadge status={item.status} />
             <MethodBadge method={item.method} />
             <span className="flex items-center gap-x-1 text-xs text-muted-foreground">
@@ -168,7 +201,7 @@ function ExperienceQueueRow({ item }: { item: ExperienceQueueItem }) {
           size="sm"
           variant="outline"
           className="h-7 shrink-0 text-xs"
-          onClick={() => setExpanded(!expanded)}
+          onClick={() => onExpandedChange(!expanded)}
         >
           {expanded ? <Trans>Collapse</Trans> : <Trans>Review</Trans>}
         </Button>
@@ -176,6 +209,17 @@ function ExperienceQueueRow({ item }: { item: ExperienceQueueItem }) {
 
       {expanded && (
         <div className="space-y-3 border-t pt-3">
+          {item.user && <ApplicantDetails user={item.user} />}
+
+          {item.resume && (
+            <div className="space-y-2">
+              <p className="text-xs font-medium text-muted-foreground">
+                <Trans>CV / resume</Trans>
+              </p>
+              <ExperienceQueueResumePreview resume={item.resume} />
+            </div>
+          )}
+
           {item.documents.length > 0 && (
             <div className="space-y-2">
               <p className="text-xs font-medium text-muted-foreground">
@@ -224,26 +268,16 @@ function ExperienceQueueRow({ item }: { item: ExperienceQueueItem }) {
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
               placeholder={t`Optional notes for the applicant...`}
-              className="min-h-[60px] text-xs resize-none"
+              className="min-h-[60px] resize-none text-xs"
             />
           </div>
 
           {!confirming ? (
             <div className="flex items-center gap-x-2">
-              <Button
-                size="sm"
-                variant="default"
-                className="h-7 text-xs"
-                onClick={() => setConfirming(true)}
-              >
+              <Button size="sm" variant="default" className="h-7 text-xs" onClick={() => setConfirming(true)}>
                 <Trans>Submit Review</Trans>
               </Button>
-              <Button
-                size="sm"
-                variant="ghost"
-                className="h-7 text-xs"
-                onClick={() => setExpanded(false)}
-              >
+              <Button size="sm" variant="ghost" className="h-7 text-xs" onClick={() => onExpandedChange(false)}>
                 <Trans>Cancel</Trans>
               </Button>
             </div>
@@ -279,14 +313,122 @@ function ExperienceQueueRow({ item }: { item: ExperienceQueueItem }) {
   );
 }
 
+function ApplicantDetails({ user }: { user: NonNullable<ExperienceQueueItem["user"]> }) {
+  const fmtDate = (d: Date | null) => (d ? new Date(d).toLocaleString() : "—");
+
+  return (
+    <div className="space-y-2">
+      <p className="text-xs font-medium text-muted-foreground">
+        <Trans>Applicant</Trans>
+      </p>
+      <div className="rounded-md border bg-muted/20 px-3 py-2 text-xs">
+        <dl className="grid gap-x-4 gap-y-2 sm:grid-cols-[minmax(7rem,auto)_1fr]">
+          <dt className="text-muted-foreground">
+            <Trans>User ID</Trans>
+          </dt>
+          <dd className="font-mono break-all">{user.id}</dd>
+
+          <dt className="text-muted-foreground">
+            <Trans>Name</Trans>
+          </dt>
+          <dd className="wrap-break-word">{user.name}</dd>
+
+          <dt className="text-muted-foreground">
+            <Trans>Email</Trans>
+          </dt>
+          <dd className="break-all">{user.email}</dd>
+
+          <dt className="text-muted-foreground">
+            <Trans>Email verified</Trans>
+          </dt>
+          <dd>{user.emailVerified ? t`Yes` : t`No`}</dd>
+
+          <dt className="text-muted-foreground">
+            <Trans>Username</Trans>
+          </dt>
+          <dd className="break-all">{user.username}</dd>
+
+          <dt className="text-muted-foreground">
+            <Trans>Display username</Trans>
+          </dt>
+          <dd className="break-all">{user.displayUsername}</dd>
+
+          <dt className="text-muted-foreground">
+            <Trans>Profile image URL</Trans>
+          </dt>
+          <dd className="break-all">{user.image ?? "—"}</dd>
+
+          <dt className="text-muted-foreground">
+            <Trans>Two-factor enabled</Trans>
+          </dt>
+          <dd>{user.twoFactorEnabled ? t`Yes` : t`No`}</dd>
+
+          <dt className="text-muted-foreground">
+            <Trans>Last active</Trans>
+          </dt>
+          <dd>{fmtDate(user.lastActiveAt)}</dd>
+
+          <dt className="text-muted-foreground">
+            <Trans>Account created</Trans>
+          </dt>
+          <dd>{fmtDate(user.createdAt)}</dd>
+
+          <dt className="text-muted-foreground">
+            <Trans>Account updated</Trans>
+          </dt>
+          <dd>{fmtDate(user.updatedAt)}</dd>
+        </dl>
+      </div>
+    </div>
+  );
+}
+
+function ExperienceQueueResumePreview({ resume }: { resume: NonNullable<ExperienceQueueItem["resume"]> }) {
+  const isReady = useResumeStore((state) => state.isReady);
+  const initialize = useResumeStore((state) => state.initialize);
+
+  useEffect(() => {
+    initialize({
+      id: resume.id,
+      name: resume.name,
+      slug: resume.slug,
+      tags: resume.tags,
+      data: resume.data,
+      isLocked: resume.isLocked,
+    });
+    return () => initialize(null);
+  }, [resume.id, resume.name, resume.slug, resume.tags, resume.data, resume.isLocked, initialize]);
+
+  if (!isReady) {
+    return (
+      <div className="flex items-center justify-center gap-x-2 rounded-md border py-8 text-xs text-muted-foreground">
+        <ClockIcon className="size-4 animate-spin" />
+        <Trans>Loading preview…</Trans>
+      </div>
+    );
+  }
+
+  return (
+    <VerificationProvider statuses={[]}>
+      <TransformWrapper centerOnInit limitToBounds={false} minScale={0.2} initialScale={0.45} maxScale={2}>
+        <TransformComponent wrapperClass="!max-h-[min(70vh,32rem)] !w-full overflow-auto border rounded-md bg-muted/30">
+          <ResumePreview
+            showPageNumbers
+            className="flex items-start space-y-10 space-x-10 p-4"
+            pageClassName="shadow-md rounded-md overflow-hidden"
+          />
+        </TransformComponent>
+      </TransformWrapper>
+    </VerificationProvider>
+  );
+}
+
 // ---------------------------------------------------------------------------
 // Pending Verdicts Tab
 // ---------------------------------------------------------------------------
 
 function PendingVerdictsTab() {
-  const { data: verdicts, isLoading } = useQuery(
-    orpc.admin.verification.listPendingVerdicts.queryOptions(),
-  );
+  const { data: verdicts, isLoading } = useQuery(orpc.admin.verification.listPendingVerdicts.queryOptions());
 
   if (isLoading) {
     return (
@@ -370,11 +512,11 @@ function PendingVerdictRow({ verdict }: { verdict: PendingVerdictItem }) {
   };
 
   return (
-    <div className="rounded-lg border p-4 space-y-3">
+    <div className="space-y-3 rounded-lg border p-4">
       <div className="flex items-start justify-between gap-x-3">
         <div className="space-y-1">
           <p className="text-sm font-medium">{verdict.itemLabel}</p>
-          <div className="flex items-center gap-x-2 flex-wrap">
+          <div className="flex flex-wrap items-center gap-x-2">
             <StatusBadge status={verdict.status} />
             <span className="text-xs text-muted-foreground capitalize">{verdict.sectionType}</span>
             <span className="flex items-center gap-x-1 text-xs text-muted-foreground">
@@ -384,7 +526,7 @@ function PendingVerdictRow({ verdict }: { verdict: PendingVerdictItem }) {
           </div>
         </div>
 
-        <div className="flex items-center gap-x-2 shrink-0">
+        <div className="flex shrink-0 items-center gap-x-2">
           <Button
             size="sm"
             variant="default"
@@ -395,12 +537,7 @@ function PendingVerdictRow({ verdict }: { verdict: PendingVerdictItem }) {
             <CheckCircleIcon className="mr-1 size-3.5" weight="fill" />
             {confirmVerdict.isPending ? <Trans>Confirming...</Trans> : <Trans>Confirm</Trans>}
           </Button>
-          <Button
-            size="sm"
-            variant="outline"
-            className="h-7 text-xs"
-            onClick={() => setOverrideOpen(!overrideOpen)}
-          >
+          <Button size="sm" variant="outline" className="h-7 text-xs" onClick={() => setOverrideOpen(!overrideOpen)}>
             {overrideOpen ? <Trans>Cancel Override</Trans> : <Trans>Override</Trans>}
           </Button>
         </div>
@@ -440,7 +577,7 @@ function PendingVerdictRow({ verdict }: { verdict: PendingVerdictItem }) {
             value={overrideReason}
             onChange={(e) => setOverrideReason(e.target.value)}
             placeholder={t`Required: reason for overriding this verdict...`}
-            className="min-h-[60px] text-xs resize-none"
+            className="min-h-[60px] resize-none text-xs"
           />
 
           {!confirmingOverride ? (
@@ -517,7 +654,10 @@ function DocumentPreview({
     void (async () => {
       try {
         const res = await fetch(fileUrl, { credentials: "include" });
-        if (!res.ok || cancelled) { if (!cancelled) setRenderType("error"); return; }
+        if (!res.ok || cancelled) {
+          if (!cancelled) setRenderType("error");
+          return;
+        }
 
         const contentType = res.headers.get("content-type") ?? "application/octet-stream";
         const blob = await res.blob();
@@ -556,7 +696,7 @@ function DocumentPreview({
   }, [expanded, fileUrl, isFreelancerLink]);
 
   return (
-    <div className="rounded border overflow-hidden">
+    <div className="overflow-hidden rounded border">
       <div className="flex items-center justify-between p-2">
         <div className="flex items-center gap-x-2">
           {isFreelancerLink ? (
@@ -578,12 +718,7 @@ function DocumentPreview({
             <Trans>Open Profile</Trans>
           </a>
         ) : (
-          <Button
-            size="sm"
-            variant="ghost"
-            className="h-6 px-2 text-xs"
-            onClick={() => setExpanded(!expanded)}
-          >
+          <Button size="sm" variant="ghost" className="h-6 px-2 text-xs" onClick={() => setExpanded(!expanded)}>
             {expanded ? <Trans>Hide</Trans> : <Trans>Preview</Trans>}
           </Button>
         )}
@@ -592,7 +727,7 @@ function DocumentPreview({
       {expanded && !isFreelancerLink && (
         <div className="border-t bg-muted/30 p-2">
           {renderType === "loading" && (
-            <div className="flex items-center gap-x-2 py-4 justify-center text-xs text-muted-foreground">
+            <div className="flex items-center justify-center gap-x-2 py-4 text-xs text-muted-foreground">
               <ClockIcon className="size-4 animate-spin" />
               <Trans>Loading document...</Trans>
             </div>
@@ -608,16 +743,12 @@ function DocumentPreview({
             <img
               src={objectUrl}
               alt={documentType}
-              className="max-h-[480px] w-auto max-w-full rounded object-contain mx-auto block"
+              className="mx-auto block max-h-[480px] w-auto max-w-full rounded object-contain"
             />
           )}
 
           {renderType === "pdf" && objectUrl && (
-            <iframe
-              src={objectUrl}
-              title={documentType}
-              className="h-[480px] w-full rounded border-0"
-            />
+            <iframe src={objectUrl} title={documentType} className="h-[480px] w-full rounded border-0" />
           )}
         </div>
       )}

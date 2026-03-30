@@ -607,6 +607,8 @@ export const verificationService = {
     const requests = await db
       .select({
         id: verificationRequests.id,
+        userId: verificationRequests.userId,
+        resumeId: verificationRequests.resumeId,
         sectionType: verificationRequests.sectionType,
         itemId: verificationRequests.itemId,
         itemLabel: verificationRequests.itemLabel,
@@ -617,13 +619,35 @@ export const verificationService = {
       .from(verificationRequests)
       .where(and(eq(verificationRequests.status, "pending"), eq(verificationRequests.sectionType, "experience")));
 
-    const requestIds = requests.map((r) => r.id);
+    if (requests.length === 0) return [];
 
-    if (requestIds.length === 0)
-      return requests.map((r) => ({
-        ...r,
-        documents: [] as { id: string; fileUrl: string; documentType: string; uploadedAt: Date }[],
-      }));
+    const requestIds = requests.map((r) => r.id);
+    const userIds = [...new Set(requests.map((r) => r.userId))];
+    const resumeIds = [...new Set(requests.map((r) => r.resumeId).filter((id): id is string => id != null))];
+
+    const users = userIds.length > 0 ? await db.select().from(user).where(inArray(user.id, userIds)) : [];
+
+    const resumeRows =
+      resumeIds.length > 0
+        ? await db
+            .select({
+              id: resume.id,
+              name: resume.name,
+              slug: resume.slug,
+              tags: resume.tags,
+              isPublic: resume.isPublic,
+              isLocked: resume.isLocked,
+              data: resume.data,
+              userId: resume.userId,
+              createdAt: resume.createdAt,
+              updatedAt: resume.updatedAt,
+            })
+            .from(resume)
+            .where(inArray(resume.id, resumeIds))
+        : [];
+
+    const userById = new Map(users.map((u) => [u.id, u]));
+    const resumeById = new Map(resumeRows.map((row) => [row.id, row]));
 
     const docs = await db
       .select({
@@ -643,15 +667,32 @@ export const verificationService = {
       docsByRequestId.set(doc.verificationRequestId, existing);
     }
 
-    return requests.map((r) => ({
-      ...r,
-      documents: (docsByRequestId.get(r.id) ?? []).map((d) => ({
-        id: d.id,
-        fileUrl: d.fileUrl,
-        documentType: d.documentType,
-        uploadedAt: d.uploadedAt,
-      })),
-    }));
+    return requests.map((r) => {
+      const applicantUser = userById.get(r.userId) ?? null;
+      let applicantResume: (typeof resumeRows)[number] | null = null;
+      if (r.resumeId) {
+        const row = resumeById.get(r.resumeId);
+        if (row && row.userId === r.userId) applicantResume = row;
+      }
+
+      return {
+        id: r.id,
+        sectionType: r.sectionType,
+        itemId: r.itemId,
+        itemLabel: r.itemLabel,
+        status: r.status,
+        method: r.method,
+        submittedAt: r.submittedAt,
+        user: applicantUser,
+        resume: applicantResume,
+        documents: (docsByRequestId.get(r.id) ?? []).map((d) => ({
+          id: d.id,
+          fileUrl: d.fileUrl,
+          documentType: d.documentType,
+          uploadedAt: d.uploadedAt,
+        })),
+      };
+    });
   },
 
   reviewExperience: async (input: {
