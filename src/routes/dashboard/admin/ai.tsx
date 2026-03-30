@@ -8,13 +8,14 @@ import { useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
 import { useIsClient } from "usehooks-ts";
 
+import type { AIProvider } from "@/integrations/orpc/services/ai";
+
 import { Button } from "@/components/ui/button";
 import { Combobox, type ComboboxOption } from "@/components/ui/combobox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { Spinner } from "@/components/ui/spinner";
-import type { AIProvider } from "@/integrations/orpc/services/ai";
 import { orpc } from "@/integrations/orpc/client";
 
 import { DashboardHeader } from "../-components/header";
@@ -121,10 +122,7 @@ function AdminAiForm() {
     };
 
     if (apiKey.trim().length > 0) {
-      testConnection(
-        { provider, model, apiKey: apiKey.trim(), baseURL },
-        { onSuccess: onDone, onError: onErr },
-      );
+      testConnection({ provider, model, apiKey: apiKey.trim(), baseURL }, { onSuccess: onDone, onError: onErr });
       return;
     }
 
@@ -289,8 +287,8 @@ function RouteComponent() {
 
             <p className="leading-relaxed text-muted-foreground">
               <Trans>
-                Credentials are stored in the database and used for all users who enable AI in their account. Only
-                Skill Verdict administrators can change this configuration.
+                Credentials are stored in the database and used for all users who enable AI in their account. Only Skill
+                Verdict administrators can change this configuration.
               </Trans>
             </p>
           </div>

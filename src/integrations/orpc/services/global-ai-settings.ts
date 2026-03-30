@@ -1,9 +1,9 @@
+import type z from "zod";
+
 import { eq, sql } from "drizzle-orm";
 
 import { db } from "@/integrations/drizzle/client";
 import { globalAiSettings } from "@/integrations/drizzle/schema";
-
-import type z from "zod";
 
 import { aiCredentialsSchema, aiProviderSchema } from "./ai";
 
@@ -22,11 +22,7 @@ function rowIsUsable(row: typeof globalAiSettings.$inferSelect): boolean {
 }
 
 export async function getGlobalAiSettingsRow() {
-  const [row] = await db
-    .select()
-    .from(globalAiSettings)
-    .where(eq(globalAiSettings.id, GLOBAL_AI_SETTINGS_ID))
-    .limit(1);
+  const [row] = await db.select().from(globalAiSettings).where(eq(globalAiSettings.id, GLOBAL_AI_SETTINGS_ID)).limit(1);
   return row ?? null;
 }
 

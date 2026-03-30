@@ -1,10 +1,9 @@
 import z from "zod";
 
 /** Resume section item ids are stored as UUID-shaped strings; PostgreSQL accepts some values Zod's `.uuid()` rejects. */
-export const resumeItemIdSchema = z.string().regex(
-  /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/,
-  "Invalid item id",
-);
+export const resumeItemIdSchema = z
+  .string()
+  .regex(/^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/, "Invalid item id");
 
 export const verificationDto = {
   requestSkill: {

@@ -5,7 +5,11 @@ import z from "zod";
 
 import { skillVerdictAdminProcedure } from "../context";
 import { aiCredentialsSchema, aiProviderSchema, aiService } from "../services/ai";
-import { getGlobalAiSettingsRow, getPublicGlobalAiSettings, upsertGlobalAiSettings } from "../services/global-ai-settings";
+import {
+  getGlobalAiSettingsRow,
+  getPublicGlobalAiSettings,
+  upsertGlobalAiSettings,
+} from "../services/global-ai-settings";
 
 const setGlobalAiInputSchema = z.object({
   provider: aiProviderSchema,

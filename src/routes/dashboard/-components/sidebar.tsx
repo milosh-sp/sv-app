@@ -20,8 +20,6 @@ import { useQuery } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 import { AnimatePresence, motion } from "motion/react";
 
-import { orpc } from "@/integrations/orpc/client";
-
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { BrandIcon } from "@/components/ui/brand-icon";
 import { Copyright } from "@/components/ui/copyright";
@@ -41,6 +39,7 @@ import {
   useSidebarState,
 } from "@/components/ui/sidebar";
 import { UserDropdownMenu } from "@/components/user/dropdown-menu";
+import { orpc } from "@/integrations/orpc/client";
 import { getInitials } from "@/utils/string";
 
 type SidebarItem = {
@@ -83,16 +82,7 @@ const settingsSidebarItems = [
     label: msg`Authentication`,
     href: "/dashboard/settings/authentication",
   },
-  {
-    icon: <KeyIcon />,
-    label: msg`API Keys`,
-    href: "/dashboard/settings/api-keys",
-  },
-  {
-    icon: <BriefcaseIcon />,
-    label: msg`Job Search API`,
-    href: "/dashboard/settings/job-search",
-  },
+
   {
     icon: <EyeIcon />,
     label: msg`Privacy`,
@@ -115,6 +105,16 @@ const adminSidebarItems = [
     icon: <BrainIcon />,
     label: msg`Global AI`,
     href: "/dashboard/admin/ai",
+  },
+  {
+    icon: <KeyIcon />,
+    label: msg`API Keys`,
+    href: "/dashboard/settings/api-keys",
+  },
+  {
+    icon: <BriefcaseIcon />,
+    label: msg`Job Search API`,
+    href: "/dashboard/settings/job-search",
   },
 ] as const satisfies SidebarItem[];
 

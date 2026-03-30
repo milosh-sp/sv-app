@@ -149,8 +149,7 @@ export function ImportResumeDialog(_: DialogProps<"resume.import">) {
       }
 
       if (values.type === "pdf") {
-        if (!isAIEnabled)
-          throw new Error(t`This import option is not available right now. Please try another format.`);
+        if (!isAIEnabled) throw new Error(t`This import option is not available right now. Please try another format.`);
 
         // const arrayBuffer = await values.file.arrayBuffer();
         const base64 = await fileToBase64(values.file);
@@ -161,8 +160,7 @@ export function ImportResumeDialog(_: DialogProps<"resume.import">) {
       }
 
       if (values.type === "docx") {
-        if (!isAIEnabled)
-          throw new Error(t`This import option is not available right now. Please try another format.`);
+        if (!isAIEnabled) throw new Error(t`This import option is not available right now. Please try another format.`);
 
         // const arrayBuffer = await values.file.arrayBuffer();
         const base64 = await fileToBase64(values.file);

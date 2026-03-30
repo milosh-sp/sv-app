@@ -158,8 +158,7 @@ export const aiRouter = {
       tags: ["AI"],
       operationId: "aiChat",
       summary: "Chat with AI to modify resume",
-      description:
-        "Streams a chat response using the globally configured AI provider. Requires authentication.",
+      description: "Streams a chat response using the globally configured AI provider. Requires authentication.",
     })
     .input(
       type<{
