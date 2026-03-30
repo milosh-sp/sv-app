@@ -149,11 +149,12 @@ function SidebarItemList({ items }: SidebarItemListProps) {
 export function DashboardSidebar() {
   const { state } = useSidebarState();
 
-  const { isSuccess: isSkillVerdictAdmin } = useQuery({
-    ...orpc.admin.verification.listExperienceQueue.queryOptions(),
-    retry: false,
+  const { data: adminFlags } = useQuery({
+    ...orpc.verification.getMyAdminFlags.queryOptions(),
     staleTime: 5 * 60 * 1000,
   });
+
+  const isSkillVerdictAdmin = adminFlags?.skillVerdictAdmin ?? false;
 
   return (
     <Sidebar variant="floating" collapsible="icon">

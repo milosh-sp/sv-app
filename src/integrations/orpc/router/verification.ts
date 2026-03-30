@@ -1,10 +1,29 @@
+import { eq } from "drizzle-orm";
+import z from "zod";
+
+import { db } from "@/integrations/drizzle/client";
+import { adminRoles } from "@/integrations/drizzle/schema";
 import { env } from "@/utils/env";
 
 import { protectedProcedure, publicProcedure } from "../context";
 import { verificationDto } from "../dto/verification";
 import { verificationService } from "../services/verification";
 
+const myAdminFlagsOutput = z.object({
+  skillVerdictAdmin: z.boolean(),
+});
+
 export const verificationRouter = {
+  getMyAdminFlags: protectedProcedure.output(myAdminFlagsOutput).handler(async ({ context }) => {
+    const [row] = await db
+      .select({ role: adminRoles.role })
+      .from(adminRoles)
+      .where(eq(adminRoles.userId, context.user.id))
+      .limit(1);
+
+    return { skillVerdictAdmin: row?.role === "skill_verdict_admin" };
+  }),
+
   requestSkill: protectedProcedure.input(verificationDto.requestSkill.input).handler(async ({ context, input }) => {
     return await verificationService.requestSkill({
       userId: context.user.id,

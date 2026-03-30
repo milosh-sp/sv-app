@@ -1,24 +1,30 @@
 import z from "zod";
 
+/** Resume section item ids are stored as UUID-shaped strings; PostgreSQL accepts some values Zod's `.uuid()` rejects. */
+export const resumeItemIdSchema = z.string().regex(
+  /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/,
+  "Invalid item id",
+);
+
 export const verificationDto = {
   requestSkill: {
     input: z.object({
       resumeId: z.string().uuid(),
-      itemId: z.string().uuid(),
+      itemId: resumeItemIdSchema,
       itemLabel: z.string().min(1),
     }),
   },
   requestProject: {
     input: z.object({
       resumeId: z.string().uuid(),
-      itemId: z.string().uuid(),
+      itemId: resumeItemIdSchema,
       itemLabel: z.string().min(1),
     }),
   },
   uploadDocument: {
     input: z.object({
       resumeId: z.string().uuid(),
-      itemId: z.string().uuid(),
+      itemId: resumeItemIdSchema,
       file: z.instanceof(File),
       documentType: z.enum(["payslip", "contract", "freelancer_link"]),
     }),
@@ -26,7 +32,7 @@ export const verificationDto = {
   requestExperience: {
     input: z.object({
       resumeId: z.string().uuid(),
-      itemId: z.string().uuid(),
+      itemId: resumeItemIdSchema,
       itemLabel: z.string().min(1),
       method: z.enum(["document_upload", "freelancer_link"]),
       documentId: z.string().uuid().optional(),
@@ -40,7 +46,7 @@ export const verificationDto = {
   },
   getHistory: {
     input: z.object({
-      itemId: z.string().uuid(),
+      itemId: resumeItemIdSchema,
     }),
   },
   toggleBadge: {

@@ -25,11 +25,12 @@ export function NavigationCommandGroup() {
   const reset = useCommandPaletteStore((state) => state.reset);
   const pushPage = useCommandPaletteStore((state) => state.pushPage);
 
-  const { isSuccess: isSkillVerdictAdmin } = useQuery({
-    ...orpc.admin.verification.listExperienceQueue.queryOptions(),
-    retry: false,
+  const { data: adminFlags } = useQuery({
+    ...orpc.verification.getMyAdminFlags.queryOptions(),
     staleTime: 5 * 60 * 1000,
   });
+
+  const isSkillVerdictAdmin = adminFlags?.skillVerdictAdmin ?? false;
 
   const onNavigate = async (path: string) => {
     await navigate({ to: path });
