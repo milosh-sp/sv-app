@@ -12,11 +12,15 @@ import {
   ReadCvLogoIcon,
   SealCheckIcon,
   ShieldCheckIcon,
+  ShieldStarIcon,
   UserCircleIcon,
   WarningIcon,
 } from "@phosphor-icons/react";
+import { useQuery } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 import { AnimatePresence, motion } from "motion/react";
+
+import { orpc } from "@/integrations/orpc/client";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { BrandIcon } from "@/components/ui/brand-icon";
@@ -106,6 +110,14 @@ const settingsSidebarItems = [
   },
 ] as const satisfies SidebarItem[];
 
+const adminSidebarItems = [
+  {
+    icon: <ShieldStarIcon />,
+    label: msg`Experience Queue`,
+    href: "/dashboard/admin",
+  },
+] as const satisfies SidebarItem[];
+
 type SidebarItemListProps = {
   items: readonly SidebarItem[];
 };
@@ -136,6 +148,12 @@ function SidebarItemList({ items }: SidebarItemListProps) {
 
 export function DashboardSidebar() {
   const { state } = useSidebarState();
+
+  const { isSuccess: isSkillVerdictAdmin } = useQuery({
+    ...orpc.admin.verification.listExperienceQueue.queryOptions(),
+    retry: false,
+    staleTime: 5 * 60 * 1000,
+  });
 
   return (
     <Sidebar variant="floating" collapsible="icon">
@@ -175,6 +193,17 @@ export function DashboardSidebar() {
             <SidebarItemList items={settingsSidebarItems} />
           </SidebarGroupContent>
         </SidebarGroup>
+
+        {isSkillVerdictAdmin && (
+          <SidebarGroup>
+            <SidebarGroupLabel>
+              <Trans>Administration</Trans>
+            </SidebarGroupLabel>
+            <SidebarGroupContent>
+              <SidebarItemList items={adminSidebarItems} />
+            </SidebarGroupContent>
+          </SidebarGroup>
+        )}
       </SidebarContent>
 
       <SidebarSeparator />

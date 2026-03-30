@@ -32,10 +32,12 @@ import { Route as DotwellKnownOpenidConfigurationRouteImport } from "./routes/[.
 import { Route as DotwellKnownOauthProtectedResourceRouteImport } from "./routes/[.]well-known/oauth-protected-resource";
 import { Route as DotwellKnownOauthAuthorizationServerRouteImport } from "./routes/[.]well-known/oauth-authorization-server";
 import { Route as UsernameSlugRouteImport } from "./routes/$username/$slug";
+import { Route as DashboardAdminRouteRouteImport } from "./routes/dashboard/admin/route";
 import { Route as BuilderResumeIdRouteRouteImport } from "./routes/builder/$resumeId/route";
 import { Route as DashboardVerificationIndexRouteImport } from "./routes/dashboard/verification/index";
 import { Route as DashboardResumesIndexRouteImport } from "./routes/dashboard/resumes/index";
 import { Route as DashboardJobSearchIndexRouteImport } from "./routes/dashboard/job-search/index";
+import { Route as DashboardAdminIndexRouteImport } from "./routes/dashboard/admin/index";
 import { Route as BuilderResumeIdIndexRouteImport } from "./routes/builder/$resumeId/index";
 import { Route as UploadsUserIdSplatRouteImport } from "./routes/uploads/$userId.$";
 import { Route as DashboardSettingsProfileRouteImport } from "./routes/dashboard/settings/profile";
@@ -169,6 +171,11 @@ const UsernameSlugRoute = UsernameSlugRouteImport.update({
   path: "/$username/$slug",
   getParentRoute: () => rootRouteImport,
 } as any);
+const DashboardAdminRouteRoute = DashboardAdminRouteRouteImport.update({
+  id: "/admin",
+  path: "/admin",
+  getParentRoute: () => DashboardRouteRoute,
+} as any);
 const BuilderResumeIdRouteRoute = BuilderResumeIdRouteRouteImport.update({
   id: "/builder/$resumeId",
   path: "/builder/$resumeId",
@@ -189,6 +196,11 @@ const DashboardJobSearchIndexRoute = DashboardJobSearchIndexRouteImport.update({
   id: "/job-search/",
   path: "/job-search/",
   getParentRoute: () => DashboardRouteRoute,
+} as any);
+const DashboardAdminIndexRoute = DashboardAdminIndexRouteImport.update({
+  id: "/",
+  path: "/",
+  getParentRoute: () => DashboardAdminRouteRoute,
 } as any);
 const BuilderResumeIdIndexRoute = BuilderResumeIdIndexRouteImport.update({
   id: "/",
@@ -281,6 +293,7 @@ export interface FileRoutesByFullPath {
   "/dashboard": typeof DashboardRouteRouteWithChildren;
   "/schema.json": typeof SchemaDotjsonRoute;
   "/builder/$resumeId": typeof BuilderResumeIdRouteRouteWithChildren;
+  "/dashboard/admin": typeof DashboardAdminRouteRouteWithChildren;
   "/$username/$slug": typeof UsernameSlugRoute;
   "/.well-known/oauth-authorization-server": typeof DotwellKnownOauthAuthorizationServerRouteWithChildren;
   "/.well-known/oauth-protected-resource": typeof DotwellKnownOauthProtectedResourceRouteWithChildren;
@@ -313,6 +326,7 @@ export interface FileRoutesByFullPath {
   "/dashboard/settings/profile": typeof DashboardSettingsProfileRoute;
   "/uploads/$userId/$": typeof UploadsUserIdSplatRoute;
   "/builder/$resumeId/": typeof BuilderResumeIdIndexRoute;
+  "/dashboard/admin/": typeof DashboardAdminIndexRoute;
   "/dashboard/job-search/": typeof DashboardJobSearchIndexRoute;
   "/dashboard/resumes/": typeof DashboardResumesIndexRoute;
   "/dashboard/verification/": typeof DashboardVerificationIndexRoute;
@@ -353,6 +367,7 @@ export interface FileRoutesByTo {
   "/dashboard/settings/profile": typeof DashboardSettingsProfileRoute;
   "/uploads/$userId/$": typeof UploadsUserIdSplatRoute;
   "/builder/$resumeId": typeof BuilderResumeIdIndexRoute;
+  "/dashboard/admin": typeof DashboardAdminIndexRoute;
   "/dashboard/job-search": typeof DashboardJobSearchIndexRoute;
   "/dashboard/resumes": typeof DashboardResumesIndexRoute;
   "/dashboard/verification": typeof DashboardVerificationIndexRoute;
@@ -365,6 +380,7 @@ export interface FileRoutesById {
   "/dashboard": typeof DashboardRouteRouteWithChildren;
   "/schema.json": typeof SchemaDotjsonRoute;
   "/builder/$resumeId": typeof BuilderResumeIdRouteRouteWithChildren;
+  "/dashboard/admin": typeof DashboardAdminRouteRouteWithChildren;
   "/$username/$slug": typeof UsernameSlugRoute;
   "/.well-known/oauth-authorization-server": typeof DotwellKnownOauthAuthorizationServerRouteWithChildren;
   "/.well-known/oauth-protected-resource": typeof DotwellKnownOauthProtectedResourceRouteWithChildren;
@@ -398,6 +414,7 @@ export interface FileRoutesById {
   "/dashboard/settings/profile": typeof DashboardSettingsProfileRoute;
   "/uploads/$userId/$": typeof UploadsUserIdSplatRoute;
   "/builder/$resumeId/": typeof BuilderResumeIdIndexRoute;
+  "/dashboard/admin/": typeof DashboardAdminIndexRoute;
   "/dashboard/job-search/": typeof DashboardJobSearchIndexRoute;
   "/dashboard/resumes/": typeof DashboardResumesIndexRoute;
   "/dashboard/verification/": typeof DashboardVerificationIndexRoute;
@@ -411,6 +428,7 @@ export interface FileRouteTypes {
     | "/dashboard"
     | "/schema.json"
     | "/builder/$resumeId"
+    | "/dashboard/admin"
     | "/$username/$slug"
     | "/.well-known/oauth-authorization-server"
     | "/.well-known/oauth-protected-resource"
@@ -443,6 +461,7 @@ export interface FileRouteTypes {
     | "/dashboard/settings/profile"
     | "/uploads/$userId/$"
     | "/builder/$resumeId/"
+    | "/dashboard/admin/"
     | "/dashboard/job-search/"
     | "/dashboard/resumes/"
     | "/dashboard/verification/"
@@ -483,6 +502,7 @@ export interface FileRouteTypes {
     | "/dashboard/settings/profile"
     | "/uploads/$userId/$"
     | "/builder/$resumeId"
+    | "/dashboard/admin"
     | "/dashboard/job-search"
     | "/dashboard/resumes"
     | "/dashboard/verification"
@@ -494,6 +514,7 @@ export interface FileRouteTypes {
     | "/dashboard"
     | "/schema.json"
     | "/builder/$resumeId"
+    | "/dashboard/admin"
     | "/$username/$slug"
     | "/.well-known/oauth-authorization-server"
     | "/.well-known/oauth-protected-resource"
@@ -527,6 +548,7 @@ export interface FileRouteTypes {
     | "/dashboard/settings/profile"
     | "/uploads/$userId/$"
     | "/builder/$resumeId/"
+    | "/dashboard/admin/"
     | "/dashboard/job-search/"
     | "/dashboard/resumes/"
     | "/dashboard/verification/"
@@ -716,6 +738,13 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof UsernameSlugRouteImport;
       parentRoute: typeof rootRouteImport;
     };
+    "/dashboard/admin": {
+      id: "/dashboard/admin";
+      path: "/admin";
+      fullPath: "/dashboard/admin";
+      preLoaderRoute: typeof DashboardAdminRouteRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
     "/builder/$resumeId": {
       id: "/builder/$resumeId";
       path: "/builder/$resumeId";
@@ -743,6 +772,13 @@ declare module "@tanstack/react-router" {
       fullPath: "/dashboard/job-search/";
       preLoaderRoute: typeof DashboardJobSearchIndexRouteImport;
       parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/admin/": {
+      id: "/dashboard/admin/";
+      path: "/";
+      fullPath: "/dashboard/admin/";
+      preLoaderRoute: typeof DashboardAdminIndexRouteImport;
+      parentRoute: typeof DashboardAdminRouteRoute;
     };
     "/builder/$resumeId/": {
       id: "/builder/$resumeId/";
@@ -892,7 +928,19 @@ const AuthRouteRouteWithChildren = AuthRouteRoute._addFileChildren(
   AuthRouteRouteChildren,
 );
 
+interface DashboardAdminRouteRouteChildren {
+  DashboardAdminIndexRoute: typeof DashboardAdminIndexRoute;
+}
+
+const DashboardAdminRouteRouteChildren: DashboardAdminRouteRouteChildren = {
+  DashboardAdminIndexRoute: DashboardAdminIndexRoute,
+};
+
+const DashboardAdminRouteRouteWithChildren =
+  DashboardAdminRouteRoute._addFileChildren(DashboardAdminRouteRouteChildren);
+
 interface DashboardRouteRouteChildren {
+  DashboardAdminRouteRoute: typeof DashboardAdminRouteRouteWithChildren;
   DashboardIndexRoute: typeof DashboardIndexRoute;
   DashboardSettingsAiRoute: typeof DashboardSettingsAiRoute;
   DashboardSettingsApiKeysRoute: typeof DashboardSettingsApiKeysRoute;
@@ -908,6 +956,7 @@ interface DashboardRouteRouteChildren {
 }
 
 const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
+  DashboardAdminRouteRoute: DashboardAdminRouteRouteWithChildren,
   DashboardIndexRoute: DashboardIndexRoute,
   DashboardSettingsAiRoute: DashboardSettingsAiRoute,
   DashboardSettingsApiKeysRoute: DashboardSettingsApiKeysRoute,
