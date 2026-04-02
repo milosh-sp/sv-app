@@ -48,6 +48,10 @@ type ResumeItem = {
   label: string;
 };
 
+
+//TODO: This hides skills and projects for now
+const showSectionFeature = false
+
 function RouteComponent() {
   const queryClient = useQueryClient();
   const [selectedResumeId, setSelectedResumeId] = useState<string | null>(null);
@@ -152,6 +156,7 @@ function RouteComponent() {
 
         {activeResumeId && resumeData && (
           <>
+          {showSectionFeature && (
             <VerificationSection
               title={t`Skills`}
               sectionType="skill"
@@ -162,7 +167,9 @@ function RouteComponent() {
               totalCount={skills.length}
               onMutationSuccess={invalidateStatuses}
             />
+            )}
 
+            {showSectionFeature && (
             <VerificationSection
               title={t`Projects`}
               sectionType="project"
@@ -173,6 +180,7 @@ function RouteComponent() {
               totalCount={projects.length}
               onMutationSuccess={invalidateStatuses}
             />
+            )}
 
             <ExperienceVerificationSection
               title={t`Work Experience`}
