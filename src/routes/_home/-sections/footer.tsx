@@ -8,7 +8,6 @@ import { useState } from "react";
 
 import { BrandIcon } from "@/components/ui/brand-icon";
 import { Button } from "@/components/ui/button";
-import { Copyright } from "@/components/ui/copyright";
 
 type FooterLinkItem = {
   url: string;
@@ -100,11 +99,6 @@ export function Footer() {
 
         {/* Community Column */}
         <FooterLinkGroup title={t`Community`} links={getCommunityLinks()} />
-
-        {/* Copyright Column */}
-        <div className="space-y-4 sm:col-span-2 lg:col-span-1">
-          <Copyright />
-        </div>
       </div>
     </motion.footer>
   );
