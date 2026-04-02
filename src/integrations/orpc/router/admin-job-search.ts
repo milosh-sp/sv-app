@@ -2,12 +2,12 @@ import { ORPCError } from "@orpc/client";
 import z from "zod";
 
 import { skillVerdictAdminProcedure } from "../context";
-import { jobsService } from "../services/jobs";
 import {
   getGlobalJobSearchSettingsRow,
   getPublicGlobalJobSearchSettings,
   upsertGlobalJobSearchSettings,
 } from "../services/global-job-search-settings";
+import { jobsService } from "../services/jobs";
 
 export const adminJobSearchRouter = {
   getSettings: skillVerdictAdminProcedure.handler(async () => {

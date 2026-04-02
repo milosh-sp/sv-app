@@ -95,12 +95,15 @@ const settingsSidebarItems = [
   },
 ] as const satisfies SidebarItem[];
 
-const adminSidebarItems = [
+const skillVerdictVerificationSidebarItems = [
   {
     icon: <ShieldStarIcon />,
     label: msg`Experience Queue`,
     href: "/dashboard/admin",
   },
+] as const satisfies SidebarItem[];
+
+const adminSidebarItems = [
   {
     icon: <BrainIcon />,
     label: msg`Global AI`,
@@ -177,14 +180,16 @@ export function DashboardSidebar() {
       <SidebarSeparator />
 
       <SidebarContent>
-        <SidebarGroup>
-          <SidebarGroupLabel>
-            <Trans>App</Trans>
-          </SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarItemList items={appSidebarItems} />
-          </SidebarGroupContent>
-        </SidebarGroup>
+        {!isSkillVerdictAdmin && (
+          <SidebarGroup>
+            <SidebarGroupLabel>
+              <Trans>App</Trans>
+            </SidebarGroupLabel>
+            <SidebarGroupContent>
+              <SidebarItemList items={appSidebarItems} />
+            </SidebarGroupContent>
+          </SidebarGroup>
+        )}
 
         <SidebarGroup>
           <SidebarGroupLabel>
@@ -194,6 +199,17 @@ export function DashboardSidebar() {
             <SidebarItemList items={settingsSidebarItems} />
           </SidebarGroupContent>
         </SidebarGroup>
+
+        {isSkillVerdictAdmin && (
+          <SidebarGroup>
+            <SidebarGroupLabel>
+              <Trans>Skill Verdict Verification</Trans>
+            </SidebarGroupLabel>
+            <SidebarGroupContent>
+              <SidebarItemList items={skillVerdictVerificationSidebarItems} />
+            </SidebarGroupContent>
+          </SidebarGroup>
+        )}
 
         {isSkillVerdictAdmin && (
           <SidebarGroup>

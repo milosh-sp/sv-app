@@ -4,8 +4,8 @@ import z from "zod";
 import { postFilterOptionsSchema, searchParamsSchema } from "@/schema/jobs";
 
 import { protectedProcedure } from "../context";
-import { jobsService } from "../services/jobs";
 import { getGlobalJobSearchApiKeyForService } from "../services/global-job-search-settings";
+import { jobsService } from "../services/jobs";
 
 async function requireGlobalJobSearchApiKey() {
   const apiKey = await getGlobalJobSearchApiKeyForService();
