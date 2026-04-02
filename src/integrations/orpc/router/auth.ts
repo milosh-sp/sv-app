@@ -1,3 +1,8 @@
+import { eq } from "drizzle-orm";
+
+import { db } from "@/integrations/drizzle/client";
+import { adminRoles } from "@/integrations/drizzle/schema";
+
 import { protectedProcedure, publicProcedure } from "../context";
 import { authService, type ProviderList } from "../services/auth";
 
@@ -18,6 +23,25 @@ export const authRouter = {
         return authService.providers.list();
       }),
   },
+
+  getAdminRole: protectedProcedure
+    .route({
+      method: "GET",
+      path: "/auth/admin-role",
+      tags: ["Authentication"],
+      operationId: "getAdminRole",
+      summary: "Get current user's admin role",
+      description: "Returns the admin role of the authenticated user, or null if the user has no admin role assigned.",
+      successDescription: "The admin role of the current user, or null.",
+    })
+    .handler(async ({ context }) => {
+      const [row] = await db
+        .select({ role: adminRoles.role })
+        .from(adminRoles)
+        .where(eq(adminRoles.userId, context.user.id))
+        .limit(1);
+      return { role: row?.role ?? null };
+    }),
 
   deleteAccount: protectedProcedure
     .route({

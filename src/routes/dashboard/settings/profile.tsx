@@ -49,6 +49,7 @@ type FormValues = z.infer<typeof formSchema>;
 function RouteComponent() {
   const router = useRouter();
   const { session } = Route.useRouteContext();
+  const { data } = useSuspenseQuery(orpc.auth.getAdminRole.queryOptions());
 
   const defaultValues = useMemo(() => {
     return {
@@ -246,9 +247,14 @@ function RouteComponent() {
           </AnimatePresence>
         </motion.form>
       </Form>
-      <Separator />
+      
 
+      {data.role !== "skill_verdict_admin" && 
+      <>
+      <Separator />
       <IdentityVerificationBlock />
+      </>
+      }
     </div>
   );
 }
