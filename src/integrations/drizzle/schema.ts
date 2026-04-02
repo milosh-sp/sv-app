@@ -477,6 +477,19 @@ export const globalAiSettings = pg.pgTable("global_ai_settings", {
   updatedByUserId: pg.uuid("updated_by_user_id").references(() => user.id, { onDelete: "set null" }),
 });
 
+/** Singleton row (`id` = `default`) — RapidAPI JSearch key managed by Skill Verdict admins. */
+export const globalJobSearchSettings = pg.pgTable("global_job_search_settings", {
+  id: pg.text("id").primaryKey().default("default"),
+  apiKey: pg.text("api_key").notNull(),
+  connectionTestOk: pg.boolean("connection_test_ok").notNull().default(false),
+  updatedAt: pg
+    .timestamp("updated_at", { withTimezone: true })
+    .notNull()
+    .defaultNow()
+    .$onUpdate(() => /* @__PURE__ */ new Date()),
+  updatedByUserId: pg.uuid("updated_by_user_id").references(() => user.id, { onDelete: "set null" }),
+});
+
 export const reviewerProfiles = pg.pgTable(
   "reviewer_profiles",
   {

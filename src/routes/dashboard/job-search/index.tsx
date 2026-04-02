@@ -13,7 +13,7 @@ import {
   WarningCircleIcon,
   XIcon,
 } from "@phosphor-icons/react";
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "motion/react";
 import { useMemo } from "react";
 
@@ -148,14 +148,11 @@ function RouteComponent() {
         >
           <MagnifyingGlassIcon className="size-12 text-muted-foreground" weight="light" />
           <h2 className="text-lg font-medium">
-            <Trans>Configure Job Search</Trans>
+            <Trans>Job Search Not Available</Trans>
           </h2>
           <p className="text-muted-foreground">
-            <Trans>To search for job listings, you need to configure your RapidAPI key in settings.</Trans>
+            <Trans>Job search has not been configured yet. Contact an administrator to set it up.</Trans>
           </p>
-          <Button nativeButton={false} variant="outline" render={<Link to="/dashboard/settings/job-search" />}>
-            <Trans>Go to Settings</Trans>
-          </Button>
         </motion.div>
       ) : (
         <div className="space-y-4">

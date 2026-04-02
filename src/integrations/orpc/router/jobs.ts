@@ -5,34 +5,33 @@ import { postFilterOptionsSchema, searchParamsSchema } from "@/schema/jobs";
 
 import { protectedProcedure } from "../context";
 import { jobsService } from "../services/jobs";
+import { getGlobalJobSearchApiKeyForService } from "../services/global-job-search-settings";
+
+async function requireGlobalJobSearchApiKey() {
+  const apiKey = await getGlobalJobSearchApiKeyForService();
+  if (!apiKey) {
+    throw new ORPCError("SERVICE_UNAVAILABLE", {
+      message: "Job search is not configured. Contact an administrator.",
+    });
+  }
+  return apiKey;
+}
 
 export const jobsRouter = {
-  testConnection: protectedProcedure
+  getAvailability: protectedProcedure
     .route({
-      method: "POST",
-      path: "/jobs/test-connection",
+      method: "GET",
+      path: "/jobs/availability",
       tags: ["Jobs"],
-      operationId: "testJobsConnection",
-      summary: "Test RapidAPI JSearch connection",
+      operationId: "getJobsAvailability",
+      summary: "Whether global job search is configured and ready",
       description:
-        "Validates the RapidAPI key by performing a minimal test search against the JSearch API. Requires authentication.",
-      successDescription: "The RapidAPI key is valid and JSearch is reachable.",
+        "Returns whether a Skill Verdict admin has saved and verified a global RapidAPI key. Used to enable job search for signed-in users.",
     })
-    .input(z.object({ apiKey: z.string().min(1) }))
-    .errors({
-      BAD_GATEWAY: {
-        message: "The JSearch API returned an error or is unreachable.",
-        status: 502,
-      },
-    })
-    .handler(async ({ input }) => {
-      try {
-        return await jobsService.testConnection(input.apiKey);
-      } catch (error) {
-        throw new ORPCError("BAD_GATEWAY", {
-          message: error instanceof Error ? error.message : "Connection test failed",
-        });
-      }
+    .output(z.object({ configured: z.boolean() }))
+    .handler(async () => {
+      const apiKey = await getGlobalJobSearchApiKeyForService();
+      return { configured: apiKey !== null };
     }),
 
   search: protectedProcedure
@@ -48,7 +47,6 @@ export const jobsRouter = {
     })
     .input(
       z.object({
-        apiKey: z.string().min(1),
         params: searchParamsSchema,
         filters: postFilterOptionsSchema.optional(),
       }),
@@ -58,10 +56,15 @@ export const jobsRouter = {
         message: "The JSearch API returned an error or is unreachable.",
         status: 502,
       },
+      SERVICE_UNAVAILABLE: {
+        message: "Job search is not configured.",
+        status: 503,
+      },
     })
     .handler(async ({ input }) => {
+      const apiKey = await requireGlobalJobSearchApiKey();
       try {
-        const response = await jobsService.search(input.apiKey, input.params);
+        const response = await jobsService.search(apiKey, input.params);
 
         let jobs = jobsService.deduplicateJobs(response.data);
 

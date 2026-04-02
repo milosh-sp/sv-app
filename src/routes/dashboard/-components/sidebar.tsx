@@ -114,7 +114,7 @@ const adminSidebarItems = [
   {
     icon: <BriefcaseIcon />,
     label: msg`Job Search API`,
-    href: "/dashboard/settings/job-search",
+    href: "/dashboard/admin/job-search",
   },
 ] as const satisfies SidebarItem[];
 

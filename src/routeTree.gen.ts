@@ -47,6 +47,7 @@ import { Route as DashboardSettingsJobSearchRouteImport } from "./routes/dashboa
 import { Route as DashboardSettingsDangerZoneRouteImport } from "./routes/dashboard/settings/danger-zone";
 import { Route as DashboardSettingsApiKeysRouteImport } from "./routes/dashboard/settings/api-keys";
 import { Route as DashboardSettingsAiRouteImport } from "./routes/dashboard/settings/ai";
+import { Route as DashboardAdminJobSearchRouteImport } from "./routes/dashboard/admin/job-search";
 import { Route as DashboardAdminAiRouteImport } from "./routes/dashboard/admin/ai";
 import { Route as ApiRpcSplatRouteImport } from "./routes/api/rpc.$";
 import { Route as ApiOpenapiSplatRouteImport } from "./routes/api/openapi.$";
@@ -254,6 +255,11 @@ const DashboardSettingsAiRoute = DashboardSettingsAiRouteImport.update({
   path: "/settings/ai",
   getParentRoute: () => DashboardRouteRoute,
 } as any);
+const DashboardAdminJobSearchRoute = DashboardAdminJobSearchRouteImport.update({
+  id: "/job-search",
+  path: "/job-search",
+  getParentRoute: () => DashboardAdminRouteRoute,
+} as any);
 const DashboardAdminAiRoute = DashboardAdminAiRouteImport.update({
   id: "/ai",
   path: "/ai",
@@ -324,6 +330,7 @@ export interface FileRoutesByFullPath {
   "/api/openapi/$": typeof ApiOpenapiSplatRoute;
   "/api/rpc/$": typeof ApiRpcSplatRoute;
   "/dashboard/admin/ai": typeof DashboardAdminAiRoute;
+  "/dashboard/admin/job-search": typeof DashboardAdminJobSearchRoute;
   "/dashboard/settings/ai": typeof DashboardSettingsAiRoute;
   "/dashboard/settings/api-keys": typeof DashboardSettingsApiKeysRoute;
   "/dashboard/settings/danger-zone": typeof DashboardSettingsDangerZoneRoute;
@@ -366,6 +373,7 @@ export interface FileRoutesByTo {
   "/api/openapi/$": typeof ApiOpenapiSplatRoute;
   "/api/rpc/$": typeof ApiRpcSplatRoute;
   "/dashboard/admin/ai": typeof DashboardAdminAiRoute;
+  "/dashboard/admin/job-search": typeof DashboardAdminJobSearchRoute;
   "/dashboard/settings/ai": typeof DashboardSettingsAiRoute;
   "/dashboard/settings/api-keys": typeof DashboardSettingsApiKeysRoute;
   "/dashboard/settings/danger-zone": typeof DashboardSettingsDangerZoneRoute;
@@ -414,6 +422,7 @@ export interface FileRoutesById {
   "/api/openapi/$": typeof ApiOpenapiSplatRoute;
   "/api/rpc/$": typeof ApiRpcSplatRoute;
   "/dashboard/admin/ai": typeof DashboardAdminAiRoute;
+  "/dashboard/admin/job-search": typeof DashboardAdminJobSearchRoute;
   "/dashboard/settings/ai": typeof DashboardSettingsAiRoute;
   "/dashboard/settings/api-keys": typeof DashboardSettingsApiKeysRoute;
   "/dashboard/settings/danger-zone": typeof DashboardSettingsDangerZoneRoute;
@@ -462,6 +471,7 @@ export interface FileRouteTypes {
     | "/api/openapi/$"
     | "/api/rpc/$"
     | "/dashboard/admin/ai"
+    | "/dashboard/admin/job-search"
     | "/dashboard/settings/ai"
     | "/dashboard/settings/api-keys"
     | "/dashboard/settings/danger-zone"
@@ -504,6 +514,7 @@ export interface FileRouteTypes {
     | "/api/openapi/$"
     | "/api/rpc/$"
     | "/dashboard/admin/ai"
+    | "/dashboard/admin/job-search"
     | "/dashboard/settings/ai"
     | "/dashboard/settings/api-keys"
     | "/dashboard/settings/danger-zone"
@@ -551,6 +562,7 @@ export interface FileRouteTypes {
     | "/api/openapi/$"
     | "/api/rpc/$"
     | "/dashboard/admin/ai"
+    | "/dashboard/admin/job-search"
     | "/dashboard/settings/ai"
     | "/dashboard/settings/api-keys"
     | "/dashboard/settings/danger-zone"
@@ -855,6 +867,13 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof DashboardSettingsAiRouteImport;
       parentRoute: typeof DashboardRouteRoute;
     };
+    "/dashboard/admin/job-search": {
+      id: "/dashboard/admin/job-search";
+      path: "/job-search";
+      fullPath: "/dashboard/admin/job-search";
+      preLoaderRoute: typeof DashboardAdminJobSearchRouteImport;
+      parentRoute: typeof DashboardAdminRouteRoute;
+    };
     "/dashboard/admin/ai": {
       id: "/dashboard/admin/ai";
       path: "/ai";
@@ -949,11 +968,13 @@ const AuthRouteRouteWithChildren = AuthRouteRoute._addFileChildren(
 
 interface DashboardAdminRouteRouteChildren {
   DashboardAdminAiRoute: typeof DashboardAdminAiRoute;
+  DashboardAdminJobSearchRoute: typeof DashboardAdminJobSearchRoute;
   DashboardAdminIndexRoute: typeof DashboardAdminIndexRoute;
 }
 
 const DashboardAdminRouteRouteChildren: DashboardAdminRouteRouteChildren = {
   DashboardAdminAiRoute: DashboardAdminAiRoute,
+  DashboardAdminJobSearchRoute: DashboardAdminJobSearchRoute,
   DashboardAdminIndexRoute: DashboardAdminIndexRoute,
 };
 

@@ -1,11 +1,10 @@
 import { t } from "@lingui/core/macro";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useCallback, useRef, useState } from "react";
 import { toast } from "sonner";
 
 import type { JobResult, RapidApiQuota } from "@/schema/jobs";
 
-import { useJobsStore } from "@/integrations/jobs/store";
 import { orpc } from "@/integrations/orpc/client";
 
 import {
@@ -19,9 +18,10 @@ import {
 type ActiveFilterChip = { key: keyof FilterState; label: string; value?: string };
 
 export function useJobSearch() {
-  const rapidApiKey = useJobsStore((state) => state.rapidApiKey);
-  const testStatus = useJobsStore((state) => state.testStatus);
-  const setJobsStore = useJobsStore((state) => state.set);
+  const { data: availability } = useQuery({
+    ...orpc.jobs.getAvailability.queryOptions(),
+    staleTime: 5 * 60 * 1000,
+  });
 
   const [query, setQuery] = useState("");
   const [filters, setFilters] = useState<FilterState>(initialFilterState);
@@ -38,11 +38,11 @@ export function useJobSearch() {
   const requestIdRef = useRef(0);
   const { mutate: searchJobs, isPending } = useMutation(orpc.jobs.search.mutationOptions());
 
-  const isConfigured = Boolean(rapidApiKey && testStatus === "success");
+  const isConfigured = availability?.configured === true;
 
   const executeSearch = useCallback(
     (page: number) => {
-      if (!rapidApiKey) return;
+      if (!isConfigured) return;
 
       const requestId = ++requestIdRef.current;
       const effectiveQuery = query.trim() || "jobs";
@@ -51,7 +51,7 @@ export function useJobSearch() {
       setError(null);
 
       searchJobs(
-        { apiKey: rapidApiKey, params, filters: postFilters },
+        { params, filters: postFilters },
         {
           onSuccess: (data) => {
             if (requestId !== requestIdRef.current) return;
@@ -59,13 +59,6 @@ export function useJobSearch() {
             setHasMore(data.data.length >= RESULTS_PER_PAGE);
             setJobs(data.data.slice(0, RESULTS_PER_PAGE));
             setQuota(data.rapidApiQuota ?? null);
-
-            const rapidApiQuota = data.rapidApiQuota;
-            if (rapidApiQuota) {
-              setJobsStore((draft) => {
-                draft.rapidApiQuota = rapidApiQuota;
-              });
-            }
 
             scrollRef.current?.scrollIntoView({ behavior: "smooth" });
           },
@@ -77,7 +70,7 @@ export function useJobSearch() {
         },
       );
     },
-    [filters, query, rapidApiKey, searchJobs, setJobsStore],
+    [filters, query, isConfigured, searchJobs],
   );
 
   const handleSearch = (event: React.FormEvent) => {
