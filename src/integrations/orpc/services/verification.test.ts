@@ -641,3 +641,59 @@ describe("verificationService.downloadDocument", () => {
     await expect(verificationService.downloadDocument("doc-1")).rejects.toThrow("not found in storage");
   });
 });
+
+// --- Admin queue list methods ---
+
+describe("verificationService.listQueue", () => {
+  it("returns empty array when no pending skill/project requests exist", async () => {
+    mockFrom.mockReturnValueOnce({ where: vi.fn().mockReturnValue([]) });
+    const result = await verificationService.listQueue();
+    expect(result).toEqual([]);
+  });
+
+  it("returns pending skill and project requests", async () => {
+    const rows = [
+      { id: "req-1", sectionType: "skill", itemId: "item-1", itemLabel: "TypeScript", status: "pending", submittedAt: new Date() },
+      { id: "req-2", sectionType: "project", itemId: "item-2", itemLabel: "App", status: "pending", submittedAt: new Date() },
+    ];
+    mockFrom.mockReturnValueOnce({ where: vi.fn().mockReturnValue(rows) });
+    const result = await verificationService.listQueue();
+    expect(result).toHaveLength(2);
+    expect(result[0].id).toBe("req-1");
+    expect(result[1].sectionType).toBe("project");
+  });
+});
+
+describe("verificationService.listMyCases", () => {
+  it("returns empty array when admin has no claimed cases", async () => {
+    mockFrom.mockReturnValueOnce({ where: vi.fn().mockReturnValue([]) });
+    const result = await verificationService.listMyCases("admin-1");
+    expect(result).toEqual([]);
+  });
+
+  it("returns cases claimed by the given admin", async () => {
+    const row = { id: "req-1", sectionType: "skill", itemId: "item-1", itemLabel: "React", status: "claimed", claimedAt: new Date(), submittedAt: new Date() };
+    mockFrom.mockReturnValueOnce({ where: vi.fn().mockReturnValue([row]) });
+    const result = await verificationService.listMyCases("admin-1");
+    expect(result).toHaveLength(1);
+    expect(result[0].status).toBe("claimed");
+  });
+});
+
+describe("verificationService.listPendingVerdicts", () => {
+  it("returns empty array when no verdict_pending requests exist", async () => {
+    mockFrom.mockReturnValueOnce({ where: vi.fn().mockReturnValue([]) });
+    const result = await verificationService.listPendingVerdicts();
+    expect(result).toEqual([]);
+  });
+
+  it("returns verdict_pending requests", async () => {
+    const rows = [
+      { id: "req-1", sectionType: "skill", itemId: "item-1", itemLabel: "Go", status: "verdict_pending", submittedAt: new Date() },
+    ];
+    mockFrom.mockReturnValueOnce({ where: vi.fn().mockReturnValue(rows) });
+    const result = await verificationService.listPendingVerdicts();
+    expect(result).toHaveLength(1);
+    expect(result[0].status).toBe("verdict_pending");
+  });
+});
