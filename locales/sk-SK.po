@@ -72,10 +72,6 @@ msgstr "{column, plural, one {# stĺpec} few {# stĺpce} many {# stĺpcov} other
 msgid "{diffDays} days ago"
 msgstr "{diffDays} pred niekoľkými dňami"
 
-#: src/routes/dashboard/settings/job-search.tsx
-msgid "{used} of {limit} requests used ({remaining} remaining)"
-msgstr "{used} použitých požiadaviek {limit} ({remaining} zostáva)"
-
 #: src/routes/_home/-sections/hero.tsx
 msgid "<0>Finally,</0><1>A free and open-source resume builder</1>"
 msgstr "<0>Napokon</0><1>Bezplatný a open‑source nástroj na tvorbu životopisov</1>"
@@ -130,9 +126,9 @@ msgstr "Za roky mi množstvo ľudí napísalo a podelili sa so svojimi skúsenos
 msgid "A new verification link has been sent to your email address. Please check your inbox to verify your account."
 msgstr "Nový overovací odkaz bol odoslaný na tvoju e‑mailovú adresu. Skontroluj, prosím, doručenú poštu a over svoj účet."
 
-#: src/components/ui/copyright.tsx
-msgid "A passion project by <0>Amruth Pillai</0>."
-msgstr "Nadšenecký projekt od <0>Amruth Pillai</0>."
+#: src/routes/dashboard/admin/index.tsx
+msgid "A reason is required to override."
+msgstr ""
 
 #: src/dialogs/resume/index.tsx
 #: src/dialogs/resume/index.tsx
@@ -150,6 +146,14 @@ msgstr "Určite! Svoj životopis môžeš jedným kliknutím exportovať do PDF.
 #: src/routes/_home/-sections/features.tsx
 msgid "Access your resumes and data programmatically using the API."
 msgstr "Pristupuj k svojim životopisom a dátam programovo pomocou API."
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Account created"
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Account updated"
+msgstr ""
 
 #: src/routes/builder/$resumeId/-sidebar/left/sections/custom-fields.tsx
 msgid "Add a custom field"
@@ -249,6 +253,14 @@ msgstr "Pridať riadok pred"
 msgid "Added {0} new skills to your original resume"
 msgstr "Doplnenie pôvodného životopisu o nové zručnosti na {0}"
 
+#: src/components/command-palette/pages/navigation.tsx
+msgid "Admin AI"
+msgstr ""
+
+#: src/routes/dashboard/-components/sidebar.tsx
+msgid "Administration"
+msgstr ""
+
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Advanced Filters"
 msgstr "Rozšírené filtre"
@@ -256,15 +268,6 @@ msgstr "Rozšírené filtre"
 #: src/utils/locale.ts
 msgid "Afrikaans"
 msgstr "Afrikánčina"
-
-#: src/dialogs/resume/import.tsx
-#: src/dialogs/resume/import.tsx
-msgid "AI"
-msgstr "AI"
-
-#: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
-msgid "AI returned some invalid references"
-msgstr "AI vrátila niektoré neplatné odkazy"
 
 #: src/utils/locale.ts
 msgid "Albanian"
@@ -324,7 +327,7 @@ msgstr "Každý s týmto odkazom si môže životopis zobraziť a stiahnuť."
 msgid "API Access"
 msgstr "Prístup cez API"
 
-#: src/routes/dashboard/settings/ai.tsx
+#: src/routes/dashboard/admin/ai.tsx
 msgid "API Key"
 msgstr "API kľúč"
 
@@ -339,13 +342,13 @@ msgstr "API kľúče"
 msgid "API Reference"
 msgstr "API dokumentácia"
 
-#: src/routes/dashboard/settings/job-search.tsx
-msgid "API Usage"
-msgstr "Používanie API"
-
 #: src/routes/dashboard/-components/sidebar.tsx
 msgid "App"
 msgstr "Aplikácia"
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Applicant"
+msgstr ""
 
 #: src/routes/_home/-sections/statistics.tsx
 msgid "Application Statistics"
@@ -399,13 +402,6 @@ msgstr "Naozaj chceš odstrániť ochranu heslom?"
 msgid "Area of Study"
 msgstr "Študijný odbor"
 
-#: src/components/command-palette/pages/navigation.tsx
-#: src/components/command-palette/pages/navigation.tsx
-#: src/routes/dashboard/-components/sidebar.tsx
-#: src/routes/dashboard/settings/ai.tsx
-msgid "Artificial Intelligence"
-msgstr "Umelá inteligencia"
-
 #: src/routes/builder/$resumeId/-sidebar/left/sections/picture.tsx
 msgid "Aspect Ratio"
 msgstr "Pomer strán"
@@ -435,6 +431,11 @@ msgstr "Ocenenia"
 msgid "Azerbaijani"
 msgstr "Azerbajdžančina"
 
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+#: src/routes/dashboard/admin/index.tsx
+msgid "Back"
+msgstr ""
+
 #: src/routes/auth/verify-2fa.tsx
 msgid "Back to Login"
 msgstr "Späť na prihlásenie"
@@ -447,7 +448,7 @@ msgstr "Farba pozadia"
 msgid "Backup codes copied to clipboard."
 msgstr "Záložné kódy boli skopírované do schránky."
 
-#: src/routes/dashboard/settings/ai.tsx
+#: src/routes/dashboard/admin/ai.tsx
 msgid "Base URL (Optional)"
 msgstr "Základná URL (voliteľné)"
 
@@ -496,11 +497,14 @@ msgstr "Bulharčina"
 msgid "Bullet List"
 msgstr "Odrážkový zoznam"
 
-#: src/components/ui/copyright.tsx
 #: src/routes/_home/-sections/features.tsx
 #: src/routes/_home/-sections/prefooter.tsx
 msgid "By the community, for the community."
 msgstr "Komunitou vytvorené pre komunitu."
+
+#: src/routes/dashboard/admin/identity.tsx
+msgid "Call link sent"
+msgstr ""
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "Can I customize the templates?"
@@ -543,12 +547,26 @@ msgstr "Môžem svoj životopis exportovať do PDF?"
 #: src/dialogs/resume/sections/volunteer.tsx
 #: src/hooks/use-prompt.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 #: src/routes/dashboard/settings/api-keys.tsx
 #: src/routes/dashboard/settings/danger-zone.tsx
 #: src/routes/dashboard/settings/profile.tsx
+#: src/routes/dashboard/verification/index.tsx
+#: src/routes/dashboard/verification/index.tsx
+#: src/routes/dashboard/verification/index.tsx
+#: src/routes/dashboard/verification/index.tsx
+#: src/routes/dashboard/verification/index.tsx
 msgid "Cancel"
 msgstr "Zrušiť"
+
+#: src/routes/dashboard/admin/index.tsx
+msgid "Cancel Override"
+msgstr ""
+
+#: src/routes/dashboard/settings/profile.tsx
+msgid "Cancel Verification"
+msgstr ""
 
 #: src/utils/locale.ts
 msgid "Catalan"
@@ -603,6 +621,14 @@ msgstr "Čínština (zjednodušená)"
 msgid "Chinese (Traditional)"
 msgstr "Čínština (tradičná)"
 
+#: src/routes/dashboard/verification/index.tsx
+msgid "Choose a verification method:"
+msgstr ""
+
+#: src/routes/dashboard/verification/index.tsx
+msgid "Choose File"
+msgstr ""
+
 #: src/components/level/combobox.tsx
 msgid "Circle"
 msgstr "Kruh"
@@ -624,6 +650,11 @@ msgstr "Zavrieť"
 msgid "Code Block"
 msgstr "Blok kódu"
 
+#: src/routes/dashboard/admin/identity.tsx
+#: src/routes/dashboard/admin/index.tsx
+msgid "Collapse"
+msgstr ""
+
 #: src/routes/builder/$resumeId/-sidebar/left/sections/custom.tsx
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-menu.tsx
 msgid "Columns"
@@ -641,16 +672,24 @@ msgstr "Spoločnosť"
 msgid "Completely free, forever, no hidden costs."
 msgstr "Úplne zadarmo, navždy, bez skrytých poplatkov."
 
-#: src/routes/dashboard/job-search/index.tsx
-msgid "Configure Job Search"
-msgstr "Konfigurácia vyhľadávania pracovných miest"
-
 #: src/dialogs/api-key/create.tsx
 #: src/hooks/use-prompt.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+#: src/routes/dashboard/admin/index.tsx
+#: src/routes/dashboard/admin/index.tsx
 #: src/routes/dashboard/settings/danger-zone.tsx
+#: src/routes/dashboard/verification/index.tsx
 msgid "Confirm"
 msgstr "Potvrdiť"
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Confirm decision: "
+msgstr ""
+
+#: src/routes/dashboard/admin/index.tsx
+msgid "Confirming..."
+msgstr ""
 
 #: src/routes/dashboard/settings/authentication/-components/social-provider.tsx
 msgid "Connect"
@@ -665,6 +704,7 @@ msgstr "Obsah"
 #: src/dialogs/auth/enable-two-factor.tsx
 #: src/dialogs/auth/enable-two-factor.tsx
 #: src/routes/auth/register.tsx
+#: src/routes/dashboard/verification/index.tsx
 msgid "Continue"
 msgstr "Pokračovať"
 
@@ -684,6 +724,10 @@ msgstr "Zhotoviteľ"
 #: src/routes/_home/-sections/donate.tsx
 msgid "Contributions fund bug fixes, security updates, and continuous improvements to keep the app running smoothly."
 msgstr "Príspevky financujú opravy chýb, bezpečnostné aktualizácie a neustále zlepšovanie, aby aplikácia bežala hladko."
+
+#: src/routes/dashboard/settings/privacy.tsx
+msgid "Control which verification badges are visible on your public CV."
+msgstr ""
 
 #: src/dialogs/auth/enable-two-factor.tsx
 msgid "Copy"
@@ -814,6 +858,10 @@ msgstr "Vytvoriť novú položku súhrnu"
 msgid "Create a new volunteer experience"
 msgstr "Vytvoriť novú dobrovoľnícku skúsenosť"
 
+#: src/routes/dashboard/verification/index.tsx
+msgid "Create a resume first to start verifying your skills, projects, and experience."
+msgstr ""
+
 #: src/dialogs/resume/index.tsx
 msgid "Create a Sample Resume"
 msgstr "Vytvoriť ukážkový životopis"
@@ -831,6 +879,10 @@ msgstr "Vytváram tvoj API kľúč..."
 msgid "Creating your resume..."
 msgstr "Vytváram tvoj životopis..."
 
+#: src/routes/dashboard/admin/ai.tsx
+msgid "Credentials are stored in the database and used for all users who enable AI in their account. Only Skill Verdict administrators can change this configuration."
+msgstr ""
+
 #: src/dialogs/auth/change-password.tsx
 msgid "Current Password"
 msgstr "Aktuálne heslo"
@@ -843,6 +895,10 @@ msgstr "Vlastné CSS"
 #: src/utils/resume/section.tsx
 msgid "Custom Sections"
 msgstr "Vlastné sekcie"
+
+#: src/routes/dashboard/admin/index.tsx
+msgid "CV / resume"
+msgstr ""
 
 #: src/utils/locale.ts
 msgid "Czech"
@@ -967,10 +1023,6 @@ msgstr "Vypnúť 2FA"
 msgid "Disable Two-Factor Authentication"
 msgstr "Vypnúť dvojfaktorové overenie"
 
-#: src/routes/dashboard/settings/ai.tsx
-msgid "Disabled"
-msgstr "Vypnuté"
-
 #: src/dialogs/auth/disable-two-factor.tsx
 msgid "Disabling two-factor authentication..."
 msgstr "Vypínam dvojfaktorové overenie..."
@@ -983,10 +1035,23 @@ msgstr "Odpojiť"
 msgid "Discord"
 msgstr "Discord"
 
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Display username"
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Document"
+msgstr ""
+
 #: src/routes/_home/-sections/footer.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/information.tsx
 msgid "Documentation"
 msgstr "Dokumentácia"
+
+#: src/routes/dashboard/admin/identity.tsx
+#: src/routes/dashboard/admin/index.tsx
+msgid "Documents"
+msgstr ""
 
 #: src/routes/auth/login.tsx
 msgid "Don't have an account? <0/>"
@@ -1080,6 +1145,7 @@ msgid "Education"
 msgstr "Vzdelanie"
 
 #: src/routes/builder/$resumeId/-sidebar/left/sections/basics.tsx
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Email"
 msgstr "E‑mail"
 
@@ -1090,6 +1156,10 @@ msgstr "E‑mail"
 msgid "Email Address"
 msgstr "E‑mailová adresa"
 
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Email verified"
+msgstr ""
+
 #: src/routes/builder/$resumeId/-sidebar/right/sections/css.tsx
 msgctxt "Turn On/Apply Custom CSS"
 msgid "Enable"
@@ -1099,17 +1169,9 @@ msgstr "Povoliť"
 msgid "Enable 2FA"
 msgstr "Povoliť 2FA"
 
-#: src/routes/dashboard/settings/ai.tsx
-msgid "Enable AI Features"
-msgstr "Povoliť AI funkcie"
-
 #: src/dialogs/auth/enable-two-factor.tsx
 msgid "Enable Two-Factor Authentication"
 msgstr "Povoliť dvojfaktorové overenie"
-
-#: src/routes/dashboard/settings/ai.tsx
-msgid "Enabled"
-msgstr "Povolené"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 msgid "Enabling password protection..."
@@ -1131,6 +1193,11 @@ msgstr "Angličtina (Spojené kráľovstvo)"
 msgid "Enhance the security of your account with additional layers of protection."
 msgstr "Zvýš bezpečnosť svojho účtu ďalšími vrstvami ochrany."
 
+#: src/routes/dashboard/admin/ai.tsx
+#: src/routes/dashboard/admin/job-search.tsx
+msgid "Enter an API key before testing."
+msgstr ""
+
 #: src/routes/auth/verify-2fa-backup.tsx
 msgid "Enter one of your saved backup codes to access your account"
 msgstr "Zadaj jeden zo svojich uložených záložných kódov na prístup k účtu"
@@ -1147,6 +1214,10 @@ msgstr "Zadaj overovací kód zo svojej autentifikačnej aplikácie"
 msgid "Enter your current password and a new password to update your account."
 msgstr "Zadaj svoje aktuálne heslo a nové heslo na aktualizáciu účtu."
 
+#: src/routes/dashboard/verification/index.tsx
+msgid "Enter your freelancer profile URL (e.g. Upwork, Fiverr, Toptal):"
+msgstr ""
+
 #: src/dialogs/auth/enable-two-factor.tsx
 msgid "Enter your password to confirm setting up two-factor authentication. When enabled, you'll need to enter a code from your authenticator app every time you log in."
 msgstr "Zadaj svoje heslo na potvrdenie nastavenia dvojfaktorového overenia. Po zapnutí budeš pri každom prihlásení zadávať kód z autentifikačnej aplikácie."
@@ -1155,17 +1226,9 @@ msgstr "Zadaj svoje heslo na potvrdenie nastavenia dvojfaktorového overenia. Po
 msgid "Enter your password to disable two-factor authentication. Your account will be less secure without 2FA enabled."
 msgstr "Zadaj svoje heslo na vypnutie dvojfaktorového overenia. Bez zapnutého 2FA bude tvoj účet menej zabezpečený."
 
-#: src/routes/dashboard/settings/job-search.tsx
-msgid "Enter your RapidAPI key"
-msgstr "Zadajte svoj kľúč RapidAPI"
-
 #: src/routes/_home/-sections/donate.tsx
 msgid "Every contribution, big or small, makes a huge difference to the project.<0/>Thank you for your support!"
 msgstr "Každý príspevok, veľký či malý, má pre projekt obrovský význam.<0/>Ďakujeme za tvoju podporu!"
-
-#: src/routes/dashboard/settings/ai.tsx
-msgid "Everything entered here is stored locally on your browser. Your data is only sent to the server when making a request to the AI provider, and is never stored or logged on our servers."
-msgstr "Všetko, čo sem zadáš, sa ukladá lokálne v tvojom prehliadači. Tvoje dáta sa odošlú na server len pri odoslaní požiadavky poskytovateľovi AI a na našich serveroch sa nikdy neukladajú ani nelogujú."
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Everything you need to create, customize, and share professional resumes. Built with privacy in mind, powered by open source, and completely free forever."
@@ -1193,6 +1256,33 @@ msgstr "Ukončiť celú obrazovku"
 msgid "Experience"
 msgstr "Skúsenosti"
 
+#: src/routes/dashboard/-components/sidebar.tsx
+#: src/routes/dashboard/admin/index.tsx
+msgid "Experience Queue"
+msgstr ""
+
+#: src/routes/dashboard/admin/index.tsx
+msgid "Experience request flagged as issue."
+msgstr ""
+
+#: src/routes/dashboard/admin/index.tsx
+msgid "Experience request rejected."
+msgstr ""
+
+#: src/routes/dashboard/admin/index.tsx
+msgid "Experience Verification"
+msgstr ""
+
+#. placeholder {0}: item.label
+#: src/routes/dashboard/verification/index.tsx
+#: src/routes/dashboard/verification/index.tsx
+msgid "Experience verification requested for \"{0}\"."
+msgstr ""
+
+#: src/routes/dashboard/admin/index.tsx
+msgid "Experience verified successfully."
+msgstr ""
+
 #: src/dialogs/api-key/create.tsx
 msgid "Expires in"
 msgstr "Platnosť uplynie o"
@@ -1218,6 +1308,10 @@ msgstr "Export"
 msgid "Failed to duplicate resume"
 msgstr "Nepodarilo sa duplikovať životopis"
 
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Failed to load document."
+msgstr ""
+
 #: src/dialogs/auth/enable-two-factor.tsx
 msgid "Failed to setup two-factor authentication."
 msgstr "Nastavenie dvojfaktorového overenia zlyhalo."
@@ -1233,6 +1327,15 @@ msgstr "Nepodarilo sa synchronizovať zručnosti"
 #: src/routes/_home/-sections/features.tsx
 msgid "Features"
 msgstr "Funkcie"
+
+#. placeholder {0}: selectedFile.name
+#: src/routes/dashboard/verification/index.tsx
+msgid "File selected: {0}. Submit your verification request?"
+msgstr ""
+
+#: src/routes/dashboard/verification/index.tsx
+msgid "File size must be under 5MB."
+msgstr ""
 
 #: src/routes/dashboard/resumes/index.tsx
 msgid "Filter by"
@@ -1301,6 +1404,14 @@ msgstr "Zadarmo"
 msgid "Free-Form"
 msgstr "Voľná forma"
 
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Freelancer Link"
+msgstr ""
+
+#: src/routes/dashboard/verification/index.tsx
+msgid "Freelancer Profile Link"
+msgstr ""
+
 #: src/utils/locale.ts
 msgid "French"
 msgstr "Francúzština"
@@ -1329,9 +1440,12 @@ msgstr "Nemčina"
 msgid "Get Started"
 msgstr "Začať"
 
-#: src/routes/dashboard/settings/job-search.tsx
-msgid "Get your API key from RapidAPI by subscribing to the JSearch API."
-msgstr "Získajte svoj kľúč API od RapidAPI prihlásením sa do rozhrania JSearch API."
+#: src/components/command-palette/pages/navigation.tsx
+#: src/components/command-palette/pages/navigation.tsx
+#: src/routes/dashboard/-components/sidebar.tsx
+#: src/routes/dashboard/admin/ai.tsx
+msgid "Global AI"
+msgstr ""
 
 #: src/components/layout/not-found-screen.tsx
 #: src/routes/auth/verify-2fa-backup.tsx
@@ -1341,10 +1455,6 @@ msgstr "Prejsť späť"
 #: src/routes/_home/-sections/header.tsx
 msgid "Go to dashboard"
 msgstr "Prejsť na nástenku"
-
-#: src/routes/dashboard/job-search/index.tsx
-msgid "Go to Settings"
-msgstr "Prejdite do Nastavení"
 
 #: src/components/command-palette/pages/navigation.tsx
 msgid "Go to..."
@@ -1428,6 +1538,7 @@ msgstr "Skryté"
 #: src/routes/builder/$resumeId/-sidebar/left/sections/custom.tsx
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-menu.tsx
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Hide"
 msgstr "Skryť"
 
@@ -1468,6 +1579,39 @@ msgstr "Maďarčina"
 #: src/routes/builder/$resumeId/-sidebar/right/sections/design.tsx
 msgid "Icon"
 msgstr "Ikona"
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Identity Call"
+msgstr ""
+
+#: src/routes/dashboard/-components/sidebar.tsx
+msgid "Identity Queue"
+msgstr ""
+
+#: src/routes/dashboard/admin/identity.tsx
+msgid "Identity request flagged as issue."
+msgstr ""
+
+#: src/routes/dashboard/admin/identity.tsx
+msgid "Identity request rejected."
+msgstr ""
+
+#: src/routes/dashboard/admin/identity.tsx
+#: src/routes/dashboard/settings/profile.tsx
+msgid "Identity Verification"
+msgstr ""
+
+#: src/routes/dashboard/settings/profile.tsx
+msgid "Identity verification request cancelled."
+msgstr ""
+
+#: src/routes/dashboard/settings/profile.tsx
+msgid "Identity verification requested. Please check your email for next steps."
+msgstr ""
+
+#: src/routes/dashboard/admin/identity.tsx
+msgid "Identity verified successfully."
+msgstr ""
 
 #: src/dialogs/resume/import.tsx
 msgid "Import"
@@ -1546,17 +1690,17 @@ msgid "Job Search"
 msgstr "Vyhľadávanie práce"
 
 #: src/routes/dashboard/-components/sidebar.tsx
-#: src/routes/dashboard/settings/job-search.tsx
+#: src/routes/dashboard/admin/job-search.tsx
 msgid "Job Search API"
 msgstr "Rozhranie API na vyhľadávanie pracovných miest"
 
-#: src/routes/dashboard/settings/job-search.tsx
-msgid "JSearch aggregates job listings from multiple job boards using Google for Jobs. You can filter by country (ISO alpha-2 code), date posted, job type, remote options, and experience level."
-msgstr "Vyhľadávač JSearch agreguje ponuky práce z viacerých pracovných portálov pomocou služby Google for Jobs. Môžete filtrovať podľa krajiny (kód ISO alfa-2), dátumu zverejnenia, typu práce, možností vzdialeného prístupu a úrovne skúseností."
+#: src/routes/dashboard/job-search/index.tsx
+msgid "Job search has not been configured yet. Contact an administrator to set it up."
+msgstr ""
 
-#: src/routes/dashboard/settings/job-search.tsx
-msgid "JSearch API Documentation"
-msgstr "Dokumentácia API JSearch"
+#: src/routes/dashboard/job-search/index.tsx
+msgid "Job Search Not Available"
+msgstr ""
 
 #: src/components/input/rich-input.tsx
 msgid "Justify Align"
@@ -1604,6 +1748,10 @@ msgstr "Jazyky"
 msgid "Last 3 days"
 msgstr "Posledné 3 dni"
 
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Last active"
+msgstr ""
+
 #. placeholder {0}: statistics.lastDownloadedAt.toDateString()
 #: src/routes/builder/$resumeId/-sidebar/right/sections/statistics.tsx
 msgid "Last downloaded on {0}"
@@ -1618,6 +1766,10 @@ msgstr "Naposledy aktualizované {updatedAt}"
 #: src/routes/builder/$resumeId/-sidebar/right/sections/statistics.tsx
 msgid "Last viewed on {0}"
 msgstr "Naposledy zobrazené {0}"
+
+#: src/routes/dashboard/admin/identity.tsx
+msgid "Latest CV / resume"
+msgstr ""
 
 #: src/utils/locale.ts
 msgid "Latvian"
@@ -1638,6 +1790,11 @@ msgstr "Zistite viac o tom, ako prispôsobiť obsah na stránku"
 #: src/hooks/use-form-blocker.tsx
 msgid "Leave"
 msgstr "Odísť"
+
+#: src/routes/dashboard/admin/ai.tsx
+#: src/routes/dashboard/admin/job-search.tsx
+msgid "Leave blank to keep the existing key"
+msgstr ""
 
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-menu.tsx
 msgid "Leave empty to reset the title to the original."
@@ -1660,10 +1817,6 @@ msgstr "Úroveň"
 #: src/components/level/display.tsx
 msgid "Level {level} of 5"
 msgstr "Úroveň {level} z 5"
-
-#: src/components/ui/copyright.tsx
-msgid "Licensed under <0>MIT</0>."
-msgstr "Licencované pod <0>MIT</0>."
 
 #: src/components/user/dropdown-menu.tsx
 #: src/utils/theme.ts
@@ -1691,6 +1844,26 @@ msgstr "Zoznam"
 msgid "Lithuanian"
 msgstr "Litovčina"
 
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Loading document..."
+msgstr ""
+
+#: src/routes/dashboard/verification/index.tsx
+msgid "Loading history..."
+msgstr ""
+
+#: src/routes/dashboard/admin/index.tsx
+msgid "Loading pending verdicts..."
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Loading preview…"
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Loading queue..."
+msgstr ""
+
 #: src/components/command-palette/pages/resumes.tsx
 msgid "Loading resumes..."
 msgstr "Načítavam životopisy..."
@@ -1698,6 +1871,11 @@ msgstr "Načítavam životopisy..."
 #: src/components/layout/loading-screen.tsx
 msgid "Loading..."
 msgstr "Načítava sa..."
+
+#: src/routes/dashboard/admin/ai.tsx
+#: src/routes/dashboard/admin/job-search.tsx
+msgid "Loading…"
+msgstr ""
 
 #: src/dialogs/resume/sections/education.tsx
 #: src/dialogs/resume/sections/experience.tsx
@@ -1732,6 +1910,10 @@ msgstr "Hlavná"
 msgid "Main navigation"
 msgstr "Hlavná navigácia"
 
+#: src/routes/dashboard/settings/privacy.tsx
+msgid "Make at least one resume public to control the timeline on your public CV."
+msgstr ""
+
 #: src/utils/locale.ts
 msgid "Malay"
 msgstr "Malajčina"
@@ -1760,7 +1942,7 @@ msgstr "Maximálny plat"
 msgid "Minimum Salary"
 msgstr "Minimálny plat"
 
-#: src/routes/dashboard/settings/ai.tsx
+#: src/routes/dashboard/admin/ai.tsx
 msgid "Model"
 msgstr "Model"
 
@@ -1784,6 +1966,7 @@ msgstr "Viacjazyčná"
 #: src/dialogs/resume/sections/skill.tsx
 #: src/routes/auth/register.tsx
 #: src/routes/builder/$resumeId/-sidebar/left/sections/basics.tsx
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Name"
 msgstr "Názov"
@@ -1821,9 +2004,18 @@ msgstr "Nová sekcia"
 msgid "New Skills Detected"
 msgstr "Zistené nové zručnosti"
 
+#: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
+msgid "New skills were found in your experience that match this job. Select which ones to save back to your original resume for future applications. This will permanently modify your original resume and cannot be undone."
+msgstr ""
+
 #: src/routes/dashboard/job-search/index.tsx
 msgid "Next"
 msgstr "Ďalšie"
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "No"
+msgstr ""
 
 #: src/routes/_home/-sections/features.tsx
 msgid "No Advertising, No Tracking"
@@ -1837,6 +2029,26 @@ msgstr "Nevyžaduje sa žiadny titul"
 msgid "No experience"
 msgstr "Žiadne skúsenosti"
 
+#: src/routes/dashboard/verification/index.tsx
+msgid "No experience items in your resume. Add some to get started."
+msgstr ""
+
+#: src/routes/dashboard/admin/index.tsx
+msgid "No experience verification requests pending."
+msgstr ""
+
+#: src/routes/dashboard/verification/index.tsx
+msgid "No history available."
+msgstr ""
+
+#: src/routes/dashboard/admin/identity.tsx
+msgid "No identity verification requests pending."
+msgstr ""
+
+#: src/routes/dashboard/verification/index.tsx
+msgid "No items in this section. Add some to your resume first."
+msgstr ""
+
 #: src/routes/dashboard/job-search/index.tsx
 msgid "No jobs found. Try a different search query."
 msgstr "Nenašli sa žiadne pracovné miesta. Skúste použiť inú vyhľadávaciu požiadavku."
@@ -1848,6 +2060,14 @@ msgstr "Nenašli sa žiadne výsledky."
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 msgid "No resumes found. Create a resume first."
 msgstr "Nenašli sa žiadne životopisy. Najprv si vytvorte životopis."
+
+#: src/routes/dashboard/admin/index.tsx
+msgid "No verdicts awaiting confirmation."
+msgstr ""
+
+#: src/routes/dashboard/settings/privacy.tsx
+msgid "No verified items yet."
+msgstr ""
 
 #: src/utils/locale.ts
 msgid "Norwegian"
@@ -1869,6 +2089,10 @@ msgstr "Prihlásenie jedným kliknutím"
 msgid "Ongoing Maintenance"
 msgstr "Priebežná údržba"
 
+#: src/routes/dashboard/verification/index.tsx
+msgid "Only PDF, JPG, JPEG, and PNG files are allowed."
+msgstr ""
+
 #: src/routes/dashboard/resumes/-components/menus/context-menu.tsx
 #: src/routes/dashboard/resumes/-components/menus/dropdown-menu.tsx
 msgid "Open"
@@ -1877,6 +2101,10 @@ msgstr "Otvoriť"
 #: src/routes/auth/forgot-password.tsx
 msgid "Open Email Client"
 msgstr "Otvoriť e‑mailového klienta"
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Open Profile"
+msgstr ""
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Open Source"
@@ -1893,6 +2121,10 @@ msgstr "otvorí sa na novej karte"
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 msgid "Optimizing summary, experience, and skills for {0}"
 msgstr "Optimalizácia zhrnutia, skúseností a zručností pre {0}"
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Optional notes for the applicant..."
+msgstr ""
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 msgid "Optionally, set a password so that only people with the password can view your resume through the link."
@@ -1911,6 +2143,14 @@ msgstr "Číslovaný zoznam"
 msgid "Organization"
 msgstr "Organizácia"
 
+#: src/routes/dashboard/admin/ai.tsx
+msgid "Organization-wide AI"
+msgstr ""
+
+#: src/routes/dashboard/admin/job-search.tsx
+msgid "Organization-wide Job Search"
+msgstr ""
+
 #: src/dialogs/resume/sections/experience.tsx
 msgid "Overall Period"
 msgstr "Celkové obdobie"
@@ -1918,6 +2158,22 @@ msgstr "Celkové obdobie"
 #: src/dialogs/resume/sections/experience.tsx
 msgid "Overall Title (optional)"
 msgstr "Celkový titul (voliteľné)"
+
+#: src/routes/dashboard/admin/index.tsx
+msgid "Override"
+msgstr ""
+
+#: src/routes/dashboard/admin/index.tsx
+msgid "Override Decision"
+msgstr ""
+
+#: src/routes/dashboard/admin/index.tsx
+msgid "Override to "
+msgstr ""
+
+#: src/routes/dashboard/admin/index.tsx
+msgid "Overriding..."
+msgstr ""
 
 #: src/utils/resume/section.tsx
 msgid "Page"
@@ -1973,6 +2229,14 @@ msgstr "Ochrana heslom bola vypnutá."
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 msgid "Password protection has been enabled."
 msgstr "Ochrana heslom bola zapnutá."
+
+#: src/routes/dashboard/settings/profile.tsx
+msgid "Pending"
+msgstr ""
+
+#: src/routes/dashboard/admin/index.tsx
+msgid "Pending Verdicts"
+msgstr ""
 
 #: src/dialogs/resume/sections/education.tsx
 #: src/dialogs/resume/sections/experience.tsx
@@ -2050,6 +2314,10 @@ msgstr "Predvoľby"
 msgid "Press <0>{RETURN_KEY}</0> or <1>{COMMA_KEY}</1> to add or save the current keyword."
 msgstr "Stlačte <0>{RETURN_KEY}</0> alebo <1>{COMMA_KEY}</1> pre pridanie alebo uloženie aktuálneho kľúčového slova."
 
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Preview"
+msgstr ""
+
 #: src/routes/dashboard/job-search/index.tsx
 msgid "Previous"
 msgstr "Predchádzajúci"
@@ -2057,6 +2325,11 @@ msgstr "Predchádzajúci"
 #: src/routes/builder/$resumeId/-sidebar/right/sections/design.tsx
 msgid "Primary Color"
 msgstr "Hlavná farba"
+
+#: src/routes/dashboard/-components/sidebar.tsx
+#: src/routes/dashboard/settings/privacy.tsx
+msgid "Privacy"
+msgstr ""
 
 #: src/dialogs/resume/sections/skill.tsx
 msgid "Proficiency"
@@ -2069,6 +2342,14 @@ msgstr "Úroveň znalosti"
 msgid "Profile"
 msgstr "Profil"
 
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Profile image URL"
+msgstr ""
+
+#: src/routes/dashboard/verification/index.tsx
+msgid "Profile link: {freelancerUrl}. Submit your verification request?"
+msgstr ""
+
 #: src/dialogs/resume/sections/custom.tsx
 #: src/utils/resume/section.tsx
 msgid "Profiles"
@@ -2079,6 +2360,7 @@ msgid "Progress Bar"
 msgstr "Ukazovateľ priebehu"
 
 #: src/dialogs/resume/sections/custom.tsx
+#: src/routes/dashboard/verification/index.tsx
 #: src/utils/resume/section.tsx
 msgid "Projects"
 msgstr "Projekty"
@@ -2091,7 +2373,7 @@ msgstr "Ochráň svoj životopis pred neoprávneným prístupom heslom"
 msgid "Protect your resume with a password, and let only people with the password view it."
 msgstr "Ochráň svoj životopis heslom a umožni zobrazenie len tým, ktorí heslo poznajú."
 
-#: src/routes/dashboard/settings/ai.tsx
+#: src/routes/dashboard/admin/ai.tsx
 msgid "Provider"
 msgstr "Poskytovateľ"
 
@@ -2109,7 +2391,7 @@ msgstr "Vydavateľ"
 msgid "Quota: {0} remaining"
 msgstr "Kvóta: {0} zostáva"
 
-#: src/routes/dashboard/settings/job-search.tsx
+#: src/routes/dashboard/admin/job-search.tsx
 msgid "RapidAPI Key"
 msgstr "Kľúč RapidAPI"
 
@@ -2205,9 +2487,17 @@ msgstr "Nahlásiť chybu"
 msgid "Report an issue"
 msgstr "Nahlásiť problém"
 
+#: src/routes/dashboard/verification/index.tsx
+msgid "Request"
+msgstr ""
+
 #: src/routes/dashboard/job-search/-components/job-detail.tsx
 msgid "Required Skills"
 msgstr "Požadované zručnosti"
+
+#: src/routes/dashboard/admin/index.tsx
+msgid "Required: reason for overriding this verdict..."
+msgstr ""
 
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Resend verification email"
@@ -2256,8 +2546,27 @@ msgid "Resumes"
 msgstr "Životopisy"
 
 #: src/routes/dashboard/job-search/index.tsx
+#: src/routes/dashboard/verification/index.tsx
+#: src/routes/dashboard/verification/index.tsx
 msgid "Retry"
 msgstr "Opakovanie"
+
+#: src/routes/dashboard/settings/profile.tsx
+msgid "Retry Identity Verification"
+msgstr ""
+
+#: src/routes/dashboard/admin/identity.tsx
+#: src/routes/dashboard/admin/index.tsx
+msgid "Review"
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Review Decision"
+msgstr ""
+
+#: src/routes/reviewer/$adminId.tsx
+msgid "Reviewer since {memberSince}"
+msgstr ""
 
 #: src/components/input/rich-input.tsx
 msgid "Right Align"
@@ -2284,6 +2593,11 @@ msgstr "Ruština"
 msgid "Save {0} Skills"
 msgstr "Uložiť {0} zručnosti"
 
+#: src/routes/dashboard/admin/ai.tsx
+#: src/routes/dashboard/admin/job-search.tsx
+msgid "Save and verify"
+msgstr ""
+
 #: src/dialogs/resume/index.tsx
 #: src/dialogs/resume/sections/award.tsx
 #: src/dialogs/resume/sections/certification.tsx
@@ -2304,9 +2618,22 @@ msgstr "Uložiť {0} zručnosti"
 msgid "Save Changes"
 msgstr "Uložiť zmeny"
 
+#: src/routes/dashboard/admin/ai.tsx
+#: src/routes/dashboard/admin/job-search.tsx
+msgid "Saved, but the connection test did not succeed"
+msgstr ""
+
 #: src/dialogs/auth/enable-two-factor.tsx
 msgid "Scan the QR code below with your preferred authenticator app. You can also copy the secret below and paste it into your app."
 msgstr "Naskenuj nižšie uvedený QR kód svojou obľúbenou autentifikačnou aplikáciou. Môžeš tiež skopírovať nižšie uvedený tajný kľúč a vložiť ho do aplikácie."
+
+#: src/routes/dashboard/settings/profile.tsx
+msgid "Schedule Identity Verification"
+msgstr ""
+
+#: src/routes/dashboard/settings/profile.tsx
+msgid "Scheduling is not currently available."
+msgstr ""
 
 #: src/dialogs/resume/sections/education.tsx
 msgid "School"
@@ -2342,9 +2669,13 @@ msgstr "Tajný kľúč skopírovaný do schránky."
 msgid "Section Type"
 msgstr "Typ sekcie"
 
+#: src/routes/dashboard/verification/index.tsx
+msgid "Select a payslip, contract, or other proof of employment (PDF, JPG, PNG, max 5MB)."
+msgstr ""
+
 #. placeholder {0}: job.job_title
 #. placeholder {1}: job.employer_name
-#. placeholder {2}: aiEnabled ? " and the AI will optimize it for this position." : "."
+#. placeholder {2}: aiEnabled ? " and optimized for this position." : "."
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 msgid "Select a resume to tailor for \"{0}\" at {1}. A copy will be created{2}"
 msgstr "Vyberte si životopis na mieru pre \"{0}\" na {1}. Vytvorí sa kópia{2}"
@@ -2352,6 +2683,10 @@ msgstr "Vyberte si životopis na mieru pre \"{0}\" na {1}. Vytvorí sa kópia{2}
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Select country"
 msgstr "Vyberte krajinu"
+
+#: src/routes/dashboard/verification/index.tsx
+msgid "Select Resume"
+msgstr ""
 
 #: src/components/ui/combobox.tsx
 msgid "Select..."
@@ -2390,6 +2725,11 @@ msgstr "Nastaviť heslo"
 msgid "Settings"
 msgstr "Nastavenia"
 
+#: src/routes/dashboard/admin/ai.tsx
+#: src/routes/dashboard/admin/job-search.tsx
+msgid "Settings saved"
+msgstr ""
+
 #: src/dialogs/auth/enable-two-factor.tsx
 msgid "Setup Authenticator App"
 msgstr "Nastaviť autentifikačnú aplikáciu"
@@ -2427,6 +2767,15 @@ msgstr "Zobraziť"
 #: src/dialogs/resume/sections/volunteer.tsx
 msgid "Show link in title"
 msgstr "Zobraziť odkaz v nadpise"
+
+#: src/routes/dashboard/settings/privacy.tsx
+#: src/routes/dashboard/settings/privacy.tsx
+msgid "Show or hide the verification timeline on your public CV. This is off by default."
+msgstr ""
+
+#: src/routes/dashboard/settings/privacy.tsx
+msgid "Show Timeline on Public CV"
+msgstr ""
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/layout/pages.tsx
 msgid "Sidebar"
@@ -2486,7 +2835,12 @@ msgstr "Jednostĺpcové rozloženie; uhladené a seriózne pre seniorské alebo 
 msgid "Size"
 msgstr "Veľkosť"
 
+#: src/routes/dashboard/-components/sidebar.tsx
+msgid "Skill Verdict Verification"
+msgstr ""
+
 #: src/dialogs/resume/sections/custom.tsx
+#: src/routes/dashboard/verification/index.tsx
 #: src/utils/resume/section.tsx
 msgid "Skills"
 msgstr "Zručnosti"
@@ -2510,6 +2864,10 @@ msgstr ""
 #: src/dialogs/resume/index.tsx
 msgid "Slug"
 msgstr "Slug"
+
+#: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
+msgid "Some suggestions could not be applied"
+msgstr ""
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
@@ -2580,6 +2938,27 @@ msgstr "Zostať"
 #: src/components/input/rich-input.tsx
 msgid "Strike"
 msgstr "Prečiarknuté"
+
+#: src/routes/dashboard/admin/index.tsx
+msgid "Submit Override"
+msgstr ""
+
+#: src/routes/dashboard/verification/index.tsx
+msgid "Submit Request"
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Submit Review"
+msgstr ""
+
+#: src/routes/dashboard/verification/index.tsx
+msgid "Submit?"
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+#: src/routes/dashboard/verification/index.tsx
+msgid "Submitting..."
+msgstr ""
 
 #: src/routes/_home/-sections/footer.tsx
 msgid "Subreddit"
@@ -2655,10 +3034,10 @@ msgstr "Galéria šablón"
 msgid "Templates"
 msgstr "Šablóny"
 
-#: src/routes/dashboard/settings/ai.tsx
-#: src/routes/dashboard/settings/job-search.tsx
-msgid "Test Connection"
-msgstr "Otestovať pripojenie"
+#: src/routes/dashboard/admin/ai.tsx
+#: src/routes/dashboard/admin/job-search.tsx
+msgid "Test connection"
+msgstr ""
 
 #: src/routes/_home/-sections/testimonials.tsx
 msgid "Testimonials"
@@ -2671,10 +3050,6 @@ msgstr "Farba textu"
 #: src/utils/locale.ts
 msgid "Thai"
 msgstr "Thajčina"
-
-#: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
-msgid "The AI identified new skills from your experience that match this job. Select which ones to save back to your original resume for future applications. This will permanently modify your original resume and cannot be undone."
-msgstr "Umelá inteligencia identifikovala nové zručnosti z vašich skúseností, ktoré zodpovedajú tejto pracovnej pozícii. Vyberte, ktoré z nich chcete uložiť späť do pôvodného životopisu pre budúce žiadosti. Tým sa váš pôvodný životopis natrvalo zmení a nie je možné ho vrátiť späť."
 
 #: src/routes/dashboard/settings/api-keys.tsx
 msgid "The API key has been deleted successfully."
@@ -2695,6 +3070,10 @@ msgstr "Obsah je na túto stránku príliš vysoký, čo môže spôsobiť neži
 #: src/routes/auth/resume-password.tsx
 msgid "The password you entered is incorrect"
 msgstr "Zadané heslo je nesprávne"
+
+#: src/routes/dashboard/admin/job-search.tsx
+msgid "The RapidAPI key is stored in the database and used for all users. Once configured and verified, every signed-in user can search for job listings via the JSearch API. Only Skill Verdict administrators can change this configuration."
+msgstr ""
 
 #: src/routes/auth/resume-password.tsx
 msgid "The resume you are trying to access is password protected"
@@ -2736,16 +3115,16 @@ msgstr "Túto akciu nemožno vrátiť späť. Všetky tvoje dáta budú natrvalo
 
 #: src/dialogs/resume/import.tsx
 #: src/dialogs/resume/import.tsx
-msgid "This feature requires AI Integration to be enabled. Please enable it in the settings."
-msgstr "Táto funkcia vyžaduje povolenú AI integráciu. Prosím, povoľ ju v nastaveniach."
+msgid "This import option is not available right now. Please try another format."
+msgstr ""
 
 #: src/dialogs/resume/index.tsx
 msgid "This is a URL-friendly name for your resume."
 msgstr "Toto je URL‑prívetivý názov tvojho životopisu."
 
 #: src/dialogs/resume/import.tsx
-msgid "This may take a few minutes, depending on the response of the AI provider. Please do not close the window or refresh the page."
-msgstr "Môže to trvať niekoľko minút v závislosti od odozvy poskytovateľa AI. Prosím, nezatváraj okno ani neobnovuj stránku."
+msgid "This may take a few minutes. Please do not close the window or refresh the page."
+msgstr ""
 
 #: src/routes/builder/$resumeId/-components/dock.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/export.tsx
@@ -2755,6 +3134,10 @@ msgstr "Môže to chvíľu trvať v závislosti od kapacity servera. Prosím, ne
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "This month"
 msgstr "Tento mesiac"
+
+#: src/routes/reviewer/$adminId.tsx
+msgid "This page shows live profile information. Verification snapshots captured at the time of review may differ from the current details shown here."
+msgstr ""
 
 #: src/components/resume/store/resume.ts
 msgid "This resume is locked and cannot be updated."
@@ -2798,10 +3181,6 @@ msgstr "Názov"
 #: src/routes/dashboard/settings/danger-zone.tsx
 msgid "To delete your account, you need to enter the confirmation text and click the button below."
 msgstr "Na vymazanie účtu musíš zadať potvrdzujúci text a kliknúť na tlačidlo nižšie."
-
-#: src/routes/dashboard/job-search/index.tsx
-msgid "To search for job listings, you need to configure your RapidAPI key in settings."
-msgstr "Ak chcete vyhľadávať ponuky práce, musíte v nastaveniach nakonfigurovať kľúč RapidAPI."
 
 #: src/routes/dashboard/job-search/-components/job-utils.ts
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
@@ -2874,6 +3253,10 @@ msgstr "Dvojfaktorové overenie bolo úspešne vypnuté."
 msgid "Two-factor authentication has been setup successfully."
 msgstr "Dvojfaktorové overenie bolo úspešne nastavené."
 
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Two-factor enabled"
+msgstr ""
+
 #: src/dialogs/resume/import.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/design.tsx
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
@@ -2909,6 +3292,11 @@ msgctxt "'Ctrl' may be replaced with the locale-specific equivalent (e.g. 'Strg'
 msgid "Undo (Ctrl+Z)"
 msgstr "Späť (Ctrl+Z)"
 
+#: src/routes/dashboard/admin/identity.tsx
+#: src/routes/dashboard/admin/index.tsx
+msgid "Unknown applicant"
+msgstr ""
+
 #: src/routes/_home/-sections/features.tsx
 msgid "Unlimited Resumes"
 msgstr "Neobmedzený počet životopisov"
@@ -2924,6 +3312,7 @@ msgstr "Odpájam tvoj účet {providerName}..."
 msgid "Unlock"
 msgstr "Odomknúť"
 
+#: src/routes/dashboard/settings/profile.tsx
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Unverified"
 msgstr "Neoverené"
@@ -3017,16 +3406,29 @@ msgstr "Aktualizujem tvoje heslo..."
 msgid "Updating your resume..."
 msgstr "Aktualizujem tvoj životopis..."
 
+#: src/routes/dashboard/verification/index.tsx
+msgid "Upload Document"
+msgstr ""
+
 #: src/routes/builder/$resumeId/-sidebar/left/sections/picture.tsx
 msgid "Uploading picture..."
 msgstr "Nahrávam fotografiu..."
+
+#: src/routes/dashboard/verification/index.tsx
+msgid "Uploading..."
+msgstr ""
 
 #: src/routes/builder/$resumeId/-sidebar/left/sections/picture.tsx
 msgid "URL"
 msgstr "URL"
 
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "User ID"
+msgstr ""
+
 #: src/dialogs/resume/sections/profile.tsx
 #: src/routes/auth/register.tsx
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Username"
 msgstr "Používateľské meno"
@@ -3043,18 +3445,57 @@ msgstr "Uzbečtina"
 msgid "Valid URLs must start with http:// or https://."
 msgstr "Platné URL adresy musia začínať http:// alebo https://."
 
+#: src/routes/dashboard/admin/index.tsx
+msgid "Verdict confirmed. Experience verified."
+msgstr ""
+
+#: src/routes/dashboard/admin/index.tsx
+msgid "Verdict overridden successfully."
+msgstr ""
+
+#: src/routes/dashboard/-components/sidebar.tsx
+#: src/routes/dashboard/verification/index.tsx
+#: src/routes/dashboard/verification/index.tsx
+msgid "Verification"
+msgstr ""
+
+#: src/routes/dashboard/settings/privacy.tsx
+msgid "Verification Badges"
+msgstr ""
+
+#: src/routes/dashboard/settings/privacy.tsx
+#: src/routes/dashboard/settings/privacy.tsx
+msgid "Verification History Timeline"
+msgstr ""
+
+#. placeholder {0}: item.label
+#: src/routes/dashboard/verification/index.tsx
+msgid "Verification requested for \"{0}\"."
+msgstr ""
+
+#: src/routes/dashboard/verification/index.tsx
+#: src/routes/dashboard/verification/index.tsx
+msgid "verified"
+msgstr ""
+
+#: src/routes/dashboard/settings/profile.tsx
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Verified"
 msgstr "Overené"
 
 #: src/routes/auth/verify-2fa-backup.tsx
 #: src/routes/auth/verify-2fa.tsx
+#: src/routes/dashboard/verification/index.tsx
 msgid "Verify"
 msgstr "Overiť"
 
 #: src/routes/auth/verify-2fa-backup.tsx
 msgid "Verify with a Backup Code"
 msgstr "Overiť pomocou záložného kódu"
+
+#: src/routes/dashboard/settings/profile.tsx
+msgid "Verify your identity through a short video call. This adds trust to your resume."
+msgstr ""
 
 #: src/routes/auth/verify-2fa-backup.tsx
 msgid "Verifying backup code..."
@@ -3103,10 +3544,6 @@ msgstr "Webová stránka"
 msgid "What do you want to rename this section to?"
 msgstr "Ako chceš túto sekciu premenovať?"
 
-#: src/routes/dashboard/settings/job-search.tsx
-msgid "What is JSearch API?"
-msgstr "Čo je JSearch API?"
-
 #: src/routes/_home/-sections/faq.tsx
 msgid "What makes Reactive Resume different from other resume builders?"
 msgstr "Čím sa Reactive Resume líši od iných nástrojov na tvorbu životopisov?"
@@ -3121,9 +3558,18 @@ msgstr "Čo je nové v poslednej verzii?"
 msgid "When locked, the resume cannot be updated or deleted."
 msgstr "Keď je životopis uzamknutý, nemožno ho aktualizovať ani vymazať."
 
+#: src/routes/dashboard/verification/index.tsx
+msgid "Work Experience"
+msgstr ""
+
 #: src/routes/_home/-sections/features.tsx
 msgid "Write your own CSS (or use an AI to generate it for you) to customize your resume to the fullest."
 msgstr "Napíš si vlastné CSS (alebo nechaj AI, nech ho vygeneruje za teba) a prispôsob si svoj životopis do posledného detailu."
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Yes"
+msgstr ""
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "Yes, Reactive Resume is available in multiple languages. You can choose your preferred language in the settings page, or using the language switcher in the top right corner. If you don't see your language, or you would like to improve the existing translations, you can <0>contribute to the translations on Crowdin<1> (opens in new tab)</1></0>."
@@ -3178,13 +3624,13 @@ msgstr "Tvoje zmeny sa ukladajú automaticky."
 msgid "Your data is secure, and never shared or sold to anyone."
 msgstr "Tvoje dáta sú v bezpečí a nikdy sa s nikým nezdieľajú ani nepredávajú."
 
-#: src/routes/dashboard/settings/ai.tsx
-msgid "Your data is stored locally"
-msgstr "Tvoje dáta sú uložené lokálne"
-
 #: src/routes/_home/-sections/faq.tsx
 msgid "Your data is stored securely and is never shared with third parties. You can also self-host Reactive Resume on your own servers for complete control over your data."
 msgstr "Tvoje dáta sú bezpečne uložené a nikdy sa nezdieľajú s tretími stranami. Reactive Resume si môžeš tiež hostovať na vlastných serveroch a mať nad dátami úplnú kontrolu."
+
+#: src/routes/dashboard/settings/profile.tsx
+msgid "Your identity has been verified and your profile is trusted."
+msgstr ""
 
 #: src/routes/auth/reset-password.tsx
 msgid "Your password has been reset successfully. You can now sign in with your new password."
@@ -3195,12 +3641,12 @@ msgid "Your password has been updated successfully."
 msgstr "Tvoje heslo bolo úspešne aktualizované."
 
 #: src/routes/dashboard/settings/profile.tsx
+msgid "Your previous identity verification was unsuccessful. You may try again."
+msgstr ""
+
+#: src/routes/dashboard/settings/profile.tsx
 msgid "Your profile has been updated successfully."
 msgstr "Tvoj profil bol úspešne aktualizovaný."
-
-#: src/routes/dashboard/settings/job-search.tsx
-msgid "Your RapidAPI key is stored locally on your browser. It is only sent to the server when making a request to search for jobs, and is never stored or logged on our servers."
-msgstr "Váš kľúč RapidAPI je uložený lokálne v prehliadači. Na server sa odosiela len pri požiadavke na vyhľadávanie pracovných miest a nikdy sa neukladá ani nezaznamenáva na našich serveroch."
 
 #: src/dialogs/resume/index.tsx
 #: src/dialogs/resume/index.tsx
@@ -3232,6 +3678,10 @@ msgstr "Verejný odkaz na tvoj životopis je momentálne chránený heslom. Zdie
 #: src/routes/_home/-sections/donate.tsx
 msgid "Your support ensures the project remains free and accessible for everyone, now and in the future."
 msgstr "Tvoja podpora zaručuje, že projekt zostane aj v budúcnosti zadarmo a prístupný pre všetkých."
+
+#: src/routes/dashboard/settings/profile.tsx
+msgid "Your verification call has been scheduled. Our team will review and confirm your identity shortly."
+msgstr ""
 
 #: src/routes/builder/$resumeId/-components/dock.tsx
 msgid "Zoom in"

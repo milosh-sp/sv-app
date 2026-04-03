@@ -72,10 +72,6 @@ msgstr "{column, plural, one {# kolonë} other {# kolona}}"
 msgid "{diffDays} days ago"
 msgstr "{diffDays} disa ditë më parë"
 
-#: src/routes/dashboard/settings/job-search.tsx
-msgid "{used} of {limit} requests used ({remaining} remaining)"
-msgstr "{used} Kërkesat e përdorura të {limit} ({remaining} të mbetura)"
-
 #: src/routes/_home/-sections/hero.tsx
 msgid "<0>Finally,</0><1>A free and open-source resume builder</1>"
 msgstr "<0>Më në fund,</0><1>Një ndërtues i CV-së falas dhe me burim të hapur</1>"
@@ -130,9 +126,9 @@ msgstr "Shumë njerëz më kanë shkruar ndër vite për të ndarë eksperiencat
 msgid "A new verification link has been sent to your email address. Please check your inbox to verify your account."
 msgstr "Një link i ri verifikimi është dërguar në adresën tuaj të emailit. Ju lutemi kontrolloni kutinë tuaj postare për të verifikuar llogarinë."
 
-#: src/components/ui/copyright.tsx
-msgid "A passion project by <0>Amruth Pillai</0>."
-msgstr "Një projekt pasioni nga <0>Amruth Pillai</0>."
+#: src/routes/dashboard/admin/index.tsx
+msgid "A reason is required to override."
+msgstr ""
 
 #: src/dialogs/resume/index.tsx
 #: src/dialogs/resume/index.tsx
@@ -150,6 +146,14 @@ msgstr "Patjetër! Ju mund ta eksportoni CV-në tuaj në PDF me një klikim të 
 #: src/routes/_home/-sections/features.tsx
 msgid "Access your resumes and data programmatically using the API."
 msgstr "Përdorni API-n për të aksesuar programatikisht CV-të dhe të dhënat tuaja."
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Account created"
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Account updated"
+msgstr ""
 
 #: src/routes/builder/$resumeId/-sidebar/left/sections/custom-fields.tsx
 msgid "Add a custom field"
@@ -249,6 +253,14 @@ msgstr "Shto rresht para"
 msgid "Added {0} new skills to your original resume"
 msgstr "Shtoi aftësitë e reja të {0} -së në rezumën tënde origjinale."
 
+#: src/components/command-palette/pages/navigation.tsx
+msgid "Admin AI"
+msgstr ""
+
+#: src/routes/dashboard/-components/sidebar.tsx
+msgid "Administration"
+msgstr ""
+
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Advanced Filters"
 msgstr "Filtrat e avancuar"
@@ -256,15 +268,6 @@ msgstr "Filtrat e avancuar"
 #: src/utils/locale.ts
 msgid "Afrikaans"
 msgstr "Afrikanisht"
-
-#: src/dialogs/resume/import.tsx
-#: src/dialogs/resume/import.tsx
-msgid "AI"
-msgstr "AI"
-
-#: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
-msgid "AI returned some invalid references"
-msgstr "AI ktheu disa referenca të pavlefshme"
 
 #: src/utils/locale.ts
 msgid "Albanian"
@@ -324,7 +327,7 @@ msgstr "Çdokush që ka linkun mund të shikojë dhe shkarkojë CV-në."
 msgid "API Access"
 msgstr "Akses API"
 
-#: src/routes/dashboard/settings/ai.tsx
+#: src/routes/dashboard/admin/ai.tsx
 msgid "API Key"
 msgstr "API Key"
 
@@ -339,13 +342,13 @@ msgstr "API Keys"
 msgid "API Reference"
 msgstr "Referencë API"
 
-#: src/routes/dashboard/settings/job-search.tsx
-msgid "API Usage"
-msgstr "Përdorimi i API-së"
-
 #: src/routes/dashboard/-components/sidebar.tsx
 msgid "App"
 msgstr "Aplikacioni"
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Applicant"
+msgstr ""
 
 #: src/routes/_home/-sections/statistics.tsx
 msgid "Application Statistics"
@@ -399,13 +402,6 @@ msgstr "Jeni i sigurt se dëshironi të hiqni mbrojtjen me fjalëkalim?"
 msgid "Area of Study"
 msgstr "Fusha e studimit"
 
-#: src/components/command-palette/pages/navigation.tsx
-#: src/components/command-palette/pages/navigation.tsx
-#: src/routes/dashboard/-components/sidebar.tsx
-#: src/routes/dashboard/settings/ai.tsx
-msgid "Artificial Intelligence"
-msgstr "Inteligjenca Artificiale"
-
 #: src/routes/builder/$resumeId/-sidebar/left/sections/picture.tsx
 msgid "Aspect Ratio"
 msgstr "Proporcioni"
@@ -435,6 +431,11 @@ msgstr "Çmime"
 msgid "Azerbaijani"
 msgstr "Azerbajxhanisht"
 
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+#: src/routes/dashboard/admin/index.tsx
+msgid "Back"
+msgstr ""
+
 #: src/routes/auth/verify-2fa.tsx
 msgid "Back to Login"
 msgstr "Kthehu te hyrja"
@@ -447,7 +448,7 @@ msgstr "Ngjyra e sfondit"
 msgid "Backup codes copied to clipboard."
 msgstr "Kodet rezervë u kopjuan në clipboard."
 
-#: src/routes/dashboard/settings/ai.tsx
+#: src/routes/dashboard/admin/ai.tsx
 msgid "Base URL (Optional)"
 msgstr "URL bazë (Opsionale)"
 
@@ -496,11 +497,14 @@ msgstr "Bullgarisht"
 msgid "Bullet List"
 msgstr "Lista me pika"
 
-#: src/components/ui/copyright.tsx
 #: src/routes/_home/-sections/features.tsx
 #: src/routes/_home/-sections/prefooter.tsx
 msgid "By the community, for the community."
 msgstr "Nga komuniteti, për komunitetin."
+
+#: src/routes/dashboard/admin/identity.tsx
+msgid "Call link sent"
+msgstr ""
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "Can I customize the templates?"
@@ -543,12 +547,26 @@ msgstr "A mund ta eksportoj CV-në time në PDF?"
 #: src/dialogs/resume/sections/volunteer.tsx
 #: src/hooks/use-prompt.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 #: src/routes/dashboard/settings/api-keys.tsx
 #: src/routes/dashboard/settings/danger-zone.tsx
 #: src/routes/dashboard/settings/profile.tsx
+#: src/routes/dashboard/verification/index.tsx
+#: src/routes/dashboard/verification/index.tsx
+#: src/routes/dashboard/verification/index.tsx
+#: src/routes/dashboard/verification/index.tsx
+#: src/routes/dashboard/verification/index.tsx
 msgid "Cancel"
 msgstr "Anulo"
+
+#: src/routes/dashboard/admin/index.tsx
+msgid "Cancel Override"
+msgstr ""
+
+#: src/routes/dashboard/settings/profile.tsx
+msgid "Cancel Verification"
+msgstr ""
 
 #: src/utils/locale.ts
 msgid "Catalan"
@@ -603,6 +621,14 @@ msgstr "Kinezçe (E thjeshtuar)"
 msgid "Chinese (Traditional)"
 msgstr "Kinezçe (Tradicionale)"
 
+#: src/routes/dashboard/verification/index.tsx
+msgid "Choose a verification method:"
+msgstr ""
+
+#: src/routes/dashboard/verification/index.tsx
+msgid "Choose File"
+msgstr ""
+
 #: src/components/level/combobox.tsx
 msgid "Circle"
 msgstr "Rreth"
@@ -624,6 +650,11 @@ msgstr "Mbyll"
 msgid "Code Block"
 msgstr "Bllok kodi"
 
+#: src/routes/dashboard/admin/identity.tsx
+#: src/routes/dashboard/admin/index.tsx
+msgid "Collapse"
+msgstr ""
+
 #: src/routes/builder/$resumeId/-sidebar/left/sections/custom.tsx
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-menu.tsx
 msgid "Columns"
@@ -641,16 +672,24 @@ msgstr "Kompania"
 msgid "Completely free, forever, no hidden costs."
 msgstr "Krejtësisht falas, përgjithmonë, pa kosto të fshehura."
 
-#: src/routes/dashboard/job-search/index.tsx
-msgid "Configure Job Search"
-msgstr "Konfiguro kërkimin e punës"
-
 #: src/dialogs/api-key/create.tsx
 #: src/hooks/use-prompt.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+#: src/routes/dashboard/admin/index.tsx
+#: src/routes/dashboard/admin/index.tsx
 #: src/routes/dashboard/settings/danger-zone.tsx
+#: src/routes/dashboard/verification/index.tsx
 msgid "Confirm"
 msgstr "Konfirmo"
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Confirm decision: "
+msgstr ""
+
+#: src/routes/dashboard/admin/index.tsx
+msgid "Confirming..."
+msgstr ""
 
 #: src/routes/dashboard/settings/authentication/-components/social-provider.tsx
 msgid "Connect"
@@ -665,6 +704,7 @@ msgstr "Përmbajtja"
 #: src/dialogs/auth/enable-two-factor.tsx
 #: src/dialogs/auth/enable-two-factor.tsx
 #: src/routes/auth/register.tsx
+#: src/routes/dashboard/verification/index.tsx
 msgid "Continue"
 msgstr "Vazhdo"
 
@@ -684,6 +724,10 @@ msgstr "Kontraktori"
 #: src/routes/_home/-sections/donate.tsx
 msgid "Contributions fund bug fixes, security updates, and continuous improvements to keep the app running smoothly."
 msgstr "Kontributet financojnë rregullimet e gabimeve, përditësimet e sigurisë dhe përmirësimet e vazhdueshme për ta mbajtur aplikacionin duke funksionuar pa probleme."
+
+#: src/routes/dashboard/settings/privacy.tsx
+msgid "Control which verification badges are visible on your public CV."
+msgstr ""
 
 #: src/dialogs/auth/enable-two-factor.tsx
 msgid "Copy"
@@ -814,6 +858,10 @@ msgstr "Krijo një element të ri të rezymes"
 msgid "Create a new volunteer experience"
 msgstr "Krijo një eksperiencë të re vullnetare"
 
+#: src/routes/dashboard/verification/index.tsx
+msgid "Create a resume first to start verifying your skills, projects, and experience."
+msgstr ""
+
 #: src/dialogs/resume/index.tsx
 msgid "Create a Sample Resume"
 msgstr "Krijo një CV nga shembujt"
@@ -831,6 +879,10 @@ msgstr "Po krijohet API key-ja juaj..."
 msgid "Creating your resume..."
 msgstr "Po krijohet CV-ja juaj..."
 
+#: src/routes/dashboard/admin/ai.tsx
+msgid "Credentials are stored in the database and used for all users who enable AI in their account. Only Skill Verdict administrators can change this configuration."
+msgstr ""
+
 #: src/dialogs/auth/change-password.tsx
 msgid "Current Password"
 msgstr "Fjalëkalimi aktual"
@@ -843,6 +895,10 @@ msgstr "CSS e personalizuar"
 #: src/utils/resume/section.tsx
 msgid "Custom Sections"
 msgstr "Rubrika të personalizuara"
+
+#: src/routes/dashboard/admin/index.tsx
+msgid "CV / resume"
+msgstr ""
 
 #: src/utils/locale.ts
 msgid "Czech"
@@ -967,10 +1023,6 @@ msgstr "Çaktivizo vërtetimin me dy faktorë"
 msgid "Disable Two-Factor Authentication"
 msgstr "Çaktivizo vërtetimin me dy faktorë"
 
-#: src/routes/dashboard/settings/ai.tsx
-msgid "Disabled"
-msgstr "I çaktivizuar"
-
 #: src/dialogs/auth/disable-two-factor.tsx
 msgid "Disabling two-factor authentication..."
 msgstr "Po çaktivizohet vërtetimi me dy faktorë..."
@@ -983,10 +1035,23 @@ msgstr "Shkëput"
 msgid "Discord"
 msgstr "Discord"
 
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Display username"
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Document"
+msgstr ""
+
 #: src/routes/_home/-sections/footer.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/information.tsx
 msgid "Documentation"
 msgstr "Dokumentacioni"
+
+#: src/routes/dashboard/admin/identity.tsx
+#: src/routes/dashboard/admin/index.tsx
+msgid "Documents"
+msgstr ""
 
 #: src/routes/auth/login.tsx
 msgid "Don't have an account? <0/>"
@@ -1080,6 +1145,7 @@ msgid "Education"
 msgstr "Arsimimi"
 
 #: src/routes/builder/$resumeId/-sidebar/left/sections/basics.tsx
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Email"
 msgstr "Email"
 
@@ -1090,6 +1156,10 @@ msgstr "Email"
 msgid "Email Address"
 msgstr "Adresa e emailit"
 
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Email verified"
+msgstr ""
+
 #: src/routes/builder/$resumeId/-sidebar/right/sections/css.tsx
 msgctxt "Turn On/Apply Custom CSS"
 msgid "Enable"
@@ -1099,17 +1169,9 @@ msgstr "Aktivizo"
 msgid "Enable 2FA"
 msgstr "Aktivizo vërtetimin me dy faktorë"
 
-#: src/routes/dashboard/settings/ai.tsx
-msgid "Enable AI Features"
-msgstr "Aktivizo veçoritë e AI"
-
 #: src/dialogs/auth/enable-two-factor.tsx
 msgid "Enable Two-Factor Authentication"
 msgstr "Aktivizo vërtetimin me dy faktorë"
-
-#: src/routes/dashboard/settings/ai.tsx
-msgid "Enabled"
-msgstr "I aktivizuar"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 msgid "Enabling password protection..."
@@ -1131,6 +1193,11 @@ msgstr "Anglisht (Mbretëria e Bashkuar)"
 msgid "Enhance the security of your account with additional layers of protection."
 msgstr "Forconi sigurinë e llogarisë suaj me shtresa shtesë mbrojtjeje."
 
+#: src/routes/dashboard/admin/ai.tsx
+#: src/routes/dashboard/admin/job-search.tsx
+msgid "Enter an API key before testing."
+msgstr ""
+
 #: src/routes/auth/verify-2fa-backup.tsx
 msgid "Enter one of your saved backup codes to access your account"
 msgstr "Vendosni një nga kodet tuaja të ruajtura rezervë për të hyrë në llogarinë tuaj"
@@ -1147,6 +1214,10 @@ msgstr "Vendosni kodin e verifikimit nga aplikacioni juaj i autentikimit"
 msgid "Enter your current password and a new password to update your account."
 msgstr "Shkruani fjalëkalimin tuaj aktual dhe një fjalëkalim të ri për të përditësuar llogarinë tuaj."
 
+#: src/routes/dashboard/verification/index.tsx
+msgid "Enter your freelancer profile URL (e.g. Upwork, Fiverr, Toptal):"
+msgstr ""
+
 #: src/dialogs/auth/enable-two-factor.tsx
 msgid "Enter your password to confirm setting up two-factor authentication. When enabled, you'll need to enter a code from your authenticator app every time you log in."
 msgstr "Shkruani fjalëkalimin tuaj për të konfirmuar konfigurimin e vërtetimit me dy faktorë. Kur të jetë aktiv, do t’ju duhet të jepni një kod nga aplikacioni juaj i autentikimit sa herë që hyni."
@@ -1155,17 +1226,9 @@ msgstr "Shkruani fjalëkalimin tuaj për të konfirmuar konfigurimin e vërtetim
 msgid "Enter your password to disable two-factor authentication. Your account will be less secure without 2FA enabled."
 msgstr "Shkruani fjalëkalimin tuaj për të çaktivizuar vërtetimin me dy faktorë. Llogaria juaj do të jetë më pak e sigurt pa 2FA të aktivizuar."
 
-#: src/routes/dashboard/settings/job-search.tsx
-msgid "Enter your RapidAPI key"
-msgstr "Futni çelësin tuaj të RapidAPI"
-
 #: src/routes/_home/-sections/donate.tsx
 msgid "Every contribution, big or small, makes a huge difference to the project.<0/>Thank you for your support!"
 msgstr "Çdo kontribut, i madh apo i vogël, bën një ndryshim të madh për projektin.<0/>Faleminderit për mbështetjen tuaj!"
-
-#: src/routes/dashboard/settings/ai.tsx
-msgid "Everything entered here is stored locally on your browser. Your data is only sent to the server when making a request to the AI provider, and is never stored or logged on our servers."
-msgstr "Gjithçka që shkruhet këtu ruhet lokalisht në shfletuesin tuaj. Të dhënat tuaja dërgohen te serveri vetëm kur bëni një kërkesë te ofruesi i AI dhe nuk ruhen apo regjistrohen kurrë në serverët tanë."
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Everything you need to create, customize, and share professional resumes. Built with privacy in mind, powered by open source, and completely free forever."
@@ -1193,6 +1256,33 @@ msgstr "Dil nga ekrani i plotë"
 msgid "Experience"
 msgstr "Eksperienca"
 
+#: src/routes/dashboard/-components/sidebar.tsx
+#: src/routes/dashboard/admin/index.tsx
+msgid "Experience Queue"
+msgstr ""
+
+#: src/routes/dashboard/admin/index.tsx
+msgid "Experience request flagged as issue."
+msgstr ""
+
+#: src/routes/dashboard/admin/index.tsx
+msgid "Experience request rejected."
+msgstr ""
+
+#: src/routes/dashboard/admin/index.tsx
+msgid "Experience Verification"
+msgstr ""
+
+#. placeholder {0}: item.label
+#: src/routes/dashboard/verification/index.tsx
+#: src/routes/dashboard/verification/index.tsx
+msgid "Experience verification requested for \"{0}\"."
+msgstr ""
+
+#: src/routes/dashboard/admin/index.tsx
+msgid "Experience verified successfully."
+msgstr ""
+
 #: src/dialogs/api-key/create.tsx
 msgid "Expires in"
 msgstr "Skadon pas"
@@ -1218,6 +1308,10 @@ msgstr "Exporto"
 msgid "Failed to duplicate resume"
 msgstr "Dështoi të kopjojë vazhdimin"
 
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Failed to load document."
+msgstr ""
+
 #: src/dialogs/auth/enable-two-factor.tsx
 msgid "Failed to setup two-factor authentication."
 msgstr "Dështoi konfigurimi i vërtetimit me dy faktorë."
@@ -1233,6 +1327,15 @@ msgstr "Dështoi sinkronizimi i aftësive"
 #: src/routes/_home/-sections/features.tsx
 msgid "Features"
 msgstr "Veçori"
+
+#. placeholder {0}: selectedFile.name
+#: src/routes/dashboard/verification/index.tsx
+msgid "File selected: {0}. Submit your verification request?"
+msgstr ""
+
+#: src/routes/dashboard/verification/index.tsx
+msgid "File size must be under 5MB."
+msgstr ""
 
 #: src/routes/dashboard/resumes/index.tsx
 msgid "Filter by"
@@ -1301,6 +1404,14 @@ msgstr "Falas"
 msgid "Free-Form"
 msgstr "Format i lirë"
 
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Freelancer Link"
+msgstr ""
+
+#: src/routes/dashboard/verification/index.tsx
+msgid "Freelancer Profile Link"
+msgstr ""
+
 #: src/utils/locale.ts
 msgid "French"
 msgstr "Frëngjisht"
@@ -1329,9 +1440,12 @@ msgstr "Gjermanisht"
 msgid "Get Started"
 msgstr "Le të fillojmë"
 
-#: src/routes/dashboard/settings/job-search.tsx
-msgid "Get your API key from RapidAPI by subscribing to the JSearch API."
-msgstr "Merrni çelësin tuaj të API-së nga RapidAPI duke u abonuar në JSearch API."
+#: src/components/command-palette/pages/navigation.tsx
+#: src/components/command-palette/pages/navigation.tsx
+#: src/routes/dashboard/-components/sidebar.tsx
+#: src/routes/dashboard/admin/ai.tsx
+msgid "Global AI"
+msgstr ""
 
 #: src/components/layout/not-found-screen.tsx
 #: src/routes/auth/verify-2fa-backup.tsx
@@ -1341,10 +1455,6 @@ msgstr "Kthehu mbrapa"
 #: src/routes/_home/-sections/header.tsx
 msgid "Go to dashboard"
 msgstr "Shko te paneli kryesor"
-
-#: src/routes/dashboard/job-search/index.tsx
-msgid "Go to Settings"
-msgstr "Shko te Cilësimet"
 
 #: src/components/command-palette/pages/navigation.tsx
 msgid "Go to..."
@@ -1428,6 +1538,7 @@ msgstr "E fshehur"
 #: src/routes/builder/$resumeId/-sidebar/left/sections/custom.tsx
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-menu.tsx
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Hide"
 msgstr "Fshih"
 
@@ -1468,6 +1579,39 @@ msgstr "Hungarisht"
 #: src/routes/builder/$resumeId/-sidebar/right/sections/design.tsx
 msgid "Icon"
 msgstr "Ikona"
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Identity Call"
+msgstr ""
+
+#: src/routes/dashboard/-components/sidebar.tsx
+msgid "Identity Queue"
+msgstr ""
+
+#: src/routes/dashboard/admin/identity.tsx
+msgid "Identity request flagged as issue."
+msgstr ""
+
+#: src/routes/dashboard/admin/identity.tsx
+msgid "Identity request rejected."
+msgstr ""
+
+#: src/routes/dashboard/admin/identity.tsx
+#: src/routes/dashboard/settings/profile.tsx
+msgid "Identity Verification"
+msgstr ""
+
+#: src/routes/dashboard/settings/profile.tsx
+msgid "Identity verification request cancelled."
+msgstr ""
+
+#: src/routes/dashboard/settings/profile.tsx
+msgid "Identity verification requested. Please check your email for next steps."
+msgstr ""
+
+#: src/routes/dashboard/admin/identity.tsx
+msgid "Identity verified successfully."
+msgstr ""
 
 #: src/dialogs/resume/import.tsx
 msgid "Import"
@@ -1546,17 +1690,17 @@ msgid "Job Search"
 msgstr "Kërkimi i punës"
 
 #: src/routes/dashboard/-components/sidebar.tsx
-#: src/routes/dashboard/settings/job-search.tsx
+#: src/routes/dashboard/admin/job-search.tsx
 msgid "Job Search API"
 msgstr "API për kërkimin e punës"
 
-#: src/routes/dashboard/settings/job-search.tsx
-msgid "JSearch aggregates job listings from multiple job boards using Google for Jobs. You can filter by country (ISO alpha-2 code), date posted, job type, remote options, and experience level."
-msgstr "JSearch grumbullon njoftime pune nga shumë faqe të punësimit duke përdorur Google for Jobs. Ju mund të filtroni sipas vendit (kodi ISO alfa-2), datës së publikimit, llojit të punës, mundësive për punë në distancë dhe nivelit të përvojës."
+#: src/routes/dashboard/job-search/index.tsx
+msgid "Job search has not been configured yet. Contact an administrator to set it up."
+msgstr ""
 
-#: src/routes/dashboard/settings/job-search.tsx
-msgid "JSearch API Documentation"
-msgstr "Dokumentacioni i API-së JSearch"
+#: src/routes/dashboard/job-search/index.tsx
+msgid "Job Search Not Available"
+msgstr ""
 
 #: src/components/input/rich-input.tsx
 msgid "Justify Align"
@@ -1604,6 +1748,10 @@ msgstr "Gjuhët"
 msgid "Last 3 days"
 msgstr "3 ditët e fundit"
 
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Last active"
+msgstr ""
+
 #. placeholder {0}: statistics.lastDownloadedAt.toDateString()
 #: src/routes/builder/$resumeId/-sidebar/right/sections/statistics.tsx
 msgid "Last downloaded on {0}"
@@ -1618,6 +1766,10 @@ msgstr "Përditësuar së fundmi më {updatedAt}"
 #: src/routes/builder/$resumeId/-sidebar/right/sections/statistics.tsx
 msgid "Last viewed on {0}"
 msgstr "Shikuar së fundmi më {0}"
+
+#: src/routes/dashboard/admin/identity.tsx
+msgid "Latest CV / resume"
+msgstr ""
 
 #: src/utils/locale.ts
 msgid "Latvian"
@@ -1638,6 +1790,11 @@ msgstr "Mësoni më shumë rreth mënyrës se si të përshtatni përmbajtjen n�
 #: src/hooks/use-form-blocker.tsx
 msgid "Leave"
 msgstr "Largohu"
+
+#: src/routes/dashboard/admin/ai.tsx
+#: src/routes/dashboard/admin/job-search.tsx
+msgid "Leave blank to keep the existing key"
+msgstr ""
 
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-menu.tsx
 msgid "Leave empty to reset the title to the original."
@@ -1660,10 +1817,6 @@ msgstr "Niveli"
 #: src/components/level/display.tsx
 msgid "Level {level} of 5"
 msgstr "Niveli {level} nga 5"
-
-#: src/components/ui/copyright.tsx
-msgid "Licensed under <0>MIT</0>."
-msgstr "Licencuar sipas <0>MIT</0>."
 
 #: src/components/user/dropdown-menu.tsx
 #: src/utils/theme.ts
@@ -1691,6 +1844,26 @@ msgstr "Listë"
 msgid "Lithuanian"
 msgstr "Lituanisht"
 
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Loading document..."
+msgstr ""
+
+#: src/routes/dashboard/verification/index.tsx
+msgid "Loading history..."
+msgstr ""
+
+#: src/routes/dashboard/admin/index.tsx
+msgid "Loading pending verdicts..."
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Loading preview…"
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Loading queue..."
+msgstr ""
+
 #: src/components/command-palette/pages/resumes.tsx
 msgid "Loading resumes..."
 msgstr "Po ngarkohen CV-të..."
@@ -1698,6 +1871,11 @@ msgstr "Po ngarkohen CV-të..."
 #: src/components/layout/loading-screen.tsx
 msgid "Loading..."
 msgstr "Po ngarkohet..."
+
+#: src/routes/dashboard/admin/ai.tsx
+#: src/routes/dashboard/admin/job-search.tsx
+msgid "Loading…"
+msgstr ""
 
 #: src/dialogs/resume/sections/education.tsx
 #: src/dialogs/resume/sections/experience.tsx
@@ -1732,6 +1910,10 @@ msgstr "Kryesore"
 msgid "Main navigation"
 msgstr "Navigimi kryesor"
 
+#: src/routes/dashboard/settings/privacy.tsx
+msgid "Make at least one resume public to control the timeline on your public CV."
+msgstr ""
+
 #: src/utils/locale.ts
 msgid "Malay"
 msgstr "Malajisht"
@@ -1760,7 +1942,7 @@ msgstr "Paga maksimale"
 msgid "Minimum Salary"
 msgstr "Paga minimale"
 
-#: src/routes/dashboard/settings/ai.tsx
+#: src/routes/dashboard/admin/ai.tsx
 msgid "Model"
 msgstr "Modeli"
 
@@ -1784,6 +1966,7 @@ msgstr "Shumëgjuhësh"
 #: src/dialogs/resume/sections/skill.tsx
 #: src/routes/auth/register.tsx
 #: src/routes/builder/$resumeId/-sidebar/left/sections/basics.tsx
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Name"
 msgstr "Emri"
@@ -1821,9 +2004,18 @@ msgstr "Seksion i ri"
 msgid "New Skills Detected"
 msgstr "U zbuluan aftësi të reja"
 
+#: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
+msgid "New skills were found in your experience that match this job. Select which ones to save back to your original resume for future applications. This will permanently modify your original resume and cannot be undone."
+msgstr ""
+
 #: src/routes/dashboard/job-search/index.tsx
 msgid "Next"
 msgstr "Më tej"
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "No"
+msgstr ""
 
 #: src/routes/_home/-sections/features.tsx
 msgid "No Advertising, No Tracking"
@@ -1837,6 +2029,26 @@ msgstr "Nuk kërkohet diplomë"
 msgid "No experience"
 msgstr "Pa përvojë"
 
+#: src/routes/dashboard/verification/index.tsx
+msgid "No experience items in your resume. Add some to get started."
+msgstr ""
+
+#: src/routes/dashboard/admin/index.tsx
+msgid "No experience verification requests pending."
+msgstr ""
+
+#: src/routes/dashboard/verification/index.tsx
+msgid "No history available."
+msgstr ""
+
+#: src/routes/dashboard/admin/identity.tsx
+msgid "No identity verification requests pending."
+msgstr ""
+
+#: src/routes/dashboard/verification/index.tsx
+msgid "No items in this section. Add some to your resume first."
+msgstr ""
+
 #: src/routes/dashboard/job-search/index.tsx
 msgid "No jobs found. Try a different search query."
 msgstr "Nuk u gjetën vende pune. Provoni një kërkim tjetër."
@@ -1848,6 +2060,14 @@ msgstr "Nuk u gjetën rezultate."
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 msgid "No resumes found. Create a resume first."
 msgstr "Nuk u gjetën asnjë CV. Krijoni një CV së pari."
+
+#: src/routes/dashboard/admin/index.tsx
+msgid "No verdicts awaiting confirmation."
+msgstr ""
+
+#: src/routes/dashboard/settings/privacy.tsx
+msgid "No verified items yet."
+msgstr ""
 
 #: src/utils/locale.ts
 msgid "Norwegian"
@@ -1869,6 +2089,10 @@ msgstr "Hyrje me një klik"
 msgid "Ongoing Maintenance"
 msgstr "Mirëmbajtje e vazhdueshme"
 
+#: src/routes/dashboard/verification/index.tsx
+msgid "Only PDF, JPG, JPEG, and PNG files are allowed."
+msgstr ""
+
 #: src/routes/dashboard/resumes/-components/menus/context-menu.tsx
 #: src/routes/dashboard/resumes/-components/menus/dropdown-menu.tsx
 msgid "Open"
@@ -1877,6 +2101,10 @@ msgstr "Hap"
 #: src/routes/auth/forgot-password.tsx
 msgid "Open Email Client"
 msgstr "Hap klientin e emailit"
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Open Profile"
+msgstr ""
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Open Source"
@@ -1893,6 +2121,10 @@ msgstr "hapet në skedë të re"
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 msgid "Optimizing summary, experience, and skills for {0}"
 msgstr "Optimizimi i përmbledhjes, përvojës dhe aftësive për {0}"
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Optional notes for the applicant..."
+msgstr ""
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 msgid "Optionally, set a password so that only people with the password can view your resume through the link."
@@ -1911,6 +2143,14 @@ msgstr "Listë e renditur"
 msgid "Organization"
 msgstr "Organizata"
 
+#: src/routes/dashboard/admin/ai.tsx
+msgid "Organization-wide AI"
+msgstr ""
+
+#: src/routes/dashboard/admin/job-search.tsx
+msgid "Organization-wide Job Search"
+msgstr ""
+
 #: src/dialogs/resume/sections/experience.tsx
 msgid "Overall Period"
 msgstr "Periudha e përgjithshme"
@@ -1918,6 +2158,22 @@ msgstr "Periudha e përgjithshme"
 #: src/dialogs/resume/sections/experience.tsx
 msgid "Overall Title (optional)"
 msgstr "Titulli i përgjithshëm (opsional)"
+
+#: src/routes/dashboard/admin/index.tsx
+msgid "Override"
+msgstr ""
+
+#: src/routes/dashboard/admin/index.tsx
+msgid "Override Decision"
+msgstr ""
+
+#: src/routes/dashboard/admin/index.tsx
+msgid "Override to "
+msgstr ""
+
+#: src/routes/dashboard/admin/index.tsx
+msgid "Overriding..."
+msgstr ""
 
 #: src/utils/resume/section.tsx
 msgid "Page"
@@ -1973,6 +2229,14 @@ msgstr "Mbrojtja me fjalëkalim është çaktivizuar."
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 msgid "Password protection has been enabled."
 msgstr "Mbrojtja me fjalëkalim është aktivizuar."
+
+#: src/routes/dashboard/settings/profile.tsx
+msgid "Pending"
+msgstr ""
+
+#: src/routes/dashboard/admin/index.tsx
+msgid "Pending Verdicts"
+msgstr ""
 
 #: src/dialogs/resume/sections/education.tsx
 #: src/dialogs/resume/sections/experience.tsx
@@ -2050,6 +2314,10 @@ msgstr "Preferenca"
 msgid "Press <0>{RETURN_KEY}</0> or <1>{COMMA_KEY}</1> to add or save the current keyword."
 msgstr "Shtyp <0>{RETURN_KEY}</0> ose <1>{COMMA_KEY}</1> për të shtuar ose ruajtur fjalën kyçe aktuale."
 
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Preview"
+msgstr ""
+
 #: src/routes/dashboard/job-search/index.tsx
 msgid "Previous"
 msgstr "Më parë"
@@ -2057,6 +2325,11 @@ msgstr "Më parë"
 #: src/routes/builder/$resumeId/-sidebar/right/sections/design.tsx
 msgid "Primary Color"
 msgstr "Ngjyra kryesore"
+
+#: src/routes/dashboard/-components/sidebar.tsx
+#: src/routes/dashboard/settings/privacy.tsx
+msgid "Privacy"
+msgstr ""
 
 #: src/dialogs/resume/sections/skill.tsx
 msgid "Proficiency"
@@ -2069,6 +2342,14 @@ msgstr "Aftësi"
 msgid "Profile"
 msgstr "Profili"
 
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Profile image URL"
+msgstr ""
+
+#: src/routes/dashboard/verification/index.tsx
+msgid "Profile link: {freelancerUrl}. Submit your verification request?"
+msgstr ""
+
 #: src/dialogs/resume/sections/custom.tsx
 #: src/utils/resume/section.tsx
 msgid "Profiles"
@@ -2079,6 +2360,7 @@ msgid "Progress Bar"
 msgstr "Shtyllë progresi"
 
 #: src/dialogs/resume/sections/custom.tsx
+#: src/routes/dashboard/verification/index.tsx
 #: src/utils/resume/section.tsx
 msgid "Projects"
 msgstr "Projekte"
@@ -2091,7 +2373,7 @@ msgstr "Mbroni CV-në tuaj nga akseset e paautorizuara me një fjalëkalim"
 msgid "Protect your resume with a password, and let only people with the password view it."
 msgstr "Mbroni CV-në tuaj me një fjalëkalim dhe lejoni vetëm personat me fjalëkalim ta shikojnë atë."
 
-#: src/routes/dashboard/settings/ai.tsx
+#: src/routes/dashboard/admin/ai.tsx
 msgid "Provider"
 msgstr "Ofruesi"
 
@@ -2109,7 +2391,7 @@ msgstr "Botues"
 msgid "Quota: {0} remaining"
 msgstr "Kuota: {0} të mbetura"
 
-#: src/routes/dashboard/settings/job-search.tsx
+#: src/routes/dashboard/admin/job-search.tsx
 msgid "RapidAPI Key"
 msgstr "Çelësi i RapidAPI-së"
 
@@ -2205,9 +2487,17 @@ msgstr "Raporto një gabim"
 msgid "Report an issue"
 msgstr "Raporto një problem"
 
+#: src/routes/dashboard/verification/index.tsx
+msgid "Request"
+msgstr ""
+
 #: src/routes/dashboard/job-search/-components/job-detail.tsx
 msgid "Required Skills"
 msgstr "Aftësitë e kërkuara"
+
+#: src/routes/dashboard/admin/index.tsx
+msgid "Required: reason for overriding this verdict..."
+msgstr ""
 
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Resend verification email"
@@ -2256,8 +2546,27 @@ msgid "Resumes"
 msgstr "CV-të"
 
 #: src/routes/dashboard/job-search/index.tsx
+#: src/routes/dashboard/verification/index.tsx
+#: src/routes/dashboard/verification/index.tsx
 msgid "Retry"
 msgstr "Përsërit"
+
+#: src/routes/dashboard/settings/profile.tsx
+msgid "Retry Identity Verification"
+msgstr ""
+
+#: src/routes/dashboard/admin/identity.tsx
+#: src/routes/dashboard/admin/index.tsx
+msgid "Review"
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Review Decision"
+msgstr ""
+
+#: src/routes/reviewer/$adminId.tsx
+msgid "Reviewer since {memberSince}"
+msgstr ""
 
 #: src/components/input/rich-input.tsx
 msgid "Right Align"
@@ -2284,6 +2593,11 @@ msgstr "Rusisht"
 msgid "Save {0} Skills"
 msgstr "Ruaj {0} Aftësitë"
 
+#: src/routes/dashboard/admin/ai.tsx
+#: src/routes/dashboard/admin/job-search.tsx
+msgid "Save and verify"
+msgstr ""
+
 #: src/dialogs/resume/index.tsx
 #: src/dialogs/resume/sections/award.tsx
 #: src/dialogs/resume/sections/certification.tsx
@@ -2304,9 +2618,22 @@ msgstr "Ruaj {0} Aftësitë"
 msgid "Save Changes"
 msgstr "Ruaj ndryshimet"
 
+#: src/routes/dashboard/admin/ai.tsx
+#: src/routes/dashboard/admin/job-search.tsx
+msgid "Saved, but the connection test did not succeed"
+msgstr ""
+
 #: src/dialogs/auth/enable-two-factor.tsx
 msgid "Scan the QR code below with your preferred authenticator app. You can also copy the secret below and paste it into your app."
 msgstr "Skano kodin QR më poshtë me aplikacionin tuaj të preferuar të autentikimit. Mund të kopjoni gjithashtu sekretin më poshtë dhe ta ngjisni në aplikacionin tuaj."
+
+#: src/routes/dashboard/settings/profile.tsx
+msgid "Schedule Identity Verification"
+msgstr ""
+
+#: src/routes/dashboard/settings/profile.tsx
+msgid "Scheduling is not currently available."
+msgstr ""
 
 #: src/dialogs/resume/sections/education.tsx
 msgid "School"
@@ -2342,9 +2669,13 @@ msgstr "Sekreti u kopjua në clipboard."
 msgid "Section Type"
 msgstr "Lloji i seksionit"
 
+#: src/routes/dashboard/verification/index.tsx
+msgid "Select a payslip, contract, or other proof of employment (PDF, JPG, PNG, max 5MB)."
+msgstr ""
+
 #. placeholder {0}: job.job_title
 #. placeholder {1}: job.employer_name
-#. placeholder {2}: aiEnabled ? " and the AI will optimize it for this position." : "."
+#. placeholder {2}: aiEnabled ? " and optimized for this position." : "."
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 msgid "Select a resume to tailor for \"{0}\" at {1}. A copy will be created{2}"
 msgstr "Zgjidhni një CV për ta përshtatur për \"{0}\" në {1}. Një kopje do të krijohet në{2}"
@@ -2352,6 +2683,10 @@ msgstr "Zgjidhni një CV për ta përshtatur për \"{0}\" në {1}. Një kopje do
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Select country"
 msgstr "Zgjidh vendin"
+
+#: src/routes/dashboard/verification/index.tsx
+msgid "Select Resume"
+msgstr ""
 
 #: src/components/ui/combobox.tsx
 msgid "Select..."
@@ -2390,6 +2725,11 @@ msgstr "Vendos fjalëkalimin"
 msgid "Settings"
 msgstr "Parametrat"
 
+#: src/routes/dashboard/admin/ai.tsx
+#: src/routes/dashboard/admin/job-search.tsx
+msgid "Settings saved"
+msgstr ""
+
 #: src/dialogs/auth/enable-two-factor.tsx
 msgid "Setup Authenticator App"
 msgstr "Konfiguro aplikacionin e autentikimit"
@@ -2427,6 +2767,15 @@ msgstr "Shfaq"
 #: src/dialogs/resume/sections/volunteer.tsx
 msgid "Show link in title"
 msgstr "Trego linkun në titull"
+
+#: src/routes/dashboard/settings/privacy.tsx
+#: src/routes/dashboard/settings/privacy.tsx
+msgid "Show or hide the verification timeline on your public CV. This is off by default."
+msgstr ""
+
+#: src/routes/dashboard/settings/privacy.tsx
+msgid "Show Timeline on Public CV"
+msgstr ""
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/layout/pages.tsx
 msgid "Sidebar"
@@ -2486,7 +2835,12 @@ msgstr "Një kolonë e vetme; e lustruar dhe serioze për pozicione të larta os
 msgid "Size"
 msgstr "Madhësia"
 
+#: src/routes/dashboard/-components/sidebar.tsx
+msgid "Skill Verdict Verification"
+msgstr ""
+
 #: src/dialogs/resume/sections/custom.tsx
+#: src/routes/dashboard/verification/index.tsx
 #: src/utils/resume/section.tsx
 msgid "Skills"
 msgstr "Aftësi"
@@ -2510,6 +2864,10 @@ msgstr ""
 #: src/dialogs/resume/index.tsx
 msgid "Slug"
 msgstr "Linku i normalizuar"
+
+#: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
+msgid "Some suggestions could not be applied"
+msgstr ""
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
@@ -2580,6 +2938,27 @@ msgstr "Qëndro"
 #: src/components/input/rich-input.tsx
 msgid "Strike"
 msgstr "Heqje"
+
+#: src/routes/dashboard/admin/index.tsx
+msgid "Submit Override"
+msgstr ""
+
+#: src/routes/dashboard/verification/index.tsx
+msgid "Submit Request"
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Submit Review"
+msgstr ""
+
+#: src/routes/dashboard/verification/index.tsx
+msgid "Submit?"
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+#: src/routes/dashboard/verification/index.tsx
+msgid "Submitting..."
+msgstr ""
 
 #: src/routes/_home/-sections/footer.tsx
 msgid "Subreddit"
@@ -2655,10 +3034,10 @@ msgstr "Galeria e shablloneve"
 msgid "Templates"
 msgstr "Shabllonet"
 
-#: src/routes/dashboard/settings/ai.tsx
-#: src/routes/dashboard/settings/job-search.tsx
-msgid "Test Connection"
-msgstr "Testo lidhjen"
+#: src/routes/dashboard/admin/ai.tsx
+#: src/routes/dashboard/admin/job-search.tsx
+msgid "Test connection"
+msgstr ""
 
 #: src/routes/_home/-sections/testimonials.tsx
 msgid "Testimonials"
@@ -2671,10 +3050,6 @@ msgstr "Ngjyra e tekstit"
 #: src/utils/locale.ts
 msgid "Thai"
 msgstr "Tajlandisht"
-
-#: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
-msgid "The AI identified new skills from your experience that match this job. Select which ones to save back to your original resume for future applications. This will permanently modify your original resume and cannot be undone."
-msgstr "Inteligjenca artificiale identifikoi aftësi të reja nga përvoja juaj që përputhen me këtë punë. Zgjidhni cilat prej tyre dëshironi t'i ruani në rezumën tuaj origjinale për aplikime të ardhshme. Kjo do të modifikojë në mënyrë të përhershme rezumën tuaj origjinale dhe nuk mund të kthehet mbrapsht."
 
 #: src/routes/dashboard/settings/api-keys.tsx
 msgid "The API key has been deleted successfully."
@@ -2695,6 +3070,10 @@ msgstr "Përmbajtja është shumë e gjatë për këtë faqe, kjo mund të shkak
 #: src/routes/auth/resume-password.tsx
 msgid "The password you entered is incorrect"
 msgstr "Fjalëkalimi që keni futur është i pasaktë"
+
+#: src/routes/dashboard/admin/job-search.tsx
+msgid "The RapidAPI key is stored in the database and used for all users. Once configured and verified, every signed-in user can search for job listings via the JSearch API. Only Skill Verdict administrators can change this configuration."
+msgstr ""
 
 #: src/routes/auth/resume-password.tsx
 msgid "The resume you are trying to access is password protected"
@@ -2736,16 +3115,16 @@ msgstr "Ky veprim nuk mund të zhbëhet. Të gjitha të dhënat tuaja do të fsh
 
 #: src/dialogs/resume/import.tsx
 #: src/dialogs/resume/import.tsx
-msgid "This feature requires AI Integration to be enabled. Please enable it in the settings."
-msgstr "Kjo veçori kërkon që Integrimi i AI të jetë aktivizuar. Ju lutemi aktivizojeni te parametrat."
+msgid "This import option is not available right now. Please try another format."
+msgstr ""
 
 #: src/dialogs/resume/index.tsx
 msgid "This is a URL-friendly name for your resume."
 msgstr "Ky është një emër miqësor për URL për CV-në tuaj."
 
 #: src/dialogs/resume/import.tsx
-msgid "This may take a few minutes, depending on the response of the AI provider. Please do not close the window or refresh the page."
-msgstr "Kjo mund të zgjasë disa minuta, në varësi të përgjigjes së ofruesit të AI. Ju lutemi mos e mbyllni dritaren dhe mos rifreskoni faqen."
+msgid "This may take a few minutes. Please do not close the window or refresh the page."
+msgstr ""
 
 #: src/routes/builder/$resumeId/-components/dock.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/export.tsx
@@ -2755,6 +3134,10 @@ msgstr "Kjo mund të zgjasë pak, në varësi të kapacitetit të serverit. Ju l
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "This month"
 msgstr "Ky muaj"
+
+#: src/routes/reviewer/$adminId.tsx
+msgid "This page shows live profile information. Verification snapshots captured at the time of review may differ from the current details shown here."
+msgstr ""
 
 #: src/components/resume/store/resume.ts
 msgid "This resume is locked and cannot be updated."
@@ -2798,10 +3181,6 @@ msgstr "Titulli"
 #: src/routes/dashboard/settings/danger-zone.tsx
 msgid "To delete your account, you need to enter the confirmation text and click the button below."
 msgstr "Për të fshirë llogarinë tuaj, duhet të shkruani tekstin e konfirmimit dhe të klikoni butonin më poshtë."
-
-#: src/routes/dashboard/job-search/index.tsx
-msgid "To search for job listings, you need to configure your RapidAPI key in settings."
-msgstr "Për të kërkuar shpalljet e punës, duhet të konfiguroni çelësin tuaj RapidAPI në cilësimet."
 
 #: src/routes/dashboard/job-search/-components/job-utils.ts
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
@@ -2874,6 +3253,10 @@ msgstr "Vërtetimi me dy faktorë u çaktivizua me sukses."
 msgid "Two-factor authentication has been setup successfully."
 msgstr "Vërtetimi me dy faktorë u konfigurua me sukses."
 
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Two-factor enabled"
+msgstr ""
+
 #: src/dialogs/resume/import.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/design.tsx
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
@@ -2909,6 +3292,11 @@ msgctxt "'Ctrl' may be replaced with the locale-specific equivalent (e.g. 'Strg'
 msgid "Undo (Ctrl+Z)"
 msgstr "Zhbëje (Ctrl+Z)"
 
+#: src/routes/dashboard/admin/identity.tsx
+#: src/routes/dashboard/admin/index.tsx
+msgid "Unknown applicant"
+msgstr ""
+
 #: src/routes/_home/-sections/features.tsx
 msgid "Unlimited Resumes"
 msgstr "CV të pakufizuara"
@@ -2924,6 +3312,7 @@ msgstr "Po shkëputet llogaria juaj {providerName}..."
 msgid "Unlock"
 msgstr "Shkyç"
 
+#: src/routes/dashboard/settings/profile.tsx
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Unverified"
 msgstr "I paverifikuar"
@@ -3017,16 +3406,29 @@ msgstr "Po përditësohet fjalëkalimi juaj..."
 msgid "Updating your resume..."
 msgstr "Po përditësohet CV-ja juaj..."
 
+#: src/routes/dashboard/verification/index.tsx
+msgid "Upload Document"
+msgstr ""
+
 #: src/routes/builder/$resumeId/-sidebar/left/sections/picture.tsx
 msgid "Uploading picture..."
 msgstr "Po ngarkohet foto..."
+
+#: src/routes/dashboard/verification/index.tsx
+msgid "Uploading..."
+msgstr ""
 
 #: src/routes/builder/$resumeId/-sidebar/left/sections/picture.tsx
 msgid "URL"
 msgstr "Linku"
 
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "User ID"
+msgstr ""
+
 #: src/dialogs/resume/sections/profile.tsx
 #: src/routes/auth/register.tsx
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Username"
 msgstr "Emri i përdoruesit"
@@ -3043,18 +3445,57 @@ msgstr "Uzbeke"
 msgid "Valid URLs must start with http:// or https://."
 msgstr "URL-të e vlefshme duhet të fillojnë me http:// ose https://."
 
+#: src/routes/dashboard/admin/index.tsx
+msgid "Verdict confirmed. Experience verified."
+msgstr ""
+
+#: src/routes/dashboard/admin/index.tsx
+msgid "Verdict overridden successfully."
+msgstr ""
+
+#: src/routes/dashboard/-components/sidebar.tsx
+#: src/routes/dashboard/verification/index.tsx
+#: src/routes/dashboard/verification/index.tsx
+msgid "Verification"
+msgstr ""
+
+#: src/routes/dashboard/settings/privacy.tsx
+msgid "Verification Badges"
+msgstr ""
+
+#: src/routes/dashboard/settings/privacy.tsx
+#: src/routes/dashboard/settings/privacy.tsx
+msgid "Verification History Timeline"
+msgstr ""
+
+#. placeholder {0}: item.label
+#: src/routes/dashboard/verification/index.tsx
+msgid "Verification requested for \"{0}\"."
+msgstr ""
+
+#: src/routes/dashboard/verification/index.tsx
+#: src/routes/dashboard/verification/index.tsx
+msgid "verified"
+msgstr ""
+
+#: src/routes/dashboard/settings/profile.tsx
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Verified"
 msgstr "I verifikuar"
 
 #: src/routes/auth/verify-2fa-backup.tsx
 #: src/routes/auth/verify-2fa.tsx
+#: src/routes/dashboard/verification/index.tsx
 msgid "Verify"
 msgstr "Verifiko"
 
 #: src/routes/auth/verify-2fa-backup.tsx
 msgid "Verify with a Backup Code"
 msgstr "Verifiko me një kod rezervë"
+
+#: src/routes/dashboard/settings/profile.tsx
+msgid "Verify your identity through a short video call. This adds trust to your resume."
+msgstr ""
 
 #: src/routes/auth/verify-2fa-backup.tsx
 msgid "Verifying backup code..."
@@ -3103,10 +3544,6 @@ msgstr "Faqja e internetit"
 msgid "What do you want to rename this section to?"
 msgstr "Në çfarë doni ta riemërtoni këtë seksion?"
 
-#: src/routes/dashboard/settings/job-search.tsx
-msgid "What is JSearch API?"
-msgstr "Çfarë është JSearch API?"
-
 #: src/routes/_home/-sections/faq.tsx
 msgid "What makes Reactive Resume different from other resume builders?"
 msgstr "Çfarë e bën Reactive Resume ndryshe nga ndërtuesit e tjerë të CV-ve?"
@@ -3121,9 +3558,18 @@ msgstr "Çfarë ka të re në versionin e fundit?"
 msgid "When locked, the resume cannot be updated or deleted."
 msgstr "Kur është e kyçur, CV-ja nuk mund të përditësohet ose fshihet."
 
+#: src/routes/dashboard/verification/index.tsx
+msgid "Work Experience"
+msgstr ""
+
 #: src/routes/_home/-sections/features.tsx
 msgid "Write your own CSS (or use an AI to generate it for you) to customize your resume to the fullest."
 msgstr "Shkruani CSS-në tuaj (ose përdorni një AI për ta gjeneruar për ju) për të personalizuar CV-në tuaj në maksimum."
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Yes"
+msgstr ""
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "Yes, Reactive Resume is available in multiple languages. You can choose your preferred language in the settings page, or using the language switcher in the top right corner. If you don't see your language, or you would like to improve the existing translations, you can <0>contribute to the translations on Crowdin<1> (opens in new tab)</1></0>."
@@ -3178,13 +3624,13 @@ msgstr "Ndryshimet tuaja ruhen automatikisht."
 msgid "Your data is secure, and never shared or sold to anyone."
 msgstr "Të dhënat tuaja janë të sigurta dhe nuk ndahen apo shiten kurrë te askush."
 
-#: src/routes/dashboard/settings/ai.tsx
-msgid "Your data is stored locally"
-msgstr "Të dhënat tuaja ruhen lokalisht"
-
 #: src/routes/_home/-sections/faq.tsx
 msgid "Your data is stored securely and is never shared with third parties. You can also self-host Reactive Resume on your own servers for complete control over your data."
 msgstr "Të dhënat tuaja ruhen në mënyrë të sigurt dhe nuk ndahen kurrë me palë të treta. Ju gjithashtu mund ta self-host-oni Reactive Resume në serverët tuaj për kontroll të plotë mbi të dhënat tuaja."
+
+#: src/routes/dashboard/settings/profile.tsx
+msgid "Your identity has been verified and your profile is trusted."
+msgstr ""
 
 #: src/routes/auth/reset-password.tsx
 msgid "Your password has been reset successfully. You can now sign in with your new password."
@@ -3195,12 +3641,12 @@ msgid "Your password has been updated successfully."
 msgstr "Fjalëkalimi juaj u përditësua."
 
 #: src/routes/dashboard/settings/profile.tsx
+msgid "Your previous identity verification was unsuccessful. You may try again."
+msgstr ""
+
+#: src/routes/dashboard/settings/profile.tsx
 msgid "Your profile has been updated successfully."
 msgstr "Profili juaj u përditësua me sukses."
-
-#: src/routes/dashboard/settings/job-search.tsx
-msgid "Your RapidAPI key is stored locally on your browser. It is only sent to the server when making a request to search for jobs, and is never stored or logged on our servers."
-msgstr "Çelësi juaj i RapidAPI-së ruhet lokalisht në shfletuesin tuaj. Ai dërgohet në server vetëm kur bëni një kërkesë për të kërkuar vende pune, dhe kurrë nuk ruhet apo regjistrohet në serverët tanë."
 
 #: src/dialogs/resume/index.tsx
 #: src/dialogs/resume/index.tsx
@@ -3232,6 +3678,10 @@ msgstr "Linku publik i CV-së suaj aktualisht është i mbrojtur me një fjalëk
 #: src/routes/_home/-sections/donate.tsx
 msgid "Your support ensures the project remains free and accessible for everyone, now and in the future."
 msgstr "Mbështetja juaj siguron që projekti të mbetet falas dhe i aksesueshëm për të gjithë, tani dhe në të ardhmen."
+
+#: src/routes/dashboard/settings/profile.tsx
+msgid "Your verification call has been scheduled. Our team will review and confirm your identity shortly."
+msgstr ""
 
 #: src/routes/builder/$resumeId/-components/dock.tsx
 msgid "Zoom in"

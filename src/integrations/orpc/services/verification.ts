@@ -886,24 +886,104 @@ export const verificationService = {
   },
 
   listIdentityQueue: async () => {
-    return await db
+    const requests = await db
       .select({
         id: verificationRequests.id,
         userId: verificationRequests.userId,
+        resumeId: verificationRequests.resumeId,
+        sectionType: verificationRequests.sectionType,
+        itemId: verificationRequests.itemId,
         itemLabel: verificationRequests.itemLabel,
         status: verificationRequests.status,
+        method: verificationRequests.method,
         submittedAt: verificationRequests.submittedAt,
         calendarLinkSentAt: verificationRequests.calendarLinkSentAt,
-        userName: user.name,
-        userEmail: user.email,
       })
       .from(verificationRequests)
-      .innerJoin(user, eq(verificationRequests.userId, user.id))
-      .where(and(eq(verificationRequests.sectionType, "identity"), eq(verificationRequests.status, "pending")))
+      .where(and(eq(verificationRequests.status, "pending"), eq(verificationRequests.sectionType, "identity")))
       .orderBy(desc(verificationRequests.submittedAt));
+
+    if (requests.length === 0) return [];
+
+    const requestIds = requests.map((r) => r.id);
+    const userIds = [...new Set(requests.map((r) => r.userId))];
+
+    const users = userIds.length > 0 ? await db.select().from(user).where(inArray(user.id, userIds)) : [];
+
+    // Identity requests have resumeId: null — fetch latest resume per user for context
+    const allResumeRows =
+      userIds.length > 0
+        ? await db
+            .select({
+              id: resume.id,
+              name: resume.name,
+              slug: resume.slug,
+              tags: resume.tags,
+              isPublic: resume.isPublic,
+              isLocked: resume.isLocked,
+              data: resume.data,
+              userId: resume.userId,
+              createdAt: resume.createdAt,
+              updatedAt: resume.updatedAt,
+            })
+            .from(resume)
+            .where(inArray(resume.userId, userIds))
+            .orderBy(desc(resume.updatedAt))
+        : [];
+
+    const latestResumeByUserId = new Map<string, (typeof allResumeRows)[number]>();
+    for (const row of allResumeRows) {
+      if (!latestResumeByUserId.has(row.userId)) {
+        latestResumeByUserId.set(row.userId, row);
+      }
+    }
+
+    const docs = await db
+      .select({
+        id: verificationDocuments.id,
+        verificationRequestId: verificationDocuments.verificationRequestId,
+        fileUrl: verificationDocuments.fileUrl,
+        documentType: verificationDocuments.documentType,
+        uploadedAt: verificationDocuments.uploadedAt,
+      })
+      .from(verificationDocuments)
+      .where(inArray(verificationDocuments.verificationRequestId, requestIds));
+
+    const docsByRequestId = new Map<string, typeof docs>();
+    for (const doc of docs) {
+      const existing = docsByRequestId.get(doc.verificationRequestId) ?? [];
+      existing.push(doc);
+      docsByRequestId.set(doc.verificationRequestId, existing);
+    }
+
+    const userById = new Map(users.map((u) => [u.id, u]));
+
+    return requests.map((r) => ({
+      id: r.id,
+      sectionType: r.sectionType,
+      itemId: r.itemId,
+      itemLabel: r.itemLabel,
+      status: r.status,
+      method: r.method,
+      submittedAt: r.submittedAt,
+      calendarLinkSentAt: r.calendarLinkSentAt,
+      user: userById.get(r.userId) ?? null,
+      resume: latestResumeByUserId.get(r.userId) ?? null,
+      documents: (docsByRequestId.get(r.id) ?? []).map((d) => ({
+        id: d.id,
+        fileUrl: d.fileUrl,
+        documentType: d.documentType,
+        uploadedAt: d.uploadedAt,
+      })),
+    }));
   },
 
-  verifyIdentity: async (input: { requestId: string; adminId: string }) => {
+  reviewIdentity: async (input: {
+    requestId: string;
+    adminId: string;
+    action: "verified" | "rejected" | "issue";
+    notes?: string;
+  }) => {
     const [request] = await db
       .select({
         id: verificationRequests.id,
@@ -920,34 +1000,36 @@ export const verificationService = {
       throw new ORPCError("NOT_FOUND", { message: "Verification request not found" });
     }
 
-    if (request.sectionType !== "identity") {
-      throw new ORPCError("BAD_REQUEST", { message: "Request is not an identity verification" });
-    }
-
-    if (request.status !== "pending") {
-      throw new ORPCError("BAD_REQUEST", { message: "Identity request must be in pending status" });
+    if (request.status !== "pending" || request.sectionType !== "identity") {
+      throw new ORPCError("BAD_REQUEST", { message: "Request must be a pending identity request" });
     }
 
     const [updated] = await db
       .update(verificationRequests)
       .set({
-        status: "verified",
+        status: input.action,
         resolvedAt: new Date(),
+        reviewerNote: input.notes ?? null,
       })
       .where(eq(verificationRequests.id, input.requestId))
       .returning();
+
+    const metadataAction = input.action === "issue" ? ("flagged" as const) : input.action;
 
     await db.insert(verificationMetadata).values({
       verificationRequestId: input.requestId,
       adminId: input.adminId,
       adminRole: "skill_verdict_admin",
-      action: "verified",
+      action: metadataAction,
+      notes: input.notes ?? null,
     });
 
-    await sendFinalStatusEmail(
-      { userId: request.userId, itemLabel: request.itemLabel, sectionType: request.sectionType },
-      "verified",
-    );
+    if (isFinalStatus(input.action)) {
+      await sendFinalStatusEmail(
+        { userId: request.userId, itemLabel: request.itemLabel, sectionType: request.sectionType },
+        input.action,
+      );
+    }
 
     return updated!;
   },

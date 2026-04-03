@@ -72,10 +72,6 @@ msgstr "{column, plural, other {# 欄}}"
 msgid "{diffDays} days ago"
 msgstr "{diffDays} 天前"
 
-#: src/routes/dashboard/settings/job-search.tsx
-msgid "{used} of {limit} requests used ({remaining} remaining)"
-msgstr "{used} 已使用的 {limit} 請求 ({remaining} 剩餘)"
-
 #: src/routes/_home/-sections/hero.tsx
 msgid "<0>Finally,</0><1>A free and open-source resume builder</1>"
 msgstr "<0>終於有了，</0><1>免費且開放原始碼的履歷建立工具</1>"
@@ -130,9 +126,9 @@ msgstr "多年來，許多人寫信給我分享他們使用 Reactive Resume 的�
 msgid "A new verification link has been sent to your email address. Please check your inbox to verify your account."
 msgstr "新的驗證連結已傳送至您的電子郵件地址。請檢查收件匣以驗證您的帳戶。"
 
-#: src/components/ui/copyright.tsx
-msgid "A passion project by <0>Amruth Pillai</0>."
-msgstr "一個由 <0>Amruth Pillai</0> 發起的熱血專案。"
+#: src/routes/dashboard/admin/index.tsx
+msgid "A reason is required to override."
+msgstr ""
 
 #: src/dialogs/resume/index.tsx
 #: src/dialogs/resume/index.tsx
@@ -150,6 +146,14 @@ msgstr "當然可以！您只要按一下即可將履歷匯出為 PDF。匯出�
 #: src/routes/_home/-sections/features.tsx
 msgid "Access your resumes and data programmatically using the API."
 msgstr "使用 API 以程式化方式存取您的履歷與資料。"
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Account created"
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Account updated"
+msgstr ""
 
 #: src/routes/builder/$resumeId/-sidebar/left/sections/custom-fields.tsx
 msgid "Add a custom field"
@@ -249,6 +253,14 @@ msgstr "在前方新增列"
 msgid "Added {0} new skills to your original resume"
 msgstr "在原有的履歷中加入 {0} 新技能"
 
+#: src/components/command-palette/pages/navigation.tsx
+msgid "Admin AI"
+msgstr ""
+
+#: src/routes/dashboard/-components/sidebar.tsx
+msgid "Administration"
+msgstr ""
+
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Advanced Filters"
 msgstr "進階過濾器"
@@ -256,15 +268,6 @@ msgstr "進階過濾器"
 #: src/utils/locale.ts
 msgid "Afrikaans"
 msgstr "南非荷蘭語"
-
-#: src/dialogs/resume/import.tsx
-#: src/dialogs/resume/import.tsx
-msgid "AI"
-msgstr "AI"
-
-#: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
-msgid "AI returned some invalid references"
-msgstr "AI 返回了一些無效的參照"
 
 #: src/utils/locale.ts
 msgid "Albanian"
@@ -324,7 +327,7 @@ msgstr "任何擁有連結的人都可以檢視和下載履歷。"
 msgid "API Access"
 msgstr "API 存取"
 
-#: src/routes/dashboard/settings/ai.tsx
+#: src/routes/dashboard/admin/ai.tsx
 msgid "API Key"
 msgstr "API Key"
 
@@ -339,13 +342,13 @@ msgstr "API Key"
 msgid "API Reference"
 msgstr "API 參考文件"
 
-#: src/routes/dashboard/settings/job-search.tsx
-msgid "API Usage"
-msgstr "API 使用方式"
-
 #: src/routes/dashboard/-components/sidebar.tsx
 msgid "App"
 msgstr "應用程式"
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Applicant"
+msgstr ""
 
 #: src/routes/_home/-sections/statistics.tsx
 msgid "Application Statistics"
@@ -399,13 +402,6 @@ msgstr "您確定要移除密碼保護嗎？"
 msgid "Area of Study"
 msgstr "學習領域"
 
-#: src/components/command-palette/pages/navigation.tsx
-#: src/components/command-palette/pages/navigation.tsx
-#: src/routes/dashboard/-components/sidebar.tsx
-#: src/routes/dashboard/settings/ai.tsx
-msgid "Artificial Intelligence"
-msgstr "人工智慧"
-
 #: src/routes/builder/$resumeId/-sidebar/left/sections/picture.tsx
 msgid "Aspect Ratio"
 msgstr "顯示比例"
@@ -435,6 +431,11 @@ msgstr "獎項"
 msgid "Azerbaijani"
 msgstr "亞塞拜然語"
 
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+#: src/routes/dashboard/admin/index.tsx
+msgid "Back"
+msgstr ""
+
 #: src/routes/auth/verify-2fa.tsx
 msgid "Back to Login"
 msgstr "返回登入"
@@ -447,7 +448,7 @@ msgstr "背景顏色"
 msgid "Backup codes copied to clipboard."
 msgstr "備份代碼已複製到剪貼簿。"
 
-#: src/routes/dashboard/settings/ai.tsx
+#: src/routes/dashboard/admin/ai.tsx
 msgid "Base URL (Optional)"
 msgstr "基底 URL（選填）"
 
@@ -496,11 +497,14 @@ msgstr "保加利亞語"
 msgid "Bullet List"
 msgstr "項目符號清單"
 
-#: src/components/ui/copyright.tsx
 #: src/routes/_home/-sections/features.tsx
 #: src/routes/_home/-sections/prefooter.tsx
 msgid "By the community, for the community."
 msgstr "來自社區，服務社區。"
+
+#: src/routes/dashboard/admin/identity.tsx
+msgid "Call link sent"
+msgstr ""
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "Can I customize the templates?"
@@ -543,12 +547,26 @@ msgstr "我可以把履歷匯出成 PDF 嗎？"
 #: src/dialogs/resume/sections/volunteer.tsx
 #: src/hooks/use-prompt.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 #: src/routes/dashboard/settings/api-keys.tsx
 #: src/routes/dashboard/settings/danger-zone.tsx
 #: src/routes/dashboard/settings/profile.tsx
+#: src/routes/dashboard/verification/index.tsx
+#: src/routes/dashboard/verification/index.tsx
+#: src/routes/dashboard/verification/index.tsx
+#: src/routes/dashboard/verification/index.tsx
+#: src/routes/dashboard/verification/index.tsx
 msgid "Cancel"
 msgstr "取消"
+
+#: src/routes/dashboard/admin/index.tsx
+msgid "Cancel Override"
+msgstr ""
+
+#: src/routes/dashboard/settings/profile.tsx
+msgid "Cancel Verification"
+msgstr ""
 
 #: src/utils/locale.ts
 msgid "Catalan"
@@ -603,6 +621,14 @@ msgstr "中文（簡體）"
 msgid "Chinese (Traditional)"
 msgstr "中文（繁體）"
 
+#: src/routes/dashboard/verification/index.tsx
+msgid "Choose a verification method:"
+msgstr ""
+
+#: src/routes/dashboard/verification/index.tsx
+msgid "Choose File"
+msgstr ""
+
 #: src/components/level/combobox.tsx
 msgid "Circle"
 msgstr "圓形"
@@ -624,6 +650,11 @@ msgstr "關閉"
 msgid "Code Block"
 msgstr "程式碼區塊"
 
+#: src/routes/dashboard/admin/identity.tsx
+#: src/routes/dashboard/admin/index.tsx
+msgid "Collapse"
+msgstr ""
+
 #: src/routes/builder/$resumeId/-sidebar/left/sections/custom.tsx
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-menu.tsx
 msgid "Columns"
@@ -641,16 +672,24 @@ msgstr "公司"
 msgid "Completely free, forever, no hidden costs."
 msgstr "完全免費，永遠如此，沒有任何隱藏費用。"
 
-#: src/routes/dashboard/job-search/index.tsx
-msgid "Configure Job Search"
-msgstr "設定工作搜尋"
-
 #: src/dialogs/api-key/create.tsx
 #: src/hooks/use-prompt.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+#: src/routes/dashboard/admin/index.tsx
+#: src/routes/dashboard/admin/index.tsx
 #: src/routes/dashboard/settings/danger-zone.tsx
+#: src/routes/dashboard/verification/index.tsx
 msgid "Confirm"
 msgstr "確認"
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Confirm decision: "
+msgstr ""
+
+#: src/routes/dashboard/admin/index.tsx
+msgid "Confirming..."
+msgstr ""
 
 #: src/routes/dashboard/settings/authentication/-components/social-provider.tsx
 msgid "Connect"
@@ -665,6 +704,7 @@ msgstr "內容"
 #: src/dialogs/auth/enable-two-factor.tsx
 #: src/dialogs/auth/enable-two-factor.tsx
 #: src/routes/auth/register.tsx
+#: src/routes/dashboard/verification/index.tsx
 msgid "Continue"
 msgstr "繼續"
 
@@ -684,6 +724,10 @@ msgstr "承包商"
 #: src/routes/_home/-sections/donate.tsx
 msgid "Contributions fund bug fixes, security updates, and continuous improvements to keep the app running smoothly."
 msgstr "捐款將用於錯誤修正、安全性更新與持續改進，確保應用程式穩定運作。"
+
+#: src/routes/dashboard/settings/privacy.tsx
+msgid "Control which verification badges are visible on your public CV."
+msgstr ""
 
 #: src/dialogs/auth/enable-two-factor.tsx
 msgid "Copy"
@@ -814,6 +858,10 @@ msgstr "建立新的摘要項目"
 msgid "Create a new volunteer experience"
 msgstr "建立新的志工經歷"
 
+#: src/routes/dashboard/verification/index.tsx
+msgid "Create a resume first to start verifying your skills, projects, and experience."
+msgstr ""
+
 #: src/dialogs/resume/index.tsx
 msgid "Create a Sample Resume"
 msgstr "建立履歷範例"
@@ -831,6 +879,10 @@ msgstr "正在建立您的 API Key…"
 msgid "Creating your resume..."
 msgstr "正在建立您的履歷…"
 
+#: src/routes/dashboard/admin/ai.tsx
+msgid "Credentials are stored in the database and used for all users who enable AI in their account. Only Skill Verdict administrators can change this configuration."
+msgstr ""
+
 #: src/dialogs/auth/change-password.tsx
 msgid "Current Password"
 msgstr "目前密碼"
@@ -843,6 +895,10 @@ msgstr "自訂 CSS"
 #: src/utils/resume/section.tsx
 msgid "Custom Sections"
 msgstr "自訂段落"
+
+#: src/routes/dashboard/admin/index.tsx
+msgid "CV / resume"
+msgstr ""
 
 #: src/utils/locale.ts
 msgid "Czech"
@@ -967,10 +1023,6 @@ msgstr "停用雙因子驗證（2FA）"
 msgid "Disable Two-Factor Authentication"
 msgstr "停用雙因子驗證"
 
-#: src/routes/dashboard/settings/ai.tsx
-msgid "Disabled"
-msgstr "已停用"
-
 #: src/dialogs/auth/disable-two-factor.tsx
 msgid "Disabling two-factor authentication..."
 msgstr "正在停用雙因子驗證…"
@@ -983,10 +1035,23 @@ msgstr "中斷連結"
 msgid "Discord"
 msgstr "Discord"
 
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Display username"
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Document"
+msgstr ""
+
 #: src/routes/_home/-sections/footer.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/information.tsx
 msgid "Documentation"
 msgstr "文件"
+
+#: src/routes/dashboard/admin/identity.tsx
+#: src/routes/dashboard/admin/index.tsx
+msgid "Documents"
+msgstr ""
 
 #: src/routes/auth/login.tsx
 msgid "Don't have an account? <0/>"
@@ -1080,6 +1145,7 @@ msgid "Education"
 msgstr "學歷"
 
 #: src/routes/builder/$resumeId/-sidebar/left/sections/basics.tsx
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Email"
 msgstr "電子郵件"
 
@@ -1090,6 +1156,10 @@ msgstr "電子郵件"
 msgid "Email Address"
 msgstr "電子郵件地址"
 
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Email verified"
+msgstr ""
+
 #: src/routes/builder/$resumeId/-sidebar/right/sections/css.tsx
 msgctxt "Turn On/Apply Custom CSS"
 msgid "Enable"
@@ -1099,17 +1169,9 @@ msgstr "啟用"
 msgid "Enable 2FA"
 msgstr "啟用雙因子驗證"
 
-#: src/routes/dashboard/settings/ai.tsx
-msgid "Enable AI Features"
-msgstr "啟用 AI 功能"
-
 #: src/dialogs/auth/enable-two-factor.tsx
 msgid "Enable Two-Factor Authentication"
 msgstr "啟用雙因子驗證"
-
-#: src/routes/dashboard/settings/ai.tsx
-msgid "Enabled"
-msgstr "已啟用"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 msgid "Enabling password protection..."
@@ -1131,6 +1193,11 @@ msgstr "英語（英國）"
 msgid "Enhance the security of your account with additional layers of protection."
 msgstr "透過額外的保護層級強化您的帳戶安全。"
 
+#: src/routes/dashboard/admin/ai.tsx
+#: src/routes/dashboard/admin/job-search.tsx
+msgid "Enter an API key before testing."
+msgstr ""
+
 #: src/routes/auth/verify-2fa-backup.tsx
 msgid "Enter one of your saved backup codes to access your account"
 msgstr "請輸入其中一組已儲存的備份代碼以存取您的帳戶"
@@ -1147,6 +1214,10 @@ msgstr "請輸入您驗證器應用程式中的驗證碼"
 msgid "Enter your current password and a new password to update your account."
 msgstr "請輸入目前密碼與新密碼以更新您的帳戶。"
 
+#: src/routes/dashboard/verification/index.tsx
+msgid "Enter your freelancer profile URL (e.g. Upwork, Fiverr, Toptal):"
+msgstr ""
+
 #: src/dialogs/auth/enable-two-factor.tsx
 msgid "Enter your password to confirm setting up two-factor authentication. When enabled, you'll need to enter a code from your authenticator app every time you log in."
 msgstr "請輸入您的密碼以確認設定雙因子驗證。啟用後，每次登入都需要輸入驗證器應用程式中的驗證碼。"
@@ -1155,17 +1226,9 @@ msgstr "請輸入您的密碼以確認設定雙因子驗證。啟用後，每次
 msgid "Enter your password to disable two-factor authentication. Your account will be less secure without 2FA enabled."
 msgstr "請輸入您的密碼以停用雙因子驗證。停用後，您的帳戶將會比較不安全。"
 
-#: src/routes/dashboard/settings/job-search.tsx
-msgid "Enter your RapidAPI key"
-msgstr "輸入您的 RapidAPI 金鑰"
-
 #: src/routes/_home/-sections/donate.tsx
 msgid "Every contribution, big or small, makes a huge difference to the project.<0/>Thank you for your support!"
 msgstr "每一筆捐款，不論大小，都能為此專案帶來巨大的幫助。<0/>感謝您的支持！"
-
-#: src/routes/dashboard/settings/ai.tsx
-msgid "Everything entered here is stored locally on your browser. Your data is only sent to the server when making a request to the AI provider, and is never stored or logged on our servers."
-msgstr "您在這裡輸入的所有內容都會儲存在瀏覽器本機。只有在向 AI 服務提供者發出請求時，您的資料才會被傳送到伺服器，而且絕不會在我們的伺服器上儲存或記錄。"
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Everything you need to create, customize, and share professional resumes. Built with privacy in mind, powered by open source, and completely free forever."
@@ -1193,6 +1256,33 @@ msgstr "退出全螢幕"
 msgid "Experience"
 msgstr "經歷"
 
+#: src/routes/dashboard/-components/sidebar.tsx
+#: src/routes/dashboard/admin/index.tsx
+msgid "Experience Queue"
+msgstr ""
+
+#: src/routes/dashboard/admin/index.tsx
+msgid "Experience request flagged as issue."
+msgstr ""
+
+#: src/routes/dashboard/admin/index.tsx
+msgid "Experience request rejected."
+msgstr ""
+
+#: src/routes/dashboard/admin/index.tsx
+msgid "Experience Verification"
+msgstr ""
+
+#. placeholder {0}: item.label
+#: src/routes/dashboard/verification/index.tsx
+#: src/routes/dashboard/verification/index.tsx
+msgid "Experience verification requested for \"{0}\"."
+msgstr ""
+
+#: src/routes/dashboard/admin/index.tsx
+msgid "Experience verified successfully."
+msgstr ""
+
 #: src/dialogs/api-key/create.tsx
 msgid "Expires in"
 msgstr "到期時間"
@@ -1218,6 +1308,10 @@ msgstr "導出"
 msgid "Failed to duplicate resume"
 msgstr "履歷複製失敗"
 
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Failed to load document."
+msgstr ""
+
 #: src/dialogs/auth/enable-two-factor.tsx
 msgid "Failed to setup two-factor authentication."
 msgstr "設定雙因子驗證失敗。"
@@ -1233,6 +1327,15 @@ msgstr "同步技能失敗"
 #: src/routes/_home/-sections/features.tsx
 msgid "Features"
 msgstr "功能"
+
+#. placeholder {0}: selectedFile.name
+#: src/routes/dashboard/verification/index.tsx
+msgid "File selected: {0}. Submit your verification request?"
+msgstr ""
+
+#: src/routes/dashboard/verification/index.tsx
+msgid "File size must be under 5MB."
+msgstr ""
 
 #: src/routes/dashboard/resumes/index.tsx
 msgid "Filter by"
@@ -1301,6 +1404,14 @@ msgstr "免費"
 msgid "Free-Form"
 msgstr "自由格式"
 
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Freelancer Link"
+msgstr ""
+
+#: src/routes/dashboard/verification/index.tsx
+msgid "Freelancer Profile Link"
+msgstr ""
+
 #: src/utils/locale.ts
 msgid "French"
 msgstr "法文"
@@ -1329,9 +1440,12 @@ msgstr "德文"
 msgid "Get Started"
 msgstr "開始使用"
 
-#: src/routes/dashboard/settings/job-search.tsx
-msgid "Get your API key from RapidAPI by subscribing to the JSearch API."
-msgstr "透過訂閱 JSearch API，從 RapidAPI 取得您的 API 金鑰。"
+#: src/components/command-palette/pages/navigation.tsx
+#: src/components/command-palette/pages/navigation.tsx
+#: src/routes/dashboard/-components/sidebar.tsx
+#: src/routes/dashboard/admin/ai.tsx
+msgid "Global AI"
+msgstr ""
 
 #: src/components/layout/not-found-screen.tsx
 #: src/routes/auth/verify-2fa-backup.tsx
@@ -1341,10 +1455,6 @@ msgstr "返回"
 #: src/routes/_home/-sections/header.tsx
 msgid "Go to dashboard"
 msgstr "前往儀表板"
-
-#: src/routes/dashboard/job-search/index.tsx
-msgid "Go to Settings"
-msgstr "前往設定"
 
 #: src/components/command-palette/pages/navigation.tsx
 msgid "Go to..."
@@ -1428,6 +1538,7 @@ msgstr "隱藏"
 #: src/routes/builder/$resumeId/-sidebar/left/sections/custom.tsx
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-menu.tsx
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Hide"
 msgstr "隱藏"
 
@@ -1468,6 +1579,39 @@ msgstr "匈牙利語"
 #: src/routes/builder/$resumeId/-sidebar/right/sections/design.tsx
 msgid "Icon"
 msgstr "圖示"
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Identity Call"
+msgstr ""
+
+#: src/routes/dashboard/-components/sidebar.tsx
+msgid "Identity Queue"
+msgstr ""
+
+#: src/routes/dashboard/admin/identity.tsx
+msgid "Identity request flagged as issue."
+msgstr ""
+
+#: src/routes/dashboard/admin/identity.tsx
+msgid "Identity request rejected."
+msgstr ""
+
+#: src/routes/dashboard/admin/identity.tsx
+#: src/routes/dashboard/settings/profile.tsx
+msgid "Identity Verification"
+msgstr ""
+
+#: src/routes/dashboard/settings/profile.tsx
+msgid "Identity verification request cancelled."
+msgstr ""
+
+#: src/routes/dashboard/settings/profile.tsx
+msgid "Identity verification requested. Please check your email for next steps."
+msgstr ""
+
+#: src/routes/dashboard/admin/identity.tsx
+msgid "Identity verified successfully."
+msgstr ""
 
 #: src/dialogs/resume/import.tsx
 msgid "Import"
@@ -1546,17 +1690,17 @@ msgid "Job Search"
 msgstr "工作搜尋"
 
 #: src/routes/dashboard/-components/sidebar.tsx
-#: src/routes/dashboard/settings/job-search.tsx
+#: src/routes/dashboard/admin/job-search.tsx
 msgid "Job Search API"
 msgstr "工作搜尋 API"
 
-#: src/routes/dashboard/settings/job-search.tsx
-msgid "JSearch aggregates job listings from multiple job boards using Google for Jobs. You can filter by country (ISO alpha-2 code), date posted, job type, remote options, and experience level."
-msgstr "JSearch 使用 Google for Jobs 匯整來自多個求職網站的工作清單。您可以依據國家 (ISO alpha-2 代碼)、刊登日期、工作類型、遠端選項及經驗等級進行篩選。"
+#: src/routes/dashboard/job-search/index.tsx
+msgid "Job search has not been configured yet. Contact an administrator to set it up."
+msgstr ""
 
-#: src/routes/dashboard/settings/job-search.tsx
-msgid "JSearch API Documentation"
-msgstr "JSearch API 文件"
+#: src/routes/dashboard/job-search/index.tsx
+msgid "Job Search Not Available"
+msgstr ""
 
 #: src/components/input/rich-input.tsx
 msgid "Justify Align"
@@ -1604,6 +1748,10 @@ msgstr "語言"
 msgid "Last 3 days"
 msgstr "最近 3 天"
 
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Last active"
+msgstr ""
+
 #. placeholder {0}: statistics.lastDownloadedAt.toDateString()
 #: src/routes/builder/$resumeId/-sidebar/right/sections/statistics.tsx
 msgid "Last downloaded on {0}"
@@ -1618,6 +1766,10 @@ msgstr "最後更新日期 {updatedAt}"
 #: src/routes/builder/$resumeId/-sidebar/right/sections/statistics.tsx
 msgid "Last viewed on {0}"
 msgstr "上次檢視日期：{0}"
+
+#: src/routes/dashboard/admin/identity.tsx
+msgid "Latest CV / resume"
+msgstr ""
 
 #: src/utils/locale.ts
 msgid "Latvian"
@@ -1638,6 +1790,11 @@ msgstr "深入了解如何讓內容適應頁面"
 #: src/hooks/use-form-blocker.tsx
 msgid "Leave"
 msgstr "離開"
+
+#: src/routes/dashboard/admin/ai.tsx
+#: src/routes/dashboard/admin/job-search.tsx
+msgid "Leave blank to keep the existing key"
+msgstr ""
 
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-menu.tsx
 msgid "Leave empty to reset the title to the original."
@@ -1660,10 +1817,6 @@ msgstr "等級"
 #: src/components/level/display.tsx
 msgid "Level {level} of 5"
 msgstr "5 個等級中的第 {level} 級"
-
-#: src/components/ui/copyright.tsx
-msgid "Licensed under <0>MIT</0>."
-msgstr "以 <0>MIT</0> 授權。"
 
 #: src/components/user/dropdown-menu.tsx
 #: src/utils/theme.ts
@@ -1691,6 +1844,26 @@ msgstr "列表"
 msgid "Lithuanian"
 msgstr "立陶宛語"
 
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Loading document..."
+msgstr ""
+
+#: src/routes/dashboard/verification/index.tsx
+msgid "Loading history..."
+msgstr ""
+
+#: src/routes/dashboard/admin/index.tsx
+msgid "Loading pending verdicts..."
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Loading preview…"
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Loading queue..."
+msgstr ""
+
 #: src/components/command-palette/pages/resumes.tsx
 msgid "Loading resumes..."
 msgstr "正在載入履歷…"
@@ -1698,6 +1871,11 @@ msgstr "正在載入履歷…"
 #: src/components/layout/loading-screen.tsx
 msgid "Loading..."
 msgstr "載入中…"
+
+#: src/routes/dashboard/admin/ai.tsx
+#: src/routes/dashboard/admin/job-search.tsx
+msgid "Loading…"
+msgstr ""
 
 #: src/dialogs/resume/sections/education.tsx
 #: src/dialogs/resume/sections/experience.tsx
@@ -1732,6 +1910,10 @@ msgstr "主要"
 msgid "Main navigation"
 msgstr "主導覽"
 
+#: src/routes/dashboard/settings/privacy.tsx
+msgid "Make at least one resume public to control the timeline on your public CV."
+msgstr ""
+
 #: src/utils/locale.ts
 msgid "Malay"
 msgstr "馬來語"
@@ -1760,7 +1942,7 @@ msgstr "最高薪資"
 msgid "Minimum Salary"
 msgstr "最低薪資"
 
-#: src/routes/dashboard/settings/ai.tsx
+#: src/routes/dashboard/admin/ai.tsx
 msgid "Model"
 msgstr "模型"
 
@@ -1784,6 +1966,7 @@ msgstr "多語系"
 #: src/dialogs/resume/sections/skill.tsx
 #: src/routes/auth/register.tsx
 #: src/routes/builder/$resumeId/-sidebar/left/sections/basics.tsx
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Name"
 msgstr "名稱"
@@ -1821,9 +2004,18 @@ msgstr "新段落"
 msgid "New Skills Detected"
 msgstr "偵測到新技能"
 
+#: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
+msgid "New skills were found in your experience that match this job. Select which ones to save back to your original resume for future applications. This will permanently modify your original resume and cannot be undone."
+msgstr ""
+
 #: src/routes/dashboard/job-search/index.tsx
 msgid "Next"
 msgstr "下一頁"
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "No"
+msgstr ""
 
 #: src/routes/_home/-sections/features.tsx
 msgid "No Advertising, No Tracking"
@@ -1837,6 +2029,26 @@ msgstr "不需要學位"
 msgid "No experience"
 msgstr "無經驗"
 
+#: src/routes/dashboard/verification/index.tsx
+msgid "No experience items in your resume. Add some to get started."
+msgstr ""
+
+#: src/routes/dashboard/admin/index.tsx
+msgid "No experience verification requests pending."
+msgstr ""
+
+#: src/routes/dashboard/verification/index.tsx
+msgid "No history available."
+msgstr ""
+
+#: src/routes/dashboard/admin/identity.tsx
+msgid "No identity verification requests pending."
+msgstr ""
+
+#: src/routes/dashboard/verification/index.tsx
+msgid "No items in this section. Add some to your resume first."
+msgstr ""
+
 #: src/routes/dashboard/job-search/index.tsx
 msgid "No jobs found. Try a different search query."
 msgstr "沒有找到工作。請嘗試其他搜尋查詢。"
@@ -1848,6 +2060,14 @@ msgstr "找不到相符的結果。"
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 msgid "No resumes found. Create a resume first."
 msgstr "未找到履歷。請先建立履歷。"
+
+#: src/routes/dashboard/admin/index.tsx
+msgid "No verdicts awaiting confirmation."
+msgstr ""
+
+#: src/routes/dashboard/settings/privacy.tsx
+msgid "No verified items yet."
+msgstr ""
 
 #: src/utils/locale.ts
 msgid "Norwegian"
@@ -1869,6 +2089,10 @@ msgstr "一鍵登入"
 msgid "Ongoing Maintenance"
 msgstr "持續維護"
 
+#: src/routes/dashboard/verification/index.tsx
+msgid "Only PDF, JPG, JPEG, and PNG files are allowed."
+msgstr ""
+
 #: src/routes/dashboard/resumes/-components/menus/context-menu.tsx
 #: src/routes/dashboard/resumes/-components/menus/dropdown-menu.tsx
 msgid "Open"
@@ -1877,6 +2101,10 @@ msgstr "開啟"
 #: src/routes/auth/forgot-password.tsx
 msgid "Open Email Client"
 msgstr "開啟電子郵件用戶端"
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Open Profile"
+msgstr ""
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Open Source"
@@ -1893,6 +2121,10 @@ msgstr "在新分頁中開啟"
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 msgid "Optimizing summary, experience, and skills for {0}"
 msgstr "優化摘要、經驗和技能， {0} 。"
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Optional notes for the applicant..."
+msgstr ""
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 msgid "Optionally, set a password so that only people with the password can view your resume through the link."
@@ -1911,6 +2143,14 @@ msgstr "編號清單"
 msgid "Organization"
 msgstr "組織"
 
+#: src/routes/dashboard/admin/ai.tsx
+msgid "Organization-wide AI"
+msgstr ""
+
+#: src/routes/dashboard/admin/job-search.tsx
+msgid "Organization-wide Job Search"
+msgstr ""
+
 #: src/dialogs/resume/sections/experience.tsx
 msgid "Overall Period"
 msgstr "整體期間"
@@ -1918,6 +2158,22 @@ msgstr "整體期間"
 #: src/dialogs/resume/sections/experience.tsx
 msgid "Overall Title (optional)"
 msgstr "整體標題（選填）"
+
+#: src/routes/dashboard/admin/index.tsx
+msgid "Override"
+msgstr ""
+
+#: src/routes/dashboard/admin/index.tsx
+msgid "Override Decision"
+msgstr ""
+
+#: src/routes/dashboard/admin/index.tsx
+msgid "Override to "
+msgstr ""
+
+#: src/routes/dashboard/admin/index.tsx
+msgid "Overriding..."
+msgstr ""
 
 #: src/utils/resume/section.tsx
 msgid "Page"
@@ -1973,6 +2229,14 @@ msgstr "已停用密碼保護。"
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 msgid "Password protection has been enabled."
 msgstr "已啟用密碼保護。"
+
+#: src/routes/dashboard/settings/profile.tsx
+msgid "Pending"
+msgstr ""
+
+#: src/routes/dashboard/admin/index.tsx
+msgid "Pending Verdicts"
+msgstr ""
 
 #: src/dialogs/resume/sections/education.tsx
 #: src/dialogs/resume/sections/experience.tsx
@@ -2050,6 +2314,10 @@ msgstr "偏好設定"
 msgid "Press <0>{RETURN_KEY}</0> or <1>{COMMA_KEY}</1> to add or save the current keyword."
 msgstr "請按下 <0>{RETURN_KEY}</0> 或 <1>{COMMA_KEY}</1> 來新增或儲存目前的關鍵字。"
 
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Preview"
+msgstr ""
+
 #: src/routes/dashboard/job-search/index.tsx
 msgid "Previous"
 msgstr "上一頁"
@@ -2057,6 +2325,11 @@ msgstr "上一頁"
 #: src/routes/builder/$resumeId/-sidebar/right/sections/design.tsx
 msgid "Primary Color"
 msgstr "主要顏色"
+
+#: src/routes/dashboard/-components/sidebar.tsx
+#: src/routes/dashboard/settings/privacy.tsx
+msgid "Privacy"
+msgstr ""
 
 #: src/dialogs/resume/sections/skill.tsx
 msgid "Proficiency"
@@ -2069,6 +2342,14 @@ msgstr "熟練度"
 msgid "Profile"
 msgstr "個人設置"
 
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Profile image URL"
+msgstr ""
+
+#: src/routes/dashboard/verification/index.tsx
+msgid "Profile link: {freelancerUrl}. Submit your verification request?"
+msgstr ""
+
 #: src/dialogs/resume/sections/custom.tsx
 #: src/utils/resume/section.tsx
 msgid "Profiles"
@@ -2079,6 +2360,7 @@ msgid "Progress Bar"
 msgstr "進度條"
 
 #: src/dialogs/resume/sections/custom.tsx
+#: src/routes/dashboard/verification/index.tsx
 #: src/utils/resume/section.tsx
 msgid "Projects"
 msgstr "專案"
@@ -2091,7 +2373,7 @@ msgstr "使用密碼保護履歷，避免未經授權的存取"
 msgid "Protect your resume with a password, and let only people with the password view it."
 msgstr "使用密碼保護您的履歷，只有知道密碼的人才能檢視。"
 
-#: src/routes/dashboard/settings/ai.tsx
+#: src/routes/dashboard/admin/ai.tsx
 msgid "Provider"
 msgstr "服務提供者"
 
@@ -2109,7 +2391,7 @@ msgstr "出版者"
 msgid "Quota: {0} remaining"
 msgstr "配額： {0} 剩餘"
 
-#: src/routes/dashboard/settings/job-search.tsx
+#: src/routes/dashboard/admin/job-search.tsx
 msgid "RapidAPI Key"
 msgstr "RapidAPI 鑰匙"
 
@@ -2205,9 +2487,17 @@ msgstr "回報錯誤"
 msgid "Report an issue"
 msgstr "回報問題"
 
+#: src/routes/dashboard/verification/index.tsx
+msgid "Request"
+msgstr ""
+
 #: src/routes/dashboard/job-search/-components/job-detail.tsx
 msgid "Required Skills"
 msgstr "所需技術"
+
+#: src/routes/dashboard/admin/index.tsx
+msgid "Required: reason for overriding this verdict..."
+msgstr ""
 
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Resend verification email"
@@ -2256,8 +2546,27 @@ msgid "Resumes"
 msgstr "履歷"
 
 #: src/routes/dashboard/job-search/index.tsx
+#: src/routes/dashboard/verification/index.tsx
+#: src/routes/dashboard/verification/index.tsx
 msgid "Retry"
 msgstr "重試"
+
+#: src/routes/dashboard/settings/profile.tsx
+msgid "Retry Identity Verification"
+msgstr ""
+
+#: src/routes/dashboard/admin/identity.tsx
+#: src/routes/dashboard/admin/index.tsx
+msgid "Review"
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Review Decision"
+msgstr ""
+
+#: src/routes/reviewer/$adminId.tsx
+msgid "Reviewer since {memberSince}"
+msgstr ""
 
 #: src/components/input/rich-input.tsx
 msgid "Right Align"
@@ -2284,6 +2593,11 @@ msgstr "俄文"
 msgid "Save {0} Skills"
 msgstr "保存 {0} 技能"
 
+#: src/routes/dashboard/admin/ai.tsx
+#: src/routes/dashboard/admin/job-search.tsx
+msgid "Save and verify"
+msgstr ""
+
 #: src/dialogs/resume/index.tsx
 #: src/dialogs/resume/sections/award.tsx
 #: src/dialogs/resume/sections/certification.tsx
@@ -2304,9 +2618,22 @@ msgstr "保存 {0} 技能"
 msgid "Save Changes"
 msgstr "儲存變更"
 
+#: src/routes/dashboard/admin/ai.tsx
+#: src/routes/dashboard/admin/job-search.tsx
+msgid "Saved, but the connection test did not succeed"
+msgstr ""
+
 #: src/dialogs/auth/enable-two-factor.tsx
 msgid "Scan the QR code below with your preferred authenticator app. You can also copy the secret below and paste it into your app."
 msgstr "使用您偏好的驗證器應用程式掃描下方 QR Code。您也可以複製下方的金鑰並貼到應用程式中。"
+
+#: src/routes/dashboard/settings/profile.tsx
+msgid "Schedule Identity Verification"
+msgstr ""
+
+#: src/routes/dashboard/settings/profile.tsx
+msgid "Scheduling is not currently available."
+msgstr ""
 
 #: src/dialogs/resume/sections/education.tsx
 msgid "School"
@@ -2342,9 +2669,13 @@ msgstr "私密金鑰已複製到剪貼簿。"
 msgid "Section Type"
 msgstr "段落類型"
 
+#: src/routes/dashboard/verification/index.tsx
+msgid "Select a payslip, contract, or other proof of employment (PDF, JPG, PNG, max 5MB)."
+msgstr ""
+
 #. placeholder {0}: job.job_title
 #. placeholder {1}: job.employer_name
-#. placeholder {2}: aiEnabled ? " and the AI will optimize it for this position." : "."
+#. placeholder {2}: aiEnabled ? " and optimized for this position." : "."
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 msgid "Select a resume to tailor for \"{0}\" at {1}. A copy will be created{2}"
 msgstr "選擇一份履歷，為{0}\" 量身打造，網址為 {1}。將建立一份副本{2}"
@@ -2352,6 +2683,10 @@ msgstr "選擇一份履歷，為{0}\" 量身打造，網址為 {1}。將建立�
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Select country"
 msgstr "選擇國家"
+
+#: src/routes/dashboard/verification/index.tsx
+msgid "Select Resume"
+msgstr ""
 
 #: src/components/ui/combobox.tsx
 msgid "Select..."
@@ -2390,6 +2725,11 @@ msgstr "設定密碼"
 msgid "Settings"
 msgstr "設定"
 
+#: src/routes/dashboard/admin/ai.tsx
+#: src/routes/dashboard/admin/job-search.tsx
+msgid "Settings saved"
+msgstr ""
+
 #: src/dialogs/auth/enable-two-factor.tsx
 msgid "Setup Authenticator App"
 msgstr "設定驗證器應用程式"
@@ -2427,6 +2767,15 @@ msgstr "顯示"
 #: src/dialogs/resume/sections/volunteer.tsx
 msgid "Show link in title"
 msgstr "在標題中顯示連結"
+
+#: src/routes/dashboard/settings/privacy.tsx
+#: src/routes/dashboard/settings/privacy.tsx
+msgid "Show or hide the verification timeline on your public CV. This is off by default."
+msgstr ""
+
+#: src/routes/dashboard/settings/privacy.tsx
+msgid "Show Timeline on Public CV"
+msgstr ""
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/layout/pages.tsx
 msgid "Sidebar"
@@ -2486,7 +2835,12 @@ msgstr "單欄版面，風格精緻嚴謹，適合資深或企業級職位。"
 msgid "Size"
 msgstr "尺寸"
 
+#: src/routes/dashboard/-components/sidebar.tsx
+msgid "Skill Verdict Verification"
+msgstr ""
+
 #: src/dialogs/resume/sections/custom.tsx
+#: src/routes/dashboard/verification/index.tsx
 #: src/utils/resume/section.tsx
 msgid "Skills"
 msgstr "技能"
@@ -2510,6 +2864,10 @@ msgstr ""
 #: src/dialogs/resume/index.tsx
 msgid "Slug"
 msgstr "標示碼"
+
+#: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
+msgid "Some suggestions could not be applied"
+msgstr ""
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
@@ -2580,6 +2938,27 @@ msgstr "留下"
 #: src/components/input/rich-input.tsx
 msgid "Strike"
 msgstr "刪除線"
+
+#: src/routes/dashboard/admin/index.tsx
+msgid "Submit Override"
+msgstr ""
+
+#: src/routes/dashboard/verification/index.tsx
+msgid "Submit Request"
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Submit Review"
+msgstr ""
+
+#: src/routes/dashboard/verification/index.tsx
+msgid "Submit?"
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+#: src/routes/dashboard/verification/index.tsx
+msgid "Submitting..."
+msgstr ""
 
 #: src/routes/_home/-sections/footer.tsx
 msgid "Subreddit"
@@ -2655,10 +3034,10 @@ msgstr "範本圖庫"
 msgid "Templates"
 msgstr "範本"
 
-#: src/routes/dashboard/settings/ai.tsx
-#: src/routes/dashboard/settings/job-search.tsx
-msgid "Test Connection"
-msgstr "測試連線"
+#: src/routes/dashboard/admin/ai.tsx
+#: src/routes/dashboard/admin/job-search.tsx
+msgid "Test connection"
+msgstr ""
 
 #: src/routes/_home/-sections/testimonials.tsx
 msgid "Testimonials"
@@ -2671,10 +3050,6 @@ msgstr "字型色彩"
 #: src/utils/locale.ts
 msgid "Thai"
 msgstr "泰文"
-
-#: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
-msgid "The AI identified new skills from your experience that match this job. Select which ones to save back to your original resume for future applications. This will permanently modify your original resume and cannot be undone."
-msgstr "AI 從您的經驗中找出符合此工作的新技能。請選擇要儲存回原始履歷的技能，以便日後應徵時使用。這將永久修改您的原始履歷，且無法撤銷。"
 
 #: src/routes/dashboard/settings/api-keys.tsx
 msgid "The API key has been deleted successfully."
@@ -2695,6 +3070,10 @@ msgstr "本頁內容過高，匯出為 PDF 時可能會出現不理想的效果�
 #: src/routes/auth/resume-password.tsx
 msgid "The password you entered is incorrect"
 msgstr "您輸入的密碼不正確"
+
+#: src/routes/dashboard/admin/job-search.tsx
+msgid "The RapidAPI key is stored in the database and used for all users. Once configured and verified, every signed-in user can search for job listings via the JSearch API. Only Skill Verdict administrators can change this configuration."
+msgstr ""
 
 #: src/routes/auth/resume-password.tsx
 msgid "The resume you are trying to access is password protected"
@@ -2736,16 +3115,16 @@ msgstr "此動作無法復原。您的所有資料都將被永久刪除。"
 
 #: src/dialogs/resume/import.tsx
 #: src/dialogs/resume/import.tsx
-msgid "This feature requires AI Integration to be enabled. Please enable it in the settings."
-msgstr "此功能需要啟用 AI 整合。請先在設定中啟用。"
+msgid "This import option is not available right now. Please try another format."
+msgstr ""
 
 #: src/dialogs/resume/index.tsx
 msgid "This is a URL-friendly name for your resume."
 msgstr "這是用於履歷的 URL 友善名稱。"
 
 #: src/dialogs/resume/import.tsx
-msgid "This may take a few minutes, depending on the response of the AI provider. Please do not close the window or refresh the page."
-msgstr "這可能需要幾分鐘，取決於 AI 服務提供者的回應時間。請勿關閉視窗或重新整理頁面。"
+msgid "This may take a few minutes. Please do not close the window or refresh the page."
+msgstr ""
 
 #: src/routes/builder/$resumeId/-components/dock.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/export.tsx
@@ -2755,6 +3134,10 @@ msgstr "這可能需要一點時間，取決於伺服器資源。請勿關閉視
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "This month"
 msgstr "本月"
+
+#: src/routes/reviewer/$adminId.tsx
+msgid "This page shows live profile information. Verification snapshots captured at the time of review may differ from the current details shown here."
+msgstr ""
 
 #: src/components/resume/store/resume.ts
 msgid "This resume is locked and cannot be updated."
@@ -2798,10 +3181,6 @@ msgstr "標題"
 #: src/routes/dashboard/settings/danger-zone.tsx
 msgid "To delete your account, you need to enter the confirmation text and click the button below."
 msgstr "若要刪除帳戶，您必須先輸入確認文字，然後點擊下方按鈕。"
-
-#: src/routes/dashboard/job-search/index.tsx
-msgid "To search for job listings, you need to configure your RapidAPI key in settings."
-msgstr "若要搜尋工作清單，您需要在設定中設定您的 RapidAPI 金鑰。"
 
 #: src/routes/dashboard/job-search/-components/job-utils.ts
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
@@ -2874,6 +3253,10 @@ msgstr "已成功停用雙因子驗證。"
 msgid "Two-factor authentication has been setup successfully."
 msgstr "已成功設定雙因子驗證。"
 
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Two-factor enabled"
+msgstr ""
+
 #: src/dialogs/resume/import.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/design.tsx
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
@@ -2909,6 +3292,11 @@ msgctxt "'Ctrl' may be replaced with the locale-specific equivalent (e.g. 'Strg'
 msgid "Undo (Ctrl+Z)"
 msgstr "復原（Ctrl+Z）"
 
+#: src/routes/dashboard/admin/identity.tsx
+#: src/routes/dashboard/admin/index.tsx
+msgid "Unknown applicant"
+msgstr ""
+
 #: src/routes/_home/-sections/features.tsx
 msgid "Unlimited Resumes"
 msgstr "無限履歷"
@@ -2924,6 +3312,7 @@ msgstr "正在取消連結您的 {providerName} 帳戶…"
 msgid "Unlock"
 msgstr "解鎖"
 
+#: src/routes/dashboard/settings/profile.tsx
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Unverified"
 msgstr "未驗證"
@@ -3017,16 +3406,29 @@ msgstr "正在更新您的密碼…"
 msgid "Updating your resume..."
 msgstr "正在更新您的履歷…"
 
+#: src/routes/dashboard/verification/index.tsx
+msgid "Upload Document"
+msgstr ""
+
 #: src/routes/builder/$resumeId/-sidebar/left/sections/picture.tsx
 msgid "Uploading picture..."
 msgstr "正在上傳圖片…"
+
+#: src/routes/dashboard/verification/index.tsx
+msgid "Uploading..."
+msgstr ""
 
 #: src/routes/builder/$resumeId/-sidebar/left/sections/picture.tsx
 msgid "URL"
 msgstr "URL"
 
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "User ID"
+msgstr ""
+
 #: src/dialogs/resume/sections/profile.tsx
 #: src/routes/auth/register.tsx
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Username"
 msgstr "使用者名稱"
@@ -3043,18 +3445,57 @@ msgstr "烏茲別克語"
 msgid "Valid URLs must start with http:// or https://."
 msgstr "有效的 URL 必須以 http:// 或 https:// 開頭。"
 
+#: src/routes/dashboard/admin/index.tsx
+msgid "Verdict confirmed. Experience verified."
+msgstr ""
+
+#: src/routes/dashboard/admin/index.tsx
+msgid "Verdict overridden successfully."
+msgstr ""
+
+#: src/routes/dashboard/-components/sidebar.tsx
+#: src/routes/dashboard/verification/index.tsx
+#: src/routes/dashboard/verification/index.tsx
+msgid "Verification"
+msgstr ""
+
+#: src/routes/dashboard/settings/privacy.tsx
+msgid "Verification Badges"
+msgstr ""
+
+#: src/routes/dashboard/settings/privacy.tsx
+#: src/routes/dashboard/settings/privacy.tsx
+msgid "Verification History Timeline"
+msgstr ""
+
+#. placeholder {0}: item.label
+#: src/routes/dashboard/verification/index.tsx
+msgid "Verification requested for \"{0}\"."
+msgstr ""
+
+#: src/routes/dashboard/verification/index.tsx
+#: src/routes/dashboard/verification/index.tsx
+msgid "verified"
+msgstr ""
+
+#: src/routes/dashboard/settings/profile.tsx
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Verified"
 msgstr "已驗證"
 
 #: src/routes/auth/verify-2fa-backup.tsx
 #: src/routes/auth/verify-2fa.tsx
+#: src/routes/dashboard/verification/index.tsx
 msgid "Verify"
 msgstr "驗證"
 
 #: src/routes/auth/verify-2fa-backup.tsx
 msgid "Verify with a Backup Code"
 msgstr "使用備份代碼驗證"
+
+#: src/routes/dashboard/settings/profile.tsx
+msgid "Verify your identity through a short video call. This adds trust to your resume."
+msgstr ""
 
 #: src/routes/auth/verify-2fa-backup.tsx
 msgid "Verifying backup code..."
@@ -3103,10 +3544,6 @@ msgstr "個人網站"
 msgid "What do you want to rename this section to?"
 msgstr "您想將這個段落重新命名為什麼？"
 
-#: src/routes/dashboard/settings/job-search.tsx
-msgid "What is JSearch API?"
-msgstr "什麼是 JSearch API？"
-
 #: src/routes/_home/-sections/faq.tsx
 msgid "What makes Reactive Resume different from other resume builders?"
 msgstr "Reactive Resume 與其他履歷建立工具有何不同？"
@@ -3121,9 +3558,18 @@ msgstr "最新版本的新功能？"
 msgid "When locked, the resume cannot be updated or deleted."
 msgstr "履歷被鎖定時，將無法更新或刪除。"
 
+#: src/routes/dashboard/verification/index.tsx
+msgid "Work Experience"
+msgstr ""
+
 #: src/routes/_home/-sections/features.tsx
 msgid "Write your own CSS (or use an AI to generate it for you) to customize your resume to the fullest."
 msgstr "撰寫您自己的 CSS（或使用 AI 為您產生），將履歷客製化到極致。"
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Yes"
+msgstr ""
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "Yes, Reactive Resume is available in multiple languages. You can choose your preferred language in the settings page, or using the language switcher in the top right corner. If you don't see your language, or you would like to improve the existing translations, you can <0>contribute to the translations on Crowdin<1> (opens in new tab)</1></0>."
@@ -3178,13 +3624,13 @@ msgstr "您的變更會自動儲存。"
 msgid "Your data is secure, and never shared or sold to anyone."
 msgstr "您的資料是安全的，絕不會與任何人分享或出售。"
 
-#: src/routes/dashboard/settings/ai.tsx
-msgid "Your data is stored locally"
-msgstr "您的資料將儲存在本機裝置中"
-
 #: src/routes/_home/-sections/faq.tsx
 msgid "Your data is stored securely and is never shared with third parties. You can also self-host Reactive Resume on your own servers for complete control over your data."
 msgstr "您的資料會被安全保存，且絕不會分享給第三方。您也可以在自有伺服器上自行託管 Reactive Resume，完全掌控自己的資料。"
+
+#: src/routes/dashboard/settings/profile.tsx
+msgid "Your identity has been verified and your profile is trusted."
+msgstr ""
 
 #: src/routes/auth/reset-password.tsx
 msgid "Your password has been reset successfully. You can now sign in with your new password."
@@ -3195,12 +3641,12 @@ msgid "Your password has been updated successfully."
 msgstr "您的密碼已成功更新。"
 
 #: src/routes/dashboard/settings/profile.tsx
+msgid "Your previous identity verification was unsuccessful. You may try again."
+msgstr ""
+
+#: src/routes/dashboard/settings/profile.tsx
 msgid "Your profile has been updated successfully."
 msgstr "您的個人設定已成功更新。"
-
-#: src/routes/dashboard/settings/job-search.tsx
-msgid "Your RapidAPI key is stored locally on your browser. It is only sent to the server when making a request to search for jobs, and is never stored or logged on our servers."
-msgstr "您的 RapidAPI 密鑰會儲存在您瀏覽器的本機中。它只會在要求搜尋工作時傳送至伺服器，絕不會儲存或記錄在我們的伺服器上。"
 
 #: src/dialogs/resume/index.tsx
 #: src/dialogs/resume/index.tsx
@@ -3232,6 +3678,10 @@ msgstr "您的履歷公開連結目前已受密碼保護。請只將密碼提供
 #: src/routes/_home/-sections/donate.tsx
 msgid "Your support ensures the project remains free and accessible for everyone, now and in the future."
 msgstr "您的支持能確保此專案現在與未來都能持續免費、並讓所有人都能使用。"
+
+#: src/routes/dashboard/settings/profile.tsx
+msgid "Your verification call has been scheduled. Our team will review and confirm your identity shortly."
+msgstr ""
 
 #: src/routes/builder/$resumeId/-components/dock.tsx
 msgid "Zoom in"

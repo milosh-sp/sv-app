@@ -72,10 +72,6 @@ msgstr "{column, plural, other {# ជួរឈរ}}"
 msgid "{diffDays} days ago"
 msgstr ""
 
-#: src/routes/dashboard/settings/job-search.tsx
-msgid "{used} of {limit} requests used ({remaining} remaining)"
-msgstr ""
-
 #: src/routes/_home/-sections/hero.tsx
 msgid "<0>Finally,</0><1>A free and open-source resume builder</1>"
 msgstr "<0>ចុងក្រោយនេះ</0><1>កម្មវិធីបង្កើតប្រវត្តិរូបឥតគិតថ្លៃ និងបើកប្រភព</1>"
@@ -130,9 +126,9 @@ msgstr "មនុស្ស​ជា​ច្រើន​បាន​សរសេ
 msgid "A new verification link has been sent to your email address. Please check your inbox to verify your account."
 msgstr "តំណ​ផ្ទៀងផ្ទាត់​ថ្មី​មួយ​ត្រូវ​បាន​ផ្ញើ​ទៅកាន់​អាសយដ្ឋាន​អ៊ីមែល​របស់​អ្នក​ហើយ។ សូម​ពិនិត្យ​រក​សារថ្មី​នៅ​ក្នុង​ប្រអប់​សំបុត្រ​របស់​អ្នក ដើម្បី​បញ្ជាក់​គណនី​របស់​អ្នក។"
 
-#: src/components/ui/copyright.tsx
-msgid "A passion project by <0>Amruth Pillai</0>."
-msgstr "គម្រោង​ចិត្តស្រឡាញ់​មួយ​របស់ <0>Amruth Pillai</0>។"
+#: src/routes/dashboard/admin/index.tsx
+msgid "A reason is required to override."
+msgstr ""
 
 #: src/dialogs/resume/index.tsx
 #: src/dialogs/resume/index.tsx
@@ -150,6 +146,14 @@ msgstr "បាន​ប្រាកដ! អ្នក​អាច​នាំច�
 #: src/routes/_home/-sections/features.tsx
 msgid "Access your resumes and data programmatically using the API."
 msgstr "ចូលដំណើរការប្រវត្តិរូប និងទិន្នន័យរបស់អ្នកតាមកម្មវិធី ដោយប្រើ API។"
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Account created"
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Account updated"
+msgstr ""
 
 #: src/routes/builder/$resumeId/-sidebar/left/sections/custom-fields.tsx
 msgid "Add a custom field"
@@ -249,6 +253,14 @@ msgstr "បន្ថែម​ជួរដេក​នៅ​មុខ"
 msgid "Added {0} new skills to your original resume"
 msgstr ""
 
+#: src/components/command-palette/pages/navigation.tsx
+msgid "Admin AI"
+msgstr ""
+
+#: src/routes/dashboard/-components/sidebar.tsx
+msgid "Administration"
+msgstr ""
+
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Advanced Filters"
 msgstr ""
@@ -256,15 +268,6 @@ msgstr ""
 #: src/utils/locale.ts
 msgid "Afrikaans"
 msgstr "Afrikaans"
-
-#: src/dialogs/resume/import.tsx
-#: src/dialogs/resume/import.tsx
-msgid "AI"
-msgstr "AI"
-
-#: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
-msgid "AI returned some invalid references"
-msgstr ""
 
 #: src/utils/locale.ts
 msgid "Albanian"
@@ -324,7 +327,7 @@ msgstr "អ្នក​ណា​ដែល​មាន​តំណ​នេះ �
 msgid "API Access"
 msgstr "ការចូលដំណើរការ API"
 
-#: src/routes/dashboard/settings/ai.tsx
+#: src/routes/dashboard/admin/ai.tsx
 msgid "API Key"
 msgstr "កូនសោ API"
 
@@ -339,13 +342,13 @@ msgstr "កូនសោ API"
 msgid "API Reference"
 msgstr "ឯកសារ​យោង API"
 
-#: src/routes/dashboard/settings/job-search.tsx
-msgid "API Usage"
-msgstr ""
-
 #: src/routes/dashboard/-components/sidebar.tsx
 msgid "App"
 msgstr "កម្មវិធី"
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Applicant"
+msgstr ""
 
 #: src/routes/_home/-sections/statistics.tsx
 msgid "Application Statistics"
@@ -399,13 +402,6 @@ msgstr "តើ​អ្នក​ប្រាកដ​ជា​ចង់​ដក
 msgid "Area of Study"
 msgstr "ជំនាញ​រៀន"
 
-#: src/components/command-palette/pages/navigation.tsx
-#: src/components/command-palette/pages/navigation.tsx
-#: src/routes/dashboard/-components/sidebar.tsx
-#: src/routes/dashboard/settings/ai.tsx
-msgid "Artificial Intelligence"
-msgstr "បញ្ញាសិប្បនិម្មិត"
-
 #: src/routes/builder/$resumeId/-sidebar/left/sections/picture.tsx
 msgid "Aspect Ratio"
 msgstr "សមាមាត្រទ្រង់ទ្រាយ"
@@ -435,6 +431,11 @@ msgstr "រង្វាន់"
 msgid "Azerbaijani"
 msgstr "Azerbaijani"
 
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+#: src/routes/dashboard/admin/index.tsx
+msgid "Back"
+msgstr ""
+
 #: src/routes/auth/verify-2fa.tsx
 msgid "Back to Login"
 msgstr "ត្រឡប់​ទៅ​ការចូល"
@@ -447,7 +448,7 @@ msgstr "ពណ៌​ផ្ទៃ​ខាង​ក្រោយ"
 msgid "Backup codes copied to clipboard."
 msgstr "លេខ​កូដ​បម្រុងទុក​ត្រូវ​បាន​ចម្លង​ទៅ​ក្ដារ​តម្រៀប។"
 
-#: src/routes/dashboard/settings/ai.tsx
+#: src/routes/dashboard/admin/ai.tsx
 msgid "Base URL (Optional)"
 msgstr "Base URL (ជា​ជម្រើស)"
 
@@ -496,11 +497,14 @@ msgstr "Bulgarian"
 msgid "Bullet List"
 msgstr "បញ្ជី​មាន​គ្រាប់ចំណុច"
 
-#: src/components/ui/copyright.tsx
 #: src/routes/_home/-sections/features.tsx
 #: src/routes/_home/-sections/prefooter.tsx
 msgid "By the community, for the community."
 msgstr "ដោយ​សហគមន៍ សម្រាប់​សហគមន៍។"
+
+#: src/routes/dashboard/admin/identity.tsx
+msgid "Call link sent"
+msgstr ""
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "Can I customize the templates?"
@@ -543,12 +547,26 @@ msgstr "តើ​ខ្ញុំ​អាច​នាំចេញ​ប្រវ
 #: src/dialogs/resume/sections/volunteer.tsx
 #: src/hooks/use-prompt.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 #: src/routes/dashboard/settings/api-keys.tsx
 #: src/routes/dashboard/settings/danger-zone.tsx
 #: src/routes/dashboard/settings/profile.tsx
+#: src/routes/dashboard/verification/index.tsx
+#: src/routes/dashboard/verification/index.tsx
+#: src/routes/dashboard/verification/index.tsx
+#: src/routes/dashboard/verification/index.tsx
+#: src/routes/dashboard/verification/index.tsx
 msgid "Cancel"
 msgstr "បោះបង់"
+
+#: src/routes/dashboard/admin/index.tsx
+msgid "Cancel Override"
+msgstr ""
+
+#: src/routes/dashboard/settings/profile.tsx
+msgid "Cancel Verification"
+msgstr ""
 
 #: src/utils/locale.ts
 msgid "Catalan"
@@ -603,6 +621,14 @@ msgstr "Chinese (Simplified)"
 msgid "Chinese (Traditional)"
 msgstr "Chinese (Traditional)"
 
+#: src/routes/dashboard/verification/index.tsx
+msgid "Choose a verification method:"
+msgstr ""
+
+#: src/routes/dashboard/verification/index.tsx
+msgid "Choose File"
+msgstr ""
+
 #: src/components/level/combobox.tsx
 msgid "Circle"
 msgstr "រង្វង់"
@@ -624,6 +650,11 @@ msgstr "បិទ"
 msgid "Code Block"
 msgstr "កូដ​ប្លុក"
 
+#: src/routes/dashboard/admin/identity.tsx
+#: src/routes/dashboard/admin/index.tsx
+msgid "Collapse"
+msgstr ""
+
 #: src/routes/builder/$resumeId/-sidebar/left/sections/custom.tsx
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-menu.tsx
 msgid "Columns"
@@ -641,16 +672,24 @@ msgstr "ក្រុមហ៊ុន"
 msgid "Completely free, forever, no hidden costs."
 msgstr "ឥតគិតថ្លៃ​ពេញលេញ ជារៀងរហូត គ្មាន​ចំនាយ​លាក់​កំបាំង។"
 
-#: src/routes/dashboard/job-search/index.tsx
-msgid "Configure Job Search"
-msgstr ""
-
 #: src/dialogs/api-key/create.tsx
 #: src/hooks/use-prompt.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+#: src/routes/dashboard/admin/index.tsx
+#: src/routes/dashboard/admin/index.tsx
 #: src/routes/dashboard/settings/danger-zone.tsx
+#: src/routes/dashboard/verification/index.tsx
 msgid "Confirm"
 msgstr "អះអាង"
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Confirm decision: "
+msgstr ""
+
+#: src/routes/dashboard/admin/index.tsx
+msgid "Confirming..."
+msgstr ""
 
 #: src/routes/dashboard/settings/authentication/-components/social-provider.tsx
 msgid "Connect"
@@ -665,6 +704,7 @@ msgstr "មាតិកា"
 #: src/dialogs/auth/enable-two-factor.tsx
 #: src/dialogs/auth/enable-two-factor.tsx
 #: src/routes/auth/register.tsx
+#: src/routes/dashboard/verification/index.tsx
 msgid "Continue"
 msgstr "បន្ត"
 
@@ -684,6 +724,10 @@ msgstr ""
 #: src/routes/_home/-sections/donate.tsx
 msgid "Contributions fund bug fixes, security updates, and continuous improvements to keep the app running smoothly."
 msgstr "ការរួមចំណែក​នានា​ជួយ​ផ្តល់​ថវិកា​សម្រាប់​ការ​ជួសជុល​កំហុស បច្ចុប្បន្នភាព​សុវត្ថិភាព និង​ការ​ធ្វើឱ្យ​ប្រសើរឡើង​ជាបន្តបន្ទាប់ ដើម្បី​ឱ្យ​កម្មវិធីដំណើរការ​បាន​រលូន។"
+
+#: src/routes/dashboard/settings/privacy.tsx
+msgid "Control which verification badges are visible on your public CV."
+msgstr ""
 
 #: src/dialogs/auth/enable-two-factor.tsx
 msgid "Copy"
@@ -814,6 +858,10 @@ msgstr "បង្កើតធាតុសង្ខេបថ្មី"
 msgid "Create a new volunteer experience"
 msgstr "បង្កើត​បទពិសោធន៍​ស្ម័គ្រចិត្ត​ថ្មី"
 
+#: src/routes/dashboard/verification/index.tsx
+msgid "Create a resume first to start verifying your skills, projects, and experience."
+msgstr ""
+
 #: src/dialogs/resume/index.tsx
 msgid "Create a Sample Resume"
 msgstr "បង្កើត​ប្រវត្តិរូប​គំរូ"
@@ -831,6 +879,10 @@ msgstr "កំពុង​បង្កើត​កូនសោ API របស់�
 msgid "Creating your resume..."
 msgstr "កំពុង​បង្កើត​ប្រវត្តិរូប​របស់​អ្នក..."
 
+#: src/routes/dashboard/admin/ai.tsx
+msgid "Credentials are stored in the database and used for all users who enable AI in their account. Only Skill Verdict administrators can change this configuration."
+msgstr ""
+
 #: src/dialogs/auth/change-password.tsx
 msgid "Current Password"
 msgstr "ពាក្យសម្ងាត់​បច្ចុប្បន្ន"
@@ -843,6 +895,10 @@ msgstr "CSS ផ្ទាល់ខ្លួន"
 #: src/utils/resume/section.tsx
 msgid "Custom Sections"
 msgstr "ផ្នែក​ផ្ទាល់ខ្លួន"
+
+#: src/routes/dashboard/admin/index.tsx
+msgid "CV / resume"
+msgstr ""
 
 #: src/utils/locale.ts
 msgid "Czech"
@@ -967,10 +1023,6 @@ msgstr "បិទ 2FA"
 msgid "Disable Two-Factor Authentication"
 msgstr "បិទ​ការ​ផ្ទៀងផ្ទាត់​ពីរ​ជាន់"
 
-#: src/routes/dashboard/settings/ai.tsx
-msgid "Disabled"
-msgstr "បាន​បិទ"
-
 #: src/dialogs/auth/disable-two-factor.tsx
 msgid "Disabling two-factor authentication..."
 msgstr "កំពុង​បិទ​ការ​ផ្ទៀងផ្ទាត់​ពីរ​ជាន់..."
@@ -983,10 +1035,23 @@ msgstr "ផ្ដាច់"
 msgid "Discord"
 msgstr "Discord"
 
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Display username"
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Document"
+msgstr ""
+
 #: src/routes/_home/-sections/footer.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/information.tsx
 msgid "Documentation"
 msgstr "ឯកសារ"
+
+#: src/routes/dashboard/admin/identity.tsx
+#: src/routes/dashboard/admin/index.tsx
+msgid "Documents"
+msgstr ""
 
 #: src/routes/auth/login.tsx
 msgid "Don't have an account? <0/>"
@@ -1080,6 +1145,7 @@ msgid "Education"
 msgstr "ការ​សិក្សា"
 
 #: src/routes/builder/$resumeId/-sidebar/left/sections/basics.tsx
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Email"
 msgstr "អ៊ីមែល"
 
@@ -1090,6 +1156,10 @@ msgstr "អ៊ីមែល"
 msgid "Email Address"
 msgstr "អាសយដ្ឋាន​អ៊ីមែល"
 
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Email verified"
+msgstr ""
+
 #: src/routes/builder/$resumeId/-sidebar/right/sections/css.tsx
 msgctxt "Turn On/Apply Custom CSS"
 msgid "Enable"
@@ -1099,17 +1169,9 @@ msgstr "បើក​ប្រើ"
 msgid "Enable 2FA"
 msgstr "បើក​ប្រើ 2FA"
 
-#: src/routes/dashboard/settings/ai.tsx
-msgid "Enable AI Features"
-msgstr "បើក​ប្រើ​មុខងារ AI"
-
 #: src/dialogs/auth/enable-two-factor.tsx
 msgid "Enable Two-Factor Authentication"
 msgstr "បើក​ប្រើ​ការ​ផ្ទៀងផ្ទាត់​ពីរ​ជាន់"
-
-#: src/routes/dashboard/settings/ai.tsx
-msgid "Enabled"
-msgstr "បានបើក"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 msgid "Enabling password protection..."
@@ -1131,6 +1193,11 @@ msgstr "អង់គ្លេស (ចក្រភពអង់គ្លេស)"
 msgid "Enhance the security of your account with additional layers of protection."
 msgstr "បង្កើន​សុវត្ថិភាព​គណនី​របស់​អ្នក​ដោយ​បន្ថែម​ក្រឡុក​ការពារ​បន្ថែម។"
 
+#: src/routes/dashboard/admin/ai.tsx
+#: src/routes/dashboard/admin/job-search.tsx
+msgid "Enter an API key before testing."
+msgstr ""
+
 #: src/routes/auth/verify-2fa-backup.tsx
 msgid "Enter one of your saved backup codes to access your account"
 msgstr "បញ្ចូល​មួយ​ក្នុង​ចំណោម​កូដ​បម្រុងទុក​ដែល​បាន​រក្សាទុក​របស់​អ្នក ដើម្បី​ចូល​ដំណើរការ​គណនី"
@@ -1147,6 +1214,10 @@ msgstr "បញ្ចូល​កូដ​ផ្ទៀងផ្ទាត់​ព
 msgid "Enter your current password and a new password to update your account."
 msgstr "បញ្ចូល​ពាក្យសម្ងាត់​បច្ចុប្បន្ន និង​ពាក្យសម្ងាត់​ថ្មី​មួយ ដើម្បី​បច្ចុប្បន្នភាព​គណនី​របស់​អ្នក។"
 
+#: src/routes/dashboard/verification/index.tsx
+msgid "Enter your freelancer profile URL (e.g. Upwork, Fiverr, Toptal):"
+msgstr ""
+
 #: src/dialogs/auth/enable-two-factor.tsx
 msgid "Enter your password to confirm setting up two-factor authentication. When enabled, you'll need to enter a code from your authenticator app every time you log in."
 msgstr "បញ្ចូល​ពាក្យសម្ងាត់​របស់​អ្នក ដើម្បី​អះអាង​ការ​រៀបចំ​ការ​ផ្ទៀងផ្ទាត់​ពីរ​ជាន់។ នៅពេល​បើក​ប្រើ អ្នក​ត្រូវ​បញ្ចូល​កូដ​ពី​កម្មវិធី​ផ្ទៀងផ្ទាត់​អត្តសញ្ញាណ រាល់​ពេល​អ្នក​ចូល។"
@@ -1155,17 +1226,9 @@ msgstr "បញ្ចូល​ពាក្យសម្ងាត់​របស់
 msgid "Enter your password to disable two-factor authentication. Your account will be less secure without 2FA enabled."
 msgstr "បញ្ចូល​ពាក្យសម្ងាត់​របស់​អ្នក ដើម្បី​បិទ​ការ​ផ្ទៀងផ្ទាត់​ពីរ​ជាន់។ គណនី​របស់​អ្នក​នឹង​កាន់តែ​មាន​ហានិភ័យ​នៅពេល​មិន​បាន​បើក 2FA ទៀត។"
 
-#: src/routes/dashboard/settings/job-search.tsx
-msgid "Enter your RapidAPI key"
-msgstr ""
-
 #: src/routes/_home/-sections/donate.tsx
 msgid "Every contribution, big or small, makes a huge difference to the project.<0/>Thank you for your support!"
 msgstr "រាល់​ការរួមចំណែក មួយ​ធំនោ ឬ​តូច ក៏​មាន​ឥទ្ធិពល​យ៉ាង​ច្រើន​លើ​គម្រោង​នេះ។<0/>សូម​អរគុណ​ចំពោះ​ការគាំទ្រ​របស់​អ្នក!"
-
-#: src/routes/dashboard/settings/ai.tsx
-msgid "Everything entered here is stored locally on your browser. Your data is only sent to the server when making a request to the AI provider, and is never stored or logged on our servers."
-msgstr "អ្វី​ដែល​បាន​បញ្ចូល​នៅ​ទីនេះ​ទាំងអស់ ត្រូវ​បាន​រក្សាទុក​នៅ​ក្នុង​កម្មវិធី​រុករក​របស់​អ្នក​តែប៉ុណ្ណោះ។ ទិន្នន័យ​របស់​អ្នក​ត្រូវ​បាន​ផ្ញើ​ទៅ​ម៉ាស៊ីន​បម្រើ​តែ​នៅ​ពេល​មាន​សំណើ​ទៅ​កាន់​អ្នកផ្តល់​សេវា AI ប៉ុណ្ណោះ ហើយ​មិនត្រូវ​បាន​រក្សាទុក ឬ​កត់ត្រា​នៅ​លើ​ម៉ាស៊ីន​បម្រើ​របស់​យើង​ឡើយ។"
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Everything you need to create, customize, and share professional resumes. Built with privacy in mind, powered by open source, and completely free forever."
@@ -1193,6 +1256,33 @@ msgstr "ចេញពីអេក្រង់ពេញ"
 msgid "Experience"
 msgstr "បទពិសោធន៍"
 
+#: src/routes/dashboard/-components/sidebar.tsx
+#: src/routes/dashboard/admin/index.tsx
+msgid "Experience Queue"
+msgstr ""
+
+#: src/routes/dashboard/admin/index.tsx
+msgid "Experience request flagged as issue."
+msgstr ""
+
+#: src/routes/dashboard/admin/index.tsx
+msgid "Experience request rejected."
+msgstr ""
+
+#: src/routes/dashboard/admin/index.tsx
+msgid "Experience Verification"
+msgstr ""
+
+#. placeholder {0}: item.label
+#: src/routes/dashboard/verification/index.tsx
+#: src/routes/dashboard/verification/index.tsx
+msgid "Experience verification requested for \"{0}\"."
+msgstr ""
+
+#: src/routes/dashboard/admin/index.tsx
+msgid "Experience verified successfully."
+msgstr ""
+
 #: src/dialogs/api-key/create.tsx
 msgid "Expires in"
 msgstr "ផុតកំណត់ក្នុង"
@@ -1218,6 +1308,10 @@ msgstr "នាំចេញ"
 msgid "Failed to duplicate resume"
 msgstr ""
 
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Failed to load document."
+msgstr ""
+
 #: src/dialogs/auth/enable-two-factor.tsx
 msgid "Failed to setup two-factor authentication."
 msgstr "បានបរាជ័យ​ក្នុងការ​រៀបចំ​ការ​ផ្ទៀងផ្ទាត់​ពីរ​ជាន់។"
@@ -1233,6 +1327,15 @@ msgstr ""
 #: src/routes/_home/-sections/features.tsx
 msgid "Features"
 msgstr "មុខងារ"
+
+#. placeholder {0}: selectedFile.name
+#: src/routes/dashboard/verification/index.tsx
+msgid "File selected: {0}. Submit your verification request?"
+msgstr ""
+
+#: src/routes/dashboard/verification/index.tsx
+msgid "File size must be under 5MB."
+msgstr ""
 
 #: src/routes/dashboard/resumes/index.tsx
 msgid "Filter by"
@@ -1301,6 +1404,14 @@ msgstr "ឥត​គិតថ្លៃ"
 msgid "Free-Form"
 msgstr "ទ្រង់ទ្រាយសេរី"
 
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Freelancer Link"
+msgstr ""
+
+#: src/routes/dashboard/verification/index.tsx
+msgid "Freelancer Profile Link"
+msgstr ""
+
 #: src/utils/locale.ts
 msgid "French"
 msgstr "French"
@@ -1329,8 +1440,11 @@ msgstr "ភាសាអាល្លឺម៉ង់"
 msgid "Get Started"
 msgstr "ចាប់ផ្តើម"
 
-#: src/routes/dashboard/settings/job-search.tsx
-msgid "Get your API key from RapidAPI by subscribing to the JSearch API."
+#: src/components/command-palette/pages/navigation.tsx
+#: src/components/command-palette/pages/navigation.tsx
+#: src/routes/dashboard/-components/sidebar.tsx
+#: src/routes/dashboard/admin/ai.tsx
+msgid "Global AI"
 msgstr ""
 
 #: src/components/layout/not-found-screen.tsx
@@ -1341,10 +1455,6 @@ msgstr "ត្រឡប់​ក្រោយ"
 #: src/routes/_home/-sections/header.tsx
 msgid "Go to dashboard"
 msgstr "ទៅ​កាន់​ផ្ទាំង​គ្រប់គ្រង"
-
-#: src/routes/dashboard/job-search/index.tsx
-msgid "Go to Settings"
-msgstr ""
 
 #: src/components/command-palette/pages/navigation.tsx
 msgid "Go to..."
@@ -1428,6 +1538,7 @@ msgstr "លាក់"
 #: src/routes/builder/$resumeId/-sidebar/left/sections/custom.tsx
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-menu.tsx
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Hide"
 msgstr "លាក់"
 
@@ -1468,6 +1579,39 @@ msgstr "Hungarian"
 #: src/routes/builder/$resumeId/-sidebar/right/sections/design.tsx
 msgid "Icon"
 msgstr "រូបតំណាង"
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Identity Call"
+msgstr ""
+
+#: src/routes/dashboard/-components/sidebar.tsx
+msgid "Identity Queue"
+msgstr ""
+
+#: src/routes/dashboard/admin/identity.tsx
+msgid "Identity request flagged as issue."
+msgstr ""
+
+#: src/routes/dashboard/admin/identity.tsx
+msgid "Identity request rejected."
+msgstr ""
+
+#: src/routes/dashboard/admin/identity.tsx
+#: src/routes/dashboard/settings/profile.tsx
+msgid "Identity Verification"
+msgstr ""
+
+#: src/routes/dashboard/settings/profile.tsx
+msgid "Identity verification request cancelled."
+msgstr ""
+
+#: src/routes/dashboard/settings/profile.tsx
+msgid "Identity verification requested. Please check your email for next steps."
+msgstr ""
+
+#: src/routes/dashboard/admin/identity.tsx
+msgid "Identity verified successfully."
+msgstr ""
 
 #: src/dialogs/resume/import.tsx
 msgid "Import"
@@ -1546,16 +1690,16 @@ msgid "Job Search"
 msgstr ""
 
 #: src/routes/dashboard/-components/sidebar.tsx
-#: src/routes/dashboard/settings/job-search.tsx
+#: src/routes/dashboard/admin/job-search.tsx
 msgid "Job Search API"
 msgstr ""
 
-#: src/routes/dashboard/settings/job-search.tsx
-msgid "JSearch aggregates job listings from multiple job boards using Google for Jobs. You can filter by country (ISO alpha-2 code), date posted, job type, remote options, and experience level."
+#: src/routes/dashboard/job-search/index.tsx
+msgid "Job search has not been configured yet. Contact an administrator to set it up."
 msgstr ""
 
-#: src/routes/dashboard/settings/job-search.tsx
-msgid "JSearch API Documentation"
+#: src/routes/dashboard/job-search/index.tsx
+msgid "Job Search Not Available"
 msgstr ""
 
 #: src/components/input/rich-input.tsx
@@ -1604,6 +1748,10 @@ msgstr "ភាសា"
 msgid "Last 3 days"
 msgstr ""
 
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Last active"
+msgstr ""
+
 #. placeholder {0}: statistics.lastDownloadedAt.toDateString()
 #: src/routes/builder/$resumeId/-sidebar/right/sections/statistics.tsx
 msgid "Last downloaded on {0}"
@@ -1618,6 +1766,10 @@ msgstr "បាន​បច្ចុប្បន្នភាព​ចុងក្
 #: src/routes/builder/$resumeId/-sidebar/right/sections/statistics.tsx
 msgid "Last viewed on {0}"
 msgstr "បាន​មើល​ចុងក្រោយ​នៅ​ថ្ងៃទី {0}"
+
+#: src/routes/dashboard/admin/identity.tsx
+msgid "Latest CV / resume"
+msgstr ""
 
 #: src/utils/locale.ts
 msgid "Latvian"
@@ -1638,6 +1790,11 @@ msgstr "ស្វែងយល់បន្ថែមអំពីរបៀបសម
 #: src/hooks/use-form-blocker.tsx
 msgid "Leave"
 msgstr "ចាកចេញ"
+
+#: src/routes/dashboard/admin/ai.tsx
+#: src/routes/dashboard/admin/job-search.tsx
+msgid "Leave blank to keep the existing key"
+msgstr ""
 
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-menu.tsx
 msgid "Leave empty to reset the title to the original."
@@ -1660,10 +1817,6 @@ msgstr "កម្រិត"
 #: src/components/level/display.tsx
 msgid "Level {level} of 5"
 msgstr "កម្រិត {level} ក្នុងចំណោម ៥"
-
-#: src/components/ui/copyright.tsx
-msgid "Licensed under <0>MIT</0>."
-msgstr "មាន​អាជ្ញាប័ណ្ណ​ក្រោម <0>MIT</0>។"
 
 #: src/components/user/dropdown-menu.tsx
 #: src/utils/theme.ts
@@ -1691,6 +1844,26 @@ msgstr "បញ្ជី"
 msgid "Lithuanian"
 msgstr "Lithuanian"
 
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Loading document..."
+msgstr ""
+
+#: src/routes/dashboard/verification/index.tsx
+msgid "Loading history..."
+msgstr ""
+
+#: src/routes/dashboard/admin/index.tsx
+msgid "Loading pending verdicts..."
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Loading preview…"
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Loading queue..."
+msgstr ""
+
 #: src/components/command-palette/pages/resumes.tsx
 msgid "Loading resumes..."
 msgstr "កំពុង​ផ្ទុក​ប្រវត្តិរូប..."
@@ -1698,6 +1871,11 @@ msgstr "កំពុង​ផ្ទុក​ប្រវត្តិរូប...
 #: src/components/layout/loading-screen.tsx
 msgid "Loading..."
 msgstr "កំពុង​ផ្ទុក..."
+
+#: src/routes/dashboard/admin/ai.tsx
+#: src/routes/dashboard/admin/job-search.tsx
+msgid "Loading…"
+msgstr ""
 
 #: src/dialogs/resume/sections/education.tsx
 #: src/dialogs/resume/sections/experience.tsx
@@ -1732,6 +1910,10 @@ msgstr "មេ"
 msgid "Main navigation"
 msgstr "ការរុករក​មេ"
 
+#: src/routes/dashboard/settings/privacy.tsx
+msgid "Make at least one resume public to control the timeline on your public CV."
+msgstr ""
+
 #: src/utils/locale.ts
 msgid "Malay"
 msgstr "Malay"
@@ -1760,7 +1942,7 @@ msgstr ""
 msgid "Minimum Salary"
 msgstr ""
 
-#: src/routes/dashboard/settings/ai.tsx
+#: src/routes/dashboard/admin/ai.tsx
 msgid "Model"
 msgstr "ម៉ូដែល"
 
@@ -1784,6 +1966,7 @@ msgstr "ច្រើន​ភាសា"
 #: src/dialogs/resume/sections/skill.tsx
 #: src/routes/auth/register.tsx
 #: src/routes/builder/$resumeId/-sidebar/left/sections/basics.tsx
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Name"
 msgstr "ឈ្មោះ"
@@ -1821,8 +2004,17 @@ msgstr "ផ្នែក​ថ្មី"
 msgid "New Skills Detected"
 msgstr ""
 
+#: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
+msgid "New skills were found in your experience that match this job. Select which ones to save back to your original resume for future applications. This will permanently modify your original resume and cannot be undone."
+msgstr ""
+
 #: src/routes/dashboard/job-search/index.tsx
 msgid "Next"
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "No"
 msgstr ""
 
 #: src/routes/_home/-sections/features.tsx
@@ -1837,6 +2029,26 @@ msgstr ""
 msgid "No experience"
 msgstr ""
 
+#: src/routes/dashboard/verification/index.tsx
+msgid "No experience items in your resume. Add some to get started."
+msgstr ""
+
+#: src/routes/dashboard/admin/index.tsx
+msgid "No experience verification requests pending."
+msgstr ""
+
+#: src/routes/dashboard/verification/index.tsx
+msgid "No history available."
+msgstr ""
+
+#: src/routes/dashboard/admin/identity.tsx
+msgid "No identity verification requests pending."
+msgstr ""
+
+#: src/routes/dashboard/verification/index.tsx
+msgid "No items in this section. Add some to your resume first."
+msgstr ""
+
 #: src/routes/dashboard/job-search/index.tsx
 msgid "No jobs found. Try a different search query."
 msgstr ""
@@ -1847,6 +2059,14 @@ msgstr "រក​មិន​ឃើញ​លទ្ធផល។"
 
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 msgid "No resumes found. Create a resume first."
+msgstr ""
+
+#: src/routes/dashboard/admin/index.tsx
+msgid "No verdicts awaiting confirmation."
+msgstr ""
+
+#: src/routes/dashboard/settings/privacy.tsx
+msgid "No verified items yet."
 msgstr ""
 
 #: src/utils/locale.ts
@@ -1869,6 +2089,10 @@ msgstr "ចូល​ក្នុង​ម្តង"
 msgid "Ongoing Maintenance"
 msgstr "ការថែទាំ​បន្ត"
 
+#: src/routes/dashboard/verification/index.tsx
+msgid "Only PDF, JPG, JPEG, and PNG files are allowed."
+msgstr ""
+
 #: src/routes/dashboard/resumes/-components/menus/context-menu.tsx
 #: src/routes/dashboard/resumes/-components/menus/dropdown-menu.tsx
 msgid "Open"
@@ -1877,6 +2101,10 @@ msgstr "បើក"
 #: src/routes/auth/forgot-password.tsx
 msgid "Open Email Client"
 msgstr "បើក​កម្មវិធី​អ៊ីមែល"
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Open Profile"
+msgstr ""
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Open Source"
@@ -1892,6 +2120,10 @@ msgstr "បើក​ក្នុង​ផ្ទាំង​ថ្មី"
 #. placeholder {0}: job.job_title
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 msgid "Optimizing summary, experience, and skills for {0}"
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Optional notes for the applicant..."
 msgstr ""
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
@@ -1911,6 +2143,14 @@ msgstr "បញ្ជី​មាន​លេខ"
 msgid "Organization"
 msgstr "អង្គការ"
 
+#: src/routes/dashboard/admin/ai.tsx
+msgid "Organization-wide AI"
+msgstr ""
+
+#: src/routes/dashboard/admin/job-search.tsx
+msgid "Organization-wide Job Search"
+msgstr ""
+
 #: src/dialogs/resume/sections/experience.tsx
 msgid "Overall Period"
 msgstr "រយៈពេលទាំងមូល"
@@ -1918,6 +2158,22 @@ msgstr "រយៈពេលទាំងមូល"
 #: src/dialogs/resume/sections/experience.tsx
 msgid "Overall Title (optional)"
 msgstr "ចំណងជើងទាំងមូល (ជាជម្រើស)"
+
+#: src/routes/dashboard/admin/index.tsx
+msgid "Override"
+msgstr ""
+
+#: src/routes/dashboard/admin/index.tsx
+msgid "Override Decision"
+msgstr ""
+
+#: src/routes/dashboard/admin/index.tsx
+msgid "Override to "
+msgstr ""
+
+#: src/routes/dashboard/admin/index.tsx
+msgid "Overriding..."
+msgstr ""
 
 #: src/utils/resume/section.tsx
 msgid "Page"
@@ -1973,6 +2229,14 @@ msgstr "ការ​ការពារ​ដោយ​ពាក្យសម្ង
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 msgid "Password protection has been enabled."
 msgstr "ការ​ការពារ​ដោយ​ពាក្យសម្ងាត់​ត្រូវ​បាន​បើក។"
+
+#: src/routes/dashboard/settings/profile.tsx
+msgid "Pending"
+msgstr ""
+
+#: src/routes/dashboard/admin/index.tsx
+msgid "Pending Verdicts"
+msgstr ""
 
 #: src/dialogs/resume/sections/education.tsx
 #: src/dialogs/resume/sections/experience.tsx
@@ -2050,6 +2314,10 @@ msgstr "ចំណង់ចំណូលចិត្ត"
 msgid "Press <0>{RETURN_KEY}</0> or <1>{COMMA_KEY}</1> to add or save the current keyword."
 msgstr "ចុច <0>{RETURN_KEY}</0> ឬ <1>{COMMA_KEY}</1> ដើម្បីបន្ថែម ឬរក្សាទុកពាក្យគន្លឹះបច្ចុប្បន្ន។"
 
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Preview"
+msgstr ""
+
 #: src/routes/dashboard/job-search/index.tsx
 msgid "Previous"
 msgstr ""
@@ -2057,6 +2325,11 @@ msgstr ""
 #: src/routes/builder/$resumeId/-sidebar/right/sections/design.tsx
 msgid "Primary Color"
 msgstr "ពណ៌​មូលដ្ឋាន"
+
+#: src/routes/dashboard/-components/sidebar.tsx
+#: src/routes/dashboard/settings/privacy.tsx
+msgid "Privacy"
+msgstr ""
 
 #: src/dialogs/resume/sections/skill.tsx
 msgid "Proficiency"
@@ -2069,6 +2342,14 @@ msgstr "កម្រិត​ជំនាញ"
 msgid "Profile"
 msgstr "ប្រវត្តិ​សង្ខេប"
 
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Profile image URL"
+msgstr ""
+
+#: src/routes/dashboard/verification/index.tsx
+msgid "Profile link: {freelancerUrl}. Submit your verification request?"
+msgstr ""
+
 #: src/dialogs/resume/sections/custom.tsx
 #: src/utils/resume/section.tsx
 msgid "Profiles"
@@ -2079,6 +2360,7 @@ msgid "Progress Bar"
 msgstr "របារ​វឌ្ឍនភាព"
 
 #: src/dialogs/resume/sections/custom.tsx
+#: src/routes/dashboard/verification/index.tsx
 #: src/utils/resume/section.tsx
 msgid "Projects"
 msgstr "គម្រោង"
@@ -2091,7 +2373,7 @@ msgstr "ការពារ​ប្រវត្តិរូប​របស់​
 msgid "Protect your resume with a password, and let only people with the password view it."
 msgstr "ការពារ​ប្រវត្តិរូប​របស់​អ្នក​ដោយ​ពាក្យសម្ងាត់ ហើយ​អនុញ្ញាត​ឲ្យ​តែ​មនុស្ស​ដែល​មាន​ពាក្យសម្ងាត់​ប៉ុណ្ណោះ​អាច​មើល​វា។"
 
-#: src/routes/dashboard/settings/ai.tsx
+#: src/routes/dashboard/admin/ai.tsx
 msgid "Provider"
 msgstr "អ្នកផ្តល់សេវា"
 
@@ -2109,7 +2391,7 @@ msgstr "អ្នកបោះពុម្ពផ្សាយ"
 msgid "Quota: {0} remaining"
 msgstr ""
 
-#: src/routes/dashboard/settings/job-search.tsx
+#: src/routes/dashboard/admin/job-search.tsx
 msgid "RapidAPI Key"
 msgstr ""
 
@@ -2205,8 +2487,16 @@ msgstr "រាយការណ៍​កំហុស"
 msgid "Report an issue"
 msgstr "រាយការណ៍បញ្ហា"
 
+#: src/routes/dashboard/verification/index.tsx
+msgid "Request"
+msgstr ""
+
 #: src/routes/dashboard/job-search/-components/job-detail.tsx
 msgid "Required Skills"
+msgstr ""
+
+#: src/routes/dashboard/admin/index.tsx
+msgid "Required: reason for overriding this verdict..."
 msgstr ""
 
 #: src/routes/dashboard/settings/profile.tsx
@@ -2256,7 +2546,26 @@ msgid "Resumes"
 msgstr "ប្រវត្តិរូប"
 
 #: src/routes/dashboard/job-search/index.tsx
+#: src/routes/dashboard/verification/index.tsx
+#: src/routes/dashboard/verification/index.tsx
 msgid "Retry"
+msgstr ""
+
+#: src/routes/dashboard/settings/profile.tsx
+msgid "Retry Identity Verification"
+msgstr ""
+
+#: src/routes/dashboard/admin/identity.tsx
+#: src/routes/dashboard/admin/index.tsx
+msgid "Review"
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Review Decision"
+msgstr ""
+
+#: src/routes/reviewer/$adminId.tsx
+msgid "Reviewer since {memberSince}"
 msgstr ""
 
 #: src/components/input/rich-input.tsx
@@ -2284,6 +2593,11 @@ msgstr "Russian"
 msgid "Save {0} Skills"
 msgstr ""
 
+#: src/routes/dashboard/admin/ai.tsx
+#: src/routes/dashboard/admin/job-search.tsx
+msgid "Save and verify"
+msgstr ""
+
 #: src/dialogs/resume/index.tsx
 #: src/dialogs/resume/sections/award.tsx
 #: src/dialogs/resume/sections/certification.tsx
@@ -2304,9 +2618,22 @@ msgstr ""
 msgid "Save Changes"
 msgstr "រក្សាទុក​ការ​ផ្លាស់ប្ដូរ"
 
+#: src/routes/dashboard/admin/ai.tsx
+#: src/routes/dashboard/admin/job-search.tsx
+msgid "Saved, but the connection test did not succeed"
+msgstr ""
+
 #: src/dialogs/auth/enable-two-factor.tsx
 msgid "Scan the QR code below with your preferred authenticator app. You can also copy the secret below and paste it into your app."
 msgstr "ស្កេន​កូដ QR ខាងក្រោម​ដោយ​ប្រើ​កម្មវិធី​ផ្ទៀងផ្ទាត់​អត្តសញ្ញាណ​ដែល​អ្នក​ពេញចិត្ត។ អ្នក​ក៏​អាច​ចម្លង​កូនសោ​សម្ងាត់​ខាងក្រោម ហើយ​បិទភ្ជាប់​វា​ទៅ​ក្នុង​កម្មវិធី​របស់​អ្នក​ផង​ដែរ។"
+
+#: src/routes/dashboard/settings/profile.tsx
+msgid "Schedule Identity Verification"
+msgstr ""
+
+#: src/routes/dashboard/settings/profile.tsx
+msgid "Scheduling is not currently available."
+msgstr ""
 
 #: src/dialogs/resume/sections/education.tsx
 msgid "School"
@@ -2342,15 +2669,23 @@ msgstr "កូនសោ​សម្ងាត់​ត្រូវ​បាន​
 msgid "Section Type"
 msgstr "ប្រភេទ​ផ្នែក"
 
+#: src/routes/dashboard/verification/index.tsx
+msgid "Select a payslip, contract, or other proof of employment (PDF, JPG, PNG, max 5MB)."
+msgstr ""
+
 #. placeholder {0}: job.job_title
 #. placeholder {1}: job.employer_name
-#. placeholder {2}: aiEnabled ? " and the AI will optimize it for this position." : "."
+#. placeholder {2}: aiEnabled ? " and optimized for this position." : "."
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 msgid "Select a resume to tailor for \"{0}\" at {1}. A copy will be created{2}"
 msgstr ""
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Select country"
+msgstr ""
+
+#: src/routes/dashboard/verification/index.tsx
+msgid "Select Resume"
 msgstr ""
 
 #: src/components/ui/combobox.tsx
@@ -2390,6 +2725,11 @@ msgstr "កំណត់​ពាក្យសម្ងាត់"
 msgid "Settings"
 msgstr "ការកំណត់"
 
+#: src/routes/dashboard/admin/ai.tsx
+#: src/routes/dashboard/admin/job-search.tsx
+msgid "Settings saved"
+msgstr ""
+
 #: src/dialogs/auth/enable-two-factor.tsx
 msgid "Setup Authenticator App"
 msgstr "រៀបចំ​កម្មវិធី​ផ្ទៀងផ្ទាត់​អត្តសញ្ញាណ"
@@ -2427,6 +2767,15 @@ msgstr "បង្ហាញ"
 #: src/dialogs/resume/sections/volunteer.tsx
 msgid "Show link in title"
 msgstr "បង្ហាញតំណភ្ជាប់ក្នុងចំណងជើង"
+
+#: src/routes/dashboard/settings/privacy.tsx
+#: src/routes/dashboard/settings/privacy.tsx
+msgid "Show or hide the verification timeline on your public CV. This is off by default."
+msgstr ""
+
+#: src/routes/dashboard/settings/privacy.tsx
+msgid "Show Timeline on Public CV"
+msgstr ""
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/layout/pages.tsx
 msgid "Sidebar"
@@ -2486,7 +2835,12 @@ msgstr "ជួរឈរ​តែមួយ រូបរាង​រលោង ន�
 msgid "Size"
 msgstr "ទំហំ"
 
+#: src/routes/dashboard/-components/sidebar.tsx
+msgid "Skill Verdict Verification"
+msgstr ""
+
 #: src/dialogs/resume/sections/custom.tsx
+#: src/routes/dashboard/verification/index.tsx
 #: src/utils/resume/section.tsx
 msgid "Skills"
 msgstr "ជំនាញ"
@@ -2510,6 +2864,10 @@ msgstr ""
 #: src/dialogs/resume/index.tsx
 msgid "Slug"
 msgstr "Slug"
+
+#: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
+msgid "Some suggestions could not be applied"
+msgstr ""
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
@@ -2580,6 +2938,27 @@ msgstr "ស្ថិត"
 #: src/components/input/rich-input.tsx
 msgid "Strike"
 msgstr "អក្សរ​ឆូត"
+
+#: src/routes/dashboard/admin/index.tsx
+msgid "Submit Override"
+msgstr ""
+
+#: src/routes/dashboard/verification/index.tsx
+msgid "Submit Request"
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Submit Review"
+msgstr ""
+
+#: src/routes/dashboard/verification/index.tsx
+msgid "Submit?"
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+#: src/routes/dashboard/verification/index.tsx
+msgid "Submitting..."
+msgstr ""
 
 #: src/routes/_home/-sections/footer.tsx
 msgid "Subreddit"
@@ -2655,10 +3034,10 @@ msgstr "វិចិត្រសាល​គំរូ"
 msgid "Templates"
 msgstr "គំរូ"
 
-#: src/routes/dashboard/settings/ai.tsx
-#: src/routes/dashboard/settings/job-search.tsx
-msgid "Test Connection"
-msgstr "សាក​ល្បង​តភ្ជាប់"
+#: src/routes/dashboard/admin/ai.tsx
+#: src/routes/dashboard/admin/job-search.tsx
+msgid "Test connection"
+msgstr ""
 
 #: src/routes/_home/-sections/testimonials.tsx
 msgid "Testimonials"
@@ -2671,10 +3050,6 @@ msgstr "ពណ៌​អត្ថបទ"
 #: src/utils/locale.ts
 msgid "Thai"
 msgstr "Thai"
-
-#: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
-msgid "The AI identified new skills from your experience that match this job. Select which ones to save back to your original resume for future applications. This will permanently modify your original resume and cannot be undone."
-msgstr ""
 
 #: src/routes/dashboard/settings/api-keys.tsx
 msgid "The API key has been deleted successfully."
@@ -2695,6 +3070,10 @@ msgstr "ខ្លឹមសារនៅលើទំព័រនេះវែងព
 #: src/routes/auth/resume-password.tsx
 msgid "The password you entered is incorrect"
 msgstr "ពាក្យសម្ងាត់​ដែល​អ្នក​បាន​បញ្ចូល មិន​ត្រឹមត្រូវ​ទេ"
+
+#: src/routes/dashboard/admin/job-search.tsx
+msgid "The RapidAPI key is stored in the database and used for all users. Once configured and verified, every signed-in user can search for job listings via the JSearch API. Only Skill Verdict administrators can change this configuration."
+msgstr ""
 
 #: src/routes/auth/resume-password.tsx
 msgid "The resume you are trying to access is password protected"
@@ -2736,16 +3115,16 @@ msgstr "សកម្មភាព​នេះ​មិន​អាច​មិន
 
 #: src/dialogs/resume/import.tsx
 #: src/dialogs/resume/import.tsx
-msgid "This feature requires AI Integration to be enabled. Please enable it in the settings."
-msgstr "មុខងារ​នេះ​ទាមទារ​ឱ្យ​បើក​ការ​រួមបញ្ចូល AI ជាមុនសិន។ សូម​បើក​វា​ក្នុង​ផ្នែក​ការកំណត់។"
+msgid "This import option is not available right now. Please try another format."
+msgstr ""
 
 #: src/dialogs/resume/index.tsx
 msgid "This is a URL-friendly name for your resume."
 msgstr "នេះ​ជា​ឈ្មោះ​ងាយ​ស្រួល​សម្រាប់​ប្រើ​នៅ​ក្នុង URL សម្រាប់​ប្រវត្តិរូប​របស់​អ្នក។"
 
 #: src/dialogs/resume/import.tsx
-msgid "This may take a few minutes, depending on the response of the AI provider. Please do not close the window or refresh the page."
-msgstr "វា​អាច​ចំណាយ​ពេល​ពីរ​នាទី អាស្រ័យ​លើ​ការ​ឆ្លើយតប​របស់​អ្នកផ្តល់​សេវា AI។ សូម​កុំ​បិទ​បង្អួច​នេះ ឬ​ផ្ទុក​ទំព័រ​ឡើង​វិញ។"
+msgid "This may take a few minutes. Please do not close the window or refresh the page."
+msgstr ""
 
 #: src/routes/builder/$resumeId/-components/dock.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/export.tsx
@@ -2754,6 +3133,10 @@ msgstr "វា​អាច​ចំណាយ​ពេល​បន្តិច �
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "This month"
+msgstr ""
+
+#: src/routes/reviewer/$adminId.tsx
+msgid "This page shows live profile information. Verification snapshots captured at the time of review may differ from the current details shown here."
 msgstr ""
 
 #: src/components/resume/store/resume.ts
@@ -2798,10 +3181,6 @@ msgstr "ចំណងជើង"
 #: src/routes/dashboard/settings/danger-zone.tsx
 msgid "To delete your account, you need to enter the confirmation text and click the button below."
 msgstr "ដើម្បី​លុប​គណនី​របស់​អ្នក អ្នក​ត្រូវ​បញ្ចូល​អក្សរ​បញ្ជាក់ ហើយ​ចុច​ប៊ូតុង​ខាងក្រោម។"
-
-#: src/routes/dashboard/job-search/index.tsx
-msgid "To search for job listings, you need to configure your RapidAPI key in settings."
-msgstr ""
 
 #: src/routes/dashboard/job-search/-components/job-utils.ts
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
@@ -2874,6 +3253,10 @@ msgstr "ការ​ផ្ទៀងផ្ទាត់​ពីរ​ជាន់
 msgid "Two-factor authentication has been setup successfully."
 msgstr "ការ​ផ្ទៀងផ្ទាត់​ពីរ​ជាន់ ត្រូវ​បាន​រៀបចំ​ដោយ​ជោគជ័យ។"
 
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Two-factor enabled"
+msgstr ""
+
 #: src/dialogs/resume/import.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/design.tsx
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
@@ -2909,6 +3292,11 @@ msgctxt "'Ctrl' may be replaced with the locale-specific equivalent (e.g. 'Strg'
 msgid "Undo (Ctrl+Z)"
 msgstr "មិនធ្វើវិញ (Ctrl+Z)"
 
+#: src/routes/dashboard/admin/identity.tsx
+#: src/routes/dashboard/admin/index.tsx
+msgid "Unknown applicant"
+msgstr ""
+
 #: src/routes/_home/-sections/features.tsx
 msgid "Unlimited Resumes"
 msgstr "ប្រវត្តិរូប​មិន​មាន​ដែនកំណត់"
@@ -2924,6 +3312,7 @@ msgstr "កំពុង​ផ្ដាច់​គណនី {providerName} រ�
 msgid "Unlock"
 msgstr "ដោះ​សោ"
 
+#: src/routes/dashboard/settings/profile.tsx
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Unverified"
 msgstr "មិន​ទាន់​ផ្ទៀងផ្ទាត់"
@@ -3017,16 +3406,29 @@ msgstr "កំពុង​បច្ចុប្បន្នភាព​ពាក
 msgid "Updating your resume..."
 msgstr "កំពុង​បច្ចុប្បន្នភាព​ប្រវត្តិរូប​របស់​អ្នក..."
 
+#: src/routes/dashboard/verification/index.tsx
+msgid "Upload Document"
+msgstr ""
+
 #: src/routes/builder/$resumeId/-sidebar/left/sections/picture.tsx
 msgid "Uploading picture..."
 msgstr "កំពុង​អាប់ឡូដ​រូបភាព..."
+
+#: src/routes/dashboard/verification/index.tsx
+msgid "Uploading..."
+msgstr ""
 
 #: src/routes/builder/$resumeId/-sidebar/left/sections/picture.tsx
 msgid "URL"
 msgstr "URL"
 
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "User ID"
+msgstr ""
+
 #: src/dialogs/resume/sections/profile.tsx
 #: src/routes/auth/register.tsx
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Username"
 msgstr "ឈ្មោះ​អ្នក​ប្រើ"
@@ -3043,18 +3445,57 @@ msgstr "Uzbek"
 msgid "Valid URLs must start with http:// or https://."
 msgstr "URL ត្រឹមត្រូវ ត្រូវតែ​ចាប់ផ្តើម​ដោយ http:// ឬ https://។"
 
+#: src/routes/dashboard/admin/index.tsx
+msgid "Verdict confirmed. Experience verified."
+msgstr ""
+
+#: src/routes/dashboard/admin/index.tsx
+msgid "Verdict overridden successfully."
+msgstr ""
+
+#: src/routes/dashboard/-components/sidebar.tsx
+#: src/routes/dashboard/verification/index.tsx
+#: src/routes/dashboard/verification/index.tsx
+msgid "Verification"
+msgstr ""
+
+#: src/routes/dashboard/settings/privacy.tsx
+msgid "Verification Badges"
+msgstr ""
+
+#: src/routes/dashboard/settings/privacy.tsx
+#: src/routes/dashboard/settings/privacy.tsx
+msgid "Verification History Timeline"
+msgstr ""
+
+#. placeholder {0}: item.label
+#: src/routes/dashboard/verification/index.tsx
+msgid "Verification requested for \"{0}\"."
+msgstr ""
+
+#: src/routes/dashboard/verification/index.tsx
+#: src/routes/dashboard/verification/index.tsx
+msgid "verified"
+msgstr ""
+
+#: src/routes/dashboard/settings/profile.tsx
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Verified"
 msgstr "បាន​ផ្ទៀងផ្ទាត់"
 
 #: src/routes/auth/verify-2fa-backup.tsx
 #: src/routes/auth/verify-2fa.tsx
+#: src/routes/dashboard/verification/index.tsx
 msgid "Verify"
 msgstr "ផ្ទៀងផ្ទាត់"
 
 #: src/routes/auth/verify-2fa-backup.tsx
 msgid "Verify with a Backup Code"
 msgstr "ផ្ទៀងផ្ទាត់​ដោយ​ប្រើ​កូដ​បម្រុងទុក"
+
+#: src/routes/dashboard/settings/profile.tsx
+msgid "Verify your identity through a short video call. This adds trust to your resume."
+msgstr ""
 
 #: src/routes/auth/verify-2fa-backup.tsx
 msgid "Verifying backup code..."
@@ -3103,10 +3544,6 @@ msgstr "គេហទំព័រ"
 msgid "What do you want to rename this section to?"
 msgstr "តើ​អ្នក​ចង់​ប្ដូរ​ឈ្មោះ​ផ្នែក​នេះ​ទៅ​ជា​អ្វី?"
 
-#: src/routes/dashboard/settings/job-search.tsx
-msgid "What is JSearch API?"
-msgstr ""
-
 #: src/routes/_home/-sections/faq.tsx
 msgid "What makes Reactive Resume different from other resume builders?"
 msgstr "អ្វី​ដែល​ធ្វើ​ឲ្យ Reactive Resume ខុស​ពី​កម្មវិធី​បង្កើត​ប្រវត្តិរូប​ផ្សេងទៀត?"
@@ -3121,9 +3558,18 @@ msgstr "អ្វី​ថ្មី​នៅ​ក្នុង​កំណែ​
 msgid "When locked, the resume cannot be updated or deleted."
 msgstr "នៅ​ពេល​ចាក់សោ ប្រវត្តិរូប​នឹង​មិន​អាច​បច្ចុប្បន្នភាព ឬ​លុប​បាន​ទេ។"
 
+#: src/routes/dashboard/verification/index.tsx
+msgid "Work Experience"
+msgstr ""
+
 #: src/routes/_home/-sections/features.tsx
 msgid "Write your own CSS (or use an AI to generate it for you) to customize your resume to the fullest."
 msgstr "សរសេរ CSS ផ្ទាល់ខ្លួន​របស់​អ្នក (ឬ​ប្រើ AI ដើម្បី​បង្កើត​ឲ្យ​អ្នក) ដើម្បី​ប្ដូរ​តាមបំណង​ប្រវត្តិរូប​របស់​អ្នក​ឲ្យ​បាន​ទូលំទូលាយ​បំផុត។"
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Yes"
+msgstr ""
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "Yes, Reactive Resume is available in multiple languages. You can choose your preferred language in the settings page, or using the language switcher in the top right corner. If you don't see your language, or you would like to improve the existing translations, you can <0>contribute to the translations on Crowdin<1> (opens in new tab)</1></0>."
@@ -3178,13 +3624,13 @@ msgstr "ការ​ផ្លាស់ប្ដូរ​របស់​អ្ន
 msgid "Your data is secure, and never shared or sold to anyone."
 msgstr "ទិន្នន័យ​របស់​អ្នក​មាន​សុវត្ថិភាព ហើយ​មិន​ដែល​ត្រូវ​បាន​ចែករំលែក ឬ​លក់​ឲ្យ​នរណា​ម្នាក់​ទេ។"
 
-#: src/routes/dashboard/settings/ai.tsx
-msgid "Your data is stored locally"
-msgstr "ទិន្នន័យ​របស់​អ្នក​ត្រូវ​បានរក្សាទុក​ក្នុងកម្មវិធីរុករករបស់​អ្នក​តែប៉ុណ្ណោះ"
-
 #: src/routes/_home/-sections/faq.tsx
 msgid "Your data is stored securely and is never shared with third parties. You can also self-host Reactive Resume on your own servers for complete control over your data."
 msgstr "ទិន្នន័យ​របស់​អ្នក​ត្រូវ​បាន​រក្សាទុក​ដោយ​សុវត្ថិភាព ហើយ​មិនដែល​ត្រូវ​បាន​ចែករំលែក​ជាមួយ​ភាគី​ទីបី​ទេ។ អ្នក​ក៏​អាច​ដំឡើង Reactive Resume លើ​ម៉ាស៊ីន​បម្រើ​ផ្ទាល់ខ្លួន​របស់​អ្នក ដើម្បី​មាន​សិទ្ធિ​ត្រួតត្រា​លើ​ទិន្នន័យ​របស់​អ្នក​ដល់​ខ្ពស់​បំផុត​ផង​ដែរ។"
+
+#: src/routes/dashboard/settings/profile.tsx
+msgid "Your identity has been verified and your profile is trusted."
+msgstr ""
 
 #: src/routes/auth/reset-password.tsx
 msgid "Your password has been reset successfully. You can now sign in with your new password."
@@ -3195,12 +3641,12 @@ msgid "Your password has been updated successfully."
 msgstr "ពាក្យសម្ងាត់​របស់​អ្នក​ត្រូវ​បាន​បច្ចុប្បន្នភាព​ដោយ​ជោគជ័យ។"
 
 #: src/routes/dashboard/settings/profile.tsx
+msgid "Your previous identity verification was unsuccessful. You may try again."
+msgstr ""
+
+#: src/routes/dashboard/settings/profile.tsx
 msgid "Your profile has been updated successfully."
 msgstr "ប្រវត្តិ​សង្ខេប​របស់​អ្នក​ត្រូវ​បាន​បច្ចុប្បន្នភាព​ដោយ​ជោគជ័យ។"
-
-#: src/routes/dashboard/settings/job-search.tsx
-msgid "Your RapidAPI key is stored locally on your browser. It is only sent to the server when making a request to search for jobs, and is never stored or logged on our servers."
-msgstr ""
 
 #: src/dialogs/resume/index.tsx
 #: src/dialogs/resume/index.tsx
@@ -3232,6 +3678,10 @@ msgstr "តំណ​សាធារណៈ​របស់​ប្រវត្ត
 #: src/routes/_home/-sections/donate.tsx
 msgid "Your support ensures the project remains free and accessible for everyone, now and in the future."
 msgstr "ការគាំទ្រ​របស់​អ្នក​ធានា​ឲ្យ​គម្រោង​នេះ​នៅតែ​ឥតគិតថ្លៃ និង​អាច​ចូល​ដំណើរការ​បាន​សម្រាប់​មនុស្ស​គ្រប់គ្នា ទាំង​ឥឡូវ​នេះ និង​អនាគត។"
+
+#: src/routes/dashboard/settings/profile.tsx
+msgid "Your verification call has been scheduled. Our team will review and confirm your identity shortly."
+msgstr ""
 
 #: src/routes/builder/$resumeId/-components/dock.tsx
 msgid "Zoom in"

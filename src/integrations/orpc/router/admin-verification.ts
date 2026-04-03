@@ -112,12 +112,20 @@ export const adminVerificationRouter = {
     return await verificationService.listIdentityQueue();
   }),
 
-  verifyIdentity: skillVerdictAdminProcedure
-    .input(z.object({ requestId: z.string().uuid() }))
+  reviewIdentity: skillVerdictAdminProcedure
+    .input(
+      z.object({
+        requestId: z.string().uuid(),
+        action: z.enum(["verified", "rejected", "issue"]),
+        notes: z.string().optional(),
+      }),
+    )
     .handler(async ({ context, input }) => {
-      return await verificationService.verifyIdentity({
+      return await verificationService.reviewIdentity({
         requestId: input.requestId,
         adminId: context.user.id,
+        action: input.action,
+        notes: input.notes,
       });
     }),
 };

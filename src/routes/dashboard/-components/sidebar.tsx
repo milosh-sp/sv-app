@@ -8,6 +8,7 @@ import {
   BriefcaseIcon,
   EyeIcon,
   GearSixIcon,
+  IdentificationCardIcon,
   KeyIcon,
   ReadCvLogoIcon,
   SealCheckIcon,
@@ -96,7 +97,12 @@ const skillVerdictVerificationSidebarItems = [
   {
     icon: <ShieldStarIcon />,
     label: msg`Experience Queue`,
-    href: "/dashboard/admin",
+    href: "/dashboard/admin/experience-queue",
+  },
+  {
+    icon: <IdentificationCardIcon />,
+    label: msg`Identity Queue`,
+    href: "/dashboard/admin/identity",
   },
 ] as const satisfies SidebarItem[];
 
@@ -132,7 +138,7 @@ function SidebarItemList({ items }: SidebarItemListProps) {
           <SidebarMenuButton
             title={i18n.t(item.label)}
             render={
-              <Link to={item.href} activeProps={{ className: "bg-sidebar-accent" }}>
+              <Link to={item.href} activeProps={{ className: "bg-sidebar-accent" }} activeOptions={{ exact: true }}>
                 {item.icon}
                 <span className="shrink-0 transition-[margin,opacity] duration-200 ease-in-out group-data-[collapsible=icon]:-ms-8 group-data-[collapsible=icon]:opacity-0">
                   {i18n.t(item.label)}
