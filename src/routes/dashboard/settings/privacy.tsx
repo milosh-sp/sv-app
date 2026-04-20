@@ -2,7 +2,7 @@ import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
 import { EyeIcon } from "@phosphor-icons/react";
 import { useMutation, useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 import { motion } from "motion/react";
 import { toast } from "sonner";
 
@@ -14,6 +14,13 @@ import { orpc } from "@/integrations/orpc/client";
 import { DashboardHeader } from "../-components/header";
 
 export const Route = createFileRoute("/dashboard/settings/privacy")({
+  loader: async ({ context }) => {
+    const adminFlags = await context.queryClient.ensureQueryData(orpc.verification.getMyAdminFlags.queryOptions());
+
+    if (adminFlags.skillVerdictAdmin) {
+      throw redirect({ to: "/dashboard/settings/profile", replace: true });
+    }
+  },
   component: RouteComponent,
 });
 

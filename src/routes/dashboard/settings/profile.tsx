@@ -19,6 +19,7 @@ import { match } from "ts-pattern";
 import z from "zod";
 
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
@@ -123,9 +124,24 @@ function RouteComponent() {
     void router.invalidate();
   };
 
+  const adminRoleBadge = match(data.role)
+    .with("skill_verdict_admin", () => (
+      <Badge variant="secondary">
+        <Trans>Skill Verdict Admin</Trans>
+      </Badge>
+    ))
+    .with("reviewer_admin", () => (
+      <Badge variant="secondary">
+        <Trans>Reviewer Admin</Trans>
+      </Badge>
+    ))
+    .with(null, () => null)
+    .exhaustive();
+
   return (
     <div className="space-y-4">
       <DashboardHeader icon={UserCircleIcon} title={t`Profile`} />
+      {adminRoleBadge}
 
       <Separator />
 
@@ -247,14 +263,13 @@ function RouteComponent() {
           </AnimatePresence>
         </motion.form>
       </Form>
-      
 
-      {data.role !== "skill_verdict_admin" && 
-      <>
-      <Separator />
-      <IdentityVerificationBlock />
-      </>
-      }
+      {data.role !== "skill_verdict_admin" && (
+        <>
+          <Separator />
+          <IdentityVerificationBlock />
+        </>
+      )}
     </div>
   );
 }

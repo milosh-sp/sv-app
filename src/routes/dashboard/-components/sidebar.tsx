@@ -64,7 +64,7 @@ const appSidebarItems = [
   },
 ] as const satisfies SidebarItem[];
 
-const settingsSidebarItems = [
+const settingsSidebarBaseItems = [
   {
     icon: <UserCircleIcon />,
     label: msg`Profile`,
@@ -82,16 +82,19 @@ const settingsSidebarItems = [
   },
 
   {
-    icon: <EyeIcon />,
-    label: msg`Privacy`,
-    href: "/dashboard/settings/privacy",
-  },
-  {
     icon: <WarningIcon />,
     label: msg`Danger Zone`,
     href: "/dashboard/settings/danger-zone",
   },
 ] as const satisfies SidebarItem[];
+
+const privacySettingsSidebarItem = {
+  icon: <EyeIcon />,
+  label: msg`Privacy`,
+  href: "/dashboard/settings/privacy",
+} as const satisfies SidebarItem;
+
+const settingsSidebarItems = [...settingsSidebarBaseItems, privacySettingsSidebarItem] as const satisfies SidebarItem[];
 
 const skillVerdictVerificationSidebarItems = [
   {
@@ -197,7 +200,7 @@ export function DashboardSidebar() {
             <Trans>Settings</Trans>
           </SidebarGroupLabel>
           <SidebarGroupContent>
-            <SidebarItemList items={settingsSidebarItems} />
+            <SidebarItemList items={isSkillVerdictAdmin ? settingsSidebarBaseItems : settingsSidebarItems} />
           </SidebarGroupContent>
         </SidebarGroup>
 
