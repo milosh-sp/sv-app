@@ -124,19 +124,21 @@ function RouteComponent() {
     void router.invalidate();
   };
 
-  const adminRoleBadge = match(data.role)
-    .with("skill_verdict_admin", () => (
-      <Badge variant="secondary">
-        <Trans>Skill Verdict Admin</Trans>
-      </Badge>
-    ))
-    .with("reviewer_admin", () => (
-      <Badge variant="secondary">
-        <Trans>Reviewer Admin</Trans>
-      </Badge>
-    ))
-    .with(null, () => null)
-    .exhaustive();
+  const adminRoleBadge =
+    data.role === null
+      ? null
+      : match(data.role)
+          .with("skill_verdict_admin", () => (
+            <Badge variant="secondary">
+              <Trans>Skill Verdict Admin</Trans>
+            </Badge>
+          ))
+          .with("reviewer_admin", () => (
+            <Badge variant="secondary">
+              <Trans>Reviewer Admin</Trans>
+            </Badge>
+          ))
+          .exhaustive();
 
   return (
     <div className="space-y-4">

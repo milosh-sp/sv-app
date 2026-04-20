@@ -79,7 +79,9 @@ function BuilderLayout({ initialLayout, ...props }: BuilderLayoutProps) {
   }));
 
   const onLayoutChange = useDebounceCallback((layout: Layout) => {
-    void setBuilderLayoutServerFn({ data: layout });
+    void setBuilderLayoutServerFn({
+      data: { left: layout.left, artboard: layout.artboard, right: layout.right },
+    });
   }, 200);
 
   useEffect(() => {
