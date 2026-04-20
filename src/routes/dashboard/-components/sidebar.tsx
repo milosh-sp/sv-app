@@ -156,12 +156,18 @@ function SidebarItemList({ items }: SidebarItemListProps) {
 }
 
 export function DashboardSidebar() {
-  const { data: adminFlags } = useQuery({
-    ...orpc.verification.getMyAdminFlags.queryOptions(),
+  const { i18n } = useLingui();
+  const { data: adminRole } = useQuery({
+    ...orpc.auth.getAdminRole.queryOptions(),
     staleTime: 5 * 60 * 1000,
   });
 
-  const isSkillVerdictAdmin = adminFlags?.skillVerdictAdmin ?? false;
+  const isSkillVerdictAdmin = adminRole?.role === "skill_verdict_admin";
+  const roleLabel = (() => {
+    if (adminRole?.role === "skill_verdict_admin") return msg`Skill Verdict Admin`;
+    if (adminRole?.role === "reviewer_admin") return msg`Reviewer Admin`;
+    return null;
+  })();
 
   return (
     <Sidebar variant="floating" collapsible="icon">
@@ -245,6 +251,7 @@ export function DashboardSidebar() {
                   <div className="transition-[margin,opacity] duration-200 ease-in-out group-data-[collapsible=icon]:-ms-8 group-data-[collapsible=icon]:opacity-0">
                     <p className="font-medium">{session.user.name}</p>
                     <p className="text-xs text-muted-foreground">{session.user.email}</p>
+                    {roleLabel && <p className="text-xs text-muted-foreground">{i18n.t(roleLabel)}</p>}
                   </div>
                 </SidebarMenuButton>
               )}
