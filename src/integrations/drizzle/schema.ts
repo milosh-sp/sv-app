@@ -569,7 +569,6 @@ export const verificationRequests = pg.pgTable(
     calendarLinkSentAt: pg.timestamp("calendar_link_sent_at", { withTimezone: true }),
   },
   (t) => [
-    pg.unique().on(t.userId, t.resumeId, t.itemId),
     pg.index().on(t.userId),
     pg.index().on(t.resumeId),
     pg.index().on(t.status),

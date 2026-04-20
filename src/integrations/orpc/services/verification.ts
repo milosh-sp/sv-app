@@ -42,6 +42,52 @@ function isFinalStatus(status: string): status is (typeof FINAL_STATUSES)[number
   return (FINAL_STATUSES as readonly string[]).includes(status);
 }
 
+function getVerificationActorLabel(metadata: {
+  reviewerSnapshotFirstName: string | null;
+  reviewerSnapshotLastName: string | null;
+  adminRole: string;
+}) {
+  const displayName = [metadata.reviewerSnapshotFirstName, metadata.reviewerSnapshotLastName].filter(Boolean).join(" ");
+  if (displayName) return displayName;
+
+  if (metadata.adminRole === "skill_verdict_admin") return "Skill Verdict Admin";
+  if (metadata.adminRole === "reviewer_admin") return "Reviewer Admin";
+  return "Admin Reviewer";
+}
+
+async function buildVerifierLabelMap(verificationRequestIds: string[]) {
+  if (verificationRequestIds.length === 0) {
+    return new Map<string, string>();
+  }
+
+  const metadataRows = await db
+    .select({
+      verificationRequestId: verificationMetadata.verificationRequestId,
+      adminRole: verificationMetadata.adminRole,
+      reviewerSnapshotFirstName: verificationMetadata.reviewerSnapshotFirstName,
+      reviewerSnapshotLastName: verificationMetadata.reviewerSnapshotLastName,
+      actedAt: verificationMetadata.actedAt,
+    })
+    .from(verificationMetadata)
+    .where(
+      and(
+        inArray(verificationMetadata.verificationRequestId, verificationRequestIds),
+        inArray(verificationMetadata.action, ["verified", "overridden"]),
+      ),
+    )
+    .orderBy(desc(verificationMetadata.actedAt));
+
+  const verifierByRequestId = new Map<string, string>();
+  for (const metadata of metadataRows) {
+    if (verifierByRequestId.has(metadata.verificationRequestId)) {
+      continue;
+    }
+    verifierByRequestId.set(metadata.verificationRequestId, getVerificationActorLabel(metadata));
+  }
+
+  return verifierByRequestId;
+}
+
 async function guardActiveRequest(userId: string, resumeId: string | null, itemId: string) {
   const baseConditions = [eq(verificationRequests.userId, userId), eq(verificationRequests.itemId, itemId)];
 
@@ -60,12 +106,6 @@ async function guardActiveRequest(userId: string, resumeId: string | null, itemI
       message: `An active verification request already exists (status: ${existing.status})`,
     });
   }
-
-  // On retry: delete old rejected/issue rows so the unique constraint doesn't block the new insert.
-  // Cascade deletes associated metadata and documents.
-  await db
-    .delete(verificationRequests)
-    .where(and(...baseConditions, inArray(verificationRequests.status, ["rejected", "issue"])));
 }
 
 export const verificationService = {
@@ -122,6 +162,7 @@ export const verificationService = {
           eq(verificationRequests.userId, input.userId),
         ),
       )
+      .orderBy(desc(verificationRequests.submittedAt))
       .limit(1);
 
     if (!req) {
@@ -285,7 +326,7 @@ export const verificationService = {
       .where(eq(verificationRequests.resumeId, resumeId));
   },
 
-  getHistory: async (input: { userId: string; itemId: string }) => {
+  getHistory: async (input: { userId: string; resumeId: string; itemId: string }) => {
     const requests = await db
       .select({
         id: verificationRequests.id,
@@ -296,10 +337,77 @@ export const verificationService = {
         resolvedAt: verificationRequests.resolvedAt,
       })
       .from(verificationRequests)
-      .where(and(eq(verificationRequests.userId, input.userId), eq(verificationRequests.itemId, input.itemId)))
+      .where(
+        and(
+          eq(verificationRequests.userId, input.userId),
+          eq(verificationRequests.resumeId, input.resumeId),
+          eq(verificationRequests.itemId, input.itemId),
+        ),
+      )
       .orderBy(desc(verificationRequests.submittedAt));
 
-    return requests;
+    if (requests.length === 0) {
+      return [];
+    }
+
+    const verifierByRequestId = await buildVerifierLabelMap(requests.map((request) => request.id));
+
+    return requests.map((request) => ({
+      ...request,
+      verifiedBy: request.status === "verified" ? (verifierByRequestId.get(request.id) ?? null) : null,
+    }));
+  },
+
+  getPublicTimeline: async (input: { resumeId: string }) => {
+    const [resumeRow] = await db
+      .select({
+        id: resume.id,
+        isPublic: resume.isPublic,
+      })
+      .from(resume)
+      .where(eq(resume.id, input.resumeId))
+      .limit(1);
+
+    if (!resumeRow || !resumeRow.isPublic) {
+      return { enabled: false, entries: [] };
+    }
+
+    const [settings] = await db
+      .select({
+        showTimeline: resumeVerificationSettings.showTimeline,
+      })
+      .from(resumeVerificationSettings)
+      .where(eq(resumeVerificationSettings.resumeId, input.resumeId))
+      .limit(1);
+
+    if (!settings?.showTimeline) {
+      return { enabled: false, entries: [] };
+    }
+
+    const entries = await db
+      .select({
+        id: verificationRequests.id,
+        sectionType: verificationRequests.sectionType,
+        itemLabel: verificationRequests.itemLabel,
+        status: verificationRequests.status,
+        submittedAt: verificationRequests.submittedAt,
+        resolvedAt: verificationRequests.resolvedAt,
+      })
+      .from(verificationRequests)
+      .where(eq(verificationRequests.resumeId, input.resumeId))
+      .orderBy(desc(verificationRequests.submittedAt));
+
+    if (entries.length === 0) {
+      return { enabled: true, entries: [] };
+    }
+
+    const verifierByRequestId = await buildVerifierLabelMap(entries.map((entry) => entry.id));
+    const entriesWithVerifier = entries.map((entry) => ({
+      ...entry,
+      verifiedBy: entry.status === "verified" ? (verifierByRequestId.get(entry.id) ?? null) : null,
+    }));
+
+    return { enabled: true, entries: entriesWithVerifier };
   },
 
   toggleBadge: async (input: { userId: string; requestId: string; visible: boolean }) => {
@@ -617,7 +725,8 @@ export const verificationService = {
         submittedAt: verificationRequests.submittedAt,
       })
       .from(verificationRequests)
-      .where(and(eq(verificationRequests.status, "pending"), eq(verificationRequests.sectionType, "experience")));
+      .where(and(eq(verificationRequests.status, "pending"), eq(verificationRequests.sectionType, "experience")))
+      .orderBy(desc(verificationRequests.submittedAt));
 
     if (requests.length === 0) return [];
 

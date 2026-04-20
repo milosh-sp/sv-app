@@ -45,7 +45,27 @@ export const verificationDto = {
   },
   getHistory: {
     input: z.object({
+      resumeId: z.string().uuid(),
       itemId: resumeItemIdSchema,
+    }),
+  },
+  getPublicTimeline: {
+    input: z.object({
+      resumeId: z.string().uuid(),
+    }),
+    output: z.object({
+      enabled: z.boolean(),
+      entries: z.array(
+        z.object({
+          id: z.string().uuid(),
+          sectionType: z.enum(["skill", "project", "experience", "identity"]),
+          itemLabel: z.string(),
+          status: z.enum(["pending", "claimed", "verdict_pending", "verified", "rejected", "issue"]),
+          submittedAt: z.date(),
+          resolvedAt: z.date().nullable(),
+          verifiedBy: z.string().nullable(),
+        }),
+      ),
     }),
   },
   toggleBadge: {

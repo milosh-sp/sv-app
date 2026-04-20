@@ -394,7 +394,7 @@ describe("verificationService.getStatus", () => {
 });
 
 describe("verificationService.getHistory", () => {
-  it("should return history without reviewerNote or admin identity", async () => {
+  it("should return history with verifier label and without admin identity fields", async () => {
     const history = [
       {
         id: "req-1",
@@ -410,12 +410,82 @@ describe("verificationService.getHistory", () => {
       limit: mockLimit,
       orderBy: mockOrderBy,
     });
+    mockFrom.mockReturnValueOnce({
+      where: vi.fn(() => ({
+        orderBy: vi.fn(() => [
+          {
+            verificationRequestId: "req-1",
+            adminRole: "reviewer_admin",
+            reviewerSnapshotFirstName: "Jane",
+            reviewerSnapshotLastName: "Reviewer",
+            actedAt: new Date(),
+          },
+        ]),
+      })),
+      limit: mockLimit,
+      orderBy: mockOrderBy,
+    });
 
-    const result = await verificationService.getHistory({ userId: "user-1", itemId: "item-1" });
+    const result = await verificationService.getHistory({ userId: "user-1", resumeId: "resume-1", itemId: "item-1" });
 
     expect(result).toHaveLength(1);
+    expect(result[0]?.verifiedBy).toBe("Jane Reviewer");
     expect(result[0]).not.toHaveProperty("reviewerNote");
     expect(result[0]).not.toHaveProperty("claimedByAdminId");
+  });
+});
+
+describe("verificationService.getPublicTimeline", () => {
+  it("should include verifiedBy for verified entries", async () => {
+    const entries = [
+      {
+        id: "req-1",
+        sectionType: "skill",
+        itemLabel: "TypeScript",
+        status: "verified",
+        submittedAt: new Date(),
+        resolvedAt: new Date(),
+      },
+      {
+        id: "req-2",
+        sectionType: "project",
+        itemLabel: "Portfolio",
+        status: "pending",
+        submittedAt: new Date(),
+        resolvedAt: null,
+      },
+    ];
+
+    mockFrom
+      .mockReturnValueOnce({
+        where: vi.fn(() => ({ limit: vi.fn(() => [{ id: "resume-1", isPublic: true }]) })),
+      })
+      .mockReturnValueOnce({
+        where: vi.fn(() => ({ limit: vi.fn(() => [{ showTimeline: true }]) })),
+      })
+      .mockReturnValueOnce({
+        where: vi.fn(() => ({ orderBy: vi.fn(() => entries) })),
+      })
+      .mockReturnValueOnce({
+        where: vi.fn(() => ({
+          orderBy: vi.fn(() => [
+            {
+              verificationRequestId: "req-1",
+              adminRole: "reviewer_admin",
+              reviewerSnapshotFirstName: "Jane",
+              reviewerSnapshotLastName: "Reviewer",
+              actedAt: new Date(),
+            },
+          ]),
+        })),
+      });
+
+    const result = await verificationService.getPublicTimeline({ resumeId: "resume-1" });
+
+    expect(result.enabled).toBe(true);
+    expect(result.entries).toHaveLength(2);
+    expect(result.entries[0]?.verifiedBy).toBe("Jane Reviewer");
+    expect(result.entries[1]?.verifiedBy).toBeNull();
   });
 });
 

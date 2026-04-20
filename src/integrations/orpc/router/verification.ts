@@ -72,6 +72,13 @@ export const verificationRouter = {
     });
   }),
 
+  getPublicTimeline: publicProcedure
+    .input(verificationDto.getPublicTimeline.input)
+    .output(verificationDto.getPublicTimeline.output)
+    .handler(async ({ input }) => {
+      return await verificationService.getPublicTimeline(input);
+    }),
+
   toggleBadge: protectedProcedure.input(verificationDto.toggleBadge.input).handler(async ({ context, input }) => {
     return await verificationService.toggleBadge({
       userId: context.user.id,

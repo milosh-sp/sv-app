@@ -345,7 +345,7 @@ function SkillProjectItemRow({
         </div>
       </div>
 
-      {historyOpen && existingStatus && <VerificationHistory itemId={item.id} />}
+      {historyOpen && existingStatus && <VerificationHistory resumeId={resumeId} itemId={item.id} />}
     </div>
   );
 }
@@ -634,7 +634,7 @@ function ExperienceItemRow({
         </div>
       )}
 
-      {historyOpen && existingStatus && <VerificationHistory itemId={item.id} />}
+      {historyOpen && existingStatus && <VerificationHistory resumeId={resumeId} itemId={item.id} />}
     </div>
   );
 }
@@ -677,8 +677,13 @@ function StatusBadge({ status }: { status: string }) {
   return <span className={`rounded-full px-2 py-0.5 text-xs capitalize ${colorClass}`}>{displayStatus(status)}</span>;
 }
 
-function VerificationHistory({ itemId }: { itemId: string }) {
-  const { data: history, isLoading } = useQuery(orpc.verification.getHistory.queryOptions({ input: { itemId } }));
+function VerificationHistory({ resumeId, itemId }: { resumeId: string; itemId: string }) {
+  const {
+    data: history,
+    isLoading,
+    isError,
+    error,
+  } = useQuery(orpc.verification.getHistory.queryOptions({ input: { resumeId, itemId } }));
 
   if (isLoading) {
     return (
@@ -688,6 +693,14 @@ function VerificationHistory({ itemId }: { itemId: string }) {
           <Trans>Loading history...</Trans>
         </span>
       </div>
+    );
+  }
+
+  if (isError) {
+    return (
+      <p className="mt-2 text-xs text-destructive" title={error.message}>
+        <Trans>Unable to load verification history right now.</Trans>
+      </p>
     );
   }
 
@@ -703,7 +716,14 @@ function VerificationHistory({ itemId }: { itemId: string }) {
     <div className="mt-2 space-y-1 border-t pt-2">
       {history.map((entry) => (
         <div key={entry.id} className="flex items-center justify-between text-xs text-muted-foreground">
-          <span className="capitalize">{entry.status}</span>
+          <div className="min-w-0">
+            <span className="capitalize">{entry.status}</span>
+            {entry.verifiedBy && (
+              <p className="truncate text-[11px] text-muted-foreground/80">
+                <Trans>Verified by {entry.verifiedBy}</Trans>
+              </p>
+            )}
+          </div>
           <span>{new Date(entry.submittedAt).toLocaleDateString()}</span>
         </div>
       ))}
