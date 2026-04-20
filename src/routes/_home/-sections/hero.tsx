@@ -1,6 +1,6 @@
 import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
-import { ArrowRightIcon, BookIcon, SparkleIcon } from "@phosphor-icons/react";
+import { ArrowRightIcon, SealCheckIcon, SparkleIcon } from "@phosphor-icons/react";
 import { Link } from "@tanstack/react-router";
 import { motion } from "motion/react";
 
@@ -8,6 +8,8 @@ import { CometCard } from "@/components/animation/comet-card";
 import { Spotlight } from "@/components/animation/spotlight";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+
+import { HeroVisual } from "./hero-visual";
 
 export function Hero() {
   return (
@@ -23,44 +25,27 @@ export function Hero() {
         transition={{ duration: 1.1, ease: "easeOut" }}
         style={{ willChange: "transform, opacity" }}
       >
-        <CometCard glareOpacity={0} className="3xl:max-w-7xl relative -mb-12 max-w-4xl px-8 md:-mb-24 md:px-12 lg:px-0">
-          <video
-            loop
-            muted
-            autoPlay
-            playsInline
-            // @ts-expect-error - typescript doesn't know about fetchPriority for video elements
-            fetchPriority="high"
-            src="/videos/timelapse.mp4"
-            aria-label={t`Timelapse demonstration of building a resume with Reactive Resume`}
-            className="pointer-events-none size-full rounded-md border object-cover"
-          />
-
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-0 bg-linear-to-b from-transparent via-transparent via-40% to-background"
-          />
+        <CometCard
+          glareOpacity={0}
+          className="3xl:max-w-7xl relative -mb-12 max-w-4xl px-8 md:-mb-24 md:px-12 lg:px-0"
+        >
+          <HeroVisual />
         </CometCard>
       </motion.div>
 
       <div className="xs:px-0 relative z-10 flex max-w-2xl flex-col items-center gap-y-6 px-4 text-center">
         {/* Badge */}
-        <motion.a
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.45, delay: 0.55 }}
-          whileHover={{ y: -2, scale: 1.01 }}
-          whileTap={{ scale: 0.985 }}
           style={{ willChange: "transform, opacity" }}
-          target="_blank"
-          rel="noopener noreferrer"
-          href="https://docs.rxresu.me/getting-started"
         >
           <Badge variant="secondary" className="h-auto gap-1.5 px-3 py-0.5">
             <SparkleIcon aria-hidden="true" className="size-3.5" weight="fill" />
-            <Trans>What's new in the latest version?</Trans>
+            <Trans>Don't chase. Attract.</Trans>
           </Badge>
-        </motion.a>
+        </motion.div>
 
         {/* Headline */}
         <motion.div
@@ -70,9 +55,9 @@ export function Hero() {
           style={{ willChange: "transform, opacity" }}
         >
           <Trans>
-            <p className="font-medium tracking-tight text-muted-foreground md:text-lg">Finally,</p>
+            <p className="font-medium tracking-tight text-muted-foreground md:text-lg">Your skills, finally,</p>
             <h1 className="mt-1 text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl">
-              A free and open-source resume builder
+              Proven. Not just claimed.
             </h1>
           </Trans>
         </motion.div>
@@ -86,8 +71,8 @@ export function Hero() {
           style={{ willChange: "transform, opacity" }}
         >
           <Trans>
-            Reactive Resume is a free and open-source resume builder that simplifies the process of creating, updating,
-            and sharing your resume.
+            Build a living profile backed by real evidence. Get your skills endorsed by domain experts in short,
+            practical reviews — and let opportunities come to you.
           </Trans>
         </motion.p>
 
@@ -106,7 +91,7 @@ export function Hero() {
             render={
               <Link to="/dashboard">
                 <span className="relative z-10 flex items-center gap-2">
-                  <Trans>Get Started</Trans>
+                  <Trans>Verify my skills</Trans>
                   <ArrowRightIcon
                     aria-hidden="true"
                     className="size-4 transition-transform group-hover:translate-x-0.5"
@@ -122,12 +107,9 @@ export function Hero() {
             className="gap-2 px-4"
             nativeButton={false}
             render={
-              <a href="https://docs.rxresu.me" target="_blank" rel="noopener noreferrer">
-                <BookIcon aria-hidden="true" className="size-4" />
-                <Trans>Learn More</Trans>
-                <span className="sr-only">
-                  <Trans>(opens in new tab)</Trans>
-                </span>
+              <a href="#how-it-works" aria-label={t`See how verification works`}>
+                <SealCheckIcon aria-hidden="true" className="size-4" />
+                <Trans>See how it works</Trans>
               </a>
             }
           />

@@ -1,7 +1,7 @@
 import type { Icon } from "@phosphor-icons/react";
 
 import { t } from "@lingui/core/macro";
-import { FileTextIcon, UsersIcon } from "@phosphor-icons/react";
+import { SealCheckIcon, UsersIcon } from "@phosphor-icons/react";
 import { useQueries } from "@tanstack/react-query";
 import { motion } from "motion/react";
 
@@ -15,18 +15,18 @@ type Statistic = {
   icon: Icon;
 };
 
-const getStatistics = (userCount: number, resumeCount: number): Statistic[] => [
+const getStatistics = (candidateCount: number, verifiedSkillCount: number): Statistic[] => [
   {
-    id: "users",
-    label: t`Users`,
-    value: userCount,
+    id: "candidates",
+    label: t`Candidates`,
+    value: candidateCount,
     icon: UsersIcon,
   },
   {
-    id: "resumes",
-    label: t`Resumes`,
-    value: resumeCount,
-    icon: FileTextIcon,
+    id: "verified-skills",
+    label: t`Verified skills`,
+    value: verifiedSkillCount,
+    icon: SealCheckIcon,
   },
 ];
 
@@ -94,7 +94,7 @@ export function Statistics() {
   return (
     <section id="statistics" aria-labelledby="stats-heading">
       <h2 id="stats-heading" className="sr-only">
-        {t`Application Statistics`}
+        {t`Platform statistics`}
       </h2>
 
       <div className="grid grid-cols-1 sm:grid-cols-2">

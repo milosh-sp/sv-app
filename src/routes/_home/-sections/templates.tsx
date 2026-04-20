@@ -94,13 +94,13 @@ export function Templates() {
         style={{ willChange: "transform, opacity" }}
       >
         <h2 className="text-2xl font-semibold tracking-tight md:text-4xl xl:text-5xl">
-          <Trans>Templates</Trans>
+          <Trans>Profiles built to stand out</Trans>
         </h2>
 
         <p className="max-w-2xl leading-relaxed text-muted-foreground">
           <Trans>
-            Explore our diverse selection of templates, each designed to fit different styles, professions, and
-            personalities. Reactive Resume currently offers 12 templates, with more on the way.
+            Choose from a growing set of clean, recruiter-friendly profile layouts. Every profile ships with
+            verification-ready metadata, so your badges travel wherever your CV 2.0 goes.
           </Trans>
         </p>
       </motion.div>
