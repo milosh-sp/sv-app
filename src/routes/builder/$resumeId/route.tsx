@@ -132,13 +132,39 @@ function BuilderLayout({ initialLayout, ...props }: BuilderLayoutProps) {
   );
 }
 
-const defaultLayout = { left: 30, artboard: 40, right: 30 };
+type BuilderLayout = {
+  left: number;
+  artboard: number;
+  right: number;
+};
+
+const defaultLayout: BuilderLayout = { left: 14, artboard: 72, right: 14 };
 const BUILDER_LAYOUT_COOKIE_NAME = "builder_layout";
 
-const layoutSchema = z.record(z.string(), z.number()).catch(defaultLayout);
+const storedLayoutSchema = z.object({
+  left: z.number(),
+  artboard: z.number(),
+  right: z.number(),
+});
+
+const incomingLayoutSchema = z
+  .union([
+    storedLayoutSchema,
+    z.tuple([z.number(), z.number(), z.number()]).transform(([left, artboard, right]) => ({ left, artboard, right })),
+  ])
+  .transform((layout) => {
+    const total = layout.left + layout.artboard + layout.right;
+    if (total <= 0) return defaultLayout;
+
+    return {
+      left: (layout.left / total) * 100,
+      artboard: (layout.artboard / total) * 100,
+      right: (layout.right / total) * 100,
+    };
+  });
 
 const setBuilderLayoutServerFn = createServerFn({ method: "POST" })
-  .inputValidator(layoutSchema)
+  .inputValidator(incomingLayoutSchema)
   .handler(async ({ data }) => {
     setCookie(BUILDER_LAYOUT_COOKIE_NAME, JSON.stringify(data));
   });
@@ -146,5 +172,10 @@ const setBuilderLayoutServerFn = createServerFn({ method: "POST" })
 const getBuilderLayoutServerFn = createServerFn({ method: "GET" }).handler(async () => {
   const layout = getCookie(BUILDER_LAYOUT_COOKIE_NAME);
   if (!layout) return defaultLayout;
-  return layoutSchema.parse(JSON.parse(layout));
+
+  try {
+    return incomingLayoutSchema.parse(JSON.parse(layout));
+  } catch {
+    return defaultLayout;
+  }
 });

@@ -14,7 +14,7 @@ import {
   XCircleIcon,
 } from "@phosphor-icons/react";
 import { useMutation, useQuery, useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { motion } from "motion/react";
 import { useCallback, useMemo, useRef, useState } from "react";
 import { toast } from "sonner";
@@ -54,6 +54,7 @@ const showSectionFeature = false
 
 function RouteComponent() {
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
   const [selectedResumeId, setSelectedResumeId] = useState<string | null>(null);
 
   const { data: resumes } = useSuspenseQuery(
@@ -119,6 +120,12 @@ function RouteComponent() {
         <p className="text-sm text-muted-foreground">
           <Trans>Create a resume first to start verifying your skills, projects, and experience.</Trans>
         </p>
+        <Button
+          size="sm"
+          onClick={() => void navigate({ to: "/dashboard/resumes", search: { sort: "lastUpdatedAt", tags: [] } })}
+        >
+          <Trans>Create a new resume</Trans>
+        </Button>
       </div>
     );
   }

@@ -41,7 +41,7 @@ export function useBuilderSidebar<T = UseBuilderSidebarReturn>(selector?: (build
 
   const maxSidebarSize = useMemo((): string | number => {
     if (!width) return 0;
-    return isMobile ? "95%" : "45%";
+    return isMobile ? "95%" : "28%";
   }, [width, isMobile]);
 
   const collapsedSidebarSize = useMemo((): number => {
@@ -49,7 +49,7 @@ export function useBuilderSidebar<T = UseBuilderSidebarReturn>(selector?: (build
     return isMobile ? 0 : 48;
   }, [width, isMobile]);
 
-  const expandSize = useMemo(() => (isMobile ? "95%" : "30%"), [isMobile]);
+  const expandSize = useMemo(() => (isMobile ? "95%" : "22%"), [isMobile]);
 
   const isCollapsed = useCallback((side: "left" | "right") => {
     const sidebar =
