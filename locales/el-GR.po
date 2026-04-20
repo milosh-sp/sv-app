@@ -63,6 +63,10 @@ msgstr "{0} μήνες πριν"
 msgid "{0} weeks ago"
 msgstr "{0} εβδομάδες πριν"
 
+#: src/routes/_home/-sections/header.tsx
+msgid "{APP_NAME} - Go to homepage"
+msgstr ""
+
 #: src/routes/builder/$resumeId/-sidebar/left/sections/custom.tsx
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-menu.tsx
 msgid "{column, plural, one {# Column} other {# Columns}}"
@@ -73,8 +77,8 @@ msgid "{diffDays} days ago"
 msgstr "{diffDays} ημέρες πριν"
 
 #: src/routes/_home/-sections/hero.tsx
-msgid "<0>Finally,</0><1>A free and open-source resume builder</1>"
-msgstr "<0>Επιτέλους,</0><1>ένας δωρεάν και ανοικτού κώδικα κατασκευαστής βιογραφικών σημειωμάτων</1>"
+msgid "<0>Don't chase,</0><1>Attract opportunities with verified skills</1>"
+msgstr ""
 
 #: src/routes/_home/-sections/faq.tsx
 msgctxt "Every word needs to be wrapped in a tag"
@@ -82,8 +86,8 @@ msgid "<0>Frequently</0><1>Asked</1><2>Questions</2>"
 msgstr "<0>Συχνές</0><1>Ερωτήσεις</1><2>Χρηστών</2>"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/information.tsx
-msgid "<0>Thank you for using Reactive Resume! This app is a labor of love, created mostly in my spare time, with wonderful support from open-source contributors around the world.</0><1>If Reactive Resume has been helpful to you, and you'd like to help keep it free and open for everyone, please consider making a donation. Every little bit is appreciated!</1>"
-msgstr "<0>Σας ευχαριστώ που χρησιμοποιείτε το Reactive Resume! Αυτή η εφαρμογή είναι έργο αγάπης, δημιουργημένη κυρίως στον ελεύθερο χρόνο μου, με υπέροχη υποστήριξη από συνεισφέροντες ανοικτού κώδικα σε όλο τον κόσμο.</0><1>Εάν το Reactive Resume σας βοήθησε και θα θέλατε να συμβάλετε ώστε να παραμείνει δωρεάν και ανοικτό για όλους, σκεφτείτε να κάνετε μια δωρεά. Κάθε μικρή συμβολή εκτιμάται!</1>"
+msgid "<0>Skill Verdict helps you go beyond keywords. Get your skills peer-verified by experienced Gurus, earn shareable skill badges, and let employers discover you through your CV2.0.</0><1>Finish your resume here, then get it verified on Skill Verdict to stand out.</1>"
+msgstr ""
 
 #: src/dialogs/api-key/create.tsx
 msgid "1 month"
@@ -110,23 +114,19 @@ msgid "A confirmation link has been sent to your current email address. Please c
 msgstr "Ένας σύνδεσμος επιβεβαίωσης στάλθηκε στην τρέχουσα διεύθυνση email σας. Ελέγξτε τα εισερχόμενά σας για να επιβεβαιώσετε την αλλαγή."
 
 #: src/routes/_home/-sections/footer.tsx
-msgid "A free and open-source resume builder that simplifies the process of creating, updating, and sharing your resume."
-msgstr "Ένας δωρεάν κατασκευαστής βιογραφικών σημειωμάτων ανοικτού κώδικα που απλοποιεί τη διαδικασία δημιουργίας, ενημέρωσης και κοινοποίησης του βιογραφικού σας σημειώματος."
+msgid "A dynamic CV2.0 builder with peer-verified skill badges — stop chasing jobs, and let employers come to you."
+msgstr ""
 
 #: src/routes/builder/$resumeId/-components/dock.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 msgid "A link to your resume has been copied to clipboard."
 msgstr "Ένας σύνδεσμος προς το βιογραφικό σας σημείωμα αντιγράφηκε στο πρόχειρο."
 
-#: src/routes/_home/-sections/testimonials.tsx
-msgid "A lot of people have written to me over the years to share their experiences with Reactive Resume and how it has helped them, and I never get tired of reading them. If you have a story to share, let me know by sending me an email at <0>{email}</0>."
-msgstr "Πολλοί άνθρωποι μου έχουν γράψει όλα αυτά τα χρόνια για να μοιραστούν τις εμπειρίες τους με το Reactive Resume και πώς τους βοήθησε, και δεν κουράζομαι ποτέ να τα διαβάζω. Αν έχετε μια ιστορία να μοιραστείτε, ενημερώστε με στέλνοντάς μου ένα email στο <0>{email}</0>."
-
 #: src/routes/dashboard/settings/profile.tsx
 msgid "A new verification link has been sent to your email address. Please check your inbox to verify your account."
 msgstr "Ένας νέος σύνδεσμος επαλήθευσης στάλθηκε στη διεύθυνση email σας. Ελέγξτε τα εισερχόμενά σας για να επαληθεύσετε τον λογαριασμό σας."
 
-#: src/routes/dashboard/admin/index.tsx
+#: src/routes/dashboard/admin/experience-queue.tsx
 msgid "A reason is required to override."
 msgstr ""
 
@@ -135,13 +135,17 @@ msgstr ""
 msgid "A resume with this slug already exists."
 msgstr "Υπάρχει ήδη βιογραφικό σημείωμα με αυτό το slug."
 
+#: src/routes/_home/-sections/features.tsx
+msgid "A unique QR code opens your live CV2.0, so you can network in person or online with a single tap."
+msgstr ""
+
 #: src/routes/builder/$resumeId/-sidebar/right/sections/page.tsx
 msgid "A4"
 msgstr "Α4"
 
 #: src/routes/_home/-sections/faq.tsx
-msgid "Absolutely! You can export your resume to PDF with a single click. The exported PDF maintains all your formatting and styling perfectly."
-msgstr "Φυσικά! Μπορείτε να εξαγάγετε το βιογραφικό σας σημείωμα σε PDF με ένα μόνο κλικ. Το εξαγόμενο PDF διατηρεί άψογα όλη τη μορφοποίηση και το στυλ σας."
+msgid "Absolutely. Add new skills anytime, or request re-verification as you level up — your CV2.0 evolves with your career."
+msgstr ""
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Access your resumes and data programmatically using the API."
@@ -248,6 +252,18 @@ msgstr "Προσθήκη γραμμής μετά"
 msgid "Add Row Before"
 msgstr "Προσθήκη γραμμής πριν"
 
+#: src/routes/_home/-sections/features.tsx
+msgid "Add to Wallet"
+msgstr ""
+
+#: src/routes/_home/-sections/features.tsx
+msgid "Add your CV2.0 to your Apple or Google Wallet so your verified skills travel with you."
+msgstr ""
+
+#: src/components/ai/chat.tsx
+msgid "Added"
+msgstr ""
+
 #. placeholder {0}: skillsToSync.length
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 msgid "Added {0} new skills to your original resume"
@@ -268,6 +284,10 @@ msgstr "Προηγμένα φίλτρα"
 #: src/utils/locale.ts
 msgid "Afrikaans"
 msgstr "Αφρικάανς"
+
+#: src/components/ai/chat.tsx
+msgid "AI Chat"
+msgstr ""
 
 #: src/utils/locale.ts
 msgid "Albanian"
@@ -402,6 +422,10 @@ msgstr "Είστε βέβαιοι ότι θέλετε να καταργήσετ�
 msgid "Area of Study"
 msgstr "Τομέας σπουδών"
 
+#: src/components/ai/chat.tsx
+msgid "Ask me to update your resume..."
+msgstr ""
+
 #: src/routes/builder/$resumeId/-sidebar/left/sections/picture.tsx
 msgid "Aspect Ratio"
 msgstr "Αναλογία διαστάσεων"
@@ -412,10 +436,6 @@ msgstr "Αναλογία διαστάσεων"
 #: src/routes/dashboard/settings/authentication/index.tsx
 msgid "Authentication"
 msgstr "Έλεγχος ταυτότητας"
-
-#: src/routes/_home/-sections/features.tsx
-msgid "Available in multiple languages. If you would like to contribute, check out Crowdin."
-msgstr "Διαθέσιμη σε πολλές γλώσσες. Αν θέλετε να συμβάλετε, δείτε το Crowdin."
 
 #: src/dialogs/resume/sections/award.tsx
 msgctxt "(noun) person, organization, or entity that gives an award"
@@ -432,7 +452,7 @@ msgid "Azerbaijani"
 msgstr "Αζερικά"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
-#: src/routes/dashboard/admin/index.tsx
+#: src/routes/dashboard/admin/experience-queue.tsx
 msgid "Back"
 msgstr ""
 
@@ -485,6 +505,14 @@ msgstr "Ακτίνα περιγράμματος"
 msgid "Border Width"
 msgstr "Πλάτος περιγράμματος"
 
+#: src/routes/_home/-sections/hero.tsx
+msgid "Build a dynamic CV2.0, earn peer-verified skill badges, and share your verified profile with employers via a single link or QR code."
+msgstr ""
+
+#: src/routes/_home/-sections/hero.tsx
+msgid "Build my CV2.0"
+msgstr ""
+
 #: src/components/command-palette/index.tsx
 msgid "Builder Command Palette"
 msgstr "Παλέτα εντολών δημιουργού"
@@ -497,13 +525,12 @@ msgstr "Βουλγαρικά"
 msgid "Bullet List"
 msgstr "Λίστα κουκκίδων"
 
-#: src/routes/_home/-sections/features.tsx
-#: src/routes/_home/-sections/prefooter.tsx
-msgid "By the community, for the community."
-msgstr "Από την κοινότητα, για την κοινότητα."
-
 #: src/routes/dashboard/admin/identity.tsx
 msgid "Call link sent"
+msgstr ""
+
+#: src/routes/_home/-sections/faq.tsx
+msgid "Can I become a Guru and earn by verifying?"
 msgstr ""
 
 #: src/routes/_home/-sections/faq.tsx
@@ -511,8 +538,8 @@ msgid "Can I customize the templates?"
 msgstr "Μπορώ να προσαρμόσω τα πρότυπα;"
 
 #: src/routes/_home/-sections/faq.tsx
-msgid "Can I export my resume to PDF?"
-msgstr "Μπορώ να εξαγάγω το βιογραφικό μου σημείωμα σε PDF;"
+msgid "Can I update my skills after verification?"
+msgstr ""
 
 #: src/dialogs/auth/enable-two-factor.tsx
 #: src/dialogs/resume/sections/award.tsx
@@ -560,12 +587,16 @@ msgstr "Μπορώ να εξαγάγω το βιογραφικό μου σημε
 msgid "Cancel"
 msgstr "Ακύρωση"
 
-#: src/routes/dashboard/admin/index.tsx
+#: src/routes/dashboard/admin/experience-queue.tsx
 msgid "Cancel Override"
 msgstr ""
 
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Cancel Verification"
+msgstr ""
+
+#: src/routes/_home/-sections/testimonials.tsx
+msgid "Candidates, Gurus, and hiring teams share how Skill Verdict changed the way they prove and evaluate skills — moving the conversation from keywords to real, verified evidence."
 msgstr ""
 
 #: src/utils/locale.ts
@@ -585,6 +616,10 @@ msgstr "Κεντράρισμα προβολής"
 msgid "Certifications"
 msgstr "Πιστοποιήσεις"
 
+#: src/routes/_home/-sections/features.tsx
+msgid "Certifications Showcase"
+msgstr ""
+
 #: src/routes/_home/-sections/header.tsx
 msgid "Change language"
 msgstr "Αλλαγή γλώσσας"
@@ -600,10 +635,6 @@ msgstr "Αλλαγή θέματος σε..."
 #: src/dialogs/resume/index.tsx
 msgid "Changed your mind? Rename your resume to something more descriptive."
 msgstr "Αλλάξατε γνώμη; Μετονομάστε το βιογραφικό σας σημείωμα σε κάτι πιο περιγραφικό."
-
-#: src/routes/_home/-sections/footer.tsx
-msgid "Changelog"
-msgstr "Αρχείο αλλαγών"
 
 #: src/routes/auth/forgot-password.tsx
 msgid "Check your email for a link to reset your password."
@@ -637,6 +668,10 @@ msgstr "Κύκλος"
 msgid "Clear all"
 msgstr "Εκκαθάριση όλων"
 
+#: src/components/ai/chat.tsx
+msgid "Clear chat history"
+msgstr ""
+
 #: src/dialogs/resume/import.tsx
 msgid "Click here to select a file to import"
 msgstr "Κάντε κλικ εδώ για να επιλέξετε ένα αρχείο προς εισαγωγή"
@@ -650,8 +685,8 @@ msgstr "Κλείσιμο"
 msgid "Code Block"
 msgstr "Μπλοκ κώδικα"
 
+#: src/routes/dashboard/admin/experience-queue.tsx
 #: src/routes/dashboard/admin/identity.tsx
-#: src/routes/dashboard/admin/index.tsx
 msgid "Collapse"
 msgstr ""
 
@@ -660,24 +695,21 @@ msgstr ""
 msgid "Columns"
 msgstr "Στήλες"
 
-#: src/routes/_home/-sections/footer.tsx
-msgid "Community"
-msgstr "Κοινότητα"
+#: src/routes/_home/-sections/features.tsx
+msgid "Combine verified skills with personality assessments so employers understand you as a whole person."
+msgstr ""
 
 #: src/dialogs/resume/sections/experience.tsx
+#: src/routes/_home/-sections/footer.tsx
 msgid "Company"
 msgstr "Εταιρεία"
-
-#: src/routes/_home/-sections/features.tsx
-msgid "Completely free, forever, no hidden costs."
-msgstr "Πλήρως δωρεάν, για πάντα, χωρίς κρυφές χρεώσεις."
 
 #: src/dialogs/api-key/create.tsx
 #: src/hooks/use-prompt.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
-#: src/routes/dashboard/admin/index.tsx
-#: src/routes/dashboard/admin/index.tsx
+#: src/routes/dashboard/admin/experience-queue.tsx
+#: src/routes/dashboard/admin/experience-queue.tsx
 #: src/routes/dashboard/settings/danger-zone.tsx
 #: src/routes/dashboard/verification/index.tsx
 msgid "Confirm"
@@ -687,13 +719,18 @@ msgstr "Επιβεβαίωση"
 msgid "Confirm decision: "
 msgstr ""
 
-#: src/routes/dashboard/admin/index.tsx
+#: src/routes/dashboard/admin/experience-queue.tsx
 msgid "Confirming..."
 msgstr ""
 
 #: src/routes/dashboard/settings/authentication/-components/social-provider.tsx
 msgid "Connect"
 msgstr "Σύνδεση"
+
+#: src/routes/_home/-sections/footer.tsx
+#: src/routes/builder/$resumeId/-sidebar/right/sections/information.tsx
+msgid "Contact"
+msgstr ""
 
 #: src/dialogs/resume/sections/cover-letter.tsx
 #: src/dialogs/resume/sections/summary-item.tsx
@@ -714,16 +751,12 @@ msgid "Continue where you left off"
 msgstr "Συνεχίστε από εκεί που σταματήσατε"
 
 #: src/dialogs/resume/import.tsx
-msgid "Continue where you left off by importing an existing resume you created using Reactive Resume or any another resume builder. Supported formats include PDF, Microsoft Word, as well as JSON files from Reactive Resume."
-msgstr "Συνεχίστε από εκεί που σταματήσατε, εισάγοντας ένα υπάρχον βιογραφικό σημείωμα που δημιουργήσατε με το Reactive Resume ή οποιονδήποτε άλλο κατασκευαστή βιογραφικών σημειωμάτων. Οι υποστηριζόμενες μορφές περιλαμβάνουν PDF, Microsoft Word, καθώς και αρχεία JSON από το Reactive Resume."
+msgid "Continue where you left off by importing an existing resume you created with Skill Verdict or another resume builder. Supported formats include PDF, Microsoft Word, and JSON exports."
+msgstr ""
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Contractor"
 msgstr "Ανάδοχος"
-
-#: src/routes/_home/-sections/donate.tsx
-msgid "Contributions fund bug fixes, security updates, and continuous improvements to keep the app running smoothly."
-msgstr "Οι συνεισφορές χρηματοδοτούν διορθώσεις σφαλμάτων, ενημερώσεις ασφαλείας και συνεχείς βελτιώσεις ώστε η εφαρμογή να λειτουργεί ομαλά."
 
 #: src/routes/dashboard/settings/privacy.tsx
 msgid "Control which verification badges are visible on your public CV."
@@ -843,6 +876,7 @@ msgstr "Δημιουργία νέας σύστασης"
 #: src/dialogs/resume/index.tsx
 #: src/routes/dashboard/resumes/-components/cards/create-card.tsx
 #: src/routes/dashboard/resumes/-components/list-view.tsx
+#: src/routes/dashboard/verification/index.tsx
 msgid "Create a new resume"
 msgstr "Δημιουργία νέου βιογραφικού σημειώματος"
 
@@ -867,8 +901,8 @@ msgid "Create a Sample Resume"
 msgstr "Δημιουργία δείγματος βιογραφικού σημειώματος"
 
 #: src/routes/_home/-sections/features.tsx
-msgid "Create as many resumes as you want, without limits."
-msgstr "Δημιουργήστε όσα βιογραφικά σημειώματα θέλετε, χωρίς περιορισμούς."
+msgid "Create as many tailored CV2.0 variants as you want, without limits."
+msgstr ""
 
 #: src/dialogs/api-key/create.tsx
 msgid "Creating your API key..."
@@ -896,8 +930,12 @@ msgstr "Προσαρμοσμένο CSS"
 msgid "Custom Sections"
 msgstr "Προσαρμοσμένες ενότητες"
 
-#: src/routes/dashboard/admin/index.tsx
+#: src/routes/dashboard/admin/experience-queue.tsx
 msgid "CV / resume"
+msgstr ""
+
+#: src/routes/_home/-sections/statistics.tsx
+msgid "CV2.0s"
 msgstr ""
 
 #: src/utils/locale.ts
@@ -923,10 +961,6 @@ msgstr "Σκούρο"
 #: src/components/command-palette/pages/preferences/theme.tsx
 msgid "Dark theme"
 msgstr "Σκουρόχρωμο θέμα"
-
-#: src/routes/_home/-sections/features.tsx
-msgid "Data Security"
-msgstr "Ασφάλεια δεδομένων"
 
 #: src/dialogs/resume/sections/award.tsx
 #: src/dialogs/resume/sections/certification.tsx
@@ -1031,10 +1065,6 @@ msgstr "Απενεργοποίηση ελέγχου ταυτότητας δύο 
 msgid "Disconnect"
 msgstr "Αποσύνδεση"
 
-#: src/routes/_home/-sections/footer.tsx
-msgid "Discord"
-msgstr "Discord"
-
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Display username"
 msgstr ""
@@ -1043,23 +1073,18 @@ msgstr ""
 msgid "Document"
 msgstr ""
 
-#: src/routes/_home/-sections/footer.tsx
-#: src/routes/builder/$resumeId/-sidebar/right/sections/information.tsx
-msgid "Documentation"
-msgstr "Τεκμηρίωση"
-
+#: src/routes/dashboard/admin/experience-queue.tsx
 #: src/routes/dashboard/admin/identity.tsx
-#: src/routes/dashboard/admin/index.tsx
 msgid "Documents"
+msgstr ""
+
+#: src/routes/_home/-sections/prefooter.tsx
+msgid "Don't chase, attract."
 msgstr ""
 
 #: src/routes/auth/login.tsx
 msgid "Don't have an account? <0/>"
 msgstr "Δεν έχετε λογαριασμό; <0/>"
-
-#: src/routes/builder/$resumeId/-sidebar/right/sections/information.tsx
-msgid "Donate to Reactive Resume"
-msgstr "Κάντε μία δωρεά στο Reactive Resume"
 
 #: src/dialogs/auth/enable-two-factor.tsx
 #: src/routes/$username/$slug.tsx
@@ -1135,9 +1160,22 @@ msgstr "π.χ. 150000"
 msgid "e.g. 50000"
 msgstr "π.χ. 50000"
 
+#: src/components/ai/chat.tsx
+msgid "e.g. Change my name to..."
+msgstr ""
+
 #: src/routes/dashboard/job-search/index.tsx
 msgid "e.g. frontend developer jobs in Berlin"
 msgstr "π.χ. frontend developer θέσεις εργασίας σε Βερολίνο"
+
+#: src/routes/_home/-sections/footer.tsx
+#: src/routes/_home/-sections/header.tsx
+msgid "Earn by verifying"
+msgstr ""
+
+#: src/routes/_home/-sections/features.tsx
+msgid "Earn verified skill badges through anonymous, scenario-based reviews by experienced Gurus."
+msgstr ""
 
 #: src/dialogs/resume/sections/custom.tsx
 #: src/utils/resume/section.tsx
@@ -1226,13 +1264,13 @@ msgstr "Εισαγάγετε τον κωδικό πρόσβασής σας γι�
 msgid "Enter your password to disable two-factor authentication. Your account will be less secure without 2FA enabled."
 msgstr "Εισαγάγετε τον κωδικό πρόσβασής σας για να απενεργοποιήσετε τον έλεγχο ταυτότητας δύο παραγόντων. Ο λογαριασμός σας θα είναι λιγότερο ασφαλής χωρίς ενεργοποιημένο 2FA."
 
-#: src/routes/_home/-sections/donate.tsx
-msgid "Every contribution, big or small, makes a huge difference to the project.<0/>Thank you for your support!"
-msgstr "Κάθε συνεισφορά, μικρή ή μεγάλη, κάνει τεράστια διαφορά στο έργο.<0/>Σας ευχαριστούμε για την υποστήριξή σας!"
+#: src/routes/_home/-sections/faq.tsx
+msgid "Every submission is reviewed by expert Gurus with real hiring backgrounds. You'll complete practical assessments, get actionable feedback, and once verified your skills are recorded and easily shareable by QR code or direct link — ready for employers to see in seconds."
+msgstr ""
 
 #: src/routes/_home/-sections/features.tsx
-msgid "Everything you need to create, customize, and share professional resumes. Built with privacy in mind, powered by open source, and completely free forever."
-msgstr "Όλα όσα χρειάζεστε για να δημιουργήσετε, να προσαρμόσετε και να μοιραστείτε επαγγελματικά βιογραφικά σημειώματα. Δημιουργήθηκε με γνώμονα το απόρρητο, βασισμένο σε ανοικτό κώδικα και εντελώς δωρεάν για πάντα."
+msgid "Everything you need to build a dynamic CV2.0, earn peer-verified skill badges, and let opportunities come to you — privacy-first and distraction-free."
+msgstr ""
 
 #: src/routes/dashboard/job-search/-components/use-job-search.ts
 msgid "Exclude {value}"
@@ -1257,19 +1295,19 @@ msgid "Experience"
 msgstr "Εμπειρία"
 
 #: src/routes/dashboard/-components/sidebar.tsx
-#: src/routes/dashboard/admin/index.tsx
+#: src/routes/dashboard/admin/experience-queue.tsx
 msgid "Experience Queue"
 msgstr ""
 
-#: src/routes/dashboard/admin/index.tsx
+#: src/routes/dashboard/admin/experience-queue.tsx
 msgid "Experience request flagged as issue."
 msgstr ""
 
-#: src/routes/dashboard/admin/index.tsx
+#: src/routes/dashboard/admin/experience-queue.tsx
 msgid "Experience request rejected."
 msgstr ""
 
-#: src/routes/dashboard/admin/index.tsx
+#: src/routes/dashboard/admin/experience-queue.tsx
 msgid "Experience Verification"
 msgstr ""
 
@@ -1279,7 +1317,7 @@ msgstr ""
 msgid "Experience verification requested for \"{0}\"."
 msgstr ""
 
-#: src/routes/dashboard/admin/index.tsx
+#: src/routes/dashboard/admin/experience-queue.tsx
 msgid "Experience verified successfully."
 msgstr ""
 
@@ -1287,18 +1325,18 @@ msgstr ""
 msgid "Expires in"
 msgstr "Λήγει σε"
 
-#. placeholder {0}: key.expiresAt?.toLocaleDateString()
+#. placeholder {0}: key.expiresAt != null ? formatDefaultDate(key.expiresAt) : ""
 #: src/routes/dashboard/settings/api-keys.tsx
 msgid "Expires on {0}"
 msgstr "Λήγει στις {0}"
 
 #: src/routes/_home/-sections/templates.tsx
-msgid "Explore our diverse selection of templates, each designed to fit different styles, professions, and personalities. Reactive Resume currently offers 12 templates, with more on the way."
-msgstr "Εξερευνήστε την ποικιλία από πρότυπα, το καθένα σχεδιασμένο ώστε να ταιριάζει σε διαφορετικά στυλ, επαγγέλματα και προσωπικότητες. Το Reactive Resume προσφέρει αυτή τη στιγμή 12 πρότυπα, με περισσότερα καθ’ οδόν."
+msgid "Explore our diverse selection of templates, each designed to fit different styles, professions, and personalities. Skill Verdict currently offers 12 templates, with more on the way."
+msgstr ""
 
 #: src/routes/dashboard/settings/api-keys.tsx
-msgid "Explore the API documentation to learn how to integrate Reactive Resume with your applications. Find detailed endpoints, request examples, and authentication methods."
-msgstr "Εξερευνήστε την τεκμηρίωση του API για να μάθετε πώς να ενσωματώνετε το Reactive Resume στις εφαρμογές σας. Βρείτε αναλυτικά endpoints, παραδείγματα αιτημάτων και μεθόδους ελέγχου ταυτότητας."
+msgid "Explore the API documentation to learn how to integrate Skill Verdict with your applications. Find detailed endpoints, request examples, and authentication methods."
+msgstr ""
 
 #: src/utils/resume/section.tsx
 msgid "Export"
@@ -1375,9 +1413,17 @@ msgstr "Βάρη γραμματοσειράς"
 msgid "For a secure and distraction-free experience."
 msgstr "Για μια ασφαλή και χωρίς περισπασμούς εμπειρία."
 
+#: src/routes/builder/$resumeId/-sidebar/right/sections/information.tsx
+msgid "For candidates"
+msgstr ""
+
 #: src/routes/builder/$resumeId/-sidebar/right/sections/notes.tsx
 msgid "For example, information regarding which companies you sent this resume to or the links to the job descriptions can be noted down here."
 msgstr "Για παράδειγμα, πληροφορίες σχετικά με τις εταιρείες στις οποίες στείλατε το βιογραφικό σας σημείωμα ή τους συνδέσμους προς τις περιγραφές θέσεων εργασίας μπορούν να σημειωθούν εδώ."
+
+#: src/routes/builder/$resumeId/-sidebar/right/sections/information.tsx
+msgid "For Gurus"
+msgstr ""
 
 #: src/dialogs/api-key/create.tsx
 msgid "For security reasons, this key will only be displayed once."
@@ -1395,10 +1441,6 @@ msgstr "Ξεχάσατε τον κωδικό πρόσβασής σας;"
 msgctxt "Page Format (A4, Letter or Free-Form)"
 msgid "Format"
 msgstr "Μορφή"
-
-#: src/routes/_home/-sections/features.tsx
-msgid "Free"
-msgstr "Δωρεάν"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/page.tsx
 msgid "Free-Form"
@@ -1436,10 +1478,6 @@ msgstr "Δημιουργία τυχαίου ονόματος"
 msgid "German"
 msgstr "Γερμανικά"
 
-#: src/routes/_home/-sections/hero.tsx
-msgid "Get Started"
-msgstr "Ξεκινήστε"
-
 #: src/components/command-palette/pages/navigation.tsx
 #: src/components/command-palette/pages/navigation.tsx
 #: src/routes/dashboard/-components/sidebar.tsx
@@ -1471,10 +1509,6 @@ msgstr "Ελληνικά"
 #: src/routes/dashboard/resumes/index.tsx
 msgid "Grid"
 msgstr "Πλέγμα"
-
-#: src/routes/_home/-sections/donate.tsx
-msgid "Grow the Team"
-msgstr "Ανάπτυξη της ομάδας"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/typography.tsx
 msgctxt "Headings or Titles (H1, H2, H3, H4, H5, H6)"
@@ -1513,14 +1547,6 @@ msgstr "Επικεφαλίδα θέσης"
 msgid "Hebrew"
 msgstr "Εβραϊκά"
 
-#: src/routes/_home/-sections/donate.tsx
-msgid "Help me bring more experienced contributors on board, reducing the burden on a single maintainer and accelerating development."
-msgstr "Βοηθήστε με να φέρω στην ομάδα πιο έμπειρους συνεισφέροντες, μειώνοντας το βάρος από έναν μόνο συντηρητή και επιταχύνοντας την ανάπτυξη."
-
-#: src/routes/dashboard/settings/preferences.tsx
-msgid "Help translate the app to your language"
-msgstr "Βοηθήστε στη μετάφραση της εφαρμογής στη γλώσσα σας"
-
 #: src/dialogs/resume/template/gallery.tsx
 msgid "Here's a range of resume templates for different professions and personalities. Whether you prefer modern or classic, bold or simple, there is a design to match you. Look through the options below and choose a template that fits your style."
 msgstr "Εδώ θα βρείτε μια γκάμα προτύπων βιογραφικού σημειώματος για διαφορετικά επαγγέλματα και προσωπικότητες. Είτε προτιμάτε μοντέρνο ή κλασικό, έντονο ή απλό, υπάρχει ένας σχεδιασμός που σας ταιριάζει. Δείτε τις επιλογές παρακάτω και επιλέξτε το πρότυπο που ταιριάζει στο στυλ σας."
@@ -1550,6 +1576,10 @@ msgstr "Απόκρυψη όλων των εικονιδίων στο βιογρ�
 msgid "Highlight"
 msgstr "Επισήμανση"
 
+#: src/routes/_home/-sections/features.tsx
+msgid "Highlight professional certifications alongside your verified skill badges."
+msgstr ""
+
 #: src/utils/locale.ts
 msgid "Hindi"
 msgstr "Χίντι"
@@ -1560,16 +1590,24 @@ msgid "Home"
 msgstr "Αρχική"
 
 #: src/routes/_home/-sections/faq.tsx
-msgid "How do I share my resume?"
-msgstr "Πώς μπορώ να μοιραστώ το βιογραφικό μου σημείωμα;"
+msgid "How do I share my CV2.0?"
+msgstr ""
 
 #: src/routes/dashboard/settings/api-keys.tsx
 msgid "How do I use the API?"
 msgstr "Πώς χρησιμοποιώ το API;"
 
 #: src/routes/_home/-sections/faq.tsx
+msgid "How does the verification process work?"
+msgstr ""
+
+#: src/routes/_home/-sections/faq.tsx
 msgid "How is my data protected?"
 msgstr "Πώς προστατεύονται τα δεδομένα μου;"
+
+#: src/routes/_home/-sections/faq.tsx
+msgid "How long does it take to get my skills verified?"
+msgstr ""
 
 #: src/utils/locale.ts
 msgid "Hungarian"
@@ -1611,6 +1649,10 @@ msgstr ""
 
 #: src/routes/dashboard/admin/identity.tsx
 msgid "Identity verified successfully."
+msgstr ""
+
+#: src/routes/_home/-sections/faq.tsx
+msgid "If you feel your skills were not evaluated properly, you can file a complaint. We'll review your case and, if needed, connect you to a different Guru for a fresh, unbiased assessment."
 msgstr ""
 
 #: src/dialogs/resume/import.tsx
@@ -1660,13 +1702,9 @@ msgstr "Ενδιαφέροντα"
 msgid "Intern"
 msgstr "Intern"
 
-#: src/routes/_home/-sections/faq.tsx
-msgid "Is Reactive Resume available in multiple languages?"
-msgstr "Το Reactive Resume είναι διαθέσιμο σε πολλές γλώσσες;"
-
-#: src/routes/_home/-sections/faq.tsx
-msgid "Is Reactive Resume really free?"
-msgstr "Είναι το Reactive Resume πραγματικά δωρεάν;"
+#: src/routes/_home/-sections/hero.tsx
+msgid "Introducing CV2.0 — verified skills, not keywords"
+msgstr ""
 
 #: src/dialogs/resume/sections/certification.tsx
 msgid "Issuer"
@@ -1779,14 +1817,6 @@ msgstr "Λετονικά"
 msgid "Layout"
 msgstr "Διάταξη"
 
-#: src/routes/_home/-sections/hero.tsx
-msgid "Learn More"
-msgstr "Μάθετε περισσότερα"
-
-#: src/components/resume/preview.tsx
-msgid "Learn more about how to fit content on a page"
-msgstr "Μάθετε περισσότερα σχετικά με το πώς να προσαρμόσετε το περιεχόμενο σε μια σελίδα"
-
 #: src/hooks/use-form-blocker.tsx
 msgid "Leave"
 msgstr "Αποχώρηση"
@@ -1852,7 +1882,7 @@ msgstr ""
 msgid "Loading history..."
 msgstr ""
 
-#: src/routes/dashboard/admin/index.tsx
+#: src/routes/dashboard/admin/experience-queue.tsx
 msgid "Loading pending verdicts..."
 msgstr ""
 
@@ -1893,10 +1923,6 @@ msgstr "Κλείδωμα"
 #: src/components/user/dropdown-menu.tsx
 msgid "Logout"
 msgstr "Αποσύνδεση"
-
-#: src/routes/_home/-sections/donate.tsx
-msgid "Long-term Sustainability"
-msgstr "Μακροπρόθεσμη βιωσιμότητα"
 
 #: src/routes/auth/verify-2fa.tsx
 msgid "Lost access to your authenticator?"
@@ -1950,13 +1976,13 @@ msgstr "Μοντέλο"
 msgid "More than 3 years"
 msgstr "Περισσότερα από 3 χρόνια"
 
+#: src/routes/_home/-sections/faq.tsx
+msgid "Most verifications take just 1–3 days. Timing depends on the skills you choose and Guru availability, but we keep it fast so you can move forward in your job search right away."
+msgstr ""
+
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
 msgid "Move to"
 msgstr "Μετακίνηση σε"
-
-#: src/routes/_home/-sections/features.tsx
-msgid "Multilingual"
-msgstr "Πολυγλωσσικό"
 
 #: src/dialogs/api-key/create.tsx
 #: src/dialogs/resume/index.tsx
@@ -2033,7 +2059,7 @@ msgstr "Καμία εμπειρία"
 msgid "No experience items in your resume. Add some to get started."
 msgstr ""
 
-#: src/routes/dashboard/admin/index.tsx
+#: src/routes/dashboard/admin/experience-queue.tsx
 msgid "No experience verification requests pending."
 msgstr ""
 
@@ -2061,7 +2087,7 @@ msgstr "Δεν βρέθηκαν αποτελέσματα."
 msgid "No resumes found. Create a resume first."
 msgstr "Δεν βρέθηκαν βιογραφικά. Δημιουργήστε πρώτα ένα βιογραφικό σημείωμα."
 
-#: src/routes/dashboard/admin/index.tsx
+#: src/routes/dashboard/admin/experience-queue.tsx
 msgid "No verdicts awaiting confirmation."
 msgstr ""
 
@@ -2085,10 +2111,6 @@ msgstr "Οντιά"
 msgid "One-Click Sign-In"
 msgstr "Σύνδεση με ένα κλικ"
 
-#: src/routes/_home/-sections/donate.tsx
-msgid "Ongoing Maintenance"
-msgstr "Συνεχής συντήρηση"
-
 #: src/routes/dashboard/verification/index.tsx
 msgid "Only PDF, JPG, JPEG, and PNG files are allowed."
 msgstr ""
@@ -2106,13 +2128,6 @@ msgstr "Άνοιγμα προγράμματος email"
 msgid "Open Profile"
 msgstr ""
 
-#: src/routes/_home/-sections/features.tsx
-msgid "Open Source"
-msgstr "Ανοικτού κώδικα"
-
-#: src/routes/_home/-sections/donate.tsx
-#: src/routes/_home/-sections/donate.tsx
-#: src/routes/_home/-sections/footer.tsx
 #: src/routes/_home/-sections/footer.tsx
 msgid "opens in new tab"
 msgstr "ανοίγει σε νέα καρτέλα"
@@ -2159,19 +2174,19 @@ msgstr "Συνολική περίοδος"
 msgid "Overall Title (optional)"
 msgstr "Γενικός τίτλος (προαιρετικό)"
 
-#: src/routes/dashboard/admin/index.tsx
+#: src/routes/dashboard/admin/experience-queue.tsx
 msgid "Override"
 msgstr ""
 
-#: src/routes/dashboard/admin/index.tsx
+#: src/routes/dashboard/admin/experience-queue.tsx
 msgid "Override Decision"
 msgstr ""
 
-#: src/routes/dashboard/admin/index.tsx
+#: src/routes/dashboard/admin/experience-queue.tsx
 msgid "Override to "
 msgstr ""
 
-#: src/routes/dashboard/admin/index.tsx
+#: src/routes/dashboard/admin/experience-queue.tsx
 msgid "Overriding..."
 msgstr ""
 
@@ -2202,6 +2217,10 @@ msgid "Part-time"
 msgstr "Μερικής απασχόλησης"
 
 #: src/routes/_home/-sections/features.tsx
+msgid "Passive Discovery"
+msgstr ""
+
+#: src/routes/_home/-sections/features.tsx
 msgid "Passkeys & 2FA"
 msgstr "Κλειδιά πρόσβασης & 2FA"
 
@@ -2230,11 +2249,15 @@ msgstr "Η προστασία με κωδικό πρόσβασης έχει απ
 msgid "Password protection has been enabled."
 msgstr "Η προστασία με κωδικό πρόσβασης έχει ενεργοποιηθεί."
 
+#: src/routes/_home/-sections/features.tsx
+msgid "Peer-Verified Skills"
+msgstr ""
+
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Pending"
 msgstr ""
 
-#: src/routes/dashboard/admin/index.tsx
+#: src/routes/dashboard/admin/experience-queue.tsx
 msgid "Pending Verdicts"
 msgstr ""
 
@@ -2251,8 +2274,12 @@ msgid "Persian"
 msgstr "Περσικά"
 
 #: src/routes/_home/-sections/features.tsx
-msgid "Personalize your resume with any colors, fonts or designs, and make it your own."
-msgstr "Προσωποποιήστε το βιογραφικό σας σημείωμα με οποιαδήποτε χρώματα, γραμματοσειρές ή σχέδια και κάντε το πραγματικά δικό σας."
+msgid "Personality Insights"
+msgstr ""
+
+#: src/routes/_home/-sections/features.tsx
+msgid "Personalize your CV2.0 with any colors, fonts, or designs, and make it your own."
+msgstr ""
 
 #: src/dialogs/resume/sections/reference.tsx
 #: src/routes/builder/$resumeId/-sidebar/left/sections/basics.tsx
@@ -2262,6 +2289,10 @@ msgstr "Τηλέφωνο"
 #: src/utils/resume/section.tsx
 msgid "Picture"
 msgstr "Φωτογραφία"
+
+#: src/routes/_home/-sections/footer.tsx
+msgid "Platform"
+msgstr ""
 
 #: src/routes/auth/reset-password.tsx
 msgid "Please enter a new password for your account"
@@ -2331,6 +2362,10 @@ msgstr "Βασικό χρώμα"
 msgid "Privacy"
 msgstr ""
 
+#: src/routes/_home/-sections/features.tsx
+msgid "Privacy-First"
+msgstr ""
+
 #: src/dialogs/resume/sections/skill.tsx
 msgid "Proficiency"
 msgstr "Επάρκεια"
@@ -2365,13 +2400,13 @@ msgstr "Γραμμή προόδου"
 msgid "Projects"
 msgstr "Έργα"
 
+#: src/routes/_home/-sections/features.tsx
+msgid "Protect your CV2.0 with a password, and let only people with the password view it."
+msgstr ""
+
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 msgid "Protect your resume from unauthorized access with a password"
 msgstr "Προστατέψτε το βιογραφικό σας σημείωμα από μη εξουσιοδοτημένη πρόσβαση με έναν κωδικό πρόσβασης"
-
-#: src/routes/_home/-sections/features.tsx
-msgid "Protect your resume with a password, and let only people with the password view it."
-msgstr "Προστατέψτε το βιογραφικό σας σημείωμα με έναν κωδικό πρόσβασης και επιτρέψτε μόνο σε άτομα που γνωρίζουν τον κωδικό να το βλέπουν."
 
 #: src/routes/dashboard/admin/ai.tsx
 msgid "Provider"
@@ -2394,30 +2429,6 @@ msgstr "Ποσοστό: {0} που απομένει"
 #: src/routes/dashboard/admin/job-search.tsx
 msgid "RapidAPI Key"
 msgstr "Κλειδί RapidAPI"
-
-#: src/routes/_home/-sections/header.tsx
-msgid "Reactive Resume - Go to homepage"
-msgstr "Reactive Resume - Μετάβαση στην αρχική σελίδα"
-
-#: src/routes/_home/-sections/prefooter.tsx
-msgid "Reactive Resume continues to grow thanks to its vibrant community. This project owes its progress to numerous individuals who've dedicated their time and skills to make it better. We celebrate the coders who've enhanced its features on GitHub, the linguists whose translations on Crowdin have made it accessible to a broader audience, and the people who've donated to support its continued development."
-msgstr "Το Reactive Resume συνεχίζει να αναπτύσσεται χάρη στη ζωντανή του κοινότητα. Αυτό το έργο οφείλει την πρόοδό του σε πολλά άτομα που αφιέρωσαν τον χρόνο και τις δεξιότητές τους για να το βελτιώσουν. Γιορτάζουμε τους προγραμματιστές που βελτίωσαν τις λειτουργίες του στο GitHub, τους γλωσσολόγους των οποίων οι μεταφράσεις στο Crowdin το έκαναν προσβάσιμο σε ένα ευρύτερο κοινό και τους ανθρώπους που δώρισαν για να στηρίξουν τη συνεχιζόμενη ανάπτυξή του."
-
-#: src/routes/_home/-sections/donate.tsx
-msgid "Reactive Resume is a free and open-source project, built with love and maintained by me and a community of contributors. Your donations help keep the lights on and the code flowing."
-msgstr "Το Reactive Resume είναι ένα δωρεάν έργο ανοικτού κώδικα, φτιαγμένο με αγάπη και συντηρούμενο από εμένα και μια κοινότητα συνεισφερόντων. Οι δωρεές σας βοηθούν να παραμένουν τα φώτα αναμμένα και ο κώδικας να συνεχίζει να ρέει."
-
-#: src/routes/_home/-sections/hero.tsx
-msgid "Reactive Resume is a free and open-source resume builder that simplifies the process of creating, updating, and sharing your resume."
-msgstr "Το Reactive Resume είναι ένας δωρεάν κατασκευαστής βιογραφικών σημειωμάτων ανοικτού κώδικα που απλοποιεί τη διαδικασία δημιουργίας, ενημέρωσης και κοινοποίησης του βιογραφικού σας σημειώματος."
-
-#: src/routes/_home/-sections/product-hunt-banner.tsx
-msgid "Reactive Resume is launching on Product Hunt today, head over to show some love!"
-msgstr "Το Reactive Resume κάνει σήμερα ντεμπούτο στο Product Hunt, περάστε για να δείξετε την υποστήριξή σας!"
-
-#: src/routes/_home/-sections/faq.tsx
-msgid "Reactive Resume is open-source, privacy-focused, and completely free. Unlike other resume builders, it doesn't show ads, track your data, or limit your features behind a paywall."
-msgstr "Το Reactive Resume είναι ανοικτού κώδικα, με έμφαση στο απόρρητο και εντελώς δωρεάν. Σε αντίθεση με άλλους κατασκευαστές βιογραφικών σημειωμάτων, δεν εμφανίζει διαφημίσεις, δεν παρακολουθεί τα δεδομένα σας και δεν περιορίζει τις λειτουργίες του πίσω από paywall."
 
 #: src/dialogs/resume/sections/cover-letter.tsx
 msgid "Recipient"
@@ -2467,6 +2478,10 @@ msgstr "Αφαίρεση"
 msgid "Remove Password"
 msgstr "Κατάργηση κωδικού πρόσβασης"
 
+#: src/components/ai/chat.tsx
+msgid "Removed"
+msgstr ""
+
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 msgid "Removing password protection..."
 msgstr "Κατάργηση προστασίας με κωδικό πρόσβασης..."
@@ -2479,14 +2494,6 @@ msgstr "Μετονομασία"
 msgid "Reorder"
 msgstr "Αναδιάταξη"
 
-#: src/routes/builder/$resumeId/-sidebar/right/sections/information.tsx
-msgid "Report a Bug"
-msgstr "Αναφορά σφάλματος"
-
-#: src/routes/_home/-sections/footer.tsx
-msgid "Report an issue"
-msgstr "Αναφορά προβλήματος"
-
 #: src/routes/dashboard/verification/index.tsx
 msgid "Request"
 msgstr ""
@@ -2495,7 +2502,7 @@ msgstr ""
 msgid "Required Skills"
 msgstr "Απαιτούμενες δεξιότητες"
 
-#: src/routes/dashboard/admin/index.tsx
+#: src/routes/dashboard/admin/experience-queue.tsx
 msgid "Required: reason for overriding this verdict..."
 msgstr ""
 
@@ -2524,10 +2531,6 @@ msgstr "Επαναφορά κωδικού πρόσβασης"
 msgid "Resetting your password..."
 msgstr "Επαναφορά κωδικού πρόσβασης..."
 
-#: src/routes/_home/-sections/footer.tsx
-msgid "Resources"
-msgstr "Πόροι"
-
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
@@ -2539,7 +2542,6 @@ msgstr "Βιογραφικό σημείωμα προσαρμοσμένο με ε
 #: src/components/command-palette/pages/resumes.tsx
 #: src/components/command-palette/pages/resumes.tsx
 #: src/components/command-palette/pages/resumes.tsx
-#: src/routes/_home/-sections/statistics.tsx
 #: src/routes/dashboard/-components/sidebar.tsx
 #: src/routes/dashboard/resumes/index.tsx
 msgid "Resumes"
@@ -2555,13 +2557,18 @@ msgstr "Επανάληψη"
 msgid "Retry Identity Verification"
 msgstr ""
 
+#: src/routes/dashboard/admin/experience-queue.tsx
 #: src/routes/dashboard/admin/identity.tsx
-#: src/routes/dashboard/admin/index.tsx
 msgid "Review"
 msgstr ""
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Review Decision"
+msgstr ""
+
+#: src/routes/dashboard/-components/sidebar.tsx
+#: src/routes/dashboard/settings/profile.tsx
+msgid "Reviewer Admin"
 msgstr ""
 
 #: src/routes/reviewer/$adminId.tsx
@@ -2692,10 +2699,6 @@ msgstr ""
 msgid "Select..."
 msgstr "Επιλογή..."
 
-#: src/routes/_home/-sections/features.tsx
-msgid "Self-Host with Docker"
-msgstr "Αυτο-φιλοξενία με Docker"
-
 #: src/routes/auth/forgot-password.tsx
 msgid "Send Password Reset Email"
 msgstr "Αποστολή email επαναφοράς κωδικού πρόσβασης"
@@ -2739,8 +2742,16 @@ msgid "Shadow Width"
 msgstr "Πλάτος σκιάς"
 
 #: src/routes/_home/-sections/features.tsx
-msgid "Share your resume with a public URL, and let others view it."
-msgstr "Μοιραστείτε το βιογραφικό σας σημείωμα με ένα δημόσιο URL και επιτρέψτε σε άλλους να το βλέπουν."
+msgid "Share via QR"
+msgstr ""
+
+#: src/routes/_home/-sections/faq.tsx
+msgid "Share your CV2.0 via a unique public URL, a QR code, a PDF export, or by adding it to your Apple or Google Wallet. The choice is yours."
+msgstr ""
+
+#: src/routes/_home/-sections/features.tsx
+msgid "Share your CV2.0 with a public URL, and let others view it."
+msgstr ""
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Shareable Links"
@@ -2777,6 +2788,10 @@ msgstr ""
 msgid "Show Timeline on Public CV"
 msgstr ""
 
+#: src/routes/_home/-sections/features.tsx
+msgid "Showcase evidence of your abilities — every badge links to a verified assessment."
+msgstr ""
+
 #: src/routes/builder/$resumeId/-sidebar/right/sections/layout/pages.tsx
 msgid "Sidebar"
 msgstr "Πλαϊνή μπάρα"
@@ -2794,8 +2809,8 @@ msgid "Sign in to your account"
 msgstr "Συνδεθείτε στον λογαριασμό σας"
 
 #: src/routes/_home/-sections/features.tsx
-msgid "Sign in with GitHub, Google or a custom OAuth provider."
-msgstr "Συνδεθείτε με GitHub, Google ή έναν προσαρμοσμένο πάροχο OAuth."
+msgid "Sign in with Google, GitHub, or a custom OAuth provider."
+msgstr ""
 
 #: src/routes/auth/register.tsx
 msgid "Sign up"
@@ -2834,6 +2849,20 @@ msgstr "Μονή στήλη· προσεγμένο και σοβαρό για α
 #: src/routes/builder/$resumeId/-sidebar/left/sections/picture.tsx
 msgid "Size"
 msgstr "Μέγεθος"
+
+#: src/routes/_home/-sections/footer.tsx
+#: src/routes/builder/$resumeId/-sidebar/right/sections/information.tsx
+msgid "Skill Verdict"
+msgstr ""
+
+#: src/routes/dashboard/-components/sidebar.tsx
+#: src/routes/dashboard/settings/profile.tsx
+msgid "Skill Verdict Admin"
+msgstr ""
+
+#: src/routes/_home/-sections/prefooter.tsx
+msgid "Skill Verdict brings skills and personality together so you're understood as a person, not just a list of keywords. Build your CV2.0, get your abilities peer-verified, and let employers come to you."
+msgstr ""
 
 #: src/routes/dashboard/-components/sidebar.tsx
 msgid "Skill Verdict Verification"
@@ -2879,11 +2908,6 @@ msgstr "Κάτι πήγε στραβά. Παρακαλώ δοκιμάστε ξα
 msgid "Sort by"
 msgstr "Ταξινόμηση κατά"
 
-#: src/routes/_home/-sections/footer.tsx
-#: src/routes/builder/$resumeId/-sidebar/right/sections/information.tsx
-msgid "Source Code"
-msgstr "Πηγαίος κώδικας"
-
 #: src/routes/builder/$resumeId/-sidebar/right/sections/page.tsx
 msgid "Spacing (Horizontal)"
 msgstr "Κενό (οριζόντιο)"
@@ -2896,27 +2920,10 @@ msgstr "Κενό (κάθετο)"
 msgid "Spanish"
 msgstr "Ισπανικά"
 
-#: src/routes/builder/$resumeId/-sidebar/right/sections/information.tsx
-msgid "Sponsors"
-msgstr "Χορηγοί"
-
-#: src/routes/_home/-sections/footer.tsx
-msgid "Sponsorships"
-msgstr "Χορηγίες"
-
 #: src/components/level/combobox.tsx
 #: src/routes/builder/$resumeId/-sidebar/left/sections/picture.tsx
 msgid "Square"
 msgstr "Τετράγωνο"
-
-#: src/components/input/github-stars-button.tsx
-msgid "Star us on GitHub (opens in new tab)"
-msgstr "Κάντε μας star στο GitHub (ανοίγει σε νέα καρτέλα)"
-
-#. placeholder {0}: starCount.toLocaleString()
-#: src/components/input/github-stars-button.tsx
-msgid "Star us on GitHub, currently {0} stars (opens in new tab)"
-msgstr "Κάντε μας star στο GitHub, αυτή τη στιγμή {0} stars (ανοίγει σε νέα καρτέλα)"
 
 #: src/dialogs/resume/index.tsx
 msgid "Start building your resume by giving it a name."
@@ -2935,11 +2942,15 @@ msgstr "Στατιστικά"
 msgid "Stay"
 msgstr "Παραμονή"
 
+#: src/routes/_home/-sections/features.tsx
+msgid "Stop chasing roles — let recruiters and companies find you through your verified profile."
+msgstr ""
+
 #: src/components/input/rich-input.tsx
 msgid "Strike"
 msgstr "Διακριτική διαγραφή"
 
-#: src/routes/dashboard/admin/index.tsx
+#: src/routes/dashboard/admin/experience-queue.tsx
 msgid "Submit Override"
 msgstr ""
 
@@ -2960,22 +2971,10 @@ msgstr ""
 msgid "Submitting..."
 msgstr ""
 
-#: src/routes/_home/-sections/footer.tsx
-msgid "Subreddit"
-msgstr "Subreddit"
-
 #: src/dialogs/resume/sections/custom.tsx
 #: src/utils/resume/section.tsx
 msgid "Summary"
 msgstr "Σύνοψη"
-
-#: src/routes/_home/-sections/donate.tsx
-msgid "Support Reactive Resume"
-msgstr "Υποστήριξη Reactive Resume"
-
-#: src/routes/builder/$resumeId/-sidebar/right/sections/information.tsx
-msgid "Support the app by doing what you can!"
-msgstr "Υποστηρίξτε την εφαρμογή κάνοντας ό,τι μπορείτε!"
 
 #: src/utils/locale.ts
 msgid "Swedish"
@@ -3103,6 +3102,10 @@ msgstr "Υπήρξε ένα πρόβλημα κατά τη δημιουργία 
 msgid "There was a problem while generating the PDF, please try again in some time."
 msgstr "Παρουσιάστηκε πρόβλημα κατά τη δημιουργία του PDF, δοκιμάστε ξανά σε λίγο."
 
+#: src/components/ai/chat.tsx
+msgid "Thinking..."
+msgstr ""
+
 #: src/routes/builder/$resumeId/-components/header.tsx
 #: src/routes/dashboard/resumes/-components/menus/context-menu.tsx
 #: src/routes/dashboard/resumes/-components/menus/dropdown-menu.tsx
@@ -3156,12 +3159,12 @@ msgid "This week"
 msgstr "Αυτή την εβδομάδα"
 
 #: src/dialogs/api-key/create.tsx
-msgid "This will generate a new API key to access the Reactive Resume API to allow machines to interact with your resume data."
-msgstr "Αυτό θα δημιουργήσει ένα νέο κλειδί API για πρόσβαση στο Reactive Resume API, ώστε να επιτρέπεται σε μηχανές να αλληλεπιδρούν με τα δεδομένα του βιογραφικού σας σημειώματος."
+msgid "This will generate a new API key to access the Skill Verdict API to allow machines to interact with your resume data."
+msgstr ""
 
 #: src/routes/_home/-sections/hero.tsx
-msgid "Timelapse demonstration of building a resume with Reactive Resume"
-msgstr "Επίδειξη time-lapse δημιουργίας βιογραφικού σημειώματος με το Reactive Resume"
+msgid "Timelapse demonstration of building a CV2.0 with {APP_NAME}"
+msgstr ""
 
 #: src/dialogs/api-key/create.tsx
 msgid "Tip: Give your API key a name, corresponding to the purpose of the key, to help you identify it later."
@@ -3191,10 +3194,9 @@ msgstr "Σήμερα"
 msgid "Track your resume's views and downloads"
 msgstr "Παρακολουθήστε τις προβολές και τις λήψεις του βιογραφικού σας σημειώματος"
 
-#: src/routes/_home/-sections/footer.tsx
-#: src/routes/builder/$resumeId/-sidebar/right/sections/information.tsx
-msgid "Translations"
-msgstr "Μεταφράσεις"
+#: src/components/resume/preview.tsx
+msgid "Try reducing font size, spacing, or splitting content across sections."
+msgstr ""
 
 #: src/utils/locale.ts
 msgid "Turkish"
@@ -3203,6 +3205,10 @@ msgstr "Τουρκικά"
 #: src/routes/builder/$resumeId/-sidebar/right/sections/statistics.tsx
 msgid "Turn on public sharing to track how many times your resume has been viewed or downloaded. Only you can see your resume's statistics."
 msgstr "Ενεργοποιήστε τη δημόσια κοινοποίηση για να παρακολουθείτε πόσες φορές έχει προβληθεί ή ληφθεί το βιογραφικό σας σημείωμα. Μόνο εσείς μπορείτε να βλέπετε τα στατιστικά του βιογραφικού σας σημειώματος."
+
+#: src/routes/builder/$resumeId/-sidebar/right/sections/information.tsx
+msgid "Turn your CV2.0 into verified evidence"
+msgstr ""
 
 #: src/dialogs/resume/template/data.ts
 msgid "Two-column with a bold colored sidebar and skill bars; great for creative or tech roles where visual flair is welcome."
@@ -3279,6 +3285,10 @@ msgstr "Τυπογραφία"
 msgid "Ukrainian"
 msgstr "Ουκρανικά"
 
+#: src/routes/dashboard/verification/index.tsx
+msgid "Unable to load verification history right now."
+msgstr ""
+
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Under 3 years"
 msgstr "Κάτω των 3 ετών"
@@ -3292,14 +3302,14 @@ msgctxt "'Ctrl' may be replaced with the locale-specific equivalent (e.g. 'Strg'
 msgid "Undo (Ctrl+Z)"
 msgstr "Αναίρεση (Ctrl+Z)"
 
+#: src/routes/dashboard/admin/experience-queue.tsx
 #: src/routes/dashboard/admin/identity.tsx
-#: src/routes/dashboard/admin/index.tsx
 msgid "Unknown applicant"
 msgstr ""
 
 #: src/routes/_home/-sections/features.tsx
-msgid "Unlimited Resumes"
-msgstr "Απεριόριστα βιογραφικά σημειώματα"
+msgid "Unlimited CV2.0s"
+msgstr ""
 
 #: src/routes/dashboard/settings/authentication/-components/hooks.tsx
 msgid "Unlinking your {providerName} account..."
@@ -3398,6 +3408,10 @@ msgstr "Ενημέρωση βιογραφικού σημειώματος"
 msgid "Update your password"
 msgstr "Ενημερώστε τον κωδικό πρόσβασής σας"
 
+#: src/components/ai/chat.tsx
+msgid "Updated"
+msgstr ""
+
 #: src/dialogs/auth/change-password.tsx
 msgid "Updating your password..."
 msgstr "Ενημέρωση του κωδικού πρόσβασής σας..."
@@ -3445,11 +3459,11 @@ msgstr "Ουζμπεκικά"
 msgid "Valid URLs must start with http:// or https://."
 msgstr "Τα έγκυρα URLs πρέπει να ξεκινούν με http:// ή https://."
 
-#: src/routes/dashboard/admin/index.tsx
+#: src/routes/dashboard/admin/experience-queue.tsx
 msgid "Verdict confirmed. Experience verified."
 msgstr ""
 
-#: src/routes/dashboard/admin/index.tsx
+#: src/routes/dashboard/admin/experience-queue.tsx
 msgid "Verdict overridden successfully."
 msgstr ""
 
@@ -3461,6 +3475,10 @@ msgstr ""
 
 #: src/routes/dashboard/settings/privacy.tsx
 msgid "Verification Badges"
+msgstr ""
+
+#: src/routes/$username/$slug.tsx
+msgid "Verification History"
 msgstr ""
 
 #: src/routes/dashboard/settings/privacy.tsx
@@ -3483,11 +3501,24 @@ msgstr ""
 msgid "Verified"
 msgstr "Επαληθευμένο"
 
+#. placeholder {0}: entry.verifiedBy
+#: src/routes/$username/$slug.tsx
+#: src/routes/dashboard/verification/index.tsx
+msgid "Verified by {0}"
+msgstr ""
+
 #: src/routes/auth/verify-2fa-backup.tsx
 #: src/routes/auth/verify-2fa.tsx
 #: src/routes/dashboard/verification/index.tsx
 msgid "Verify"
 msgstr "Επαλήθευση"
+
+#: src/routes/_home/-sections/footer.tsx
+#: src/routes/_home/-sections/header.tsx
+#: src/routes/_home/-sections/hero.tsx
+#: src/routes/builder/$resumeId/-sidebar/right/sections/information.tsx
+msgid "Verify my skills"
+msgstr ""
 
 #: src/routes/auth/verify-2fa-backup.tsx
 msgid "Verify with a Backup Code"
@@ -3522,6 +3553,10 @@ msgstr "Βιετναμέζικα"
 msgid "Views"
 msgstr "Προβολές"
 
+#: src/routes/_home/-sections/features.tsx
+msgid "Visual Skill Badges"
+msgstr ""
+
 #: src/dialogs/resume/sections/custom.tsx
 #: src/utils/resume/section.tsx
 msgid "Volunteer"
@@ -3545,12 +3580,8 @@ msgid "What do you want to rename this section to?"
 msgstr "Πώς θέλετε να μετονομάσετε αυτή την ενότητα;"
 
 #: src/routes/_home/-sections/faq.tsx
-msgid "What makes Reactive Resume different from other resume builders?"
-msgstr "Τι κάνει το Reactive Resume διαφορετικό από άλλους κατασκευαστές βιογραφικών σημειωμάτων;"
-
-#: src/routes/_home/-sections/hero.tsx
-msgid "What's new in the latest version?"
-msgstr "Τι νέο υπάρχει στην τελευταία έκδοση;"
+msgid "What if I'm not happy with my verification outcome?"
+msgstr ""
 
 #: src/routes/builder/$resumeId/-components/header.tsx
 #: src/routes/dashboard/resumes/-components/menus/context-menu.tsx
@@ -3563,8 +3594,8 @@ msgid "Work Experience"
 msgstr ""
 
 #: src/routes/_home/-sections/features.tsx
-msgid "Write your own CSS (or use an AI to generate it for you) to customize your resume to the fullest."
-msgstr "Γράψτε το δικό σας CSS (ή χρησιμοποιήστε μια ΤΝ για να το δημιουργήσει για εσάς) για να προσαρμόσετε το βιογραφικό σας σημείωμα στο έπακρο."
+msgid "Write your own CSS (or use an AI to generate it for you) to customize your CV2.0 to the fullest."
+msgstr ""
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
@@ -3572,32 +3603,24 @@ msgid "Yes"
 msgstr ""
 
 #: src/routes/_home/-sections/faq.tsx
-msgid "Yes, Reactive Resume is available in multiple languages. You can choose your preferred language in the settings page, or using the language switcher in the top right corner. If you don't see your language, or you would like to improve the existing translations, you can <0>contribute to the translations on Crowdin<1> (opens in new tab)</1></0>."
-msgstr "Ναι, το Reactive Resume είναι διαθέσιμο σε πολλές γλώσσες. Μπορείτε να επιλέξετε την προτιμώμενη γλώσσα σας στη σελίδα ρυθμίσεων ή χρησιμοποιώντας τον επιλογέα γλώσσας στην επάνω δεξιά γωνία. Αν δεν βλέπετε τη γλώσσα σας ή θα θέλατε να βελτιώσετε τις υπάρχουσες μεταφράσεις, μπορείτε να <0>συμβάλετε στις μεταφράσεις στο Crowdin<1> (ανοίγει σε νέα καρτέλα)</1></0>."
+msgid "Yes. Every template is fully customizable. You can change colors, fonts, spacing, and even write custom CSS for complete control over your CV2.0's appearance."
+msgstr ""
 
 #: src/routes/_home/-sections/faq.tsx
-msgid "Yes! Every template is fully customizable. You can change colors, fonts, spacing, and even write custom CSS for complete control over your resume's appearance."
-msgstr "Ναι! Κάθε πρότυπο είναι πλήρως προσαρμόσιμο. Μπορείτε να αλλάξετε χρώματα, γραμματοσειρές, αποστάσεις και ακόμη και να γράψετε προσαρμοσμένο CSS για πλήρη έλεγχο της εμφάνισης του βιογραφικού σας σημειώματος."
-
-#: src/routes/_home/-sections/faq.tsx
-msgid "Yes! Reactive Resume is completely free to use, with no hidden costs, premium tiers, or subscription fees. It's open-source and will always remain free."
-msgstr "Ναι! Το Reactive Resume είναι εντελώς δωρεάν στη χρήση, χωρίς κρυφές χρεώσεις, επίπεδα premium ή συνδρομές. Είναι ανοικτού κώδικα και θα παραμείνει πάντα δωρεάν."
+msgid "Yes. Once you've successfully verified your own skills, you can apply to become a Guru — share your expertise, help others grow, and earn income each time you verify members' skills. <0>Learn more about becoming a Guru<1> (opens in new tab)</1></0>."
+msgstr ""
 
 #: src/routes/dashboard/job-search/-components/job-utils.ts
 msgid "Yesterday"
 msgstr "Χθες"
 
-#: src/routes/_home/-sections/features.tsx
-msgid "You also have the option to deploy on your own servers using the Docker image."
-msgstr "Μπορείτε επίσης να το αναπτύξετε στους δικούς σας διακομιστές χρησιμοποιώντας το Docker image."
-
 #: src/routes/auth/login.tsx
 msgid "You can also use your username to login."
 msgstr "Μπορείτε επίσης να χρησιμοποιήσετε το όνομα χρήστη σας για να συνδεθείτε."
 
-#: src/routes/_home/-sections/faq.tsx
-msgid "You can share your resume via a unique public URL, protect it with a password, or download it as a PDF to share directly. The choice is yours!"
-msgstr "Μπορείτε να μοιραστείτε το βιογραφικό σας σημείωμα μέσω ενός μοναδικού δημόσιου URL, να το προστατεύσετε με κωδικό πρόσβασης ή να το κατεβάσετε ως PDF για να το μοιραστείτε απευθείας. Η επιλογή είναι δική σας!"
+#: src/routes/_home/-sections/features.tsx
+msgid "You control what is visible on your public CV2.0. Only assigned verifiers can see your assignment solutions."
+msgstr ""
 
 #: src/hooks/use-form-blocker.tsx
 msgid "You have unsaved changes that will be lost."
@@ -3620,14 +3643,6 @@ msgstr "Το κλειδί API σας αντιγράφηκε στο πρόχει�
 msgid "Your changes are saved automatically."
 msgstr "Οι αλλαγές σας αποθηκεύονται αυτόματα."
 
-#: src/routes/_home/-sections/features.tsx
-msgid "Your data is secure, and never shared or sold to anyone."
-msgstr "Τα δεδομένα σας είναι ασφαλή και δεν κοινοποιούνται ή πωλούνται ποτέ σε κανέναν."
-
-#: src/routes/_home/-sections/faq.tsx
-msgid "Your data is stored securely and is never shared with third parties. You can also self-host Reactive Resume on your own servers for complete control over your data."
-msgstr "Τα δεδομένα σας αποθηκεύονται με ασφάλεια και δεν κοινοποιούνται ποτέ σε τρίτους. Μπορείτε επίσης να φιλοξενήσετε μόνοι σας το Reactive Resume στους δικούς σας διακομιστές για πλήρη έλεγχο των δεδομένων σας."
-
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Your identity has been verified and your profile is trusted."
 msgstr ""
@@ -3642,6 +3657,10 @@ msgstr "Ο κωδικός πρόσβασής σας ενημερώθηκε με 
 
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Your previous identity verification was unsuccessful. You may try again."
+msgstr ""
+
+#: src/routes/_home/-sections/faq.tsx
+msgid "Your privacy is at the core of Skill Verdict. Only your assigned verifiers can see your code and assignment solutions. Your public CV2.0 displays only the skills you choose, and you always control what is visible to employers."
 msgstr ""
 
 #: src/routes/dashboard/settings/profile.tsx
@@ -3674,10 +3693,6 @@ msgstr "Το βιογραφικό σας σημείωμα ενημερώθηκε
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 msgid "Your resume's public link is currently protected by a password. Share the password only with people you trust."
 msgstr "Ο δημόσιος σύνδεσμος του βιογραφικού σας σημειώματος προστατεύεται αυτή τη στιγμή με κωδικό πρόσβασης. Μοιραστείτε τον κωδικό μόνο με άτομα που εμπιστεύεστε."
-
-#: src/routes/_home/-sections/donate.tsx
-msgid "Your support ensures the project remains free and accessible for everyone, now and in the future."
-msgstr "Η υποστήριξή σας διασφαλίζει ότι το έργο θα παραμείνει δωρεάν και προσβάσιμο για όλους, τώρα και στο μέλλον."
 
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Your verification call has been scheduled. Our team will review and confirm your identity shortly."

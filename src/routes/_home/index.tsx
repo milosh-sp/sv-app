@@ -1,6 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-import { DonationBanner } from "./-sections/donate";
 import { FAQ } from "./-sections/faq";
 import { Features } from "./-sections/features";
 import { Footer } from "./-sections/footer";
@@ -8,7 +7,6 @@ import { Hero } from "./-sections/hero";
 import { Prefooter } from "./-sections/prefooter";
 import { Statistics } from "./-sections/statistics";
 import { Templates } from "./-sections/templates";
-import { Testimonials } from "./-sections/testimonials";
 
 export const Route = createFileRoute("/_home/")({
   component: RouteComponent,
@@ -24,8 +22,6 @@ function RouteComponent() {
           <Statistics />
           <Features />
           <Templates />
-          <Testimonials />
-          <DonationBanner />
           <FAQ />
           <Prefooter />
           <Footer />

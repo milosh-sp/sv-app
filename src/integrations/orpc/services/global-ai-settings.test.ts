@@ -30,12 +30,8 @@ vi.mock("@/integrations/drizzle/schema", () => ({
   },
 }));
 
-const {
-  isGlobalAiAvailable,
-  getGlobalAiSettingsRow,
-  getPublicGlobalAiSettings,
-  getGlobalAiCredentialsForService,
-} = await import("./global-ai-settings");
+const { isGlobalAiAvailable, getGlobalAiSettingsRow, getPublicGlobalAiSettings, getGlobalAiCredentialsForService } =
+  await import("./global-ai-settings");
 
 // A fully usable row returned from the database
 function makeRow(overrides: Record<string, unknown> = {}) {

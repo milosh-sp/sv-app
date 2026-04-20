@@ -27,11 +27,8 @@ vi.mock("@/integrations/drizzle/schema", () => ({
   },
 }));
 
-const {
-  getGlobalJobSearchSettingsRow,
-  getPublicGlobalJobSearchSettings,
-  getGlobalJobSearchApiKeyForService,
-} = await import("./global-job-search-settings");
+const { getGlobalJobSearchSettingsRow, getPublicGlobalJobSearchSettings, getGlobalJobSearchApiKeyForService } =
+  await import("./global-job-search-settings");
 
 function makeRow(overrides: Record<string, unknown> = {}) {
   return {

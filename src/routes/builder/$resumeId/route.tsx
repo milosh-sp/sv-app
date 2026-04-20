@@ -13,6 +13,7 @@ import { LoadingScreen } from "@/components/layout/loading-screen";
 import { useCSSVariables } from "@/components/resume/hooks/use-css-variables";
 import { useResumeStore } from "@/components/resume/store/resume";
 import { ResizableGroup, ResizablePanel, ResizableSeparator } from "@/components/ui/resizable";
+import { APP_NAME } from "@/constants/brand";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { orpc } from "@/integrations/orpc/client";
 
@@ -36,7 +37,7 @@ export const Route = createFileRoute("/builder/$resumeId")({
     return { layout, name: resume.name };
   },
   head: ({ loaderData }) => ({
-    meta: loaderData ? [{ title: `${loaderData.name} - Reactive Resume` }] : undefined,
+    meta: loaderData ? [{ title: `${loaderData.name} - ${APP_NAME}` }] : undefined,
   }),
 });
 

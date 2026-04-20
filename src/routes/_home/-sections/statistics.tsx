@@ -24,7 +24,7 @@ const getStatistics = (userCount: number, resumeCount: number): Statistic[] => [
   },
   {
     id: "resumes",
-    label: t`Resumes`,
+    label: t`CV2.0s`,
     value: resumeCount,
     icon: FileTextIcon,
   },

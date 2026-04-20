@@ -21,6 +21,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { orpc } from "@/integrations/orpc/client";
 import { formatDefaultDate } from "@/utils/format-date";
 
+import type { ReviewAction } from "./-components/verification-queue-shared";
+
 import { DashboardHeader } from "../-components/header";
 import {
   ApplicantDetails,
@@ -32,7 +34,6 @@ import {
   ReviewDecisionPanel,
   StatusBadge,
 } from "./-components/verification-queue-shared";
-import type { ReviewAction } from "./-components/verification-queue-shared";
 
 export const Route = createFileRoute("/dashboard/admin/experience-queue")({
   component: RouteComponent,

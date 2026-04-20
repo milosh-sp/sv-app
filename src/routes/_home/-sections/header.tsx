@@ -1,16 +1,15 @@
 import { t } from "@lingui/core/macro";
+import { Trans } from "@lingui/react/macro";
 import { ArrowRightIcon, TranslateIcon } from "@phosphor-icons/react";
 import { Link } from "@tanstack/react-router";
 import { motion, useMotionValue, useSpring } from "motion/react";
 import { useEffect, useRef } from "react";
 
-import { GithubStarsButton } from "@/components/input/github-stars-button";
 import { LocaleCombobox } from "@/components/locale/combobox";
 import { ThemeToggleButton } from "@/components/theme/toggle-button";
 import { BrandIcon } from "@/components/ui/brand-icon";
 import { Button } from "@/components/ui/button";
-
-import { ProductHuntBanner } from "./product-hunt-banner";
+import { APP_NAME, SKILL_VERDICT_LINKS } from "@/constants/brand";
 
 export function Header() {
   const y = useMotionValue(0);
@@ -51,10 +50,8 @@ export function Header() {
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.35, ease: "easeOut" }}
     >
-      <ProductHuntBanner />
-
       <nav aria-label={t`Main navigation`} className="container mx-auto flex items-center gap-x-4 p-3 lg:px-12">
-        <Link to="/" className="transition-opacity hover:opacity-80" aria-label={t`Reactive Resume - Go to homepage`}>
+        <Link to="/" className="transition-opacity hover:opacity-80" aria-label={t`${APP_NAME} - Go to homepage`}>
           <BrandIcon className="size-10" />
         </Link>
 
@@ -70,7 +67,27 @@ export function Header() {
           <ThemeToggleButton />
 
           <div className="hidden items-center gap-x-4 sm:flex">
-            <GithubStarsButton />
+            <Button
+              size="sm"
+              variant="ghost"
+              nativeButton={false}
+              render={
+                <a href={SKILL_VERDICT_LINKS.candidate} target="_blank" rel="noopener noreferrer">
+                  <Trans>Verify my skills</Trans>
+                </a>
+              }
+            />
+
+            <Button
+              size="sm"
+              variant="ghost"
+              nativeButton={false}
+              render={
+                <a href={SKILL_VERDICT_LINKS.verifier} target="_blank" rel="noopener noreferrer">
+                  <Trans>Earn by verifying</Trans>
+                </a>
+              }
+            />
 
             <Button
               size="icon"

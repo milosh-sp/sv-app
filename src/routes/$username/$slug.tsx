@@ -13,6 +13,7 @@ import { VerificationProvider } from "@/components/resume/shared/verification-co
 import { useResumeStore } from "@/components/resume/store/resume";
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
+import { APP_NAME } from "@/constants/brand";
 import { orpc, type RouterOutput } from "@/integrations/orpc/client";
 import { downloadFromUrl } from "@/utils/file";
 import { formatDefaultDate } from "@/utils/format-date";
@@ -51,7 +52,7 @@ export const Route = createFileRoute("/$username/$slug")({
     return { resume: resume as LoaderData, verificationStatuses, verificationTimeline };
   },
   head: ({ loaderData }) => ({
-    meta: [{ title: loaderData ? `${loaderData.resume.name} - Reactive Resume` : "Reactive Resume" }],
+    meta: [{ title: loaderData ? `${loaderData.resume.name} - ${APP_NAME}` : APP_NAME }],
   }),
   onError: (error) => {
     if (error instanceof ORPCError && error.code === "NEED_PASSWORD") {

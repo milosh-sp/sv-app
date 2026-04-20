@@ -1,13 +1,10 @@
-import type { Icon } from "@phosphor-icons/react";
-
 import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
-import { GithubLogoIcon, LinkedinLogoIcon, XLogoIcon } from "@phosphor-icons/react";
 import { motion } from "motion/react";
 import { useState } from "react";
 
 import { BrandIcon } from "@/components/ui/brand-icon";
-import { Button } from "@/components/ui/button";
+import { APP_NAME, SKILL_VERDICT_LINKS } from "@/constants/brand";
 
 type FooterLinkItem = {
   url: string;
@@ -19,31 +16,13 @@ type FooterLinkGroupProps = {
   links: FooterLinkItem[];
 };
 
-type SocialLink = {
-  url: string;
-  label: string;
-  icon: Icon;
-};
-
-const getResourceLinks = (): FooterLinkItem[] => [
-  { url: "https://docs.rxresu.me", label: t`Documentation` },
-  { url: "https://opencollective.com/reactive-resume", label: t`Sponsorships` },
-  { url: "https://github.com/amruthpillai/reactive-resume", label: t`Source Code` },
-  { url: "https://docs.rxresu.me/changelog", label: t`Changelog` },
+const getPlatformLinks = (): FooterLinkItem[] => [
+  { url: SKILL_VERDICT_LINKS.home, label: t`Skill Verdict` },
+  { url: SKILL_VERDICT_LINKS.candidate, label: t`Verify my skills` },
+  { url: SKILL_VERDICT_LINKS.verifier, label: t`Earn by verifying` },
 ];
 
-const getCommunityLinks = (): FooterLinkItem[] => [
-  { url: "https://github.com/amruthpillai/reactive-resume/issues", label: t`Report an issue` },
-  { url: "https://crowdin.com/project/reactive-resume", label: t`Translations` },
-  { url: "https://reddit.com/r/reactiveresume", label: t`Subreddit` },
-  { url: "https://discord.gg/aSyA5ZSxpb", label: t`Discord` },
-];
-
-const socialLinks: SocialLink[] = [
-  { url: "https://github.com/amruthpillai/reactive-resume", label: "GitHub", icon: GithubLogoIcon },
-  { url: "https://linkedin.com/in/amruthpillai", label: "LinkedIn", icon: LinkedinLogoIcon },
-  { url: "https://x.com/KingOKings", label: "X (Twitter)", icon: XLogoIcon },
-];
+const getCompanyLinks = (): FooterLinkItem[] => [{ url: SKILL_VERDICT_LINKS.contact, label: t`Contact` }];
 
 export function Footer() {
   return (
@@ -62,43 +41,21 @@ export function Footer() {
           <BrandIcon variant="logo" className="size-10" />
 
           <div className="space-y-2">
-            <h2 className="text-lg font-bold tracking-tight">Reactive Resume</h2>
+            <h2 className="text-lg font-bold tracking-tight">{APP_NAME}</h2>
             <p className="max-w-xs text-sm leading-relaxed text-muted-foreground">
               <Trans>
-                A free and open-source resume builder that simplifies the process of creating, updating, and sharing
-                your resume.
+                A dynamic CV2.0 builder with peer-verified skill badges — stop chasing jobs, and let employers come to
+                you.
               </Trans>
             </p>
           </div>
-
-          {/* Social Links */}
-          <div className="flex items-center gap-2 pt-2">
-            {socialLinks.map((social) => (
-              <Button
-                key={social.label}
-                size="icon-sm"
-                variant="ghost"
-                nativeButton={false}
-                render={
-                  <a
-                    href={social.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={`${social.label} (${t`opens in new tab`})`}
-                  >
-                    <social.icon aria-hidden="true" size={18} />
-                  </a>
-                }
-              />
-            ))}
-          </div>
         </div>
 
-        {/* Resources Column */}
-        <FooterLinkGroup title={t`Resources`} links={getResourceLinks()} />
+        {/* Platform Column */}
+        <FooterLinkGroup title={t`Platform`} links={getPlatformLinks()} />
 
-        {/* Community Column */}
-        <FooterLinkGroup title={t`Community`} links={getCommunityLinks()} />
+        {/* Company Column */}
+        <FooterLinkGroup title={t`Company`} links={getCompanyLinks()} />
       </div>
     </motion.footer>
   );

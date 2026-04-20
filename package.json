@@ -1,16 +1,12 @@
 {
-  "name": "reactive-resume",
+  "name": "skill-verdict",
   "version": "5.0.14",
-  "description": "Reactive Resume is a free and open-source resume builder that simplifies the process of creating, updating, and sharing your resume.",
-  "license": "MIT",
+  "private": true,
+  "description": "Skill Verdict is a dynamic CV2.0 builder that turns verified skills into evidence — share peer-endorsed badges, stand out to employers, and let opportunities come to you.",
+  "license": "UNLICENSED",
   "author": {
-    "name": "Amruth Pillai",
-    "email": "hello@amruthpillai.com",
-    "url": "https://amruthpillai.com"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/amruthpillai/reactive-resume.git"
+    "name": "Skill Verdict",
+    "url": "https://skillverdict.com"
   },
   "type": "module",
   "scripts": {

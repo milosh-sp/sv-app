@@ -2,4 +2,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://rxresu.me/sitemap.xml
+Sitemap: https://skillverdict.com/sitemap.xml

@@ -2,6 +2,7 @@ import { Trans } from "@lingui/react/macro";
 import { motion } from "motion/react";
 
 import { TextMaskEffect } from "@/components/animation/text-mask";
+import { APP_NAME } from "@/constants/brand";
 
 export function Prefooter() {
   return (
@@ -13,7 +14,7 @@ export function Prefooter() {
       </div>
 
       <div className="relative space-y-8">
-        <TextMaskEffect aria-hidden="true" text="Reactive Resume" className="hidden md:block" />
+        <TextMaskEffect aria-hidden="true" text={APP_NAME} className="hidden md:block" />
 
         <motion.div
           className="mx-auto max-w-3xl space-y-8 px-6 text-center md:px-8 xl:px-0"
@@ -24,15 +25,13 @@ export function Prefooter() {
           style={{ willChange: "transform, opacity" }}
         >
           <h2 className="text-2xl font-bold tracking-tight md:text-4xl">
-            <Trans>By the community, for the community.</Trans>
+            <Trans>Don't chase, attract.</Trans>
           </h2>
 
           <p className="leading-relaxed text-muted-foreground">
             <Trans>
-              Reactive Resume continues to grow thanks to its vibrant community. This project owes its progress to
-              numerous individuals who've dedicated their time and skills to make it better. We celebrate the coders
-              who've enhanced its features on GitHub, the linguists whose translations on Crowdin have made it
-              accessible to a broader audience, and the people who've donated to support its continued development.
+              Skill Verdict brings skills and personality together so you're understood as a person, not just a list of
+              keywords. Build your CV2.0, get your abilities peer-verified, and let employers come to you.
             </Trans>
           </p>
         </motion.div>

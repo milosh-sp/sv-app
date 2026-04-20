@@ -1,6 +1,6 @@
 import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
-import { ArrowRightIcon, BookIcon, SparkleIcon } from "@phosphor-icons/react";
+import { ArrowRightIcon, SealCheckIcon, SparkleIcon } from "@phosphor-icons/react";
 import { Link } from "@tanstack/react-router";
 import { motion } from "motion/react";
 
@@ -8,6 +8,7 @@ import { CometCard } from "@/components/animation/comet-card";
 import { Spotlight } from "@/components/animation/spotlight";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { APP_NAME, SKILL_VERDICT_LINKS } from "@/constants/brand";
 
 export function Hero() {
   return (
@@ -32,7 +33,7 @@ export function Hero() {
             // @ts-expect-error - typescript doesn't know about fetchPriority for video elements
             fetchPriority="high"
             src="/videos/timelapse.mp4"
-            aria-label={t`Timelapse demonstration of building a resume with Reactive Resume`}
+            aria-label={t`Timelapse demonstration of building a CV2.0 with ${APP_NAME}`}
             className="pointer-events-none size-full rounded-md border object-cover"
           />
 
@@ -54,11 +55,11 @@ export function Hero() {
           style={{ willChange: "transform, opacity" }}
           target="_blank"
           rel="noopener noreferrer"
-          href="https://docs.rxresu.me/getting-started"
+          href={SKILL_VERDICT_LINKS.home}
         >
           <Badge variant="secondary" className="h-auto gap-1.5 px-3 py-0.5">
             <SparkleIcon aria-hidden="true" className="size-3.5" weight="fill" />
-            <Trans>What's new in the latest version?</Trans>
+            <Trans>Introducing CV2.0 — verified skills, not keywords</Trans>
           </Badge>
         </motion.a>
 
@@ -70,9 +71,9 @@ export function Hero() {
           style={{ willChange: "transform, opacity" }}
         >
           <Trans>
-            <p className="font-medium tracking-tight text-muted-foreground md:text-lg">Finally,</p>
+            <p className="font-medium tracking-tight text-muted-foreground md:text-lg">Don't chase,</p>
             <h1 className="mt-1 text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl">
-              A free and open-source resume builder
+              Attract opportunities with verified skills
             </h1>
           </Trans>
         </motion.div>
@@ -86,8 +87,8 @@ export function Hero() {
           style={{ willChange: "transform, opacity" }}
         >
           <Trans>
-            Reactive Resume is a free and open-source resume builder that simplifies the process of creating, updating,
-            and sharing your resume.
+            Build a dynamic CV2.0, earn peer-verified skill badges, and share your verified profile with employers via a
+            single link or QR code.
           </Trans>
         </motion.p>
 
@@ -106,7 +107,7 @@ export function Hero() {
             render={
               <Link to="/dashboard">
                 <span className="relative z-10 flex items-center gap-2">
-                  <Trans>Get Started</Trans>
+                  <Trans>Build my CV2.0</Trans>
                   <ArrowRightIcon
                     aria-hidden="true"
                     className="size-4 transition-transform group-hover:translate-x-0.5"
@@ -122,9 +123,9 @@ export function Hero() {
             className="gap-2 px-4"
             nativeButton={false}
             render={
-              <a href="https://docs.rxresu.me" target="_blank" rel="noopener noreferrer">
-                <BookIcon aria-hidden="true" className="size-4" />
-                <Trans>Learn More</Trans>
+              <a href={SKILL_VERDICT_LINKS.candidate} target="_blank" rel="noopener noreferrer">
+                <SealCheckIcon aria-hidden="true" className="size-4" />
+                <Trans>Verify my skills</Trans>
                 <span className="sr-only">
                   <Trans>(opens in new tab)</Trans>
                 </span>

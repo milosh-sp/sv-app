@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { sql } from "drizzle-orm";
 
+import { APP_SLUG } from "@/constants/brand";
 import { db } from "@/integrations/drizzle/client";
 import { printerService } from "@/integrations/orpc/services/printer";
 import { getStorageService } from "@/integrations/orpc/services/storage";
@@ -60,7 +61,7 @@ async function healthHandler() {
   const status = [database, printer, storage].some((check) => check.status === "unhealthy") ? "unhealthy" : "healthy";
 
   const checks = {
-    service: "reactive-resume",
+    service: APP_SLUG,
     version: process.env.npm_package_version,
     status,
     timestamp: new Date().toISOString(),

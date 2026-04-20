@@ -2,6 +2,7 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { WebStandardStreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/webStandardStreamableHttp.js";
 import { createFileRoute } from "@tanstack/react-router";
 
+import { APP_NAME, APP_SLUG, DESCRIPTION, SKILL_VERDICT_ORIGIN } from "@/constants/brand";
 import { auth, authBaseUrl, verifyOAuthToken } from "@/integrations/auth/config";
 
 import { registerPrompts } from "./-helpers/prompts";
@@ -10,20 +11,19 @@ import { registerTools } from "./-helpers/tools";
 
 function createMcpServer() {
   const server = new McpServer({
-    name: "reactive-resume",
+    name: APP_SLUG,
     version: "1.0.0",
-    title: "Reactive Resume",
-    websiteUrl: "https://rxresu.me",
-    description:
-      "Reactive Resume is a free and open-source resume builder. Use this MCP server to interact with your resume using an LLM of your choice.",
+    title: APP_NAME,
+    websiteUrl: SKILL_VERDICT_ORIGIN,
+    description: `${DESCRIPTION} Use this MCP server to interact with your CV2.0 using an LLM of your choice.`,
     icons: [
       {
-        src: "https://rxresu.me/icon/light.svg",
+        src: `${SKILL_VERDICT_ORIGIN}/icon/light.svg`,
         mimeType: "image/svg+xml",
         theme: "light",
       },
       {
-        src: "https://rxresu.me/icon/dark.svg",
+        src: `${SKILL_VERDICT_ORIGIN}/icon/dark.svg`,
         mimeType: "image/svg+xml",
         theme: "dark",
       },

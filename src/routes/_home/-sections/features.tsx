@@ -1,23 +1,25 @@
 import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
 import {
-  CloudArrowUpIcon,
+  CertificateIcon,
   CodeSimpleIcon,
-  CurrencyDollarIcon,
-  DatabaseIcon,
   DotsThreeIcon,
   FileCssIcon,
   FilesIcon,
-  GithubLogoIcon,
   GlobeIcon,
+  HandshakeIcon,
   type Icon,
   KeyIcon,
   LayoutIcon,
   LockSimpleIcon,
+  MedalIcon,
   PaletteIcon,
   ProhibitIcon,
+  QrCodeIcon,
+  SealCheckIcon,
   ShieldCheckIcon,
-  TranslateIcon,
+  UserCircleIcon,
+  WalletIcon,
 } from "@phosphor-icons/react";
 import { motion } from "motion/react";
 import { useMemo } from "react";
@@ -35,16 +37,28 @@ type FeatureCardProps = Feature;
 
 const getFeatures = (): Feature[] => [
   {
-    id: "free",
-    icon: CurrencyDollarIcon,
-    title: t`Free`,
-    description: t`Completely free, forever, no hidden costs.`,
+    id: "verified-skills",
+    icon: SealCheckIcon,
+    title: t`Peer-Verified Skills`,
+    description: t`Earn verified skill badges through anonymous, scenario-based reviews by experienced Gurus.`,
   },
   {
-    id: "open-source",
-    icon: GithubLogoIcon,
-    title: t`Open Source`,
-    description: t`By the community, for the community.`,
+    id: "skill-badges",
+    icon: MedalIcon,
+    title: t`Visual Skill Badges`,
+    description: t`Showcase evidence of your abilities — every badge links to a verified assessment.`,
+  },
+  {
+    id: "qr-sharing",
+    icon: QrCodeIcon,
+    title: t`Share via QR`,
+    description: t`A unique QR code opens your live CV2.0, so you can network in person or online with a single tap.`,
+  },
+  {
+    id: "passive-discovery",
+    icon: HandshakeIcon,
+    title: t`Passive Discovery`,
+    description: t`Stop chasing roles — let recruiters and companies find you through your verified profile.`,
   },
   {
     id: "no-ads",
@@ -53,28 +67,16 @@ const getFeatures = (): Feature[] => [
     description: t`For a secure and distraction-free experience.`,
   },
   {
-    id: "data-security",
-    icon: DatabaseIcon,
-    title: t`Data Security`,
-    description: t`Your data is secure, and never shared or sold to anyone.`,
-  },
-  {
-    id: "self-host",
-    icon: CloudArrowUpIcon,
-    title: t`Self-Host with Docker`,
-    description: t`You also have the option to deploy on your own servers using the Docker image.`,
-  },
-  {
-    id: "languages",
-    icon: TranslateIcon,
-    title: t`Multilingual`,
-    description: t`Available in multiple languages. If you would like to contribute, check out Crowdin.`,
+    id: "privacy",
+    icon: ShieldCheckIcon,
+    title: t`Privacy-First`,
+    description: t`You control what is visible on your public CV2.0. Only assigned verifiers can see your assignment solutions.`,
   },
   {
     id: "auth",
     icon: KeyIcon,
     title: t`One-Click Sign-In`,
-    description: t`Sign in with GitHub, Google or a custom OAuth provider.`,
+    description: t`Sign in with Google, GitHub, or a custom OAuth provider.`,
   },
   {
     id: "2fa",
@@ -85,20 +87,20 @@ const getFeatures = (): Feature[] => [
   {
     id: "unlimited-resumes",
     icon: FilesIcon,
-    title: t`Unlimited Resumes`,
-    description: t`Create as many resumes as you want, without limits.`,
+    title: t`Unlimited CV2.0s`,
+    description: t`Create as many tailored CV2.0 variants as you want, without limits.`,
   },
   {
     id: "design",
     icon: PaletteIcon,
     title: t`Flexibility`,
-    description: t`Personalize your resume with any colors, fonts or designs, and make it your own.`,
+    description: t`Personalize your CV2.0 with any colors, fonts, or designs, and make it your own.`,
   },
   {
     id: "css",
     icon: FileCssIcon,
     title: t`Custom CSS`,
-    description: t`Write your own CSS (or use an AI to generate it for you) to customize your resume to the fullest.`,
+    description: t`Write your own CSS (or use an AI to generate it for you) to customize your CV2.0 to the fullest.`,
   },
   {
     id: "templates",
@@ -110,13 +112,31 @@ const getFeatures = (): Feature[] => [
     id: "public",
     icon: GlobeIcon,
     title: t`Shareable Links`,
-    description: t`Share your resume with a public URL, and let others view it.`,
+    description: t`Share your CV2.0 with a public URL, and let others view it.`,
   },
   {
     id: "password-protection",
     icon: LockSimpleIcon,
     title: t`Password Protection`,
-    description: t`Protect your resume with a password, and let only people with the password view it.`,
+    description: t`Protect your CV2.0 with a password, and let only people with the password view it.`,
+  },
+  {
+    id: "wallet",
+    icon: WalletIcon,
+    title: t`Add to Wallet`,
+    description: t`Add your CV2.0 to your Apple or Google Wallet so your verified skills travel with you.`,
+  },
+  {
+    id: "personality",
+    icon: UserCircleIcon,
+    title: t`Personality Insights`,
+    description: t`Combine verified skills with personality assessments so employers understand you as a whole person.`,
+  },
+  {
+    id: "certifications",
+    icon: CertificateIcon,
+    title: t`Certifications Showcase`,
+    description: t`Highlight professional certifications alongside your verified skill badges.`,
   },
   {
     id: "api-access",
@@ -190,8 +210,8 @@ export function Features() {
 
         <p className="max-w-2xl leading-relaxed text-muted-foreground">
           <Trans>
-            Everything you need to create, customize, and share professional resumes. Built with privacy in mind,
-            powered by open source, and completely free forever.
+            Everything you need to build a dynamic CV2.0, earn peer-verified skill badges, and let opportunities come to
+            you — privacy-first and distraction-free.
           </Trans>
         </p>
       </motion.div>

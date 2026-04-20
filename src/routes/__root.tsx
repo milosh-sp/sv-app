@@ -16,6 +16,7 @@ import { BreakpointIndicator } from "@/components/layout/breakpoint-indicator";
 import { ThemeProvider } from "@/components/theme/provider";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { APP_NAME, DEFAULT_APP_URL, DESCRIPTION, TAGLINE } from "@/constants/brand";
 import { DialogManager } from "@/dialogs/manager";
 import { ConfirmDialogProvider } from "@/hooks/use-confirm";
 import { PromptDialogProvider } from "@/hooks/use-prompt";
@@ -35,18 +36,17 @@ type RouterContext = {
   flags: FeatureFlags;
 };
 
-const appName = "Reactive Resume";
-const tagline = "A free and open-source resume builder";
+const appName = APP_NAME;
+const tagline = TAGLINE;
 const title = `${appName} — ${tagline}`;
-const description =
-  "Reactive Resume is a free and open-source resume builder that simplifies the process of creating, updating, and sharing your resume.";
+const description = DESCRIPTION;
 
 await loadLocale(await getLocale());
 
 export const Route = createRootRouteWithContext<RouterContext>()({
   shellComponent: RootDocument,
   head: () => {
-    const appUrl = process.env.APP_URL ?? "https://rxresu.me/";
+    const appUrl = process.env.APP_URL ?? DEFAULT_APP_URL;
 
     return {
       links: [

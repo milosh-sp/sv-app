@@ -33,9 +33,9 @@ if (!isVitest) {
         navigateFallback: null, // Disable navigation fallback for SSR
       },
       manifest: {
-        name: "Reactive Resume",
-        short_name: "Reactive Resume",
-        description: "A free and open-source resume builder.",
+        name: "Skill Verdict",
+        short_name: "Skill Verdict",
+        description: "Skill Verdict — the dynamic CV2.0 builder with verified skill badges.",
         id: "/?source=pwa",
         start_url: "/?source=pwa",
         display: "standalone",

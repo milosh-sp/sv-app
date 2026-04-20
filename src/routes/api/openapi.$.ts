@@ -6,6 +6,7 @@ import { BatchHandlerPlugin, RequestHeadersPlugin, StrictGetMethodPlugin } from 
 import { ZodToJsonSchemaConverter } from "@orpc/zod/zod4";
 import { createFileRoute } from "@tanstack/react-router";
 
+import { APP_NAME, SKILL_VERDICT_ORIGIN } from "@/constants/brand";
 import router from "@/integrations/orpc/router";
 import { resumeDataSchema } from "@/schema/resume/data";
 import { env } from "@/utils/env";
@@ -37,14 +38,13 @@ async function handler({ request }: { request: Request }) {
   if (request.method === "GET" && request.url.endsWith("/spec.json")) {
     const spec = await openAPIGenerator.generate(router, {
       info: {
-        title: "Reactive Resume",
+        title: APP_NAME,
         version: __APP_VERSION__,
-        description: "Reactive Resume API",
-        license: { name: "MIT", url: "https://github.com/amruthpillai/reactive-resume/blob/main/LICENSE" },
-        contact: { name: "Amruth Pillai", email: "hello@amruthpillai.com", url: "https://amruthpillai.com" },
+        description: `${APP_NAME} API`,
+        contact: { name: APP_NAME, url: SKILL_VERDICT_ORIGIN },
       },
       servers: [{ url: `${env.APP_URL}/api/openapi` }],
-      externalDocs: { url: "https://docs.rxresu.me", description: "Reactive Resume Documentation" },
+      externalDocs: { url: SKILL_VERDICT_ORIGIN, description: `${APP_NAME} Documentation` },
       commonSchemas: {
         ResumeData: { schema: resumeDataSchema },
       },

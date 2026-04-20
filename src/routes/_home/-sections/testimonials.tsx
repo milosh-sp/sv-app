@@ -2,30 +2,22 @@ import { Trans } from "@lingui/react/macro";
 import { motion } from "motion/react";
 import { useMemo } from "react";
 
-const email = "hello@amruthpillai.com";
-
 const testimonials: string[] = [
-  "Great site. Love the interactive interface. You can tell it's designed by someone who wants to use it.",
+  "Getting my skills verified felt real — a practical assignment, actionable feedback, and a badge I could share immediately. Recruiters reached out within days.",
 
-  "Truly everything about the UX is so intuitive, fluid and lets you customize your CV how you want and so rapidly. I thank you so much for putting the work to release something like this.",
+  "Skill Verdict turned my CV into actual evidence. Companies stopped asking whether I could do the work and started asking when I could start.",
 
-  "I want to appreciate you for making your projects #openSource, most especially your Reactive Resume, which is the handiest truly-free resume maker I've come across. This is a big shoutout to you. Well done!",
+  "The anonymous review process makes it fair. I focused on the problem, not on selling myself, and came out with a verified skill badge I'm proud of.",
 
-  "I'd like to appreciate the great work you've done with rxresu.me. The website's design, smooth functionality, and ease of use under the free plan are really impressive. It's clear that a lot of thought and effort has gone into building and maintaining such a useful platform.",
+  "As a Guru, verifying candidates on Skill Verdict is one of the most rewarding things I do — I earn for my time and help someone get a fair shot at their next role.",
 
-  " I just wanted to reach you out and thank you personally for your wonderful project rxresu.me. It is very valuable, and the fact that it is open source, makes it all the more meaningful, since there are lots of people who struggle to make their CV look good. For my part, it saved me a lot of time and helped me shape my CV in a very efficient way.",
+  "I love that my public CV2.0 only shows what I want it to. Employers see verified skills, not buzzwords, and the QR code makes sharing at events effortless.",
 
-  "I appreciate your effort in open-sourcing and making it free for everyone to use, it's a great effort. By using this platform, I got a job secured in the government sector of Oman, that too in a ministry. Thank you for providing this platform. Keep going, appreciate the effort. ❤️",
+  "A lot of hiring platforms promise to find great talent. Skill Verdict is the first one that actually shows us what each candidate can do.",
 
-  "Your CV generator just saved my day! Thank you so much, great work!",
+  "Going through the verification process gave me real feedback I could act on. I levelled up, re-verified, and landed a role in a team I genuinely enjoy.",
 
-  "I want to express my heartfelt gratitude and admiration for your incredible work and remarkable skills. Your projects, especially the Resume Builder, have been immensely helpful to me, and I deeply appreciate the effort and creativity you've poured into them.",
-
-  "Hey! Thank you so much for making this fantastic tool! It helped me get a new job as a Research Software Engineer at Arizona State University.",
-
-  "Wow, what an impressive profile! You are very talented. I'm also a fellow SWE on the job hunt and I came across a linked to Reactive Resume on Reddit and gave it a shot. This could easily be a paid product. Very clean and useful.",
-
-  "Thank you for creating Reactive Resume. It is an amazing product, and I love the design and how it simplifies the resume-making experience. I've been trying to create a good resume for a decade to find my first job in tech, and your tool has been incredibly helpful.",
+  "Sharing my CV2.0 link in applications has been a game-changer — it's dynamic, it's verifiable, and it finally matches how modern hiring should work.",
 ];
 
 type TestimonialCardProps = {
@@ -99,18 +91,8 @@ export function Testimonials() {
 
         <p className="max-w-4xl leading-relaxed text-balance text-muted-foreground">
           <Trans>
-            A lot of people have written to me over the years to share their experiences with Reactive Resume and how it
-            has helped them, and I never get tired of reading them. If you have a story to share, let me know by sending
-            me an email at{" "}
-            <a
-              href={`mailto:${email}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-medium text-foreground underline underline-offset-2 transition-colors hover:text-primary"
-            >
-              {email}
-            </a>
-            .
+            Candidates, Gurus, and hiring teams share how Skill Verdict changed the way they prove and evaluate skills —
+            moving the conversation from keywords to real, verified evidence.
           </Trans>
         </p>
       </motion.div>

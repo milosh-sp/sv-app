@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { motion } from "motion/react";
 
+import { APP_NAME } from "@/constants/brand";
 import { orpc } from "@/integrations/orpc/client";
 import { formatDefaultDate } from "@/utils/format-date";
 
@@ -23,8 +24,8 @@ export const Route = createFileRoute("/reviewer/$adminId")({
     meta: [
       {
         title: loaderData
-          ? `${loaderData.profile.firstName} ${loaderData.profile.lastName} - Reviewer - Reactive Resume`
-          : "Reviewer - Reactive Resume",
+          ? `${loaderData.profile.firstName} ${loaderData.profile.lastName} - Reviewer - ${APP_NAME}`
+          : `Reviewer - ${APP_NAME}`,
       },
     ],
   }),

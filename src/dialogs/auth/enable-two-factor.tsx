@@ -15,6 +15,7 @@ import { Button } from "@/components/ui/button";
 import { DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { APP_NAME, APP_SLUG } from "@/constants/brand";
 import { useFormBlocker } from "@/hooks/use-form-blocker";
 import { authClient } from "@/integrations/auth/client";
 
@@ -72,7 +73,7 @@ export function EnableTwoFactorDialog(_: DialogProps<"auth.two-factor.enable">) 
 
     const { data, error } = await authClient.twoFactor.enable({
       password: values.password,
-      issuer: "Reactive Resume",
+      issuer: APP_NAME,
     });
 
     if (error) {
@@ -140,7 +141,7 @@ export function EnableTwoFactorDialog(_: DialogProps<"auth.two-factor.enable">) 
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = "reactive-resume_backup-codes.txt";
+    a.download = `${APP_SLUG}_backup-codes.txt`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
