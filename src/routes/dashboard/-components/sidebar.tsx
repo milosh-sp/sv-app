@@ -18,7 +18,7 @@ import {
   WarningIcon,
 } from "@phosphor-icons/react";
 import { useQuery } from "@tanstack/react-query";
-import { Link } from "@tanstack/react-router";
+import { Link, useRouteContext } from "@tanstack/react-router";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { BrandIcon } from "@/components/ui/brand-icon";
@@ -157,8 +157,12 @@ function SidebarItemList({ items }: SidebarItemListProps) {
 
 export function DashboardSidebar() {
   const { i18n } = useLingui();
+  const { session } = useRouteContext({ strict: false });
+  const adminRoleQueryOptions = orpc.auth.getAdminRole.queryOptions();
   const { data: adminRole } = useQuery({
-    ...orpc.auth.getAdminRole.queryOptions(),
+    ...adminRoleQueryOptions,
+    queryKey: [...adminRoleQueryOptions.queryKey, session?.user?.id ?? "anonymous"],
+    enabled: Boolean(session?.user),
     staleTime: 5 * 60 * 1000,
   });
 
