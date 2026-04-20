@@ -19,6 +19,7 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
 import { orpc } from "@/integrations/orpc/client";
+import { formatDefaultDate } from "@/utils/format-date";
 
 import { DashboardHeader } from "../-components/header";
 import {
@@ -182,7 +183,7 @@ function ExperienceQueueRow({
             <MethodBadge method={item.method} />
             <span className="flex items-center gap-x-1 text-xs text-muted-foreground">
               <CalendarBlankIcon className="size-3" />
-              {new Date(item.submittedAt).toLocaleDateString()}
+              {formatDefaultDate(item.submittedAt)}
             </span>
           </div>
         </div>
@@ -342,7 +343,7 @@ function PendingVerdictRow({ verdict }: { verdict: PendingVerdictItem }) {
             <span className="text-xs text-muted-foreground capitalize">{verdict.sectionType}</span>
             <span className="flex items-center gap-x-1 text-xs text-muted-foreground">
               <CalendarBlankIcon className="size-3" />
-              {new Date(verdict.submittedAt).toLocaleDateString()}
+              {formatDefaultDate(verdict.submittedAt)}
             </span>
           </div>
         </div>

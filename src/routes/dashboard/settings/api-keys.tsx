@@ -11,6 +11,7 @@ import { Separator } from "@/components/ui/separator";
 import { useDialogStore } from "@/dialogs/store";
 import { useConfirm } from "@/hooks/use-confirm";
 import { authClient } from "@/integrations/auth/client";
+import { formatDefaultDate } from "@/utils/format-date";
 
 import { DashboardHeader } from "../-components/header";
 
@@ -128,7 +129,7 @@ function RouteComponent() {
                 <div className="flex-1 space-y-1">
                   <p className="font-mono text-xs">{key.start}...</p>
                   <div className="text-xs text-muted-foreground">
-                    <Trans>Expires on {key.expiresAt?.toLocaleDateString()}</Trans>
+                    <Trans>Expires on {key.expiresAt != null ? formatDefaultDate(key.expiresAt) : ""}</Trans>
                   </div>
                 </div>
 

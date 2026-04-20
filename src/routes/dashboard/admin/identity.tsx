@@ -11,6 +11,7 @@ import type { RouterOutput } from "@/integrations/orpc/client";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { orpc } from "@/integrations/orpc/client";
+import { formatDefaultDate } from "@/utils/format-date";
 
 import { DashboardHeader } from "../-components/header";
 import {
@@ -145,13 +146,13 @@ function IdentityQueueRow({
             <MethodBadge method={item.method} />
             <span className="flex items-center gap-x-1 text-xs text-muted-foreground">
               <CalendarBlankIcon className="size-3" />
-              {new Date(item.submittedAt).toLocaleDateString()}
+              {formatDefaultDate(item.submittedAt)}
             </span>
             {item.calendarLinkSentAt && (
               <span className="flex items-center gap-x-1 rounded-full bg-muted px-2 py-0.5 text-xs text-muted-foreground">
                 <Trans>Call link sent</Trans>
                 {" · "}
-                {new Date(item.calendarLinkSentAt).toLocaleDateString()}
+                {formatDefaultDate(item.calendarLinkSentAt)}
               </span>
             )}
           </div>

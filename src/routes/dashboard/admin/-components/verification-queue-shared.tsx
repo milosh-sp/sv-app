@@ -18,6 +18,7 @@ import { useResumeStore } from "@/components/resume/store/resume";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import type { ResumeData } from "@/schema/resume/data";
+import { formatDefaultDate } from "@/utils/format-date";
 
 export type ReviewAction = "verified" | "rejected" | "issue";
 
@@ -274,7 +275,7 @@ export function DocumentPreview({
             <FileTextIcon className="size-3.5 text-muted-foreground" />
           )}
           <span className="text-xs capitalize">{documentType.replace(/_/g, " ")}</span>
-          <span className="text-xs text-muted-foreground">{new Date(uploadedAt).toLocaleDateString()}</span>
+          <span className="text-xs text-muted-foreground">{formatDefaultDate(uploadedAt)}</span>
         </div>
 
         {isFreelancerLink ? (

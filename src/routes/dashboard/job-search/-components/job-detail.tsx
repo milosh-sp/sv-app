@@ -20,6 +20,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { useAiIntegration } from "@/integrations/ai/use-ai-integration";
+import { formatDefaultDate } from "@/utils/format-date";
 
 import { formatSalary, isValidExternalUrl } from "./job-utils";
 import { TailorDialog } from "./tailor-dialog";
@@ -101,7 +102,7 @@ export function JobDetailSheet({ job, open, onOpenChange }: Props) {
                 {job.job_posted_at_datetime_utc && (
                   <Badge variant="outline" className="gap-x-1">
                     <ClockIcon className="size-3" />
-                    {new Date(job.job_posted_at_datetime_utc).toLocaleDateString()}
+                    {formatDefaultDate(job.job_posted_at_datetime_utc)}
                   </Badge>
                 )}
               </div>

@@ -22,6 +22,7 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { orpc } from "@/integrations/orpc/client";
+import { formatDefaultDate } from "@/utils/format-date";
 
 import { DashboardHeader } from "../-components/header";
 
@@ -724,7 +725,7 @@ function VerificationHistory({ resumeId, itemId }: { resumeId: string; itemId: s
               </p>
             )}
           </div>
-          <span>{new Date(entry.submittedAt).toLocaleDateString()}</span>
+          <span>{formatDefaultDate(entry.submittedAt)}</span>
         </div>
       ))}
     </div>

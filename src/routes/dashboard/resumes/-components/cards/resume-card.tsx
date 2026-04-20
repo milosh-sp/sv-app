@@ -1,5 +1,4 @@
 import { t } from "@lingui/core/macro";
-import { useLingui } from "@lingui/react";
 import { CircleNotchIcon, LockSimpleIcon } from "@phosphor-icons/react";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
@@ -8,6 +7,7 @@ import { useMemo } from "react";
 import { match, P } from "ts-pattern";
 
 import { orpc, type RouterOutput } from "@/integrations/orpc/client";
+import { formatDefaultDateTime } from "@/utils/format-date";
 import { cn } from "@/utils/style";
 
 import { ResumeContextMenu } from "../menus/context-menu";
@@ -18,15 +18,11 @@ type ResumeCardProps = {
 };
 
 export function ResumeCard({ resume }: ResumeCardProps) {
-  const { i18n } = useLingui();
-
   const { data: screenshotData, isLoading } = useQuery(
     orpc.printer.getResumeScreenshot.queryOptions({ input: { id: resume.id } }),
   );
 
-  const updatedAt = useMemo(() => {
-    return Intl.DateTimeFormat(i18n.locale, { dateStyle: "long", timeStyle: "short" }).format(resume.updatedAt);
-  }, [i18n.locale, resume.updatedAt]);
+  const updatedAt = useMemo(() => formatDefaultDateTime(resume.updatedAt), [resume.updatedAt]);
 
   return (
     <ResumeContextMenu resume={resume}>

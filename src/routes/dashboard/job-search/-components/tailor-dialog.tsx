@@ -25,6 +25,7 @@ import { Spinner } from "@/components/ui/spinner";
 import { Switch } from "@/components/ui/switch";
 import { useAiIntegration } from "@/integrations/ai/use-ai-integration";
 import { client, orpc } from "@/integrations/orpc/client";
+import { formatDefaultDate } from "@/utils/format-date";
 import { buildSkillSyncOperations, tailorOutputToPatches, validateTailorOutput } from "@/utils/resume/tailor";
 import { slugify } from "@/utils/string";
 
@@ -218,7 +219,7 @@ export function TailorDialog({ job, open, onOpenChange }: Props) {
                       <div className="min-w-0 text-start">
                         <p className="truncate font-medium">{resume.name}</p>
                         <p className="truncate text-xs text-muted-foreground">
-                          {new Date(resume.updatedAt).toLocaleDateString()}
+                          {formatDefaultDate(resume.updatedAt)}
                         </p>
                         {resume.tags.length > 0 && (
                           <div className="mt-1 flex flex-wrap gap-1">

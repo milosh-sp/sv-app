@@ -1,5 +1,7 @@
 import { describe, expect, it } from "vite-plus/test";
 
+import { formatDefaultDate } from "@/utils/format-date";
+
 describe("Reviewer Public Profile Page", () => {
   it("should display only safe profile fields", () => {
     const publicFields = ["firstName", "lastName", "title", "createdAt", "publicProfileUrl"];
@@ -10,14 +12,9 @@ describe("Reviewer Public Profile Page", () => {
     }
   });
 
-  it("should format member since as month and year", () => {
-    const date = new Date("2024-03-15T00:00:00Z");
-    const formatted = date.toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "long",
-    });
-    expect(formatted).toContain("2024");
-    expect(formatted).toContain("March");
+  it("should format member since as DD/MM/YYYY", () => {
+    const date = new Date(2024, 2, 15);
+    expect(formatDefaultDate(date)).toBe("15/03/2024");
   });
 
   it("should not expose any verified CV list or admin IDs", () => {

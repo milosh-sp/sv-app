@@ -5,6 +5,7 @@ import { createFileRoute, notFound } from "@tanstack/react-router";
 import { motion } from "motion/react";
 
 import { orpc } from "@/integrations/orpc/client";
+import { formatDefaultDate } from "@/utils/format-date";
 
 export const Route = createFileRoute("/reviewer/$adminId")({
   component: RouteComponent,
@@ -35,10 +36,7 @@ function RouteComponent() {
 
   if (!profile) return null;
 
-  const memberSince = new Date(profile.createdAt).toLocaleDateString(undefined, {
-    year: "numeric",
-    month: "long",
-  });
+  const memberSince = formatDefaultDate(profile.createdAt);
 
   return (
     <div className="mx-auto flex min-h-screen max-w-lg items-center justify-center p-8">

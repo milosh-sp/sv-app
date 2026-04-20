@@ -15,6 +15,7 @@ import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
 import { orpc, type RouterOutput } from "@/integrations/orpc/client";
 import { downloadFromUrl } from "@/utils/file";
+import { formatDefaultDate } from "@/utils/format-date";
 import { cn } from "@/utils/style";
 
 type LoaderData = Omit<RouterOutput["resume"]["getBySlug"], "data"> & { data: ResumeData };
@@ -147,7 +148,7 @@ function PublicVerificationTimeline({ data }: { data: PublicTimelineData }) {
                 </p>
               )}
             </div>
-            <span className="shrink-0">{new Date(entry.submittedAt).toLocaleDateString()}</span>
+            <span className="shrink-0">{formatDefaultDate(entry.submittedAt)}</span>
           </div>
         ))}
       </div>
