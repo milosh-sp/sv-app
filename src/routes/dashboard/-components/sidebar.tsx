@@ -179,10 +179,12 @@ export function DashboardSidebar() {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton
-              className="h-auto justify-center"
+              className="h-auto justify-center rounded-none p-1 hover:bg-transparent"
               render={
                 <Link to="/">
-                  <BrandIcon variant="icon" className="size-6" />
+                  <span className="flex size-8 items-center justify-center border-2 border-foreground bg-brand-lime transition-transform group-hover:-rotate-3">
+                    <BrandIcon variant="icon" forceTheme="light" className="size-5" />
+                  </span>
                   <h1 className="sr-only">Skill Verdict</h1>
                 </Link>
               }
@@ -196,8 +198,8 @@ export function DashboardSidebar() {
       <SidebarContent>
         {!isSkillVerdictAdmin && (
           <SidebarGroup>
-            <SidebarGroupLabel>
-              <Trans>App</Trans>
+            <SidebarGroupLabel className="font-mono text-[0.65rem] tracking-[0.25em] uppercase">
+              — <Trans>App</Trans>
             </SidebarGroupLabel>
             <SidebarGroupContent>
               <SidebarItemList items={appSidebarItems} />
@@ -206,8 +208,8 @@ export function DashboardSidebar() {
         )}
 
         <SidebarGroup>
-          <SidebarGroupLabel>
-            <Trans>Settings</Trans>
+          <SidebarGroupLabel className="font-mono text-[0.65rem] tracking-[0.25em] uppercase">
+            — <Trans>Settings</Trans>
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarItemList items={isSkillVerdictAdmin ? settingsSidebarBaseItems : settingsSidebarItems} />
@@ -216,8 +218,8 @@ export function DashboardSidebar() {
 
         {isSkillVerdictAdmin && (
           <SidebarGroup>
-            <SidebarGroupLabel>
-              <Trans>Skill Verdict Verification</Trans>
+            <SidebarGroupLabel className="font-mono text-[0.65rem] tracking-[0.25em] uppercase">
+              — <Trans>Skill Verdict Verification</Trans>
             </SidebarGroupLabel>
             <SidebarGroupContent>
               <SidebarItemList items={skillVerdictVerificationSidebarItems} />
@@ -227,8 +229,8 @@ export function DashboardSidebar() {
 
         {isSkillVerdictAdmin && (
           <SidebarGroup>
-            <SidebarGroupLabel>
-              <Trans>Administration</Trans>
+            <SidebarGroupLabel className="font-mono text-[0.65rem] tracking-[0.25em] uppercase">
+              — <Trans>Administration</Trans>
             </SidebarGroupLabel>
             <SidebarGroupContent>
               <SidebarItemList items={adminSidebarItems} />

@@ -16,6 +16,12 @@ const badgeVariants = cva(
         outline: "border-border text-foreground [a]:hover:bg-muted [a]:hover:text-muted-foreground",
         ghost: "hover:bg-muted hover:text-muted-foreground dark:hover:bg-muted/50",
         link: "text-primary underline-offset-4 hover:underline",
+        // Bold-creative "tape" eyebrow — bordered rectangle, mono uppercase
+        // tracked. Use as section eyebrow / status strip.
+        tape: "rounded-none border-2 border-foreground bg-background font-mono tracking-[0.22em] text-foreground uppercase",
+        // Lime-filled accent pill, best for small status callouts on neutral
+        // surfaces. Keeps the dark ink foreground regardless of theme.
+        "brand-lime": "rounded-none bg-brand-lime font-mono tracking-[0.22em] text-brand-ink uppercase",
       },
     },
     defaultVariants: {

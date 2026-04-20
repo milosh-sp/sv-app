@@ -15,6 +15,7 @@ import { Link, useNavigate } from "@tanstack/react-router";
 import { toast } from "sonner";
 
 import { useResumeStore } from "@/components/resume/store/resume";
+import { BrandIcon } from "@/components/ui/brand-icon";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -41,6 +42,13 @@ export function BuilderHeader() {
       </Button>
 
       <div className="flex items-center gap-x-1">
+        <Link
+          to="/"
+          aria-label="Home"
+          className="me-1 flex size-8 items-center justify-center border-2 border-foreground bg-brand-lime transition-transform hover:-rotate-3"
+        >
+          <BrandIcon variant="icon" forceTheme="light" className="size-5" />
+        </Link>
         <Button
           size="icon"
           variant="ghost"
@@ -51,8 +59,8 @@ export function BuilderHeader() {
             </Link>
           }
         />
-        <span className="me-2.5 text-muted-foreground">/</span>
-        <h2 className="flex-1 truncate font-medium">{name}</h2>
+        <span className="mx-1 font-mono text-xs text-muted-foreground">/</span>
+        <h2 className="flex-1 truncate font-mono text-xs tracking-[0.12em] uppercase">{name}</h2>
         {isLocked && <LockSimpleIcon className="ms-2 text-muted-foreground" />}
         <BuilderHeaderDropdown />
       </div>

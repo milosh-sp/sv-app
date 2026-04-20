@@ -14,18 +14,16 @@ export const Route = createFileRoute("/_home/")({
 
 function RouteComponent() {
   return (
-    <main id="main-content" className="relative">
+    <main id="main-content" className="relative overflow-x-clip">
       <Hero />
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-12">
-        <div className="border-x border-border [&>section]:border-t [&>section]:border-border [&>section:first-child]:border-t-0">
-          <Statistics />
-          <Features />
-          <Templates />
-          <FAQ />
-          <Prefooter />
-          <Footer />
-        </div>
+      <div className="relative">
+        <Statistics />
+        <Features />
+        <Templates />
+        <FAQ />
+        <Prefooter />
+        <Footer />
       </div>
     </main>
   );

@@ -5,7 +5,8 @@ import { motion } from "motion/react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { buttonVariants } from "@/components/ui/button";
 import { SKILL_VERDICT_LINKS } from "@/constants/brand";
-import { cn } from "@/utils/style";
+
+import { HOME_ACCENT } from "../-styles";
 
 type FAQItemData = {
   question: string;
@@ -23,11 +24,11 @@ const getFaqItems = (): FAQItemData[] => [
   },
   {
     question: t`How is my data protected?`,
-    answer: t`Your privacy is at the core of Skill Verdict. Only your assigned verifiers can see your code and assignment solutions. Your public CV2.0 displays only the skills you choose, and you always control what is visible to employers.`,
+    answer: t`Your privacy is at the core of Skill Verdict. Only your assigned verifiers can see your code and assignment solutions. Your public CV 2.0 displays only the skills you choose, and you always control what is visible to employers.`,
   },
   {
     question: t`Can I update my skills after verification?`,
-    answer: t`Absolutely. Add new skills anytime, or request re-verification as you level up — your CV2.0 evolves with your career.`,
+    answer: t`Absolutely. Add new skills anytime, or request re-verification as you level up — your CV 2.0 evolves with your career.`,
   },
   {
     question: t`What if I'm not happy with my verification outcome?`,
@@ -53,12 +54,12 @@ const getFaqItems = (): FAQItemData[] => [
     ),
   },
   {
-    question: t`How do I share my CV2.0?`,
-    answer: t`Share your CV2.0 via a unique public URL, a QR code, a PDF export, or by adding it to your Apple or Google Wallet. The choice is yours.`,
+    question: t`How do I share my CV 2.0?`,
+    answer: t`Share your CV 2.0 via a unique public URL, a QR code, a PDF export, or by adding it to your Apple or Google Wallet. The choice is yours.`,
   },
   {
     question: t`Can I customize the templates?`,
-    answer: t`Yes. Every template is fully customizable. You can change colors, fonts, spacing, and even write custom CSS for complete control over your CV2.0's appearance.`,
+    answer: t`Yes. Every template is fully customizable. You can change colors, fonts, spacing, and even write custom CSS for complete control over your CV 2.0's appearance.`,
   },
 ];
 
@@ -68,28 +69,39 @@ export function FAQ() {
   return (
     <section
       id="frequently-asked-questions"
-      className="flex flex-col gap-x-16 gap-y-6 p-4 md:p-8 lg:flex-row lg:gap-x-18 xl:py-16"
+      className="grid gap-10 border-t-2 border-foreground p-4 md:p-10 lg:grid-cols-[auto_1fr] lg:gap-16 xl:p-14"
     >
-      <motion.h2
-        className={cn(
-          "flex-1 text-2xl font-semibold tracking-tight md:text-4xl xl:text-5xl",
-          "flex shrink-0 flex-wrap items-center gap-x-1.5 lg:flex-col lg:items-start",
-        )}
+      <motion.div
+        className="flex flex-col gap-5 lg:sticky lg:top-28 lg:h-fit lg:max-w-xs"
         initial={{ opacity: 0, x: -20 }}
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.45 }}
         style={{ willChange: "transform, opacity" }}
       >
-        <Trans context="Every word needs to be wrapped in a tag">
-          <span>Frequently</span>
-          <span>Asked</span>
-          <span>Questions</span>
-        </Trans>
-      </motion.h2>
+        <span className="font-mono text-[0.7rem] tracking-[0.3em] text-muted-foreground uppercase">
+          — <Trans>Section 04 / FAQ</Trans>
+        </span>
+
+        <h2 className="text-4xl leading-[0.9] font-black tracking-tighter md:text-5xl xl:text-6xl">
+          <Trans>
+            Questions? <br />
+            <span className="font-serif italic">We've got</span>
+            <br />
+            answers.
+          </Trans>
+        </h2>
+
+        <span
+          className="inline-flex w-fit px-3 py-1 font-mono text-[0.7rem] tracking-[0.25em] uppercase"
+          style={{ backgroundColor: HOME_ACCENT.lime, color: HOME_ACCENT.ink }}
+        >
+          <Trans>Tap to open</Trans>
+        </span>
+      </motion.div>
 
       <motion.div
-        className="max-w-2xl flex-2 lg:ml-auto 2xl:max-w-3xl"
+        className="border-t-2 border-foreground"
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
@@ -112,18 +124,24 @@ type FAQItemComponentProps = {
 };
 
 function FAQItemComponent({ item, index }: FAQItemComponentProps) {
+  const prefix = String(index + 1).padStart(2, "0");
+
   return (
     <motion.div
-      className="last:border-b"
       initial={{ opacity: 0, y: 10 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.24, delay: Math.min(0.16, index * 0.03) }}
       style={{ willChange: "transform, opacity" }}
     >
-      <AccordionItem value={item.question} className="group border-t">
-        <AccordionTrigger className="py-5">{item.question}</AccordionTrigger>
-        <AccordionContent className="pb-5 leading-relaxed text-muted-foreground">{item.answer}</AccordionContent>
+      <AccordionItem value={item.question} className="group border-b-2 border-foreground">
+        <AccordionTrigger className="py-5 text-left text-base font-bold tracking-tight md:text-lg">
+          <span className="mr-4 font-mono text-[0.7rem] tracking-[0.25em] text-muted-foreground uppercase">
+            {prefix}
+          </span>
+          <span className="flex-1">{item.question}</span>
+        </AccordionTrigger>
+        <AccordionContent className="pb-5 pl-10 leading-relaxed text-muted-foreground">{item.answer}</AccordionContent>
       </AccordionItem>
     </motion.div>
   );

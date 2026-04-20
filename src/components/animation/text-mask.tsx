@@ -10,9 +10,32 @@ type TextMaskEffectProps = {
   duration?: number;
   className?: string;
   "aria-hidden"?: boolean | "true" | "false";
+  /**
+   * First stop of the reveal gradient shown on cursor hover.
+   * Defaults to a neutral neon lime.
+   */
+  accentFrom?: string;
+  /**
+   * Second stop of the reveal gradient shown on cursor hover.
+   * Defaults to a hot magenta.
+   */
+  accentTo?: string;
+  /**
+   * Tailwind class controlling the outline text stroke color.
+   * Callers can override this to match their surface.
+   */
+  strokeClassName?: string;
 };
 
-export const TextMaskEffect = ({ text, duration = 6, className, "aria-hidden": ariaHidden }: TextMaskEffectProps) => {
+export const TextMaskEffect = ({
+  text,
+  duration = 6,
+  className,
+  "aria-hidden": ariaHidden,
+  accentFrom = "#c6ff00",
+  accentTo = "#ff3d81",
+  strokeClassName = "stroke-zinc-300 dark:stroke-zinc-700",
+}: TextMaskEffectProps) => {
   const svgRef = useRef<SVGSVGElement>(null);
   const [cursor, setCursor] = useState({ x: 0, y: 0 });
   const [hovered, setHovered] = useState(false);
@@ -47,11 +70,8 @@ export const TextMaskEffect = ({ text, duration = 6, className, "aria-hidden": a
         <linearGradient id="textGradient" gradientUnits="userSpaceOnUse" cx="50%" cy="50%" r="25%">
           {hovered && (
             <>
-              <stop offset="0%" stopColor="#eab308" />
-              <stop offset="25%" stopColor="#ef4444" />
-              <stop offset="50%" stopColor="#3b82f6" />
-              <stop offset="75%" stopColor="#06b6d4" />
-              <stop offset="100%" stopColor="#8b5cf6" />
+              <stop offset="0%" stopColor={accentFrom} />
+              <stop offset="100%" stopColor={accentTo} />
             </>
           )}
         </linearGradient>
@@ -80,7 +100,7 @@ export const TextMaskEffect = ({ text, duration = 6, className, "aria-hidden": a
         textAnchor="middle"
         dominantBaseline="middle"
         style={{ opacity: hovered ? 0.7 : 0 }}
-        className={cn(textClassName, "stroke-zinc-300 dark:stroke-zinc-700")}
+        className={cn(textClassName, strokeClassName)}
       >
         {text}
       </text>
@@ -94,7 +114,7 @@ export const TextMaskEffect = ({ text, duration = 6, className, "aria-hidden": a
         transition={{ duration, ease: "easeInOut" }}
         initial={{ strokeDashoffset: 1000, strokeDasharray: 1000 }}
         whileInView={{ strokeDashoffset: 0, strokeDasharray: 1000 }}
-        className={cn(textClassName, "stroke-zinc-300 dark:stroke-zinc-700")}
+        className={cn(textClassName, strokeClassName)}
       >
         {text}
       </motion.text>

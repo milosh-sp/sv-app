@@ -15,6 +15,16 @@
 
   --color-zinc-925: oklch(17.55% 0 285.854);
 
+  /* Brand accents (Phase 2 rebrand). These live alongside the existing neutral
+     semantic tokens so shadcn primitives keep working — use them when a
+     surface needs bold-creative brand presence (auth, error screens, shell
+     chrome, CTAs). */
+  --brand-lime: #c6ff00;
+  --brand-lime-soft: rgba(198, 255, 0, 0.18);
+  --brand-magenta: #ff3d81;
+  --brand-magenta-soft: rgba(255, 61, 129, 0.18);
+  --brand-ink: #0a0a0a;
+
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
@@ -85,6 +95,11 @@
 }
 
 @theme inline {
+  --color-brand-lime: var(--brand-lime);
+  --color-brand-lime-soft: var(--brand-lime-soft);
+  --color-brand-magenta: var(--brand-magenta);
+  --color-brand-magenta-soft: var(--brand-magenta-soft);
+  --color-brand-ink: var(--brand-ink);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);

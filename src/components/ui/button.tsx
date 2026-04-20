@@ -15,6 +15,11 @@ const buttonVariants = cva(
         destructive:
           "bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40",
         link: "text-primary underline-offset-4 hover:underline",
+        // Bold-creative brand CTA: lime background, ink border/text, hard-offset
+        // shadow. Typically paired with `font-mono` + tracking for full brutalist
+        // effect. Keep usage sparing — one per section at most.
+        brand:
+          "rounded-none border-2 border-foreground bg-brand-lime font-mono tracking-[0.14em] text-brand-ink uppercase shadow-[4px_4px_0_0_var(--color-foreground)] transition-[transform,box-shadow,background-color] hover:translate-x-[2px] hover:translate-y-[2px] hover:bg-brand-lime hover:shadow-[2px_2px_0_0_var(--color-foreground)]",
       },
       size: {
         default:
