@@ -35,7 +35,7 @@ function RouteComponent() {
       <DashboardSidebar />
 
       <main className="@container flex-1 p-4 md:px-10 md:py-8">
-        <div className="mx-auto w-full max-w-5xl">
+        <div className="mx-auto flex w-full max-w-5xl flex-col items-center *:w-full">
           <Outlet />
         </div>
       </main>

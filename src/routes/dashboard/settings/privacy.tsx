@@ -53,7 +53,7 @@ function RouteComponent() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.25, ease: "easeOut" }}
         style={{ willChange: "transform, opacity" }}
-        className="max-w-xl space-y-6"
+        className="w-full space-y-6"
       >
         <div className="space-y-3">
           <h3 className="text-sm font-medium">

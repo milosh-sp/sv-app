@@ -106,7 +106,7 @@ function ExperienceQueueTab({ items, isLoading }: { items: ExperienceQueueItem[]
   }
 
   return (
-    <div className="max-w-4xl space-y-3">
+    <div className="w-full space-y-3">
       {items.map((item) => (
         <ExperienceQueueRow
           key={item.id}
@@ -273,7 +273,7 @@ function PendingVerdictsTab() {
   }
 
   return (
-    <div className="max-w-3xl space-y-3">
+    <div className="w-full space-y-3">
       {verdicts.map((verdict) => (
         <PendingVerdictRow key={verdict.id} verdict={verdict} />
       ))}

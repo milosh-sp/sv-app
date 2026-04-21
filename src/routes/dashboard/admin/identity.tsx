@@ -69,7 +69,7 @@ function IdentityQueueTab({ items, isLoading }: { items: IdentityQueueItem[]; is
   }
 
   return (
-    <div className="max-w-4xl space-y-3">
+    <div className="w-full space-y-3">
       {items.map((item) => (
         <IdentityQueueRow
           key={item.id}

@@ -153,7 +153,7 @@ function RouteComponent() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.25, ease: "easeOut" }}
           style={{ willChange: "transform, opacity" }}
-          className="grid max-w-xl gap-6"
+          className="grid w-full gap-6"
           onSubmit={form.handleSubmit(onSubmit)}
         >
           <FormField
@@ -330,7 +330,7 @@ function IdentityVerificationBlock() {
     ));
 
   return (
-    <div className="grid max-w-xl gap-3" data-testid="identity-verification-block">
+    <div className="grid w-full gap-3" data-testid="identity-verification-block">
       <h3 className="flex items-center gap-x-2 text-sm font-medium">
         <SealCheckIcon className="size-4" />
         <Trans>Identity Verification</Trans>

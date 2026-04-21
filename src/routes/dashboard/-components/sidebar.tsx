@@ -204,7 +204,7 @@ export function DashboardSidebar() {
             to="/"
             className="rounded-md p-1 text-sidebar-foreground transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
           >
-            <BrandIcon variant="icon" className="size-6" />
+            <BrandIcon variant="logo" className="h-5 w-auto" />
             <h1 className="sr-only">Skill Verdict</h1>
           </Link>
 
