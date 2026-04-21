@@ -2,6 +2,7 @@ import type { MessageDescriptor } from "@lingui/core";
 
 import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
+import { Trans } from "@lingui/react/macro";
 import {
   ArrowLeftIcon,
   BrainIcon,
@@ -28,6 +29,7 @@ import {
   SidebarContent,
   SidebarGroup,
   SidebarGroupContent,
+  SidebarGroupLabel,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
@@ -185,7 +187,17 @@ export function DashboardSidebar() {
   })();
 
   return (
-    <Sidebar variant="sidebar" collapsible="icon">
+    <Sidebar
+      variant="sidebar"
+      collapsible="icon"
+      style={
+        {
+          "--sidebar-width": "14rem",
+          "--sidebar-width-icon": "3.5rem",
+        } as React.CSSProperties
+      }
+      className="border-none md:absolute! md:inset-y-4 md:data-[side=left]:left-4 md:data-[side=right]:right-4 group-data-[side=left]:border-none group-data-[side=right]:border-none"
+    >
       <SidebarHeader className="gap-3 p-3">
         <div className="flex items-center gap-3 px-1">
           <Link
@@ -195,8 +207,6 @@ export function DashboardSidebar() {
             <BrandIcon variant="icon" className="size-6" />
             <h1 className="sr-only">Skill Verdict</h1>
           </Link>
-
-          <div className="h-5 w-px bg-sidebar-border" />
 
           <Link
             to="/dashboard/resumes"
@@ -236,11 +246,12 @@ export function DashboardSidebar() {
         </SidebarMenu>
       </SidebarHeader>
 
-      <SidebarSeparator />
-
       <SidebarContent className="gap-0">
         {!isSkillVerdictAdmin && (
           <SidebarGroup className="pt-1">
+            <SidebarGroupLabel>
+              <Trans>App</Trans>
+            </SidebarGroupLabel>
             <SidebarGroupContent>
               <SidebarItemList items={appSidebarItems} />
             </SidebarGroupContent>
@@ -250,6 +261,9 @@ export function DashboardSidebar() {
         {!isSkillVerdictAdmin && <SidebarSeparator className="mx-3" />}
 
         <SidebarGroup className="pt-1">
+          <SidebarGroupLabel>
+            <Trans>Settings</Trans>
+          </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarItemList items={isSkillVerdictAdmin ? settingsSidebarBaseItems : settingsSidebarItems} />
           </SidebarGroupContent>
@@ -260,6 +274,9 @@ export function DashboardSidebar() {
             <SidebarSeparator className="mx-3" />
 
             <SidebarGroup className="pt-1">
+              <SidebarGroupLabel>
+                <Trans>Skill Verdict Verification</Trans>
+              </SidebarGroupLabel>
               <SidebarGroupContent>
                 <SidebarItemList items={skillVerdictVerificationSidebarItems} />
               </SidebarGroupContent>
@@ -268,6 +285,9 @@ export function DashboardSidebar() {
             <SidebarSeparator className="mx-3" />
 
             <SidebarGroup className="pt-1">
+              <SidebarGroupLabel>
+                <Trans>Administration</Trans>
+              </SidebarGroupLabel>
               <SidebarGroupContent>
                 <SidebarItemList items={adminSidebarItems} />
               </SidebarGroupContent>
