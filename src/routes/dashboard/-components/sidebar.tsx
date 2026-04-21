@@ -180,6 +180,9 @@ export function DashboardSidebar() {
   });
 
   const isSkillVerdictAdmin = adminRole?.role === "skill_verdict_admin";
+  const backLink = isSkillVerdictAdmin
+    ? { to: "/dashboard/admin/experience-queue" as const, label: msg`Back to review queue` }
+    : { to: "/dashboard/resumes" as const, label: msg`Back to dashboard` };
   const roleLabel = (() => {
     if (adminRole?.role === "skill_verdict_admin") return msg`Skill Verdict Admin`;
     if (adminRole?.role === "reviewer_admin") return msg`Reviewer Admin`;
@@ -209,12 +212,12 @@ export function DashboardSidebar() {
           </Link>
 
           <Link
-            to="/dashboard/resumes"
+            to={backLink.to}
             className="inline-flex items-center gap-1.5 text-sm text-sidebar-foreground/70 transition-colors hover:text-sidebar-foreground"
           >
             <ArrowLeftIcon className="size-3.5" />
             <span className="shrink-0 transition-[margin,opacity] duration-200 ease-in-out group-data-[collapsible=icon]:-ms-8 group-data-[collapsible=icon]:opacity-0">
-              {i18n.t(msg`Back to dashboard`)}
+              {i18n.t(backLink.label)}
             </span>
           </Link>
         </div>

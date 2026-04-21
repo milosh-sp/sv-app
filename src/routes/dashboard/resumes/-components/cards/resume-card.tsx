@@ -18,11 +18,27 @@ type ResumeCardProps = {
 };
 
 export function ResumeCard({ resume }: ResumeCardProps) {
-  const { data: screenshotData, isLoading } = useQuery(
-    orpc.printer.getResumeScreenshot.queryOptions({ input: { id: resume.id } }),
-  );
+  const { data: screenshotData, isLoading } = useQuery({
+    ...orpc.printer.getResumeScreenshot.queryOptions({ input: { id: resume.id } }),
+    // Keep polling while no preview URL is available yet.
+    refetchInterval: (query) => (query.state.data?.url ? false : 8000),
+  });
 
   const updatedAt = useMemo(() => formatDefaultDateTime(resume.updatedAt), [resume.updatedAt]);
+  const screenshotUrl = useMemo(() => {
+    const url = screenshotData?.url;
+    if (!url) return null;
+
+    try {
+      const parsed = new URL(url);
+      // Ensure screenshot URLs render correctly even when APP_URL differs from current host.
+      if (parsed.pathname.startsWith("/uploads/")) return `${parsed.pathname}${parsed.search}`;
+    } catch {
+      // Non-absolute URL; use as-is.
+    }
+
+    return url;
+  }, [screenshotData?.url]);
 
   return (
     <ResumeContextMenu resume={resume}>
@@ -34,7 +50,7 @@ export function ResumeCard({ resume }: ResumeCardProps) {
           style={{ willChange: "transform" }}
         >
           <BaseCard title={resume.name} description={t`Last updated on ${updatedAt}`} tags={resume.tags}>
-            {match({ isLoading, imageSrc: screenshotData?.url })
+            {match({ isLoading, imageSrc: screenshotUrl })
               .with({ isLoading: true }, () => (
                 <div className="flex size-full items-center justify-center">
                   <CircleNotchIcon weight="thin" className="size-12 animate-spin" />

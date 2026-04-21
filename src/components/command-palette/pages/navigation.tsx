@@ -55,6 +55,7 @@ export function NavigationCommandGroup() {
           <Trans>Resumes</Trans>
         </CommandItem>
 
+
         <CommandItem
           disabled={!session}
           keywords={[t`Settings`]}
@@ -64,6 +65,31 @@ export function NavigationCommandGroup() {
           <GearIcon />
           <Trans>Settings</Trans>
         </CommandItem>
+
+   
+      </BaseCommandGroup>
+
+      <BaseCommandGroup heading={<Trans>Administration</Trans>}>
+      {isSkillVerdictAdmin && (
+          <>
+            <CommandItem
+              keywords={[t`Global AI`, t`Admin AI`]}
+              value="navigation.admin.ai"
+              onSelect={() => onNavigate("/dashboard/admin/ai")}
+            >
+              <BrainIcon />
+              <Trans>Global AI</Trans>
+            </CommandItem>
+            <CommandItem
+              keywords={[t`API Keys`]}
+              value="navigation.settings.api-keys"
+              onSelect={() => onNavigate("/dashboard/settings/api-keys")}
+            >
+              <KeyIcon />
+              <Trans>API Keys</Trans>
+            </CommandItem>
+          </>
+        )}
       </BaseCommandGroup>
 
       <BaseCommandGroup page="settings" heading={<Trans>Settings</Trans>}>
@@ -94,26 +120,7 @@ export function NavigationCommandGroup() {
           <Trans>Authentication</Trans>
         </CommandItem>
 
-        {isSkillVerdictAdmin && (
-          <>
-            <CommandItem
-              keywords={[t`Global AI`, t`Admin AI`]}
-              value="navigation.admin.ai"
-              onSelect={() => onNavigate("/dashboard/admin/ai")}
-            >
-              <BrainIcon />
-              <Trans>Global AI</Trans>
-            </CommandItem>
-            <CommandItem
-              keywords={[t`API Keys`]}
-              value="navigation.settings.api-keys"
-              onSelect={() => onNavigate("/dashboard/settings/api-keys")}
-            >
-              <KeyIcon />
-              <Trans>API Keys</Trans>
-            </CommandItem>
-          </>
-        )}
+   
 
         <CommandItem
           keywords={[t`Danger Zone`]}
