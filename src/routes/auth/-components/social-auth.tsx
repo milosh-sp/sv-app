@@ -13,6 +13,10 @@ import { cn } from "@/utils/style";
 export function SocialAuth() {
   const router = useRouter();
   const { data: authProviders = {} } = useQuery(orpc.auth.providers.list.queryOptions());
+  const hasCustomProvider = "custom" in authProviders;
+  const hasGoogleProvider = "google" in authProviders;
+  const hasGithubProvider = "github" in authProviders;
+  const hasAnyProvider = hasCustomProvider || hasGoogleProvider || hasGithubProvider;
 
   const handleSocialLogin = async (provider: string) => {
     const toastId = toast.loading(t`Signing in...`);
@@ -48,51 +52,56 @@ export function SocialAuth() {
     await router.invalidate();
   };
 
+  if (!hasAnyProvider) return null;
+
   return (
     <>
       <div className="flex items-center gap-x-2">
-        <hr className="flex-1" />
-        <span className="text-xs font-medium tracking-wide">
+        <hr className="flex-1 border-border" />
+        <span className="text-muted-foreground text-xs font-medium tracking-wide">
           <Trans context="Choose to authenticate with a social provider (Google, GitHub, etc.) instead of email and password">
             or continue with
           </Trans>
         </span>
-        <hr className="flex-1" />
+        <hr className="flex-1 border-border" />
       </div>
 
-      <div>
-        <div className="grid grid-cols-2 gap-4">
-          <Button
-            variant="secondary"
-            onClick={handleOAuthLogin}
-            className={cn("hidden", "custom" in authProviders && "inline-flex")}
-          >
-            <VaultIcon />
-            {authProviders.custom}
-          </Button>
+      <div className="flex flex-col gap-2">
+        <Button
+          variant="secondary"
+          onClick={handleOAuthLogin}
+          className={cn(
+            "hidden h-11 w-full justify-center rounded-md border border-border bg-secondary text-secondary-foreground hover:bg-secondary/80",
+            hasCustomProvider && "inline-flex",
+          )}
+        >
+          <VaultIcon />
+          {authProviders.custom}
+        </Button>
 
-          <Button
-            onClick={() => handleSocialLogin("google")}
-            className={cn(
-              "hidden flex-1 bg-[#4285F4] text-white hover:bg-[#4285F4]/80",
-              "google" in authProviders && "inline-flex",
-            )}
-          >
-            <GoogleLogoIcon />
-            Google
-          </Button>
+        <Button
+          variant="secondary"
+          onClick={() => handleSocialLogin("google")}
+          className={cn(
+            "hidden h-11 w-full justify-center rounded-md border border-border bg-secondary text-secondary-foreground hover:bg-secondary/80",
+            hasGoogleProvider && "inline-flex",
+          )}
+        >
+          <GoogleLogoIcon />
+          Google
+        </Button>
 
-          <Button
-            onClick={() => handleSocialLogin("github")}
-            className={cn(
-              "hidden flex-1 bg-[#2b3137] text-white hover:bg-[#2b3137]/80",
-              "github" in authProviders && "inline-flex",
-            )}
-          >
-            <GithubLogoIcon />
-            GitHub
-          </Button>
-        </div>
+        <Button
+          variant="secondary"
+          onClick={() => handleSocialLogin("github")}
+          className={cn(
+            "hidden h-11 w-full justify-center rounded-md border border-border bg-secondary text-secondary-foreground hover:bg-secondary/80",
+            hasGithubProvider && "inline-flex",
+          )}
+        >
+          <GithubLogoIcon />
+          GitHub
+        </Button>
       </div>
     </>
   );

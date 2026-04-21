@@ -82,32 +82,18 @@ function RouteComponent() {
   if (submitted) return <PostSignupScreen />;
 
   return (
-    <>
+    <div className="space-y-6">
       <div className="space-y-1 text-center">
         <h1 className="text-2xl font-bold tracking-tight">
           <Trans>Create a new account</Trans>
         </h1>
-
-        <div className="text-muted-foreground">
-          <Trans>
-            Already have an account?{" "}
-            <Button
-              variant="link"
-              nativeButton={false}
-              className="h-auto gap-1.5 px-1! py-0"
-              render={
-                <Link to="/auth/login">
-                  Sign in now <ArrowRightIcon />
-                </Link>
-              }
-            />
-          </Trans>
-        </div>
       </div>
+
+      <SocialAuth />
 
       {!flags.disableEmailAuth && (
         <Form {...form}>
-          <form className="space-y-6" onSubmit={form.handleSubmit(onSubmit)}>
+          <form className="space-y-5" onSubmit={form.handleSubmit(onSubmit)}>
             <FormField
               control={form.control}
               name="name"
@@ -212,14 +198,28 @@ function RouteComponent() {
         </Form>
       )}
 
-      <SocialAuth />
-    </>
+      <div className="text-muted-foreground text-center">
+        <Trans>
+          Already have an account?{" "}
+          <Button
+            variant="link"
+            nativeButton={false}
+            className="h-auto gap-1.5 px-1! py-0"
+            render={
+              <Link to="/auth/login">
+                Sign in now <ArrowRightIcon />
+              </Link>
+            }
+          />
+        </Trans>
+      </div>
+    </div>
   );
 }
 
 function PostSignupScreen() {
   return (
-    <>
+    <div className="space-y-6">
       <div className="space-y-1 text-center">
         <h1 className="text-2xl font-bold tracking-tight">
           <Trans>You've got mail!</Trans>
@@ -239,6 +239,7 @@ function PostSignupScreen() {
       </Alert>
 
       <Button
+        className="w-full"
         nativeButton={false}
         render={
           <Link to="/dashboard">
@@ -246,6 +247,6 @@ function PostSignupScreen() {
           </Link>
         }
       />
-    </>
+    </div>
   );
 }
