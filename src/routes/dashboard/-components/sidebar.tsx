@@ -69,7 +69,7 @@ const appSidebarItems = [
     label: msg`Privacy`,
     href: "/dashboard/settings/privacy",
     exact: false,
-  }
+  },
 ] as const satisfies SidebarItem[];
 
 const settingsSidebarBaseItems = [
@@ -99,7 +99,6 @@ const settingsSidebarBaseItems = [
     exact: false,
   },
 ] as const satisfies SidebarItem[];
-
 
 const settingsSidebarItems = [...settingsSidebarBaseItems] as const satisfies SidebarItem[];
 
@@ -202,8 +201,6 @@ export function DashboardSidebar() {
       className="border-none group-data-[side=left]:border-none group-data-[side=right]:border-none md:absolute! md:inset-y-4 md:data-[side=left]:left-4 md:data-[side=right]:right-4"
     >
       <SidebarHeader className="gap-3 p-3">
- 
-
         <SidebarMenu>
           <SidebarMenuItem>
             <UserDropdownMenu>
