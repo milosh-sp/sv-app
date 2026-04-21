@@ -36,7 +36,10 @@ export function FAQ() {
   const faqItems = getFaqItems();
 
   return (
-    <section id="frequently-asked-questions" className="mx-auto flex w-full max-w-4xl flex-col gap-y-6 p-4 md:p-8 xl:py-8">
+    <section
+      id="frequently-asked-questions"
+      className="mx-auto flex w-full max-w-4xl flex-col gap-y-6 p-4 md:p-8 xl:py-8"
+    >
       <motion.h2
         className="text-center text-2xl font-semibold tracking-tight md:text-4xl xl:text-5xl"
         initial={{ opacity: 0, x: -20 }}

@@ -19,7 +19,7 @@ export function Hero() {
     >
       <Spotlight />
 
-      <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-12">
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-12">
         <div className="grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-12">
           <div className="xs:px-0 flex max-w-2xl flex-col items-start gap-y-6 text-start">
             {/* Badge */}
@@ -110,10 +110,7 @@ export function Hero() {
             transition={{ duration: 1.1, ease: "easeOut" }}
             style={{ willChange: "transform, opacity" }}
           >
-            <CometCard
-              glareOpacity={0}
-              className="3xl:max-w-7xl relative w-full max-w-4xl px-8 md:px-12 lg:px-0"
-            >
+            <CometCard glareOpacity={0} className="3xl:max-w-7xl relative w-full max-w-4xl px-8 md:px-12 lg:px-0">
               <HeroVisual />
             </CometCard>
           </motion.div>

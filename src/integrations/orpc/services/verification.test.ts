@@ -723,8 +723,22 @@ describe("verificationService.listQueue", () => {
 
   it("returns pending skill and project requests", async () => {
     const rows = [
-      { id: "req-1", sectionType: "skill", itemId: "item-1", itemLabel: "TypeScript", status: "pending", submittedAt: new Date() },
-      { id: "req-2", sectionType: "project", itemId: "item-2", itemLabel: "App", status: "pending", submittedAt: new Date() },
+      {
+        id: "req-1",
+        sectionType: "skill",
+        itemId: "item-1",
+        itemLabel: "TypeScript",
+        status: "pending",
+        submittedAt: new Date(),
+      },
+      {
+        id: "req-2",
+        sectionType: "project",
+        itemId: "item-2",
+        itemLabel: "App",
+        status: "pending",
+        submittedAt: new Date(),
+      },
     ];
     mockFrom.mockReturnValueOnce({ where: vi.fn().mockReturnValue(rows) });
     const result = await verificationService.listQueue();
@@ -742,7 +756,15 @@ describe("verificationService.listMyCases", () => {
   });
 
   it("returns cases claimed by the given admin", async () => {
-    const row = { id: "req-1", sectionType: "skill", itemId: "item-1", itemLabel: "React", status: "claimed", claimedAt: new Date(), submittedAt: new Date() };
+    const row = {
+      id: "req-1",
+      sectionType: "skill",
+      itemId: "item-1",
+      itemLabel: "React",
+      status: "claimed",
+      claimedAt: new Date(),
+      submittedAt: new Date(),
+    };
     mockFrom.mockReturnValueOnce({ where: vi.fn().mockReturnValue([row]) });
     const result = await verificationService.listMyCases("admin-1");
     expect(result).toHaveLength(1);
@@ -759,7 +781,14 @@ describe("verificationService.listPendingVerdicts", () => {
 
   it("returns verdict_pending requests", async () => {
     const rows = [
-      { id: "req-1", sectionType: "skill", itemId: "item-1", itemLabel: "Go", status: "verdict_pending", submittedAt: new Date() },
+      {
+        id: "req-1",
+        sectionType: "skill",
+        itemId: "item-1",
+        itemLabel: "Go",
+        status: "verdict_pending",
+        submittedAt: new Date(),
+      },
     ];
     mockFrom.mockReturnValueOnce({ where: vi.fn().mockReturnValue(rows) });
     const result = await verificationService.listPendingVerdicts();

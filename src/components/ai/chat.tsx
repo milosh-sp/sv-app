@@ -214,10 +214,7 @@ export function AIChat() {
     transport: {
       async sendMessages(options) {
         return eventIteratorToUnproxiedDataStream(
-          await client.ai.chat(
-            { messages: options.messages, resumeData },
-            { signal: options.abortSignal },
-          ),
+          await client.ai.chat({ messages: options.messages, resumeData }, { signal: options.abortSignal }),
         );
       },
       reconnectToStream() {

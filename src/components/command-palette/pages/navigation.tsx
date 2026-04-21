@@ -55,7 +55,6 @@ export function NavigationCommandGroup() {
           <Trans>Resumes</Trans>
         </CommandItem>
 
-
         <CommandItem
           disabled={!session}
           keywords={[t`Settings`]}
@@ -65,12 +64,10 @@ export function NavigationCommandGroup() {
           <GearIcon />
           <Trans>Settings</Trans>
         </CommandItem>
-
-   
       </BaseCommandGroup>
 
       <BaseCommandGroup heading={<Trans>Administration</Trans>}>
-      {isSkillVerdictAdmin && (
+        {isSkillVerdictAdmin && (
           <>
             <CommandItem
               keywords={[t`Global AI`, t`Admin AI`]}
@@ -119,8 +116,6 @@ export function NavigationCommandGroup() {
           <ShieldCheckIcon />
           <Trans>Authentication</Trans>
         </CommandItem>
-
-   
 
         <CommandItem
           keywords={[t`Danger Zone`]}

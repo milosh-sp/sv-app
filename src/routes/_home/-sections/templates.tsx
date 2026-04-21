@@ -103,7 +103,7 @@ function LayoutCard({ concept }: LayoutCardProps) {
       className="group flex flex-col rounded-2xl bg-card p-5 shadow-sm ring-1 ring-border/30 transition-[transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:shadow-md md:p-6"
     >
       <LayoutPreview imageUrl={concept.imageUrl} title={concept.title} />
-      <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">{concept.focus}</p>
+      <p className="text-xs font-medium tracking-wider text-muted-foreground uppercase">{concept.focus}</p>
       <h3 className="mt-1.5 text-lg font-semibold tracking-tight">{concept.title}</h3>
       <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{concept.description}</p>
     </motion.article>
@@ -129,8 +129,8 @@ export function Templates() {
 
         <p className="max-w-2xl leading-relaxed text-muted-foreground">
           <Trans>
-            Pick a presentation that puts verification and outcomes first. Each card shows a real export layout from
-            the builder — same document you share, with structure tuned for how people actually skim proof.
+            Pick a presentation that puts verification and outcomes first. Each card shows a real export layout from the
+            builder — same document you share, with structure tuned for how people actually skim proof.
           </Trans>
         </p>
       </motion.div>

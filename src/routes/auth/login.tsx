@@ -172,7 +172,7 @@ function RouteComponent() {
       )}
 
       {!flags.disableSignups && (
-        <div className="text-muted-foreground text-center">
+        <div className="text-center text-muted-foreground">
           <Trans>
             Don't have an account?{" "}
             <Button

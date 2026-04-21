@@ -66,7 +66,7 @@ function StepCard({ step, index }: StepCardProps) {
       style={{ willChange: "transform, opacity" }}
     >
       <div className="flex items-center justify-between">
-        <span className="text-sm font-mono font-medium tracking-widest text-muted-foreground">{step.number}</span>
+        <span className="font-mono text-sm font-medium tracking-widest text-muted-foreground">{step.number}</span>
         <div
           aria-hidden="true"
           className="inline-flex rounded-lg bg-primary/5 p-2.5 text-foreground transition-colors group-hover:bg-primary/10 group-hover:text-primary"

@@ -64,6 +64,12 @@ const appSidebarItems = [
     label: msg`Verification`,
     href: "/dashboard/verification",
   },
+  {
+    icon: <EyeIcon />,
+    label: msg`Privacy`,
+    href: "/dashboard/settings/privacy",
+    exact: false,
+  }
 ] as const satisfies SidebarItem[];
 
 const settingsSidebarBaseItems = [
@@ -94,14 +100,8 @@ const settingsSidebarBaseItems = [
   },
 ] as const satisfies SidebarItem[];
 
-const privacySettingsSidebarItem = {
-  icon: <EyeIcon />,
-  label: msg`Privacy`,
-  href: "/dashboard/settings/privacy",
-  exact: false,
-} as const satisfies SidebarItem;
 
-const settingsSidebarItems = [...settingsSidebarBaseItems, privacySettingsSidebarItem] as const satisfies SidebarItem[];
+const settingsSidebarItems = [...settingsSidebarBaseItems] as const satisfies SidebarItem[];
 
 const skillVerdictVerificationSidebarItems = [
   {
@@ -199,28 +199,10 @@ export function DashboardSidebar() {
           "--sidebar-width-icon": "3.5rem",
         } as React.CSSProperties
       }
-      className="border-none md:absolute! md:inset-y-4 md:data-[side=left]:left-4 md:data-[side=right]:right-4 group-data-[side=left]:border-none group-data-[side=right]:border-none"
+      className="border-none group-data-[side=left]:border-none group-data-[side=right]:border-none md:absolute! md:inset-y-4 md:data-[side=left]:left-4 md:data-[side=right]:right-4"
     >
       <SidebarHeader className="gap-3 p-3">
-        <div className="flex items-center gap-3 px-1">
-          <Link
-            to="/"
-            className="rounded-md p-1 text-sidebar-foreground transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
-          >
-            <BrandIcon variant="logo" className="h-5 w-auto" />
-            <h1 className="sr-only">Skill Verdict</h1>
-          </Link>
-
-          <Link
-            to={backLink.to}
-            className="inline-flex items-center gap-1.5 text-sm text-sidebar-foreground/70 transition-colors hover:text-sidebar-foreground"
-          >
-            <ArrowLeftIcon className="size-3.5" />
-            <span className="shrink-0 transition-[margin,opacity] duration-200 ease-in-out group-data-[collapsible=icon]:-ms-8 group-data-[collapsible=icon]:opacity-0">
-              {i18n.t(backLink.label)}
-            </span>
-          </Link>
-        </div>
+ 
 
         <SidebarMenu>
           <SidebarMenuItem>
@@ -249,11 +231,13 @@ export function DashboardSidebar() {
         </SidebarMenu>
       </SidebarHeader>
 
+      <SidebarSeparator className="mx-3" />
+
       <SidebarContent className="gap-0">
         {!isSkillVerdictAdmin && (
           <SidebarGroup className="pt-1">
             <SidebarGroupLabel>
-              <Trans>App</Trans>
+              <Trans>Skill Center</Trans>
             </SidebarGroupLabel>
             <SidebarGroupContent>
               <SidebarItemList items={appSidebarItems} />
@@ -262,20 +246,8 @@ export function DashboardSidebar() {
         )}
 
         {!isSkillVerdictAdmin && <SidebarSeparator className="mx-3" />}
-
-        <SidebarGroup className="pt-1">
-          <SidebarGroupLabel>
-            <Trans>Settings</Trans>
-          </SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarItemList items={isSkillVerdictAdmin ? settingsSidebarBaseItems : settingsSidebarItems} />
-          </SidebarGroupContent>
-        </SidebarGroup>
-
         {isSkillVerdictAdmin && (
           <>
-            <SidebarSeparator className="mx-3" />
-
             <SidebarGroup className="pt-1">
               <SidebarGroupLabel>
                 <Trans>Skill Verdict Verification</Trans>
@@ -284,8 +256,6 @@ export function DashboardSidebar() {
                 <SidebarItemList items={skillVerdictVerificationSidebarItems} />
               </SidebarGroupContent>
             </SidebarGroup>
-
-            <SidebarSeparator className="mx-3" />
 
             <SidebarGroup className="pt-1">
               <SidebarGroupLabel>
@@ -297,6 +267,15 @@ export function DashboardSidebar() {
             </SidebarGroup>
           </>
         )}
+
+        <SidebarGroup className="pt-1">
+          <SidebarGroupLabel>
+            <Trans>Settings</Trans>
+          </SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarItemList items={isSkillVerdictAdmin ? settingsSidebarBaseItems : settingsSidebarItems} />
+          </SidebarGroupContent>
+        </SidebarGroup>
       </SidebarContent>
 
       <SidebarRail />

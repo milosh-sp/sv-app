@@ -36,7 +36,7 @@ type SectionGroupProps = {
 function SectionGroup({ icon: IconComponent, title, children }: SectionGroupProps) {
   return (
     <div className="space-y-2.5">
-      <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-wider text-muted-foreground">
+      <div className="flex items-center gap-2 text-xs font-medium tracking-wider text-muted-foreground uppercase">
         <IconComponent aria-hidden="true" size={14} weight="regular" />
         <span>{title}</span>
       </div>
@@ -69,7 +69,7 @@ export function HeroVisual() {
               <UserFocusIcon size={24} weight="regular" />
             </div>
             <div>
-              <p className="text-xs uppercase tracking-wider text-muted-foreground">
+              <p className="text-xs tracking-wider text-muted-foreground uppercase">
                 <Trans>Verified candidate</Trans>
               </p>
               <p className="text-base font-semibold tracking-tight">

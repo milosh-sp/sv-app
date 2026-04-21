@@ -12,12 +12,13 @@ import {
 import { useEffect, useRef, useState } from "react";
 import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
 
+import type { ResumeData } from "@/schema/resume/data";
+
 import { ResumePreview } from "@/components/resume/preview";
 import { VerificationProvider } from "@/components/resume/shared/verification-context";
 import { useResumeStore } from "@/components/resume/store/resume";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import type { ResumeData } from "@/schema/resume/data";
 import { formatDefaultDate } from "@/utils/format-date";
 
 export type ReviewAction = "verified" | "rejected" | "issue";

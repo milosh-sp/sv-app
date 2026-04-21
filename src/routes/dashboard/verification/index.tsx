@@ -49,9 +49,8 @@ type ResumeItem = {
   label: string;
 };
 
-
 //TODO: This hides skills and projects for now
-const showSectionFeature = false
+const showSectionFeature = false;
 
 function RouteComponent() {
   const queryClient = useQueryClient();
@@ -164,30 +163,30 @@ function RouteComponent() {
 
         {activeResumeId && resumeData && (
           <>
-          {showSectionFeature && (
-            <VerificationSection
-              title={t`Skills`}
-              sectionType="skill"
-              resumeId={activeResumeId}
-              items={skills}
-              getStatusForItem={getStatusForItem}
-              verifiedCount={countVerified(skills)}
-              totalCount={skills.length}
-              onMutationSuccess={invalidateStatuses}
-            />
+            {showSectionFeature && (
+              <VerificationSection
+                title={t`Skills`}
+                sectionType="skill"
+                resumeId={activeResumeId}
+                items={skills}
+                getStatusForItem={getStatusForItem}
+                verifiedCount={countVerified(skills)}
+                totalCount={skills.length}
+                onMutationSuccess={invalidateStatuses}
+              />
             )}
 
             {showSectionFeature && (
-            <VerificationSection
-              title={t`Projects`}
-              sectionType="project"
-              resumeId={activeResumeId}
-              items={projects}
-              getStatusForItem={getStatusForItem}
-              verifiedCount={countVerified(projects)}
-              totalCount={projects.length}
-              onMutationSuccess={invalidateStatuses}
-            />
+              <VerificationSection
+                title={t`Projects`}
+                sectionType="project"
+                resumeId={activeResumeId}
+                items={projects}
+                getStatusForItem={getStatusForItem}
+                verifiedCount={countVerified(projects)}
+                totalCount={projects.length}
+                onMutationSuccess={invalidateStatuses}
+              />
             )}
 
             <ExperienceVerificationSection

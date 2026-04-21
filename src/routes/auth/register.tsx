@@ -198,7 +198,7 @@ function RouteComponent() {
         </Form>
       )}
 
-      <div className="text-muted-foreground text-center">
+      <div className="text-center text-muted-foreground">
         <Trans>
           Already have an account?{" "}
           <Button

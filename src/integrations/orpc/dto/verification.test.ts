@@ -85,9 +85,9 @@ describe("verificationDto.requestExperience.input", () => {
   });
 
   it("rejects an unknown method value", () => {
-    expect(
-      verificationDto.requestExperience.input.safeParse({ ...validBase, method: "email_verify" }).success,
-    ).toBe(false);
+    expect(verificationDto.requestExperience.input.safeParse({ ...validBase, method: "email_verify" }).success).toBe(
+      false,
+    );
   });
 
   it("rejects when freelancerUrl is not a valid URL", () => {
@@ -104,9 +104,7 @@ describe("verificationDto.requestExperience.input", () => {
   });
 
   it("rejects when resumeId is not a valid UUID", () => {
-    expect(
-      verificationDto.requestExperience.input.safeParse({ ...validBase, resumeId: "bad-id" }).success,
-    ).toBe(false);
+    expect(verificationDto.requestExperience.input.safeParse({ ...validBase, resumeId: "bad-id" }).success).toBe(false);
   });
 });
 
