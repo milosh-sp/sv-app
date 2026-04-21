@@ -676,8 +676,8 @@ msgid "Compact"
 msgstr "Compact"
 
 #: src/routes/_home/-sections/templates.tsx
-msgid "Compact signal row for endorsements and recency — less chrome, more “what passed”."
-msgstr "Compact signal row for endorsements and recency — less chrome, more “what passed”."
+msgid "Compact signal row for endorsements and recency — less chrome, more \"what passed\"."
+msgstr "Compact signal row for endorsements and recency — less chrome, more \"what passed\"."
 
 #: src/dialogs/resume/sections/experience.tsx
 msgid "Company"
@@ -2272,8 +2272,8 @@ msgid "Phone"
 msgstr "Phone"
 
 #: src/routes/_home/-sections/templates.tsx
-msgid "Pick a presentation that puts verification and outcomes first. These are conceptual styles — abstract previews, not canned résumé clones — so your profile reads like a product, not a PDF template dump."
-msgstr "Pick a presentation that puts verification and outcomes first. These are conceptual styles — abstract previews, not canned résumé clones — so your profile reads like a product, not a PDF template dump."
+msgid "Pick a presentation that puts verification and outcomes first. Each card shows a real export layout from the builder — same document you share, with structure tuned for how people actually skim proof."
+msgstr "Pick a presentation that puts verification and outcomes first. Each card shows a real export layout from the builder — same document you share, with structure tuned for how people actually skim proof."
 
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Pick skills to verify"
