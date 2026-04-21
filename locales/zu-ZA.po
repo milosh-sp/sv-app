@@ -244,10 +244,6 @@ msgstr ""
 msgid "Admin AI"
 msgstr ""
 
-#: src/routes/dashboard/-components/sidebar.tsx
-msgid "Administration"
-msgstr ""
-
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Advanced Filters"
 msgstr ""
@@ -331,10 +327,6 @@ msgstr ""
 
 #: src/routes/dashboard/settings/api-keys.tsx
 msgid "API Reference"
-msgstr ""
-
-#: src/routes/dashboard/-components/sidebar.tsx
-msgid "App"
 msgstr ""
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
@@ -429,6 +421,10 @@ msgstr ""
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/experience-queue.tsx
 msgid "Back"
+msgstr ""
+
+#: src/routes/dashboard/-components/sidebar.tsx
+msgid "Back to dashboard"
 msgstr ""
 
 #: src/routes/auth/verify-2fa.tsx
@@ -2757,7 +2753,6 @@ msgstr ""
 #: src/components/command-palette/pages/navigation.tsx
 #: src/components/command-palette/pages/navigation.tsx
 #: src/components/command-palette/pages/navigation.tsx
-#: src/routes/dashboard/-components/sidebar.tsx
 msgid "Settings"
 msgstr ""
 
@@ -2878,10 +2873,6 @@ msgstr ""
 #: src/routes/dashboard/-components/sidebar.tsx
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Skill Verdict Admin"
-msgstr ""
-
-#: src/routes/dashboard/-components/sidebar.tsx
-msgid "Skill Verdict Verification"
 msgstr ""
 
 #: src/dialogs/resume/sections/custom.tsx

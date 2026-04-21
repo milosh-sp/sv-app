@@ -249,10 +249,6 @@ msgstr "तपाईंको मूल रिजुमेमा नयाँ �
 msgid "Admin AI"
 msgstr ""
 
-#: src/routes/dashboard/-components/sidebar.tsx
-msgid "Administration"
-msgstr ""
-
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Advanced Filters"
 msgstr "उन्नत फिल्टरहरू"
@@ -337,10 +333,6 @@ msgstr "API Keys"
 #: src/routes/dashboard/settings/api-keys.tsx
 msgid "API Reference"
 msgstr "API सन्दर्भ (Reference)"
-
-#: src/routes/dashboard/-components/sidebar.tsx
-msgid "App"
-msgstr "एप"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Applicant"
@@ -434,6 +426,10 @@ msgstr "अजरबैजानी"
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/experience-queue.tsx
 msgid "Back"
+msgstr ""
+
+#: src/routes/dashboard/-components/sidebar.tsx
+msgid "Back to dashboard"
 msgstr ""
 
 #: src/routes/auth/verify-2fa.tsx
@@ -2762,7 +2758,6 @@ msgstr "पासवर्ड राख्नुहोस्"
 #: src/components/command-palette/pages/navigation.tsx
 #: src/components/command-palette/pages/navigation.tsx
 #: src/components/command-palette/pages/navigation.tsx
-#: src/routes/dashboard/-components/sidebar.tsx
 msgid "Settings"
 msgstr "सेटिङहरू"
 
@@ -2883,10 +2878,6 @@ msgstr ""
 #: src/routes/dashboard/-components/sidebar.tsx
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Skill Verdict Admin"
-msgstr ""
-
-#: src/routes/dashboard/-components/sidebar.tsx
-msgid "Skill Verdict Verification"
 msgstr ""
 
 #: src/dialogs/resume/sections/custom.tsx

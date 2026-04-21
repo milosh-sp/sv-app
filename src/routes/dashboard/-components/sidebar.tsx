@@ -2,10 +2,11 @@ import type { MessageDescriptor } from "@lingui/core";
 
 import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
-import { Trans } from "@lingui/react/macro";
 import {
+  ArrowLeftIcon,
   BrainIcon,
   BriefcaseIcon,
+  DotsThreeIcon,
   EyeIcon,
   GearSixIcon,
   IdentificationCardIcon,
@@ -25,10 +26,8 @@ import { BrandIcon } from "@/components/ui/brand-icon";
 import {
   Sidebar,
   SidebarContent,
-  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
-  SidebarGroupLabel,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
@@ -44,6 +43,7 @@ type SidebarItem = {
   icon: React.ReactNode;
   label: MessageDescriptor;
   href: React.ComponentProps<typeof Link>["to"];
+  exact?: boolean;
 };
 
 const appSidebarItems = [
@@ -69,22 +69,26 @@ const settingsSidebarBaseItems = [
     icon: <UserCircleIcon />,
     label: msg`Profile`,
     href: "/dashboard/settings/profile",
+    exact: false,
   },
   {
     icon: <GearSixIcon />,
     label: msg`Preferences`,
     href: "/dashboard/settings/preferences",
+    exact: false,
   },
   {
     icon: <ShieldCheckIcon />,
     label: msg`Authentication`,
     href: "/dashboard/settings/authentication",
+    exact: false,
   },
 
   {
     icon: <WarningIcon />,
     label: msg`Danger Zone`,
     href: "/dashboard/settings/danger-zone",
+    exact: false,
   },
 ] as const satisfies SidebarItem[];
 
@@ -92,6 +96,7 @@ const privacySettingsSidebarItem = {
   icon: <EyeIcon />,
   label: msg`Privacy`,
   href: "/dashboard/settings/privacy",
+  exact: false,
 } as const satisfies SidebarItem;
 
 const settingsSidebarItems = [...settingsSidebarBaseItems, privacySettingsSidebarItem] as const satisfies SidebarItem[];
@@ -119,6 +124,7 @@ const adminSidebarItems = [
     icon: <KeyIcon />,
     label: msg`API Keys`,
     href: "/dashboard/settings/api-keys",
+    exact: false,
   },
   {
     icon: <BriefcaseIcon />,
@@ -139,9 +145,14 @@ function SidebarItemList({ items }: SidebarItemListProps) {
       {items.map((item) => (
         <SidebarMenuItem key={item.href}>
           <SidebarMenuButton
+            className="mx-1 rounded-lg group-data-[collapsible=icon]:mx-0"
             title={i18n.t(item.label)}
             render={
-              <Link to={item.href} activeProps={{ className: "bg-sidebar-accent" }} activeOptions={{ exact: true }}>
+              <Link
+                to={item.href}
+                activeProps={{ className: "bg-sidebar-accent text-sidebar-accent-foreground" }}
+                activeOptions={{ exact: item.exact ?? true }}
+              >
                 {item.icon}
                 <span className="shrink-0 transition-[margin,opacity] duration-200 ease-in-out group-data-[collapsible=icon]:-ms-8 group-data-[collapsible=icon]:opacity-0">
                   {i18n.t(item.label)}
@@ -174,77 +185,35 @@ export function DashboardSidebar() {
   })();
 
   return (
-    <Sidebar variant="floating" collapsible="icon">
-      <SidebarHeader>
-        <SidebarMenu>
-          <SidebarMenuItem>
-            <SidebarMenuButton
-              className="h-auto justify-center"
-              render={
-                <Link to="/">
-                  <BrandIcon variant="icon" className="size-6" />
-                  <h1 className="sr-only">Reactive Resume</h1>
-                </Link>
-              }
-            />
-          </SidebarMenuItem>
-        </SidebarMenu>
-      </SidebarHeader>
+    <Sidebar variant="sidebar" collapsible="icon">
+      <SidebarHeader className="gap-3 p-3">
+        <div className="flex items-center gap-3 px-1">
+          <Link
+            to="/"
+            className="rounded-md p-1 text-sidebar-foreground transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
+          >
+            <BrandIcon variant="icon" className="size-6" />
+            <h1 className="sr-only">Skill Verdict</h1>
+          </Link>
 
-      <SidebarSeparator />
+          <div className="h-5 w-px bg-sidebar-border" />
 
-      <SidebarContent>
-        {!isSkillVerdictAdmin && (
-          <SidebarGroup>
-            <SidebarGroupLabel>
-              <Trans>App</Trans>
-            </SidebarGroupLabel>
-            <SidebarGroupContent>
-              <SidebarItemList items={appSidebarItems} />
-            </SidebarGroupContent>
-          </SidebarGroup>
-        )}
+          <Link
+            to="/dashboard/resumes"
+            className="inline-flex items-center gap-1.5 text-sm text-sidebar-foreground/70 transition-colors hover:text-sidebar-foreground"
+          >
+            <ArrowLeftIcon className="size-3.5" />
+            <span className="shrink-0 transition-[margin,opacity] duration-200 ease-in-out group-data-[collapsible=icon]:-ms-8 group-data-[collapsible=icon]:opacity-0">
+              {i18n.t(msg`Back to dashboard`)}
+            </span>
+          </Link>
+        </div>
 
-        <SidebarGroup>
-          <SidebarGroupLabel>
-            <Trans>Settings</Trans>
-          </SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarItemList items={isSkillVerdictAdmin ? settingsSidebarBaseItems : settingsSidebarItems} />
-          </SidebarGroupContent>
-        </SidebarGroup>
-
-        {isSkillVerdictAdmin && (
-          <SidebarGroup>
-            <SidebarGroupLabel>
-              <Trans>Skill Verdict Verification</Trans>
-            </SidebarGroupLabel>
-            <SidebarGroupContent>
-              <SidebarItemList items={skillVerdictVerificationSidebarItems} />
-            </SidebarGroupContent>
-          </SidebarGroup>
-        )}
-
-        {isSkillVerdictAdmin && (
-          <SidebarGroup>
-            <SidebarGroupLabel>
-              <Trans>Administration</Trans>
-            </SidebarGroupLabel>
-            <SidebarGroupContent>
-              <SidebarItemList items={adminSidebarItems} />
-            </SidebarGroupContent>
-          </SidebarGroup>
-        )}
-      </SidebarContent>
-
-      <SidebarSeparator />
-
-      <SidebarFooter className="gap-y-0">
         <SidebarMenu>
           <SidebarMenuItem>
             <UserDropdownMenu>
               {({ session }) => (
-                <SidebarMenuButton className="h-auto gap-x-3 group-data-[collapsible=icon]:p-1!">
+                <SidebarMenuButton className="mx-1 h-auto gap-x-3 rounded-lg py-2 group-data-[collapsible=icon]:mx-0 group-data-[collapsible=icon]:p-1!">
                   <Avatar className="size-8 shrink-0 transition-all group-data-[collapsible=icon]:size-6">
                     <AvatarImage src={session.user.image ?? undefined} />
                     <AvatarFallback className="group-data-[collapsible=icon]:text-[0.5rem]">
@@ -252,17 +221,60 @@ export function DashboardSidebar() {
                     </AvatarFallback>
                   </Avatar>
 
-                  <div className="transition-[margin,opacity] duration-200 ease-in-out group-data-[collapsible=icon]:-ms-8 group-data-[collapsible=icon]:opacity-0">
-                    <p className="font-medium">{session.user.name}</p>
-                    <p className="text-xs text-muted-foreground">{session.user.email}</p>
-                    {roleLabel && <p className="text-xs text-muted-foreground">{i18n.t(roleLabel)}</p>}
+                  <div className="min-w-0 flex-1 transition-[margin,opacity] duration-200 ease-in-out group-data-[collapsible=icon]:-ms-8 group-data-[collapsible=icon]:opacity-0">
+                    <p className="truncate font-medium">{session.user.name}</p>
+                    <p className="truncate text-xs text-muted-foreground">
+                      {roleLabel ? i18n.t(roleLabel) : session.user.email}
+                    </p>
                   </div>
+
+                  <DotsThreeIcon className="size-4 shrink-0 text-sidebar-foreground/60 transition-opacity group-data-[collapsible=icon]:opacity-0" />
                 </SidebarMenuButton>
               )}
             </UserDropdownMenu>
           </SidebarMenuItem>
         </SidebarMenu>
-      </SidebarFooter>
+      </SidebarHeader>
+
+      <SidebarSeparator />
+
+      <SidebarContent className="gap-0">
+        {!isSkillVerdictAdmin && (
+          <SidebarGroup className="pt-1">
+            <SidebarGroupContent>
+              <SidebarItemList items={appSidebarItems} />
+            </SidebarGroupContent>
+          </SidebarGroup>
+        )}
+
+        {!isSkillVerdictAdmin && <SidebarSeparator className="mx-3" />}
+
+        <SidebarGroup className="pt-1">
+          <SidebarGroupContent>
+            <SidebarItemList items={isSkillVerdictAdmin ? settingsSidebarBaseItems : settingsSidebarItems} />
+          </SidebarGroupContent>
+        </SidebarGroup>
+
+        {isSkillVerdictAdmin && (
+          <>
+            <SidebarSeparator className="mx-3" />
+
+            <SidebarGroup className="pt-1">
+              <SidebarGroupContent>
+                <SidebarItemList items={skillVerdictVerificationSidebarItems} />
+              </SidebarGroupContent>
+            </SidebarGroup>
+
+            <SidebarSeparator className="mx-3" />
+
+            <SidebarGroup className="pt-1">
+              <SidebarGroupContent>
+                <SidebarItemList items={adminSidebarItems} />
+              </SidebarGroupContent>
+            </SidebarGroup>
+          </>
+        )}
+      </SidebarContent>
 
       <SidebarRail />
     </Sidebar>

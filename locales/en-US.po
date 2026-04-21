@@ -244,10 +244,6 @@ msgstr "Added {0} new skills to your original resume"
 msgid "Admin AI"
 msgstr "Admin AI"
 
-#: src/routes/dashboard/-components/sidebar.tsx
-msgid "Administration"
-msgstr "Administration"
-
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Advanced Filters"
 msgstr "Advanced Filters"
@@ -332,10 +328,6 @@ msgstr "API Keys"
 #: src/routes/dashboard/settings/api-keys.tsx
 msgid "API Reference"
 msgstr "API Reference"
-
-#: src/routes/dashboard/-components/sidebar.tsx
-msgid "App"
-msgstr "App"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Applicant"
@@ -430,6 +422,10 @@ msgstr "Azerbaijani"
 #: src/routes/dashboard/admin/experience-queue.tsx
 msgid "Back"
 msgstr "Back"
+
+#: src/routes/dashboard/-components/sidebar.tsx
+msgid "Back to dashboard"
+msgstr "Back to dashboard"
 
 #: src/routes/auth/verify-2fa.tsx
 msgid "Back to Login"
@@ -2757,7 +2753,6 @@ msgstr "Set Password"
 #: src/components/command-palette/pages/navigation.tsx
 #: src/components/command-palette/pages/navigation.tsx
 #: src/components/command-palette/pages/navigation.tsx
-#: src/routes/dashboard/-components/sidebar.tsx
 msgid "Settings"
 msgstr "Settings"
 
@@ -2879,10 +2874,6 @@ msgstr "Skill Verdict - Go to homepage"
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Skill Verdict Admin"
 msgstr "Skill Verdict Admin"
-
-#: src/routes/dashboard/-components/sidebar.tsx
-msgid "Skill Verdict Verification"
-msgstr "Skill Verdict Verification"
 
 #: src/dialogs/resume/sections/custom.tsx
 #: src/routes/dashboard/verification/index.tsx
