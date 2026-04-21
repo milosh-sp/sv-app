@@ -20,7 +20,7 @@ function TemplateItem({ metadata }: TemplateItemProps) {
       transition={{ type: "spring", stiffness: 320, damping: 26 }}
       style={{ willChange: "transform" }}
     >
-      <div className="relative aspect-page w-48 overflow-hidden rounded-md border bg-card shadow-lg transition-all duration-300 group-hover:shadow-2xl sm:w-56 md:w-64 lg:w-72">
+      <div className="relative aspect-page w-48 overflow-hidden rounded-xl border border-border/40 bg-card shadow-lg transition-all duration-300 group-hover:shadow-2xl sm:w-56 md:w-64 lg:w-72">
         <img src={metadata.imageUrl} alt={metadata.name} className="size-full object-cover" />
 
         {/* Subtle overlay on hover */}
@@ -84,7 +84,7 @@ export function Templates() {
   }, []);
 
   return (
-    <section id="templates" className="overflow-hidden border-t-0! p-4 md:p-8 xl:py-16">
+    <section id="templates" className="overflow-hidden p-4 md:p-8 xl:py-8">
       <motion.div
         className="space-y-4"
         initial={{ opacity: 0, y: 20 }}

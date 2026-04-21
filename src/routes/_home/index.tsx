@@ -18,7 +18,7 @@ function RouteComponent() {
       <Hero />
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-12">
-        <div className="border-x border-border [&>section]:border-t [&>section]:border-border [&>section:first-child]:border-t-0">
+        <div className="flex flex-col gap-12 py-12 xl:gap-16 xl:py-16">
           <Statistics />
           <HowItWorks />
           <Features />

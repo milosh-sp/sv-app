@@ -40,7 +40,7 @@ function StatisticCard({ statistic, index }: StatisticCardProps) {
 
   return (
     <motion.div
-      className="group relative flex flex-col items-center justify-center gap-y-4 border-r border-b p-8 transition-colors last:border-e-0 hover:bg-secondary/30 sm:border-b-0 xl:py-12"
+      className="group relative flex flex-col items-center justify-center gap-y-4 rounded-2xl bg-card p-8 shadow-sm transition-shadow hover:shadow-md xl:py-12"
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
@@ -97,7 +97,7 @@ export function Statistics() {
         {t`Platform statistics`}
       </h2>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2">
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
         {getStatistics(userCountResult.data, resumeCountResult.data).map((statistic, index) => (
           <StatisticCard key={statistic.id} statistic={statistic} index={index} />
         ))}

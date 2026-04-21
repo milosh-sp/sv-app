@@ -58,7 +58,7 @@ function StepCard({ step, index }: StepCardProps) {
 
   return (
     <motion.div
-      className="group relative flex flex-col gap-4 border-b bg-background p-6 transition-[background-color] duration-300 not-nth-[2n]:border-r xl:not-nth-[4n]:border-r hover:bg-secondary/30"
+      className="group relative flex flex-col gap-4 rounded-xl bg-card p-6 shadow-sm transition-[transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:shadow-md"
       initial={{ opacity: 0, y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.1 }}
@@ -69,7 +69,7 @@ function StepCard({ step, index }: StepCardProps) {
         <span className="text-sm font-mono font-medium tracking-widest text-muted-foreground">{step.number}</span>
         <div
           aria-hidden="true"
-          className="inline-flex rounded-md bg-primary/5 p-2.5 text-foreground transition-colors group-hover:bg-primary/10 group-hover:text-primary"
+          className="inline-flex rounded-lg bg-primary/5 p-2.5 text-foreground transition-colors group-hover:bg-primary/10 group-hover:text-primary"
         >
           <Icon size={24} weight="thin" />
         </div>
@@ -91,7 +91,7 @@ export function HowItWorks() {
   return (
     <section id="how-it-works">
       <motion.div
-        className="space-y-4 p-4 md:p-8 xl:py-16"
+        className="space-y-4 p-4 md:p-8 xl:py-8"
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
@@ -110,7 +110,7 @@ export function HowItWorks() {
         </p>
       </motion.div>
 
-      <div className="xs:grid-cols-2 grid grid-cols-1 border-t xl:grid-cols-4">
+      <div className="xs:grid-cols-2 grid grid-cols-1 gap-6 xl:grid-cols-4">
         {steps.map((step, index) => (
           <StepCard key={step.id} step={step} index={index} />
         ))}

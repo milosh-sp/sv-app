@@ -3,7 +3,6 @@ import { Trans } from "@lingui/react/macro";
 import { motion } from "motion/react";
 
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { cn } from "@/utils/style";
 
 type FAQItemData = {
   question: string;
@@ -37,15 +36,9 @@ export function FAQ() {
   const faqItems = getFaqItems();
 
   return (
-    <section
-      id="frequently-asked-questions"
-      className="flex flex-col gap-x-16 gap-y-6 p-4 md:p-8 lg:flex-row lg:gap-x-18 xl:py-16"
-    >
+    <section id="frequently-asked-questions" className="mx-auto flex w-full max-w-4xl flex-col gap-y-6 p-4 md:p-8 xl:py-8">
       <motion.h2
-        className={cn(
-          "flex-1 text-2xl font-semibold tracking-tight md:text-4xl xl:text-5xl",
-          "flex shrink-0 flex-wrap items-center gap-x-1.5 lg:flex-col lg:items-start",
-        )}
+        className="text-center text-2xl font-semibold tracking-tight md:text-4xl xl:text-5xl"
         initial={{ opacity: 0, x: -20 }}
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true }}
@@ -60,14 +53,14 @@ export function FAQ() {
       </motion.h2>
 
       <motion.div
-        className="max-w-2xl flex-2 lg:ml-auto 2xl:max-w-3xl"
+        className="mx-auto w-full max-w-3xl"
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.45, delay: 0.08 }}
         style={{ willChange: "transform, opacity" }}
       >
-        <Accordion multiple>
+        <Accordion multiple className="space-y-4">
           {faqItems.map((item, index) => (
             <FAQItemComponent key={item.question} item={item} index={index} />
           ))}
@@ -85,15 +78,14 @@ type FAQItemComponentProps = {
 function FAQItemComponent({ item, index }: FAQItemComponentProps) {
   return (
     <motion.div
-      className="last:border-b"
       initial={{ opacity: 0, y: 10 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.24, delay: Math.min(0.16, index * 0.03) }}
       style={{ willChange: "transform, opacity" }}
     >
-      <AccordionItem value={item.question} className="group border-t">
-        <AccordionTrigger className="py-5">{item.question}</AccordionTrigger>
+      <AccordionItem value={item.question} className="group rounded-xl bg-card px-5 shadow-sm">
+        <AccordionTrigger className="py-5 text-base hover:no-underline">{item.question}</AccordionTrigger>
         <AccordionContent className="pb-5 leading-relaxed text-muted-foreground">{item.answer}</AccordionContent>
       </AccordionItem>
     </motion.div>

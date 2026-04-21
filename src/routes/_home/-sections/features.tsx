@@ -12,8 +12,6 @@ import {
 import { motion } from "motion/react";
 import { useMemo } from "react";
 
-import { cn } from "@/utils/style";
-
 type Feature = {
   id: string;
   icon: Icon;
@@ -65,16 +63,12 @@ const getFeatures = (): Feature[] => [
 function FeatureCard({ icon: Icon, title, description }: FeatureCardProps) {
   return (
     <motion.div
-      className={cn(
-        "group relative flex min-h-48 flex-col gap-4 overflow-hidden border-b bg-background p-6 transition-[background-color] duration-300",
-        "not-nth-[2n]:border-r xl:not-nth-[3n]:border-r",
-        "hover:bg-secondary/30",
-      )}
+      className="group relative flex min-h-48 flex-col gap-4 overflow-hidden rounded-xl bg-card p-6 shadow-sm transition-[transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:shadow-md"
       initial={{ opacity: 0, y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.1 }}
       transition={{ duration: 0.35, ease: "easeOut" }}
-      whileHover={{ y: -3, scale: 1.01 }}
+      whileHover={{ y: -2, scale: 1.005 }}
       whileTap={{ scale: 0.995 }}
       style={{ willChange: "transform, opacity" }}
     >
@@ -86,7 +80,7 @@ function FeatureCard({ icon: Icon, title, description }: FeatureCardProps) {
 
       {/* Icon */}
       <div aria-hidden="true" className="relative">
-        <div className="inline-flex rounded-md bg-primary/5 p-2.5 text-foreground transition-colors group-hover:bg-primary/10 group-hover:text-primary">
+        <div className="inline-flex rounded-lg bg-primary/5 p-2.5 text-foreground transition-colors group-hover:bg-primary/10 group-hover:text-primary">
           <Icon size={24} weight="thin" />
         </div>
       </div>
@@ -107,7 +101,7 @@ export function Features() {
     <section id="features">
       {/* Header */}
       <motion.div
-        className="space-y-4 p-4 md:p-8 xl:py-16"
+        className="space-y-4 p-4 md:p-8 xl:py-8"
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
@@ -127,7 +121,7 @@ export function Features() {
       </motion.div>
 
       {/* Features Grid */}
-      <div className="xs:grid-cols-2 grid grid-cols-1 border-t xl:grid-cols-3">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
         {features.map((feature) => (
           <FeatureCard key={feature.id} {...feature} />
         ))}
