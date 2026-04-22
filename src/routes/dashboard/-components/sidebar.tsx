@@ -171,13 +171,21 @@ export function DashboardSidebar() {
   const { i18n } = useLingui();
   const { session } = useRouteContext({ strict: false });
   const adminRoleQueryOptions = orpc.auth.getAdminRole.queryOptions();
+  const staleTime = 5 * 60 * 1000;
+
   const { data: adminRole } = useQuery({
     ...adminRoleQueryOptions,
     queryKey: [...adminRoleQueryOptions.queryKey, session?.user?.id ?? "anonymous"],
     enabled: Boolean(session?.user),
-    staleTime: 5 * 60 * 1000,
+    staleTime,
+  });
+  const { data: user } = useQuery({
+    ...orpc.verification.getIdentityStatus.queryOptions(),
+    enabled: Boolean(session?.user),
+    staleTime,
   });
 
+  const isIdVerified = user?.status === "verified";
   const isSkillVerdictAdmin = adminRole?.role === "skill_verdict_admin";
   const backLink = isSkillVerdictAdmin
     ? { to: "/dashboard/admin/experience-queue" as const, label: msg`Back to review queue` }
@@ -215,9 +223,16 @@ export function DashboardSidebar() {
 
                   <div className="min-w-0 flex-1 transition-[margin,opacity] duration-200 ease-in-out group-data-[collapsible=icon]:-ms-8 group-data-[collapsible=icon]:opacity-0">
                     <p className="truncate font-medium">{session.user.name}</p>
+               
                     <p className="truncate text-xs text-muted-foreground">
                       {roleLabel ? i18n.t(roleLabel) : session.user.email}
                     </p>
+                    {isIdVerified && (
+                      <span className="flex items-center gap-x-1 text-xs font-medium text-green-700">
+                        <Trans>Identity Verified</Trans>
+                        <SealCheckIcon className="size-3.5" />
+                      </span>
+                    )}
                   </div>
 
                   <DotsThreeIcon className="size-4 shrink-0 text-sidebar-foreground/60 transition-opacity group-data-[collapsible=icon]:opacity-0" />
