@@ -8,8 +8,8 @@ import { useMemo } from "react";
 import { match, P } from "ts-pattern";
 
 import { useDialogStore } from "@/dialogs/store";
-import { orpc, type RouterOutput } from "@/integrations/orpc/client";
 import { useAiIntegration } from "@/integrations/ai/use-ai-integration";
+import { orpc, type RouterOutput } from "@/integrations/orpc/client";
 import { formatDefaultDateTime } from "@/utils/format-date";
 import { cn } from "@/utils/style";
 
@@ -70,7 +70,7 @@ export function ResumeCard({ resume }: ResumeCardProps) {
                 }}
                 className={cn(
                   "flex w-full items-center justify-start gap-2 px-4 py-2.5 text-left text-base font-semibold tracking-wide text-white uppercase transition-colors",
-                  "hover:bg-white/10 hover:cursor-pointer",
+                  "hover:cursor-pointer hover:bg-white/10",
                   "disabled:cursor-not-allowed disabled:opacity-40",
                 )}
               >
