@@ -66,6 +66,29 @@ export function NavigationCommandGroup() {
         </CommandItem>
       </BaseCommandGroup>
 
+      <BaseCommandGroup heading={<Trans>Administration</Trans>}>
+        {isSkillVerdictAdmin && (
+          <>
+            <CommandItem
+              keywords={[t`Global AI`, t`Admin AI`]}
+              value="navigation.admin.ai"
+              onSelect={() => onNavigate("/dashboard/admin/ai")}
+            >
+              <BrainIcon />
+              <Trans>Global AI</Trans>
+            </CommandItem>
+            <CommandItem
+              keywords={[t`API Keys`]}
+              value="navigation.settings.api-keys"
+              onSelect={() => onNavigate("/dashboard/settings/api-keys")}
+            >
+              <KeyIcon />
+              <Trans>API Keys</Trans>
+            </CommandItem>
+          </>
+        )}
+      </BaseCommandGroup>
+
       <BaseCommandGroup page="settings" heading={<Trans>Settings</Trans>}>
         <CommandItem
           keywords={[t`Profile`]}
@@ -93,27 +116,6 @@ export function NavigationCommandGroup() {
           <ShieldCheckIcon />
           <Trans>Authentication</Trans>
         </CommandItem>
-
-        {isSkillVerdictAdmin && (
-          <>
-            <CommandItem
-              keywords={[t`Global AI`, t`Admin AI`]}
-              value="navigation.admin.ai"
-              onSelect={() => onNavigate("/dashboard/admin/ai")}
-            >
-              <BrainIcon />
-              <Trans>Global AI</Trans>
-            </CommandItem>
-            <CommandItem
-              keywords={[t`API Keys`]}
-              value="navigation.settings.api-keys"
-              onSelect={() => onNavigate("/dashboard/settings/api-keys")}
-            >
-              <KeyIcon />
-              <Trans>API Keys</Trans>
-            </CommandItem>
-          </>
-        )}
 
         <CommandItem
           keywords={[t`Danger Zone`]}

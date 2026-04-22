@@ -21,6 +21,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { orpc } from "@/integrations/orpc/client";
 import { formatDefaultDate } from "@/utils/format-date";
 
+import type { ReviewAction } from "./-components/verification-queue-shared";
+
 import { DashboardHeader } from "../-components/header";
 import {
   ApplicantDetails,
@@ -32,7 +34,6 @@ import {
   ReviewDecisionPanel,
   StatusBadge,
 } from "./-components/verification-queue-shared";
-import type { ReviewAction } from "./-components/verification-queue-shared";
 
 export const Route = createFileRoute("/dashboard/admin/experience-queue")({
   component: RouteComponent,
@@ -106,7 +107,7 @@ function ExperienceQueueTab({ items, isLoading }: { items: ExperienceQueueItem[]
   }
 
   return (
-    <div className="max-w-4xl space-y-3">
+    <div className="w-full space-y-3">
       {items.map((item) => (
         <ExperienceQueueRow
           key={item.id}
@@ -273,7 +274,7 @@ function PendingVerdictsTab() {
   }
 
   return (
-    <div className="max-w-3xl space-y-3">
+    <div className="w-full space-y-3">
       {verdicts.map((verdict) => (
         <PendingVerdictRow key={verdict.id} verdict={verdict} />
       ))}

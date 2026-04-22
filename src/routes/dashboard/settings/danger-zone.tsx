@@ -64,7 +64,7 @@ function RouteComponent() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.25, ease: "easeOut" }}
         style={{ willChange: "transform, opacity" }}
-        className="grid max-w-xl gap-6"
+        className="grid w-full gap-6"
       >
         <p className="leading-relaxed">
           <Trans>To delete your account, you need to enter the confirmation text and click the button below.</Trans>

@@ -28,21 +28,9 @@ export const Route = createFileRoute("/$username/$slug")({
       orpc.resume.getBySlug.queryOptions({ input: { username, slug } }),
     );
 
-    let verificationStatuses: {
-      id: string;
-      sectionType: string;
-      itemId: string;
-      itemLabel: string;
-      status: string;
-      badgeVisible: boolean;
-    }[] = [];
-    try {
-      verificationStatuses = await context.queryClient.ensureQueryData(
-        orpc.verification.getStatus.queryOptions({ input: { resumeId: (resume as LoaderData).id } }),
-      );
-    } catch {
-      // If verification fetch fails (e.g., not authenticated), continue without badges
-    }
+    const verificationStatuses = await context.queryClient.ensureQueryData(
+      orpc.verification.getPublicStatus.queryOptions({ input: { resumeId: (resume as LoaderData).id } }),
+    );
 
     const verificationTimeline = await context.queryClient.ensureQueryData(
       orpc.verification.getPublicTimeline.queryOptions({ input: { resumeId: (resume as LoaderData).id } }),

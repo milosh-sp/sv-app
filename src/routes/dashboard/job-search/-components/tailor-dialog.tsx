@@ -218,9 +218,7 @@ export function TailorDialog({ job, open, onOpenChange }: Props) {
                       <ReadCvLogoIcon className="size-5 shrink-0" />
                       <div className="min-w-0 text-start">
                         <p className="truncate font-medium">{resume.name}</p>
-                        <p className="truncate text-xs text-muted-foreground">
-                          {formatDefaultDate(resume.updatedAt)}
-                        </p>
+                        <p className="truncate text-xs text-muted-foreground">{formatDefaultDate(resume.updatedAt)}</p>
                         {resume.tags.length > 0 && (
                           <div className="mt-1 flex flex-wrap gap-1">
                             {resume.tags.map((tag) => (

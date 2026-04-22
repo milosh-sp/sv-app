@@ -1,9 +1,11 @@
+import { ORPCError } from "@orpc/server";
 import { eq } from "drizzle-orm";
 import z from "zod";
 
 import { db } from "@/integrations/drizzle/client";
 import { adminRoles } from "@/integrations/drizzle/schema";
 import { env } from "@/utils/env";
+import { verifyPrinterToken } from "@/utils/printer-token";
 
 import { protectedProcedure, publicProcedure } from "../context";
 import { verificationDto } from "../dto/verification";
@@ -64,6 +66,26 @@ export const verificationRouter = {
       ...input,
     });
   }),
+
+  getPublicStatus: publicProcedure
+    .input(verificationDto.getPublicStatus.input)
+    .output(verificationDto.getPublicStatus.output)
+    .handler(async ({ input }) => {
+      return await verificationService.getPublicStatus(input.resumeId);
+    }),
+
+  getPrinterStatus: publicProcedure
+    .input(verificationDto.getPrinterStatus.input)
+    .output(verificationDto.getPrinterStatus.output)
+    .handler(async ({ input }) => {
+      const tokenResumeId = verifyPrinterToken(input.token);
+
+      if (tokenResumeId !== input.resumeId) {
+        throw new ORPCError("FORBIDDEN", { message: "Invalid printer token" });
+      }
+
+      return await verificationService.getPrinterStatus(input.resumeId);
+    }),
 
   getHistory: protectedProcedure.input(verificationDto.getHistory.input).handler(async ({ context, input }) => {
     return await verificationService.getHistory({

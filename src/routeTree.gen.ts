@@ -32,6 +32,7 @@ import { Route as DotwellKnownOpenidConfigurationRouteImport } from "./routes/[.
 import { Route as DotwellKnownOauthProtectedResourceRouteImport } from "./routes/[.]well-known/oauth-protected-resource";
 import { Route as DotwellKnownOauthAuthorizationServerRouteImport } from "./routes/[.]well-known/oauth-authorization-server";
 import { Route as UsernameSlugRouteImport } from "./routes/$username/$slug";
+import { Route as DashboardSettingsRouteRouteImport } from "./routes/dashboard/settings/route";
 import { Route as DashboardAdminRouteRouteImport } from "./routes/dashboard/admin/route";
 import { Route as BuilderResumeIdRouteRouteImport } from "./routes/builder/$resumeId/route";
 import { Route as DashboardVerificationIndexRouteImport } from "./routes/dashboard/verification/index";
@@ -174,6 +175,11 @@ const UsernameSlugRoute = UsernameSlugRouteImport.update({
   path: "/$username/$slug",
   getParentRoute: () => rootRouteImport,
 } as any);
+const DashboardSettingsRouteRoute = DashboardSettingsRouteRouteImport.update({
+  id: "/settings",
+  path: "/settings",
+  getParentRoute: () => DashboardRouteRoute,
+} as any);
 const DashboardAdminRouteRoute = DashboardAdminRouteRouteImport.update({
   id: "/admin",
   path: "/admin",
@@ -212,44 +218,44 @@ const UploadsUserIdSplatRoute = UploadsUserIdSplatRouteImport.update({
 } as any);
 const DashboardSettingsProfileRoute =
   DashboardSettingsProfileRouteImport.update({
-    id: "/settings/profile",
-    path: "/settings/profile",
-    getParentRoute: () => DashboardRouteRoute,
+    id: "/profile",
+    path: "/profile",
+    getParentRoute: () => DashboardSettingsRouteRoute,
   } as any);
 const DashboardSettingsPrivacyRoute =
   DashboardSettingsPrivacyRouteImport.update({
-    id: "/settings/privacy",
-    path: "/settings/privacy",
-    getParentRoute: () => DashboardRouteRoute,
+    id: "/privacy",
+    path: "/privacy",
+    getParentRoute: () => DashboardSettingsRouteRoute,
   } as any);
 const DashboardSettingsPreferencesRoute =
   DashboardSettingsPreferencesRouteImport.update({
-    id: "/settings/preferences",
-    path: "/settings/preferences",
-    getParentRoute: () => DashboardRouteRoute,
+    id: "/preferences",
+    path: "/preferences",
+    getParentRoute: () => DashboardSettingsRouteRoute,
   } as any);
 const DashboardSettingsJobSearchRoute =
   DashboardSettingsJobSearchRouteImport.update({
-    id: "/settings/job-search",
-    path: "/settings/job-search",
-    getParentRoute: () => DashboardRouteRoute,
+    id: "/job-search",
+    path: "/job-search",
+    getParentRoute: () => DashboardSettingsRouteRoute,
   } as any);
 const DashboardSettingsDangerZoneRoute =
   DashboardSettingsDangerZoneRouteImport.update({
-    id: "/settings/danger-zone",
-    path: "/settings/danger-zone",
-    getParentRoute: () => DashboardRouteRoute,
+    id: "/danger-zone",
+    path: "/danger-zone",
+    getParentRoute: () => DashboardSettingsRouteRoute,
   } as any);
 const DashboardSettingsApiKeysRoute =
   DashboardSettingsApiKeysRouteImport.update({
-    id: "/settings/api-keys",
-    path: "/settings/api-keys",
-    getParentRoute: () => DashboardRouteRoute,
+    id: "/api-keys",
+    path: "/api-keys",
+    getParentRoute: () => DashboardSettingsRouteRoute,
   } as any);
 const DashboardSettingsAiRoute = DashboardSettingsAiRouteImport.update({
-  id: "/settings/ai",
-  path: "/settings/ai",
-  getParentRoute: () => DashboardRouteRoute,
+  id: "/ai",
+  path: "/ai",
+  getParentRoute: () => DashboardSettingsRouteRoute,
 } as any);
 const DashboardAdminJobSearchRoute = DashboardAdminJobSearchRouteImport.update({
   id: "/job-search",
@@ -301,9 +307,9 @@ const DotwellKnownOauthAuthorizationServerSplatRoute =
   } as any);
 const DashboardSettingsAuthenticationIndexRoute =
   DashboardSettingsAuthenticationIndexRouteImport.update({
-    id: "/settings/authentication/",
-    path: "/settings/authentication/",
-    getParentRoute: () => DashboardRouteRoute,
+    id: "/authentication/",
+    path: "/authentication/",
+    getParentRoute: () => DashboardSettingsRouteRoute,
   } as any);
 
 export interface FileRoutesByFullPath {
@@ -313,6 +319,7 @@ export interface FileRoutesByFullPath {
   "/schema.json": typeof SchemaDotjsonRoute;
   "/builder/$resumeId": typeof BuilderResumeIdRouteRouteWithChildren;
   "/dashboard/admin": typeof DashboardAdminRouteRouteWithChildren;
+  "/dashboard/settings": typeof DashboardSettingsRouteRouteWithChildren;
   "/$username/$slug": typeof UsernameSlugRoute;
   "/.well-known/oauth-authorization-server": typeof DotwellKnownOauthAuthorizationServerRouteWithChildren;
   "/.well-known/oauth-protected-resource": typeof DotwellKnownOauthProtectedResourceRouteWithChildren;
@@ -357,6 +364,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   "/schema.json": typeof SchemaDotjsonRoute;
   "/dashboard/admin": typeof DashboardAdminRouteRouteWithChildren;
+  "/dashboard/settings": typeof DashboardSettingsRouteRouteWithChildren;
   "/$username/$slug": typeof UsernameSlugRoute;
   "/.well-known/oauth-authorization-server": typeof DotwellKnownOauthAuthorizationServerRouteWithChildren;
   "/.well-known/oauth-protected-resource": typeof DotwellKnownOauthProtectedResourceRouteWithChildren;
@@ -407,6 +415,7 @@ export interface FileRoutesById {
   "/schema.json": typeof SchemaDotjsonRoute;
   "/builder/$resumeId": typeof BuilderResumeIdRouteRouteWithChildren;
   "/dashboard/admin": typeof DashboardAdminRouteRouteWithChildren;
+  "/dashboard/settings": typeof DashboardSettingsRouteRouteWithChildren;
   "/$username/$slug": typeof UsernameSlugRoute;
   "/.well-known/oauth-authorization-server": typeof DotwellKnownOauthAuthorizationServerRouteWithChildren;
   "/.well-known/oauth-protected-resource": typeof DotwellKnownOauthProtectedResourceRouteWithChildren;
@@ -458,6 +467,7 @@ export interface FileRouteTypes {
     | "/schema.json"
     | "/builder/$resumeId"
     | "/dashboard/admin"
+    | "/dashboard/settings"
     | "/$username/$slug"
     | "/.well-known/oauth-authorization-server"
     | "/.well-known/oauth-protected-resource"
@@ -502,6 +512,7 @@ export interface FileRouteTypes {
   to:
     | "/schema.json"
     | "/dashboard/admin"
+    | "/dashboard/settings"
     | "/$username/$slug"
     | "/.well-known/oauth-authorization-server"
     | "/.well-known/oauth-protected-resource"
@@ -551,6 +562,7 @@ export interface FileRouteTypes {
     | "/schema.json"
     | "/builder/$resumeId"
     | "/dashboard/admin"
+    | "/dashboard/settings"
     | "/$username/$slug"
     | "/.well-known/oauth-authorization-server"
     | "/.well-known/oauth-protected-resource"
@@ -777,6 +789,13 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof UsernameSlugRouteImport;
       parentRoute: typeof rootRouteImport;
     };
+    "/dashboard/settings": {
+      id: "/dashboard/settings";
+      path: "/settings";
+      fullPath: "/dashboard/settings";
+      preLoaderRoute: typeof DashboardSettingsRouteRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
     "/dashboard/admin": {
       id: "/dashboard/admin";
       path: "/admin";
@@ -828,52 +847,52 @@ declare module "@tanstack/react-router" {
     };
     "/dashboard/settings/profile": {
       id: "/dashboard/settings/profile";
-      path: "/settings/profile";
+      path: "/profile";
       fullPath: "/dashboard/settings/profile";
       preLoaderRoute: typeof DashboardSettingsProfileRouteImport;
-      parentRoute: typeof DashboardRouteRoute;
+      parentRoute: typeof DashboardSettingsRouteRoute;
     };
     "/dashboard/settings/privacy": {
       id: "/dashboard/settings/privacy";
-      path: "/settings/privacy";
+      path: "/privacy";
       fullPath: "/dashboard/settings/privacy";
       preLoaderRoute: typeof DashboardSettingsPrivacyRouteImport;
-      parentRoute: typeof DashboardRouteRoute;
+      parentRoute: typeof DashboardSettingsRouteRoute;
     };
     "/dashboard/settings/preferences": {
       id: "/dashboard/settings/preferences";
-      path: "/settings/preferences";
+      path: "/preferences";
       fullPath: "/dashboard/settings/preferences";
       preLoaderRoute: typeof DashboardSettingsPreferencesRouteImport;
-      parentRoute: typeof DashboardRouteRoute;
+      parentRoute: typeof DashboardSettingsRouteRoute;
     };
     "/dashboard/settings/job-search": {
       id: "/dashboard/settings/job-search";
-      path: "/settings/job-search";
+      path: "/job-search";
       fullPath: "/dashboard/settings/job-search";
       preLoaderRoute: typeof DashboardSettingsJobSearchRouteImport;
-      parentRoute: typeof DashboardRouteRoute;
+      parentRoute: typeof DashboardSettingsRouteRoute;
     };
     "/dashboard/settings/danger-zone": {
       id: "/dashboard/settings/danger-zone";
-      path: "/settings/danger-zone";
+      path: "/danger-zone";
       fullPath: "/dashboard/settings/danger-zone";
       preLoaderRoute: typeof DashboardSettingsDangerZoneRouteImport;
-      parentRoute: typeof DashboardRouteRoute;
+      parentRoute: typeof DashboardSettingsRouteRoute;
     };
     "/dashboard/settings/api-keys": {
       id: "/dashboard/settings/api-keys";
-      path: "/settings/api-keys";
+      path: "/api-keys";
       fullPath: "/dashboard/settings/api-keys";
       preLoaderRoute: typeof DashboardSettingsApiKeysRouteImport;
-      parentRoute: typeof DashboardRouteRoute;
+      parentRoute: typeof DashboardSettingsRouteRoute;
     };
     "/dashboard/settings/ai": {
       id: "/dashboard/settings/ai";
-      path: "/settings/ai";
+      path: "/ai";
       fullPath: "/dashboard/settings/ai";
       preLoaderRoute: typeof DashboardSettingsAiRouteImport;
-      parentRoute: typeof DashboardRouteRoute;
+      parentRoute: typeof DashboardSettingsRouteRoute;
     };
     "/dashboard/admin/job-search": {
       id: "/dashboard/admin/job-search";
@@ -940,10 +959,10 @@ declare module "@tanstack/react-router" {
     };
     "/dashboard/settings/authentication/": {
       id: "/dashboard/settings/authentication/";
-      path: "/settings/authentication";
+      path: "/authentication";
       fullPath: "/dashboard/settings/authentication/";
       preLoaderRoute: typeof DashboardSettingsAuthenticationIndexRouteImport;
-      parentRoute: typeof DashboardRouteRoute;
+      parentRoute: typeof DashboardSettingsRouteRoute;
     };
   }
 }
@@ -1005,9 +1024,7 @@ const DashboardAdminRouteRouteChildren: DashboardAdminRouteRouteChildren = {
 const DashboardAdminRouteRouteWithChildren =
   DashboardAdminRouteRoute._addFileChildren(DashboardAdminRouteRouteChildren);
 
-interface DashboardRouteRouteChildren {
-  DashboardAdminRouteRoute: typeof DashboardAdminRouteRouteWithChildren;
-  DashboardIndexRoute: typeof DashboardIndexRoute;
+interface DashboardSettingsRouteRouteChildren {
   DashboardSettingsAiRoute: typeof DashboardSettingsAiRoute;
   DashboardSettingsApiKeysRoute: typeof DashboardSettingsApiKeysRoute;
   DashboardSettingsDangerZoneRoute: typeof DashboardSettingsDangerZoneRoute;
@@ -1015,27 +1032,43 @@ interface DashboardRouteRouteChildren {
   DashboardSettingsPreferencesRoute: typeof DashboardSettingsPreferencesRoute;
   DashboardSettingsPrivacyRoute: typeof DashboardSettingsPrivacyRoute;
   DashboardSettingsProfileRoute: typeof DashboardSettingsProfileRoute;
+  DashboardSettingsAuthenticationIndexRoute: typeof DashboardSettingsAuthenticationIndexRoute;
+}
+
+const DashboardSettingsRouteRouteChildren: DashboardSettingsRouteRouteChildren =
+  {
+    DashboardSettingsAiRoute: DashboardSettingsAiRoute,
+    DashboardSettingsApiKeysRoute: DashboardSettingsApiKeysRoute,
+    DashboardSettingsDangerZoneRoute: DashboardSettingsDangerZoneRoute,
+    DashboardSettingsJobSearchRoute: DashboardSettingsJobSearchRoute,
+    DashboardSettingsPreferencesRoute: DashboardSettingsPreferencesRoute,
+    DashboardSettingsPrivacyRoute: DashboardSettingsPrivacyRoute,
+    DashboardSettingsProfileRoute: DashboardSettingsProfileRoute,
+    DashboardSettingsAuthenticationIndexRoute:
+      DashboardSettingsAuthenticationIndexRoute,
+  };
+
+const DashboardSettingsRouteRouteWithChildren =
+  DashboardSettingsRouteRoute._addFileChildren(
+    DashboardSettingsRouteRouteChildren,
+  );
+
+interface DashboardRouteRouteChildren {
+  DashboardAdminRouteRoute: typeof DashboardAdminRouteRouteWithChildren;
+  DashboardSettingsRouteRoute: typeof DashboardSettingsRouteRouteWithChildren;
+  DashboardIndexRoute: typeof DashboardIndexRoute;
   DashboardJobSearchIndexRoute: typeof DashboardJobSearchIndexRoute;
   DashboardResumesIndexRoute: typeof DashboardResumesIndexRoute;
   DashboardVerificationIndexRoute: typeof DashboardVerificationIndexRoute;
-  DashboardSettingsAuthenticationIndexRoute: typeof DashboardSettingsAuthenticationIndexRoute;
 }
 
 const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
   DashboardAdminRouteRoute: DashboardAdminRouteRouteWithChildren,
+  DashboardSettingsRouteRoute: DashboardSettingsRouteRouteWithChildren,
   DashboardIndexRoute: DashboardIndexRoute,
-  DashboardSettingsAiRoute: DashboardSettingsAiRoute,
-  DashboardSettingsApiKeysRoute: DashboardSettingsApiKeysRoute,
-  DashboardSettingsDangerZoneRoute: DashboardSettingsDangerZoneRoute,
-  DashboardSettingsJobSearchRoute: DashboardSettingsJobSearchRoute,
-  DashboardSettingsPreferencesRoute: DashboardSettingsPreferencesRoute,
-  DashboardSettingsPrivacyRoute: DashboardSettingsPrivacyRoute,
-  DashboardSettingsProfileRoute: DashboardSettingsProfileRoute,
   DashboardJobSearchIndexRoute: DashboardJobSearchIndexRoute,
   DashboardResumesIndexRoute: DashboardResumesIndexRoute,
   DashboardVerificationIndexRoute: DashboardVerificationIndexRoute,
-  DashboardSettingsAuthenticationIndexRoute:
-    DashboardSettingsAuthenticationIndexRoute,
 };
 
 const DashboardRouteRouteWithChildren = DashboardRouteRoute._addFileChildren(

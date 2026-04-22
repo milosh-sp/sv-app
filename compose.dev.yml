@@ -37,6 +37,10 @@ services:
   browserless:
     image: ghcr.io/browserless/chromium:latest
     restart: unless-stopped
+    # Linux: Chromium must resolve host.docker.internal (default PRINTER_APP_URL) to the host; Docker Desktop
+    # adds this on macOS/Windows, but on Linux the mapping must be explicit.
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     ports:
       - "4000:3000"
     environment:

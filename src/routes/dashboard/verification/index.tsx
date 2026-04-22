@@ -49,9 +49,8 @@ type ResumeItem = {
   label: string;
 };
 
-
 //TODO: This hides skills and projects for now
-const showSectionFeature = false
+const showSectionFeature = false;
 
 function RouteComponent() {
   const queryClient = useQueryClient();
@@ -141,7 +140,7 @@ function RouteComponent() {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.25, ease: "easeOut" }}
-        className="max-w-3xl space-y-6"
+        className="w-full space-y-6"
       >
         {/* Resume selector */}
         <div className="space-y-1.5">
@@ -164,30 +163,30 @@ function RouteComponent() {
 
         {activeResumeId && resumeData && (
           <>
-          {showSectionFeature && (
-            <VerificationSection
-              title={t`Skills`}
-              sectionType="skill"
-              resumeId={activeResumeId}
-              items={skills}
-              getStatusForItem={getStatusForItem}
-              verifiedCount={countVerified(skills)}
-              totalCount={skills.length}
-              onMutationSuccess={invalidateStatuses}
-            />
+            {showSectionFeature && (
+              <VerificationSection
+                title={t`Skills`}
+                sectionType="skill"
+                resumeId={activeResumeId}
+                items={skills}
+                getStatusForItem={getStatusForItem}
+                verifiedCount={countVerified(skills)}
+                totalCount={skills.length}
+                onMutationSuccess={invalidateStatuses}
+              />
             )}
 
             {showSectionFeature && (
-            <VerificationSection
-              title={t`Projects`}
-              sectionType="project"
-              resumeId={activeResumeId}
-              items={projects}
-              getStatusForItem={getStatusForItem}
-              verifiedCount={countVerified(projects)}
-              totalCount={projects.length}
-              onMutationSuccess={invalidateStatuses}
-            />
+              <VerificationSection
+                title={t`Projects`}
+                sectionType="project"
+                resumeId={activeResumeId}
+                items={projects}
+                getStatusForItem={getStatusForItem}
+                verifiedCount={countVerified(projects)}
+                totalCount={projects.length}
+                onMutationSuccess={invalidateStatuses}
+              />
             )}
 
             <ExperienceVerificationSection

@@ -1,7 +1,7 @@
 import type { Icon } from "@phosphor-icons/react";
 
 import { t } from "@lingui/core/macro";
-import { FileTextIcon, UsersIcon } from "@phosphor-icons/react";
+import { SealCheckIcon, UsersIcon } from "@phosphor-icons/react";
 import { useQueries } from "@tanstack/react-query";
 import { motion } from "motion/react";
 
@@ -15,18 +15,18 @@ type Statistic = {
   icon: Icon;
 };
 
-const getStatistics = (userCount: number, resumeCount: number): Statistic[] => [
+const getStatistics = (candidateCount: number, verifiedSkillCount: number): Statistic[] => [
   {
-    id: "users",
-    label: t`Users`,
-    value: userCount,
+    id: "candidates",
+    label: t`Candidates`,
+    value: candidateCount,
     icon: UsersIcon,
   },
   {
-    id: "resumes",
-    label: t`Resumes`,
-    value: resumeCount,
-    icon: FileTextIcon,
+    id: "verified-skills",
+    label: t`Verified skills`,
+    value: verifiedSkillCount,
+    icon: SealCheckIcon,
   },
 ];
 
@@ -40,7 +40,7 @@ function StatisticCard({ statistic, index }: StatisticCardProps) {
 
   return (
     <motion.div
-      className="group relative flex flex-col items-center justify-center gap-y-4 border-r border-b p-8 transition-colors last:border-e-0 hover:bg-secondary/30 sm:border-b-0 xl:py-12"
+      className="group relative flex flex-col items-center justify-center gap-y-4 rounded-2xl bg-card p-8 shadow-sm transition-shadow hover:shadow-md xl:py-12"
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
@@ -94,10 +94,10 @@ export function Statistics() {
   return (
     <section id="statistics" aria-labelledby="stats-heading">
       <h2 id="stats-heading" className="sr-only">
-        {t`Application Statistics`}
+        {t`Platform statistics`}
       </h2>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2">
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
         {getStatistics(userCountResult.data, resumeCountResult.data).map((statistic, index) => (
           <StatisticCard key={statistic.id} statistic={statistic} index={index} />
         ))}

@@ -29,7 +29,7 @@ function RouteComponent() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.25, ease: "easeOut" }}
         style={{ willChange: "transform, opacity" }}
-        className="grid max-w-xl gap-4"
+        className="grid w-full gap-4"
       >
         <PasswordSection />
 

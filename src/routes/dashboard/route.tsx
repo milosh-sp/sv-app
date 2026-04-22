@@ -27,11 +27,17 @@ function RouteComponent() {
   };
 
   return (
-    <SidebarProvider open={sidebarState} onOpenChange={handleSidebarOpenChange}>
+    <SidebarProvider
+      open={sidebarState}
+      onOpenChange={handleSidebarOpenChange}
+      className="relative mx-auto min-h-svh max-w-[1500px] px-3 md:px-6"
+    >
       <DashboardSidebar />
 
-      <main className="@container flex-1 p-4 md:ps-2">
-        <Outlet />
+      <main className="@container flex-1 p-4 md:px-10 md:py-8">
+        <div className="mx-auto flex w-full max-w-5xl flex-col items-center *:w-full">
+          <Outlet />
+        </div>
       </main>
     </SidebarProvider>
   );

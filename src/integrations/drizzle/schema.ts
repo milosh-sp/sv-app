@@ -568,11 +568,7 @@ export const verificationRequests = pg.pgTable(
     badgeVisible: pg.boolean("badge_visible").notNull().default(true),
     calendarLinkSentAt: pg.timestamp("calendar_link_sent_at", { withTimezone: true }),
   },
-  (t) => [
-    pg.index().on(t.userId),
-    pg.index().on(t.resumeId),
-    pg.index().on(t.status),
-  ],
+  (t) => [pg.index().on(t.userId), pg.index().on(t.resumeId), pg.index().on(t.status)],
 );
 
 export const verificationMetadata = pg.pgTable(

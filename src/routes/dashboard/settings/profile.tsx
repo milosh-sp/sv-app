@@ -18,8 +18,8 @@ import { toast } from "sonner";
 import { match } from "ts-pattern";
 import z from "zod";
 
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
@@ -124,19 +124,21 @@ function RouteComponent() {
     void router.invalidate();
   };
 
-  const adminRoleBadge = match(data.role)
-    .with("skill_verdict_admin", () => (
-      <Badge variant="secondary">
-        <Trans>Skill Verdict Admin</Trans>
-      </Badge>
-    ))
-    .with("reviewer_admin", () => (
-      <Badge variant="secondary">
-        <Trans>Reviewer Admin</Trans>
-      </Badge>
-    ))
-    .with(null, () => null)
-    .exhaustive();
+  const adminRoleBadge =
+    data.role === null
+      ? null
+      : match(data.role)
+          .with("skill_verdict_admin", () => (
+            <Badge variant="secondary">
+              <Trans>Skill Verdict Admin</Trans>
+            </Badge>
+          ))
+          .with("reviewer_admin", () => (
+            <Badge variant="secondary">
+              <Trans>Reviewer Admin</Trans>
+            </Badge>
+          ))
+          .exhaustive();
 
   return (
     <div className="space-y-4">
@@ -151,7 +153,7 @@ function RouteComponent() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.25, ease: "easeOut" }}
           style={{ willChange: "transform, opacity" }}
-          className="grid max-w-xl gap-6"
+          className="grid w-full gap-6"
           onSubmit={form.handleSubmit(onSubmit)}
         >
           <FormField
@@ -328,7 +330,7 @@ function IdentityVerificationBlock() {
     ));
 
   return (
-    <div className="grid max-w-xl gap-3" data-testid="identity-verification-block">
+    <div className="grid w-full gap-3" data-testid="identity-verification-block">
       <h3 className="flex items-center gap-x-2 text-sm font-medium">
         <SealCheckIcon className="size-4" />
         <Trans>Identity Verification</Trans>

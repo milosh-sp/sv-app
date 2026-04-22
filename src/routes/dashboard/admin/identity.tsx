@@ -13,6 +13,8 @@ import { Separator } from "@/components/ui/separator";
 import { orpc } from "@/integrations/orpc/client";
 import { formatDefaultDate } from "@/utils/format-date";
 
+import type { ReviewAction } from "./-components/verification-queue-shared";
+
 import { DashboardHeader } from "../-components/header";
 import {
   ApplicantDetails,
@@ -24,7 +26,6 @@ import {
   ReviewDecisionPanel,
   StatusBadge,
 } from "./-components/verification-queue-shared";
-import type { ReviewAction } from "./-components/verification-queue-shared";
 
 export const Route = createFileRoute("/dashboard/admin/identity")({
   component: RouteComponent,
@@ -69,7 +70,7 @@ function IdentityQueueTab({ items, isLoading }: { items: IdentityQueueItem[]; is
   }
 
   return (
-    <div className="max-w-4xl space-y-3">
+    <div className="w-full space-y-3">
       {items.map((item) => (
         <IdentityQueueRow
           key={item.id}

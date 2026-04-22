@@ -85,6 +85,15 @@ vi.mock("@/integrations/drizzle/schema", () => ({
     consentGiven: "consent_given",
     consentGivenAt: "consent_given_at",
   },
+  resume: {
+    id: "id",
+    userId: "user_id",
+    isPublic: "is_public",
+  },
+  user: {
+    id: "id",
+    email: "email",
+  },
 }));
 
 const { verificationService } = await import("./verification");
@@ -372,24 +381,189 @@ describe("verificationService.getStatus", () => {
     const statuses = [
       { id: "req-1", sectionType: "skill", itemId: "item-1", itemLabel: "TS", status: "verified", badgeVisible: true },
     ];
-    mockFrom.mockReturnValueOnce({ where: vi.fn(() => statuses), limit: mockLimit, orderBy: mockOrderBy });
+    const identityStatus = {
+      id: "req-id",
+      sectionType: "identity",
+      itemId: "user-1",
+      itemLabel: "Identity Verification",
+      status: "verified",
+      badgeVisible: true,
+      submittedAt: new Date(),
+    };
+    mockFrom
+      .mockReturnValueOnce({ where: vi.fn(() => statuses), limit: mockLimit, orderBy: mockOrderBy })
+      .mockReturnValueOnce({
+        where: vi.fn(() => ({ orderBy: vi.fn(() => ({ limit: vi.fn(() => [identityStatus]) })) })),
+        limit: mockLimit,
+        orderBy: mockOrderBy,
+      });
 
     const result = await verificationService.getStatus({ userId: "user-1", resumeId: "resume-1" });
 
-    expect(result).toEqual(statuses);
+    expect(result).toEqual([...statuses, identityStatus]);
   });
 
   it("should not include internal fields", async () => {
     const statuses = [
       { id: "req-1", sectionType: "skill", itemId: "item-1", itemLabel: "TS", status: "verified", badgeVisible: true },
     ];
-    mockFrom.mockReturnValueOnce({ where: vi.fn(() => statuses), limit: mockLimit, orderBy: mockOrderBy });
+    mockFrom
+      .mockReturnValueOnce({ where: vi.fn(() => statuses), limit: mockLimit, orderBy: mockOrderBy })
+      .mockReturnValueOnce({
+        where: vi.fn(() => ({ orderBy: vi.fn(() => ({ limit: vi.fn(() => []) })) })),
+        limit: mockLimit,
+        orderBy: mockOrderBy,
+      });
 
     const result = await verificationService.getStatus({ userId: "user-1", resumeId: "resume-1" });
     const first = result[0];
 
     expect(first).not.toHaveProperty("reviewerNote");
     expect(first).not.toHaveProperty("claimedByAdminId");
+  });
+});
+
+describe("verificationService.getPublicStatus", () => {
+  it("returns empty list when resume is missing", async () => {
+    mockFrom.mockReturnValueOnce({
+      where: vi.fn(() => ({ limit: vi.fn(() => []) })),
+    });
+
+    const result = await verificationService.getPublicStatus("resume-1");
+
+    expect(result).toEqual([]);
+  });
+
+  it("returns empty list when resume is not public", async () => {
+    mockFrom.mockReturnValueOnce({
+      where: vi.fn(() => ({ limit: vi.fn(() => [{ userId: "user-1", isPublic: false }]) })),
+    });
+
+    const result = await verificationService.getPublicStatus("resume-1");
+
+    expect(result).toEqual([]);
+  });
+
+  it("returns section statuses and latest identity status", async () => {
+    const sectionStatuses = [
+      {
+        id: "req-1",
+        sectionType: "skill",
+        itemId: "item-1",
+        itemLabel: "TypeScript",
+        status: "verified",
+        badgeVisible: true,
+        submittedAt: new Date(),
+      },
+    ];
+
+    const identityStatus = {
+      id: "req-identity",
+      sectionType: "identity",
+      itemId: "user-1",
+      itemLabel: "Identity Verification",
+      status: "verified",
+      badgeVisible: true,
+      submittedAt: new Date(),
+    };
+
+    mockFrom
+      .mockReturnValueOnce({
+        where: vi.fn(() => ({ limit: vi.fn(() => [{ userId: "user-1", isPublic: true }]) })),
+      })
+      .mockReturnValueOnce({
+        where: vi.fn(() => sectionStatuses),
+      })
+      .mockReturnValueOnce({
+        where: vi.fn(() => ({ orderBy: vi.fn(() => ({ limit: vi.fn(() => [identityStatus]) })) })),
+      });
+
+    const result = await verificationService.getPublicStatus("resume-1");
+
+    expect(result).toHaveLength(2);
+    expect(result[0]).toEqual(sectionStatuses[0]);
+    expect(result[1]).toEqual(identityStatus);
+  });
+
+  it("returns section statuses when identity is missing", async () => {
+    const sectionStatuses = [
+      {
+        id: "req-1",
+        sectionType: "experience",
+        itemId: "item-1",
+        itemLabel: "Acme",
+        status: "pending",
+        badgeVisible: true,
+        submittedAt: new Date(),
+      },
+    ];
+
+    mockFrom
+      .mockReturnValueOnce({
+        where: vi.fn(() => ({ limit: vi.fn(() => [{ userId: "user-1", isPublic: true }]) })),
+      })
+      .mockReturnValueOnce({
+        where: vi.fn(() => sectionStatuses),
+      })
+      .mockReturnValueOnce({
+        where: vi.fn(() => ({ orderBy: vi.fn(() => ({ limit: vi.fn(() => []) })) })),
+      });
+
+    const result = await verificationService.getPublicStatus("resume-1");
+
+    expect(result).toEqual(sectionStatuses);
+  });
+});
+
+describe("verificationService.getPrinterStatus", () => {
+  it("returns empty list when resume is missing", async () => {
+    mockFrom.mockReturnValueOnce({
+      where: vi.fn(() => ({ limit: vi.fn(() => []) })),
+    });
+
+    const result = await verificationService.getPrinterStatus("resume-1");
+
+    expect(result).toEqual([]);
+  });
+
+  it("returns statuses even when resume is private", async () => {
+    const sectionStatuses = [
+      {
+        id: "req-1",
+        sectionType: "skill",
+        itemId: "item-1",
+        itemLabel: "TypeScript",
+        status: "verified",
+        badgeVisible: true,
+        submittedAt: new Date(),
+      },
+    ];
+    const identityStatus = {
+      id: "req-identity",
+      sectionType: "identity",
+      itemId: "user-1",
+      itemLabel: "Identity Verification",
+      status: "verified",
+      badgeVisible: true,
+      submittedAt: new Date(),
+    };
+
+    mockFrom
+      .mockReturnValueOnce({
+        where: vi.fn(() => ({ limit: vi.fn(() => [{ userId: "user-1", isPublic: false }]) })),
+      })
+      .mockReturnValueOnce({
+        where: vi.fn(() => sectionStatuses),
+      })
+      .mockReturnValueOnce({
+        where: vi.fn(() => ({ orderBy: vi.fn(() => ({ limit: vi.fn(() => [identityStatus]) })) })),
+      });
+
+    const result = await verificationService.getPrinterStatus("resume-1");
+
+    expect(result).toHaveLength(2);
+    expect(result[0]).toEqual(sectionStatuses[0]);
+    expect(result[1]).toEqual(identityStatus);
   });
 });
 
@@ -723,8 +897,22 @@ describe("verificationService.listQueue", () => {
 
   it("returns pending skill and project requests", async () => {
     const rows = [
-      { id: "req-1", sectionType: "skill", itemId: "item-1", itemLabel: "TypeScript", status: "pending", submittedAt: new Date() },
-      { id: "req-2", sectionType: "project", itemId: "item-2", itemLabel: "App", status: "pending", submittedAt: new Date() },
+      {
+        id: "req-1",
+        sectionType: "skill",
+        itemId: "item-1",
+        itemLabel: "TypeScript",
+        status: "pending",
+        submittedAt: new Date(),
+      },
+      {
+        id: "req-2",
+        sectionType: "project",
+        itemId: "item-2",
+        itemLabel: "App",
+        status: "pending",
+        submittedAt: new Date(),
+      },
     ];
     mockFrom.mockReturnValueOnce({ where: vi.fn().mockReturnValue(rows) });
     const result = await verificationService.listQueue();
@@ -742,7 +930,15 @@ describe("verificationService.listMyCases", () => {
   });
 
   it("returns cases claimed by the given admin", async () => {
-    const row = { id: "req-1", sectionType: "skill", itemId: "item-1", itemLabel: "React", status: "claimed", claimedAt: new Date(), submittedAt: new Date() };
+    const row = {
+      id: "req-1",
+      sectionType: "skill",
+      itemId: "item-1",
+      itemLabel: "React",
+      status: "claimed",
+      claimedAt: new Date(),
+      submittedAt: new Date(),
+    };
     mockFrom.mockReturnValueOnce({ where: vi.fn().mockReturnValue([row]) });
     const result = await verificationService.listMyCases("admin-1");
     expect(result).toHaveLength(1);
@@ -759,7 +955,14 @@ describe("verificationService.listPendingVerdicts", () => {
 
   it("returns verdict_pending requests", async () => {
     const rows = [
-      { id: "req-1", sectionType: "skill", itemId: "item-1", itemLabel: "Go", status: "verdict_pending", submittedAt: new Date() },
+      {
+        id: "req-1",
+        sectionType: "skill",
+        itemId: "item-1",
+        itemLabel: "Go",
+        status: "verdict_pending",
+        submittedAt: new Date(),
+      },
     ];
     mockFrom.mockReturnValueOnce({ where: vi.fn().mockReturnValue(rows) });
     const result = await verificationService.listPendingVerdicts();

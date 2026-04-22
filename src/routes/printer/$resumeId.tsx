@@ -5,6 +5,7 @@ import { z } from "zod";
 
 import { LoadingScreen } from "@/components/layout/loading-screen";
 import { ResumePreview } from "@/components/resume/preview";
+import { VerificationProvider } from "@/components/resume/shared/verification-context";
 import { useResumeStore } from "@/components/resume/store/resume";
 import { getORPCClient } from "@/integrations/orpc/client";
 import { env } from "@/utils/env";
@@ -29,16 +30,34 @@ export const Route = createFileRoute("/printer/$resumeId")({
       throw redirect({ to: "/", search: {}, throw: true });
     }
   },
-  loader: async ({ params }) => {
+  loader: async ({ params, search }) => {
     const client = getORPCClient();
     const resume = await client.resume.getByIdForPrinter({ id: params.resumeId });
+    let verificationStatuses: {
+      id: string;
+      sectionType: string;
+      itemId: string;
+      itemLabel: string;
+      status: string;
+      badgeVisible: boolean;
+      submittedAt: Date;
+    }[] = [];
 
-    return { resume };
+    try {
+      verificationStatuses = await client.verification.getPrinterStatus({
+        resumeId: params.resumeId,
+        token: search.token,
+      });
+    } catch {
+      // Continue rendering the resume even if verification data is unavailable.
+    }
+
+    return { resume, verificationStatuses };
   },
 });
 
 function RouteComponent() {
-  const { resume } = Route.useLoaderData();
+  const { resume, verificationStatuses } = Route.useLoaderData();
 
   const isReady = useResumeStore((state) => state.isReady);
   const initialize = useResumeStore((state) => state.initialize);
@@ -51,5 +70,9 @@ function RouteComponent() {
 
   if (!isReady) return <LoadingScreen />;
 
-  return <ResumePreview pageClassName="print:w-full!" />;
+  return (
+    <VerificationProvider statuses={verificationStatuses}>
+      <ResumePreview pageClassName="print:w-full!" />
+    </VerificationProvider>
+  );
 }
