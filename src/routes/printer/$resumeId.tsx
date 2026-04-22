@@ -30,7 +30,8 @@ export const Route = createFileRoute("/printer/$resumeId")({
       throw redirect({ to: "/", search: {}, throw: true });
     }
   },
-  loader: async ({ params, search }) => {
+  loaderDeps: ({ search }) => ({ token: search.token }),
+  loader: async ({ params, deps }) => {
     const client = getORPCClient();
     const resume = await client.resume.getByIdForPrinter({ id: params.resumeId });
     let verificationStatuses: {
@@ -46,7 +47,7 @@ export const Route = createFileRoute("/printer/$resumeId")({
     try {
       verificationStatuses = await client.verification.getPrinterStatus({
         resumeId: params.resumeId,
-        token: search.token,
+        token: deps.token,
       });
     } catch {
       // Continue rendering the resume even if verification data is unavailable.

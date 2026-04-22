@@ -4,7 +4,6 @@ import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { Trans } from "@lingui/react/macro";
 import {
-  ArrowLeftIcon,
   BrainIcon,
   BriefcaseIcon,
   DotsThreeIcon,
@@ -23,7 +22,6 @@ import { useQuery } from "@tanstack/react-query";
 import { Link, useRouteContext } from "@tanstack/react-router";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { BrandIcon } from "@/components/ui/brand-icon";
 import {
   Sidebar,
   SidebarContent,
@@ -187,9 +185,6 @@ export function DashboardSidebar() {
 
   const isIdVerified = user?.status === "verified";
   const isSkillVerdictAdmin = adminRole?.role === "skill_verdict_admin";
-  const backLink = isSkillVerdictAdmin
-    ? { to: "/dashboard/admin/experience-queue" as const, label: msg`Back to review queue` }
-    : { to: "/dashboard/resumes" as const, label: msg`Back to dashboard` };
   const roleLabel = (() => {
     if (adminRole?.role === "skill_verdict_admin") return msg`Skill Verdict Admin`;
     if (adminRole?.role === "reviewer_admin") return msg`Reviewer Admin`;
