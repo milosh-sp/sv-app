@@ -326,6 +326,113 @@ export const verificationService = {
       .where(eq(verificationRequests.resumeId, resumeId));
   },
 
+  getPublicStatus: async (resumeId: string) => {
+    const [resumeRow] = await db
+      .select({
+        userId: resume.userId,
+        isPublic: resume.isPublic,
+      })
+      .from(resume)
+      .where(eq(resume.id, resumeId))
+      .limit(1);
+
+    if (!resumeRow || !resumeRow.isPublic) {
+      return [];
+    }
+
+    const sectionStatuses = await db
+      .select({
+        id: verificationRequests.id,
+        sectionType: verificationRequests.sectionType,
+        itemId: verificationRequests.itemId,
+        itemLabel: verificationRequests.itemLabel,
+        status: verificationRequests.status,
+        badgeVisible: verificationRequests.badgeVisible,
+        submittedAt: verificationRequests.submittedAt,
+      })
+      .from(verificationRequests)
+      .where(eq(verificationRequests.resumeId, resumeId));
+
+    const [identityStatus] = await db
+      .select({
+        id: verificationRequests.id,
+        sectionType: verificationRequests.sectionType,
+        itemId: verificationRequests.itemId,
+        itemLabel: verificationRequests.itemLabel,
+        status: verificationRequests.status,
+        badgeVisible: verificationRequests.badgeVisible,
+        submittedAt: verificationRequests.submittedAt,
+      })
+      .from(verificationRequests)
+      .where(
+        and(
+          eq(verificationRequests.userId, resumeRow.userId),
+          eq(verificationRequests.sectionType, "identity"),
+        ),
+      )
+      .orderBy(desc(verificationRequests.submittedAt))
+      .limit(1);
+
+    if (!identityStatus) {
+      return sectionStatuses;
+    }
+
+    return [...sectionStatuses, identityStatus];
+  },
+
+  getPrinterStatus: async (resumeId: string) => {
+    const [resumeRow] = await db
+      .select({
+        userId: resume.userId,
+      })
+      .from(resume)
+      .where(eq(resume.id, resumeId))
+      .limit(1);
+
+    if (!resumeRow) {
+      return [];
+    }
+
+    const sectionStatuses = await db
+      .select({
+        id: verificationRequests.id,
+        sectionType: verificationRequests.sectionType,
+        itemId: verificationRequests.itemId,
+        itemLabel: verificationRequests.itemLabel,
+        status: verificationRequests.status,
+        badgeVisible: verificationRequests.badgeVisible,
+        submittedAt: verificationRequests.submittedAt,
+      })
+      .from(verificationRequests)
+      .where(eq(verificationRequests.resumeId, resumeId));
+
+    const [identityStatus] = await db
+      .select({
+        id: verificationRequests.id,
+        sectionType: verificationRequests.sectionType,
+        itemId: verificationRequests.itemId,
+        itemLabel: verificationRequests.itemLabel,
+        status: verificationRequests.status,
+        badgeVisible: verificationRequests.badgeVisible,
+        submittedAt: verificationRequests.submittedAt,
+      })
+      .from(verificationRequests)
+      .where(
+        and(
+          eq(verificationRequests.userId, resumeRow.userId),
+          eq(verificationRequests.sectionType, "identity"),
+        ),
+      )
+      .orderBy(desc(verificationRequests.submittedAt))
+      .limit(1);
+
+    if (!identityStatus) {
+      return sectionStatuses;
+    }
+
+    return [...sectionStatuses, identityStatus];
+  },
+
   getHistory: async (input: { userId: string; resumeId: string; itemId: string }) => {
     const requests = await db
       .select({

@@ -158,3 +158,59 @@ describe("verificationDto.toggleBadge.input", () => {
     ).toBe(false);
   });
 });
+
+// --- verificationDto.getPublicStatus ---
+
+describe("verificationDto.getPublicStatus", () => {
+  it("accepts valid input", () => {
+    expect(
+      verificationDto.getPublicStatus.input.safeParse({
+        resumeId: "550e8400-e29b-41d4-a716-446655440000",
+      }).success,
+    ).toBe(true);
+  });
+
+  it("rejects invalid resumeId", () => {
+    expect(
+      verificationDto.getPublicStatus.input.safeParse({
+        resumeId: "invalid-id",
+      }).success,
+    ).toBe(false);
+  });
+
+  it("accepts a valid output payload with identity status", () => {
+    expect(
+      verificationDto.getPublicStatus.output.safeParse([
+        {
+          id: "550e8400-e29b-41d4-a716-446655440000",
+          sectionType: "identity",
+          itemId: "user-1",
+          itemLabel: "Identity Verification",
+          status: "verified",
+          badgeVisible: true,
+          submittedAt: new Date(),
+        },
+      ]).success,
+    ).toBe(true);
+  });
+});
+
+describe("verificationDto.getPrinterStatus", () => {
+  it("accepts valid input", () => {
+    expect(
+      verificationDto.getPrinterStatus.input.safeParse({
+        resumeId: "550e8400-e29b-41d4-a716-446655440000",
+        token: "signed.token",
+      }).success,
+    ).toBe(true);
+  });
+
+  it("rejects empty token", () => {
+    expect(
+      verificationDto.getPrinterStatus.input.safeParse({
+        resumeId: "550e8400-e29b-41d4-a716-446655440000",
+        token: "",
+      }).success,
+    ).toBe(false);
+  });
+});

@@ -31,3 +31,8 @@ export function useVerificationStatus(itemId: string): VerificationStatus | unde
   const { statuses } = useContext(VerificationContext);
   return statuses.find((s) => s.itemId === itemId);
 }
+
+export function useIdentityVerificationStatus(): VerificationStatus | undefined {
+  const { statuses } = useContext(VerificationContext);
+  return statuses.find((s) => s.sectionType === "identity");
+}
