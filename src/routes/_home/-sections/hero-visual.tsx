@@ -47,7 +47,9 @@ function StatusMark({ status }: { status: StatusType }) {
 }
 
 function SideBracket() {
-  return <span aria-hidden="true" className="inline-block h-8 w-2 rounded-l-full border-s-2 border-muted-foreground/70" />;
+  return (
+    <span aria-hidden="true" className="inline-block h-8 w-2 rounded-l-full border-s-2 border-muted-foreground/70" />
+  );
 }
 
 type ResumeRowProps = {

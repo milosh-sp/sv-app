@@ -23,8 +23,8 @@ export const Route = createFileRoute("/reviewer/$adminId")({
     meta: [
       {
         title: loaderData
-          ? `${loaderData.profile.firstName} ${loaderData.profile.lastName} - Reviewer - Reactive Resume`
-          : "Reviewer - Reactive Resume",
+          ? `${loaderData.profile.firstName} ${loaderData.profile.lastName} - Reviewer - Skill Verdict`
+          : "Reviewer - Skill Verdict",
       },
     ],
   }),

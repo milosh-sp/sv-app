@@ -20,8 +20,8 @@ import { Spinner } from "@/components/ui/spinner";
 import { useFormBlocker } from "@/hooks/use-form-blocker";
 import { useAiIntegration } from "@/integrations/ai/use-ai-integration";
 import { JSONResumeImporter } from "@/integrations/import/json-resume";
-import { ReactiveResumeJSONImporter } from "@/integrations/import/reactive-resume-json";
-import { ReactiveResumeV4JSONImporter } from "@/integrations/import/reactive-resume-v4-json";
+import { SkillVerdictJSONImporter } from "@/integrations/import/skill-verdict-json";
+import { SkillVerdictV4JSONImporter } from "@/integrations/import/skill-verdict-v4-json";
 import { client, orpc } from "@/integrations/orpc/client";
 import { cn } from "@/utils/style";
 
@@ -45,13 +45,13 @@ const formSchema = z.discriminatedUnion("type", [
       ),
   }),
   z.object({
-    type: z.literal("reactive-resume-json"),
+    type: z.literal("skill-verdict-json"),
     file: z
       .instanceof(File)
       .refine((file) => file.type === "application/json", { message: "File must be a JSON file" }),
   }),
   z.object({
-    type: z.literal("reactive-resume-v4-json"),
+    type: z.literal("skill-verdict-v4-json"),
     file: z
       .instanceof(File)
       .refine((file) => file.type === "application/json", { message: "File must be a JSON file" }),
@@ -136,15 +136,15 @@ export function ImportResumeDialog(_: DialogProps<"resume.import">) {
         data = importer.parse(json);
       }
 
-      if (values.type === "reactive-resume-json") {
+      if (values.type === "skill-verdict-json") {
         const json = await values.file.text();
-        const importer = new ReactiveResumeJSONImporter();
+        const importer = new SkillVerdictJSONImporter();
         data = importer.parse(json);
       }
 
-      if (values.type === "reactive-resume-v4-json") {
+      if (values.type === "skill-verdict-v4-json") {
         const json = await values.file.text();
-        const importer = new ReactiveResumeV4JSONImporter();
+        const importer = new SkillVerdictV4JSONImporter();
         data = importer.parse(json);
       }
 
@@ -202,8 +202,8 @@ export function ImportResumeDialog(_: DialogProps<"resume.import">) {
         </DialogTitle>
         <DialogDescription>
           <Trans>
-            Continue where you left off by importing an existing resume you created using Reactive Resume or any another
-            resume builder. Supported formats include PDF, Microsoft Word, as well as JSON files from Reactive Resume.
+            Continue where you left off by importing an existing resume you created using Skill Verdict or any another
+            resume builder. Supported formats include PDF, Microsoft Word, as well as JSON files from Skill Verdict.
           </Trans>
         </DialogDescription>
       </DialogHeader>
@@ -225,8 +225,8 @@ export function ImportResumeDialog(_: DialogProps<"resume.import">) {
                       value={field.value}
                       onValueChange={field.onChange}
                       options={[
-                        { value: "reactive-resume-json", label: "Reactive Resume (JSON)" },
-                        { value: "reactive-resume-v4-json", label: "Reactive Resume v4 (JSON)" },
+                        { value: "skill-verdict-json", label: "Skill Verdict (JSON)" },
+                        { value: "skill-verdict-v4-json", label: "Skill Verdict v4 (JSON)" },
                         { value: "json-resume-json", label: "JSON Resume" },
                         { value: "pdf", label: "PDF" },
                         { value: "docx", label: "Microsoft Word" },

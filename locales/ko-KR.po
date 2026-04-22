@@ -6,13 +6,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: @lingui/cli\n"
 "Language: ko\n"
-"Project-Id-Version: reactive-resume\n"
+"Project-Id-Version: skill-verdict\n"
 "Report-Msgid-Bugs-To: \n"
 "PO-Revision-Date: 2026-03-19 09:07\n"
 "Last-Translator: \n"
 "Language-Team: Korean\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Crowdin-Project: reactive-resume\n"
+"X-Crowdin-Project: skill-verdict\n"
 "X-Crowdin-Project-ID: 503410\n"
 "X-Crowdin-Language: ko\n"
 "X-Crowdin-File: /main/locales/en-US.po\n"
@@ -73,10 +73,6 @@ msgctxt "Every word needs to be wrapped in a tag"
 msgid "<0>Frequently</0><1>Asked</1><2>Questions</2>"
 msgstr "<0>자주</0><1>묻는</1><2>질문</2>"
 
-#: src/routes/builder/$resumeId/-sidebar/right/sections/information.tsx
-msgid "<0>Thank you for using Reactive Resume! This app is a labor of love, created mostly in my spare time, with wonderful support from open-source contributors around the world.</0><1>If Reactive Resume has been helpful to you, and you'd like to help keep it free and open for everyone, please consider making a donation. Every little bit is appreciated!</1>"
-msgstr "<0>Reactive Resume를 사용해 주셔서 감사합니다! 이 앱은 전 세계 오픈 소스 기여자들의 훌륭한 지원을 받으며, 주로 제 개인 시간을 들여 애정을 담아 만든 프로젝트입니다.</0><1>Reactive Resume가 도움이 되었다면, 모두가 자유롭게 사용할 수 있도록 유지하는 데 힘을 보태 주세요. 크고 작은 모든 기부가 큰 도움이 됩니다!</1>"
-
 #: src/routes/_home/-sections/hero.tsx
 msgid "<0>Your skills, finally,</0><1>Proven. Not just claimed.</1>"
 msgstr ""
@@ -89,13 +85,21 @@ msgstr "1개월"
 msgid "1 year"
 msgstr "1년"
 
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "2010 - 2014"
+msgstr ""
+
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "2014 - 2016"
+msgstr ""
+
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "2020 - Present"
+msgstr ""
+
 #: src/dialogs/api-key/create.tsx
 msgid "3 months"
 msgstr "3개월"
-
-#: src/routes/_home/-sections/hero-visual.tsx
-msgid "4 skills endorsed by anonymous domain experts in the last 30 days."
-msgstr ""
 
 #: src/dialogs/api-key/create.tsx
 msgid "6 months"
@@ -141,6 +145,10 @@ msgstr ""
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Account updated"
+msgstr ""
+
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "Action oriented"
 msgstr ""
 
 #: src/routes/builder/$resumeId/-sidebar/left/sections/custom-fields.tsx
@@ -249,6 +257,11 @@ msgstr "기존 이력서에 {0} 새 기술 추가"
 msgid "Admin AI"
 msgstr ""
 
+#: src/components/command-palette/pages/navigation.tsx
+#: src/routes/dashboard/-components/sidebar.tsx
+msgid "Administration"
+msgstr ""
+
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Advanced Filters"
 msgstr "고급 필터"
@@ -256,6 +269,10 @@ msgstr "고급 필터"
 #: src/utils/locale.ts
 msgid "Afrikaans"
 msgstr "아프리칸스어"
+
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "AI / ML"
+msgstr ""
 
 #: src/components/ai/chat.tsx
 msgid "AI Chat"
@@ -266,7 +283,7 @@ msgid "Albanian"
 msgstr "알바니아어"
 
 #: src/routes/_home/-sections/hero-visual.tsx
-msgid "Alex Morgan · Senior Software Engineer"
+msgid "Alex Smith"
 msgstr ""
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
@@ -289,6 +306,10 @@ msgstr "페이지를 불러오는 동안 오류가 발생했습니다."
 #: src/dialogs/resume/import.tsx
 msgid "An unknown error occurred while importing your resume."
 msgstr "이력서를 가져오는 동안 알 수 없는 오류가 발생했습니다."
+
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "Analytical"
+msgstr ""
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Anonymous, bias-free review"
@@ -358,10 +379,6 @@ msgstr "아랍어"
 msgid "Arc"
 msgstr ""
 
-#: src/routes/_home/-sections/hero-visual.tsx
-msgid "Architected cloud-native services and led CI/CD and container platforms."
-msgstr ""
-
 #: src/hooks/use-form-blocker.tsx
 msgid "Are you sure you want to close this dialog?"
 msgstr "이 대화상자를 닫으시겠습니까?"
@@ -419,6 +436,14 @@ msgstr "수여자"
 msgid "Awards"
 msgstr "수상 내역"
 
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "AWS"
+msgstr ""
+
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "AWS Certified Solutions Architect"
+msgstr ""
+
 #: src/utils/locale.ts
 msgid "Azerbaijani"
 msgstr "아제르바이잔어"
@@ -426,10 +451,6 @@ msgstr "아제르바이잔어"
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/experience-queue.tsx
 msgid "Back"
-msgstr ""
-
-#: src/routes/dashboard/-components/sidebar.tsx
-msgid "Back to dashboard"
 msgstr ""
 
 #: src/routes/auth/verify-2fa.tsx
@@ -480,6 +501,10 @@ msgstr "모서리 반경"
 #: src/routes/builder/$resumeId/-sidebar/left/sections/picture.tsx
 msgid "Border Width"
 msgstr "테두리 두께"
+
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "BSc Software Engineering"
+msgstr ""
 
 #: src/routes/_home/-sections/hero.tsx
 msgid "Build a living profile backed by real evidence. Get your skills endorsed by domain experts in short, practical reviews — and let opportunities come to you."
@@ -738,8 +763,8 @@ msgid "Continue where you left off"
 msgstr "중단한 곳부터 계속하기"
 
 #: src/dialogs/resume/import.tsx
-msgid "Continue where you left off by importing an existing resume you created using Reactive Resume or any another resume builder. Supported formats include PDF, Microsoft Word, as well as JSON files from Reactive Resume."
-msgstr "Reactive Resume나 다른 이력서 작성 도구로 이미 만든 이력서를 가져와 중단한 곳부터 계속 진행하세요. PDF, Microsoft Word, Reactive Resume의 JSON 파일 형식을 지원합니다."
+msgid "Continue where you left off by importing an existing resume you created using Skill Verdict or any another resume builder. Supported formats include PDF, Microsoft Word, as well as JSON files from Skill Verdict."
+msgstr "Skill Verdict나 다른 이력서 작성 도구로 이미 만든 이력서를 가져와 중단한 곳부터 계속 진행하세요. PDF, Microsoft Word, Skill Verdict의 JSON 파일 형식을 지원합니다."
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Contractor"
@@ -916,10 +941,6 @@ msgstr "사용자 지정 섹션"
 msgid "CV / resume"
 msgstr ""
 
-#: src/routes/_home/-sections/hero-visual.tsx
-msgid "CV 2.0"
-msgstr ""
-
 #: src/utils/locale.ts
 msgid "Czech"
 msgstr "체코어"
@@ -946,6 +967,10 @@ msgstr "다크 테마"
 
 #: src/routes/_home/-sections/footer.tsx
 msgid "Dashboard"
+msgstr ""
+
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "Data Analytics Dashboard"
 msgstr ""
 
 #: src/dialogs/resume/sections/award.tsx
@@ -1055,13 +1080,13 @@ msgstr "연결 해제"
 msgid "Display username"
 msgstr ""
 
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "Docker"
+msgstr ""
+
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Document"
 msgstr ""
-
-#: src/routes/builder/$resumeId/-sidebar/right/sections/information.tsx
-msgid "Documentation"
-msgstr "문서"
 
 #: src/routes/dashboard/admin/experience-queue.tsx
 #: src/routes/dashboard/admin/identity.tsx
@@ -1075,10 +1100,6 @@ msgstr ""
 #: src/routes/auth/login.tsx
 msgid "Don't have an account? <0/>"
 msgstr "계정이 없으신가요? <0/>"
-
-#: src/routes/builder/$resumeId/-sidebar/right/sections/information.tsx
-msgid "Donate to Reactive Resume"
-msgstr "Reactive Resume에 기부하기"
 
 #: src/dialogs/auth/enable-two-factor.tsx
 #: src/routes/$username/$slug.tsx
@@ -1145,6 +1166,10 @@ msgstr "이력서를 복제하는 중입니다..."
 #: src/utils/locale.ts
 msgid "Dutch"
 msgstr "네덜란드어"
+
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "E-commerce Platform"
+msgstr ""
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "e.g. 150000"
@@ -1318,8 +1343,8 @@ msgid "Expires on {0}"
 msgstr "만료일: {0}"
 
 #: src/routes/dashboard/settings/api-keys.tsx
-msgid "Explore the API documentation to learn how to integrate Reactive Resume with your applications. Find detailed endpoints, request examples, and authentication methods."
-msgstr "Reactive Resume API를 애플리케이션과 통합하는 방법을 알아보려면 API 문서를 살펴보세요. 엔드포인트, 요청 예제, 인증 방법이 자세히 제공됩니다."
+msgid "Explore the API documentation to learn how to integrate Skill Verdict with your applications. Find detailed endpoints, request examples, and authentication methods."
+msgstr "Skill Verdict API를 애플리케이션과 통합하는 방법을 알아보려면 API 문서를 살펴보세요. 엔드포인트, 요청 예제, 인증 방법이 자세히 제공됩니다."
 
 #: src/utils/resume/section.tsx
 msgid "Export"
@@ -1437,6 +1462,10 @@ msgstr "프랑스어"
 msgid "Full Width"
 msgstr "전체 너비"
 
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "Full-stack React/Node.js application with payment integration"
+msgstr ""
+
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Full-time"
 msgstr "풀타임"
@@ -1477,6 +1506,10 @@ msgstr "대시보드로 이동"
 msgid "Go to..."
 msgstr "이동..."
 
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "Google Professional Cloud Architect"
+msgstr ""
+
 #: src/dialogs/resume/sections/education.tsx
 msgid "Grade"
 msgstr "성적"
@@ -1495,6 +1528,10 @@ msgstr ""
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Growth-focused feedback"
+msgstr ""
+
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "Harvard University"
 msgstr ""
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/typography.tsx
@@ -1635,6 +1672,10 @@ msgstr ""
 msgid "Identity verification requested. Please check your email for next steps."
 msgstr ""
 
+#: src/routes/dashboard/-components/sidebar.tsx
+msgid "Identity Verified"
+msgstr ""
+
 #: src/routes/dashboard/admin/identity.tsx
 msgid "Identity verified successfully."
 msgstr ""
@@ -1664,10 +1705,6 @@ msgstr "키워드 포함"
 #: src/utils/locale.ts
 msgid "Indonesian"
 msgstr "인도네시아어"
-
-#: src/utils/resume/section.tsx
-msgid "Information"
-msgstr "정보"
 
 #: src/components/input/rich-input.tsx
 msgid "Inline Code"
@@ -1705,6 +1742,10 @@ msgstr "기울임"
 #: src/utils/locale.ts
 msgid "Japanese"
 msgstr "일본어"
+
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "JavaScript"
+msgstr ""
 
 #: src/routes/dashboard/-components/sidebar.tsx
 #: src/routes/dashboard/job-search/index.tsx
@@ -1762,7 +1803,6 @@ msgid "Language"
 msgstr "언어"
 
 #: src/dialogs/resume/sections/custom.tsx
-#: src/routes/_home/-sections/hero-visual.tsx
 #: src/utils/resume/section.tsx
 msgid "Languages"
 msgstr "언어"
@@ -1804,10 +1844,6 @@ msgstr "레이아웃"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Layouts for evidence, not decoration"
-msgstr ""
-
-#: src/routes/_home/-sections/hero-visual.tsx
-msgid "Lead development of LLM-powered features and AI-assisted workflows."
 msgstr ""
 
 #: src/components/resume/preview.tsx
@@ -1985,6 +2021,10 @@ msgstr ""
 msgid "Move to"
 msgstr "이동"
 
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "MSc Computer Science"
+msgstr ""
+
 #: src/dialogs/api-key/create.tsx
 #: src/dialogs/resume/index.tsx
 #: src/dialogs/resume/sections/interest.tsx
@@ -2088,6 +2128,10 @@ msgstr ""
 msgid "No verified items yet."
 msgstr ""
 
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "Node.js"
+msgstr ""
+
 #: src/routes/_home/-sections/templates.tsx
 msgid "Northline"
 msgstr ""
@@ -2123,6 +2167,10 @@ msgstr "이메일 클라이언트 열기"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Open Profile"
+msgstr ""
+
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "OpenAI"
 msgstr ""
 
 #: src/routes/_home/-sections/footer.tsx
@@ -2186,6 +2234,10 @@ msgstr ""
 
 #: src/routes/dashboard/admin/experience-queue.tsx
 msgid "Overriding..."
+msgstr ""
+
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "Oxford University"
 msgstr ""
 
 #: src/utils/resume/section.tsx
@@ -2262,6 +2314,10 @@ msgstr "기간"
 #: src/utils/locale.ts
 msgid "Persian"
 msgstr "페르시아어"
+
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "Personality"
+msgstr ""
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Personality & culture fit"
@@ -2393,6 +2449,7 @@ msgid "Progress Bar"
 msgstr "진행률 바"
 
 #: src/dialogs/resume/sections/custom.tsx
+#: src/routes/_home/-sections/hero-visual.tsx
 #: src/routes/dashboard/verification/index.tsx
 #: src/utils/resume/section.tsx
 msgid "Projects"
@@ -2423,6 +2480,10 @@ msgstr "발행인"
 msgid "Pulse"
 msgstr ""
 
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "Python/Django dashboard with interactive visualizations"
+msgstr ""
+
 #. placeholder {0}: quota.remaining
 #: src/routes/dashboard/job-search/index.tsx
 msgid "Quota: {0} remaining"
@@ -2431,6 +2492,14 @@ msgstr "할당량: {0} 남은"
 #: src/routes/dashboard/admin/job-search.tsx
 msgid "RapidAPI Key"
 msgstr "RapidAPI 키"
+
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "React"
+msgstr ""
+
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "React Native mobile app with real-time synchronization"
+msgstr ""
 
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Receive a practical assignment from your reviewer, submit your work, and get actionable feedback in a real conversation."
@@ -2503,10 +2572,6 @@ msgstr "이름 바꾸기"
 #: src/dialogs/resume/sections/experience.tsx
 msgid "Reorder"
 msgstr "순서 변경"
-
-#: src/routes/builder/$resumeId/-sidebar/right/sections/information.tsx
-msgid "Report a Bug"
-msgstr "버그 신고"
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "Request"
@@ -2733,6 +2798,10 @@ msgstr ""
 msgid "Select..."
 msgstr "선택..."
 
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "Self-starter"
+msgstr ""
+
 #: src/routes/auth/forgot-password.tsx
 msgid "Send Password Reset Email"
 msgstr "비밀번호 재설정 이메일 보내기"
@@ -2740,6 +2809,14 @@ msgstr "비밀번호 재설정 이메일 보내기"
 #: src/routes/auth/forgot-password.tsx
 msgid "Sending password reset email..."
 msgstr "비밀번호 재설정 이메일을 보내는 중입니다..."
+
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "Senior AI Engineer"
+msgstr ""
+
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "Senior Full Stack Developer"
+msgstr ""
 
 #: src/components/input/rich-input.tsx
 msgid "Separator"
@@ -2758,6 +2835,7 @@ msgstr "비밀번호 설정"
 #: src/components/command-palette/pages/navigation.tsx
 #: src/components/command-palette/pages/navigation.tsx
 #: src/components/command-palette/pages/navigation.tsx
+#: src/routes/dashboard/-components/sidebar.tsx
 msgid "Settings"
 msgstr "설정"
 
@@ -2867,6 +2945,10 @@ msgstr "단일 열 구성에 세련되고 진중한 느낌을 더한 템플릿�
 msgid "Size"
 msgstr "크기"
 
+#: src/routes/dashboard/-components/sidebar.tsx
+msgid "Skill Center"
+msgstr ""
+
 #: src/routes/_home/-sections/templates.tsx
 msgid "Skill clusters"
 msgstr ""
@@ -2878,6 +2960,10 @@ msgstr ""
 #: src/routes/dashboard/-components/sidebar.tsx
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Skill Verdict Admin"
+msgstr ""
+
+#: src/routes/dashboard/-components/sidebar.tsx
+msgid "Skill Verdict Verification"
 msgstr ""
 
 #: src/dialogs/resume/sections/custom.tsx
@@ -2920,10 +3006,6 @@ msgstr "문제가 발생했습니다. 다시 시도해 주세요."
 msgid "Sort by"
 msgstr "정렬 기준"
 
-#: src/routes/builder/$resumeId/-sidebar/right/sections/information.tsx
-msgid "Source Code"
-msgstr "소스 코드"
-
 #: src/routes/builder/$resumeId/-sidebar/right/sections/page.tsx
 msgid "Spacing (Horizontal)"
 msgstr "간격(가로)"
@@ -2939,10 +3021,6 @@ msgstr "스페인어"
 #: src/routes/_home/-sections/templates.tsx
 msgid "Split identity and evidence panes; keeps personality context beside hard verification."
 msgstr ""
-
-#: src/routes/builder/$resumeId/-sidebar/right/sections/information.tsx
-msgid "Sponsors"
-msgstr "스폰서"
 
 #: src/components/level/combobox.tsx
 #: src/routes/builder/$resumeId/-sidebar/left/sections/picture.tsx
@@ -3013,10 +3091,6 @@ msgstr ""
 msgid "Summary"
 msgstr "요약"
 
-#: src/routes/builder/$resumeId/-sidebar/right/sections/information.tsx
-msgid "Support the app by doing what you can!"
-msgstr "가능한 방식으로 앱을 지원해 주세요!"
-
 #: src/utils/locale.ts
 msgid "Swedish"
 msgstr "스웨덴어"
@@ -3057,6 +3131,14 @@ msgstr "이력서 맞춤 설정하기..."
 #: src/utils/locale.ts
 msgid "Tamil"
 msgstr "타밀어"
+
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "Task Management App"
+msgstr ""
+
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "Team player"
+msgstr ""
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Technical skills"
@@ -3196,8 +3278,8 @@ msgid "This week"
 msgstr "이번 주"
 
 #: src/dialogs/api-key/create.tsx
-msgid "This will generate a new API key to access the Reactive Resume API to allow machines to interact with your resume data."
-msgstr "이 작업은 Reactive Resume API에 액세스할 수 있는 새 API 키를 생성하여, 기계가 이력서 데이터와 상호 작용할 수 있도록 합니다."
+msgid "This will generate a new API key to access the Skill Verdict API to allow machines to interact with your resume data."
+msgstr "이 작업은 Skill Verdict API에 액세스할 수 있는 새 API 키를 생성하여, 기계가 이력서 데이터와 상호 작용할 수 있도록 합니다."
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Tight vertical rhythm for mobile sharing — still readable when the viewport is narrow."
@@ -3234,10 +3316,6 @@ msgstr "오늘"
 #: src/routes/builder/$resumeId/-sidebar/right/sections/statistics.tsx
 msgid "Track your resume's views and downloads"
 msgstr "이력서 조회 수와 다운로드 수 추적"
-
-#: src/routes/builder/$resumeId/-sidebar/right/sections/information.tsx
-msgid "Translations"
-msgstr "번역"
 
 #: src/utils/locale.ts
 msgid "Turkish"
@@ -3500,10 +3578,6 @@ msgstr ""
 msgid "Verdict overridden successfully."
 msgstr ""
 
-#: src/routes/_home/-sections/hero-visual.tsx
-msgid "Verdict passed"
-msgstr ""
-
 #: src/routes/dashboard/-components/sidebar.tsx
 #: src/routes/dashboard/verification/index.tsx
 #: src/routes/dashboard/verification/index.tsx
@@ -3542,10 +3616,6 @@ msgstr "인증됨"
 #: src/routes/$username/$slug.tsx
 #: src/routes/dashboard/verification/index.tsx
 msgid "Verified by {0}"
-msgstr ""
-
-#: src/routes/_home/-sections/hero-visual.tsx
-msgid "Verified candidate"
 msgstr ""
 
 #: src/routes/_home/-sections/features.tsx

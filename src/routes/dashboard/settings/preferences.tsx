@@ -48,7 +48,7 @@ function RouteComponent() {
             nativeButton={false}
             className="h-5 justify-start text-xs text-muted-foreground active:scale-100"
             render={
-              <a href="https://crowdin.com/project/reactive-resume" target="_blank" rel="noopener noreferrer">
+              <a href="https://crowdin.com/project/skill-verdict" target="_blank" rel="noopener noreferrer">
                 <Trans>Help translate the app to your language</Trans>
                 <ArrowRightIcon className="size-3" />
               </a>

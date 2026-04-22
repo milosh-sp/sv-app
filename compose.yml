@@ -1,4 +1,4 @@
-name: reactive_resume
+name: skill_verdict
 
 services:
   postgres:
@@ -32,7 +32,7 @@ services:
       retries: 10
 
   # As an alternative to browserless, you can also use a lightweight image like chromedp/headless-shell:latest
-  # See https://docs.rxresu.me/self-hosting/docker#alternative-printer-options for more information.
+  # See YOUR_DOCS_URL/self-hosting/docker#alternative-printer-options for more information.
   # chrome:
   #   image: chromedp/headless-shell:latest
   #   restart: unless-stopped
@@ -62,22 +62,22 @@ services:
       /bin/sh -c "
         sleep 5;
         mc alias set seaweedfs http://seaweedfs:8333 seaweedfs seaweedfs;
-        mc mb seaweedfs/reactive-resume;
+        mc mb seaweedfs/skill-verdict;
         exit 0;
       "
     depends_on:
       seaweedfs:
         condition: service_healthy
 
-  reactive_resume:
-    image: amruthpillai/reactive-resume:latest
-    # image: ghcr.io/amruthpillai/reactive-resume:latest
+  skill_verdict:
+    image: YOUR_GITHUB_OWNER/skill-verdict:latest
+    # image: ghcr.io/YOUR_GITHUB_OWNER/skill-verdict:latest
     environment:
       # Server
       - TZ=Etc/UTC
       - NODE_ENV=production
       - APP_URL=http://localhost:3000
-      - PRINTER_APP_URL=http://reactive_resume:3000
+      - PRINTER_APP_URL=http://skill_verdict:3000
       # Printer
       - PRINTER_ENDPOINT=ws://browserless:3000?token=1234567890
       # - PRINTER_ENDPOINT=http://chrome:9222 # Or, if you're using chromedp/headless-shell
@@ -89,10 +89,10 @@ services:
       - S3_ACCESS_KEY_ID=seaweedfs
       - S3_SECRET_ACCESS_KEY=seaweedfs
       - S3_ENDPOINT=http://seaweedfs:8333
-      - S3_BUCKET=reactive-resume
+      - S3_BUCKET=skill-verdict
       - S3_FORCE_PATH_STYLE=true
     volumes:
-      - reactive_resume_data:/app/data
+      - skill_verdict_data:/app/data
     ports:
       - "3000:3000"
     depends_on:
@@ -112,4 +112,4 @@ services:
 volumes:
   postgres_data:
   seaweedfs_data:
-  reactive_resume_data:
+  skill_verdict_data:

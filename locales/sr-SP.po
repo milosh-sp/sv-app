@@ -6,13 +6,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: @lingui/cli\n"
 "Language: sr\n"
-"Project-Id-Version: reactive-resume\n"
+"Project-Id-Version: skill-verdict\n"
 "Report-Msgid-Bugs-To: \n"
 "PO-Revision-Date: 2026-03-19 09:07\n"
 "Last-Translator: \n"
 "Language-Team: Serbian (Cyrillic)\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Crowdin-Project: reactive-resume\n"
+"X-Crowdin-Project: skill-verdict\n"
 "X-Crowdin-Project-ID: 503410\n"
 "X-Crowdin-Language: sr\n"
 "X-Crowdin-File: /main/locales/en-US.po\n"
@@ -73,10 +73,6 @@ msgctxt "Every word needs to be wrapped in a tag"
 msgid "<0>Frequently</0><1>Asked</1><2>Questions</2>"
 msgstr "<0>Често</0><1>Постављана</1><2>Питања</2>"
 
-#: src/routes/builder/$resumeId/-sidebar/right/sections/information.tsx
-msgid "<0>Thank you for using Reactive Resume! This app is a labor of love, created mostly in my spare time, with wonderful support from open-source contributors around the world.</0><1>If Reactive Resume has been helpful to you, and you'd like to help keep it free and open for everyone, please consider making a donation. Every little bit is appreciated!</1>"
-msgstr "<0>Хвала вам што користите Реактивни Резиме! Ова апликација је рад из љубави, настао углавном у моје слободно време, уз дивну подршку сарадника отвореног кода широм света.</0><1>Ако вам је Реактивни Резиме био од помоћи и желите да помогнете да остане бесплатан и отворен за све, размислите о донацији. Свака, па и најмања подршка, много значи!</1>"
-
 #: src/routes/_home/-sections/hero.tsx
 msgid "<0>Your skills, finally,</0><1>Proven. Not just claimed.</1>"
 msgstr ""
@@ -89,13 +85,21 @@ msgstr "1 месец"
 msgid "1 year"
 msgstr "1 година"
 
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "2010 - 2014"
+msgstr ""
+
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "2014 - 2016"
+msgstr ""
+
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "2020 - Present"
+msgstr ""
+
 #: src/dialogs/api-key/create.tsx
 msgid "3 months"
 msgstr "3 месеца"
-
-#: src/routes/_home/-sections/hero-visual.tsx
-msgid "4 skills endorsed by anonymous domain experts in the last 30 days."
-msgstr ""
 
 #: src/dialogs/api-key/create.tsx
 msgid "6 months"
@@ -141,6 +145,10 @@ msgstr ""
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Account updated"
+msgstr ""
+
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "Action oriented"
 msgstr ""
 
 #: src/routes/builder/$resumeId/-sidebar/left/sections/custom-fields.tsx
@@ -249,6 +257,11 @@ msgstr "Додато је {0} нових вештина у вашу оригин
 msgid "Admin AI"
 msgstr ""
 
+#: src/components/command-palette/pages/navigation.tsx
+#: src/routes/dashboard/-components/sidebar.tsx
+msgid "Administration"
+msgstr ""
+
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Advanced Filters"
 msgstr "Напредни филтери"
@@ -256,6 +269,10 @@ msgstr "Напредни филтери"
 #: src/utils/locale.ts
 msgid "Afrikaans"
 msgstr "Африканс"
+
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "AI / ML"
+msgstr ""
 
 #: src/components/ai/chat.tsx
 msgid "AI Chat"
@@ -266,7 +283,7 @@ msgid "Albanian"
 msgstr "Албански"
 
 #: src/routes/_home/-sections/hero-visual.tsx
-msgid "Alex Morgan · Senior Software Engineer"
+msgid "Alex Smith"
 msgstr ""
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
@@ -289,6 +306,10 @@ msgstr "Дошло је до грешке при учитавању страни
 #: src/dialogs/resume/import.tsx
 msgid "An unknown error occurred while importing your resume."
 msgstr "Дошло је до непознате грешке приликом увоза вашег резимеа."
+
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "Analytical"
+msgstr ""
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Anonymous, bias-free review"
@@ -358,10 +379,6 @@ msgstr "Арапски"
 msgid "Arc"
 msgstr ""
 
-#: src/routes/_home/-sections/hero-visual.tsx
-msgid "Architected cloud-native services and led CI/CD and container platforms."
-msgstr ""
-
 #: src/hooks/use-form-blocker.tsx
 msgid "Are you sure you want to close this dialog?"
 msgstr "Да ли сте сигурни да желите да затворите овај дијалог?"
@@ -419,6 +436,14 @@ msgstr "Додељивач награде"
 msgid "Awards"
 msgstr "Награде"
 
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "AWS"
+msgstr ""
+
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "AWS Certified Solutions Architect"
+msgstr ""
+
 #: src/utils/locale.ts
 msgid "Azerbaijani"
 msgstr "Азербејџански"
@@ -426,10 +451,6 @@ msgstr "Азербејџански"
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/experience-queue.tsx
 msgid "Back"
-msgstr ""
-
-#: src/routes/dashboard/-components/sidebar.tsx
-msgid "Back to dashboard"
 msgstr ""
 
 #: src/routes/auth/verify-2fa.tsx
@@ -480,6 +501,10 @@ msgstr "Полупречник ivice"
 #: src/routes/builder/$resumeId/-sidebar/left/sections/picture.tsx
 msgid "Border Width"
 msgstr "Ширина оквира"
+
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "BSc Software Engineering"
+msgstr ""
 
 #: src/routes/_home/-sections/hero.tsx
 msgid "Build a living profile backed by real evidence. Get your skills endorsed by domain experts in short, practical reviews — and let opportunities come to you."
@@ -738,7 +763,7 @@ msgid "Continue where you left off"
 msgstr "Наставите тамо где сте стали"
 
 #: src/dialogs/resume/import.tsx
-msgid "Continue where you left off by importing an existing resume you created using Reactive Resume or any another resume builder. Supported formats include PDF, Microsoft Word, as well as JSON files from Reactive Resume."
+msgid "Continue where you left off by importing an existing resume you created using Skill Verdict or any another resume builder. Supported formats include PDF, Microsoft Word, as well as JSON files from Skill Verdict."
 msgstr "Наставите тамо где сте стали увозом постојећег резимеа који сте направили помоћу Реактивног Резимеа или неког другог алата за креирање резимеа. Подржани формати укључују PDF, Microsoft Word, као и JSON датотеке из Реактивног Резимеа."
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
@@ -916,10 +941,6 @@ msgstr "Прилагођени одељци"
 msgid "CV / resume"
 msgstr ""
 
-#: src/routes/_home/-sections/hero-visual.tsx
-msgid "CV 2.0"
-msgstr ""
-
 #: src/utils/locale.ts
 msgid "Czech"
 msgstr "Чешки"
@@ -946,6 +967,10 @@ msgstr "Тамна тема"
 
 #: src/routes/_home/-sections/footer.tsx
 msgid "Dashboard"
+msgstr ""
+
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "Data Analytics Dashboard"
 msgstr ""
 
 #: src/dialogs/resume/sections/award.tsx
@@ -1055,13 +1080,13 @@ msgstr "Прекини повезивање"
 msgid "Display username"
 msgstr ""
 
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "Docker"
+msgstr ""
+
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Document"
 msgstr ""
-
-#: src/routes/builder/$resumeId/-sidebar/right/sections/information.tsx
-msgid "Documentation"
-msgstr "Документација"
 
 #: src/routes/dashboard/admin/experience-queue.tsx
 #: src/routes/dashboard/admin/identity.tsx
@@ -1075,10 +1100,6 @@ msgstr ""
 #: src/routes/auth/login.tsx
 msgid "Don't have an account? <0/>"
 msgstr "Немате налог? <0/>"
-
-#: src/routes/builder/$resumeId/-sidebar/right/sections/information.tsx
-msgid "Donate to Reactive Resume"
-msgstr "Донирајте Реактивном Резимеу"
 
 #: src/dialogs/auth/enable-two-factor.tsx
 #: src/routes/$username/$slug.tsx
@@ -1145,6 +1166,10 @@ msgstr "Дуплирање вашег резимеа..."
 #: src/utils/locale.ts
 msgid "Dutch"
 msgstr "Холандски"
+
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "E-commerce Platform"
+msgstr ""
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "e.g. 150000"
@@ -1318,7 +1343,7 @@ msgid "Expires on {0}"
 msgstr "Истиче {0}"
 
 #: src/routes/dashboard/settings/api-keys.tsx
-msgid "Explore the API documentation to learn how to integrate Reactive Resume with your applications. Find detailed endpoints, request examples, and authentication methods."
+msgid "Explore the API documentation to learn how to integrate Skill Verdict with your applications. Find detailed endpoints, request examples, and authentication methods."
 msgstr "Истражите API документацију да бисте сазнали како да интегришете Реактивни Резиме са својим апликацијама. Пронађите детаљне крајње тачке, примере захтева и методе аутентификације."
 
 #: src/utils/resume/section.tsx
@@ -1437,6 +1462,10 @@ msgstr "Француски"
 msgid "Full Width"
 msgstr "Пуна ширина"
 
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "Full-stack React/Node.js application with payment integration"
+msgstr ""
+
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Full-time"
 msgstr "Пуно радно време"
@@ -1477,6 +1506,10 @@ msgstr "Иди на контролну таблу"
 msgid "Go to..."
 msgstr "Иди на..."
 
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "Google Professional Cloud Architect"
+msgstr ""
+
 #: src/dialogs/resume/sections/education.tsx
 msgid "Grade"
 msgstr "Оцена"
@@ -1495,6 +1528,10 @@ msgstr ""
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Growth-focused feedback"
+msgstr ""
+
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "Harvard University"
 msgstr ""
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/typography.tsx
@@ -1635,6 +1672,10 @@ msgstr ""
 msgid "Identity verification requested. Please check your email for next steps."
 msgstr ""
 
+#: src/routes/dashboard/-components/sidebar.tsx
+msgid "Identity Verified"
+msgstr ""
+
 #: src/routes/dashboard/admin/identity.tsx
 msgid "Identity verified successfully."
 msgstr ""
@@ -1664,10 +1705,6 @@ msgstr "Укључите кључне речи"
 #: src/utils/locale.ts
 msgid "Indonesian"
 msgstr "Индонежански"
-
-#: src/utils/resume/section.tsx
-msgid "Information"
-msgstr "Информације"
 
 #: src/components/input/rich-input.tsx
 msgid "Inline Code"
@@ -1705,6 +1742,10 @@ msgstr "Курзив"
 #: src/utils/locale.ts
 msgid "Japanese"
 msgstr "Јапански"
+
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "JavaScript"
+msgstr ""
 
 #: src/routes/dashboard/-components/sidebar.tsx
 #: src/routes/dashboard/job-search/index.tsx
@@ -1762,7 +1803,6 @@ msgid "Language"
 msgstr "Језик"
 
 #: src/dialogs/resume/sections/custom.tsx
-#: src/routes/_home/-sections/hero-visual.tsx
 #: src/utils/resume/section.tsx
 msgid "Languages"
 msgstr "Језици"
@@ -1804,10 +1844,6 @@ msgstr "Распоред"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Layouts for evidence, not decoration"
-msgstr ""
-
-#: src/routes/_home/-sections/hero-visual.tsx
-msgid "Lead development of LLM-powered features and AI-assisted workflows."
 msgstr ""
 
 #: src/components/resume/preview.tsx
@@ -1985,6 +2021,10 @@ msgstr ""
 msgid "Move to"
 msgstr "Премести у"
 
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "MSc Computer Science"
+msgstr ""
+
 #: src/dialogs/api-key/create.tsx
 #: src/dialogs/resume/index.tsx
 #: src/dialogs/resume/sections/interest.tsx
@@ -2088,6 +2128,10 @@ msgstr ""
 msgid "No verified items yet."
 msgstr ""
 
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "Node.js"
+msgstr ""
+
 #: src/routes/_home/-sections/templates.tsx
 msgid "Northline"
 msgstr ""
@@ -2123,6 +2167,10 @@ msgstr "Отвори клијент за е-пошту"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Open Profile"
+msgstr ""
+
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "OpenAI"
 msgstr ""
 
 #: src/routes/_home/-sections/footer.tsx
@@ -2186,6 +2234,10 @@ msgstr ""
 
 #: src/routes/dashboard/admin/experience-queue.tsx
 msgid "Overriding..."
+msgstr ""
+
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "Oxford University"
 msgstr ""
 
 #: src/utils/resume/section.tsx
@@ -2262,6 +2314,10 @@ msgstr "Период"
 #: src/utils/locale.ts
 msgid "Persian"
 msgstr "Персијски"
+
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "Personality"
+msgstr ""
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Personality & culture fit"
@@ -2393,6 +2449,7 @@ msgid "Progress Bar"
 msgstr "Трака напретка"
 
 #: src/dialogs/resume/sections/custom.tsx
+#: src/routes/_home/-sections/hero-visual.tsx
 #: src/routes/dashboard/verification/index.tsx
 #: src/utils/resume/section.tsx
 msgid "Projects"
@@ -2423,6 +2480,10 @@ msgstr "Издавач"
 msgid "Pulse"
 msgstr ""
 
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "Python/Django dashboard with interactive visualizations"
+msgstr ""
+
 #. placeholder {0}: quota.remaining
 #: src/routes/dashboard/job-search/index.tsx
 msgid "Quota: {0} remaining"
@@ -2431,6 +2492,14 @@ msgstr "Квота: {0} преостало"
 #: src/routes/dashboard/admin/job-search.tsx
 msgid "RapidAPI Key"
 msgstr "RapidAPI кључ"
+
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "React"
+msgstr ""
+
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "React Native mobile app with real-time synchronization"
+msgstr ""
 
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Receive a practical assignment from your reviewer, submit your work, and get actionable feedback in a real conversation."
@@ -2503,10 +2572,6 @@ msgstr "Преименуј"
 #: src/dialogs/resume/sections/experience.tsx
 msgid "Reorder"
 msgstr "Преуреди"
-
-#: src/routes/builder/$resumeId/-sidebar/right/sections/information.tsx
-msgid "Report a Bug"
-msgstr "Пријави грешку"
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "Request"
@@ -2733,6 +2798,10 @@ msgstr ""
 msgid "Select..."
 msgstr "Изаберите..."
 
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "Self-starter"
+msgstr ""
+
 #: src/routes/auth/forgot-password.tsx
 msgid "Send Password Reset Email"
 msgstr "Пошаљи е-поруку за ресет лозинке"
@@ -2740,6 +2809,14 @@ msgstr "Пошаљи е-поруку за ресет лозинке"
 #: src/routes/auth/forgot-password.tsx
 msgid "Sending password reset email..."
 msgstr "Слање е-поруке за ресет лозинке..."
+
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "Senior AI Engineer"
+msgstr ""
+
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "Senior Full Stack Developer"
+msgstr ""
 
 #: src/components/input/rich-input.tsx
 msgid "Separator"
@@ -2758,6 +2835,7 @@ msgstr "Постави лозинку"
 #: src/components/command-palette/pages/navigation.tsx
 #: src/components/command-palette/pages/navigation.tsx
 #: src/components/command-palette/pages/navigation.tsx
+#: src/routes/dashboard/-components/sidebar.tsx
 msgid "Settings"
 msgstr "Подешавања"
 
@@ -2867,6 +2945,10 @@ msgstr "Једноколонац; уштогљен и озбиљан за сен
 msgid "Size"
 msgstr "Величина"
 
+#: src/routes/dashboard/-components/sidebar.tsx
+msgid "Skill Center"
+msgstr ""
+
 #: src/routes/_home/-sections/templates.tsx
 msgid "Skill clusters"
 msgstr ""
@@ -2878,6 +2960,10 @@ msgstr ""
 #: src/routes/dashboard/-components/sidebar.tsx
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Skill Verdict Admin"
+msgstr ""
+
+#: src/routes/dashboard/-components/sidebar.tsx
+msgid "Skill Verdict Verification"
 msgstr ""
 
 #: src/dialogs/resume/sections/custom.tsx
@@ -2920,10 +3006,6 @@ msgstr "Нешто је пошло наопако. Покушајте понов
 msgid "Sort by"
 msgstr "Сортирај по"
 
-#: src/routes/builder/$resumeId/-sidebar/right/sections/information.tsx
-msgid "Source Code"
-msgstr "Изворни код"
-
 #: src/routes/builder/$resumeId/-sidebar/right/sections/page.tsx
 msgid "Spacing (Horizontal)"
 msgstr "Размак (хоризонтални)"
@@ -2939,10 +3021,6 @@ msgstr "Шпански"
 #: src/routes/_home/-sections/templates.tsx
 msgid "Split identity and evidence panes; keeps personality context beside hard verification."
 msgstr ""
-
-#: src/routes/builder/$resumeId/-sidebar/right/sections/information.tsx
-msgid "Sponsors"
-msgstr "Спонзори"
 
 #: src/components/level/combobox.tsx
 #: src/routes/builder/$resumeId/-sidebar/left/sections/picture.tsx
@@ -3013,10 +3091,6 @@ msgstr ""
 msgid "Summary"
 msgstr "Сажетак"
 
-#: src/routes/builder/$resumeId/-sidebar/right/sections/information.tsx
-msgid "Support the app by doing what you can!"
-msgstr "Подржите апликацију колико можете!"
-
 #: src/utils/locale.ts
 msgid "Swedish"
 msgstr "Шведски"
@@ -3057,6 +3131,14 @@ msgstr "Прилагођавање вашег резимеа..."
 #: src/utils/locale.ts
 msgid "Tamil"
 msgstr "Тамилски"
+
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "Task Management App"
+msgstr ""
+
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "Team player"
+msgstr ""
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Technical skills"
@@ -3196,7 +3278,7 @@ msgid "This week"
 msgstr "Ове недеље"
 
 #: src/dialogs/api-key/create.tsx
-msgid "This will generate a new API key to access the Reactive Resume API to allow machines to interact with your resume data."
+msgid "This will generate a new API key to access the Skill Verdict API to allow machines to interact with your resume data."
 msgstr "Ово ће генерисати нови API кључ за приступ Реактивни Резиме API-ју како би машине могле да комуницирају са подацима вашег резимеа."
 
 #: src/routes/_home/-sections/templates.tsx
@@ -3234,10 +3316,6 @@ msgstr "Данас"
 #: src/routes/builder/$resumeId/-sidebar/right/sections/statistics.tsx
 msgid "Track your resume's views and downloads"
 msgstr "Пратите прегледе и преузимања свог резимеа"
-
-#: src/routes/builder/$resumeId/-sidebar/right/sections/information.tsx
-msgid "Translations"
-msgstr "Преводи"
 
 #: src/utils/locale.ts
 msgid "Turkish"
@@ -3500,10 +3578,6 @@ msgstr ""
 msgid "Verdict overridden successfully."
 msgstr ""
 
-#: src/routes/_home/-sections/hero-visual.tsx
-msgid "Verdict passed"
-msgstr ""
-
 #: src/routes/dashboard/-components/sidebar.tsx
 #: src/routes/dashboard/verification/index.tsx
 #: src/routes/dashboard/verification/index.tsx
@@ -3542,10 +3616,6 @@ msgstr "Верификовано"
 #: src/routes/$username/$slug.tsx
 #: src/routes/dashboard/verification/index.tsx
 msgid "Verified by {0}"
-msgstr ""
-
-#: src/routes/_home/-sections/hero-visual.tsx
-msgid "Verified candidate"
 msgstr ""
 
 #: src/routes/_home/-sections/features.tsx

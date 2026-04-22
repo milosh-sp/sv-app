@@ -1,16 +1,16 @@
 {
-  "name": "reactive-resume",
+  "name": "skill-verdict",
   "version": "5.0.14",
-  "description": "Reactive Resume is a free and open-source resume builder that simplifies the process of creating, updating, and sharing your resume.",
+  "description": "Skill Verdict is a free and open-source resume builder that simplifies the process of creating, updating, and sharing your resume.",
   "license": "MIT",
   "author": {
-    "name": "Amruth Pillai",
-    "email": "hello@amruthpillai.com",
-    "url": "https://amruthpillai.com"
+    "name": "YOUR_CONTACT_NAME",
+    "email": "YOUR_SUPPORT_EMAIL",
+    "url": "YOUR_CONTACT_URL"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/amruthpillai/reactive-resume.git"
+    "url": "https://github.com/YOUR_GITHUB_OWNER/skill-verdict.git"
   },
   "type": "module",
   "scripts": {

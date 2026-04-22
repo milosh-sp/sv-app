@@ -1,11 +1,11 @@
 ---
 title: "Using the API"
-description: "Learn how to create API keys and authenticate requests to the Reactive Resume API"
+description: "Learn how to create API keys and authenticate requests to the Skill Verdict API"
 ---
 
 <Steps>
   <Step title="Sign in to the dashboard">
-    Head over to [https://rxresu.me](https://rxresu.me) and sign in with your account credentials.
+    Head over to [YOUR_APP_URL](YOUR_APP_URL) and sign in with your account credentials.
   </Step>
 
 <Step title="Navigate to API Keys settings">
@@ -17,7 +17,7 @@ description: "Learn how to create API keys and authenticate requests to the Reac
     On the API Keys page, click <Badge>API Documentation</Badge> to view the API reference.
 
     <Tip>
-      You can also open it directly here: [API Reference](https://docs.rxresu.me/api-reference).
+      You can also open it directly here: [API Reference](YOUR_DOCS_URL/api-reference).
     </Tip>
 
   </Step>
@@ -43,11 +43,11 @@ description: "Learn how to create API keys and authenticate requests to the Reac
     To authenticate API requests, include your key in the <Badge>x-api-key</Badge> header.
 
     <Info>
-      If you're self-hosting, replace <code>https://rxresu.me</code> with your instance URL. The API is served under <code>/api/openapi</code>.
+      If you're self-hosting, replace <code>YOUR_APP_URL</code> with your instance URL. The API is served under <code>/api/openapi</code>.
     </Info>
 
     ```bash
-    curl "https://rxresu.me/api/openapi/resumes" \
+    curl "YOUR_APP_URL/api/openapi/resumes" \
       -H "x-api-key: YOUR_API_KEY"
     ```
 

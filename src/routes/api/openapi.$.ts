@@ -37,14 +37,18 @@ async function handler({ request }: { request: Request }) {
   if (request.method === "GET" && request.url.endsWith("/spec.json")) {
     const spec = await openAPIGenerator.generate(router, {
       info: {
-        title: "Reactive Resume",
+        title: "Skill Verdict",
         version: __APP_VERSION__,
-        description: "Reactive Resume API",
-        license: { name: "MIT", url: "https://github.com/amruthpillai/reactive-resume/blob/main/LICENSE" },
-        contact: { name: "Amruth Pillai", email: "hello@amruthpillai.com", url: "https://amruthpillai.com" },
+        description: "Skill Verdict API",
+        license: { name: "MIT", url: "YOUR_GITHUB_REPO_URL/blob/main/LICENSE" },
+        contact: {
+          name: "YOUR_CONTACT_NAME",
+          email: "YOUR_SUPPORT_EMAIL",
+          url: "YOUR_CONTACT_URL",
+        },
       },
       servers: [{ url: `${env.APP_URL}/api/openapi` }],
-      externalDocs: { url: "https://docs.rxresu.me", description: "Reactive Resume Documentation" },
+      externalDocs: { url: "YOUR_DOCS_URL", description: "Skill Verdict Documentation" },
       commonSchemas: {
         ResumeData: { schema: resumeDataSchema },
       },

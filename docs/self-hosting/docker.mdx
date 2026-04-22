@@ -1,11 +1,11 @@
 ---
 title: "Self-Hosting with Docker"
-description: "A comprehensive guide to self-host Reactive Resume with Docker (Postgres + Printer), including a detailed environment variable reference and troubleshooting tips."
+description: "A comprehensive guide to self-host Skill Verdict with Docker (Postgres + Printer), including a detailed environment variable reference and troubleshooting tips."
 ---
 
 ## Overview
 
-Reactive Resume can be self-hosted using Docker in a matter of minutes, and this guide will walk you through the process. Here are some of the services you'll need to get started:
+Skill Verdict can be self-hosted using Docker in a matter of minutes, and this guide will walk you through the process. Here are some of the services you'll need to get started:
 
 <CardGroup cols={2}>
   <Card title="PostgreSQL">Stores accounts, resumes, and application data.</Card>
@@ -20,8 +20,8 @@ Reactive Resume can be self-hosted using Docker in a matter of minutes, and this
 
 You can pull the latest app image from:
 
-- Docker Hub: `amruthpillai/reactive-resume:latest`
-- GitHub Container Registry: `ghcr.io/amruthpillai/reactive-resume:latest`
+- Docker Hub: `YOUR_GITHUB_OWNER/YOUR_GITHUB_REPO:latest`
+- GitHub Container Registry: `ghcr.io/YOUR_GITHUB_OWNER/YOUR_GITHUB_REPO:latest`
 
 ## Minimum requirements
 
@@ -33,7 +33,7 @@ You can pull the latest app image from:
 
 ## Quickstart using Docker Compose
 
-Create a new folder (for example `reactive-resume/`) with:
+Create a new folder (for example `skill-verdict/`) with:
 
 - `compose.yml`
 - `.env`
@@ -50,7 +50,7 @@ APP_URL="http://localhost:3000"
 
 # Optional, uses APP_URL by default
 # This can be set to a different URL (like http://host.docker.internal:3000 or http://{docker_service}:3000)
-# to let the browser navigate to a non-public instance of Reactive Resume
+# to let the browser navigate to a non-public instance of Skill Verdict
 PRINTER_APP_URL="http://host.docker.internal:3000"
 
 # --- Printer ---
@@ -92,7 +92,7 @@ SMTP_HOST=""
 SMTP_PORT="465"
 SMTP_USER=""
 SMTP_PASS=""
-SMTP_FROM="Reactive Resume <noreply@rxresu.me>"
+SMTP_FROM="Skill Verdict <noreply@YOUR_APP_URL>"
 SMTP_SECURE="false"
 
 # --- Storage (optional) ---
@@ -138,7 +138,7 @@ FLAG_DISABLE_EMAIL_AUTH="false"
   </Step>
 
   <Step title="Create compose.yml">
-    This setup runs Postgres + Printer + Reactive Resume on a private Docker network.
+    This setup runs Postgres + Printer + Skill Verdict on a private Docker network.
 
     <CodeGroup>
 
@@ -176,9 +176,9 @@ services:
       timeout: 5s
       retries: 10
 
-  reactive-resume:
-    image: amruthpillai/reactive-resume:latest
-    # image: ghcr.io/amruthpillai/reactive-resume:latest
+  skill-verdict:
+    image: YOUR_GITHUB_OWNER/YOUR_GITHUB_REPO:latest
+    # image: ghcr.io/YOUR_GITHUB_OWNER/YOUR_GITHUB_REPO:latest
     restart: unless-stopped
     ports:
       - "3000:3000"
@@ -219,7 +219,7 @@ volumes:
     </Note>
 
     <Tip>
-      Prefer pulling from Docker Hub? Keep <code>amruthpillai/reactive-resume:latest</code>. Prefer GHCR? Swap it to <code>ghcr.io/amruthpillai/reactive-resume:latest</code>.
+      Prefer pulling from Docker Hub? Keep <code>YOUR_GITHUB_OWNER/YOUR_GITHUB_REPO:latest</code>. Prefer GHCR? Swap it to <code>ghcr.io/YOUR_GITHUB_OWNER/YOUR_GITHUB_REPO:latest</code>.
     </Tip>
 
   </Step>
@@ -236,12 +236,12 @@ docker compose ps
 ```
 
 ```bash
-docker compose logs -f reactive-resume
+docker compose logs -f skill-verdict
 ```
 
     </CodeGroup>
 
-    Reactive Resume should now be available at your `APP_URL` (for the example above: `http://localhost:3000`).
+    Skill Verdict should now be available at your `APP_URL` (for the example above: `http://localhost:3000`).
 
   </Step>
 </Steps>
@@ -298,7 +298,7 @@ docker compose logs -f reactive-resume
   </Accordion>
 
   <Accordion title="Printer">
-    - **`PRINTER_ENDPOINT`**: Base URL where Reactive Resume reaches the printer service. In Compose: `http://printer:3000`. If using browserless with token authentication, include the token as a query parameter: `ws://printer:3000?token=your-secret-token`.
+    - **`PRINTER_ENDPOINT`**: Base URL where Skill Verdict reaches the printer service. In Compose: `http://printer:3000`. If using browserless with token authentication, include the token as a query parameter: `ws://printer:3000?token=your-secret-token`.
     
     <Note>
       **Alternative to browserless**: You can use a lightweight headless Chrome Docker image like `chromedp/headless-shell`:
@@ -355,7 +355,7 @@ openssl rand -hex 32
     - **`SMTP_HOST`**: SMTP host (if empty, email sending is disabled).
     - **`SMTP_PORT`**: Usually `465` (implicit TLS) or `587` (STARTTLS).
     - **`SMTP_USER`** / **`SMTP_PASS`**: SMTP credentials.
-    - **`SMTP_FROM`**: Default from address (for example, `Reactive Resume <noreply@rxresu.me>`).
+    - **`SMTP_FROM`**: Default from address (for example, `Skill Verdict <noreply@YOUR_APP_URL>`).
     - **`SMTP_SECURE`**: `"true"` or `"false"` (string). Match your provider settings.
 
   </Accordion>
@@ -382,7 +382,7 @@ openssl rand -hex 32
 
 ## Updating your installation
 
-To update your Reactive Resume installation to the latest available version, follow these steps:
+To update your Skill Verdict installation to the latest available version, follow these steps:
 
 1. **Pull the latest images** for all services defined in your Docker Compose file.
 
@@ -405,7 +405,7 @@ This process ensures your app, database, and printer are all up-to-date while ke
 
 ## Backups (recommended)
 
-Regular backups are essential to protect your data. Reactive Resume stores data in two places: the PostgreSQL database and file uploads (either local storage or S3).
+Regular backups are essential to protect your data. Skill Verdict stores data in two places: the PostgreSQL database and file uploads (either local storage or S3).
 
 ### Database backups
 
@@ -419,7 +419,7 @@ If you're using S3-compatible storage, consider enabling versioning on your buck
 
 ## Health Checks
 
-Reactive Resume exposes a health check endpoint at `/api/health` that verifies the application and its dependencies are functioning correctly. If any critical service (such as the database connection) fails, the health check will return an unhealthy status.
+Skill Verdict exposes a health check endpoint at `/api/health` that verifies the application and its dependencies are functioning correctly. If any critical service (such as the database connection) fails, the health check will return an unhealthy status.
 
 ### How it works
 
@@ -442,7 +442,7 @@ Most reverse proxies (such as **Traefik**, **Caddy**, or **nginx** with upstream
 - **Healthy containers** receive traffic as normal
 - **Unhealthy containers** are automatically removed from the load balancer pool
 
-This is particularly useful in high-availability setups where you have multiple instances of Reactive Resume. If one instance becomes unhealthy (for example, it loses its database connection), the reverse proxy will stop routing traffic to it until it recovers.
+This is particularly useful in high-availability setups where you have multiple instances of Skill Verdict. If one instance becomes unhealthy (for example, it loses its database connection), the reverse proxy will stop routing traffic to it until it recovers.
 
 <Tip>
   If you're using **Traefik**, it automatically respects Docker health checks when using the Docker provider. Unhealthy
@@ -451,7 +451,7 @@ This is particularly useful in high-availability setups where you have multiple 
 
 ### Manually checking health
 
-You can manually verify the health of your Reactive Resume instance:
+You can manually verify the health of your Skill Verdict instance:
 
 ```bash
 # From outside the container
@@ -469,9 +469,9 @@ A healthy response returns HTTP 200. Any other response (or a connection failure
   <Accordion title="The app container exits immediately">
     - **Common cause**: database migrations failed (often a bad `DATABASE_URL`).
     - **What to do**:  
-      When the app container exits right away, you'll want to check the logs for more information about the error. Run the following command to view real-time logs from the Reactive Resume container:
+      When the app container exits right away, you'll want to check the logs for more information about the error. Run the following command to view real-time logs from the Skill Verdict container:
       ```bash
-      docker compose logs -f reactive-resume
+      docker compose logs -f skill-verdict
       ```
   </Accordion>
 
@@ -481,7 +481,7 @@ A healthy response returns HTTP 200. Any other response (or a connection failure
 </Accordion>
 
 <Accordion title="PDF export fails / printing is stuck">
-  - **Common cause**: Reactive Resume can't reach the printer or the printer can't reach your app. - **Checks**: -
+  - **Common cause**: Skill Verdict can't reach the printer or the printer can't reach your app. - **Checks**: -
   `PRINTER_ENDPOINT` should usually be `http://printer:3000` in Compose. - If you use
   `PRINTER_APP_URL="http://host.docker.internal:3000"`, ensure `extra_hosts: host-gateway` is present for the printer
   service.

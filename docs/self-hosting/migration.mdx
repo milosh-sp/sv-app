@@ -1,11 +1,11 @@
 ---
 title: "Migrating from v4 to v5"
-description: "A step-by-step guide to migrate your Reactive Resume instance from v4 to v5, including manual and automated migration options."
+description: "A step-by-step guide to migrate your Skill Verdict instance from v4 to v5, including manual and automated migration options."
 ---
 
 ## Overview
 
-This guide walks you through migrating your Reactive Resume installation from **v4 to v5**. The migration process involves setting up a new v5 instance alongside your existing v4 instance, then transferring your users and resumes to the new system.
+This guide walks you through migrating your Skill Verdict installation from **v4 to v5**. The migration process involves setting up a new v5 instance alongside your existing v4 instance, then transferring your users and resumes to the new system.
 
 <Warning>
   **Keep your v4 instance running** until you have successfully migrated all data to v5 and verified everything works
@@ -17,9 +17,9 @@ This guide walks you through migrating your Reactive Resume installation from **
 Before starting the migration, ensure you have:
 
 <CardGroup cols={2}>
-  <Card title="Running v4 Instance">Your existing Reactive Resume v4 instance should be running and accessible.</Card>
+  <Card title="Running v4 Instance">Your existing Skill Verdict v4 instance should be running and accessible.</Card>
   <Card title="New v5 Instance">
-    A fresh Reactive Resume v5 instance set up and running. Follow the [Self-Hosting with Docker](/self-hosting/docker)
+    A fresh Skill Verdict v5 instance set up and running. Follow the [Self-Hosting with Docker](/self-hosting/docker)
     guide if you haven't done this yet.
   </Card>
   <Card title="Database Access">
@@ -54,8 +54,8 @@ If you have only a few resumes to migrate, the simplest approach is to use the *
 
 <Step title="Import into v5">
   In your new v5 instance: 1. Log in or create a new account 2. Click **Create Resume** or use the **Import** option 3.
-  Select the **Reactive Resume v4** format 4. Upload your exported JSON file The import process automatically converts
-  the v4 format to v5.
+  Select the **Skill Verdict v4** format 4. Upload your exported JSON file The import process automatically converts the
+  v4 format to v5.
 </Step>
 
   <Step title="Verify and repeat">
@@ -84,9 +84,9 @@ To run the migration scripts, you need the following installed on your host mach
     **dotenvx** (or any tool to load `.env` files). Install globally with: ```bash npm install -g @dotenvx/dotenvx ```
     Alternatively, you can use `dotenv`, `direnv`, or export the variables manually.
   </Card>
-  <Card title="Reactive Resume Source Code">
-    Clone the Reactive Resume repository to access the migration scripts: ```bash git clone
-    https://github.com/amruthpillai/reactive-resume.git cd reactive-resume pnpm install ```
+  <Card title="Skill Verdict Source Code">
+    Clone the Skill Verdict repository to access the migration scripts: ```bash git clone YOUR_GITHUB_REPO_URL.git cd
+    skill-verdict pnpm install ```
   </Card>
 </CardGroup>
 
@@ -96,10 +96,10 @@ Create a `.env` file in the root of the repository with the following variables:
 
 ```bash .env
 # Connection string to your NEW v5 PostgreSQL database (target)
-DATABASE_URL="postgresql://user:password@localhost:5432/reactive_resume_v5"
+DATABASE_URL="postgresql://user:password@localhost:5432/skill_verdict_v5"
 
 # Connection string to your OLD v4 PostgreSQL database (source)
-PRODUCTION_DATABASE_URL="postgresql://user:password@localhost:5432/reactive_resume_v4"
+PRODUCTION_DATABASE_URL="postgresql://user:password@localhost:5432/skill_verdict_v4"
 ```
 
 <Warning>

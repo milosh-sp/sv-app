@@ -6,13 +6,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: @lingui/cli\n"
 "Language: te\n"
-"Project-Id-Version: reactive-resume\n"
+"Project-Id-Version: skill-verdict\n"
 "Report-Msgid-Bugs-To: \n"
 "PO-Revision-Date: 2026-03-19 09:08\n"
 "Last-Translator: \n"
 "Language-Team: Telugu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Crowdin-Project: reactive-resume\n"
+"X-Crowdin-Project: skill-verdict\n"
 "X-Crowdin-Project-ID: 503410\n"
 "X-Crowdin-Language: te\n"
 "X-Crowdin-File: /main/locales/en-US.po\n"
@@ -73,10 +73,6 @@ msgctxt "Every word needs to be wrapped in a tag"
 msgid "<0>Frequently</0><1>Asked</1><2>Questions</2>"
 msgstr "<0>ప్రశ్నలు</0><1>వేడి</1><2>అడిగినవి</2>"
 
-#: src/routes/builder/$resumeId/-sidebar/right/sections/information.tsx
-msgid "<0>Thank you for using Reactive Resume! This app is a labor of love, created mostly in my spare time, with wonderful support from open-source contributors around the world.</0><1>If Reactive Resume has been helpful to you, and you'd like to help keep it free and open for everyone, please consider making a donation. Every little bit is appreciated!</1>"
-msgstr "<0>Reactive Resume వాడినందుకు ధన్యవాదాలు! ఈ యాప్ నాకు ఖాళీ సమయంలో, ప్రపంచవ్యాప్తంగా ఉన్న ఓపెన్-సోర్స్ సహాయదారుల అద్భుతమైన మద్దతుతో, ప్రేమతో సృజించబడింది.</0><1>Reactive Resume మీకు సహాయపడిందనుకుంటే, దీనిని అందరికీ ఉచితంగా మరియు ఓపెన్‌గా ఉంచేందుకు మీరు సహాయం చేయాలనుకుంటే, దయచేసి విరాళం ఇవ్వాలని పరిశీలించండి. ప్రతి చిన్న సహాయం అభినందించబడుతుంది!</1>"
-
 #: src/routes/_home/-sections/hero.tsx
 msgid "<0>Your skills, finally,</0><1>Proven. Not just claimed.</1>"
 msgstr ""
@@ -89,13 +85,21 @@ msgstr "1 నెల"
 msgid "1 year"
 msgstr "1 సంవత్సరం"
 
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "2010 - 2014"
+msgstr ""
+
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "2014 - 2016"
+msgstr ""
+
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "2020 - Present"
+msgstr ""
+
 #: src/dialogs/api-key/create.tsx
 msgid "3 months"
 msgstr "3 నెలలు"
-
-#: src/routes/_home/-sections/hero-visual.tsx
-msgid "4 skills endorsed by anonymous domain experts in the last 30 days."
-msgstr ""
 
 #: src/dialogs/api-key/create.tsx
 msgid "6 months"
@@ -141,6 +145,10 @@ msgstr ""
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Account updated"
+msgstr ""
+
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "Action oriented"
 msgstr ""
 
 #: src/routes/builder/$resumeId/-sidebar/left/sections/custom-fields.tsx
@@ -249,6 +257,11 @@ msgstr "మీ అసలు రెస్యూమెకు కొత్త న�
 msgid "Admin AI"
 msgstr ""
 
+#: src/components/command-palette/pages/navigation.tsx
+#: src/routes/dashboard/-components/sidebar.tsx
+msgid "Administration"
+msgstr ""
+
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Advanced Filters"
 msgstr "అధునాతన ఫిల్టర్లు"
@@ -256,6 +269,10 @@ msgstr "అధునాతన ఫిల్టర్లు"
 #: src/utils/locale.ts
 msgid "Afrikaans"
 msgstr "ఆఫ్రికాన్స్"
+
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "AI / ML"
+msgstr ""
 
 #: src/components/ai/chat.tsx
 msgid "AI Chat"
@@ -266,7 +283,7 @@ msgid "Albanian"
 msgstr "అల్బేనియన్"
 
 #: src/routes/_home/-sections/hero-visual.tsx
-msgid "Alex Morgan · Senior Software Engineer"
+msgid "Alex Smith"
 msgstr ""
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
@@ -289,6 +306,10 @@ msgstr "పేజీను లోడ్ చేస్తుండగా లోప
 #: src/dialogs/resume/import.tsx
 msgid "An unknown error occurred while importing your resume."
 msgstr "మీ రిజ్యూమ్‌ను దిగుమతి చేసేటప్పుడు తెలియని లోపం సంభవించింది."
+
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "Analytical"
+msgstr ""
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Anonymous, bias-free review"
@@ -358,10 +379,6 @@ msgstr "అరబిక్"
 msgid "Arc"
 msgstr ""
 
-#: src/routes/_home/-sections/hero-visual.tsx
-msgid "Architected cloud-native services and led CI/CD and container platforms."
-msgstr ""
-
 #: src/hooks/use-form-blocker.tsx
 msgid "Are you sure you want to close this dialog?"
 msgstr "మీరు ఈ డైలాగ్‌ను మూసివేయాలనుకుంటున్నారా?"
@@ -419,6 +436,14 @@ msgstr "పురస్కార దాత"
 msgid "Awards"
 msgstr "పురస్కారాలు"
 
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "AWS"
+msgstr ""
+
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "AWS Certified Solutions Architect"
+msgstr ""
+
 #: src/utils/locale.ts
 msgid "Azerbaijani"
 msgstr "అజర్బైజానీ"
@@ -426,10 +451,6 @@ msgstr "అజర్బైజానీ"
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/experience-queue.tsx
 msgid "Back"
-msgstr ""
-
-#: src/routes/dashboard/-components/sidebar.tsx
-msgid "Back to dashboard"
 msgstr ""
 
 #: src/routes/auth/verify-2fa.tsx
@@ -480,6 +501,10 @@ msgstr "సరిహద్దు వ్యాసార్థం"
 #: src/routes/builder/$resumeId/-sidebar/left/sections/picture.tsx
 msgid "Border Width"
 msgstr "సరిహద్దు వెడల్పు"
+
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "BSc Software Engineering"
+msgstr ""
 
 #: src/routes/_home/-sections/hero.tsx
 msgid "Build a living profile backed by real evidence. Get your skills endorsed by domain experts in short, practical reviews — and let opportunities come to you."
@@ -738,8 +763,8 @@ msgid "Continue where you left off"
 msgstr "మీరు నిలిపిన చోట continued చేయండి"
 
 #: src/dialogs/resume/import.tsx
-msgid "Continue where you left off by importing an existing resume you created using Reactive Resume or any another resume builder. Supported formats include PDF, Microsoft Word, as well as JSON files from Reactive Resume."
-msgstr "మీరు Reactive Resume లేదా ఇతర రిజ్యూమ్ బిల్డర్ ఉపయోగించి సృష్టించిన ఇప్పటికే ఉన్న రిజ్యూమ్‌ను ఇంపోర్ట్ చేయడం ద్వారా మీరు నిలిపిన చోట continued చేయండి. మద్దతిచేసే ఫార్మాట్లలో PDF, Microsoft Word, ఇంకా Reactive Resume నుండి JSON ఫైళ్లు ఉన్నాయి."
+msgid "Continue where you left off by importing an existing resume you created using Skill Verdict or any another resume builder. Supported formats include PDF, Microsoft Word, as well as JSON files from Skill Verdict."
+msgstr "మీరు Skill Verdict లేదా ఇతర రిజ్యూమ్ బిల్డర్ ఉపయోగించి సృష్టించిన ఇప్పటికే ఉన్న రిజ్యూమ్‌ను ఇంపోర్ట్ చేయడం ద్వారా మీరు నిలిపిన చోట continued చేయండి. మద్దతిచేసే ఫార్మాట్లలో PDF, Microsoft Word, ఇంకా Skill Verdict నుండి JSON ఫైళ్లు ఉన్నాయి."
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Contractor"
@@ -916,10 +941,6 @@ msgstr "కస్టమ్ విభాగాలు"
 msgid "CV / resume"
 msgstr ""
 
-#: src/routes/_home/-sections/hero-visual.tsx
-msgid "CV 2.0"
-msgstr ""
-
 #: src/utils/locale.ts
 msgid "Czech"
 msgstr "చెక్"
@@ -946,6 +967,10 @@ msgstr "చీకటి థీమ్"
 
 #: src/routes/_home/-sections/footer.tsx
 msgid "Dashboard"
+msgstr ""
+
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "Data Analytics Dashboard"
 msgstr ""
 
 #: src/dialogs/resume/sections/award.tsx
@@ -1055,13 +1080,13 @@ msgstr "డిస్కనెక్ట్ చేయండి"
 msgid "Display username"
 msgstr ""
 
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "Docker"
+msgstr ""
+
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Document"
 msgstr ""
-
-#: src/routes/builder/$resumeId/-sidebar/right/sections/information.tsx
-msgid "Documentation"
-msgstr "డాక్యుమెంటేషన్"
 
 #: src/routes/dashboard/admin/experience-queue.tsx
 #: src/routes/dashboard/admin/identity.tsx
@@ -1075,10 +1100,6 @@ msgstr ""
 #: src/routes/auth/login.tsx
 msgid "Don't have an account? <0/>"
 msgstr "ఖాతా లేదా? <0/>"
-
-#: src/routes/builder/$resumeId/-sidebar/right/sections/information.tsx
-msgid "Donate to Reactive Resume"
-msgstr "Reactive Resume కు దానం చేయండి"
 
 #: src/dialogs/auth/enable-two-factor.tsx
 #: src/routes/$username/$slug.tsx
@@ -1145,6 +1166,10 @@ msgstr "మీ రిజ్యూమ్‌ను నకిలీ చేస్త
 #: src/utils/locale.ts
 msgid "Dutch"
 msgstr "డచ్"
+
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "E-commerce Platform"
+msgstr ""
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "e.g. 150000"
@@ -1318,8 +1343,8 @@ msgid "Expires on {0}"
 msgstr "{0}న గడువు ముగుస్తుంది"
 
 #: src/routes/dashboard/settings/api-keys.tsx
-msgid "Explore the API documentation to learn how to integrate Reactive Resume with your applications. Find detailed endpoints, request examples, and authentication methods."
-msgstr "మీ అప్లికేషన్లతో Reactive Resumeను సమ్మిళితం చేయడాన్ని నేర్చుకునేందుకు API డాక్యుమెంటేషన్‌ను అన్వేషించండి. డీటైల్డ్ ఎండ్‌పాయింట్లు, రిక్వెస్ట్ ఉదాహరణలు, మరియు ధృవీకరణ పద్ధతులను కనుగొనండి."
+msgid "Explore the API documentation to learn how to integrate Skill Verdict with your applications. Find detailed endpoints, request examples, and authentication methods."
+msgstr "మీ అప్లికేషన్లతో Skill Verdictను సమ్మిళితం చేయడాన్ని నేర్చుకునేందుకు API డాక్యుమెంటేషన్‌ను అన్వేషించండి. డీటైల్డ్ ఎండ్‌పాయింట్లు, రిక్వెస్ట్ ఉదాహరణలు, మరియు ధృవీకరణ పద్ధతులను కనుగొనండి."
 
 #: src/utils/resume/section.tsx
 msgid "Export"
@@ -1437,6 +1462,10 @@ msgstr "ఫ్రెంచ్"
 msgid "Full Width"
 msgstr "పూర్తి వెడల్పు"
 
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "Full-stack React/Node.js application with payment integration"
+msgstr ""
+
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Full-time"
 msgstr "పూర్తి-కాలం"
@@ -1477,6 +1506,10 @@ msgstr "డాష్బోర్డ్ కి వెళ్లండి"
 msgid "Go to..."
 msgstr "కి వెళ్ళండి..."
 
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "Google Professional Cloud Architect"
+msgstr ""
+
 #: src/dialogs/resume/sections/education.tsx
 msgid "Grade"
 msgstr "గ్రేడ్"
@@ -1495,6 +1528,10 @@ msgstr ""
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Growth-focused feedback"
+msgstr ""
+
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "Harvard University"
 msgstr ""
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/typography.tsx
@@ -1635,6 +1672,10 @@ msgstr ""
 msgid "Identity verification requested. Please check your email for next steps."
 msgstr ""
 
+#: src/routes/dashboard/-components/sidebar.tsx
+msgid "Identity Verified"
+msgstr ""
+
 #: src/routes/dashboard/admin/identity.tsx
 msgid "Identity verified successfully."
 msgstr ""
@@ -1664,10 +1705,6 @@ msgstr "కీవర్డ్‌లను చేర్చండి"
 #: src/utils/locale.ts
 msgid "Indonesian"
 msgstr "ఇండోనేషియన్"
-
-#: src/utils/resume/section.tsx
-msgid "Information"
-msgstr "ఇన్ఫర్మేషన్"
 
 #: src/components/input/rich-input.tsx
 msgid "Inline Code"
@@ -1705,6 +1742,10 @@ msgstr "ఇటాలిక్"
 #: src/utils/locale.ts
 msgid "Japanese"
 msgstr "జపానీస్"
+
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "JavaScript"
+msgstr ""
 
 #: src/routes/dashboard/-components/sidebar.tsx
 #: src/routes/dashboard/job-search/index.tsx
@@ -1762,7 +1803,6 @@ msgid "Language"
 msgstr "భాష"
 
 #: src/dialogs/resume/sections/custom.tsx
-#: src/routes/_home/-sections/hero-visual.tsx
 #: src/utils/resume/section.tsx
 msgid "Languages"
 msgstr "భాషలు"
@@ -1804,10 +1844,6 @@ msgstr "విన్యాసం"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Layouts for evidence, not decoration"
-msgstr ""
-
-#: src/routes/_home/-sections/hero-visual.tsx
-msgid "Lead development of LLM-powered features and AI-assisted workflows."
 msgstr ""
 
 #: src/components/resume/preview.tsx
@@ -1985,6 +2021,10 @@ msgstr ""
 msgid "Move to"
 msgstr "కి తరలించండి"
 
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "MSc Computer Science"
+msgstr ""
+
 #: src/dialogs/api-key/create.tsx
 #: src/dialogs/resume/index.tsx
 #: src/dialogs/resume/sections/interest.tsx
@@ -2088,6 +2128,10 @@ msgstr ""
 msgid "No verified items yet."
 msgstr ""
 
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "Node.js"
+msgstr ""
+
 #: src/routes/_home/-sections/templates.tsx
 msgid "Northline"
 msgstr ""
@@ -2123,6 +2167,10 @@ msgstr "ఈమెయిల్ క్లైంట్ తెరవండి"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Open Profile"
+msgstr ""
+
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "OpenAI"
 msgstr ""
 
 #: src/routes/_home/-sections/footer.tsx
@@ -2186,6 +2234,10 @@ msgstr ""
 
 #: src/routes/dashboard/admin/experience-queue.tsx
 msgid "Overriding..."
+msgstr ""
+
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "Oxford University"
 msgstr ""
 
 #: src/utils/resume/section.tsx
@@ -2262,6 +2314,10 @@ msgstr "కాలము"
 #: src/utils/locale.ts
 msgid "Persian"
 msgstr "పర్షియన్"
+
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "Personality"
+msgstr ""
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Personality & culture fit"
@@ -2393,6 +2449,7 @@ msgid "Progress Bar"
 msgstr "ప్రోగ్రెస్ బార్"
 
 #: src/dialogs/resume/sections/custom.tsx
+#: src/routes/_home/-sections/hero-visual.tsx
 #: src/routes/dashboard/verification/index.tsx
 #: src/utils/resume/section.tsx
 msgid "Projects"
@@ -2423,6 +2480,10 @@ msgstr "పబ్లిషర్"
 msgid "Pulse"
 msgstr ""
 
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "Python/Django dashboard with interactive visualizations"
+msgstr ""
+
 #. placeholder {0}: quota.remaining
 #: src/routes/dashboard/job-search/index.tsx
 msgid "Quota: {0} remaining"
@@ -2431,6 +2492,14 @@ msgstr "కోటా: {0} మిగిలి ఉన్నాయి"
 #: src/routes/dashboard/admin/job-search.tsx
 msgid "RapidAPI Key"
 msgstr "రాపిడ్ఏపీఐ కీ"
+
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "React"
+msgstr ""
+
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "React Native mobile app with real-time synchronization"
+msgstr ""
 
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Receive a practical assignment from your reviewer, submit your work, and get actionable feedback in a real conversation."
@@ -2503,10 +2572,6 @@ msgstr "రీనేమ్"
 #: src/dialogs/resume/sections/experience.tsx
 msgid "Reorder"
 msgstr "మళ్ళీ అమర్చు"
-
-#: src/routes/builder/$resumeId/-sidebar/right/sections/information.tsx
-msgid "Report a Bug"
-msgstr "బగ్‌ను నివేదించండి"
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "Request"
@@ -2733,6 +2798,10 @@ msgstr ""
 msgid "Select..."
 msgstr "ఎంచుకోండి..."
 
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "Self-starter"
+msgstr ""
+
 #: src/routes/auth/forgot-password.tsx
 msgid "Send Password Reset Email"
 msgstr "పాస్‌వర్డ్ రీసెట్ ఇమెయిల్ పంపండి"
@@ -2740,6 +2809,14 @@ msgstr "పాస్‌వర్డ్ రీసెట్ ఇమెయిల్ 
 #: src/routes/auth/forgot-password.tsx
 msgid "Sending password reset email..."
 msgstr "పాస్‌వర్డ్ రీసెట్ ఇమెయిల్‌ను పంపుతున్నాము..."
+
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "Senior AI Engineer"
+msgstr ""
+
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "Senior Full Stack Developer"
+msgstr ""
 
 #: src/components/input/rich-input.tsx
 msgid "Separator"
@@ -2758,6 +2835,7 @@ msgstr "పాస్‌వర్డ్ సెట్ చేయండి"
 #: src/components/command-palette/pages/navigation.tsx
 #: src/components/command-palette/pages/navigation.tsx
 #: src/components/command-palette/pages/navigation.tsx
+#: src/routes/dashboard/-components/sidebar.tsx
 msgid "Settings"
 msgstr "సెట్టింగులు"
 
@@ -2867,6 +2945,10 @@ msgstr "ఒకే-కాలమ్; శుభ్రమైన మరియు ప�
 msgid "Size"
 msgstr "సైజు"
 
+#: src/routes/dashboard/-components/sidebar.tsx
+msgid "Skill Center"
+msgstr ""
+
 #: src/routes/_home/-sections/templates.tsx
 msgid "Skill clusters"
 msgstr ""
@@ -2878,6 +2960,10 @@ msgstr ""
 #: src/routes/dashboard/-components/sidebar.tsx
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Skill Verdict Admin"
+msgstr ""
+
+#: src/routes/dashboard/-components/sidebar.tsx
+msgid "Skill Verdict Verification"
 msgstr ""
 
 #: src/dialogs/resume/sections/custom.tsx
@@ -2920,10 +3006,6 @@ msgstr "ఏదో తప్పు జరిగింది. దయచేసి �
 msgid "Sort by"
 msgstr "సორტ్ చేయండి"
 
-#: src/routes/builder/$resumeId/-sidebar/right/sections/information.tsx
-msgid "Source Code"
-msgstr "సోర్స్ కోడ్"
-
 #: src/routes/builder/$resumeId/-sidebar/right/sections/page.tsx
 msgid "Spacing (Horizontal)"
 msgstr "స్పేసింగ్ (అడ్డంగా)"
@@ -2939,10 +3021,6 @@ msgstr "స్పానిష్"
 #: src/routes/_home/-sections/templates.tsx
 msgid "Split identity and evidence panes; keeps personality context beside hard verification."
 msgstr ""
-
-#: src/routes/builder/$resumeId/-sidebar/right/sections/information.tsx
-msgid "Sponsors"
-msgstr "స్పాన్సర్లు"
 
 #: src/components/level/combobox.tsx
 #: src/routes/builder/$resumeId/-sidebar/left/sections/picture.tsx
@@ -3013,10 +3091,6 @@ msgstr ""
 msgid "Summary"
 msgstr "సమ్మరీ"
 
-#: src/routes/builder/$resumeId/-sidebar/right/sections/information.tsx
-msgid "Support the app by doing what you can!"
-msgstr "మీకు వీలైనంత చేసి యాప్‌కు సపోర్ట్ ఇవ్వండి!"
-
 #: src/utils/locale.ts
 msgid "Swedish"
 msgstr "స్వీడిష్"
@@ -3057,6 +3131,14 @@ msgstr "మీ రెజ్యూమెను తీర్చిదిద్ద�
 #: src/utils/locale.ts
 msgid "Tamil"
 msgstr "తమిళ్"
+
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "Task Management App"
+msgstr ""
+
+#: src/routes/_home/-sections/hero-visual.tsx
+msgid "Team player"
+msgstr ""
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Technical skills"
@@ -3196,8 +3278,8 @@ msgid "This week"
 msgstr "ఈ వారం"
 
 #: src/dialogs/api-key/create.tsx
-msgid "This will generate a new API key to access the Reactive Resume API to allow machines to interact with your resume data."
-msgstr "ఈ చర్య ద్వారా Reactive Resume API ని యాక్సెస్ చేసేందుకు కొత్త API కీ రూపొందించబడుతుంది, దీని ద్వారా యంత్రాలు మీ రెజ్యూమ్ డేటాతో ఇంటరాక్ట్ చేయగలవు."
+msgid "This will generate a new API key to access the Skill Verdict API to allow machines to interact with your resume data."
+msgstr "ఈ చర్య ద్వారా Skill Verdict API ని యాక్సెస్ చేసేందుకు కొత్త API కీ రూపొందించబడుతుంది, దీని ద్వారా యంత్రాలు మీ రెజ్యూమ్ డేటాతో ఇంటరాక్ట్ చేయగలవు."
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Tight vertical rhythm for mobile sharing — still readable when the viewport is narrow."
@@ -3234,10 +3316,6 @@ msgstr "ఈ రోజు"
 #: src/routes/builder/$resumeId/-sidebar/right/sections/statistics.tsx
 msgid "Track your resume's views and downloads"
 msgstr "మీ రెజ్యూమ్ వీవ్స్ మరియు డౌన్‌లోడ్స్‌ను ట్రాక్ చేయండి"
-
-#: src/routes/builder/$resumeId/-sidebar/right/sections/information.tsx
-msgid "Translations"
-msgstr "ทรాన్స్‌లేషన్స్"
 
 #: src/utils/locale.ts
 msgid "Turkish"
@@ -3500,10 +3578,6 @@ msgstr ""
 msgid "Verdict overridden successfully."
 msgstr ""
 
-#: src/routes/_home/-sections/hero-visual.tsx
-msgid "Verdict passed"
-msgstr ""
-
 #: src/routes/dashboard/-components/sidebar.tsx
 #: src/routes/dashboard/verification/index.tsx
 #: src/routes/dashboard/verification/index.tsx
@@ -3542,10 +3616,6 @@ msgstr "ధ్రువీకరించారు"
 #: src/routes/$username/$slug.tsx
 #: src/routes/dashboard/verification/index.tsx
 msgid "Verified by {0}"
-msgstr ""
-
-#: src/routes/_home/-sections/hero-visual.tsx
-msgid "Verified candidate"
 msgstr ""
 
 #: src/routes/_home/-sections/features.tsx

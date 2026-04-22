@@ -33,8 +33,8 @@ if (!isVitest) {
         navigateFallback: null, // Disable navigation fallback for SSR
       },
       manifest: {
-        name: "Reactive Resume",
-        short_name: "Reactive Resume",
+        name: "Skill Verdict",
+        short_name: "Skill Verdict",
         description: "A free and open-source resume builder.",
         id: "/?source=pwa",
         start_url: "/?source=pwa",

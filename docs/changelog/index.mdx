@@ -1,29 +1,29 @@
 ---
 title: "Changelog"
-description: "List of all notable changes and updates to Reactive Resume"
+description: "List of all notable changes and updates to Skill Verdict"
 rss: true
 ---
 
 <Update label="v5.0.14" description="24th March 2026">
 ## Features
-- Implemented OAuth 2.1 support for MCP authentication, thanks to @5queezer. [#2829](https://github.com/amruthpillai/reactive-resume/pull/2829)
-- Migrated from using Biome to Oxlint/Oxfmt for linting and formatting, with a new autofix CI workflow. [#2822](https://github.com/amruthpillai/reactive-resume/pull/2822)
+- Implemented OAuth 2.1 support for MCP authentication, thanks to @5queezer. [#2829](YOUR_GITHUB_REPO_URL/pull/2829)
+- Migrated from using Biome to Oxlint/Oxfmt for linting and formatting, with a new autofix CI workflow. [#2822](YOUR_GITHUB_REPO_URL/pull/2822)
 
 ## Fixes
-- Fixed an issue with the slider component for "Sidebar Width" in the resume builder. [#2830](https://github.com/amruthpillai/reactive-resume/issues/2830)
+- Fixed an issue with the slider component for "Sidebar Width" in the resume builder. [#2830](YOUR_GITHUB_REPO_URL/issues/2830)
 </Update>
 
 <Update label="v5.0.13" description="19th March 2026">
 ## Features & Improvements
-- Added **Job Listings with AI-Powered Resume Tailoring**, a major new feature that integrates job search (via JSearch API) directly into the dashboard with AI-driven resume tailoring to match job descriptions. [#2788](https://github.com/amruthpillai/reactive-resume/pull/2788)
+- Added **Job Listings with AI-Powered Resume Tailoring**, a major new feature that integrates job search (via JSearch API) directly into the dashboard with AI-driven resume tailoring to match job descriptions. [#2788](YOUR_GITHUB_REPO_URL/pull/2788)
   - Search for jobs with filters for location (city, state, country), employment type, remote status, and more.
   - View detailed job listings in a slide-out panel with apply links and tags.
   - Tailor your resume to a specific job posting using AI — rewrites skills, experience, and references for optimal fit.
   - Per-user API quota management with usage tracking in settings.
   - Pagination with 30 results per page.
-- Added **DOCX resume export** — generate and download tailored resumes as Word documents. [#2788](https://github.com/amruthpillai/reactive-resume/pull/2788)
+- Added **DOCX resume export** — generate and download tailored resumes as Word documents. [#2788](YOUR_GITHUB_REPO_URL/pull/2788)
 - Migrated the entire project toolchain to **Vite+** (`vp` CLI), unifying Vite, Vitest, Oxlint, and Oxfmt under a single developer experience.
-- Migrated from **Biome to Oxlint/Oxfmt** for linting and formatting, with a new autofix CI workflow. [#2822](https://github.com/amruthpillai/reactive-resume/pull/2822)
+- Migrated from **Biome to Oxlint/Oxfmt** for linting and formatting, with a new autofix CI workflow. [#2822](YOUR_GITHUB_REPO_URL/pull/2822)
 - Added **Slovenian** locale support.
 - Added a new `Progress` UI component.
 
@@ -37,8 +37,8 @@ rss: true
 ## Maintenance & Dependencies
 - Updated dependencies across the board, including `@typescript/native-preview`, `vite-plus`, and others.
 - Added database migrations for missing indexes.
-- Synced translations from Crowdin. [#2820](https://github.com/amruthpillai/reactive-resume/pull/2820), [#2824](https://github.com/amruthpillai/reactive-resume/pull/2824)
-- Updated French translation for 'Volunteer' to 'Bénévolat'. [#2823](https://github.com/amruthpillai/reactive-resume/pull/2823)
+- Synced translations from Crowdin. [#2820](YOUR_GITHUB_REPO_URL/pull/2820), [#2824](YOUR_GITHUB_REPO_URL/pull/2824)
+- Updated French translation for 'Volunteer' to 'Bénévolat'. [#2823](YOUR_GITHUB_REPO_URL/pull/2823)
 - Multiple translation and language updates across all locales.
 
 ## New Contributors
@@ -76,15 +76,15 @@ rss: true
 
 <Update label="v5.0.10" description="24th February 2026">
 ## Fixes
-- Show section titles for summary-type custom sections in the resume builder. [#2744](https://github.com/amruthpillai/reactive-resume/pull/2744)
-- Prevent browser password managers and Edge autofill/save prompts from appearing on AI settings API key fields. [#2719](https://github.com/amruthpillai/reactive-resume/pull/2719)
+- Show section titles for summary-type custom sections in the resume builder. [#2744](YOUR_GITHUB_REPO_URL/pull/2744)
+- Prevent browser password managers and Edge autofill/save prompts from appearing on AI settings API key fields. [#2719](YOUR_GITHUB_REPO_URL/pull/2719)
 - Replace deprecated Tailwind CSS classes: use `inset-s-*`/`inset-e-*` instead of `start-*`/`end-*`.
-- Fix PDF downloader to work correctly in offline mode. [#2743](https://github.com/amruthpillai/reactive-resume/pull/2743)
-- Make bold formatting visible for `<strong>` in the resume rich text editor (uses plain `font-weight: bold` fallback if the CSS variable is unset). Fixes [#2730](https://github.com/amruthpillai/reactive-resume/issues/2730)
-- Prevent credentials sign-in from dropping `session_token` Set-Cookie, improves login reliability. [#2718](https://github.com/amruthpillai/reactive-resume/pull/2718)
-- Remove redundant `resume-` prefix from download filename; add spacing between pages in shared view. [#2709](https://github.com/amruthpillai/reactive-resume/pull/2709)
-- Normalize autocomplete tokens for login and register forms. [#2714](https://github.com/amruthpillai/reactive-resume/pull/2714)
-- Fix improper chips reordering and update dependency/translations. [#2711](https://github.com/amruthpillai/reactive-resume/issues/2711)
+- Fix PDF downloader to work correctly in offline mode. [#2743](YOUR_GITHUB_REPO_URL/pull/2743)
+- Make bold formatting visible for `<strong>` in the resume rich text editor (uses plain `font-weight: bold` fallback if the CSS variable is unset). Fixes [#2730](YOUR_GITHUB_REPO_URL/issues/2730)
+- Prevent credentials sign-in from dropping `session_token` Set-Cookie, improves login reliability. [#2718](YOUR_GITHUB_REPO_URL/pull/2718)
+- Remove redundant `resume-` prefix from download filename; add spacing between pages in shared view. [#2709](YOUR_GITHUB_REPO_URL/pull/2709)
+- Normalize autocomplete tokens for login and register forms. [#2714](YOUR_GITHUB_REPO_URL/pull/2714)
+- Fix improper chips reordering and update dependency/translations. [#2711](YOUR_GITHUB_REPO_URL/issues/2711)
 - Fix clipping of heading in Lapras resume template.
 - Remove error-causing plugins in oRPC integration.
 - Remove duplicate database indexes; add index for `created_at` on user and resume tables.
@@ -133,8 +133,8 @@ rss: true
 
 <Update label="v5.0.6" description="8th February 2026">
 ## Features & Improvements
-- Implemented Atomic Resume Patching API for fine-grained, partial updates to resumes via a new PATCH endpoint. [#2692](https://github.com/amruthpillai/reactive-resume/pull/2692)
-- API endpoint `PUT /resume/{id}` now returns the updated resume object rather than void, with explicit DTOs for input/output. [#2688](https://github.com/amruthpillai/reactive-resume/pull/2688)
+- Implemented Atomic Resume Patching API for fine-grained, partial updates to resumes via a new PATCH endpoint. [#2692](YOUR_GITHUB_REPO_URL/pull/2692)
+- API endpoint `PUT /resume/{id}` now returns the updated resume object rather than void, with explicit DTOs for input/output. [#2688](YOUR_GITHUB_REPO_URL/pull/2688)
 - Added error logging for API server errors (server-side only) to improve debugging and reliability.
 - Refactored and cleaned up imports/exports for clarity and maintainability.
 - Added `.devcontainer` configuration for improved contributor development environment.
@@ -154,18 +154,18 @@ rss: true
 - Added `useFormBlocker` hook to prevent dialogs from being closed with unsaved form changes.
 
 ## Fixes
-- Fixed keyword spacing issue in the interests section. [#2631](https://github.com/amruthpillai/reactive-resume/pull/2631)
+- Fixed keyword spacing issue in the interests section. [#2631](YOUR_GITHUB_REPO_URL/pull/2631)
 - Fixed AI connection test and improved error reporting for AI provider issues.
 </Update>
 
 <Update label="v5.0.4" description="28th January 2026">
 ## Features & Improvements
 - Brought back Undo/Redo functionality in the resume builder for an improved editing experience.
-- Sidebar builder now arranges dynamically based on the section type in each template. [#2564](https://github.com/amruthpillai/reactive-resume/pull/2603)
+- Sidebar builder now arranges dynamically based on the section type in each template. [#2564](YOUR_GITHUB_REPO_URL/pull/2603)
 - Added PWA (Progressive Web App) support and updated PDF example file links in documentation.
 
 ## Fixes
-- Removed extra spacing when proficiency is empty. [#2607](https://github.com/amruthpillai/reactive-resume/pull/2626)
+- Removed extra spacing when proficiency is empty. [#2607](YOUR_GITHUB_REPO_URL/pull/2626)
 - Fixed Pikachu template: header/page picture rendering, and respect for `fullWidth` property.
 - General template improvements for layout and rendering consistency.
 - Fixed GitHub OAuth login for users migrated from previous versions.
@@ -185,7 +185,7 @@ rss: true
 - Added support for printing Free-Form PDFs (no fixed page height), allowing for custom-fit page content. [(link)](/guides/selecting-page-format)
 - Allow overriding the default endpoint for all AI providers, not just Ollama; default endpoint now visible in AI settings.
 - Updated the chip input component: supports adding, editing, removing, and reordering keywords for skills and other sections.
-- Improved RTL support across the app, thanks to @obreo. [(link)](https://github.com/amruthpillai/reactive-resume/pull/2583)
+- Improved RTL support across the app, thanks to @obreo. [(link)](YOUR_GITHUB_REPO_URL/pull/2583)
 
 ## Fixes
 - Updated translation configuration to remove line numbers, reducing unnecessary diffs.
@@ -218,7 +218,7 @@ rss: true
 </Update>
 
 <Update label="v5.0.0" description="22th January 2026">
-This release is a major overhaul of Reactive Resume. The app has been completely redesigned and rebuilt from scratch for a more intuitive, user-friendly experience.
+This release is a major overhaul of Skill Verdict. The app has been completely redesigned and rebuilt from scratch for a more intuitive, user-friendly experience.
 
 **Highlights:**
 - 2 new resume templates: _Ditgar_ and _Lapras_
@@ -237,5 +237,5 @@ This release is a major overhaul of Reactive Resume. The app has been completely
 - Icon style selector for indicators (stars, circles, custom, etc.)
 - Sidebar width adjustment and full-width page support
 
-And much more! Explore the new version and share your feedback via [contact](https://amruthpillai.com/#contact) or [GitHub issues](https://github.com/amruthpillai/reactive-resume/issues).
+And much more! Explore the new version and share your feedback via [contact](YOUR_CONTACT_URL/#contact) or [GitHub issues](YOUR_GITHUB_REPO_URL/issues).
 </Update>

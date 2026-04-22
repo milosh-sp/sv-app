@@ -72,7 +72,7 @@ export function EnableTwoFactorDialog(_: DialogProps<"auth.two-factor.enable">) 
 
     const { data, error } = await authClient.twoFactor.enable({
       password: values.password,
-      issuer: "Reactive Resume",
+      issuer: "Skill Verdict",
     });
 
     if (error) {
@@ -140,7 +140,7 @@ export function EnableTwoFactorDialog(_: DialogProps<"auth.two-factor.enable">) 
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = "reactive-resume_backup-codes.txt";
+    a.download = "skill-verdict_backup-codes.txt";
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);

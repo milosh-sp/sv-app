@@ -2,7 +2,7 @@
 
 ## Overview
 
-Reactive Resume is a single-package full-stack TypeScript app (not a monorepo) built with [TanStack Start](https://tanstack.com/start/latest/docs/framework/react/overview) (React, Vite, Nitro). It serves both frontend and API on port 3000.
+Skill Verdict is a single-package full-stack TypeScript app (not a monorepo) built with [TanStack Start](https://tanstack.com/start/latest/docs/framework/react/overview) (React, Vite, Nitro). It serves both frontend and API on port 3000.
 
 This project uses [Vite+](https://vite.dev/blog/announcing-viteplus), a unified toolchain built on top of Vite, Rolldown, Vitest, tsdown, Oxlint, Oxfmt, and Vite Task. Vite+ wraps runtime management, package management, and frontend tooling in a single global CLI called `vp`. All modules should be imported from the `vite-plus` dependency (e.g., `import { defineConfig } from 'vite-plus'` or `import { expect, test, vi } from 'vite-plus/test'`).
 
@@ -82,7 +82,7 @@ sudo docker compose -f compose.dev.yml up -d postgres browserless
 Copy `.env.example` to `.env` if not present. Key notes for local dev:
 
 - `APP_URL` — local dev server origin on port 3000.
-- `PRINTER_APP_URL` — must use the Docker bridge gateway IP (not localhost) so the Browserless container can reach the app on the host. Get the IP with: `sudo docker network inspect reactive_resume_default --format '{{range .IPAM.Config}}{{.Gateway}}{{end}}'`
+- `PRINTER_APP_URL` — must use the Docker bridge gateway IP (not localhost) so the Browserless container can reach the app on the host. Get the IP with: `sudo docker network inspect skill_verdict_default --format '{{range .IPAM.Config}}{{.Gateway}}{{end}}'`
 - `PRINTER_ENDPOINT` — websocket URL to Browserless on host port 4000 with token `1234567890`.
 - `DATABASE_URL` — PostgreSQL connection using `postgres:postgres` credentials on localhost:5432.
 - S3/Storage and SMTP vars can be left empty — the app falls back to local filesystem and console-logged emails.

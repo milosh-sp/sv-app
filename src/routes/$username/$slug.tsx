@@ -39,7 +39,7 @@ export const Route = createFileRoute("/$username/$slug")({
     return { resume: resume as LoaderData, verificationStatuses, verificationTimeline };
   },
   head: ({ loaderData }) => ({
-    meta: [{ title: loaderData ? `${loaderData.resume.name} - Reactive Resume` : "Reactive Resume" }],
+    meta: [{ title: loaderData ? `${loaderData.resume.name} - Skill Verdict` : "Skill Verdict" }],
   }),
   onError: (error) => {
     if (error instanceof ORPCError && error.code === "NEED_PASSWORD") {

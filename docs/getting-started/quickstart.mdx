@@ -1,11 +1,11 @@
 ---
 title: "Quickstart"
-description: "Get started with Reactive Resume in minutes — use our hosted version or deploy your own instance"
+description: "Get started with Skill Verdict in minutes — use our hosted version or deploy your own instance"
 ---
 
 ## Options
 
-Reactive Resume offers flexibility in how you want to use it. Choose the option that best fits your needs:
+Skill Verdict offers flexibility in how you want to use it. Choose the option that best fits your needs:
 
 <CardGroup cols={2}>
   <Card title="Use the Cloud Version" icon="cloud" href="#use-the-cloud-version">
@@ -20,11 +20,11 @@ Reactive Resume offers flexibility in how you want to use it. Choose the option 
 
 ## Using the Cloud Version
 
-The easiest way to use Reactive Resume is through our cloud version at [rxresu.me](https://rxresu.me). **This service is completely free and will always remain free.**
+The easiest way to use Skill Verdict is through our cloud version at [YOUR_APP_URL](YOUR_APP_URL). **This service is completely free and will always remain free.**
 
 <Steps>
 	<Step title="Create an Account">
-		Visit [rxresu.me](https://rxresu.me) and sign up for free using your email, or sign in with your GitHub or Google
+		Visit [YOUR_APP_URL](YOUR_APP_URL) and sign up for free using your email, or sign in with your GitHub or Google
 		account.
 	</Step>
 
@@ -49,7 +49,7 @@ The easiest way to use Reactive Resume is through our cloud version at [rxresu.m
 
 ## Self-Host with Docker
 
-For users who prefer complete control over their data, you can deploy Reactive Resume on your own infrastructure using Docker.
+For users who prefer complete control over their data, you can deploy Skill Verdict on your own infrastructure using Docker.
 
 ### Prerequisites
 
@@ -67,7 +67,7 @@ Before you begin, ensure you have the following installed:
 
 <Steps>
 	<Step title="Clone the Repository">
-		```bash git clone https://github.com/amruthpillai/reactive-resume.git cd Reactive-Resume ```
+		```bash git clone YOUR_GITHUB_REPO_URL.git cd skill-verdict ```
 	</Step>
 
     <Step title="Configure Environment Variables">
@@ -75,7 +75,7 @@ Before you begin, ensure you have the following installed:
     	APP_URL=http://localhost:3000 # Database DATABASE_URL=postgresql://postgres:postgres@postgres:5432/postgres #
     	Authentication (generate a secure secret) AUTH_SECRET=your-secure-secret-key-here # Storage (S3-compatible)
     	S3_ACCESS_KEY_ID=seaweedfs S3_SECRET_ACCESS_KEY=seaweedfs S3_ENDPOINT=http://seaweedfs:8333
-    	S3_BUCKET=reactive-resume S3_FORCE_PATH_STYLE=true ```
+    	S3_BUCKET=skill-verdict S3_FORCE_PATH_STYLE=true ```
     	<Warning>
     		For production deployments, always use strong, unique values for `AUTH_SECRET` and database credentials.
     	</Warning>
@@ -84,11 +84,11 @@ Before you begin, ensure you have the following installed:
     <Step title="Start the Services">
     	```bash docker compose up -d ``` This will start: - **PostgreSQL** — Database for storing user data and resumes -
     	**SeaweedFS** — S3-compatible storage for file uploads - **Printer** — PDF and screenshot generation service
-    	(browserless/chromium) - **Reactive Resume** — The main application
+    	(browserless/chromium) - **Skill Verdict** — The main application
     </Step>
 
     <Step title="Access Your Instance">
-    	Once all services are running, access your Reactive Resume instance at: ``` http://localhost:3000 ```
+    	Once all services are running, access your Skill Verdict instance at: ``` http://localhost:3000 ```
     </Step>
 
 </Steps>
@@ -102,7 +102,7 @@ Here's what each service in the stack does:
 | `postgres`  | 5432 | PostgreSQL database for storing all application data        |
 | `seaweedfs` | 8333 | S3-compatible object storage for file uploads               |
 | `printer`   | 4000 | Headless Chromium service for PDF and screenshot generation |
-| `app`       | 3000 | The main Reactive Resume application                        |
+| `app`       | 3000 | The main Skill Verdict application                          |
 
 ### Health Checks
 
@@ -126,7 +126,7 @@ Here's a complete list of environment variables you can configure:
 | ------------------ | ------------------------------ | --------------------------------------- |
 | `DATABASE_URL`     | PostgreSQL connection string   | `postgresql://user:pass@host:5432/db`   |
 | `AUTH_SECRET`      | Secret key for authentication  | Generate with `openssl rand -base64 32` |
-| `APP_URL`          | Public URL of your Application | `https://rxresu.me`                     |
+| `APP_URL`          | Public URL of your Application | `YOUR_APP_URL`                          |
 | `PRINTER_ENDPOINT` | URL of the printer service     | `http://printer:3000`                   |
 
 ### Optional Variables
@@ -166,7 +166,7 @@ Here's a complete list of environment variables you can configure:
 > **Note:** Some variables are only required for using related features (OAuth, SMTP, S3, etc.) and can be left unset if unused.
 
 <Note>
-  **Hybrid Setup Note**: The `PRINTER_APP_URL` variable is required when running Reactive Resume outside of Docker while
+  **Hybrid Setup Note**: The `PRINTER_APP_URL` variable is required when running Skill Verdict outside of Docker while
   the printer service is running inside Docker. In this scenario, the printer needs to reach your local app to render
   resumes for PDF generation. Since Docker containers cannot access `localhost` on your host machine directly, you must
   set `PRINTER_APP_URL` to `http://host.docker.internal:3000`. This special hostname allows Docker containers to
@@ -185,7 +185,7 @@ Here's a complete list of environment variables you can configure:
 
 <CardGroup cols={2}>
   <Card title="Development Setup" icon="code" href="/contributing/development">
-    Set up a development environment to contribute or customize Reactive Resume.
+    Set up a development environment to contribute or customize Skill Verdict.
   </Card>
   <Card title="Project Architecture" icon="folder-open" href="/contributing/architecture">
     Learn about the project structure and architecture.
@@ -193,6 +193,6 @@ Here's a complete list of environment variables you can configure:
 </CardGroup>
 
 <Note>
-  **Having trouble?** Check our [GitHub Issues](https://github.com/amruthpillai/reactive-resume/issues) or reach out via
-  [email](mailto:hello@amruthpillai.com).
+  **Having trouble?** Check our [GitHub Issues](YOUR_GITHUB_REPO_URL/issues) or reach out via
+  [email](mailto:YOUR_SUPPORT_EMAIL).
 </Note>
