@@ -9,7 +9,20 @@
   "orientation": "portrait-primary",
   "scope": "/",
   "lang": "en",
-  "categories": ["productivity", "business", "education", "recruiting", "human resources", "hr", "talent", "talent management", "code review", "peer review","challenges" ,"skill verification"],
+  "categories": [
+    "productivity",
+    "business",
+    "education",
+    "recruiting",
+    "human resources",
+    "hr",
+    "talent",
+    "talent management",
+    "code review",
+    "peer review",
+    "challenges",
+    "skill verification"
+  ],
   "icons": [
     {
       "src": "/favicon-16x16.png",

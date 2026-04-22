@@ -155,7 +155,7 @@ export function ResumeAiReviewDialog({ data }: DialogProps<"resume.ai.review">) 
       {isAvailabilityLoaded && !canUse && (
         <Textarea
           readOnly
-          className="min-h-80 resize-none whitespace-pre-wrap font-mono text-sm"
+          className="min-h-80 resize-none font-mono text-sm whitespace-pre-wrap"
           value={t`AI integration is not configured. Contact an administrator to enable AI features.`}
         />
       )}
