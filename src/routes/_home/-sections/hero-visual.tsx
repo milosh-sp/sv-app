@@ -2,30 +2,17 @@ import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
 import {
   BriefcaseIcon,
+  CheckCircleIcon,
+  ClockIcon,
   CertificateIcon,
   CodeIcon,
+  FolderSimpleIcon,
   GraduationCapIcon,
+  SmileyWinkIcon,
   type Icon,
-  SealCheckIcon,
-  SparkleIcon,
-  TranslateIcon,
+  XCircleIcon,
   UserFocusIcon,
 } from "@phosphor-icons/react";
-import { motion } from "motion/react";
-
-type VerifiedSkill = {
-  label: string;
-  verified?: boolean;
-};
-
-const skills: VerifiedSkill[] = [
-  { label: "React", verified: true },
-  { label: "TypeScript", verified: true },
-  { label: "Node.js", verified: true },
-  { label: "AWS", verified: true },
-  { label: "Docker" },
-  { label: "AI / ML" },
-];
 
 type SectionGroupProps = {
   icon: Icon;
@@ -35,12 +22,53 @@ type SectionGroupProps = {
 
 function SectionGroup({ icon: IconComponent, title, children }: SectionGroupProps) {
   return (
-    <div className="space-y-2.5">
-      <div className="flex items-center gap-2 text-xs font-medium tracking-wider text-muted-foreground uppercase">
-        <IconComponent aria-hidden="true" size={14} weight="regular" />
-        <span>{title}</span>
+    <section className="space-y-2.5">
+      <div className="flex items-center gap-2 border-b pb-2 text-lg font-semibold tracking-tight text-foreground">
+        <IconComponent aria-hidden="true" size={18} weight="regular" className="text-muted-foreground" />
+        <span className="text-balance">{title}</span>
       </div>
       {children}
+    </section>
+  );
+}
+
+type StatusType = "approved" | "pending" | "rejected";
+
+function StatusMark({ status }: { status: StatusType }) {
+  if (status === "approved") {
+    return <CheckCircleIcon aria-hidden="true" size={22} weight="duotone" className="text-primary" />;
+  }
+
+  if (status === "pending") {
+    return <ClockIcon aria-hidden="true" size={22} weight="duotone" className="text-muted-foreground" />;
+  }
+
+  return <XCircleIcon aria-hidden="true" size={22} weight="duotone" className="text-muted-foreground" />;
+}
+
+function SideBracket() {
+  return <span aria-hidden="true" className="inline-block h-8 w-2 rounded-l-full border-s-2 border-muted-foreground/70" />;
+}
+
+type ResumeRowProps = {
+  title: string;
+  subtitle?: string;
+  status?: StatusType;
+};
+
+function ResumeRow({ title, subtitle, status }: ResumeRowProps) {
+  return (
+    <div className="flex items-start gap-2">
+      <SideBracket />
+      <div className="min-w-0 flex-1">
+        <p className="text-[0.96rem] leading-snug font-medium tracking-tight text-foreground">{title}</p>
+        {subtitle && <p className="text-sm leading-snug text-muted-foreground">{subtitle}</p>}
+      </div>
+      {status && (
+        <div className="pt-0.5">
+          <StatusMark status={status} />
+        </div>
+      )}
     </div>
   );
 }
@@ -50,153 +78,136 @@ export function HeroVisual() {
     <div
       aria-label={t`Preview of a verified candidate profile`}
       role="img"
-      className="pointer-events-none relative size-full overflow-hidden rounded-md border bg-card"
+      className="pointer-events-none relative size-full overflow-hidden rounded-2xl border bg-card"
     >
-      {/* Ambient gradient */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-linear-to-br from-primary/5 via-transparent to-primary/10"
-      />
-
-      <div className="relative grid gap-6 p-6 md:grid-cols-[1.2fr_1fr] md:gap-8 md:p-8 lg:p-10">
-        {/* Left column — profile */}
-        <div className="space-y-5">
-          <div className="flex items-center gap-3">
-            <div
-              aria-hidden="true"
-              className="flex size-12 items-center justify-center rounded-full bg-primary/10 text-primary"
-            >
-              <UserFocusIcon size={24} weight="regular" />
-            </div>
-            <div>
-              <p className="text-xs tracking-wider text-muted-foreground uppercase">
-                <Trans>Verified candidate</Trans>
-              </p>
-              <p className="text-base font-semibold tracking-tight">
-                <Trans>Alex Morgan · Senior Software Engineer</Trans>
-              </p>
-            </div>
-            <div
-              aria-hidden="true"
-              className="ms-auto hidden items-center gap-1 rounded-full border bg-background px-2.5 py-1 text-[0.7rem] font-medium text-primary sm:flex"
-            >
-              <SealCheckIcon size={14} weight="fill" />
-              <Trans>CV 2.0</Trans>
-            </div>
+      <div className="relative flex h-full flex-col">
+        <header className="flex items-center gap-3 border-b bg-primary/10 px-6 py-4 md:px-8">
+          <div
+            aria-hidden="true"
+            className="flex size-12 items-center justify-center rounded-full bg-primary/20 text-primary"
+          >
+            <UserFocusIcon size={24} weight="regular" />
           </div>
-
-          <SectionGroup icon={CodeIcon} title={t`Technical skills`}>
-            <div className="flex flex-wrap gap-1.5">
-              {skills.map((skill, index) => (
-                <motion.span
-                  key={skill.label}
-                  initial={{ opacity: 0, y: 6 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, delay: 0.15 + index * 0.05 }}
-                  className={
-                    skill.verified
-                      ? "inline-flex items-center gap-1 rounded-full border border-primary/30 bg-primary/5 px-2.5 py-1 text-xs font-medium text-primary"
-                      : "inline-flex items-center gap-1 rounded-full border bg-background px-2.5 py-1 text-xs font-medium text-muted-foreground"
-                  }
-                >
-                  {skill.verified && <SealCheckIcon size={12} weight="fill" />}
-                  {skill.label}
-                </motion.span>
-              ))}
-            </div>
-          </SectionGroup>
-
-          <SectionGroup icon={BriefcaseIcon} title={t`Experience`}>
-            <div className="space-y-2">
-              <div className="rounded-md border bg-background/60 p-2.5">
-                <p className="text-xs font-semibold">OpenAI</p>
-                <p className="text-[0.7rem] leading-snug text-muted-foreground">
-                  <Trans>Lead development of LLM-powered features and AI-assisted workflows.</Trans>
-                </p>
-              </div>
-              <div className="rounded-md border bg-background/60 p-2.5">
-                <p className="text-xs font-semibold">Amazon</p>
-                <p className="text-[0.7rem] leading-snug text-muted-foreground">
-                  <Trans>Architected cloud-native services and led CI/CD and container platforms.</Trans>
-                </p>
-              </div>
-            </div>
-          </SectionGroup>
-        </div>
-
-        {/* Right column — badges, certifications, languages */}
-        <div className="space-y-5">
-          <div className="relative rounded-md border bg-background/80 p-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <SealCheckIcon aria-hidden="true" size={18} weight="fill" className="text-primary" />
-                <p className="text-sm font-semibold tracking-tight">
-                  <Trans>Verdict passed</Trans>
-                </p>
-              </div>
-              <motion.div
-                aria-hidden="true"
-                animate={{ rotate: [0, 14, -10, 0] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                className="text-amber-500"
-              >
-                <SparkleIcon size={16} weight="fill" />
-              </motion.div>
-            </div>
-            <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground">
-              <Trans>4 skills endorsed by anonymous domain experts in the last 30 days.</Trans>
+          <div className="min-w-0">
+            <p className="text-3xl leading-tight font-semibold tracking-tight text-foreground">
+              <Trans>Alex Smith</Trans>
+            </p>
+            <p className="text-base text-muted-foreground">
+              <Trans>Senior Full Stack Developer</Trans>
             </p>
           </div>
+        </header>
 
-          <SectionGroup icon={CertificateIcon} title={t`Certifications`}>
-            <div className="grid gap-1.5">
-              {["React Expert", "Node.js Master", "AWS Certified"].map((cert, index) => (
-                <motion.div
-                  key={cert}
-                  initial={{ opacity: 0, x: 8 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.4, delay: 0.3 + index * 0.06 }}
-                  className="flex items-center gap-2 rounded-md border bg-background/60 px-2.5 py-1.5 text-xs"
-                >
-                  <SealCheckIcon aria-hidden="true" size={12} weight="fill" className="text-primary" />
-                  <span className="font-medium">{cert}</span>
-                </motion.div>
-              ))}
-            </div>
-          </SectionGroup>
+        <div className="grid flex-1 gap-6 p-6 md:grid-cols-2 md:gap-8 md:p-8">
+          <div className="space-y-6">
+            <SectionGroup icon={CodeIcon} title={t`Technical skills`}>
+              <div className="grid gap-2 sm:grid-cols-2">
+                <ResumeRow title={t`Docker`} status="rejected" />
+                <ResumeRow title={t`JavaScript`} status="pending" />
+                <ResumeRow title={t`Node.js`} status="pending" />
+                <ResumeRow title={t`React`} status="approved" />
+                <ResumeRow title={t`AWS`} status="approved" />
+                <ResumeRow title={t`AI / ML`} status="approved" />
+              </div>
+            </SectionGroup>
 
-          <SectionGroup icon={GraduationCapIcon} title={t`Education`}>
-            <div className="space-y-1 rounded-md border bg-background/60 p-2.5">
-              <p className="text-xs font-semibold">Harvard University</p>
-              <p className="text-[0.7rem] text-muted-foreground">B.Sc. Computer Science</p>
-            </div>
-          </SectionGroup>
+            <SectionGroup icon={GraduationCapIcon} title={t`Education`}>
+              <div className="space-y-4">
+                <div className="space-y-1">
+                  <div className="flex items-baseline justify-between gap-3">
+                    <p className="text-[1.1rem] leading-tight font-medium tracking-tight text-foreground">
+                      <Trans>MSc Computer Science</Trans>
+                    </p>
+                    <p className="text-sm text-muted-foreground">
+                      <Trans>2014 - 2016</Trans>
+                    </p>
+                  </div>
+                  <p className="text-base text-muted-foreground">
+                    <Trans>Harvard University</Trans>
+                  </p>
+                </div>
+                <div className="space-y-1">
+                  <div className="flex items-baseline justify-between gap-3">
+                    <p className="text-[1.1rem] leading-tight font-medium tracking-tight text-foreground">
+                      <Trans>BSc Software Engineering</Trans>
+                    </p>
+                    <p className="text-sm text-muted-foreground">
+                      <Trans>2010 - 2014</Trans>
+                    </p>
+                  </div>
+                  <p className="text-base text-muted-foreground">
+                    <Trans>Oxford University</Trans>
+                  </p>
+                </div>
+              </div>
+            </SectionGroup>
 
-          <SectionGroup icon={TranslateIcon} title={t`Languages`}>
-            <div className="flex flex-wrap gap-1.5">
-              {[
-                { label: "English", level: "C2" },
-                { label: "Spanish", level: "B2" },
-                { label: "French", level: "A2" },
-              ].map((lang) => (
-                <span
-                  key={lang.label}
-                  className="inline-flex items-center gap-1 rounded-full border bg-background px-2.5 py-1 text-[0.7rem] font-medium"
-                >
-                  {lang.label}
-                  <span className="text-muted-foreground">{lang.level}</span>
-                </span>
-              ))}
-            </div>
-          </SectionGroup>
+            <SectionGroup icon={BriefcaseIcon} title={t`Experience`}>
+              <div className="space-y-1 opacity-45">
+                <div className="flex items-baseline justify-between gap-3">
+                  <p className="text-[1.05rem] leading-tight font-medium tracking-tight text-foreground">
+                    <Trans>Senior AI Engineer</Trans>
+                  </p>
+                  <p className="text-sm text-muted-foreground">
+                    <Trans>2020 - Present</Trans>
+                  </p>
+                </div>
+                <p className="text-base text-muted-foreground">
+                  <Trans>OpenAI</Trans>
+                </p>
+              </div>
+            </SectionGroup>
+          </div>
+
+          <div className="space-y-6">
+            <SectionGroup icon={FolderSimpleIcon} title={t`Projects`}>
+              <div className="space-y-3">
+                <ResumeRow
+                  title={t`E-commerce Platform`}
+                  subtitle={t`Full-stack React/Node.js application with payment integration`}
+                  status="approved"
+                />
+                <ResumeRow
+                  title={t`Task Management App`}
+                  subtitle={t`React Native mobile app with real-time synchronization`}
+                  status="rejected"
+                />
+                <ResumeRow
+                  title={t`Data Analytics Dashboard`}
+                  subtitle={t`Python/Django dashboard with interactive visualizations`}
+                  status="approved"
+                />
+              </div>
+            </SectionGroup>
+
+            <SectionGroup icon={SmileyWinkIcon} title={t`Personality`}>
+              <div className="grid grid-cols-2 gap-2">
+                <ResumeRow title={t`Action oriented`} />
+                <ResumeRow title={t`Self-starter`} />
+                <ResumeRow title={t`Analytical`} />
+                <ResumeRow title={t`Team player`} />
+              </div>
+            </SectionGroup>
+
+            <SectionGroup icon={CertificateIcon} title={t`Certifications`}>
+              <div className="space-y-2 opacity-45">
+                <ResumeRow title={t`AWS Certified Solutions Architect`} status="approved" />
+                <ResumeRow title={t`Google Professional Cloud Architect`} status="approved" />
+              </div>
+            </SectionGroup>
+          </div>
         </div>
-      </div>
 
-      {/* Soft bottom vignette for readability over hero gradient */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-linear-to-b from-transparent via-transparent via-40% to-background"
-      />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-linear-to-b from-primary/10 to-transparent"
+        />
+
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 bg-linear-to-b from-transparent via-transparent to-background/70"
+        />
+      </div>
     </div>
   );
 }

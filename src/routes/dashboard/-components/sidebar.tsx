@@ -223,7 +223,7 @@ export function DashboardSidebar() {
 
                   <div className="min-w-0 flex-1 transition-[margin,opacity] duration-200 ease-in-out group-data-[collapsible=icon]:-ms-8 group-data-[collapsible=icon]:opacity-0">
                     <p className="truncate font-medium">{session.user.name}</p>
-               
+
                     <p className="truncate text-xs text-muted-foreground">
                       {roleLabel ? i18n.t(roleLabel) : session.user.email}
                     </p>

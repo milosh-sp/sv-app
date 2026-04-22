@@ -321,12 +321,7 @@ export const verificationService = {
         submittedAt: verificationRequests.submittedAt,
       })
       .from(verificationRequests)
-      .where(
-        and(
-          eq(verificationRequests.userId, input.userId),
-          eq(verificationRequests.sectionType, "identity"),
-        ),
-      )
+      .where(and(eq(verificationRequests.userId, input.userId), eq(verificationRequests.sectionType, "identity")))
       .orderBy(desc(verificationRequests.submittedAt))
       .limit(1);
 
@@ -390,12 +385,7 @@ export const verificationService = {
         submittedAt: verificationRequests.submittedAt,
       })
       .from(verificationRequests)
-      .where(
-        and(
-          eq(verificationRequests.userId, resumeRow.userId),
-          eq(verificationRequests.sectionType, "identity"),
-        ),
-      )
+      .where(and(eq(verificationRequests.userId, resumeRow.userId), eq(verificationRequests.sectionType, "identity")))
       .orderBy(desc(verificationRequests.submittedAt))
       .limit(1);
 
@@ -443,12 +433,7 @@ export const verificationService = {
         submittedAt: verificationRequests.submittedAt,
       })
       .from(verificationRequests)
-      .where(
-        and(
-          eq(verificationRequests.userId, resumeRow.userId),
-          eq(verificationRequests.sectionType, "identity"),
-        ),
-      )
+      .where(and(eq(verificationRequests.userId, resumeRow.userId), eq(verificationRequests.sectionType, "identity")))
       .orderBy(desc(verificationRequests.submittedAt))
       .limit(1);
 
