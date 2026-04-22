@@ -7,6 +7,7 @@ import { ChangePasswordDialog } from "./auth/change-password";
 import { DisableTwoFactorDialog } from "./auth/disable-two-factor";
 import { EnableTwoFactorDialog } from "./auth/enable-two-factor";
 import { CreateResumeDialog, DuplicateResumeDialog, UpdateResumeDialog } from "./resume";
+import { ResumeAiReviewDialog } from "./resume/ai-review";
 import { ImportResumeDialog } from "./resume/import";
 import { CreateAwardDialog, UpdateAwardDialog } from "./resume/sections/award";
 import { CreateCertificationDialog, UpdateCertificationDialog } from "./resume/sections/certification";
@@ -37,6 +38,7 @@ export function DialogManager() {
     .with({ type: "resume.create" }, () => <CreateResumeDialog />)
     .with({ type: "resume.update" }, ({ data }) => <UpdateResumeDialog data={data} />)
     .with({ type: "resume.duplicate" }, ({ data }) => <DuplicateResumeDialog data={data} />)
+    .with({ type: "resume.ai.review" }, ({ data }) => <ResumeAiReviewDialog data={data} />)
     .with({ type: "resume.import" }, () => <ImportResumeDialog />)
     .with({ type: "resume.template.gallery" }, () => <TemplateGalleryDialog />)
     .with({ type: "resume.sections.profiles.create" }, ({ data }) => <CreateProfileDialog data={data} />)

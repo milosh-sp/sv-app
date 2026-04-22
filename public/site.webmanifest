@@ -1,0 +1,45 @@
+{
+  "name": "Skill Verdict - Don't chase, attract!",
+  "short_name": "Skill Verdict",
+  "description": "Backed by anonymous, peer-validated reviews and real-world skill assessments,  CV2.0 proves your true engineering ability and delivers actionable feedback to help you grow—while giving companies instant,trusted access to verified talent they can rely on",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#3b82f6",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "en",
+  "categories": ["productivity", "business", "education", "recruiting", "human resources", "hr", "talent", "talent management", "code review", "peer review","challenges" ,"skill verification"],
+  "icons": [
+    {
+      "src": "/favicon-16x16.png",
+      "sizes": "16x16",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    }
+  ]
+}

@@ -278,6 +278,20 @@ msgstr ""
 msgid "AI Chat"
 msgstr ""
 
+#: src/dialogs/resume/ai-review.tsx
+msgid "AI integration is not configured. Contact an administrator to enable AI features."
+msgstr ""
+
+#: src/routes/dashboard/resumes/-components/menus/context-menu.tsx
+#: src/routes/dashboard/resumes/-components/menus/dropdown-menu.tsx
+msgid "AI review"
+msgstr ""
+
+#. placeholder {0}: data.name
+#: src/dialogs/resume/ai-review.tsx
+msgid "AI review for {0}"
+msgstr ""
+
 #: src/utils/locale.ts
 msgid "Albanian"
 msgstr "알바니아어"
@@ -668,6 +682,7 @@ msgstr "가져올 파일을 선택하려면 여기를 클릭하세요"
 
 #: src/components/ui/dialog.tsx
 #: src/components/ui/sheet.tsx
+#: src/dialogs/resume/ai-review.tsx
 msgid "Close"
 msgstr "닫기"
 
@@ -1354,6 +1369,10 @@ msgstr "내보내기"
 msgid "Failed to duplicate resume"
 msgstr "이력서 복제에 실패했습니다."
 
+#: src/dialogs/resume/ai-review.tsx
+msgid "Failed to generate AI review"
+msgstr ""
+
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Failed to load document."
 msgstr ""
@@ -1481,6 +1500,10 @@ msgstr "무작위 이름 생성"
 #: src/utils/locale.ts
 msgid "German"
 msgstr "독일어"
+
+#: src/dialogs/resume/ai-review.tsx
+msgid "Get AI feedback on what is strong in this resume and what should be improved."
+msgstr ""
 
 #: src/routes/_home/-sections/footer.tsx
 msgid "Get verified"
@@ -2080,6 +2103,10 @@ msgstr "다음"
 msgid "No"
 msgstr ""
 
+#: src/dialogs/resume/ai-review.tsx
+msgid "No analysis was generated. Try again."
+msgstr ""
+
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "No degree required"
 msgstr "학위 불필요"
@@ -2530,6 +2557,10 @@ msgstr "추천인"
 #: src/components/layout/error-screen.tsx
 msgid "Refresh"
 msgstr "새로고침"
+
+#: src/dialogs/resume/ai-review.tsx
+msgid "Regenerate review"
+msgstr ""
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Relay"

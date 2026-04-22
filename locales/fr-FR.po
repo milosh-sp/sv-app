@@ -278,6 +278,20 @@ msgstr ""
 msgid "AI Chat"
 msgstr ""
 
+#: src/dialogs/resume/ai-review.tsx
+msgid "AI integration is not configured. Contact an administrator to enable AI features."
+msgstr ""
+
+#: src/routes/dashboard/resumes/-components/menus/context-menu.tsx
+#: src/routes/dashboard/resumes/-components/menus/dropdown-menu.tsx
+msgid "AI review"
+msgstr ""
+
+#. placeholder {0}: data.name
+#: src/dialogs/resume/ai-review.tsx
+msgid "AI review for {0}"
+msgstr ""
+
 #: src/utils/locale.ts
 msgid "Albanian"
 msgstr "Albanais"
@@ -668,6 +682,7 @@ msgstr "Cliquez ici pour sélectionner un fichier à importer"
 
 #: src/components/ui/dialog.tsx
 #: src/components/ui/sheet.tsx
+#: src/dialogs/resume/ai-review.tsx
 msgid "Close"
 msgstr "Fermer"
 
@@ -1354,6 +1369,10 @@ msgstr "Exporter"
 msgid "Failed to duplicate resume"
 msgstr "Échec de la duplication du CV"
 
+#: src/dialogs/resume/ai-review.tsx
+msgid "Failed to generate AI review"
+msgstr ""
+
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Failed to load document."
 msgstr ""
@@ -1481,6 +1500,10 @@ msgstr "Générer un nom aléatoire"
 #: src/utils/locale.ts
 msgid "German"
 msgstr "Allemand"
+
+#: src/dialogs/resume/ai-review.tsx
+msgid "Get AI feedback on what is strong in this resume and what should be improved."
+msgstr ""
 
 #: src/routes/_home/-sections/footer.tsx
 msgid "Get verified"
@@ -2080,6 +2103,10 @@ msgstr "Suivant"
 msgid "No"
 msgstr ""
 
+#: src/dialogs/resume/ai-review.tsx
+msgid "No analysis was generated. Try again."
+msgstr ""
+
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "No degree required"
 msgstr "Aucun diplôme n'est requis"
@@ -2530,6 +2557,10 @@ msgstr "Références"
 #: src/components/layout/error-screen.tsx
 msgid "Refresh"
 msgstr "Actualiser"
+
+#: src/dialogs/resume/ai-review.tsx
+msgid "Regenerate review"
+msgstr ""
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Relay"

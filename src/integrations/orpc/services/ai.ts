@@ -25,6 +25,7 @@ import docxParserSystemPrompt from "@/integrations/ai/prompts/docx-parser-system
 import docxParserUserPrompt from "@/integrations/ai/prompts/docx-parser-user.md?raw";
 import pdfParserSystemPrompt from "@/integrations/ai/prompts/pdf-parser-system.md?raw";
 import pdfParserUserPrompt from "@/integrations/ai/prompts/pdf-parser-user.md?raw";
+import resumeReviewSystemPromptTemplate from "@/integrations/ai/prompts/resume-review-system.md?raw";
 import tailorSystemPromptTemplate from "@/integrations/ai/prompts/tailor-system.md?raw";
 import {
   executePatchResume,
@@ -464,6 +465,29 @@ type TailorResumeInput = z.infer<typeof aiCredentialsSchema> & {
   job: JobResult;
 };
 
+function buildResumeReviewSystemPrompt(resumeData: ResumeData): string {
+  return resumeReviewSystemPromptTemplate.replace("{{RESUME_DATA}}", JSON.stringify(resumeData, null, 2));
+}
+
+type ReviewResumeInput = z.infer<typeof aiCredentialsSchema> & {
+  resumeData: ResumeData;
+};
+
+async function reviewResume(input: ReviewResumeInput): Promise<string> {
+  const model = getModel(input);
+  const systemPrompt = buildResumeReviewSystemPrompt(input.resumeData);
+
+  const result = await generateText({
+    model,
+    messages: [
+      { role: "system", content: systemPrompt },
+      { role: "user", content: "Please review this resume and provide actionable improvement feedback." },
+    ],
+  });
+
+  return result.text;
+}
+
 async function tailorResume(input: TailorResumeInput): Promise<TailorOutput> {
   const model = getModel(input);
   const systemPrompt = buildTailorSystemPrompt(input.resumeData, input.job);
@@ -491,6 +515,7 @@ export const aiService = {
   chat,
   parseDocx,
   parsePdf,
+  reviewResume,
   tailorResume,
   testConnection,
 };
