@@ -1,12 +1,15 @@
 import { t } from "@lingui/core/macro";
-import { CircleNotchIcon, LockSimpleIcon } from "@phosphor-icons/react";
+import { Trans } from "@lingui/react/macro";
+import { CircleNotchIcon, LockSimpleIcon, SparkleIcon } from "@phosphor-icons/react";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 import { AnimatePresence, motion } from "motion/react";
 import { useMemo } from "react";
 import { match, P } from "ts-pattern";
 
+import { useDialogStore } from "@/dialogs/store";
 import { orpc, type RouterOutput } from "@/integrations/orpc/client";
+import { useAiIntegration } from "@/integrations/ai/use-ai-integration";
 import { formatDefaultDateTime } from "@/utils/format-date";
 import { cn } from "@/utils/style";
 
@@ -18,6 +21,9 @@ type ResumeCardProps = {
 };
 
 export function ResumeCard({ resume }: ResumeCardProps) {
+  const { openDialog } = useDialogStore();
+  const { canUse: canUseAI } = useAiIntegration();
+
   const { data: screenshotData, isLoading } = useQuery({
     ...orpc.printer.getResumeScreenshot.queryOptions({ input: { id: resume.id } }),
     // Keep polling while no preview URL is available yet.
@@ -49,7 +55,30 @@ export function ResumeCard({ resume }: ResumeCardProps) {
           transition={{ type: "spring", stiffness: 320, damping: 28 }}
           style={{ willChange: "transform" }}
         >
-          <BaseCard title={resume.name} description={t`Last updated on ${updatedAt}`} tags={resume.tags}>
+          <BaseCard
+            title={resume.name}
+            description={t`Last updated on ${updatedAt}`}
+            tags={resume.tags}
+            header={
+              <button
+                type="button"
+                disabled={!canUseAI}
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  openDialog("resume.ai.review", { id: resume.id, name: resume.name });
+                }}
+                className={cn(
+                  "flex w-full items-center justify-start gap-2 px-4 py-2.5 text-left text-base font-semibold tracking-wide text-white uppercase transition-colors",
+                  "hover:bg-white/10 hover:cursor-pointer",
+                  "disabled:cursor-not-allowed disabled:opacity-40",
+                )}
+              >
+                <SparkleIcon className="size-4 shrink-0 text-white" weight="bold" />
+                <Trans>AI review</Trans>
+              </button>
+            }
+          >
             {match({ isLoading, imageSrc: screenshotUrl })
               .with({ isLoading: true }, () => (
                 <div className="flex size-full items-center justify-center">

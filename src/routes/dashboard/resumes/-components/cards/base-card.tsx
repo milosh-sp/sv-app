@@ -8,9 +8,11 @@ type BaseCardProps = React.ComponentProps<"div"> & {
   tags?: string[];
   className?: string;
   children?: React.ReactNode;
+  /** Renders in an absolute top bar above the main content (e.g. card actions). */
+  header?: React.ReactNode;
 };
 
-export function BaseCard({ title, description, tags, className, children, ...props }: BaseCardProps) {
+export function BaseCard({ title, description, tags, className, children, header, ...props }: BaseCardProps) {
   return (
     <CometCard translateDepth={3} rotateDepth={6}>
       <div
@@ -20,6 +22,12 @@ export function BaseCard({ title, description, tags, className, children, ...pro
           className,
         )}
       >
+        {header && (
+          <div className="absolute inset-x-0 top-0 z-20 flex w-full border-b border-white/10 bg-black/55 text-white backdrop-blur-xs">
+            {header}
+          </div>
+        )}
+
         {children}
 
         <div className="absolute inset-x-0 bottom-0 flex w-full flex-col justify-end space-y-0.5 bg-background/40 px-4 py-3 backdrop-blur-xs">
