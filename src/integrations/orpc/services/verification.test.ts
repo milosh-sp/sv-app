@@ -381,18 +381,39 @@ describe("verificationService.getStatus", () => {
     const statuses = [
       { id: "req-1", sectionType: "skill", itemId: "item-1", itemLabel: "TS", status: "verified", badgeVisible: true },
     ];
-    mockFrom.mockReturnValueOnce({ where: vi.fn(() => statuses), limit: mockLimit, orderBy: mockOrderBy });
+    const identityStatus = {
+      id: "req-id",
+      sectionType: "identity",
+      itemId: "user-1",
+      itemLabel: "Identity Verification",
+      status: "verified",
+      badgeVisible: true,
+      submittedAt: new Date(),
+    };
+    mockFrom
+      .mockReturnValueOnce({ where: vi.fn(() => statuses), limit: mockLimit, orderBy: mockOrderBy })
+      .mockReturnValueOnce({
+        where: vi.fn(() => ({ orderBy: vi.fn(() => ({ limit: vi.fn(() => [identityStatus]) })) })),
+        limit: mockLimit,
+        orderBy: mockOrderBy,
+      });
 
     const result = await verificationService.getStatus({ userId: "user-1", resumeId: "resume-1" });
 
-    expect(result).toEqual(statuses);
+    expect(result).toEqual([...statuses, identityStatus]);
   });
 
   it("should not include internal fields", async () => {
     const statuses = [
       { id: "req-1", sectionType: "skill", itemId: "item-1", itemLabel: "TS", status: "verified", badgeVisible: true },
     ];
-    mockFrom.mockReturnValueOnce({ where: vi.fn(() => statuses), limit: mockLimit, orderBy: mockOrderBy });
+    mockFrom
+      .mockReturnValueOnce({ where: vi.fn(() => statuses), limit: mockLimit, orderBy: mockOrderBy })
+      .mockReturnValueOnce({
+        where: vi.fn(() => ({ orderBy: vi.fn(() => ({ limit: vi.fn(() => []) })) })),
+        limit: mockLimit,
+        orderBy: mockOrderBy,
+      });
 
     const result = await verificationService.getStatus({ userId: "user-1", resumeId: "resume-1" });
     const first = result[0];

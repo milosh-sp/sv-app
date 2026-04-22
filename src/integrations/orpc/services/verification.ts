@@ -297,7 +297,7 @@ export const verificationService = {
   },
 
   getStatus: async (input: { userId: string; resumeId: string }) => {
-    return await db
+    const sectionStatuses = await db
       .select({
         id: verificationRequests.id,
         sectionType: verificationRequests.sectionType,
@@ -309,6 +309,32 @@ export const verificationService = {
       })
       .from(verificationRequests)
       .where(and(eq(verificationRequests.userId, input.userId), eq(verificationRequests.resumeId, input.resumeId)));
+
+    const [identityStatus] = await db
+      .select({
+        id: verificationRequests.id,
+        sectionType: verificationRequests.sectionType,
+        itemId: verificationRequests.itemId,
+        itemLabel: verificationRequests.itemLabel,
+        status: verificationRequests.status,
+        badgeVisible: verificationRequests.badgeVisible,
+        submittedAt: verificationRequests.submittedAt,
+      })
+      .from(verificationRequests)
+      .where(
+        and(
+          eq(verificationRequests.userId, input.userId),
+          eq(verificationRequests.sectionType, "identity"),
+        ),
+      )
+      .orderBy(desc(verificationRequests.submittedAt))
+      .limit(1);
+
+    if (!identityStatus) {
+      return sectionStatuses;
+    }
+
+    return [...sectionStatuses, identityStatus];
   },
 
   getStatusByResumeId: async (resumeId: string) => {
