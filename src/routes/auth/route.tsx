@@ -8,10 +8,11 @@ export const Route = createFileRoute("/auth")({
 
 function RouteComponent() {
   return (
-    <div className="xs:px-0 mx-auto flex h-svh w-dvw max-w-sm flex-col justify-center space-y-6 px-4">
-      <BrandIcon className="mb-4 size-20 self-center" />
-
-      <Outlet />
+    <div className="dark min-h-svh w-dvw bg-background text-foreground">
+      <div className="xs:px-0 mx-auto flex min-h-svh w-full max-w-sm flex-col justify-center px-4 py-8">
+        <BrandIcon className="mb-8 size-16 self-center" />
+        <Outlet />
+      </div>
     </div>
   );
 }

@@ -1,14 +1,14 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Reactive Resume",
+  "name": "Skill Verdict",
   "favicon": "/favicon.svg",
   "description": "A one-of-a-kind resume builder that keeps your privacy in mind. Completely secure, customizable, portable, open-source and free forever. Try it out today!",
   "seo": {
     "indexing": "all",
     "metatags": {
-      "canonical": "https://docs.rxresu.me",
-      "og:image": "https://rxresu.me/opengraph/banner.jpg"
+      "canonical": "YOUR_DOCS_URL",
+      "og:image": "YOUR_APP_URL/opengraph/banner.jpg"
     }
   },
   "fonts": {
@@ -110,13 +110,13 @@
       "anchors": [
         {
           "icon": "link",
-          "anchor": "Reactive Resume",
-          "href": "https://rxresu.me"
+          "anchor": "Skill Verdict",
+          "href": "YOUR_APP_URL"
         },
         {
           "icon": "github",
           "anchor": "Source Code",
-          "href": "https://github.com/amruthpillai/reactive-resume"
+          "href": "YOUR_GITHUB_REPO_URL"
         }
       ]
     }
@@ -129,13 +129,13 @@
     "links": [
       {
         "label": "Support",
-        "href": "https://github.com/amruthpillai/reactive-resume/issues"
+        "href": "YOUR_GITHUB_REPO_URL/issues"
       }
     ],
     "primary": {
       "type": "button",
       "label": "Get Started",
-      "href": "https://rxresu.me"
+      "href": "YOUR_APP_URL"
     }
   },
   "contextual": {
@@ -143,8 +143,8 @@
   },
   "footer": {
     "socials": {
-      "website": "https://rxresu.me",
-      "github": "https://github.com/amruthpillai/reactive-resume"
+      "website": "YOUR_APP_URL",
+      "github": "YOUR_GITHUB_REPO_URL"
     }
   }
 }

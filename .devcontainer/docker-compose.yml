@@ -1,5 +1,5 @@
 services:
-  reactive_resume:
+  skill_verdict:
     build:
       context: ..
       dockerfile: .devcontainer/Dockerfile
@@ -18,7 +18,7 @@ services:
     environment:
       TZ: Etc/UTC
       APP_URL: http://localhost:3000
-      PRINTER_APP_URL: http://reactive_resume:3000
+      PRINTER_APP_URL: http://skill_verdict:3000
       PRINTER_ENDPOINT: ws://browserless:3000?token=1234567890
       DATABASE_URL: postgresql://postgres:postgres@postgres:5432/postgres
       AUTH_SECRET: change-me-to-a-secure-secret-key-in-production
@@ -26,7 +26,7 @@ services:
       S3_SECRET_ACCESS_KEY: seaweedfs
       S3_REGION: us-east-1
       S3_ENDPOINT: http://seaweedfs:8333
-      S3_BUCKET: reactive-resume
+      S3_BUCKET: skill-verdict
       S3_FORCE_PATH_STYLE: "true"
 
   postgres:
@@ -84,7 +84,7 @@ services:
           echo 'Waiting for SeaweedFS...';
           sleep 2;
         done;
-        mc mb seaweedfs/reactive-resume --ignore-existing;
+        mc mb seaweedfs/skill-verdict --ignore-existing;
       "
     depends_on:
       seaweedfs:

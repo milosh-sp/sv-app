@@ -1,13 +1,17 @@
 {
   "info": {
-    "title": "Reactive Resume",
+    "title": "Skill Verdict",
     "version": "5.0.13",
-    "description": "Reactive Resume API",
-    "license": { "name": "MIT", "url": "https://github.com/amruthpillai/reactive-resume/blob/main/LICENSE" },
-    "contact": { "name": "Amruth Pillai", "email": "hello@amruthpillai.com", "url": "https://amruthpillai.com" }
+    "description": "Skill Verdict API",
+    "license": { "name": "MIT", "url": "YOUR_GITHUB_REPO_URL/blob/main/LICENSE" },
+    "contact": {
+      "name": "YOUR_CONTACT_NAME",
+      "email": "YOUR_SUPPORT_EMAIL",
+      "url": "YOUR_CONTACT_URL"
+    }
   },
   "servers": [{ "url": "http://localhost:3000/api/openapi" }],
-  "externalDocs": { "url": "https://docs.rxresu.me", "description": "Reactive Resume Documentation" },
+  "externalDocs": { "url": "YOUR_DOCS_URL", "description": "Skill Verdict Documentation" },
   "components": {
     "securitySchemes": {
       "apiKey": {
@@ -2584,7 +2588,7 @@
       "get": {
         "operationId": "listAuthProviders",
         "summary": "List authentication providers",
-        "description": "Returns a list of all authentication providers enabled on this Reactive Resume instance, along with their display names. Possible providers include password-based credentials, Google, GitHub, and custom OAuth. No authentication required.",
+        "description": "Returns a list of all authentication providers enabled on this Skill Verdict instance, along with their display names. Possible providers include password-based credentials, Google, GitHub, and custom OAuth. No authentication required.",
         "tags": ["Authentication"],
         "responses": {
           "200": {
@@ -2612,7 +2616,7 @@
       "get": {
         "operationId": "getFeatureFlags",
         "summary": "Get feature flags",
-        "description": "Returns the current feature flags for this Reactive Resume instance. Feature flags control instance-wide settings such as whether new user signups or email-based authentication are disabled. No authentication required.",
+        "description": "Returns the current feature flags for this Skill Verdict instance. Feature flags control instance-wide settings such as whether new user signups or email-based authentication are disabled. No authentication required.",
         "tags": ["Feature Flags"],
         "responses": {
           "200": {
@@ -16644,7 +16648,7 @@
       "get": {
         "operationId": "getUserCount",
         "summary": "Get total number of users",
-        "description": "Returns the total number of registered users on this Reactive Resume instance. The count is cached for up to 6 hours for performance. No authentication required.",
+        "description": "Returns the total number of registered users on this Skill Verdict instance. The count is cached for up to 6 hours for performance. No authentication required.",
         "tags": ["Platform Statistics"],
         "responses": {
           "200": {
@@ -16662,7 +16666,7 @@
       "get": {
         "operationId": "getResumeCount",
         "summary": "Get total number of resumes",
-        "description": "Returns the total number of resumes created on this Reactive Resume instance. The count is cached for up to 6 hours for performance. No authentication required.",
+        "description": "Returns the total number of resumes created on this Skill Verdict instance. The count is cached for up to 6 hours for performance. No authentication required.",
         "tags": ["Platform Statistics"],
         "responses": {
           "200": {
@@ -16680,11 +16684,11 @@
       "get": {
         "operationId": "getGitHubStarCount",
         "summary": "Get GitHub star count",
-        "description": "Returns the number of GitHub stars for the Reactive Resume repository. The count is cached for up to 6 hours and falls back to a last-known value if the GitHub API is unavailable. No authentication required.",
+        "description": "Returns the number of GitHub stars for the Skill Verdict repository. The count is cached for up to 6 hours and falls back to a last-known value if the GitHub API is unavailable. No authentication required.",
         "tags": ["Platform Statistics"],
         "responses": {
           "200": {
-            "description": "The number of GitHub stars for the Reactive Resume repository.",
+            "description": "The number of GitHub stars for the Skill Verdict repository.",
             "content": {
               "application/json": { "schema": { "type": "number", "description": "The number of GitHub stars." } }
             }

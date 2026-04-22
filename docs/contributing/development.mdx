@@ -1,6 +1,6 @@
 ---
 title: "Development Setup"
-description: "Set up a local development environment for Reactive Resume"
+description: "Set up a local development environment for Skill Verdict"
 ---
 
 <Info>
@@ -8,7 +8,7 @@ description: "Set up a local development environment for Reactive Resume"
   (package manager) - [Docker](https://docs.docker.com/get-docker/) and Docker Compose - [Git](https://git-scm.com/)
 </Info>
 
-This guide walks you through setting up Reactive Resume for local development. Whether you're contributing to the project or customizing it for your needs, these steps will get you up and running.
+This guide walks you through setting up Skill Verdict for local development. Whether you're contributing to the project or customizing it for your needs, these steps will get you up and running.
 
 ---
 
@@ -17,8 +17,8 @@ This guide walks you through setting up Reactive Resume for local development. W
 <Steps>
   <Step title="Clone the Repository">
     ```bash
-    git clone https://github.com/amruthpillai/reactive-resume.git
-    cd Reactive-Resume
+    git clone YOUR_GITHUB_REPO_URL.git
+    cd skill-verdict
     ```
   </Step>
   
@@ -77,7 +77,7 @@ This guide walks you through setting up Reactive Resume for local development. W
     S3_ACCESS_KEY_ID=seaweedfs
     S3_SECRET_ACCESS_KEY=seaweedfs
     S3_ENDPOINT=http://localhost:8333
-    S3_BUCKET=reactive-resume
+    S3_BUCKET=skill-verdict
     S3_FORCE_PATH_STYLE=true
 
     # Email (Mailpit for local development)
@@ -86,7 +86,7 @@ This guide walks you through setting up Reactive Resume for local development. W
     ```
 
     <Note>
-      **PDF Generation Note**: The `PRINTER_APP_URL` variable is required when running Reactive Resume outside of Docker while the printer service is running inside Docker (which is the case when using `compose.dev.yml`). The printer needs to reach your local app to render resumes for PDF generation. Since Docker containers cannot access `localhost` on your host machine directly, you must set `PRINTER_APP_URL` to `http://host.docker.internal:3000`. This special hostname allows Docker containers to communicate with services running on your host machine.
+      **PDF Generation Note**: The `PRINTER_APP_URL` variable is required when running Skill Verdict outside of Docker while the printer service is running inside Docker (which is the case when using `compose.dev.yml`). The printer needs to reach your local app to render resumes for PDF generation. Since Docker containers cannot access `localhost` on your host machine directly, you must set `PRINTER_APP_URL` to `http://host.docker.internal:3000`. This special hostname allows Docker containers to communicate with services running on your host machine.
     </Note>
 
     <Tip>
@@ -108,7 +108,7 @@ This guide walks you through setting up Reactive Resume for local development. W
     pnpm run dev
     ```
     
-    Your local Reactive Resume instance will be available at [http://localhost:3000](http://localhost:3000).
+    Your local Skill Verdict instance will be available at [http://localhost:3000](http://localhost:3000).
   </Step>
 </Steps>
 
@@ -156,7 +156,7 @@ Here are the most commonly used scripts during development:
 Understanding the project structure will help you navigate the codebase:
 
 ```
-reactive-resume/
+skill-verdict/
 ├── src/
 │   ├── components/         # Reusable React components
 │   │   ├── ui/             # Base UI components (Button, Card, etc.)
@@ -215,7 +215,7 @@ This opens a web-based GUI at [https://local.drizzle.studio](https://local.drizz
 
 ## Working with Translations
 
-Reactive Resume uses [Lingui](https://lingui.dev/) for internationalization.
+Skill Verdict uses [Lingui](https://lingui.dev/) for internationalization.
 
 ### Adding Translatable Text
 
@@ -229,7 +229,7 @@ import { Trans } from "@lingui/react/macro";
 const message = t`Hello, World!`;
 
 // For JSX content
-<Trans>Welcome to Reactive Resume</Trans>;
+<Trans>Welcome to Skill Verdict</Trans>;
 ```
 
 ### Extracting Translations
@@ -306,7 +306,7 @@ pnpm run typecheck
   <Card title="Project Architecture" icon="folder-open" href="/contributing/architecture">
     Deep dive into the project architecture and codebase structure.
   </Card>
-  <Card title="GitHub Repository" icon="github" href="https://github.com/amruthpillai/reactive-resume">
+  <Card title="GitHub Repository" icon="github" href="YOUR_GITHUB_REPO_URL">
     View the source code and contribute to the project.
   </Card>
 </CardGroup>

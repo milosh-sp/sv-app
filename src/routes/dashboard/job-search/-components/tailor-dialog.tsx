@@ -23,8 +23,9 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Spinner } from "@/components/ui/spinner";
 import { Switch } from "@/components/ui/switch";
-import { useAIStore } from "@/integrations/ai/store";
+import { useAiIntegration } from "@/integrations/ai/use-ai-integration";
 import { client, orpc } from "@/integrations/orpc/client";
+import { formatDefaultDate } from "@/utils/format-date";
 import { buildSkillSyncOperations, tailorOutputToPatches, validateTailorOutput } from "@/utils/resume/tailor";
 import { slugify } from "@/utils/string";
 
@@ -46,11 +47,7 @@ export function TailorDialog({ job, open, onOpenChange }: Props) {
   const [phase, setPhase] = useState<DialogPhase>({ step: "select" });
   const [selectedSkills, setSelectedSkills] = useState<Set<number>>(new Set());
 
-  const aiEnabled = useAIStore((s) => s.enabled);
-  const aiProvider = useAIStore((s) => s.provider);
-  const aiModel = useAIStore((s) => s.model);
-  const aiApiKey = useAIStore((s) => s.apiKey);
-  const aiBaseURL = useAIStore((s) => s.baseURL);
+  const { canUse: aiEnabled } = useAiIntegration();
 
   const { mutate: duplicateResume, isPending: isDuplicating } = useMutation(orpc.resume.duplicate.mutationOptions());
 
@@ -107,10 +104,6 @@ export function TailorDialog({ job, open, onOpenChange }: Props) {
 
       // Step 3: Call AI tailor endpoint
       const tailorOutput = await client.ai.tailorResume({
-        provider: aiProvider,
-        model: aiModel,
-        apiKey: aiApiKey,
-        baseURL: aiBaseURL,
         resumeData: resume.data,
         job,
       });
@@ -118,7 +111,7 @@ export function TailorDialog({ job, open, onOpenChange }: Props) {
       // Step 4: Validate AI output
       const errors = validateTailorOutput(tailorOutput, resume.data);
       if (errors.length > 0) {
-        toast.error(t`AI returned some invalid references`, {
+        toast.error(t`Some suggestions could not be applied`, {
           description: errors.join("; "),
         });
       }
@@ -202,7 +195,7 @@ export function TailorDialog({ job, open, onOpenChange }: Props) {
               <DialogDescription>
                 <Trans>
                   Select a resume to tailor for "{job.job_title}" at {job.employer_name}. A copy will be created
-                  {aiEnabled ? " and the AI will optimize it for this position." : "."}
+                  {aiEnabled ? " and optimized for this position." : "."}
                 </Trans>
               </DialogDescription>
             </DialogHeader>
@@ -225,9 +218,7 @@ export function TailorDialog({ job, open, onOpenChange }: Props) {
                       <ReadCvLogoIcon className="size-5 shrink-0" />
                       <div className="min-w-0 text-start">
                         <p className="truncate font-medium">{resume.name}</p>
-                        <p className="truncate text-xs text-muted-foreground">
-                          {new Date(resume.updatedAt).toLocaleDateString()}
-                        </p>
+                        <p className="truncate text-xs text-muted-foreground">{formatDefaultDate(resume.updatedAt)}</p>
                         {resume.tags.length > 0 && (
                           <div className="mt-1 flex flex-wrap gap-1">
                             {resume.tags.map((tag) => (
@@ -281,9 +272,9 @@ export function TailorDialog({ job, open, onOpenChange }: Props) {
               </DialogTitle>
               <DialogDescription>
                 <Trans>
-                  The AI identified new skills from your experience that match this job. Select which ones to save back
-                  to your original resume for future applications. This will permanently modify your original resume and
-                  cannot be undone.
+                  New skills were found in your experience that match this job. Select which ones to save back to your
+                  original resume for future applications. This will permanently modify your original resume and cannot
+                  be undone.
                 </Trans>
               </DialogDescription>
             </DialogHeader>

@@ -17,6 +17,7 @@ import { Route as McpIndexRouteImport } from "./routes/mcp/index";
 import { Route as DashboardIndexRouteImport } from "./routes/dashboard/index";
 import { Route as AuthIndexRouteImport } from "./routes/auth/index";
 import { Route as HomeIndexRouteImport } from "./routes/_home/index";
+import { Route as ReviewerAdminIdRouteImport } from "./routes/reviewer/$adminId";
 import { Route as PrinterResumeIdRouteImport } from "./routes/printer/$resumeId";
 import { Route as AuthVerify2faBackupRouteImport } from "./routes/auth/verify-2fa-backup";
 import { Route as AuthVerify2faRouteImport } from "./routes/auth/verify-2fa";
@@ -31,17 +32,25 @@ import { Route as DotwellKnownOpenidConfigurationRouteImport } from "./routes/[.
 import { Route as DotwellKnownOauthProtectedResourceRouteImport } from "./routes/[.]well-known/oauth-protected-resource";
 import { Route as DotwellKnownOauthAuthorizationServerRouteImport } from "./routes/[.]well-known/oauth-authorization-server";
 import { Route as UsernameSlugRouteImport } from "./routes/$username/$slug";
+import { Route as DashboardSettingsRouteRouteImport } from "./routes/dashboard/settings/route";
+import { Route as DashboardAdminRouteRouteImport } from "./routes/dashboard/admin/route";
 import { Route as BuilderResumeIdRouteRouteImport } from "./routes/builder/$resumeId/route";
+import { Route as DashboardVerificationIndexRouteImport } from "./routes/dashboard/verification/index";
 import { Route as DashboardResumesIndexRouteImport } from "./routes/dashboard/resumes/index";
 import { Route as DashboardJobSearchIndexRouteImport } from "./routes/dashboard/job-search/index";
 import { Route as BuilderResumeIdIndexRouteImport } from "./routes/builder/$resumeId/index";
 import { Route as UploadsUserIdSplatRouteImport } from "./routes/uploads/$userId.$";
 import { Route as DashboardSettingsProfileRouteImport } from "./routes/dashboard/settings/profile";
+import { Route as DashboardSettingsPrivacyRouteImport } from "./routes/dashboard/settings/privacy";
 import { Route as DashboardSettingsPreferencesRouteImport } from "./routes/dashboard/settings/preferences";
 import { Route as DashboardSettingsJobSearchRouteImport } from "./routes/dashboard/settings/job-search";
 import { Route as DashboardSettingsDangerZoneRouteImport } from "./routes/dashboard/settings/danger-zone";
 import { Route as DashboardSettingsApiKeysRouteImport } from "./routes/dashboard/settings/api-keys";
 import { Route as DashboardSettingsAiRouteImport } from "./routes/dashboard/settings/ai";
+import { Route as DashboardAdminJobSearchRouteImport } from "./routes/dashboard/admin/job-search";
+import { Route as DashboardAdminIdentityRouteImport } from "./routes/dashboard/admin/identity";
+import { Route as DashboardAdminExperienceQueueRouteImport } from "./routes/dashboard/admin/experience-queue";
+import { Route as DashboardAdminAiRouteImport } from "./routes/dashboard/admin/ai";
 import { Route as ApiRpcSplatRouteImport } from "./routes/api/rpc.$";
 import { Route as ApiOpenapiSplatRouteImport } from "./routes/api/openapi.$";
 import { Route as ApiAuthSplatRouteImport } from "./routes/api/auth.$";
@@ -87,6 +96,11 @@ const HomeIndexRoute = HomeIndexRouteImport.update({
   id: "/",
   path: "/",
   getParentRoute: () => HomeRouteRoute,
+} as any);
+const ReviewerAdminIdRoute = ReviewerAdminIdRouteImport.update({
+  id: "/reviewer/$adminId",
+  path: "/reviewer/$adminId",
+  getParentRoute: () => rootRouteImport,
 } as any);
 const PrinterResumeIdRoute = PrinterResumeIdRouteImport.update({
   id: "/printer/$resumeId",
@@ -161,11 +175,27 @@ const UsernameSlugRoute = UsernameSlugRouteImport.update({
   path: "/$username/$slug",
   getParentRoute: () => rootRouteImport,
 } as any);
+const DashboardSettingsRouteRoute = DashboardSettingsRouteRouteImport.update({
+  id: "/settings",
+  path: "/settings",
+  getParentRoute: () => DashboardRouteRoute,
+} as any);
+const DashboardAdminRouteRoute = DashboardAdminRouteRouteImport.update({
+  id: "/admin",
+  path: "/admin",
+  getParentRoute: () => DashboardRouteRoute,
+} as any);
 const BuilderResumeIdRouteRoute = BuilderResumeIdRouteRouteImport.update({
   id: "/builder/$resumeId",
   path: "/builder/$resumeId",
   getParentRoute: () => rootRouteImport,
 } as any);
+const DashboardVerificationIndexRoute =
+  DashboardVerificationIndexRouteImport.update({
+    id: "/verification/",
+    path: "/verification/",
+    getParentRoute: () => DashboardRouteRoute,
+  } as any);
 const DashboardResumesIndexRoute = DashboardResumesIndexRouteImport.update({
   id: "/resumes/",
   path: "/resumes/",
@@ -188,38 +218,65 @@ const UploadsUserIdSplatRoute = UploadsUserIdSplatRouteImport.update({
 } as any);
 const DashboardSettingsProfileRoute =
   DashboardSettingsProfileRouteImport.update({
-    id: "/settings/profile",
-    path: "/settings/profile",
-    getParentRoute: () => DashboardRouteRoute,
+    id: "/profile",
+    path: "/profile",
+    getParentRoute: () => DashboardSettingsRouteRoute,
+  } as any);
+const DashboardSettingsPrivacyRoute =
+  DashboardSettingsPrivacyRouteImport.update({
+    id: "/privacy",
+    path: "/privacy",
+    getParentRoute: () => DashboardSettingsRouteRoute,
   } as any);
 const DashboardSettingsPreferencesRoute =
   DashboardSettingsPreferencesRouteImport.update({
-    id: "/settings/preferences",
-    path: "/settings/preferences",
-    getParentRoute: () => DashboardRouteRoute,
+    id: "/preferences",
+    path: "/preferences",
+    getParentRoute: () => DashboardSettingsRouteRoute,
   } as any);
 const DashboardSettingsJobSearchRoute =
   DashboardSettingsJobSearchRouteImport.update({
-    id: "/settings/job-search",
-    path: "/settings/job-search",
-    getParentRoute: () => DashboardRouteRoute,
+    id: "/job-search",
+    path: "/job-search",
+    getParentRoute: () => DashboardSettingsRouteRoute,
   } as any);
 const DashboardSettingsDangerZoneRoute =
   DashboardSettingsDangerZoneRouteImport.update({
-    id: "/settings/danger-zone",
-    path: "/settings/danger-zone",
-    getParentRoute: () => DashboardRouteRoute,
+    id: "/danger-zone",
+    path: "/danger-zone",
+    getParentRoute: () => DashboardSettingsRouteRoute,
   } as any);
 const DashboardSettingsApiKeysRoute =
   DashboardSettingsApiKeysRouteImport.update({
-    id: "/settings/api-keys",
-    path: "/settings/api-keys",
-    getParentRoute: () => DashboardRouteRoute,
+    id: "/api-keys",
+    path: "/api-keys",
+    getParentRoute: () => DashboardSettingsRouteRoute,
   } as any);
 const DashboardSettingsAiRoute = DashboardSettingsAiRouteImport.update({
-  id: "/settings/ai",
-  path: "/settings/ai",
-  getParentRoute: () => DashboardRouteRoute,
+  id: "/ai",
+  path: "/ai",
+  getParentRoute: () => DashboardSettingsRouteRoute,
+} as any);
+const DashboardAdminJobSearchRoute = DashboardAdminJobSearchRouteImport.update({
+  id: "/job-search",
+  path: "/job-search",
+  getParentRoute: () => DashboardAdminRouteRoute,
+} as any);
+const DashboardAdminIdentityRoute = DashboardAdminIdentityRouteImport.update({
+  id: "/identity",
+  path: "/identity",
+  getParentRoute: () => DashboardAdminRouteRoute,
+} as any);
+const DashboardAdminExperienceQueueRoute =
+  DashboardAdminExperienceQueueRouteImport.update({
+    id: "/experience-queue",
+    path: "/experience-queue",
+    getParentRoute: () => DashboardAdminRouteRoute,
+  } as any);
+const DashboardAdminAiRoute = DashboardAdminAiRouteImport.update({
+  id: "/ai",
+  path: "/ai",
+  getParentRoute: () => DashboardAdminRouteRoute,
 } as any);
 const ApiRpcSplatRoute = ApiRpcSplatRouteImport.update({
   id: "/api/rpc/$",
@@ -250,9 +307,9 @@ const DotwellKnownOauthAuthorizationServerSplatRoute =
   } as any);
 const DashboardSettingsAuthenticationIndexRoute =
   DashboardSettingsAuthenticationIndexRouteImport.update({
-    id: "/settings/authentication/",
-    path: "/settings/authentication/",
-    getParentRoute: () => DashboardRouteRoute,
+    id: "/authentication/",
+    path: "/authentication/",
+    getParentRoute: () => DashboardSettingsRouteRoute,
   } as any);
 
 export interface FileRoutesByFullPath {
@@ -261,6 +318,8 @@ export interface FileRoutesByFullPath {
   "/dashboard": typeof DashboardRouteRouteWithChildren;
   "/schema.json": typeof SchemaDotjsonRoute;
   "/builder/$resumeId": typeof BuilderResumeIdRouteRouteWithChildren;
+  "/dashboard/admin": typeof DashboardAdminRouteRouteWithChildren;
+  "/dashboard/settings": typeof DashboardSettingsRouteRouteWithChildren;
   "/$username/$slug": typeof UsernameSlugRoute;
   "/.well-known/oauth-authorization-server": typeof DotwellKnownOauthAuthorizationServerRouteWithChildren;
   "/.well-known/oauth-protected-resource": typeof DotwellKnownOauthProtectedResourceRouteWithChildren;
@@ -275,6 +334,7 @@ export interface FileRoutesByFullPath {
   "/auth/verify-2fa": typeof AuthVerify2faRoute;
   "/auth/verify-2fa-backup": typeof AuthVerify2faBackupRoute;
   "/printer/$resumeId": typeof PrinterResumeIdRoute;
+  "/reviewer/$adminId": typeof ReviewerAdminIdRoute;
   "/auth/": typeof AuthIndexRoute;
   "/dashboard/": typeof DashboardIndexRoute;
   "/mcp/": typeof McpIndexRoute;
@@ -283,20 +343,28 @@ export interface FileRoutesByFullPath {
   "/api/auth/$": typeof ApiAuthSplatRoute;
   "/api/openapi/$": typeof ApiOpenapiSplatRoute;
   "/api/rpc/$": typeof ApiRpcSplatRoute;
+  "/dashboard/admin/ai": typeof DashboardAdminAiRoute;
+  "/dashboard/admin/experience-queue": typeof DashboardAdminExperienceQueueRoute;
+  "/dashboard/admin/identity": typeof DashboardAdminIdentityRoute;
+  "/dashboard/admin/job-search": typeof DashboardAdminJobSearchRoute;
   "/dashboard/settings/ai": typeof DashboardSettingsAiRoute;
   "/dashboard/settings/api-keys": typeof DashboardSettingsApiKeysRoute;
   "/dashboard/settings/danger-zone": typeof DashboardSettingsDangerZoneRoute;
   "/dashboard/settings/job-search": typeof DashboardSettingsJobSearchRoute;
   "/dashboard/settings/preferences": typeof DashboardSettingsPreferencesRoute;
+  "/dashboard/settings/privacy": typeof DashboardSettingsPrivacyRoute;
   "/dashboard/settings/profile": typeof DashboardSettingsProfileRoute;
   "/uploads/$userId/$": typeof UploadsUserIdSplatRoute;
   "/builder/$resumeId/": typeof BuilderResumeIdIndexRoute;
   "/dashboard/job-search/": typeof DashboardJobSearchIndexRoute;
   "/dashboard/resumes/": typeof DashboardResumesIndexRoute;
+  "/dashboard/verification/": typeof DashboardVerificationIndexRoute;
   "/dashboard/settings/authentication/": typeof DashboardSettingsAuthenticationIndexRoute;
 }
 export interface FileRoutesByTo {
   "/schema.json": typeof SchemaDotjsonRoute;
+  "/dashboard/admin": typeof DashboardAdminRouteRouteWithChildren;
+  "/dashboard/settings": typeof DashboardSettingsRouteRouteWithChildren;
   "/$username/$slug": typeof UsernameSlugRoute;
   "/.well-known/oauth-authorization-server": typeof DotwellKnownOauthAuthorizationServerRouteWithChildren;
   "/.well-known/oauth-protected-resource": typeof DotwellKnownOauthProtectedResourceRouteWithChildren;
@@ -311,6 +379,7 @@ export interface FileRoutesByTo {
   "/auth/verify-2fa": typeof AuthVerify2faRoute;
   "/auth/verify-2fa-backup": typeof AuthVerify2faBackupRoute;
   "/printer/$resumeId": typeof PrinterResumeIdRoute;
+  "/reviewer/$adminId": typeof ReviewerAdminIdRoute;
   "/": typeof HomeIndexRoute;
   "/auth": typeof AuthIndexRoute;
   "/dashboard": typeof DashboardIndexRoute;
@@ -320,16 +389,22 @@ export interface FileRoutesByTo {
   "/api/auth/$": typeof ApiAuthSplatRoute;
   "/api/openapi/$": typeof ApiOpenapiSplatRoute;
   "/api/rpc/$": typeof ApiRpcSplatRoute;
+  "/dashboard/admin/ai": typeof DashboardAdminAiRoute;
+  "/dashboard/admin/experience-queue": typeof DashboardAdminExperienceQueueRoute;
+  "/dashboard/admin/identity": typeof DashboardAdminIdentityRoute;
+  "/dashboard/admin/job-search": typeof DashboardAdminJobSearchRoute;
   "/dashboard/settings/ai": typeof DashboardSettingsAiRoute;
   "/dashboard/settings/api-keys": typeof DashboardSettingsApiKeysRoute;
   "/dashboard/settings/danger-zone": typeof DashboardSettingsDangerZoneRoute;
   "/dashboard/settings/job-search": typeof DashboardSettingsJobSearchRoute;
   "/dashboard/settings/preferences": typeof DashboardSettingsPreferencesRoute;
+  "/dashboard/settings/privacy": typeof DashboardSettingsPrivacyRoute;
   "/dashboard/settings/profile": typeof DashboardSettingsProfileRoute;
   "/uploads/$userId/$": typeof UploadsUserIdSplatRoute;
   "/builder/$resumeId": typeof BuilderResumeIdIndexRoute;
   "/dashboard/job-search": typeof DashboardJobSearchIndexRoute;
   "/dashboard/resumes": typeof DashboardResumesIndexRoute;
+  "/dashboard/verification": typeof DashboardVerificationIndexRoute;
   "/dashboard/settings/authentication": typeof DashboardSettingsAuthenticationIndexRoute;
 }
 export interface FileRoutesById {
@@ -339,6 +414,8 @@ export interface FileRoutesById {
   "/dashboard": typeof DashboardRouteRouteWithChildren;
   "/schema.json": typeof SchemaDotjsonRoute;
   "/builder/$resumeId": typeof BuilderResumeIdRouteRouteWithChildren;
+  "/dashboard/admin": typeof DashboardAdminRouteRouteWithChildren;
+  "/dashboard/settings": typeof DashboardSettingsRouteRouteWithChildren;
   "/$username/$slug": typeof UsernameSlugRoute;
   "/.well-known/oauth-authorization-server": typeof DotwellKnownOauthAuthorizationServerRouteWithChildren;
   "/.well-known/oauth-protected-resource": typeof DotwellKnownOauthProtectedResourceRouteWithChildren;
@@ -353,6 +430,7 @@ export interface FileRoutesById {
   "/auth/verify-2fa": typeof AuthVerify2faRoute;
   "/auth/verify-2fa-backup": typeof AuthVerify2faBackupRoute;
   "/printer/$resumeId": typeof PrinterResumeIdRoute;
+  "/reviewer/$adminId": typeof ReviewerAdminIdRoute;
   "/_home/": typeof HomeIndexRoute;
   "/auth/": typeof AuthIndexRoute;
   "/dashboard/": typeof DashboardIndexRoute;
@@ -362,16 +440,22 @@ export interface FileRoutesById {
   "/api/auth/$": typeof ApiAuthSplatRoute;
   "/api/openapi/$": typeof ApiOpenapiSplatRoute;
   "/api/rpc/$": typeof ApiRpcSplatRoute;
+  "/dashboard/admin/ai": typeof DashboardAdminAiRoute;
+  "/dashboard/admin/experience-queue": typeof DashboardAdminExperienceQueueRoute;
+  "/dashboard/admin/identity": typeof DashboardAdminIdentityRoute;
+  "/dashboard/admin/job-search": typeof DashboardAdminJobSearchRoute;
   "/dashboard/settings/ai": typeof DashboardSettingsAiRoute;
   "/dashboard/settings/api-keys": typeof DashboardSettingsApiKeysRoute;
   "/dashboard/settings/danger-zone": typeof DashboardSettingsDangerZoneRoute;
   "/dashboard/settings/job-search": typeof DashboardSettingsJobSearchRoute;
   "/dashboard/settings/preferences": typeof DashboardSettingsPreferencesRoute;
+  "/dashboard/settings/privacy": typeof DashboardSettingsPrivacyRoute;
   "/dashboard/settings/profile": typeof DashboardSettingsProfileRoute;
   "/uploads/$userId/$": typeof UploadsUserIdSplatRoute;
   "/builder/$resumeId/": typeof BuilderResumeIdIndexRoute;
   "/dashboard/job-search/": typeof DashboardJobSearchIndexRoute;
   "/dashboard/resumes/": typeof DashboardResumesIndexRoute;
+  "/dashboard/verification/": typeof DashboardVerificationIndexRoute;
   "/dashboard/settings/authentication/": typeof DashboardSettingsAuthenticationIndexRoute;
 }
 export interface FileRouteTypes {
@@ -382,6 +466,8 @@ export interface FileRouteTypes {
     | "/dashboard"
     | "/schema.json"
     | "/builder/$resumeId"
+    | "/dashboard/admin"
+    | "/dashboard/settings"
     | "/$username/$slug"
     | "/.well-known/oauth-authorization-server"
     | "/.well-known/oauth-protected-resource"
@@ -396,6 +482,7 @@ export interface FileRouteTypes {
     | "/auth/verify-2fa"
     | "/auth/verify-2fa-backup"
     | "/printer/$resumeId"
+    | "/reviewer/$adminId"
     | "/auth/"
     | "/dashboard/"
     | "/mcp/"
@@ -404,20 +491,28 @@ export interface FileRouteTypes {
     | "/api/auth/$"
     | "/api/openapi/$"
     | "/api/rpc/$"
+    | "/dashboard/admin/ai"
+    | "/dashboard/admin/experience-queue"
+    | "/dashboard/admin/identity"
+    | "/dashboard/admin/job-search"
     | "/dashboard/settings/ai"
     | "/dashboard/settings/api-keys"
     | "/dashboard/settings/danger-zone"
     | "/dashboard/settings/job-search"
     | "/dashboard/settings/preferences"
+    | "/dashboard/settings/privacy"
     | "/dashboard/settings/profile"
     | "/uploads/$userId/$"
     | "/builder/$resumeId/"
     | "/dashboard/job-search/"
     | "/dashboard/resumes/"
+    | "/dashboard/verification/"
     | "/dashboard/settings/authentication/";
   fileRoutesByTo: FileRoutesByTo;
   to:
     | "/schema.json"
+    | "/dashboard/admin"
+    | "/dashboard/settings"
     | "/$username/$slug"
     | "/.well-known/oauth-authorization-server"
     | "/.well-known/oauth-protected-resource"
@@ -432,6 +527,7 @@ export interface FileRouteTypes {
     | "/auth/verify-2fa"
     | "/auth/verify-2fa-backup"
     | "/printer/$resumeId"
+    | "/reviewer/$adminId"
     | "/"
     | "/auth"
     | "/dashboard"
@@ -441,16 +537,22 @@ export interface FileRouteTypes {
     | "/api/auth/$"
     | "/api/openapi/$"
     | "/api/rpc/$"
+    | "/dashboard/admin/ai"
+    | "/dashboard/admin/experience-queue"
+    | "/dashboard/admin/identity"
+    | "/dashboard/admin/job-search"
     | "/dashboard/settings/ai"
     | "/dashboard/settings/api-keys"
     | "/dashboard/settings/danger-zone"
     | "/dashboard/settings/job-search"
     | "/dashboard/settings/preferences"
+    | "/dashboard/settings/privacy"
     | "/dashboard/settings/profile"
     | "/uploads/$userId/$"
     | "/builder/$resumeId"
     | "/dashboard/job-search"
     | "/dashboard/resumes"
+    | "/dashboard/verification"
     | "/dashboard/settings/authentication";
   id:
     | "__root__"
@@ -459,6 +561,8 @@ export interface FileRouteTypes {
     | "/dashboard"
     | "/schema.json"
     | "/builder/$resumeId"
+    | "/dashboard/admin"
+    | "/dashboard/settings"
     | "/$username/$slug"
     | "/.well-known/oauth-authorization-server"
     | "/.well-known/oauth-protected-resource"
@@ -473,6 +577,7 @@ export interface FileRouteTypes {
     | "/auth/verify-2fa"
     | "/auth/verify-2fa-backup"
     | "/printer/$resumeId"
+    | "/reviewer/$adminId"
     | "/_home/"
     | "/auth/"
     | "/dashboard/"
@@ -482,16 +587,22 @@ export interface FileRouteTypes {
     | "/api/auth/$"
     | "/api/openapi/$"
     | "/api/rpc/$"
+    | "/dashboard/admin/ai"
+    | "/dashboard/admin/experience-queue"
+    | "/dashboard/admin/identity"
+    | "/dashboard/admin/job-search"
     | "/dashboard/settings/ai"
     | "/dashboard/settings/api-keys"
     | "/dashboard/settings/danger-zone"
     | "/dashboard/settings/job-search"
     | "/dashboard/settings/preferences"
+    | "/dashboard/settings/privacy"
     | "/dashboard/settings/profile"
     | "/uploads/$userId/$"
     | "/builder/$resumeId/"
     | "/dashboard/job-search/"
     | "/dashboard/resumes/"
+    | "/dashboard/verification/"
     | "/dashboard/settings/authentication/";
   fileRoutesById: FileRoutesById;
 }
@@ -507,6 +618,7 @@ export interface RootRouteChildren {
   DotwellKnownOpenidConfigurationRoute: typeof DotwellKnownOpenidConfigurationRoute;
   ApiHealthRoute: typeof ApiHealthRoute;
   PrinterResumeIdRoute: typeof PrinterResumeIdRoute;
+  ReviewerAdminIdRoute: typeof ReviewerAdminIdRoute;
   McpIndexRoute: typeof McpIndexRoute;
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute;
   ApiOpenapiSplatRoute: typeof ApiOpenapiSplatRoute;
@@ -571,6 +683,13 @@ declare module "@tanstack/react-router" {
       fullPath: "/";
       preLoaderRoute: typeof HomeIndexRouteImport;
       parentRoute: typeof HomeRouteRoute;
+    };
+    "/reviewer/$adminId": {
+      id: "/reviewer/$adminId";
+      path: "/reviewer/$adminId";
+      fullPath: "/reviewer/$adminId";
+      preLoaderRoute: typeof ReviewerAdminIdRouteImport;
+      parentRoute: typeof rootRouteImport;
     };
     "/printer/$resumeId": {
       id: "/printer/$resumeId";
@@ -670,12 +789,33 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof UsernameSlugRouteImport;
       parentRoute: typeof rootRouteImport;
     };
+    "/dashboard/settings": {
+      id: "/dashboard/settings";
+      path: "/settings";
+      fullPath: "/dashboard/settings";
+      preLoaderRoute: typeof DashboardSettingsRouteRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/admin": {
+      id: "/dashboard/admin";
+      path: "/admin";
+      fullPath: "/dashboard/admin";
+      preLoaderRoute: typeof DashboardAdminRouteRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
     "/builder/$resumeId": {
       id: "/builder/$resumeId";
       path: "/builder/$resumeId";
       fullPath: "/builder/$resumeId";
       preLoaderRoute: typeof BuilderResumeIdRouteRouteImport;
       parentRoute: typeof rootRouteImport;
+    };
+    "/dashboard/verification/": {
+      id: "/dashboard/verification/";
+      path: "/verification";
+      fullPath: "/dashboard/verification/";
+      preLoaderRoute: typeof DashboardVerificationIndexRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
     };
     "/dashboard/resumes/": {
       id: "/dashboard/resumes/";
@@ -707,45 +847,80 @@ declare module "@tanstack/react-router" {
     };
     "/dashboard/settings/profile": {
       id: "/dashboard/settings/profile";
-      path: "/settings/profile";
+      path: "/profile";
       fullPath: "/dashboard/settings/profile";
       preLoaderRoute: typeof DashboardSettingsProfileRouteImport;
-      parentRoute: typeof DashboardRouteRoute;
+      parentRoute: typeof DashboardSettingsRouteRoute;
+    };
+    "/dashboard/settings/privacy": {
+      id: "/dashboard/settings/privacy";
+      path: "/privacy";
+      fullPath: "/dashboard/settings/privacy";
+      preLoaderRoute: typeof DashboardSettingsPrivacyRouteImport;
+      parentRoute: typeof DashboardSettingsRouteRoute;
     };
     "/dashboard/settings/preferences": {
       id: "/dashboard/settings/preferences";
-      path: "/settings/preferences";
+      path: "/preferences";
       fullPath: "/dashboard/settings/preferences";
       preLoaderRoute: typeof DashboardSettingsPreferencesRouteImport;
-      parentRoute: typeof DashboardRouteRoute;
+      parentRoute: typeof DashboardSettingsRouteRoute;
     };
     "/dashboard/settings/job-search": {
       id: "/dashboard/settings/job-search";
-      path: "/settings/job-search";
+      path: "/job-search";
       fullPath: "/dashboard/settings/job-search";
       preLoaderRoute: typeof DashboardSettingsJobSearchRouteImport;
-      parentRoute: typeof DashboardRouteRoute;
+      parentRoute: typeof DashboardSettingsRouteRoute;
     };
     "/dashboard/settings/danger-zone": {
       id: "/dashboard/settings/danger-zone";
-      path: "/settings/danger-zone";
+      path: "/danger-zone";
       fullPath: "/dashboard/settings/danger-zone";
       preLoaderRoute: typeof DashboardSettingsDangerZoneRouteImport;
-      parentRoute: typeof DashboardRouteRoute;
+      parentRoute: typeof DashboardSettingsRouteRoute;
     };
     "/dashboard/settings/api-keys": {
       id: "/dashboard/settings/api-keys";
-      path: "/settings/api-keys";
+      path: "/api-keys";
       fullPath: "/dashboard/settings/api-keys";
       preLoaderRoute: typeof DashboardSettingsApiKeysRouteImport;
-      parentRoute: typeof DashboardRouteRoute;
+      parentRoute: typeof DashboardSettingsRouteRoute;
     };
     "/dashboard/settings/ai": {
       id: "/dashboard/settings/ai";
-      path: "/settings/ai";
+      path: "/ai";
       fullPath: "/dashboard/settings/ai";
       preLoaderRoute: typeof DashboardSettingsAiRouteImport;
-      parentRoute: typeof DashboardRouteRoute;
+      parentRoute: typeof DashboardSettingsRouteRoute;
+    };
+    "/dashboard/admin/job-search": {
+      id: "/dashboard/admin/job-search";
+      path: "/job-search";
+      fullPath: "/dashboard/admin/job-search";
+      preLoaderRoute: typeof DashboardAdminJobSearchRouteImport;
+      parentRoute: typeof DashboardAdminRouteRoute;
+    };
+    "/dashboard/admin/identity": {
+      id: "/dashboard/admin/identity";
+      path: "/identity";
+      fullPath: "/dashboard/admin/identity";
+      preLoaderRoute: typeof DashboardAdminIdentityRouteImport;
+      parentRoute: typeof DashboardAdminRouteRoute;
+    };
+    "/dashboard/admin/experience-queue": {
+      id: "/dashboard/admin/experience-queue";
+      path: "/experience-queue";
+      fullPath: "/dashboard/admin/experience-queue";
+      preLoaderRoute: typeof DashboardAdminExperienceQueueRouteImport;
+      parentRoute: typeof DashboardAdminRouteRoute;
+    };
+    "/dashboard/admin/ai": {
+      id: "/dashboard/admin/ai";
+      path: "/ai";
+      fullPath: "/dashboard/admin/ai";
+      preLoaderRoute: typeof DashboardAdminAiRouteImport;
+      parentRoute: typeof DashboardAdminRouteRoute;
     };
     "/api/rpc/$": {
       id: "/api/rpc/$";
@@ -784,10 +959,10 @@ declare module "@tanstack/react-router" {
     };
     "/dashboard/settings/authentication/": {
       id: "/dashboard/settings/authentication/";
-      path: "/settings/authentication";
+      path: "/authentication";
       fullPath: "/dashboard/settings/authentication/";
       preLoaderRoute: typeof DashboardSettingsAuthenticationIndexRouteImport;
-      parentRoute: typeof DashboardRouteRoute;
+      parentRoute: typeof DashboardSettingsRouteRoute;
     };
   }
 }
@@ -832,31 +1007,68 @@ const AuthRouteRouteWithChildren = AuthRouteRoute._addFileChildren(
   AuthRouteRouteChildren,
 );
 
-interface DashboardRouteRouteChildren {
-  DashboardIndexRoute: typeof DashboardIndexRoute;
+interface DashboardAdminRouteRouteChildren {
+  DashboardAdminAiRoute: typeof DashboardAdminAiRoute;
+  DashboardAdminExperienceQueueRoute: typeof DashboardAdminExperienceQueueRoute;
+  DashboardAdminIdentityRoute: typeof DashboardAdminIdentityRoute;
+  DashboardAdminJobSearchRoute: typeof DashboardAdminJobSearchRoute;
+}
+
+const DashboardAdminRouteRouteChildren: DashboardAdminRouteRouteChildren = {
+  DashboardAdminAiRoute: DashboardAdminAiRoute,
+  DashboardAdminExperienceQueueRoute: DashboardAdminExperienceQueueRoute,
+  DashboardAdminIdentityRoute: DashboardAdminIdentityRoute,
+  DashboardAdminJobSearchRoute: DashboardAdminJobSearchRoute,
+};
+
+const DashboardAdminRouteRouteWithChildren =
+  DashboardAdminRouteRoute._addFileChildren(DashboardAdminRouteRouteChildren);
+
+interface DashboardSettingsRouteRouteChildren {
   DashboardSettingsAiRoute: typeof DashboardSettingsAiRoute;
   DashboardSettingsApiKeysRoute: typeof DashboardSettingsApiKeysRoute;
   DashboardSettingsDangerZoneRoute: typeof DashboardSettingsDangerZoneRoute;
   DashboardSettingsJobSearchRoute: typeof DashboardSettingsJobSearchRoute;
   DashboardSettingsPreferencesRoute: typeof DashboardSettingsPreferencesRoute;
+  DashboardSettingsPrivacyRoute: typeof DashboardSettingsPrivacyRoute;
   DashboardSettingsProfileRoute: typeof DashboardSettingsProfileRoute;
-  DashboardJobSearchIndexRoute: typeof DashboardJobSearchIndexRoute;
-  DashboardResumesIndexRoute: typeof DashboardResumesIndexRoute;
   DashboardSettingsAuthenticationIndexRoute: typeof DashboardSettingsAuthenticationIndexRoute;
 }
 
+const DashboardSettingsRouteRouteChildren: DashboardSettingsRouteRouteChildren =
+  {
+    DashboardSettingsAiRoute: DashboardSettingsAiRoute,
+    DashboardSettingsApiKeysRoute: DashboardSettingsApiKeysRoute,
+    DashboardSettingsDangerZoneRoute: DashboardSettingsDangerZoneRoute,
+    DashboardSettingsJobSearchRoute: DashboardSettingsJobSearchRoute,
+    DashboardSettingsPreferencesRoute: DashboardSettingsPreferencesRoute,
+    DashboardSettingsPrivacyRoute: DashboardSettingsPrivacyRoute,
+    DashboardSettingsProfileRoute: DashboardSettingsProfileRoute,
+    DashboardSettingsAuthenticationIndexRoute:
+      DashboardSettingsAuthenticationIndexRoute,
+  };
+
+const DashboardSettingsRouteRouteWithChildren =
+  DashboardSettingsRouteRoute._addFileChildren(
+    DashboardSettingsRouteRouteChildren,
+  );
+
+interface DashboardRouteRouteChildren {
+  DashboardAdminRouteRoute: typeof DashboardAdminRouteRouteWithChildren;
+  DashboardSettingsRouteRoute: typeof DashboardSettingsRouteRouteWithChildren;
+  DashboardIndexRoute: typeof DashboardIndexRoute;
+  DashboardJobSearchIndexRoute: typeof DashboardJobSearchIndexRoute;
+  DashboardResumesIndexRoute: typeof DashboardResumesIndexRoute;
+  DashboardVerificationIndexRoute: typeof DashboardVerificationIndexRoute;
+}
+
 const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
+  DashboardAdminRouteRoute: DashboardAdminRouteRouteWithChildren,
+  DashboardSettingsRouteRoute: DashboardSettingsRouteRouteWithChildren,
   DashboardIndexRoute: DashboardIndexRoute,
-  DashboardSettingsAiRoute: DashboardSettingsAiRoute,
-  DashboardSettingsApiKeysRoute: DashboardSettingsApiKeysRoute,
-  DashboardSettingsDangerZoneRoute: DashboardSettingsDangerZoneRoute,
-  DashboardSettingsJobSearchRoute: DashboardSettingsJobSearchRoute,
-  DashboardSettingsPreferencesRoute: DashboardSettingsPreferencesRoute,
-  DashboardSettingsProfileRoute: DashboardSettingsProfileRoute,
   DashboardJobSearchIndexRoute: DashboardJobSearchIndexRoute,
   DashboardResumesIndexRoute: DashboardResumesIndexRoute,
-  DashboardSettingsAuthenticationIndexRoute:
-    DashboardSettingsAuthenticationIndexRoute,
+  DashboardVerificationIndexRoute: DashboardVerificationIndexRoute,
 };
 
 const DashboardRouteRouteWithChildren = DashboardRouteRoute._addFileChildren(
@@ -918,6 +1130,7 @@ const rootRouteChildren: RootRouteChildren = {
   DotwellKnownOpenidConfigurationRoute: DotwellKnownOpenidConfigurationRoute,
   ApiHealthRoute: ApiHealthRoute,
   PrinterResumeIdRoute: PrinterResumeIdRoute,
+  ReviewerAdminIdRoute: ReviewerAdminIdRoute,
   McpIndexRoute: McpIndexRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
   ApiOpenapiSplatRoute: ApiOpenapiSplatRoute,

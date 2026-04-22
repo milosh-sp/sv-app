@@ -1,18 +1,20 @@
 import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
 import {
+  BrainIcon,
   GearIcon,
   HouseSimpleIcon,
   KeyIcon,
-  OpenAiLogoIcon,
   ReadCvLogoIcon,
   ShieldCheckIcon,
   UserCircleIcon,
   WarningIcon,
 } from "@phosphor-icons/react";
+import { useQuery } from "@tanstack/react-query";
 import { useNavigate, useRouteContext } from "@tanstack/react-router";
 
 import { CommandItem } from "@/components/ui/command";
+import { orpc } from "@/integrations/orpc/client";
 
 import { useCommandPaletteStore } from "../store";
 import { BaseCommandGroup } from "./base";
@@ -22,6 +24,13 @@ export function NavigationCommandGroup() {
   const { session } = useRouteContext({ strict: false });
   const reset = useCommandPaletteStore((state) => state.reset);
   const pushPage = useCommandPaletteStore((state) => state.pushPage);
+
+  const { data: adminFlags } = useQuery({
+    ...orpc.verification.getMyAdminFlags.queryOptions(),
+    staleTime: 5 * 60 * 1000,
+  });
+
+  const isSkillVerdictAdmin = adminFlags?.skillVerdictAdmin ?? false;
 
   const onNavigate = async (path: string) => {
     await navigate({ to: path });
@@ -57,6 +66,29 @@ export function NavigationCommandGroup() {
         </CommandItem>
       </BaseCommandGroup>
 
+      <BaseCommandGroup heading={<Trans>Administration</Trans>}>
+        {isSkillVerdictAdmin && (
+          <>
+            <CommandItem
+              keywords={[t`Global AI`, t`Admin AI`]}
+              value="navigation.admin.ai"
+              onSelect={() => onNavigate("/dashboard/admin/ai")}
+            >
+              <BrainIcon />
+              <Trans>Global AI</Trans>
+            </CommandItem>
+            <CommandItem
+              keywords={[t`API Keys`]}
+              value="navigation.settings.api-keys"
+              onSelect={() => onNavigate("/dashboard/settings/api-keys")}
+            >
+              <KeyIcon />
+              <Trans>API Keys</Trans>
+            </CommandItem>
+          </>
+        )}
+      </BaseCommandGroup>
+
       <BaseCommandGroup page="settings" heading={<Trans>Settings</Trans>}>
         <CommandItem
           keywords={[t`Profile`]}
@@ -83,24 +115,6 @@ export function NavigationCommandGroup() {
         >
           <ShieldCheckIcon />
           <Trans>Authentication</Trans>
-        </CommandItem>
-
-        <CommandItem
-          keywords={[t`API Keys`]}
-          value="navigation.settings.api-keys"
-          onSelect={() => onNavigate("/dashboard/settings/api-keys")}
-        >
-          <KeyIcon />
-          <Trans>API Keys</Trans>
-        </CommandItem>
-
-        <CommandItem
-          keywords={[t`Artificial Intelligence`]}
-          value="navigation.settings.ai"
-          onSelect={() => onNavigate("/dashboard/settings/ai")}
-        >
-          <OpenAiLogoIcon />
-          <Trans>Artificial Intelligence</Trans>
         </CommandItem>
 
         <CommandItem

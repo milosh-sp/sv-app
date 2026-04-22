@@ -1,7 +1,15 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
-import { CheckIcon, UserCircleIcon, WarningIcon } from "@phosphor-icons/react";
+import {
+  CalendarCheckIcon,
+  CheckIcon,
+  ClockIcon,
+  SealCheckIcon,
+  UserCircleIcon,
+  WarningIcon,
+} from "@phosphor-icons/react";
+import { useMutation, useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute, useRouter } from "@tanstack/react-router";
 import { AnimatePresence, motion } from "motion/react";
 import { useMemo } from "react";
@@ -10,11 +18,13 @@ import { toast } from "sonner";
 import { match } from "ts-pattern";
 import z from "zod";
 
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { authClient } from "@/integrations/auth/client";
+import { orpc } from "@/integrations/orpc/client";
 
 import { DashboardHeader } from "../-components/header";
 
@@ -40,6 +50,7 @@ type FormValues = z.infer<typeof formSchema>;
 function RouteComponent() {
   const router = useRouter();
   const { session } = Route.useRouteContext();
+  const { data } = useSuspenseQuery(orpc.auth.getAdminRole.queryOptions());
 
   const defaultValues = useMemo(() => {
     return {
@@ -113,9 +124,26 @@ function RouteComponent() {
     void router.invalidate();
   };
 
+  const adminRoleBadge =
+    data.role === null
+      ? null
+      : match(data.role)
+          .with("skill_verdict_admin", () => (
+            <Badge variant="secondary">
+              <Trans>Skill Verdict Admin</Trans>
+            </Badge>
+          ))
+          .with("reviewer_admin", () => (
+            <Badge variant="secondary">
+              <Trans>Reviewer Admin</Trans>
+            </Badge>
+          ))
+          .exhaustive();
+
   return (
     <div className="space-y-4">
       <DashboardHeader icon={UserCircleIcon} title={t`Profile`} />
+      {adminRoleBadge}
 
       <Separator />
 
@@ -125,7 +153,7 @@ function RouteComponent() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.25, ease: "easeOut" }}
           style={{ willChange: "transform, opacity" }}
-          className="grid max-w-xl gap-6"
+          className="grid w-full gap-6"
           onSubmit={form.handleSubmit(onSubmit)}
         >
           <FormField
@@ -237,6 +265,127 @@ function RouteComponent() {
           </AnimatePresence>
         </motion.form>
       </Form>
+
+      {data.role !== "skill_verdict_admin" && (
+        <>
+          <Separator />
+          <IdentityVerificationBlock />
+        </>
+      )}
+    </div>
+  );
+}
+
+function IdentityVerificationBlock() {
+  const { data: calLink } = useSuspenseQuery(orpc.verification.getCalLink.queryOptions());
+  const { data: identityStatus, refetch } = useSuspenseQuery(orpc.verification.getIdentityStatus.queryOptions());
+
+  const { mutate: requestIdentity, isPending } = useMutation(orpc.verification.requestIdentity.mutationOptions());
+
+  const { mutate: cancelIdentity, isPending: isCancelling } = useMutation({
+    ...orpc.verification.cancelIdentity.mutationOptions(),
+    onSuccess: () => {
+      void refetch();
+      toast.success(t`Identity verification request cancelled.`);
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
+  });
+
+  const status: string = identityStatus?.status ?? "not_requested";
+
+  const handleRequest = () => {
+    requestIdentity(undefined, {
+      onSuccess: () => {
+        void refetch();
+        toast.success(t`Identity verification requested. Please check your email for next steps.`);
+        if (calLink) {
+          window.open(calLink, "_blank");
+        }
+      },
+      onError: (error) => {
+        toast.error(error.message);
+      },
+    });
+  };
+
+  const statusBadge = match(status)
+    .with("verified", () => (
+      <span className="flex items-center gap-x-1 text-xs font-medium text-green-700">
+        <CheckIcon className="size-3.5" />
+        <Trans>Verified</Trans>
+      </span>
+    ))
+    .with("pending", "claimed", "verdict_pending", () => (
+      <span className="flex items-center gap-x-1 text-xs font-medium text-amber-600">
+        <ClockIcon className="size-3.5" />
+        <Trans>Pending</Trans>
+      </span>
+    ))
+    .otherwise(() => (
+      <span className="text-xs font-medium text-muted-foreground">
+        <Trans>Unverified</Trans>
+      </span>
+    ));
+
+  return (
+    <div className="grid w-full gap-3" data-testid="identity-verification-block">
+      <h3 className="flex items-center gap-x-2 text-sm font-medium">
+        <SealCheckIcon className="size-4" />
+        <Trans>Identity Verification</Trans>
+        <span className="mx-1 text-muted-foreground/40">·</span>
+        {statusBadge}
+      </h3>
+
+      {match(status)
+        .with("not_requested", () => (
+          <div className="space-y-3">
+            <p className="text-xs text-muted-foreground">
+              <Trans>Verify your identity through a short video call. This adds trust to your resume.</Trans>
+            </p>
+            {calLink ? (
+              <Button size="sm" onClick={handleRequest} disabled={isPending}>
+                <CalendarCheckIcon className="mr-2 size-4" />
+                <Trans>Schedule Identity Verification</Trans>
+              </Button>
+            ) : (
+              <p className="text-xs text-muted-foreground/60">
+                <Trans>Scheduling is not currently available.</Trans>
+              </p>
+            )}
+          </div>
+        ))
+        .with("pending", "claimed", "verdict_pending", () => (
+          <div className="space-y-3" data-testid="identity-pending">
+            <p className="text-xs text-muted-foreground">
+              <Trans>
+                Your verification call has been scheduled. Our team will review and confirm your identity shortly.
+              </Trans>
+            </p>
+            <Button size="sm" variant="outline" onClick={() => cancelIdentity(undefined)} disabled={isCancelling}>
+              <Trans>Cancel Verification</Trans>
+            </Button>
+          </div>
+        ))
+        .with("verified", () => (
+          <p className="text-xs text-muted-foreground" data-testid="identity-approved">
+            <Trans>Your identity has been verified and your profile is trusted.</Trans>
+          </p>
+        ))
+        .otherwise(() => (
+          <div className="space-y-3">
+            <p className="text-xs text-muted-foreground">
+              <Trans>Your previous identity verification was unsuccessful. You may try again.</Trans>
+            </p>
+            {calLink && (
+              <Button size="sm" onClick={handleRequest} disabled={isPending}>
+                <CalendarCheckIcon className="mr-2 size-4" />
+                <Trans>Retry Identity Verification</Trans>
+              </Button>
+            )}
+          </div>
+        ))}
     </div>
   );
 }

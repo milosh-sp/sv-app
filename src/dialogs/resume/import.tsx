@@ -11,7 +11,6 @@ import z from "zod";
 
 import type { ResumeData } from "@/schema/resume/data";
 
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Combobox } from "@/components/ui/combobox";
 import { DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -19,10 +18,10 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input";
 import { Spinner } from "@/components/ui/spinner";
 import { useFormBlocker } from "@/hooks/use-form-blocker";
-import { useAIStore } from "@/integrations/ai/store";
+import { useAiIntegration } from "@/integrations/ai/use-ai-integration";
 import { JSONResumeImporter } from "@/integrations/import/json-resume";
-import { ReactiveResumeJSONImporter } from "@/integrations/import/reactive-resume-json";
-import { ReactiveResumeV4JSONImporter } from "@/integrations/import/reactive-resume-v4-json";
+import { SkillVerdictJSONImporter } from "@/integrations/import/skill-verdict-json";
+import { SkillVerdictV4JSONImporter } from "@/integrations/import/skill-verdict-v4-json";
 import { client, orpc } from "@/integrations/orpc/client";
 import { cn } from "@/utils/style";
 
@@ -46,13 +45,13 @@ const formSchema = z.discriminatedUnion("type", [
       ),
   }),
   z.object({
-    type: z.literal("reactive-resume-json"),
+    type: z.literal("skill-verdict-json"),
     file: z
       .instanceof(File)
       .refine((file) => file.type === "application/json", { message: "File must be a JSON file" }),
   }),
   z.object({
-    type: z.literal("reactive-resume-v4-json"),
+    type: z.literal("skill-verdict-v4-json"),
     file: z
       .instanceof(File)
       .refine((file) => file.type === "application/json", { message: "File must be a JSON file" }),
@@ -82,7 +81,7 @@ function fileToBase64(file: File): Promise<string> {
 
 export function ImportResumeDialog(_: DialogProps<"resume.import">) {
   const navigate = useNavigate();
-  const { enabled: isAIEnabled, provider, model, apiKey, baseURL } = useAIStore();
+  const { canUse: isAIEnabled } = useAiIntegration();
   const closeDialog = useDialogStore((state) => state.closeDialog);
 
   const prevTypeRef = useRef<string>("");
@@ -125,7 +124,7 @@ export function ImportResumeDialog(_: DialogProps<"resume.import">) {
     setIsLoading(true);
 
     const toastId = toast.loading(t`Importing your resume...`, {
-      description: t`This may take a few minutes, depending on the response of the AI provider. Please do not close the window or refresh the page.`,
+      description: t`This may take a few minutes. Please do not close the window or refresh the page.`,
     });
 
     try {
@@ -137,37 +136,31 @@ export function ImportResumeDialog(_: DialogProps<"resume.import">) {
         data = importer.parse(json);
       }
 
-      if (values.type === "reactive-resume-json") {
+      if (values.type === "skill-verdict-json") {
         const json = await values.file.text();
-        const importer = new ReactiveResumeJSONImporter();
+        const importer = new SkillVerdictJSONImporter();
         data = importer.parse(json);
       }
 
-      if (values.type === "reactive-resume-v4-json") {
+      if (values.type === "skill-verdict-v4-json") {
         const json = await values.file.text();
-        const importer = new ReactiveResumeV4JSONImporter();
+        const importer = new SkillVerdictV4JSONImporter();
         data = importer.parse(json);
       }
 
       if (values.type === "pdf") {
-        if (!isAIEnabled)
-          throw new Error(t`This feature requires AI Integration to be enabled. Please enable it in the settings.`);
+        if (!isAIEnabled) throw new Error(t`This import option is not available right now. Please try another format.`);
 
         // const arrayBuffer = await values.file.arrayBuffer();
         const base64 = await fileToBase64(values.file);
 
         data = await client.ai.parsePdf({
-          provider,
-          model,
-          apiKey,
-          baseURL,
           file: { name: values.file.name, data: base64 },
         });
       }
 
       if (values.type === "docx") {
-        if (!isAIEnabled)
-          throw new Error(t`This feature requires AI Integration to be enabled. Please enable it in the settings.`);
+        if (!isAIEnabled) throw new Error(t`This import option is not available right now. Please try another format.`);
 
         // const arrayBuffer = await values.file.arrayBuffer();
         const base64 = await fileToBase64(values.file);
@@ -178,16 +171,12 @@ export function ImportResumeDialog(_: DialogProps<"resume.import">) {
             : ("application/vnd.openxmlformats-officedocument.wordprocessingml.document" as const);
 
         data = await client.ai.parseDocx({
-          provider,
-          model,
-          apiKey,
-          baseURL,
           mediaType,
           file: { name: values.file.name, data: base64 },
         });
       }
 
-      if (!data) throw new Error("No data was returned from the AI provider.");
+      if (!data) throw new Error("No data was returned from the import.");
 
       const id = await importResume({ data });
       toast.success(t`Your resume has been imported successfully.`, { id: toastId, description: null });
@@ -213,8 +202,8 @@ export function ImportResumeDialog(_: DialogProps<"resume.import">) {
         </DialogTitle>
         <DialogDescription>
           <Trans>
-            Continue where you left off by importing an existing resume you created using Reactive Resume or any another
-            resume builder. Supported formats include PDF, Microsoft Word, as well as JSON files from Reactive Resume.
+            Continue where you left off by importing an existing resume you created using Skill Verdict or any another
+            resume builder. Supported formats include PDF, Microsoft Word, as well as JSON files from Skill Verdict.
           </Trans>
         </DialogDescription>
       </DialogHeader>
@@ -236,25 +225,11 @@ export function ImportResumeDialog(_: DialogProps<"resume.import">) {
                       value={field.value}
                       onValueChange={field.onChange}
                       options={[
-                        { value: "reactive-resume-json", label: "Reactive Resume (JSON)" },
-                        { value: "reactive-resume-v4-json", label: "Reactive Resume v4 (JSON)" },
+                        { value: "skill-verdict-json", label: "Skill Verdict (JSON)" },
+                        { value: "skill-verdict-v4-json", label: "Skill Verdict v4 (JSON)" },
                         { value: "json-resume-json", label: "JSON Resume" },
-                        {
-                          value: "pdf",
-                          label: (
-                            <div className="flex items-center gap-x-2">
-                              PDF <Badge>{t`AI`}</Badge>
-                            </div>
-                          ),
-                        },
-                        {
-                          value: "docx",
-                          label: (
-                            <div className="flex items-center gap-x-2">
-                              Microsoft Word <Badge>{t`AI`}</Badge>
-                            </div>
-                          ),
-                        },
+                        { value: "pdf", label: "PDF" },
+                        { value: "docx", label: "Microsoft Word" },
                       ]}
                     />
                   }

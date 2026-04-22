@@ -1,28 +1,16 @@
 import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
 import {
-  CloudArrowUpIcon,
-  CodeSimpleIcon,
-  CurrencyDollarIcon,
-  DatabaseIcon,
-  DotsThreeIcon,
-  FileCssIcon,
-  FilesIcon,
-  GithubLogoIcon,
-  GlobeIcon,
+  BrainIcon,
+  CompassIcon,
+  EyeSlashIcon,
   type Icon,
-  KeyIcon,
-  LayoutIcon,
-  LockSimpleIcon,
-  PaletteIcon,
-  ProhibitIcon,
-  ShieldCheckIcon,
-  TranslateIcon,
+  QrCodeIcon,
+  SealCheckIcon,
+  TargetIcon,
 } from "@phosphor-icons/react";
 import { motion } from "motion/react";
 import { useMemo } from "react";
-
-import { cn } from "@/utils/style";
 
 type Feature = {
   id: string;
@@ -35,116 +23,52 @@ type FeatureCardProps = Feature;
 
 const getFeatures = (): Feature[] => [
   {
-    id: "free",
-    icon: CurrencyDollarIcon,
-    title: t`Free`,
-    description: t`Completely free, forever, no hidden costs.`,
+    id: "verified-skills",
+    icon: SealCheckIcon,
+    title: t`Verified skill badges`,
+    description: t`Earn peer-endorsed badges from domain experts — turn claims into evidence employers can trust at a glance.`,
   },
   {
-    id: "open-source",
-    icon: GithubLogoIcon,
-    title: t`Open Source`,
-    description: t`By the community, for the community.`,
+    id: "bias-free-review",
+    icon: EyeSlashIcon,
+    title: t`Anonymous, bias-free review`,
+    description: t`Reviewers don't see who they're assessing, so your skills are judged on their merit — not your background.`,
   },
   {
-    id: "no-ads",
-    icon: ProhibitIcon,
-    title: t`No Advertising, No Tracking`,
-    description: t`For a secure and distraction-free experience.`,
+    id: "passive-discovery",
+    icon: TargetIcon,
+    title: t`Passive discovery`,
+    description: t`Stop chasing. Companies reach out directly to candidates whose verified skills match their requirements.`,
   },
   {
-    id: "data-security",
-    icon: DatabaseIcon,
-    title: t`Data Security`,
-    description: t`Your data is secure, and never shared or sold to anyone.`,
+    id: "personality-fit",
+    icon: BrainIcon,
+    title: t`Personality & culture fit`,
+    description: t`Combine verified skills with research-backed personality insights so teams hire for both capability and fit.`,
   },
   {
-    id: "self-host",
-    icon: CloudArrowUpIcon,
-    title: t`Self-Host with Docker`,
-    description: t`You also have the option to deploy on your own servers using the Docker image.`,
+    id: "share-anywhere",
+    icon: QrCodeIcon,
+    title: t`Share anywhere, instantly`,
+    description: t`A unique QR code and public link make your profile shareable in person, online, and in recruiter searches.`,
   },
   {
-    id: "languages",
-    icon: TranslateIcon,
-    title: t`Multilingual`,
-    description: t`Available in multiple languages. If you would like to contribute, check out Crowdin.`,
-  },
-  {
-    id: "auth",
-    icon: KeyIcon,
-    title: t`One-Click Sign-In`,
-    description: t`Sign in with GitHub, Google or a custom OAuth provider.`,
-  },
-  {
-    id: "2fa",
-    icon: ShieldCheckIcon,
-    title: t`Passkeys & 2FA`,
-    description: t`Enhance the security of your account with additional layers of protection.`,
-  },
-  {
-    id: "unlimited-resumes",
-    icon: FilesIcon,
-    title: t`Unlimited Resumes`,
-    description: t`Create as many resumes as you want, without limits.`,
-  },
-  {
-    id: "design",
-    icon: PaletteIcon,
-    title: t`Flexibility`,
-    description: t`Personalize your resume with any colors, fonts or designs, and make it your own.`,
-  },
-  {
-    id: "css",
-    icon: FileCssIcon,
-    title: t`Custom CSS`,
-    description: t`Write your own CSS (or use an AI to generate it for you) to customize your resume to the fullest.`,
-  },
-  {
-    id: "templates",
-    icon: LayoutIcon,
-    title: t`12+ Templates`,
-    description: t`Beautiful templates to choose from, with more on the way.`,
-  },
-  {
-    id: "public",
-    icon: GlobeIcon,
-    title: t`Shareable Links`,
-    description: t`Share your resume with a public URL, and let others view it.`,
-  },
-  {
-    id: "password-protection",
-    icon: LockSimpleIcon,
-    title: t`Password Protection`,
-    description: t`Protect your resume with a password, and let only people with the password view it.`,
-  },
-  {
-    id: "api-access",
-    icon: CodeSimpleIcon,
-    title: t`API Access`,
-    description: t`Access your resumes and data programmatically using the API.`,
-  },
-  {
-    id: "more",
-    icon: DotsThreeIcon,
-    title: t`And many more...`,
-    description: t`New features are constantly being added and improved, so be sure to check back often.`,
+    id: "growth-feedback",
+    icon: CompassIcon,
+    title: t`Growth-focused feedback`,
+    description: t`Every assessment comes with actionable feedback, so you level up even when you're already getting hired.`,
   },
 ];
 
 function FeatureCard({ icon: Icon, title, description }: FeatureCardProps) {
   return (
     <motion.div
-      className={cn(
-        "group relative flex min-h-48 flex-col gap-4 overflow-hidden border-b bg-background p-6 transition-[background-color] duration-300",
-        "not-nth-[2n]:border-r xl:not-nth-[4n]:border-r",
-        "hover:bg-secondary/30",
-      )}
+      className="group relative flex min-h-48 flex-col gap-4 overflow-hidden rounded-xl bg-card p-6 shadow-sm transition-[transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:shadow-md"
       initial={{ opacity: 0, y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.1 }}
       transition={{ duration: 0.35, ease: "easeOut" }}
-      whileHover={{ y: -3, scale: 1.01 }}
+      whileHover={{ y: -2, scale: 1.005 }}
       whileTap={{ scale: 0.995 }}
       style={{ willChange: "transform, opacity" }}
     >
@@ -156,7 +80,7 @@ function FeatureCard({ icon: Icon, title, description }: FeatureCardProps) {
 
       {/* Icon */}
       <div aria-hidden="true" className="relative">
-        <div className="inline-flex rounded-md bg-primary/5 p-2.5 text-foreground transition-colors group-hover:bg-primary/10 group-hover:text-primary">
+        <div className="inline-flex rounded-lg bg-primary/5 p-2.5 text-foreground transition-colors group-hover:bg-primary/10 group-hover:text-primary">
           <Icon size={24} weight="thin" />
         </div>
       </div>
@@ -177,7 +101,7 @@ export function Features() {
     <section id="features">
       {/* Header */}
       <motion.div
-        className="space-y-4 p-4 md:p-8 xl:py-16"
+        className="space-y-4 p-4 md:p-8 xl:py-8"
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
@@ -185,19 +109,19 @@ export function Features() {
         style={{ willChange: "transform, opacity" }}
       >
         <h2 className="text-2xl font-semibold tracking-tight md:text-4xl xl:text-5xl">
-          <Trans>Features</Trans>
+          <Trans>Why candidates choose us</Trans>
         </h2>
 
         <p className="max-w-2xl leading-relaxed text-muted-foreground">
           <Trans>
-            Everything you need to create, customize, and share professional resumes. Built with privacy in mind,
-            powered by open source, and completely free forever.
+            A profile that reflects what you can actually do — verified by people who know what they're looking at, and
+            built to travel with you wherever you go.
           </Trans>
         </p>
       </motion.div>
 
       {/* Features Grid */}
-      <div className="xs:grid-cols-2 grid grid-cols-1 border-t xl:grid-cols-4">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
         {features.map((feature) => (
           <FeatureCard key={feature.id} {...feature} />
         ))}

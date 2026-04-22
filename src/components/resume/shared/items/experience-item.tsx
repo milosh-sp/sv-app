@@ -6,6 +6,8 @@ import { cn } from "@/utils/style";
 
 import { LinkedTitle } from "../linked-title";
 import { PageLink } from "../page-link";
+import { VerificationBadge } from "../verification-badge";
+import { useVerificationStatus } from "../verification-context";
 
 type ExperienceItemProps = SectionItem<"experience"> & {
   className?: string;
@@ -13,6 +15,7 @@ type ExperienceItemProps = SectionItem<"experience"> & {
 
 export function ExperienceItem({ className, ...item }: ExperienceItemProps) {
   const hasRoles = Array.isArray(item.roles) && item.roles.length > 0;
+  const verification = useVerificationStatus(item.id);
 
   return (
     <div className={cn("experience-item", className)}>
@@ -20,12 +23,21 @@ export function ExperienceItem({ className, ...item }: ExperienceItemProps) {
       <div className="section-item-header experience-item-header">
         {/* Row 1: Company + Location */}
         <div className="flex items-start justify-between gap-x-2">
-          <LinkedTitle
-            title={item.company}
-            website={item.website}
-            showLinkInTitle={item.options?.showLinkInTitle}
-            className="section-item-title experience-item-title"
-          />
+          <div className="flex items-center gap-x-1.5">
+            <LinkedTitle
+              title={item.company}
+              website={item.website}
+              showLinkInTitle={item.options?.showLinkInTitle}
+              className="section-item-title experience-item-title"
+            />
+            {verification && (
+              <VerificationBadge
+                requestId={verification.id}
+                status={verification.status}
+                badgeVisible={verification.badgeVisible}
+              />
+            )}
+          </div>
           <span className="section-item-metadata experience-item-location shrink-0 text-end">{item.location}</span>
         </div>
 

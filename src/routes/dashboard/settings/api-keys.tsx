@@ -11,6 +11,7 @@ import { Separator } from "@/components/ui/separator";
 import { useDialogStore } from "@/dialogs/store";
 import { useConfirm } from "@/hooks/use-confirm";
 import { authClient } from "@/integrations/auth/client";
+import { formatDefaultDate } from "@/utils/format-date";
 
 import { DashboardHeader } from "../-components/header";
 
@@ -68,7 +69,7 @@ function RouteComponent() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.25, ease: "easeOut" }}
         style={{ willChange: "transform, opacity" }}
-        className="grid max-w-xl gap-6"
+        className="grid w-full gap-6"
       >
         <div className="flex items-start gap-4 rounded-md border bg-popover p-6">
           <div className="rounded-md bg-primary/10 p-2.5">
@@ -82,7 +83,7 @@ function RouteComponent() {
 
             <p className="leading-relaxed text-muted-foreground">
               <Trans>
-                Explore the API documentation to learn how to integrate Reactive Resume with your applications. Find
+                Explore the API documentation to learn how to integrate Skill Verdict with your applications. Find
                 detailed endpoints, request examples, and authentication methods.
               </Trans>
             </p>
@@ -91,7 +92,7 @@ function RouteComponent() {
               variant="link"
               nativeButton={false}
               render={
-                <a href="https://docs.rxresu.me/api-reference" target="_blank" rel="noopener noreferrer">
+                <a href="YOUR_DOCS_URL/api-reference" target="_blank" rel="noopener noreferrer">
                   <LinkSimpleIcon />
                   <Trans>API Reference</Trans>
                 </a>
@@ -128,7 +129,7 @@ function RouteComponent() {
                 <div className="flex-1 space-y-1">
                   <p className="font-mono text-xs">{key.start}...</p>
                   <div className="text-xs text-muted-foreground">
-                    <Trans>Expires on {key.expiresAt?.toLocaleDateString()}</Trans>
+                    <Trans>Expires on {key.expiresAt != null ? formatDefaultDate(key.expiresAt) : ""}</Trans>
                   </div>
                 </div>
 

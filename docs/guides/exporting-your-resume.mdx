@@ -3,7 +3,7 @@ title: "Exporting your resume"
 description: "Learn how to export your resume as a PDF or JSON file, and discover how JSON exports can be used with AI assistants like ChatGPT or Claude."
 ---
 
-Reactive Resume lets you export your resume in two formats: **PDF** and **JSON**. Each format serves a different purpose—PDFs are ideal for sharing with recruiters and uploading to job applications, while JSON files are perfect for backups, importing into other tools, or working with AI assistants.
+Skill Verdict lets you export your resume in two formats: **PDF** and **JSON**. Each format serves a different purpose—PDFs are ideal for sharing with recruiters and uploading to job applications, while JSON files are perfect for backups, importing into other tools, or working with AI assistants.
 
 ## Where to find the Export section
 
@@ -48,11 +48,11 @@ The JSON file contains your **complete resume data**, including:
 
 <AccordionGroup>
   <Accordion title="Backup and version control" icon="floppy-disk">
-    Keep local backups of your resume data. If you ever need to restore or compare versions, you can import the JSON file back into Reactive Resume.
+    Keep local backups of your resume data. If you ever need to restore or compare versions, you can import the JSON file back into Skill Verdict.
   </Accordion>
 
-<Accordion title="Import into Reactive Resume" icon="file-import">
-  You can import a JSON export back into Reactive Resume to create a new resume based on that data. This is useful for
+<Accordion title="Import into Skill Verdict" icon="file-import">
+  You can import a JSON export back into Skill Verdict to create a new resume based on that data. This is useful for
   creating variations or restoring from a backup.
 </Accordion>
 
@@ -92,10 +92,10 @@ One of the most powerful uses for JSON exports is working with AI assistants lik
 
   </Step>
 
-  <Step title="Import the modified JSON back into Reactive Resume">
+  <Step title="Import the modified JSON back into Skill Verdict">
     1. Go to your **Dashboard**
     2. Click **Import an existing resume**
-    3. Select **Reactive Resume (JSON)** as the type
+    3. Select **Skill Verdict (JSON)** as the type
     4. Upload the modified JSON file
 
     A new resume will be created with the AI's changes applied.
@@ -123,7 +123,7 @@ Here are some prompts you can use after sharing your resume JSON:
 
 ## JSON schema reference
 
-The exported JSON follows the Reactive Resume schema. Here's a high-level overview of the structure:
+The exported JSON follows the Skill Verdict schema. Here's a high-level overview of the structure:
 
 ```json
 {
@@ -1161,11 +1161,11 @@ The exported JSON follows the Reactive Resume schema. Here's a high-level overvi
       "additionalProperties": false,
       "description": "Metadata for the resume, such as template, layout, typography, etc. This section describes the overall design and appearance of the resume."
     },
-    "version": { "type": "string", "const": "5.0.0", "description": "The version of the Reactive Resume JSON Schema" },
+    "version": { "type": "string", "const": "5.0.0", "description": "The version of the Skill Verdict JSON Schema" },
     "$schema": {
       "type": "string",
       "const": "http://localhost:3000/schema.json",
-      "description": "The URL of the Reactive Resume JSON Schema, used for validation and documentation purposes."
+      "description": "The URL of the Skill Verdict JSON Schema, used for validation and documentation purposes."
     }
   },
   "required": ["picture", "basics", "summary", "sections", "customSections", "metadata", "version", "$schema"],
@@ -1174,14 +1174,14 @@ The exported JSON follows the Reactive Resume schema. Here's a high-level overvi
 ```
 
 <Tip>
-  You can access the complete JSON schema at [`https://rxresu.me/schema.json`](https://rxresu.me/schema.json).
-  Referencing this is helpful for validating your resume JSON or providing a detailed schema reference when
-  collaborating with AI assistants.
+  You can access the complete JSON schema at [`YOUR_APP_URL/schema.json`](YOUR_APP_URL/schema.json). Referencing this is
+  helpful for validating your resume JSON or providing a detailed schema reference when collaborating with AI
+  assistants.
 </Tip>
 
 ## Re-importing your JSON
 
-To import a JSON file back into Reactive Resume:
+To import a JSON file back into Skill Verdict:
 
 <Steps>
   <Step title="Go to your Dashboard">
@@ -1191,7 +1191,7 @@ To import a JSON file back into Reactive Resume:
 <Step title="Click 'Import an existing resume'">Find the import card and click it to open the import dialog.</Step>
 
 <Step title="Select the right format">
-  In the format options, select **Reactive Resume (JSON)** if your file was exported from the current version.
+  In the format options, select **Skill Verdict (JSON)** if your file was exported from the current version.
 </Step>
 
 <Step title="Upload your file">Click the upload area and select your JSON file.</Step>

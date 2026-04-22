@@ -4,24 +4,24 @@
   "entity": {
     "type": "individual",
     "role": "maintainer",
-    "name": "Amruth Pillai",
-    "email": "im.amruth@gmail.com",
+    "name": "YOUR_CONTACT_NAME",
+    "email": "YOUR_SUPPORT_EMAIL",
     "description": "Software Engineer",
     "webpageUrl": {
-      "url": "https://rxresu.me/funding.json"
+      "url": "YOUR_APP_URL/funding.json"
     }
   },
   "projects": [
     {
-      "guid": "reactive-resume",
-      "name": "Reactive Resume",
+      "guid": "skill-verdict",
+      "name": "Skill Verdict",
       "description": "A free and open-source resume builder that simplifies the process of creating, updating, and sharing your resume.",
       "webpageUrl": {
-        "url": "https://rxresu.me"
+        "url": "YOUR_APP_URL"
       },
       "repositoryUrl": {
-        "url": "https://github.com/amruthpillai/reactive-resume",
-        "wellKnown": "https://github.com/amruthpillai/reactive-resume/blob/main/.github/.well-known/funding-manifest-urls"
+        "url": "YOUR_GITHUB_REPO_URL",
+        "wellKnown": "YOUR_GITHUB_REPO_URL/blob/main/.github/.well-known/funding-manifest-urls"
       },
       "licenses": ["spdx:MIT"],
       "tags": ["data", "design", "productivity", "resume-builder"]
@@ -55,13 +55,13 @@
         "guid": "github",
         "type": "payment-provider",
         "description": "GitHub Sponsors",
-        "address": "https://github.com/sponsors/AmruthPillai"
+        "address": "YOUR_GITHUB_SPONSORS_URL"
       },
       {
         "guid": "open-collective",
         "type": "payment-provider",
         "description": "Open Collective",
-        "address": "https://opencollective.com/reactive-resume"
+        "address": "YOUR_OPEN_COLLECTIVE_URL"
       }
     ]
   }

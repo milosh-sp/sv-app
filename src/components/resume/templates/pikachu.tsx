@@ -5,6 +5,7 @@ import { cn } from "@/utils/style";
 import type { TemplateProps } from "./types";
 
 import { getSectionComponent } from "../shared/get-section-component";
+import { HeaderNameWithVerification } from "../shared/header-name-with-verification";
 import { PageIcon } from "../shared/page-icon";
 import { PageLink } from "../shared/page-link";
 import { PagePicture } from "../shared/page-picture";
@@ -77,7 +78,7 @@ function Header() {
   return (
     <div className="page-header w-full space-y-(--page-gap-y) rounded-(--picture-border-radius) bg-(--page-primary-color) px-(--page-margin-x) py-(--page-margin-y) text-(--page-background-color)">
       <div className="border-b border-(--page-background-color)/50 pb-2">
-        <h2 className="basics-name">{basics.name}</h2>
+        <HeaderNameWithVerification name={basics.name} className="basics-name" />
         <p className="basics-headline">{basics.headline}</p>
       </div>
 

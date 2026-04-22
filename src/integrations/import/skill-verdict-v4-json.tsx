@@ -404,7 +404,7 @@ const transformLayoutColumn = (column: string[]): string[] => {
     .map(transformLayoutSectionId);
 };
 
-export class ReactiveResumeV4JSONImporter {
+export class SkillVerdictV4JSONImporter {
   parse(json: string): ResumeData {
     try {
       const v4Data = JSON.parse(json) as V4ResumeData;

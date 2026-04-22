@@ -9,46 +9,47 @@ import { type ResumeData, resumeDataSchema } from "@/schema/resume/data";
 import { tailorOutputSchema } from "@/schema/tailor";
 
 import { protectedProcedure } from "../context";
-import { aiCredentialsSchema, aiProviderSchema, aiService, fileInputSchema } from "../services/ai";
+import { aiProviderSchema, aiService, fileInputSchema } from "../services/ai";
+import { getGlobalAiCredentialsForService } from "../services/global-ai-settings";
 
-type AIProvider = z.infer<typeof aiProviderSchema>;
+async function requireGlobalAiCredentials() {
+  const creds = await getGlobalAiCredentialsForService();
+  if (!creds) {
+    throw new ORPCError("SERVICE_UNAVAILABLE", {
+      message: "AI integration is not configured. Contact an administrator.",
+    });
+  }
+  return creds;
+}
 
 export const aiRouter = {
-  testConnection: protectedProcedure
+  getAvailability: protectedProcedure
     .route({
-      method: "POST",
-      path: "/ai/test-connection",
+      method: "GET",
+      path: "/ai/availability",
       tags: ["AI"],
-      operationId: "testAiConnection",
-      summary: "Test AI provider connection",
+      operationId: "getAiAvailability",
+      summary: "Whether global AI is configured and ready",
       description:
-        "Validates the connection to an AI provider by sending a simple test prompt. Requires the provider type, model name, API key, and an optional base URL. Supported providers: OpenAI, Anthropic, Google Gemini, Ollama, and Vercel AI Gateway. Requires authentication.",
-      successDescription: "The AI provider connection was successful.",
+        "Returns whether a Skill Verdict admin has saved and verified global AI credentials. Used to enable AI features for signed-in users.",
     })
-    .input(
+    .output(
       z.object({
-        provider: aiProviderSchema,
-        model: z.string(),
-        apiKey: z.string(),
-        baseURL: z.string(),
+        configured: z.boolean(),
+        provider: aiProviderSchema.nullable(),
+        model: z.string().nullable(),
       }),
     )
-    .errors({
-      BAD_GATEWAY: {
-        message: "The AI provider returned an error or is unreachable.",
-        status: 502,
-      },
-    })
-    .handler(async ({ input }) => {
-      try {
-        return await aiService.testConnection(input);
-      } catch (error) {
-        if (error instanceof AISDKError || error instanceof OllamaError) {
-          throw new ORPCError("BAD_GATEWAY", { message: error.message });
-        }
-
-        throw error;
+    .handler(async () => {
+      const creds = await getGlobalAiCredentialsForService();
+      if (!creds) {
+        return { configured: false, provider: null, model: null };
       }
+      return {
+        configured: true,
+        provider: creds.provider,
+        model: creds.model,
+      };
     }),
 
   parsePdf: protectedProcedure
@@ -59,15 +60,10 @@ export const aiRouter = {
       operationId: "parseResumePdf",
       summary: "Parse a PDF file into resume data",
       description:
-        "Extracts structured resume data from a PDF file using the specified AI provider. The file should be sent as a base64-encoded string along with AI provider credentials. Returns a complete ResumeData object. Requires authentication.",
+        "Extracts structured resume data from a PDF file using the globally configured AI provider. Requires authentication.",
       successDescription: "The PDF was successfully parsed into structured resume data.",
     })
-    .input(
-      z.object({
-        ...aiCredentialsSchema.shape,
-        file: fileInputSchema,
-      }),
-    )
+    .input(z.object({ file: fileInputSchema }))
     .errors({
       BAD_GATEWAY: {
         message: "The AI provider returned an error or is unreachable.",
@@ -77,10 +73,15 @@ export const aiRouter = {
         message: "The AI returned an improperly formatted structure.",
         status: 400,
       },
+      SERVICE_UNAVAILABLE: {
+        message: "AI integration is not configured.",
+        status: 503,
+      },
     })
     .handler(async ({ input }): Promise<ResumeData> => {
+      const creds = await requireGlobalAiCredentials();
       try {
-        return await aiService.parsePdf(input);
+        return await aiService.parsePdf({ ...creds, ...input });
       } catch (error) {
         if (error instanceof AISDKError) {
           throw new ORPCError("BAD_GATEWAY", { message: error.message });
@@ -104,12 +105,11 @@ export const aiRouter = {
       operationId: "parseResumeDocx",
       summary: "Parse a DOCX file into resume data",
       description:
-        "Extracts structured resume data from a DOCX or DOC file using the specified AI provider. The file should be sent as a base64-encoded string along with AI provider credentials and the document's media type. Returns a complete ResumeData object. Requires authentication.",
+        "Extracts structured resume data from a DOCX or DOC file using the globally configured AI provider. Requires authentication.",
       successDescription: "The DOCX was successfully parsed into structured resume data.",
     })
     .input(
       z.object({
-        ...aiCredentialsSchema.shape,
         file: fileInputSchema,
         mediaType: z.enum([
           "application/msword",
@@ -126,10 +126,15 @@ export const aiRouter = {
         message: "The AI returned an improperly formatted structure.",
         status: 400,
       },
+      SERVICE_UNAVAILABLE: {
+        message: "AI integration is not configured.",
+        status: 503,
+      },
     })
     .handler(async ({ input }) => {
+      const creds = await requireGlobalAiCredentials();
       try {
-        return await aiService.parseDocx(input);
+        return await aiService.parseDocx({ ...creds, ...input });
       } catch (error) {
         if (error instanceof AISDKError) {
           throw new ORPCError("BAD_GATEWAY", { message: error.message });
@@ -153,22 +158,28 @@ export const aiRouter = {
       tags: ["AI"],
       operationId: "aiChat",
       summary: "Chat with AI to modify resume",
-      description:
-        "Streams a chat response from the configured AI provider. The LLM can call the patch_resume tool to generate JSON Patch operations that modify the resume. Requires authentication and AI provider credentials.",
+      description: "Streams a chat response using the globally configured AI provider. Requires authentication.",
     })
     .input(
       type<{
-        provider: AIProvider;
-        model: string;
-        apiKey: string;
-        baseURL: string;
         messages: UIMessage[];
         resumeData: ResumeData;
       }>(),
     )
+    .errors({
+      BAD_GATEWAY: {
+        message: "The AI provider returned an error or is unreachable.",
+        status: 502,
+      },
+      SERVICE_UNAVAILABLE: {
+        message: "AI integration is not configured.",
+        status: 503,
+      },
+    })
     .handler(async ({ input }) => {
+      const creds = await requireGlobalAiCredentials();
       try {
-        return await aiService.chat(input);
+        return await aiService.chat({ ...creds, ...input });
       } catch (error) {
         if (error instanceof AISDKError || error instanceof OllamaError) {
           throw new ORPCError("BAD_GATEWAY", { message: error.message });
@@ -186,12 +197,11 @@ export const aiRouter = {
       operationId: "tailorResume",
       summary: "Auto-tailor resume for a job posting",
       description:
-        "Uses AI to automatically tailor a resume for a specific job posting. Rewrites the summary, adjusts experience descriptions, and curates skills for ATS optimization. Returns structured modifications as a simplified output object. Requires authentication and AI credentials.",
+        "Uses the globally configured AI provider to tailor a resume for a job posting. Requires authentication.",
       successDescription: "Structured tailoring output returned successfully.",
     })
     .input(
       z.object({
-        ...aiCredentialsSchema.shape,
         resumeData: resumeDataSchema,
         job: jobResultSchema,
       }),
@@ -206,10 +216,15 @@ export const aiRouter = {
         message: "The AI returned an improperly formatted structure.",
         status: 400,
       },
+      SERVICE_UNAVAILABLE: {
+        message: "AI integration is not configured.",
+        status: 503,
+      },
     })
     .handler(async ({ input }) => {
+      const creds = await requireGlobalAiCredentials();
       try {
-        return await aiService.tailorResume(input);
+        return await aiService.tailorResume({ ...creds, ...input });
       } catch (error) {
         if (error instanceof AISDKError || error instanceof OllamaError) {
           throw new ORPCError("BAD_GATEWAY", { message: error.message });

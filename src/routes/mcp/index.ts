@@ -10,20 +10,20 @@ import { registerTools } from "./-helpers/tools";
 
 function createMcpServer() {
   const server = new McpServer({
-    name: "reactive-resume",
+    name: "skill-verdict",
     version: "1.0.0",
-    title: "Reactive Resume",
-    websiteUrl: "https://rxresu.me",
+    title: "Skill Verdict",
+    websiteUrl: "YOUR_APP_URL",
     description:
-      "Reactive Resume is a free and open-source resume builder. Use this MCP server to interact with your resume using an LLM of your choice.",
+      "Skill Verdict is a free and open-source resume builder. Use this MCP server to interact with your resume using an LLM of your choice.",
     icons: [
       {
-        src: "https://rxresu.me/icon/light.svg",
+        src: "YOUR_APP_URL/icon/light.svg",
         mimeType: "image/svg+xml",
         theme: "light",
       },
       {
-        src: "https://rxresu.me/icon/dark.svg",
+        src: "YOUR_APP_URL/icon/dark.svg",
         mimeType: "image/svg+xml",
         theme: "dark",
       },

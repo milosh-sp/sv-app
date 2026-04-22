@@ -28,7 +28,7 @@ function RouteComponent() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.25, ease: "easeOut" }}
         style={{ willChange: "transform, opacity" }}
-        className="grid max-w-xl gap-6"
+        className="grid w-full gap-6"
       >
         <div className="grid gap-1.5">
           <Label className="mb-0.5">
@@ -48,7 +48,7 @@ function RouteComponent() {
             nativeButton={false}
             className="h-5 justify-start text-xs text-muted-foreground active:scale-100"
             render={
-              <a href="https://crowdin.com/project/reactive-resume" target="_blank" rel="noopener noreferrer">
+              <a href="https://crowdin.com/project/skill-verdict" target="_blank" rel="noopener noreferrer">
                 <Trans>Help translate the app to your language</Trans>
                 <ArrowRightIcon className="size-3" />
               </a>

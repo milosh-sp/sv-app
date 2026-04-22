@@ -60,7 +60,7 @@ function normalizeBuiltInSectionsInLayout(data: ResumeData): ResumeData {
   };
 }
 
-export class ReactiveResumeJSONImporter {
+export class SkillVerdictJSONImporter {
   parse(json: string): ResumeData {
     try {
       const parsed = resumeDataSchema.parse(JSON.parse(json));

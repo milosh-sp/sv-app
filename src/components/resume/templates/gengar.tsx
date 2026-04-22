@@ -3,6 +3,7 @@ import { cn } from "@/utils/style";
 import type { TemplateProps } from "./types";
 
 import { getSectionComponent } from "../shared/get-section-component";
+import { HeaderNameWithVerification } from "../shared/header-name-with-verification";
 import { PageIcon } from "../shared/page-icon";
 import { PageLink } from "../shared/page-link";
 import { PagePicture } from "../shared/page-picture";
@@ -86,7 +87,7 @@ function Header() {
         <PagePicture />
 
         <div>
-          <h2 className="basics-name">{basics.name}</h2>
+          <HeaderNameWithVerification name={basics.name} className="basics-name" />
           <p className="basics-headline">{basics.headline}</p>
         </div>
 

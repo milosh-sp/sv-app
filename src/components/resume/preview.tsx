@@ -169,7 +169,7 @@ function PageContainer({ pageIndex, pageLayout, pageClassName, showPageNumbers =
             rel="noopener"
             target="_blank"
             className="group/link"
-            href="https://docs.rxresu.me/guides/fitting-content-on-a-page"
+            href="YOUR_DOCS_URL/guides/fitting-content-on-a-page"
           >
             <Alert className="max-w-sm text-yellow-600">
               <WarningIcon color="currentColor" />

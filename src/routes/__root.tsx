@@ -35,18 +35,18 @@ type RouterContext = {
   flags: FeatureFlags;
 };
 
-const appName = "Reactive Resume";
-const tagline = "A free and open-source resume builder";
+const appName = "Skill Verdict";
+const tagline = "Don't chase, attract";
 const title = `${appName} — ${tagline}`;
 const description =
-  "Reactive Resume is a free and open-source resume builder that simplifies the process of creating, updating, and sharing your resume.";
+  "Skill Verdict turns your claimed skills into evidence. Build a living profile, get endorsed by domain experts, and let opportunities come to you.";
 
 await loadLocale(await getLocale());
 
 export const Route = createRootRouteWithContext<RouterContext>()({
   shellComponent: RootDocument,
   head: () => {
-    const appUrl = process.env.APP_URL ?? "https://rxresu.me/";
+    const appUrl = process.env.APP_URL ?? "https://skillverdict.com/";
 
     return {
       links: [

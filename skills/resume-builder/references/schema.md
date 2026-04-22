@@ -1,6 +1,6 @@
-# Reactive Resume Schema Reference
+# Skill Verdict Schema Reference
 
-The complete JSON Schema is available at: https://rxresu.me/schema.json
+The complete JSON Schema is available at: YOUR_APP_URL/schema.json
 
 This reference provides key structural information for generating valid resume data.
 

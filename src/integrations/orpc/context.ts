@@ -9,7 +9,7 @@ import { env } from "@/utils/env";
 
 import { auth, verifyOAuthToken } from "../auth/config";
 import { db } from "../drizzle/client";
-import { user } from "../drizzle/schema";
+import { adminRoles, user } from "../drizzle/schema";
 
 interface ORPCContext {
   locale: Locale;
@@ -105,4 +105,24 @@ export const serverOnlyProcedure = publicProcedure.use(async ({ context, next })
   }
 
   return next({ context });
+});
+
+export const skillVerdictAdminProcedure = protectedProcedure.use(async ({ context, next }) => {
+  const [role] = await db.select().from(adminRoles).where(eq(adminRoles.userId, context.user.id)).limit(1);
+
+  if (!role || role.role !== "skill_verdict_admin") {
+    throw new ORPCError("FORBIDDEN", { message: "Skill Verdict Admin role required" });
+  }
+
+  return next({ context: { ...context, adminRole: "skill_verdict_admin" as const } });
+});
+
+export const reviewerAdminProcedure = protectedProcedure.use(async ({ context, next }) => {
+  const [role] = await db.select().from(adminRoles).where(eq(adminRoles.userId, context.user.id)).limit(1);
+
+  if (!role || role.role !== "reviewer_admin") {
+    throw new ORPCError("FORBIDDEN", { message: "Reviewer Admin role required" });
+  }
+
+  return next({ context: { ...context, adminRole: "reviewer_admin" as const } });
 });

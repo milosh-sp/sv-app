@@ -2,13 +2,12 @@ import type { Icon } from "@phosphor-icons/react";
 
 import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
-import { GithubLogoIcon, LinkedinLogoIcon, XLogoIcon } from "@phosphor-icons/react";
+import { LinkedinLogoIcon, XLogoIcon } from "@phosphor-icons/react";
 import { motion } from "motion/react";
 import { useState } from "react";
 
 import { BrandIcon } from "@/components/ui/brand-icon";
 import { Button } from "@/components/ui/button";
-import { Copyright } from "@/components/ui/copyright";
 
 type FooterLinkItem = {
   url: string;
@@ -26,24 +25,22 @@ type SocialLink = {
   icon: Icon;
 };
 
-const getResourceLinks = (): FooterLinkItem[] => [
-  { url: "https://docs.rxresu.me", label: t`Documentation` },
-  { url: "https://opencollective.com/reactive-resume", label: t`Sponsorships` },
-  { url: "https://github.com/amruthpillai/reactive-resume", label: t`Source Code` },
-  { url: "https://docs.rxresu.me/changelog", label: t`Changelog` },
+const getProductLinks = (): FooterLinkItem[] => [
+  { url: "/dashboard", label: t`Dashboard` },
+  { url: "#how-it-works", label: t`How it works` },
+  { url: "#features", label: t`Features` },
+  { url: "#frequently-asked-questions", label: t`FAQ` },
 ];
 
 const getCommunityLinks = (): FooterLinkItem[] => [
-  { url: "https://github.com/amruthpillai/reactive-resume/issues", label: t`Report an issue` },
-  { url: "https://crowdin.com/project/reactive-resume", label: t`Translations` },
-  { url: "https://reddit.com/r/reactiveresume", label: t`Subreddit` },
-  { url: "https://discord.gg/aSyA5ZSxpb", label: t`Discord` },
+  { url: "mailto:hello@skillverdict.com", label: t`Contact us` },
+  { url: "/verifier", label: t`Become a verifier` },
+  { url: "/candidate", label: t`Get verified` },
 ];
 
 const socialLinks: SocialLink[] = [
-  { url: "https://github.com/amruthpillai/reactive-resume", label: "GitHub", icon: GithubLogoIcon },
-  { url: "https://linkedin.com/in/amruthpillai", label: "LinkedIn", icon: LinkedinLogoIcon },
-  { url: "https://x.com/KingOKings", label: "X (Twitter)", icon: XLogoIcon },
+  { url: "https://linkedin.com", label: "LinkedIn", icon: LinkedinLogoIcon },
+  { url: "https://x.com", label: "X (Twitter)", icon: XLogoIcon },
 ];
 
 export function Footer() {
@@ -63,11 +60,11 @@ export function Footer() {
           <BrandIcon variant="logo" className="size-10" />
 
           <div className="space-y-2">
-            <h2 className="text-lg font-bold tracking-tight">Reactive Resume</h2>
+            <h2 className="text-lg font-bold tracking-tight">Skill Verdict</h2>
             <p className="max-w-xs text-sm leading-relaxed text-muted-foreground">
               <Trans>
-                A free and open-source resume builder that simplifies the process of creating, updating, and sharing
-                your resume.
+                Verified skills, honest feedback, and passive discovery — a living profile built on evidence, not
+                keywords.
               </Trans>
             </p>
           </div>
@@ -95,16 +92,8 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Resources Column */}
-        <FooterLinkGroup title={t`Resources`} links={getResourceLinks()} />
-
-        {/* Community Column */}
+        <FooterLinkGroup title={t`Product`} links={getProductLinks()} />
         <FooterLinkGroup title={t`Community`} links={getCommunityLinks()} />
-
-        {/* Copyright Column */}
-        <div className="space-y-4 sm:col-span-2 lg:col-span-1">
-          <Copyright />
-        </div>
       </div>
     </motion.footer>
   );
@@ -127,16 +116,18 @@ function FooterLinkGroup({ title, links }: FooterLinkGroupProps) {
 function FooterLink({ url, label }: FooterLinkItem) {
   const [isHovered, setIsHovered] = useState(false);
 
+  const isExternal = /^https?:/.test(url) || url.startsWith("mailto:");
+
   return (
     <li className="relative" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
       <a
         href={url}
-        target="_blank"
-        rel="noopener"
+        target={isExternal ? "_blank" : undefined}
+        rel={isExternal ? "noopener" : undefined}
         className="relative inline-block text-sm transition-colors hover:text-foreground"
       >
         {label}
-        <span className="sr-only"> ({t`opens in new tab`})</span>
+        {isExternal && <span className="sr-only"> ({t`opens in new tab`})</span>}
 
         <motion.div
           aria-hidden="true"

@@ -153,111 +153,34 @@ const jsonResumeSchema = z.looseObject({
 
 type JSONResume = z.infer<typeof jsonResumeSchema>;
 
-// Helper function to format date period from start and end dates
-function formatPeriod(startDate?: string, endDate?: string): string {
-  if (!startDate && !endDate) return "";
-  if (!startDate) return endDate || "";
-  if (!endDate) return `${startDate} - Present`;
-
-  // Format dates to be more readable
-  const formatDate = (date: string): string => {
-    // Handle YYYY-MM-DD, YYYY-MM, or YYYY formats
-    const parts = date.split("-");
-
-    if (parts.length === 3) {
-      // YYYY-MM-DD
-      const [year, month] = parts;
-      const monthNames = [
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December",
-      ];
-      return `${monthNames[parseInt(month, 10) - 1]} ${year}`;
-    }
-
-    if (parts.length === 2) {
-      // YYYY-MM
-      const [year, month] = parts;
-      const monthNames = [
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December",
-      ];
-      return `${monthNames[parseInt(month, 10) - 1]} ${year}`;
-    }
-
-    // YYYY
-    return date;
-  };
-
-  return `${formatDate(startDate)} - ${formatDate(endDate)}`;
+function pad2(part: string): string {
+  return part.length >= 2 ? part : `0${part}`;
 }
 
-// Helper function to format a single date
-function formatSingleDate(date?: string): string {
-  if (!date) return "";
-
-  // Format dates to be more readable
+/** JSON Resume ISO date strings → DD/MM/YYYY (01/MM/YYYY for year-month; year unchanged for YYYY-only). */
+function formatImportedIsoDate(date: string): string {
   const parts = date.split("-");
-
   if (parts.length === 3) {
-    // YYYY-MM-DD
     const [year, month, day] = parts;
-    const monthNames = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
-    ];
-    return `${monthNames[parseInt(month, 10) - 1]} ${day}, ${year}`;
+    return `${pad2(day)}/${pad2(month)}/${year}`;
   }
   if (parts.length === 2) {
-    // YYYY-MM
     const [year, month] = parts;
-    const monthNames = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
-    ];
-    return `${monthNames[parseInt(month, 10) - 1]} ${year}`;
+    return `01/${pad2(month)}/${year}`;
   }
-  // YYYY
   return date;
+}
+
+function formatPeriod(startDate?: string, endDate?: string): string {
+  if (!startDate && !endDate) return "";
+  if (!startDate) return endDate ? formatImportedIsoDate(endDate) : "";
+  if (!endDate) return `${formatImportedIsoDate(startDate)} - Present`;
+  return `${formatImportedIsoDate(startDate)} - ${formatImportedIsoDate(endDate)}`;
+}
+
+function formatSingleDate(date?: string): string {
+  if (!date) return "";
+  return formatImportedIsoDate(date);
 }
 
 // Helper function to convert text and highlights to HTML

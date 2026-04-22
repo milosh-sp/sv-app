@@ -1,4 +1,3 @@
-import { useLingui } from "@lingui/react";
 import { Trans } from "@lingui/react/macro";
 import { DotsThreeIcon, DownloadSimpleIcon, PlusIcon } from "@phosphor-icons/react";
 import { Link } from "@tanstack/react-router";
@@ -9,6 +8,7 @@ import type { RouterOutput } from "@/integrations/orpc/client";
 
 import { Button } from "@/components/ui/button";
 import { useDialogStore } from "@/dialogs/store";
+import { formatDefaultDateTime } from "@/utils/format-date";
 
 import { ResumeDropdownMenu } from "./menus/dropdown-menu";
 
@@ -100,11 +100,7 @@ export function ListView({ resumes }: Props) {
 }
 
 function ResumeListItem({ resume }: { resume: Resume }) {
-  const { i18n } = useLingui();
-
-  const updatedAt = useMemo(() => {
-    return Intl.DateTimeFormat(i18n.locale, { dateStyle: "long", timeStyle: "short" }).format(resume.updatedAt);
-  }, [i18n.locale, resume.updatedAt]);
+  const updatedAt = useMemo(() => formatDefaultDateTime(resume.updatedAt), [resume.updatedAt]);
 
   return (
     <div className="flex items-center gap-x-2">

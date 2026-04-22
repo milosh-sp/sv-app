@@ -291,7 +291,7 @@ function normalizeResumeDataForSchema(data: Record<string, unknown>) {
 
 export const aiProviderSchema = z.enum(["ollama", "openai", "gemini", "anthropic", "vercel-ai-gateway"]);
 
-type AIProvider = z.infer<typeof aiProviderSchema>;
+export type AIProvider = z.infer<typeof aiProviderSchema>;
 
 type GetModelInput = {
   provider: AIProvider;

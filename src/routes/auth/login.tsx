@@ -82,34 +82,18 @@ function RouteComponent() {
   };
 
   return (
-    <>
+    <div className="space-y-6">
       <div className="space-y-1 text-center">
         <h1 className="text-2xl font-bold tracking-tight">
           <Trans>Sign in to your account</Trans>
         </h1>
-
-        {!flags.disableSignups && (
-          <div className="text-muted-foreground">
-            <Trans>
-              Don't have an account?{" "}
-              <Button
-                variant="link"
-                nativeButton={false}
-                className="h-auto gap-1.5 px-1! py-0"
-                render={
-                  <Link to="/auth/register">
-                    Create one now <ArrowRightIcon />
-                  </Link>
-                }
-              />
-            </Trans>
-          </div>
-        )}
       </div>
+
+      <SocialAuth />
 
       {!flags.disableEmailAuth && (
         <Form {...form}>
-          <form className="space-y-6" onSubmit={form.handleSubmit(onSubmit)}>
+          <form className="space-y-5" onSubmit={form.handleSubmit(onSubmit)}>
             <FormField
               control={form.control}
               name="identifier"
@@ -187,7 +171,23 @@ function RouteComponent() {
         </Form>
       )}
 
-      <SocialAuth />
-    </>
+      {!flags.disableSignups && (
+        <div className="text-center text-muted-foreground">
+          <Trans>
+            Don't have an account?{" "}
+            <Button
+              variant="link"
+              nativeButton={false}
+              className="h-auto gap-1.5 px-1! py-0"
+              render={
+                <Link to="/auth/register">
+                  Create one now <ArrowRightIcon />
+                </Link>
+              }
+            />
+          </Trans>
+        </div>
+      )}
+    </div>
   );
 }

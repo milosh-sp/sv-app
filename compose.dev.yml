@@ -1,4 +1,4 @@
-name: reactive_resume
+name: skill_verdict
 
 services:
   adminer:
@@ -37,6 +37,10 @@ services:
   browserless:
     image: ghcr.io/browserless/chromium:latest
     restart: unless-stopped
+    # Linux: Chromium must resolve host.docker.internal (default PRINTER_APP_URL) to the host; Docker Desktop
+    # adds this on macOS/Windows, but on Linux the mapping must be explicit.
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     ports:
       - "4000:3000"
     environment:
@@ -51,7 +55,7 @@ services:
       retries: 10
 
   # As an alternative to browserless, you can also use a lightweight image like chromedp/headless-shell:latest
-  # See https://docs.rxresu.me/self-hosting/docker#alternative-printer-options for more information.
+  # See YOUR_DOCS_URL/self-hosting/docker#alternative-printer-options for more information.
   chrome:
     image: chromedp/headless-shell:latest
     restart: unless-stopped
@@ -85,7 +89,7 @@ services:
           echo 'Waiting for SeaweedFS...';
           sleep 2;
         done;
-        mc mb seaweedfs/reactive-resume --ignore-existing;
+        mc mb seaweedfs/skill-verdict --ignore-existing;
       "
     depends_on:
       seaweedfs:

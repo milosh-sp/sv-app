@@ -1,5 +1,4 @@
 import { t } from "@lingui/core/macro";
-import { useLingui } from "@lingui/react";
 import { CircleNotchIcon, LockSimpleIcon } from "@phosphor-icons/react";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
@@ -8,6 +7,7 @@ import { useMemo } from "react";
 import { match, P } from "ts-pattern";
 
 import { orpc, type RouterOutput } from "@/integrations/orpc/client";
+import { formatDefaultDateTime } from "@/utils/format-date";
 import { cn } from "@/utils/style";
 
 import { ResumeContextMenu } from "../menus/context-menu";
@@ -18,15 +18,27 @@ type ResumeCardProps = {
 };
 
 export function ResumeCard({ resume }: ResumeCardProps) {
-  const { i18n } = useLingui();
+  const { data: screenshotData, isLoading } = useQuery({
+    ...orpc.printer.getResumeScreenshot.queryOptions({ input: { id: resume.id } }),
+    // Keep polling while no preview URL is available yet.
+    refetchInterval: (query) => (query.state.data?.url ? false : 8000),
+  });
 
-  const { data: screenshotData, isLoading } = useQuery(
-    orpc.printer.getResumeScreenshot.queryOptions({ input: { id: resume.id } }),
-  );
+  const updatedAt = useMemo(() => formatDefaultDateTime(resume.updatedAt), [resume.updatedAt]);
+  const screenshotUrl = useMemo(() => {
+    const url = screenshotData?.url;
+    if (!url) return null;
 
-  const updatedAt = useMemo(() => {
-    return Intl.DateTimeFormat(i18n.locale, { dateStyle: "long", timeStyle: "short" }).format(resume.updatedAt);
-  }, [i18n.locale, resume.updatedAt]);
+    try {
+      const parsed = new URL(url);
+      // Ensure screenshot URLs render correctly even when APP_URL differs from current host.
+      if (parsed.pathname.startsWith("/uploads/")) return `${parsed.pathname}${parsed.search}`;
+    } catch {
+      // Non-absolute URL; use as-is.
+    }
+
+    return url;
+  }, [screenshotData?.url]);
 
   return (
     <ResumeContextMenu resume={resume}>
@@ -38,7 +50,7 @@ export function ResumeCard({ resume }: ResumeCardProps) {
           style={{ willChange: "transform" }}
         >
           <BaseCard title={resume.name} description={t`Last updated on ${updatedAt}`} tags={resume.tags}>
-            {match({ isLoading, imageSrc: screenshotData?.url })
+            {match({ isLoading, imageSrc: screenshotUrl })
               .with({ isLoading: true }, () => (
                 <div className="flex size-full items-center justify-center">
                   <CircleNotchIcon weight="thin" className="size-12 animate-spin" />

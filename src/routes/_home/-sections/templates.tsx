@@ -1,120 +1,152 @@
+import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
 import { motion } from "motion/react";
-import { useMemo } from "react";
-
-import type { TemplateMetadata } from "@/dialogs/resume/template/data";
 
 import { templates } from "@/dialogs/resume/template/data";
 
-type TemplateItemProps = {
-  metadata: TemplateMetadata;
+type LayoutConcept = {
+  id: string;
+  focus: string;
+  title: string;
+  description: string;
+  imageUrl: string;
 };
 
-function TemplateItem({ metadata }: TemplateItemProps) {
+const getLayoutConcepts = (): LayoutConcept[] => [
+  {
+    id: "northline",
+    focus: t`Proof-first`,
+    title: t`Northline`,
+    description: t`Hero statement up top, verified skills as the spine — built for reviewers who scan in seconds.`,
+    imageUrl: templates.bronzor.imageUrl,
+  },
+  {
+    id: "relay",
+    focus: t`Signal density`,
+    title: t`Relay`,
+    description: t`Compact signal row for endorsements and recency — less chrome, more "what passed".`,
+    imageUrl: templates.chikorita.imageUrl,
+  },
+  {
+    id: "arc",
+    focus: t`Story arc`,
+    title: t`Arc`,
+    description: t`Timeline-forward narrative with milestones; good when your evidence has a clear before/after.`,
+    imageUrl: templates.rhyhorn.imageUrl,
+  },
+  {
+    id: "cluster",
+    focus: t`Skill clusters`,
+    title: t`Cluster`,
+    description: t`Grouped capabilities with micro-labels — shows breadth without a wall of bullet points.`,
+    imageUrl: templates.azurill.imageUrl,
+  },
+  {
+    id: "ledger",
+    focus: t`Two-pane`,
+    title: t`Ledger`,
+    description: t`Split identity and evidence panes; keeps personality context beside hard verification.`,
+    imageUrl: templates.ditgar.imageUrl,
+  },
+  {
+    id: "pulse",
+    focus: t`Compact`,
+    title: t`Pulse`,
+    description: t`Tight vertical rhythm for mobile sharing — still readable when the viewport is narrow.`,
+    imageUrl: templates.kakuna.imageUrl,
+  },
+];
+
+function LayoutPreview({ imageUrl, title }: { imageUrl: string; title: string }) {
   return (
-    <motion.div
-      className="group relative shrink-0"
-      initial={{ scale: 1, zIndex: 10 }}
-      whileHover={{ scale: 1.06, zIndex: 20 }}
-      whileTap={{ scale: 0.99 }}
-      transition={{ type: "spring", stiffness: 320, damping: 26 }}
-      style={{ willChange: "transform" }}
-    >
-      <div className="relative aspect-page w-48 overflow-hidden rounded-md border bg-card shadow-lg transition-all duration-300 group-hover:shadow-2xl sm:w-56 md:w-64 lg:w-72">
-        <img src={metadata.imageUrl} alt={metadata.name} className="size-full object-cover" />
-
-        {/* Subtle overlay on hover */}
-        <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-
-        {/* Template name on hover */}
-        <div className="absolute inset-x-0 bottom-0 translate-y-full p-4 transition-transform duration-300 group-hover:translate-y-0">
-          <p className="font-semibold text-white drop-shadow-lg">{metadata.name}</p>
-        </div>
-
-        {/* Shine effect on hover */}
-        <div className="pointer-events-none absolute inset-0 -translate-x-full rotate-12 bg-linear-to-r from-transparent via-white/10 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
-      </div>
-    </motion.div>
+    <div className="relative mb-4 aspect-4/3 overflow-hidden rounded-xl bg-muted ring-1 ring-border/40">
+      <img
+        src={imageUrl}
+        alt={title}
+        className="size-full object-cover object-top transition-transform duration-500 ease-out group-hover:scale-[1.03]"
+        loading="lazy"
+        decoding="async"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 bg-linear-to-t from-background/20 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+      />
+    </div>
   );
 }
 
-type MarqueeRowProps = {
-  templates: Array<[string, TemplateMetadata]>;
-  rowId: string;
-  direction: "left" | "right";
-  duration?: number;
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: { staggerChildren: 0.08, delayChildren: 0.06 },
+  },
 };
 
-function MarqueeRow({ templates, rowId, direction, duration = 40 }: MarqueeRowProps) {
-  const animateX = direction === "left" ? ["0%", "-50%"] : ["-50%", "0%"];
+const staggerItem = {
+  hidden: { opacity: 0, y: 12 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.42, ease: [0.22, 1, 0.36, 1] as const },
+  },
+};
 
+type LayoutCardProps = {
+  concept: LayoutConcept;
+};
+
+function LayoutCard({ concept }: LayoutCardProps) {
   return (
-    <motion.div
-      className="flex gap-x-4 will-change-transform sm:gap-x-6"
-      animate={{ x: animateX }}
-      transition={{
-        x: {
-          repeat: Infinity,
-          repeatType: "loop",
-          duration,
-          ease: "linear",
-        },
-      }}
+    <motion.article
+      variants={staggerItem}
+      className="group flex flex-col rounded-2xl bg-card p-5 shadow-sm ring-1 ring-border/30 transition-[transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:shadow-md md:p-6"
     >
-      {templates.map(([template, metadata], index) => (
-        <TemplateItem key={`${rowId}-${template}-${index}`} metadata={metadata} />
-      ))}
-    </motion.div>
+      <LayoutPreview imageUrl={concept.imageUrl} title={concept.title} />
+      <p className="text-xs font-medium tracking-wider text-muted-foreground uppercase">{concept.focus}</p>
+      <h3 className="mt-1.5 text-lg font-semibold tracking-tight">{concept.title}</h3>
+      <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{concept.description}</p>
+    </motion.article>
   );
 }
 
 export function Templates() {
-  // Split templates into two rows and duplicate for seamless infinite scroll
-  const { row1, row2 } = useMemo(() => {
-    const entries = Object.entries(templates);
-    const half = Math.ceil(entries.length / 2);
-    const firstHalf = entries.slice(0, half);
-    const secondHalf = entries.slice(half);
-
-    // Duplicate each row for seamless scrolling
-    return {
-      row1: [...firstHalf, ...firstHalf],
-      row2: [...secondHalf, ...secondHalf],
-    };
-  }, []);
+  const layouts = getLayoutConcepts();
 
   return (
-    <section id="templates" className="overflow-hidden border-t-0! p-4 md:p-8 xl:py-16">
+    <section id="templates" className="p-4 md:p-8 xl:py-8">
       <motion.div
         className="space-y-4"
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 16 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.35 }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.4, ease: "easeOut" }}
         style={{ willChange: "transform, opacity" }}
       >
         <h2 className="text-2xl font-semibold tracking-tight md:text-4xl xl:text-5xl">
-          <Trans>Templates</Trans>
+          <Trans>Layouts for evidence, not decoration</Trans>
         </h2>
 
         <p className="max-w-2xl leading-relaxed text-muted-foreground">
           <Trans>
-            Explore our diverse selection of templates, each designed to fit different styles, professions, and
-            personalities. Reactive Resume currently offers 12 templates, with more on the way.
+            Pick a presentation that puts verification and outcomes first. Each card shows a real export layout from the
+            builder — same document you share, with structure tuned for how people actually skim proof.
           </Trans>
         </p>
       </motion.div>
 
-      <div className="relative mt-8 -rotate-3 py-8 sm:-rotate-4 lg:mt-0 lg:-rotate-5">
-        {/* Marquee container with minimum height */}
-        <div className="flex min-h-[280px] flex-col gap-y-4 sm:min-h-[320px] sm:gap-y-6 md:min-h-[380px] lg:min-h-[420px]">
-          {/* First row - moves left to right */}
-          <MarqueeRow templates={row1} rowId="row1" direction="left" duration={45} />
-
-          {/* Second row - moves right to left (opposite direction) */}
-          <MarqueeRow templates={row2} rowId="row2" direction="right" duration={50} />
-        </div>
-      </div>
+      <motion.div
+        className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3 xl:gap-8"
+        variants={staggerContainer}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, margin: "-40px" }}
+        style={{ willChange: "opacity" }}
+      >
+        {layouts.map((concept) => (
+          <LayoutCard key={concept.id} concept={concept} />
+        ))}
+      </motion.div>
     </section>
   );
 }
