@@ -6,6 +6,7 @@ import {
   LockSimpleIcon,
   LockSimpleOpenIcon,
   PencilSimpleLineIcon,
+  SparkleIcon,
   TrashSimpleIcon,
 } from "@phosphor-icons/react";
 import { useMutation } from "@tanstack/react-query";
@@ -21,6 +22,7 @@ import {
 } from "@/components/ui/context-menu";
 import { useDialogStore } from "@/dialogs/store";
 import { useConfirm } from "@/hooks/use-confirm";
+import { useAiIntegration } from "@/integrations/ai/use-ai-integration";
 import { orpc, type RouterOutput } from "@/integrations/orpc/client";
 
 type Props = {
@@ -31,6 +33,7 @@ type Props = {
 export function ResumeContextMenu({ resume, children }: Props) {
   const confirm = useConfirm();
   const { openDialog } = useDialogStore();
+  const { canUse: canUseAI } = useAiIntegration();
 
   const { mutate: deleteResume } = useMutation(orpc.resume.delete.mutationOptions());
   const { mutate: setLockedResume } = useMutation(orpc.resume.setLocked.mutationOptions());
@@ -41,6 +44,10 @@ export function ResumeContextMenu({ resume, children }: Props) {
 
   const handleDuplicate = () => {
     openDialog("resume.duplicate", resume);
+  };
+
+  const handleReview = () => {
+    openDialog("resume.ai.review", { id: resume.id, name: resume.name });
   };
 
   const handleToggleLock = async () => {
@@ -108,6 +115,11 @@ export function ResumeContextMenu({ resume, children }: Props) {
         <ContextMenuItem onClick={handleDuplicate}>
           <CopySimpleIcon />
           <Trans>Duplicate</Trans>
+        </ContextMenuItem>
+
+        <ContextMenuItem disabled={!canUseAI} onClick={handleReview}>
+          <SparkleIcon />
+          <Trans>AI review</Trans>
         </ContextMenuItem>
 
         <ContextMenuItem onClick={handleToggleLock}>

@@ -11,6 +11,7 @@ import { tailorOutputSchema } from "@/schema/tailor";
 import { protectedProcedure } from "../context";
 import { aiProviderSchema, aiService, fileInputSchema } from "../services/ai";
 import { getGlobalAiCredentialsForService } from "../services/global-ai-settings";
+import { resumeService } from "../services/resume";
 
 async function requireGlobalAiCredentials() {
   const creds = await getGlobalAiCredentialsForService();
@@ -235,6 +236,45 @@ export const aiRouter = {
             message: "Invalid resume data structure",
             cause: flattenError(error),
           });
+        }
+
+        throw error;
+      }
+    }),
+
+  reviewResume: protectedProcedure
+    .route({
+      method: "POST",
+      path: "/ai/review-resume",
+      tags: ["AI"],
+      operationId: "reviewResume",
+      summary: "Review a resume with AI",
+      description:
+        "Analyzes a resume and returns actionable feedback using the globally configured AI provider. Requires authentication.",
+      successDescription: "Resume review feedback generated successfully.",
+    })
+    .input(z.object({ resumeId: z.string() }))
+    .output(z.object({ analysis: z.string() }))
+    .errors({
+      BAD_GATEWAY: {
+        message: "The AI provider returned an error or is unreachable.",
+        status: 502,
+      },
+      SERVICE_UNAVAILABLE: {
+        message: "AI integration is not configured.",
+        status: 503,
+      },
+    })
+    .handler(async ({ input, context }) => {
+      const creds = await requireGlobalAiCredentials();
+      const resume = await resumeService.getById({ id: input.resumeId, userId: context.user.id });
+
+      try {
+        const analysis = await aiService.reviewResume({ ...creds, resumeData: resume.data });
+        return { analysis };
+      } catch (error) {
+        if (error instanceof AISDKError || error instanceof OllamaError) {
+          throw new ORPCError("BAD_GATEWAY", { message: error.message });
         }
 
         throw error;

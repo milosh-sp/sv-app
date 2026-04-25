@@ -273,6 +273,20 @@ msgstr "AI / ML"
 msgid "AI Chat"
 msgstr "AI Chat"
 
+#: src/dialogs/resume/ai-review.tsx
+msgid "AI integration is not configured. Contact an administrator to enable AI features."
+msgstr "AI integration is not configured. Contact an administrator to enable AI features."
+
+#: src/routes/dashboard/resumes/-components/menus/context-menu.tsx
+#: src/routes/dashboard/resumes/-components/menus/dropdown-menu.tsx
+msgid "AI review"
+msgstr "AI review"
+
+#. placeholder {0}: data.name
+#: src/dialogs/resume/ai-review.tsx
+msgid "AI review for {0}"
+msgstr "AI review for {0}"
+
 #: src/utils/locale.ts
 msgid "Albanian"
 msgstr "Albanian"
@@ -663,6 +677,7 @@ msgstr "Click here to select a file to import"
 
 #: src/components/ui/dialog.tsx
 #: src/components/ui/sheet.tsx
+#: src/dialogs/resume/ai-review.tsx
 msgid "Close"
 msgstr "Close"
 
@@ -1349,6 +1364,10 @@ msgstr "Export"
 msgid "Failed to duplicate resume"
 msgstr "Failed to duplicate resume"
 
+#: src/dialogs/resume/ai-review.tsx
+msgid "Failed to generate AI review"
+msgstr "Failed to generate AI review"
+
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Failed to load document."
 msgstr "Failed to load document."
@@ -1476,6 +1495,10 @@ msgstr "Generate a random name"
 #: src/utils/locale.ts
 msgid "German"
 msgstr "German"
+
+#: src/dialogs/resume/ai-review.tsx
+msgid "Get AI feedback on what is strong in this resume and what should be improved."
+msgstr "Get AI feedback on what is strong in this resume and what should be improved."
 
 #: src/routes/_home/-sections/footer.tsx
 msgid "Get verified"
@@ -2075,6 +2098,10 @@ msgstr "Next"
 msgid "No"
 msgstr "No"
 
+#: src/dialogs/resume/ai-review.tsx
+msgid "No analysis was generated. Try again."
+msgstr "No analysis was generated. Try again."
+
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "No degree required"
 msgstr "No degree required"
@@ -2525,6 +2552,10 @@ msgstr "References"
 #: src/components/layout/error-screen.tsx
 msgid "Refresh"
 msgstr "Refresh"
+
+#: src/dialogs/resume/ai-review.tsx
+msgid "Regenerate review"
+msgstr "Regenerate review"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Relay"

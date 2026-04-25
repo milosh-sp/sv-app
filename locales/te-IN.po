@@ -278,6 +278,20 @@ msgstr ""
 msgid "AI Chat"
 msgstr ""
 
+#: src/dialogs/resume/ai-review.tsx
+msgid "AI integration is not configured. Contact an administrator to enable AI features."
+msgstr ""
+
+#: src/routes/dashboard/resumes/-components/menus/context-menu.tsx
+#: src/routes/dashboard/resumes/-components/menus/dropdown-menu.tsx
+msgid "AI review"
+msgstr ""
+
+#. placeholder {0}: data.name
+#: src/dialogs/resume/ai-review.tsx
+msgid "AI review for {0}"
+msgstr ""
+
 #: src/utils/locale.ts
 msgid "Albanian"
 msgstr "అల్బేనియన్"
@@ -668,6 +682,7 @@ msgstr "ఇంపోర్ట్ చేయడానికి ఫైల్ ను
 
 #: src/components/ui/dialog.tsx
 #: src/components/ui/sheet.tsx
+#: src/dialogs/resume/ai-review.tsx
 msgid "Close"
 msgstr "మూసివేయి"
 
@@ -1354,6 +1369,10 @@ msgstr "ఎగుమతి"
 msgid "Failed to duplicate resume"
 msgstr "రిజ్యూమ్‌ను డూప్లికేట్ చేయడంలో విఫలమైంది"
 
+#: src/dialogs/resume/ai-review.tsx
+msgid "Failed to generate AI review"
+msgstr ""
+
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Failed to load document."
 msgstr ""
@@ -1481,6 +1500,10 @@ msgstr "యాదృచ్ఛిక పేరు రూపొందించం�
 #: src/utils/locale.ts
 msgid "German"
 msgstr "జర్మన్"
+
+#: src/dialogs/resume/ai-review.tsx
+msgid "Get AI feedback on what is strong in this resume and what should be improved."
+msgstr ""
 
 #: src/routes/_home/-sections/footer.tsx
 msgid "Get verified"
@@ -2080,6 +2103,10 @@ msgstr "తరువాత"
 msgid "No"
 msgstr ""
 
+#: src/dialogs/resume/ai-review.tsx
+msgid "No analysis was generated. Try again."
+msgstr ""
+
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "No degree required"
 msgstr "డిగ్రీ అవసరం లేదు"
@@ -2530,6 +2557,10 @@ msgstr "రిఫరెన్స్లు"
 #: src/components/layout/error-screen.tsx
 msgid "Refresh"
 msgstr "రిఫ్రెష్ చేయండి"
+
+#: src/dialogs/resume/ai-review.tsx
+msgid "Regenerate review"
+msgstr ""
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Relay"

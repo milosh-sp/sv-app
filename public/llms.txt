@@ -1,0 +1,41 @@
+# Skill Verdict | Don't chase, attract!
+
+Backed by anonymous, peer-validated reviews and real-world skill assessments, CV2.0 proves your true engineering ability and delivers actionable feedback to help you grow—while giving companies instant, trusted access to verified talent they can rely on.
+
+## Key Features
+
+### [Skill Verdict](https://skillverdict.com/): 
+A platform that provides a comprehensive evaluation of engineering skills through peer reviews and assessments, ensuring that both candidates and companies can trust the results.
+
+### [CV2.0](https://skillverdict.com/#cv-preview): 
+The latest version of the Skill Verdict system, designed to enhance the assessment process and provide more accurate feedback on engineering capabilities.
+
+## User Guidance
+
+### [How it works](https://skillverdict.com/#process): 
+An overview of the processes involved in the Skill Verdict system, detailing how assessments are conducted and how feedback is generated for users.
+
+### [FAQs](https://skillverdict.com/#faq): 
+A collection of frequently asked questions that address common inquiries about the Skill Verdict platform, its functionality, and user experience.
+
+### [Contact Us](https://skillverdict.com/contact): 
+Information on how to reach the Skill Verdict team for support or inquiries, including email contact at [contact@skillverdict.com](mailto:contact@skillverdict.com).
+
+## Company Information
+
+### [Benefits](https://skillverdict.com/#benefits): 
+A detailed explanation of the advantages of using Skill Verdict for both candidates seeking to validate their skills and companies looking to hire verified talent.
+
+### [Companies](https://skillverdict.com/#company-discovery): 
+Information about the types of companies that utilize Skill Verdict to find and assess engineering talent, highlighting the platform's industry relevance.
+
+## Additional Resources
+
+### [Privacy Policy](https://skillverdict.com/privacy-policy): 
+The privacy policy outlining how Skill Verdict handles user data and ensures confidentiality and security for all participants.
+
+### [Home](https://skillverdict.com/#home): 
+The main landing page for Skill Verdict, providing an overview of the platform and its offerings.
+
+### [Skip to main content](https://skillverdict.com/#main-content): 
+A navigation link that allows users to bypass introductory content and access the main features of the Skill Verdict platform directly.
