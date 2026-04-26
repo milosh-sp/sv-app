@@ -46,7 +46,13 @@ const regionLabels: Record<Region, string> = {
   uk: "UK",
 };
 
-const statusOptions = workAuthorizationStatusSchema.options.map((value) => ({ value, label: value.replaceAll("_", " ") }));
+const formatWorkAuthStatusLabel = (value: string) =>
+  value === "needs_sponsorship" ? "requires employer sponsorship" : value.replaceAll("_", " ");
+
+const statusOptions = workAuthorizationStatusSchema.options.map((value) => ({
+  value,
+  label: formatWorkAuthStatusLabel(value),
+}));
 const sponsorshipOptions = sponsorshipRequirementSchema.options.map((value) => ({
   value,
   label: value.replaceAll("_", " "),
@@ -65,6 +71,13 @@ function buildRegionSearchTokens(region: Region, values: FormValues[Region]) {
   }
 
   return tokens;
+}
+
+function deriveSponsorshipRequired(status: FormValues[Region]["status"], current: FormValues[Region]["sponsorshipRequired"]) {
+  if (status === "visa_holder") return current;
+  if (status === "needs_sponsorship") return "yes";
+  if (status === "citizen" || status === "permanent_resident") return "no";
+  return "unknown";
 }
 
 function normalizeRegionValues(values: FormValues[Region], region: Region): FormValues[Region] {
@@ -130,9 +143,7 @@ function RouteComponent() {
       regions.map((region, index) => {
         const status = watchedRegions[index]?.status;
         const isFilled = Boolean(status) && status !== "prefer_not_to_say";
-        const label = isFilled
-          ? `${regionLabels[region]} — ${status.replaceAll("_", " ")}`
-          : regionLabels[region];
+        const label = isFilled ? `${regionLabels[region]} — ${formatWorkAuthStatusLabel(status)}` : regionLabels[region];
 
         return { value: region, label };
       }),
@@ -165,9 +176,14 @@ function RouteComponent() {
     const now = new Date().toISOString();
     const nextRegionData = {
       ...normalizedValues[activeRegion],
+      sponsorshipRequired: deriveSponsorshipRequired(
+        normalizedValues[activeRegion].status,
+        normalizedValues[activeRegion].sponsorshipRequired,
+      ),
       updatedAt: now,
-      searchTokens: buildRegionSearchTokens(activeRegion, normalizedValues[activeRegion]),
+      searchTokens: [],
     };
+    nextRegionData.searchTokens = buildRegionSearchTokens(activeRegion, nextRegionData);
     const nextWorkAuthorization = {
       ...normalizedValues,
       [activeRegion]: nextRegionData,
@@ -269,7 +285,7 @@ function RouteComponent() {
                     {selectedStatus && selectedStatus !== "prefer_not_to_say" ? (
                       <span className="inline-flex items-center gap-1 text-xs text-muted-foreground">
                         <CheckCircleIcon className="size-3.5" />
-                        {selectedStatus.replaceAll("_", " ")}
+                        {formatWorkAuthStatusLabel(selectedStatus)}
                       </span>
                     ) : null}
                   </div>
@@ -298,6 +314,12 @@ function RouteComponent() {
                                   form.setValue(`${activeRegion}.earliestStartDate` as const, "", { shouldDirty: true });
                                   form.setValue(`${activeRegion}.expirationMonth` as const, "", { shouldDirty: true });
                                 }
+
+                                form.setValue(
+                                  `${activeRegion}.sponsorshipRequired` as const,
+                                  deriveSponsorshipRequired(value, form.getValues(`${activeRegion}.sponsorshipRequired` as const)),
+                                  { shouldDirty: true },
+                                );
                               }}
                             />
                           }
@@ -307,30 +329,32 @@ function RouteComponent() {
                     )}
                   />
 
-                  <FormField
-                    control={form.control}
-                    name={`${activeRegion}.sponsorshipRequired`}
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>
-                          <Trans>Sponsorship required</Trans>
-                        </FormLabel>
-                        <FormControl
-                          render={
-                            <Combobox
-                              value={field.value}
-                              options={sponsorshipOptions}
-                              placeholder={t`Select sponsorship requirement`}
-                              onValueChange={(value) => {
-                                if (value) field.onChange(value);
-                              }}
-                            />
-                          }
-                        />
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
+                  {isVisaSelection ? (
+                    <FormField
+                      control={form.control}
+                      name={`${activeRegion}.sponsorshipRequired`}
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>
+                            <Trans>Sponsorship required</Trans>
+                          </FormLabel>
+                          <FormControl
+                            render={
+                              <Combobox
+                                value={field.value}
+                                options={sponsorshipOptions}
+                                placeholder={t`Select sponsorship requirement`}
+                                onValueChange={(value) => {
+                                  if (value) field.onChange(value);
+                                }}
+                              />
+                            }
+                          />
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  ) : null}
 
                   {isVisaSelection && (
                     <>

@@ -26,6 +26,9 @@ const searchSchema = z.object({
   authorizationFreshnessDays: z.number().int().min(1).optional(),
 });
 
+const formatWorkAuthStatusLabel = (value: string) =>
+  value === "needs_sponsorship" ? "requires employer sponsorship" : value.replaceAll("_", " ");
+
 export const Route = createFileRoute("/dashboard/admin/candidates")({
   component: RouteComponent,
   validateSearch: zodValidator(searchSchema),
@@ -65,7 +68,10 @@ function RouteComponent() {
     value,
     label: value.replaceAll("_", " "),
   }));
-  const statusOptions = workAuthorizationStatusSchema.options.map((value) => ({ value, label: value.replaceAll("_", " ") }));
+  const statusOptions = workAuthorizationStatusSchema.options.map((value) => ({
+    value,
+    label: formatWorkAuthStatusLabel(value),
+  }));
 
   return (
     <div className="space-y-4">
@@ -146,7 +152,7 @@ function RouteComponent() {
                       <GlobeIcon className="size-3.5" />
                       {region}
                     </p>
-                    <p>{candidate.workAuthorization[region].status.replaceAll("_", " ")}</p>
+                    <p>{formatWorkAuthStatusLabel(candidate.workAuthorization[region].status)}</p>
                     <p className="text-muted-foreground">
                       <Trans>Sponsorship:</Trans> {candidate.workAuthorization[region].sponsorshipRequired.replaceAll("_", " ")}
                     </p>
