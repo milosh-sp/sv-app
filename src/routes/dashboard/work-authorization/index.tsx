@@ -186,7 +186,7 @@ function RouteComponent() {
         normalizedValues[activeRegion].sponsorshipRequired,
       ),
       updatedAt: now,
-      searchTokens: [],
+      searchTokens: [] as string[],
     };
     nextRegionData.searchTokens = buildRegionSearchTokens(activeRegion, nextRegionData);
     const nextWorkAuthorization = {
