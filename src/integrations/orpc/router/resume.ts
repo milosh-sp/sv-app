@@ -3,7 +3,7 @@ import z from "zod";
 import { sampleResumeData } from "@/schema/resume/sample";
 import { generateRandomName, slugify } from "@/utils/string";
 
-import { protectedProcedure, publicProcedure, serverOnlyProcedure } from "../context";
+import { protectedProcedure, publicProcedure, serverOnlyProcedure, skillVerdictAdminProcedure } from "../context";
 import { resumeDto } from "../dto/resume";
 import { resumeService } from "../services/resume";
 
@@ -74,14 +74,35 @@ export const resumeRouter = {
         "Returns a list of all resumes belonging to the authenticated user. Results can be filtered by tags and sorted by last updated date, creation date, or name. Resume data is not included in the response for performance; use the get endpoint to fetch full resume data. Requires authentication.",
       successDescription: "A list of resumes with their metadata (without full resume data).",
     })
-    .input(resumeDto.list.input.optional().default({ tags: [], sort: "lastUpdatedAt" }))
+    .input(resumeDto.list.input.optional().default({ tags: [], sort: "lastUpdatedAt", workAuthRegions: [] }))
     .output(resumeDto.list.output)
     .handler(async ({ input, context }) => {
       return await resumeService.list({
         userId: context.user.id,
         tags: input.tags,
         sort: input.sort,
+        workAuthRegions: input.workAuthRegions,
+        sponsorshipRequired: input.sponsorshipRequired,
+        workAuthStatusByRegion: input.workAuthStatusByRegion,
+        authorizationFreshnessDays: input.authorizationFreshnessDays,
       });
+    }),
+
+  searchForEmployers: skillVerdictAdminProcedure
+    .route({
+      method: "GET",
+      path: "/resumes/company/search",
+      tags: ["Resumes"],
+      operationId: "searchResumesForEmployers",
+      summary: "Search resumes by work authorization",
+      description:
+        "Returns candidate resumes that opted in for employer visibility and match the provided work-authorization filters. Only accessible to authorized company/admin roles.",
+      successDescription: "A list of matching candidate resume summaries with work authorization facets.",
+    })
+    .input(resumeDto.searchForEmployers.input)
+    .output(resumeDto.searchForEmployers.output)
+    .handler(async ({ input }) => {
+      return await resumeService.searchForEmployers(input);
     }),
 
   getById: protectedProcedure

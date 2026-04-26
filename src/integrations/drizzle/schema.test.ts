@@ -15,6 +15,7 @@ import {
   verificationRequests,
   verificationSectionTypeEnum,
   verificationStatusEnum,
+  resume,
 } from "./schema";
 
 describe("verification enums", () => {
@@ -215,5 +216,27 @@ describe("resumeVerificationSettings table", () => {
 
   it("resumeId is not nullable", () => {
     expect(resumeVerificationSettings.resumeId.notNull).toBe(true);
+  });
+});
+
+describe("resume table work authorization columns", () => {
+  it("includes indexed work authorization fields", () => {
+    expect(resume.workAuthEuStatus).toBeDefined();
+    expect(resume.workAuthUsaStatus).toBeDefined();
+    expect(resume.workAuthUkStatus).toBeDefined();
+    expect(resume.workAuthEuSponsorshipRequired).toBeDefined();
+    expect(resume.workAuthUsaSponsorshipRequired).toBeDefined();
+    expect(resume.workAuthUkSponsorshipRequired).toBeDefined();
+    expect(resume.workAuthConsentToShare).toBeDefined();
+    expect(resume.workAuthUpdatedAt).toBeDefined();
+    expect(resume.workAuthSearchTokens).toBeDefined();
+  });
+
+  it("uses non-nullable defaults for searchable columns", () => {
+    expect(resume.workAuthEuStatus.notNull).toBe(true);
+    expect(resume.workAuthUsaStatus.notNull).toBe(true);
+    expect(resume.workAuthUkStatus.notNull).toBe(true);
+    expect(resume.workAuthConsentToShare.notNull).toBe(true);
+    expect(resume.workAuthSearchTokens.notNull).toBe(true);
   });
 });

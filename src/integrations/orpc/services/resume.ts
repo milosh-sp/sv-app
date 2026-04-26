@@ -1,7 +1,7 @@
 import type { Operation } from "fast-json-patch";
 
 import { ORPCError } from "@orpc/client";
-import { and, arrayContains, asc, desc, eq, isNotNull, or, sql } from "drizzle-orm";
+import { and, arrayContains, asc, desc, eq, gte, isNotNull, or, sql } from "drizzle-orm";
 import { get } from "es-toolkit/compat";
 import { match } from "ts-pattern";
 
@@ -17,7 +17,63 @@ import { applyResumePatches, ResumePatchError } from "@/utils/resume/patch";
 import { generateId } from "@/utils/string";
 
 import { grantResumeAccess, hasResumeAccess } from "../helpers/resume-access";
+import { deriveWorkAuthorizationIndexes } from "./resume-work-authorization";
 import { getStorageService } from "./storage";
+
+type WorkAuthorizationFilters = {
+  workAuthRegions: ("eu" | "usa" | "uk")[];
+  sponsorshipRequired?: "yes" | "no" | "case_by_case" | "unknown";
+  workAuthStatusByRegion?: { eu?: string; usa?: string; uk?: string };
+  authorizationFreshnessDays?: number;
+};
+
+const getWorkAuthStatusColumn = (region: "eu" | "usa" | "uk") =>
+  match(region)
+    .with("eu", () => schema.resume.workAuthEuStatus)
+    .with("usa", () => schema.resume.workAuthUsaStatus)
+    .with("uk", () => schema.resume.workAuthUkStatus)
+    .exhaustive();
+
+const getWorkAuthSponsorshipColumn = (region: "eu" | "usa" | "uk") =>
+  match(region)
+    .with("eu", () => schema.resume.workAuthEuSponsorshipRequired)
+    .with("usa", () => schema.resume.workAuthUsaSponsorshipRequired)
+    .with("uk", () => schema.resume.workAuthUkSponsorshipRequired)
+    .exhaustive();
+
+const getWorkAuthorizationConditions = (filters: WorkAuthorizationFilters, requireConsent: boolean) => {
+  const conditions = [];
+
+  if (requireConsent) conditions.push(eq(schema.resume.workAuthConsentToShare, true));
+  if (filters.workAuthRegions.length > 0) {
+    const regionConditions = filters.workAuthRegions.map((region) => sql`${getWorkAuthStatusColumn(region)} <> 'not_authorized'`);
+    conditions.push(or(...regionConditions));
+  }
+
+  if (filters.sponsorshipRequired) {
+    const regions = filters.workAuthRegions.length > 0 ? filters.workAuthRegions : (["eu", "usa", "uk"] as const);
+    const sponsorshipConditions = regions.map((region) =>
+      eq(getWorkAuthSponsorshipColumn(region), filters.sponsorshipRequired!),
+    );
+    if (sponsorshipConditions.length > 0) {
+      conditions.push(or(...sponsorshipConditions));
+    }
+  }
+
+  if (filters.workAuthStatusByRegion) {
+    if (filters.workAuthStatusByRegion.eu) conditions.push(eq(schema.resume.workAuthEuStatus, filters.workAuthStatusByRegion.eu));
+    if (filters.workAuthStatusByRegion.usa)
+      conditions.push(eq(schema.resume.workAuthUsaStatus, filters.workAuthStatusByRegion.usa));
+    if (filters.workAuthStatusByRegion.uk) conditions.push(eq(schema.resume.workAuthUkStatus, filters.workAuthStatusByRegion.uk));
+  }
+
+  if (filters.authorizationFreshnessDays) {
+    const threshold = new Date(Date.now() - filters.authorizationFreshnessDays * 24 * 60 * 60 * 1000);
+    conditions.push(gte(schema.resume.workAuthUpdatedAt, threshold));
+  }
+
+  return conditions;
+};
 
 const tags = {
   list: async (input: { userId: string }) => {
@@ -87,7 +143,15 @@ export const resumeService = {
   tags,
   statistics,
 
-  list: async (input: { userId: string; tags: string[]; sort: "lastUpdatedAt" | "createdAt" | "name" }) => {
+  list: async (
+    input: {
+      userId: string;
+      tags: string[];
+      sort: "lastUpdatedAt" | "createdAt" | "name";
+    } & WorkAuthorizationFilters,
+  ) => {
+    const workAuthConditions = getWorkAuthorizationConditions(input, false);
+
     return await db
       .select({
         id: schema.resume.id,
@@ -106,6 +170,7 @@ export const resumeService = {
           match(input.tags.length)
             .with(0, () => undefined)
             .otherwise(() => arrayContains(schema.resume.tags, input.tags)),
+          ...workAuthConditions,
         ),
       )
       .orderBy(
@@ -115,6 +180,28 @@ export const resumeService = {
           .with("name", () => asc(schema.resume.name))
           .exhaustive(),
       );
+  },
+
+  searchForEmployers: async (input: WorkAuthorizationFilters) => {
+    const workAuthConditions = getWorkAuthorizationConditions(input, true);
+
+    return await db
+      .select({
+        id: schema.resume.id,
+        name: schema.resume.name,
+        slug: schema.resume.slug,
+        updatedAt: schema.resume.updatedAt,
+        basics: sql<ResumeData["basics"]>`${schema.resume.data}->'basics'`,
+        workAuthorization: sql<ResumeData["workAuthorization"]>`${schema.resume.data}->'workAuthorization'`,
+      })
+      .from(schema.resume)
+      .where(
+        and(
+          eq(schema.resume.isPublic, true),
+          ...workAuthConditions,
+        ),
+      )
+      .orderBy(desc(schema.resume.updatedAt));
   },
 
   getById: async (input: { id: string; userId: string }) => {
@@ -259,6 +346,7 @@ export const resumeService = {
         tags: input.tags,
         userId: input.userId,
         data: input.data,
+        ...deriveWorkAuthorizationIndexes(input.data),
       });
 
       return id;
@@ -296,6 +384,8 @@ export const resumeService = {
       data: input.data,
       isPublic: input.isPublic,
     };
+
+    if (input.data) Object.assign(updateData, deriveWorkAuthorizationIndexes(input.data));
 
     try {
       const [resume] = await db
@@ -359,7 +449,7 @@ export const resumeService = {
 
     const [resume] = await db
       .update(schema.resume)
-      .set({ data: patchedData })
+      .set({ data: patchedData, ...deriveWorkAuthorizationIndexes(patchedData) })
       .where(
         and(eq(schema.resume.id, input.id), eq(schema.resume.isLocked, false), eq(schema.resume.userId, input.userId)),
       )

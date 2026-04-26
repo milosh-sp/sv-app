@@ -2,7 +2,12 @@ import { createSelectSchema } from "drizzle-zod";
 import z from "zod";
 
 import { schema } from "@/integrations/drizzle";
-import { resumeDataSchema } from "@/schema/resume/data";
+import {
+  resumeDataSchema,
+  sponsorshipRequirementSchema,
+  workAuthorizationRegionSchema,
+  workAuthorizationStatusSchema,
+} from "@/schema/resume/data";
 import { jsonPatchOperationSchema } from "@/utils/resume/patch";
 
 const resumeSchema = createSelectSchema(schema.resume, {
@@ -19,29 +24,80 @@ const resumeSchema = createSelectSchema(schema.resume, {
   updatedAt: z.date().describe("The date and time the resume was last updated."),
 });
 
+const internalWorkAuthColumns = {
+  workAuthEuStatus: true,
+  workAuthUsaStatus: true,
+  workAuthUkStatus: true,
+  workAuthEuSponsorshipRequired: true,
+  workAuthUsaSponsorshipRequired: true,
+  workAuthUkSponsorshipRequired: true,
+  workAuthConsentToShare: true,
+  workAuthUpdatedAt: true,
+  workAuthSearchTokens: true,
+} as const;
+
+const resumeClientSchema = resumeSchema.omit({
+  ...internalWorkAuthColumns,
+  password: true,
+  userId: true,
+});
+
 export const resumeDto = {
   list: {
     input: z
       .object({
         tags: z.array(z.string()).optional().default([]),
         sort: z.enum(["lastUpdatedAt", "createdAt", "name"]).optional().default("lastUpdatedAt"),
+        workAuthRegions: z.array(workAuthorizationRegionSchema).optional().default([]),
+        sponsorshipRequired: sponsorshipRequirementSchema.optional(),
+        workAuthStatusByRegion: z
+          .object({
+            eu: workAuthorizationStatusSchema.optional(),
+            usa: workAuthorizationStatusSchema.optional(),
+            uk: workAuthorizationStatusSchema.optional(),
+          })
+          .optional(),
+        authorizationFreshnessDays: z.number().int().min(1).optional(),
       })
       .optional()
-      .default({ tags: [], sort: "lastUpdatedAt" }),
+      .default({ tags: [], sort: "lastUpdatedAt", workAuthRegions: [] }),
 
-    output: z.array(resumeSchema.omit({ data: true, password: true, userId: true })),
+    output: z.array(resumeClientSchema.omit({ data: true })),
+  },
+
+  searchForEmployers: {
+    input: z.object({
+      workAuthRegions: z.array(workAuthorizationRegionSchema).optional().default([]),
+      sponsorshipRequired: sponsorshipRequirementSchema.optional(),
+      workAuthStatusByRegion: z
+        .object({
+          eu: workAuthorizationStatusSchema.optional(),
+          usa: workAuthorizationStatusSchema.optional(),
+          uk: workAuthorizationStatusSchema.optional(),
+        })
+        .optional(),
+      authorizationFreshnessDays: z.number().int().min(1).optional(),
+    }),
+    output: z.array(
+      z.object({
+        id: z.string(),
+        name: z.string(),
+        slug: z.string(),
+        updatedAt: z.date(),
+        basics: resumeDataSchema.pick({ basics: true }).shape.basics,
+        workAuthorization: resumeDataSchema.pick({ workAuthorization: true }).shape.workAuthorization,
+      }),
+    ),
   },
 
   getById: {
     input: resumeSchema.pick({ id: true }),
-    output: resumeSchema
-      .omit({ password: true, userId: true, createdAt: true, updatedAt: true })
-      .extend({ hasPassword: z.boolean() }),
+    output: resumeClientSchema.omit({ createdAt: true, updatedAt: true }).extend({ hasPassword: z.boolean() }),
   },
 
   getBySlug: {
     input: z.object({ username: z.string(), slug: z.string() }),
-    output: resumeSchema.omit({ password: true, userId: true, createdAt: true, updatedAt: true }),
+    output: resumeClientSchema.omit({ createdAt: true, updatedAt: true }),
   },
 
   create: {
@@ -61,7 +117,7 @@ export const resumeDto = {
       .pick({ name: true, slug: true, tags: true, data: true, isPublic: true })
       .partial()
       .extend({ id: z.string() }),
-    output: resumeSchema.omit({ password: true, userId: true, createdAt: true, updatedAt: true }),
+    output: resumeClientSchema.omit({ createdAt: true, updatedAt: true }),
   },
 
   setLocked: {
@@ -87,9 +143,7 @@ export const resumeDto = {
         .min(1)
         .describe("An array of JSON Patch (RFC 6902) operations to apply to the resume data."),
     }),
-    output: resumeSchema
-      .omit({ password: true, userId: true, createdAt: true, updatedAt: true })
-      .extend({ hasPassword: z.boolean() }),
+    output: resumeClientSchema.omit({ createdAt: true, updatedAt: true }).extend({ hasPassword: z.boolean() }),
   },
 
   duplicate: {
