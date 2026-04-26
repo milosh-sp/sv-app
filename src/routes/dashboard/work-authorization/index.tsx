@@ -1,3 +1,5 @@
+import type z from "zod";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
@@ -7,7 +9,6 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import type z from "zod";
 
 import { Button } from "@/components/ui/button";
 import { Combobox } from "@/components/ui/combobox";
@@ -73,7 +74,10 @@ function buildRegionSearchTokens(region: Region, values: FormValues[Region]) {
   return tokens;
 }
 
-function deriveSponsorshipRequired(status: FormValues[Region]["status"], current: FormValues[Region]["sponsorshipRequired"]) {
+function deriveSponsorshipRequired(
+  status: FormValues[Region]["status"],
+  current: FormValues[Region]["sponsorshipRequired"],
+) {
   if (status === "visa_holder") return current;
   if (status === "needs_sponsorship") return "yes";
   if (status === "citizen" || status === "permanent_resident") return "no";
@@ -143,7 +147,9 @@ function RouteComponent() {
       regions.map((region, index) => {
         const status = watchedRegions[index]?.status;
         const isFilled = Boolean(status) && status !== "prefer_not_to_say";
-        const label = isFilled ? `${regionLabels[region]} — ${formatWorkAuthStatusLabel(status)}` : regionLabels[region];
+        const label = isFilled
+          ? `${regionLabels[region]} — ${formatWorkAuthStatusLabel(status)}`
+          : regionLabels[region];
 
         return { value: region, label };
       }),
@@ -153,7 +159,6 @@ function RouteComponent() {
   const selectedStatus = form.watch(`${activeRegion}.status` as const);
   const isVisaSelection = selectedStatus === "visa_holder";
   const isResumeLoading = Boolean(selectedResumeId) && selectedResumeQuery.isPending;
-
 
   const { mutate: updateResume, isPending } = useMutation({
     ...orpc.resume.update.mutationOptions({ meta: { noInvalidate: true } }),
@@ -275,7 +280,10 @@ function RouteComponent() {
                     }
                   />
                   <FormDescription>
-                    <Trans>Pick a region to fill in your authorization details. Statuses already filled are shown next to each region.</Trans>
+                    <Trans>
+                      Pick a region to fill in your authorization details. Statuses already filled are shown next to
+                      each region.
+                    </Trans>
                   </FormDescription>
                 </FormItem>
 
@@ -311,13 +319,18 @@ function RouteComponent() {
 
                                 if (value !== "visa_holder") {
                                   form.setValue(`${activeRegion}.visaType` as const, "", { shouldDirty: true });
-                                  form.setValue(`${activeRegion}.earliestStartDate` as const, "", { shouldDirty: true });
+                                  form.setValue(`${activeRegion}.earliestStartDate` as const, "", {
+                                    shouldDirty: true,
+                                  });
                                   form.setValue(`${activeRegion}.expirationMonth` as const, "", { shouldDirty: true });
                                 }
 
                                 form.setValue(
                                   `${activeRegion}.sponsorshipRequired` as const,
-                                  deriveSponsorshipRequired(value, form.getValues(`${activeRegion}.sponsorshipRequired` as const)),
+                                  deriveSponsorshipRequired(
+                                    value,
+                                    form.getValues(`${activeRegion}.sponsorshipRequired` as const),
+                                  ),
                                   { shouldDirty: true },
                                 );
                               }}
@@ -435,11 +448,7 @@ function RouteComponent() {
                       </FormLabel>
                       <FormControl
                         render={
-                          <Textarea
-                            rows={3}
-                            placeholder={t`Add extra context for recruiters (optional).`}
-                            {...field}
-                          />
+                          <Textarea rows={3} placeholder={t`Add extra context for recruiters (optional).`} {...field} />
                         }
                       />
                       <FormMessage />
@@ -466,7 +475,9 @@ function RouteComponent() {
                               className="mt-0.5"
                             />
                             <span>
-                              <Trans>I consent to sharing my work authorization details with employers for matching.</Trans>
+                              <Trans>
+                                I consent to sharing my work authorization details with employers for matching.
+                              </Trans>
                             </span>
                           </label>
                         }

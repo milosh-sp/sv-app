@@ -85,15 +85,15 @@ function RouteComponent() {
           value={search.workAuthRegions}
           options={regionOptions}
           placeholder={t`Regions`}
-          onValueChange={(value) => void navigate({ search: { ...search, workAuthRegions: (value ?? []) as Region[] } })}
+          onValueChange={(value) =>
+            void navigate({ search: { ...search, workAuthRegions: (value ?? []) as Region[] } })
+          }
         />
         <Combobox
           value={search.sponsorshipRequired ?? null}
           options={sponsorshipOptions}
           placeholder={t`Sponsorship requirement`}
-          onValueChange={(value) =>
-            void navigate({ search: { ...search, sponsorshipRequired: value ?? undefined } })
-          }
+          onValueChange={(value) => void navigate({ search: { ...search, sponsorshipRequired: value ?? undefined } })}
         />
         <Combobox
           value={search.euStatus ?? null}
@@ -140,8 +140,7 @@ function RouteComponent() {
                 <p className="font-medium">{candidate.basics.name || candidate.name}</p>
                 <p className="text-sm text-muted-foreground">{candidate.basics.headline}</p>
                 <p className="text-xs text-muted-foreground">
-                  <BuildingsIcon className="mr-1 inline size-3.5" />
-                  @{candidate.slug}
+                  <BuildingsIcon className="mr-1 inline size-3.5" />@{candidate.slug}
                   {candidate.basics.location ? ` · ${candidate.basics.location}` : ""}
                 </p>
               </div>
@@ -154,7 +153,8 @@ function RouteComponent() {
                     </p>
                     <p>{formatWorkAuthStatusLabel(candidate.workAuthorization[region].status)}</p>
                     <p className="text-muted-foreground">
-                      <Trans>Sponsorship:</Trans> {candidate.workAuthorization[region].sponsorshipRequired.replaceAll("_", " ")}
+                      <Trans>Sponsorship:</Trans>{" "}
+                      {candidate.workAuthorization[region].sponsorshipRequired.replaceAll("_", " ")}
                     </p>
                   </div>
                 ))}

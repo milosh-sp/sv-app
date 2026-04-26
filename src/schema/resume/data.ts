@@ -101,11 +101,11 @@ export const sponsorshipRequirementSchema = z.enum(["yes", "no", "case_by_case",
 
 export const workAuthorizationRegionItemSchema = z.object({
   status: workAuthorizationStatusSchema.describe("Current legal work authorization status in this region."),
-  sponsorshipRequired: sponsorshipRequirementSchema.describe("Whether employer sponsorship is required in this region."),
+  sponsorshipRequired: sponsorshipRequirementSchema.describe(
+    "Whether employer sponsorship is required in this region.",
+  ),
   visaType: z.string().describe("Optional visa type/category for this region, if applicable."),
-  expirationMonth: z
-    .string()
-    .describe("Optional authorization expiration month in YYYY-MM format (example: 2027-09)."),
+  expirationMonth: z.string().describe("Optional authorization expiration month in YYYY-MM format (example: 2027-09)."),
   earliestStartDate: z.string().describe("Optional earliest legal start date in YYYY-MM-DD format."),
   consentToShareWithEmployers: z
     .boolean()

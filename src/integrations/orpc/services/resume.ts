@@ -46,7 +46,9 @@ const getWorkAuthorizationConditions = (filters: WorkAuthorizationFilters, requi
 
   if (requireConsent) conditions.push(eq(schema.resume.workAuthConsentToShare, true));
   if (filters.workAuthRegions.length > 0) {
-    const regionConditions = filters.workAuthRegions.map((region) => sql`${getWorkAuthStatusColumn(region)} <> 'not_authorized'`);
+    const regionConditions = filters.workAuthRegions.map(
+      (region) => sql`${getWorkAuthStatusColumn(region)} <> 'not_authorized'`,
+    );
     conditions.push(or(...regionConditions));
   }
 
@@ -61,10 +63,12 @@ const getWorkAuthorizationConditions = (filters: WorkAuthorizationFilters, requi
   }
 
   if (filters.workAuthStatusByRegion) {
-    if (filters.workAuthStatusByRegion.eu) conditions.push(eq(schema.resume.workAuthEuStatus, filters.workAuthStatusByRegion.eu));
+    if (filters.workAuthStatusByRegion.eu)
+      conditions.push(eq(schema.resume.workAuthEuStatus, filters.workAuthStatusByRegion.eu));
     if (filters.workAuthStatusByRegion.usa)
       conditions.push(eq(schema.resume.workAuthUsaStatus, filters.workAuthStatusByRegion.usa));
-    if (filters.workAuthStatusByRegion.uk) conditions.push(eq(schema.resume.workAuthUkStatus, filters.workAuthStatusByRegion.uk));
+    if (filters.workAuthStatusByRegion.uk)
+      conditions.push(eq(schema.resume.workAuthUkStatus, filters.workAuthStatusByRegion.uk));
   }
 
   if (filters.authorizationFreshnessDays) {
@@ -195,12 +199,7 @@ export const resumeService = {
         workAuthorization: sql<ResumeData["workAuthorization"]>`${schema.resume.data}->'workAuthorization'`,
       })
       .from(schema.resume)
-      .where(
-        and(
-          eq(schema.resume.isPublic, true),
-          ...workAuthConditions,
-        ),
-      )
+      .where(and(eq(schema.resume.isPublic, true), ...workAuthConditions))
       .orderBy(desc(schema.resume.updatedAt));
   },
 
