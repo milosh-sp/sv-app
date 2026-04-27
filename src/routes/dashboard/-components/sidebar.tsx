@@ -18,7 +18,6 @@ import {
   ShieldStarIcon,
   UserCircleIcon,
   UserListIcon,
-  UsersIcon,
   WarningIcon,
 } from "@phosphor-icons/react";
 import { useQuery } from "@tanstack/react-query";
@@ -126,11 +125,6 @@ const adminSidebarItems = [
     icon: <UserListIcon />,
     label: msg`Users`,
     href: "/dashboard/admin/users",
-  },
-  {
-    icon: <UsersIcon />,
-    label: msg`Candidates`,
-    href: "/dashboard/admin/candidates",
   },
   {
     icon: <BrainIcon />,

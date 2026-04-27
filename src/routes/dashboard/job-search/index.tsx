@@ -144,7 +144,7 @@ function RouteComponent() {
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="flex max-w-xl flex-col items-center gap-y-4 py-12 text-center"
+          className="mx-auto flex min-h-[60vh] max-w-xl flex-col items-center justify-center gap-y-4 py-12 text-center"
         >
           <MagnifyingGlassIcon className="size-12 text-muted-foreground" weight="light" />
           <h2 className="text-lg font-medium">

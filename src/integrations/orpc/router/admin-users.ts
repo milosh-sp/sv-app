@@ -1,5 +1,5 @@
 import { ORPCError } from "@orpc/client";
-import { and, count, desc, eq, gt, ilike, inArray, isNull, ne, or } from "drizzle-orm";
+import { and, count, desc, eq, gt, ilike, inArray, isNull, ne, or, sql } from "drizzle-orm";
 import z from "zod";
 
 import { db } from "@/integrations/drizzle/client";
@@ -15,6 +15,7 @@ import {
   verificationDocuments,
   verificationRequests,
 } from "@/integrations/drizzle/schema";
+import { defaultWorkAuthorizationData, type ResumeData, workAuthorizationSchema } from "@/schema/resume/data";
 
 import { skillVerdictAdminProcedure } from "../context";
 
@@ -54,6 +55,27 @@ const getUserOverviewInputSchema = z.object({
 
 const RESUME_ITEMS_LIMIT = 8;
 const APPROVED_EXPERIENCE_LIMIT = 6;
+const UPLOADED_DOCUMENTS_LIMIT = 10;
+
+function resolveLatestWorkAuthorization(
+  resumes: Array<{ updatedAt: Date; workAuthorization: ResumeData["workAuthorization"] | null }>,
+) {
+  if (resumes.length === 0) return null;
+
+  const latest = resumes.reduce(
+    (acc, row) => {
+      if (!acc || row.updatedAt > acc.updatedAt) return row;
+      return acc;
+    },
+    null as { updatedAt: Date; workAuthorization: ResumeData["workAuthorization"] | null } | null,
+  );
+
+  if (!latest?.workAuthorization) return null;
+
+  const parsed = workAuthorizationSchema.safeParse(latest.workAuthorization);
+  if (parsed.success) return parsed.data;
+  return structuredClone(defaultWorkAuthorizationData);
+}
 
 export const adminUsersRouter = {
   listUsers: skillVerdictAdminProcedure.input(listUsersInputSchema).handler(async ({ input }) => {
@@ -204,6 +226,7 @@ export const adminUsersRouter = {
           isPublic: resume.isPublic,
           isLocked: resume.isLocked,
           updatedAt: resume.updatedAt,
+          workAuthorization: sql<ResumeData["workAuthorization"]>`${resume.data}->'workAuthorization'`,
         })
         .from(resume)
         .where(eq(resume.userId, input.userId)),
@@ -245,6 +268,7 @@ export const adminUsersRouter = {
       if (!latest || row.updatedAt > latest) return row.updatedAt;
       return latest;
     }, null);
+    const workAuthorization = resolveLatestWorkAuthorization(resumeRows);
     const sortedResumeItems = [...resumeRows].sort((a, b) => b.updatedAt.getTime() - a.updatedAt.getTime());
     const resumeItems = sortedResumeItems.slice(0, RESUME_ITEMS_LIMIT);
     const resumeItemsHiddenCount = Math.max(0, sortedResumeItems.length - resumeItems.length);
@@ -322,12 +346,9 @@ export const adminUsersRouter = {
       });
     const approvedExperienceItems = approvedExperienceRows.slice(0, APPROVED_EXPERIENCE_LIMIT);
     const approvedExperienceHiddenCount = Math.max(0, approvedExperienceRows.length - approvedExperienceItems.length);
-    const approvedRequestIds = [
-      ...(approvedIdentityRow ? [approvedIdentityRow.id] : []),
-      ...approvedExperienceItems.map((row) => row.id),
-    ];
-    const approvedDocumentsRows =
-      approvedRequestIds.length > 0
+    const allRequestIds = verificationRows.map((row) => row.id);
+    const allDocumentsRows =
+      allRequestIds.length > 0
         ? await db
             .select({
               verificationRequestId: verificationDocuments.verificationRequestId,
@@ -336,10 +357,10 @@ export const adminUsersRouter = {
               uploadedAt: verificationDocuments.uploadedAt,
             })
             .from(verificationDocuments)
-            .where(inArray(verificationDocuments.verificationRequestId, approvedRequestIds))
+            .where(inArray(verificationDocuments.verificationRequestId, allRequestIds))
             .orderBy(desc(verificationDocuments.uploadedAt))
         : [];
-    const documentsByRequestId = approvedDocumentsRows.reduce(
+    const documentsByRequestId = allDocumentsRows.reduce(
       (acc, row) => {
         const existing = acc.get(row.verificationRequestId) ?? [];
         existing.push({
@@ -359,6 +380,25 @@ export const adminUsersRouter = {
         }>
       >(),
     );
+    const verificationRowsById = new Map(verificationRows.map((row) => [row.id, row]));
+    const uploadedDocumentItems = allDocumentsRows
+      .map((doc) => {
+        const request = verificationRowsById.get(doc.verificationRequestId);
+        if (!request) return null;
+        return {
+          verificationRequestId: doc.verificationRequestId,
+          sectionType: request.sectionType,
+          itemLabel: request.itemLabel,
+          status: request.status,
+          method: request.method,
+          fileUrl: doc.fileUrl,
+          documentType: doc.documentType,
+          uploadedAt: doc.uploadedAt,
+        };
+      })
+      .filter((item): item is NonNullable<typeof item> => item !== null);
+    const uploadedDocuments = uploadedDocumentItems.slice(0, UPLOADED_DOCUMENTS_LIMIT);
+    const uploadedDocumentsHiddenCount = Math.max(0, uploadedDocumentItems.length - uploadedDocuments.length);
 
     const apiKeysSummary = apiKeyRows.reduce(
       (acc, row) => {
@@ -395,6 +435,7 @@ export const adminUsersRouter = {
         items: resumeItems,
         hiddenCount: resumeItemsHiddenCount,
       },
+      workAuthorization,
       verification: {
         ...verificationSummary,
         approvedIdentity: approvedIdentityRow
@@ -419,6 +460,10 @@ export const adminUsersRouter = {
             documents: documentsByRequestId.get(row.id) ?? [],
           })),
           hiddenCount: approvedExperienceHiddenCount,
+        },
+        uploadedDocuments: {
+          items: uploadedDocuments,
+          hiddenCount: uploadedDocumentsHiddenCount,
         },
       },
       apiKeys: apiKeysSummary,

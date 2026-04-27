@@ -1,7 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { eq } from "drizzle-orm";
 import { createHash } from "node:crypto";
 import { basename, extname, normalize } from "node:path";
 
+import { auth } from "@/integrations/auth/config";
+import { db } from "@/integrations/drizzle/client";
+import { adminRoles } from "@/integrations/drizzle/schema";
 import { getStorageService, inferContentType } from "@/integrations/orpc/services/storage";
 import { env } from "@/utils/env";
 
@@ -24,6 +28,7 @@ async function handler({ request }: { request: Request }) {
   if (!userId || !filePath) return new Response("Bad Request", { status: 400 });
 
   if (!isValidPath(userId) || !isValidPathSegments(filePath)) return new Response("Forbidden", { status: 403 });
+  if (!(await canAccessUpload(request, userId, filePath))) return new Response("Forbidden", { status: 403 });
 
   // Build the full storage key: uploads/{userId}/{filePath}
   const key = `uploads/${userId}/${filePath}`;
@@ -50,6 +55,24 @@ async function handler({ request }: { request: Request }) {
   const buffer = toArrayBuffer(storedFile.data);
 
   return new Response(buffer, { headers });
+}
+
+async function canAccessUpload(request: Request, ownerUserId: string, filePath: string): Promise<boolean> {
+  // Verification evidence under /uploads/{userId}/documents/... should only be visible
+  // to the owner or an admin account.
+  if (!filePath.startsWith("documents/")) return true;
+
+  const session = await auth.api.getSession({ headers: request.headers });
+  const viewerId = session?.user?.id;
+  if (!viewerId) return false;
+  if (viewerId === ownerUserId) return true;
+
+  const [role] = await db
+    .select({ role: adminRoles.role })
+    .from(adminRoles)
+    .where(eq(adminRoles.userId, viewerId))
+    .limit(1);
+  return Boolean(role);
 }
 
 /**

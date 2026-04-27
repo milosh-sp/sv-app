@@ -2,7 +2,7 @@ import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
 import { UserListIcon } from "@phosphor-icons/react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { createFileRoute, useNavigate, useRouteContext } from "@tanstack/react-router";
+import { Link, createFileRoute, useNavigate, useRouteContext } from "@tanstack/react-router";
 import { zodValidator } from "@tanstack/zod-adapter";
 import { useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
@@ -59,6 +59,16 @@ function formatDateTime(value: Date | string | null | undefined): string {
 }
 
 function formatMethodLabel(value: string | null | undefined): string {
+  if (!value) return "—";
+  return value.replaceAll("_", " ");
+}
+
+function formatWorkAuthStatusLabel(value: string | null | undefined): string {
+  if (!value) return "—";
+  return value === "needs_sponsorship" ? "requires employer sponsorship" : value.replaceAll("_", " ");
+}
+
+function formatSponsorshipLabel(value: string | null | undefined): string {
   if (!value) return "—";
   return value.replaceAll("_", " ");
 }
@@ -280,6 +290,7 @@ function UserRoleRow({
     }),
     enabled: expanded,
   });
+  const workAuthorization = detailsQuery.data?.workAuthorization ?? null;
 
   useEffect(() => {
     setDraft(roleToSelectValue(user.adminRole));
@@ -443,9 +454,25 @@ function UserRoleRow({
                   <ul className="mt-1 space-y-1 text-xs text-muted-foreground">
                     {detailsQuery.data.resumes.items.length > 0 ? (
                       detailsQuery.data.resumes.items.map((resumeItem) => (
-                        <li key={resumeItem.id} className="truncate">
-                          {resumeItem.name} • {resumeItem.isPublic ? "public" : "private"} •{" "}
-                          {resumeItem.isLocked ? "locked" : "unlocked"} • {formatDateTime(resumeItem.updatedAt)}
+                        <li key={resumeItem.id} className="space-y-0.5 rounded border px-2 py-1.5">
+                          <p className="break-words">
+                            <Link
+                              to="/dashboard/admin/resume/$resumeId"
+                              params={{ resumeId: resumeItem.id }}
+                              className="underline underline-offset-2"
+                            >
+                              {resumeItem.name}
+                            </Link>
+                          </p>
+                          <p>
+                            <Trans>Visibility</Trans>: {resumeItem.isPublic ? "public" : "private"}
+                          </p>
+                          <p>
+                            <Trans>Lock status</Trans>: {resumeItem.isLocked ? "locked" : "unlocked"}
+                          </p>
+                          <p>
+                            <Trans>Updated</Trans>: {formatDateTime(resumeItem.updatedAt)}
+                          </p>
                         </li>
                       ))
                     ) : (
@@ -460,6 +487,32 @@ function UserRoleRow({
                     ) : null}
                   </ul>
                 </div>
+              </div>
+
+              <div className="space-y-1 rounded-md border p-3 text-sm">
+                <p className="font-medium">
+                  <Trans>Visa authorization</Trans>
+                </p>
+                {workAuthorization ? (
+                  <div className="grid gap-2 text-xs sm:grid-cols-3">
+                    {(["eu", "usa", "uk"] as const).map((region) => (
+                      <div key={region} className="space-y-1 rounded border p-2">
+                        <p className="font-medium uppercase">{region}</p>
+                        <p className="text-muted-foreground">
+                          {formatWorkAuthStatusLabel(workAuthorization[region].status)}
+                        </p>
+                        <p className="text-muted-foreground">
+                          <Trans>Sponsorship</Trans>:{" "}
+                          {formatSponsorshipLabel(workAuthorization[region].sponsorshipRequired)}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-xs text-muted-foreground">
+                    <Trans>No visa authorization data available.</Trans>
+                  </p>
+                )}
               </div>
 
               <div className="space-y-1 rounded-md border p-3 text-sm">
@@ -485,6 +538,39 @@ function UserRoleRow({
                   <Trans>Rejected/issue</Trans>: {detailsQuery.data.verification.rejected}/
                   {detailsQuery.data.verification.issue}
                 </p>
+
+                <div className="mt-2 border-t pt-2">
+                  <p className="text-xs font-medium text-foreground">
+                    <Trans>Uploaded documents</Trans>
+                  </p>
+                  {detailsQuery.data.verification.uploadedDocuments.items.length > 0 ? (
+                    <ul className="mt-1 space-y-1 text-xs text-muted-foreground">
+                      {detailsQuery.data.verification.uploadedDocuments.items.map((doc, index) => (
+                        <li key={`${doc.verificationRequestId}-${doc.fileUrl}-${index}`} className="truncate">
+                          <a
+                            href={doc.fileUrl}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="underline underline-offset-2"
+                          >
+                            {doc.itemLabel} • {doc.documentType.replaceAll("_", " ")} •{" "}
+                            {doc.status.replaceAll("_", " ")} • {formatDateTime(doc.uploadedAt)}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p className="mt-1 text-xs text-muted-foreground">
+                      <Trans>No uploaded documents found.</Trans>
+                    </p>
+                  )}
+                  {detailsQuery.data.verification.uploadedDocuments.hiddenCount > 0 ? (
+                    <p className="mt-1 text-xs text-muted-foreground">
+                      <Trans>+{detailsQuery.data.verification.uploadedDocuments.hiddenCount} more uploaded</Trans>
+                    </p>
+                  ) : null}
+                </div>
+
                 <div className="mt-2 border-t pt-2">
                   <p className="text-xs font-medium text-foreground">
                     <Trans>Approved identity</Trans>
