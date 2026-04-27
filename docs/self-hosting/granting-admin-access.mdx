@@ -1,0 +1,91 @@
+---
+title: "Granting admin access"
+description: "Assign Skill Verdict Admin or Reviewer Admin roles to a user by inserting or updating rows in PostgreSQL."
+---
+
+## Overview
+
+Admin capabilities are **not** stored on the `user` table. They come from the **`admin_roles`** table, which references `user.id` and sets a PostgreSQL enum **`admin_role`**.
+
+Allowed values:
+
+| Role | Typical use |
+| ---- | ----------- |
+| `skill_verdict_admin` | Full Skill Verdict admin (global settings, verification flows that require this role, etc.). |
+| `reviewer_admin` | Reviewer-focused admin procedures. |
+
+Each user may have **at most one** row in `admin_roles` (`user_id` is unique).
+
+Use the same database as your app’s `DATABASE_URL` (see [Self-Hosting with Docker](/self-hosting/docker)).
+
+## Prerequisites
+
+- PostgreSQL client access (for example `psql`).
+- The target account must already exist in the `user` table (the user has signed up or been provisioned).
+
+## Steps
+
+<Steps>
+  <Step title="Connect to the database">
+    Open a session against your Skill Verdict Postgres database (for example `psql "$DATABASE_URL"` on the host that can reach it).
+  </Step>
+
+  <Step title="Find the user ID">
+    The auth user table is named `"user"` (quoted). Look up by email:
+
+    ```sql
+    SELECT id, email, name
+    FROM "user"
+    WHERE email = 'you@example.com';
+    ```
+
+    Copy the `id` value (UUID).
+  </Step>
+
+  <Step title="Grant admin (new row)">
+    If this user has **no** row in `admin_roles` yet, insert one.
+
+    **Skill Verdict Admin:**
+
+    ```sql
+    INSERT INTO admin_roles (id, user_id, role)
+    VALUES (gen_random_uuid(), '<USER_UUID>'::uuid, 'skill_verdict_admin');
+    ```
+
+    **Reviewer Admin:**
+
+    ```sql
+    INSERT INTO admin_roles (id, user_id, role)
+    VALUES (gen_random_uuid(), '<USER_UUID>'::uuid, 'reviewer_admin');
+    ```
+
+    Replace `<USER_UUID>` with the UUID from the previous step. `created_at` is optional; the table default fills it if omitted.
+  </Step>
+
+  <Step title="Change an existing admin role">
+    If the user already has a row and you only need to change `role`:
+
+    ```sql
+    UPDATE admin_roles
+    SET role = 'skill_verdict_admin'
+    WHERE user_id = '<USER_UUID>'::uuid;
+    ```
+  </Step>
+
+  <Step title="Verify">
+    ```sql
+    SELECT ar.id, ar.user_id, ar.role, u.email
+    FROM admin_roles ar
+    JOIN "user" u ON u.id = ar.user_id
+    WHERE u.email = 'you@example.com';
+    ```
+  </Step>
+</Steps>
+
+<Note>
+  After changing the database, the user may need to **refresh the app** or **sign out and sign in again** if any client-side state was cached. API checks read `admin_roles` when enforcing admin procedures.
+</Note>
+
+## Implementation reference
+
+The schema and API behavior live in the application repo: `admin_roles` and enum `admin_role` in `src/integrations/drizzle/schema.ts`; admin checks in `src/integrations/orpc/context.ts` (`skillVerdictAdminProcedure`, `reviewerAdminProcedure`).
