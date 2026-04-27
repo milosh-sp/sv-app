@@ -1,7 +1,7 @@
 import { Trans } from "@lingui/react/macro";
 import { ORPCError } from "@orpc/client";
 import { DownloadSimpleIcon } from "@phosphor-icons/react";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { createFileRoute, notFound, redirect } from "@tanstack/react-router";
 import { useCallback, useEffect } from "react";
 
@@ -60,12 +60,10 @@ export const Route = createFileRoute("/$username/$slug")({
 });
 
 function RouteComponent() {
-  const { username, slug } = Route.useParams();
-  const { verificationStatuses, verificationTimeline } = Route.useLoaderData();
+  const { resume, verificationStatuses, verificationTimeline } = Route.useLoaderData();
   const isReady = useResumeStore((state) => state.isReady);
   const initialize = useResumeStore((state) => state.initialize);
 
-  const { data: resume } = useQuery(orpc.resume.getBySlug.queryOptions({ input: { username, slug } }));
   const { mutateAsync: printResumeAsPDF, isPending: isPrinting } = useMutation(
     orpc.printer.printResumeAsPDF.mutationOptions(),
   );

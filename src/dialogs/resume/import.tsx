@@ -26,6 +26,7 @@ import { client, orpc } from "@/integrations/orpc/client";
 import { cn } from "@/utils/style";
 
 import { type DialogProps, useDialogStore } from "../store";
+import { getAiAssistedImportGateState } from "./import-ai-gate";
 
 const formSchema = z.discriminatedUnion("type", [
   z.object({ type: z.literal("") }),
@@ -81,7 +82,7 @@ function fileToBase64(file: File): Promise<string> {
 
 export function ImportResumeDialog(_: DialogProps<"resume.import">) {
   const navigate = useNavigate();
-  const { canUse: isAIEnabled } = useAiIntegration();
+  const { canUse, isAvailabilityLoaded } = useAiIntegration();
   const closeDialog = useDialogStore((state) => state.closeDialog);
 
   const prevTypeRef = useRef<string>("");
@@ -98,6 +99,8 @@ export function ImportResumeDialog(_: DialogProps<"resume.import">) {
   });
 
   const type = useWatch({ control: form.control, name: "type" });
+
+  const aiImportGate = getAiAssistedImportGateState(type, isAvailabilityLoaded, canUse);
 
   useEffect(() => {
     if (prevTypeRef.current === type) return;
@@ -120,6 +123,18 @@ export function ImportResumeDialog(_: DialogProps<"resume.import">) {
 
   const onSubmit = async (values: FormValues) => {
     if (values.type === "") return;
+
+    if (values.type === "pdf" || values.type === "docx") {
+      const gate = getAiAssistedImportGateState(values.type, isAvailabilityLoaded, canUse);
+      if (gate.status === "waiting_for_availability") {
+        toast.error(t`Please wait for AI availability to finish loading, then try again.`);
+        return;
+      }
+      if (gate.status === "ai_disabled") {
+        toast.error(t`This import option is not available right now. Please try another format.`);
+        return;
+      }
+    }
 
     setIsLoading(true);
 
@@ -149,8 +164,6 @@ export function ImportResumeDialog(_: DialogProps<"resume.import">) {
       }
 
       if (values.type === "pdf") {
-        if (!isAIEnabled) throw new Error(t`This import option is not available right now. Please try another format.`);
-
         // const arrayBuffer = await values.file.arrayBuffer();
         const base64 = await fileToBase64(values.file);
 
@@ -160,8 +173,6 @@ export function ImportResumeDialog(_: DialogProps<"resume.import">) {
       }
 
       if (values.type === "docx") {
-        if (!isAIEnabled) throw new Error(t`This import option is not available right now. Please try another format.`);
-
         // const arrayBuffer = await values.file.arrayBuffer();
         const base64 = await fileToBase64(values.file);
 
@@ -272,7 +283,14 @@ export function ImportResumeDialog(_: DialogProps<"resume.import">) {
           />
 
           <DialogFooter>
-            <Button type="submit" disabled={!type || isLoading}>
+            <Button
+              type="submit"
+              disabled={
+                !type ||
+                isLoading ||
+                ((type === "pdf" || type === "docx") && aiImportGate.status === "waiting_for_availability")
+              }
+            >
               {isLoading ? <Spinner /> : null}
               {isLoading ? t`Importing...` : t`Import`}
             </Button>

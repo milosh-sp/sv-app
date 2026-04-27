@@ -9,6 +9,7 @@ import {
   DotsThreeIcon,
   EyeIcon,
   GearSixIcon,
+  GlobeIcon,
   IdentificationCardIcon,
   KeyIcon,
   ReadCvLogoIcon,
@@ -16,6 +17,7 @@ import {
   ShieldCheckIcon,
   ShieldStarIcon,
   UserCircleIcon,
+  UsersIcon,
   WarningIcon,
 } from "@phosphor-icons/react";
 import { useQuery } from "@tanstack/react-query";
@@ -68,6 +70,11 @@ const appSidebarItems = [
     href: "/dashboard/settings/privacy",
     exact: false,
   },
+  {
+    icon: <GlobeIcon />,
+    label: msg`Work Authorization`,
+    href: "/dashboard/work-authorization",
+  },
 ] as const satisfies SidebarItem[];
 
 const settingsSidebarBaseItems = [
@@ -114,6 +121,11 @@ const skillVerdictVerificationSidebarItems = [
 ] as const satisfies SidebarItem[];
 
 const adminSidebarItems = [
+  {
+    icon: <UsersIcon />,
+    label: msg`Candidates`,
+    href: "/dashboard/admin/candidates",
+  },
   {
     icon: <BrainIcon />,
     label: msg`Global AI`,

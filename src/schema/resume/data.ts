@@ -86,6 +86,78 @@ export const basicsSchema = z.object({
   customFields: z.array(customFieldSchema).describe("The custom fields to display on the resume."),
 });
 
+export const workAuthorizationRegionSchema = z.enum(["eu", "usa", "uk"]);
+
+export const workAuthorizationStatusSchema = z.enum([
+  "citizen",
+  "permanent_resident",
+  "visa_holder",
+  "needs_sponsorship",
+  "not_authorized",
+  "prefer_not_to_say",
+]);
+
+export const sponsorshipRequirementSchema = z.enum(["yes", "no", "case_by_case", "unknown"]);
+
+export const workAuthorizationRegionItemSchema = z.object({
+  status: workAuthorizationStatusSchema.describe("Current legal work authorization status in this region."),
+  sponsorshipRequired: sponsorshipRequirementSchema.describe(
+    "Whether employer sponsorship is required in this region.",
+  ),
+  visaType: z.string().describe("Optional visa type/category for this region, if applicable."),
+  expirationMonth: z.string().describe("Optional authorization expiration month in YYYY-MM format (example: 2027-09)."),
+  earliestStartDate: z.string().describe("Optional earliest legal start date in YYYY-MM-DD format."),
+  consentToShareWithEmployers: z
+    .boolean()
+    .catch(false)
+    .describe("Whether the candidate consents to sharing this region's details with employers."),
+  updatedAt: z.string().catch("").describe("ISO timestamp when this region's authorization details were last updated."),
+  userNotes: z.string().catch("").describe("Optional private note for this region's authorization details."),
+  searchTokens: z.array(z.string()).catch([]).describe("Derived normalized filter tokens for this region."),
+});
+
+export const workAuthorizationSchema = z.object({
+  eu: workAuthorizationRegionItemSchema.describe("Work authorization details for the EU region."),
+  usa: workAuthorizationRegionItemSchema.describe("Work authorization details for the USA region."),
+  uk: workAuthorizationRegionItemSchema.describe("Work authorization details for the UK region."),
+});
+
+export const defaultWorkAuthorizationData: z.infer<typeof workAuthorizationSchema> = {
+  eu: {
+    status: "prefer_not_to_say",
+    sponsorshipRequired: "unknown",
+    visaType: "",
+    expirationMonth: "",
+    earliestStartDate: "",
+    consentToShareWithEmployers: false,
+    updatedAt: "",
+    userNotes: "",
+    searchTokens: [],
+  },
+  usa: {
+    status: "prefer_not_to_say",
+    sponsorshipRequired: "unknown",
+    visaType: "",
+    expirationMonth: "",
+    earliestStartDate: "",
+    consentToShareWithEmployers: false,
+    updatedAt: "",
+    userNotes: "",
+    searchTokens: [],
+  },
+  uk: {
+    status: "prefer_not_to_say",
+    sponsorshipRequired: "unknown",
+    visaType: "",
+    expirationMonth: "",
+    earliestStartDate: "",
+    consentToShareWithEmployers: false,
+    updatedAt: "",
+    userNotes: "",
+    searchTokens: [],
+  },
+};
+
 export const summarySchema = z.object({
   title: z.string().describe("The title of the summary of the resume."),
   columns: z.number().describe("The number of columns the summary should span across."),
@@ -519,6 +591,9 @@ export const resumeDataSchema = z.object({
   basics: basicsSchema.describe(
     "Basic information about the author, such as name, email, phone, location, and website",
   ),
+  workAuthorization: workAuthorizationSchema
+    .catch(defaultWorkAuthorizationData)
+    .describe("Work authorization details for employer search and matching."),
   summary: summarySchema.describe("Summary section of the resume, useful for a short bio or introduction"),
   sections: sectionsSchema.describe("Various sections of the resume, such as experience, education, projects, etc."),
   customSections: customSectionsSchema.describe(
@@ -553,6 +628,7 @@ export const defaultResumeData: ResumeData = {
     website: { url: "", label: "" },
     customFields: [],
   },
+  workAuthorization: defaultWorkAuthorizationData,
   summary: {
     title: "",
     columns: 1,

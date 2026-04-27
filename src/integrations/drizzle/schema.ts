@@ -181,6 +181,15 @@ export const resume = pg.pgTable(
       .notNull()
       .$type<ResumeData>()
       .$defaultFn(() => defaultResumeData),
+    workAuthEuStatus: pg.text("work_auth_eu_status").notNull().default("prefer_not_to_say"),
+    workAuthUsaStatus: pg.text("work_auth_usa_status").notNull().default("prefer_not_to_say"),
+    workAuthUkStatus: pg.text("work_auth_uk_status").notNull().default("prefer_not_to_say"),
+    workAuthEuSponsorshipRequired: pg.text("work_auth_eu_sponsorship_required").notNull().default("unknown"),
+    workAuthUsaSponsorshipRequired: pg.text("work_auth_usa_sponsorship_required").notNull().default("unknown"),
+    workAuthUkSponsorshipRequired: pg.text("work_auth_uk_sponsorship_required").notNull().default("unknown"),
+    workAuthConsentToShare: pg.boolean("work_auth_consent_to_share").notNull().default(false),
+    workAuthUpdatedAt: pg.timestamp("work_auth_updated_at", { withTimezone: true }),
+    workAuthSearchTokens: pg.text("work_auth_search_tokens").array().notNull().default([]),
     userId: pg
       .uuid("user_id")
       .notNull()
@@ -198,6 +207,11 @@ export const resume = pg.pgTable(
     pg.index().on(t.createdAt.asc()),
     pg.index().on(t.userId, t.updatedAt.desc()),
     pg.index().on(t.isPublic, t.slug, t.userId),
+    pg.index().on(t.workAuthConsentToShare, t.workAuthEuStatus),
+    pg.index().on(t.workAuthConsentToShare, t.workAuthUsaStatus),
+    pg.index().on(t.workAuthConsentToShare, t.workAuthUkStatus),
+    pg.index().on(t.workAuthConsentToShare, t.workAuthSearchTokens),
+    pg.index().on(t.workAuthUpdatedAt),
   ],
 );
 
