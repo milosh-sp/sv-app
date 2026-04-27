@@ -9,10 +9,10 @@ Admin capabilities are **not** stored on the `user` table. They come from the **
 
 Allowed values:
 
-| Role | Typical use |
-| ---- | ----------- |
+| Role                  | Typical use                                                                                  |
+| --------------------- | -------------------------------------------------------------------------------------------- |
 | `skill_verdict_admin` | Full Skill Verdict admin (global settings, verification flows that require this role, etc.). |
-| `reviewer_admin` | Reviewer-focused admin procedures. |
+| `reviewer_admin`      | Reviewer-focused admin procedures.                                                           |
 
 Each user may have **at most one** row in `admin_roles` (`user_id` is unique).
 
@@ -40,6 +40,7 @@ Use the same database as your app’s `DATABASE_URL` (see [Self-Hosting with Doc
     ```
 
     Copy the `id` value (UUID).
+
   </Step>
 
   <Step title="Grant admin (new row)">
@@ -60,6 +61,7 @@ Use the same database as your app’s `DATABASE_URL` (see [Self-Hosting with Doc
     ```
 
     Replace `<USER_UUID>` with the UUID from the previous step. `created_at` is optional; the table default fills it if omitted.
+
   </Step>
 
   <Step title="Change an existing admin role">
@@ -70,6 +72,7 @@ Use the same database as your app’s `DATABASE_URL` (see [Self-Hosting with Doc
     SET role = 'skill_verdict_admin'
     WHERE user_id = '<USER_UUID>'::uuid;
     ```
+
   </Step>
 
   <Step title="Verify">
@@ -83,7 +86,8 @@ Use the same database as your app’s `DATABASE_URL` (see [Self-Hosting with Doc
 </Steps>
 
 <Note>
-  After changing the database, the user may need to **refresh the app** or **sign out and sign in again** if any client-side state was cached. API checks read `admin_roles` when enforcing admin procedures.
+  After changing the database, the user may need to **refresh the app** or **sign out and sign in again** if any
+  client-side state was cached. API checks read `admin_roles` when enforcing admin procedures.
 </Note>
 
 ## Implementation reference
