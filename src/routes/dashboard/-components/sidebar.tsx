@@ -17,6 +17,7 @@ import {
   ShieldCheckIcon,
   ShieldStarIcon,
   UserCircleIcon,
+  UserListIcon,
   UsersIcon,
   WarningIcon,
 } from "@phosphor-icons/react";
@@ -121,6 +122,11 @@ const skillVerdictVerificationSidebarItems = [
 ] as const satisfies SidebarItem[];
 
 const adminSidebarItems = [
+  {
+    icon: <UserListIcon />,
+    label: msg`Users`,
+    href: "/dashboard/admin/users",
+  },
   {
     icon: <UsersIcon />,
     label: msg`Candidates`,

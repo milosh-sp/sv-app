@@ -1,5 +1,6 @@
 import { adminAiRouter } from "./admin-ai";
 import { adminJobSearchRouter } from "./admin-job-search";
+import { adminUsersRouter } from "./admin-users";
 import { adminVerificationRouter } from "./admin-verification";
 import { aiRouter } from "./ai";
 import { authRouter } from "./auth";
@@ -25,6 +26,7 @@ export default {
   admin: {
     ai: adminAiRouter,
     jobSearch: adminJobSearchRouter,
+    users: adminUsersRouter,
     reviewerProfiles: adminReviewerProfilesRouter,
     verification: adminVerificationRouter,
   },

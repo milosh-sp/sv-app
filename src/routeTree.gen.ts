@@ -48,6 +48,7 @@ import { Route as DashboardSettingsJobSearchRouteImport } from "./routes/dashboa
 import { Route as DashboardSettingsDangerZoneRouteImport } from "./routes/dashboard/settings/danger-zone";
 import { Route as DashboardSettingsApiKeysRouteImport } from "./routes/dashboard/settings/api-keys";
 import { Route as DashboardSettingsAiRouteImport } from "./routes/dashboard/settings/ai";
+import { Route as DashboardAdminUsersRouteImport } from "./routes/dashboard/admin/users";
 import { Route as DashboardAdminJobSearchRouteImport } from "./routes/dashboard/admin/job-search";
 import { Route as DashboardAdminIdentityRouteImport } from "./routes/dashboard/admin/identity";
 import { Route as DashboardAdminExperienceQueueRouteImport } from "./routes/dashboard/admin/experience-queue";
@@ -265,6 +266,11 @@ const DashboardSettingsAiRoute = DashboardSettingsAiRouteImport.update({
   path: "/ai",
   getParentRoute: () => DashboardSettingsRouteRoute,
 } as any);
+const DashboardAdminUsersRoute = DashboardAdminUsersRouteImport.update({
+  id: "/users",
+  path: "/users",
+  getParentRoute: () => DashboardAdminRouteRoute,
+} as any);
 const DashboardAdminJobSearchRoute = DashboardAdminJobSearchRouteImport.update({
   id: "/job-search",
   path: "/job-search",
@@ -362,6 +368,7 @@ export interface FileRoutesByFullPath {
   "/dashboard/admin/experience-queue": typeof DashboardAdminExperienceQueueRoute;
   "/dashboard/admin/identity": typeof DashboardAdminIdentityRoute;
   "/dashboard/admin/job-search": typeof DashboardAdminJobSearchRoute;
+  "/dashboard/admin/users": typeof DashboardAdminUsersRoute;
   "/dashboard/settings/ai": typeof DashboardSettingsAiRoute;
   "/dashboard/settings/api-keys": typeof DashboardSettingsApiKeysRoute;
   "/dashboard/settings/danger-zone": typeof DashboardSettingsDangerZoneRoute;
@@ -410,6 +417,7 @@ export interface FileRoutesByTo {
   "/dashboard/admin/experience-queue": typeof DashboardAdminExperienceQueueRoute;
   "/dashboard/admin/identity": typeof DashboardAdminIdentityRoute;
   "/dashboard/admin/job-search": typeof DashboardAdminJobSearchRoute;
+  "/dashboard/admin/users": typeof DashboardAdminUsersRoute;
   "/dashboard/settings/ai": typeof DashboardSettingsAiRoute;
   "/dashboard/settings/api-keys": typeof DashboardSettingsApiKeysRoute;
   "/dashboard/settings/danger-zone": typeof DashboardSettingsDangerZoneRoute;
@@ -463,6 +471,7 @@ export interface FileRoutesById {
   "/dashboard/admin/experience-queue": typeof DashboardAdminExperienceQueueRoute;
   "/dashboard/admin/identity": typeof DashboardAdminIdentityRoute;
   "/dashboard/admin/job-search": typeof DashboardAdminJobSearchRoute;
+  "/dashboard/admin/users": typeof DashboardAdminUsersRoute;
   "/dashboard/settings/ai": typeof DashboardSettingsAiRoute;
   "/dashboard/settings/api-keys": typeof DashboardSettingsApiKeysRoute;
   "/dashboard/settings/danger-zone": typeof DashboardSettingsDangerZoneRoute;
@@ -516,6 +525,7 @@ export interface FileRouteTypes {
     | "/dashboard/admin/experience-queue"
     | "/dashboard/admin/identity"
     | "/dashboard/admin/job-search"
+    | "/dashboard/admin/users"
     | "/dashboard/settings/ai"
     | "/dashboard/settings/api-keys"
     | "/dashboard/settings/danger-zone"
@@ -564,6 +574,7 @@ export interface FileRouteTypes {
     | "/dashboard/admin/experience-queue"
     | "/dashboard/admin/identity"
     | "/dashboard/admin/job-search"
+    | "/dashboard/admin/users"
     | "/dashboard/settings/ai"
     | "/dashboard/settings/api-keys"
     | "/dashboard/settings/danger-zone"
@@ -616,6 +627,7 @@ export interface FileRouteTypes {
     | "/dashboard/admin/experience-queue"
     | "/dashboard/admin/identity"
     | "/dashboard/admin/job-search"
+    | "/dashboard/admin/users"
     | "/dashboard/settings/ai"
     | "/dashboard/settings/api-keys"
     | "/dashboard/settings/danger-zone"
@@ -927,6 +939,13 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof DashboardSettingsAiRouteImport;
       parentRoute: typeof DashboardSettingsRouteRoute;
     };
+    "/dashboard/admin/users": {
+      id: "/dashboard/admin/users";
+      path: "/users";
+      fullPath: "/dashboard/admin/users";
+      preLoaderRoute: typeof DashboardAdminUsersRouteImport;
+      parentRoute: typeof DashboardAdminRouteRoute;
+    };
     "/dashboard/admin/job-search": {
       id: "/dashboard/admin/job-search";
       path: "/job-search";
@@ -1053,6 +1072,7 @@ interface DashboardAdminRouteRouteChildren {
   DashboardAdminExperienceQueueRoute: typeof DashboardAdminExperienceQueueRoute;
   DashboardAdminIdentityRoute: typeof DashboardAdminIdentityRoute;
   DashboardAdminJobSearchRoute: typeof DashboardAdminJobSearchRoute;
+  DashboardAdminUsersRoute: typeof DashboardAdminUsersRoute;
 }
 
 const DashboardAdminRouteRouteChildren: DashboardAdminRouteRouteChildren = {
@@ -1061,6 +1081,7 @@ const DashboardAdminRouteRouteChildren: DashboardAdminRouteRouteChildren = {
   DashboardAdminExperienceQueueRoute: DashboardAdminExperienceQueueRoute,
   DashboardAdminIdentityRoute: DashboardAdminIdentityRoute,
   DashboardAdminJobSearchRoute: DashboardAdminJobSearchRoute,
+  DashboardAdminUsersRoute: DashboardAdminUsersRoute,
 };
 
 const DashboardAdminRouteRouteWithChildren =
