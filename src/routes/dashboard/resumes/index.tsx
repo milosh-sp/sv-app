@@ -3,7 +3,7 @@ import { useLingui } from "@lingui/react";
 import { Trans } from "@lingui/react/macro";
 import { GridFourIcon, ListIcon, ReadCvLogoIcon } from "@phosphor-icons/react";
 import { useQuery } from "@tanstack/react-query";
-import { createFileRoute, stripSearchParams, useNavigate, useRouter } from "@tanstack/react-router";
+import { createFileRoute, redirect, stripSearchParams, useNavigate, useRouter } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
 import { getCookie, setCookie } from "@tanstack/react-start/server";
 import { zodValidator } from "@tanstack/zod-adapter";
@@ -14,6 +14,7 @@ import { Combobox } from "@/components/ui/combobox";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { orpc } from "@/integrations/orpc/client";
+import { getAdminRoleQueryOptionsForUser } from "@/integrations/orpc/get-admin-role-query-options";
 import { cn } from "@/utils/style";
 
 import { DashboardHeader } from "../-components/header";
@@ -30,6 +31,14 @@ const searchSchema = z.object({
 
 export const Route = createFileRoute("/dashboard/resumes/")({
   component: RouteComponent,
+  beforeLoad: async ({ context }) => {
+    const { role } = await context.queryClient.ensureQueryData(
+      getAdminRoleQueryOptionsForUser(context.session.user.id),
+    );
+    if (role === "skill_verdict_admin") {
+      throw redirect({ to: "/dashboard/admin/experience-queue", replace: true });
+    }
+  },
   validateSearch: zodValidator(searchSchema),
   search: {
     middlewares: [stripSearchParams({ tags: [], sort: "lastUpdatedAt" })],

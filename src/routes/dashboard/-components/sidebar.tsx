@@ -39,6 +39,7 @@ import {
 } from "@/components/ui/sidebar";
 import { UserDropdownMenu } from "@/components/user/dropdown-menu";
 import { orpc } from "@/integrations/orpc/client";
+import { getAdminRoleQueryOptionsForUser } from "@/integrations/orpc/get-admin-role-query-options";
 import {
   deriveIdentitySidebarVerificationState,
   SidebarIdentityVerificationStatus,
@@ -184,13 +185,11 @@ function SidebarItemList({ items }: SidebarItemListProps) {
 export function DashboardSidebar() {
   const { i18n } = useLingui();
   const { session } = useRouteContext({ strict: false });
-  const adminRoleQueryOptions = orpc.auth.getAdminRole.queryOptions();
   const staleTime = 5 * 60 * 1000;
 
   const { data: adminRole } = useQuery({
-    ...adminRoleQueryOptions,
-    queryKey: [...adminRoleQueryOptions.queryKey, session?.user?.id ?? "anonymous"],
-    enabled: Boolean(session?.user),
+    ...getAdminRoleQueryOptionsForUser(session?.user?.id ?? ""),
+    enabled: Boolean(session?.user?.id),
     staleTime,
   });
   const { data: user } = useQuery({
@@ -245,7 +244,7 @@ export function DashboardSidebar() {
                     >
                       {roleLabel ? i18n.t(roleLabel) : session.user.email}
                     </p>
-                    <SidebarIdentityVerificationStatus state={identityVerificationState} />
+                    {!adminRole?.role && <SidebarIdentityVerificationStatus state={identityVerificationState} />}
                   </div>
 
                   <DotsThreeIcon className="size-4 shrink-0 text-sidebar-foreground/60 transition-opacity group-data-[collapsible=icon]:opacity-0" />

@@ -25,6 +25,7 @@ import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { authClient } from "@/integrations/auth/client";
 import { orpc } from "@/integrations/orpc/client";
+import { getAdminRoleQueryOptionsForUser } from "@/integrations/orpc/get-admin-role-query-options";
 
 import { DashboardHeader } from "../-components/header";
 
@@ -50,7 +51,7 @@ type FormValues = z.infer<typeof formSchema>;
 function RouteComponent() {
   const router = useRouter();
   const { session } = Route.useRouteContext();
-  const { data } = useSuspenseQuery(orpc.auth.getAdminRole.queryOptions());
+  const { data } = useSuspenseQuery(getAdminRoleQueryOptionsForUser(session.user.id));
 
   const defaultValues = useMemo(() => {
     return {
