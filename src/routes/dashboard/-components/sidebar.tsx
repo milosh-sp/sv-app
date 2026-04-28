@@ -39,6 +39,10 @@ import {
 } from "@/components/ui/sidebar";
 import { UserDropdownMenu } from "@/components/user/dropdown-menu";
 import { orpc } from "@/integrations/orpc/client";
+import {
+  deriveIdentitySidebarVerificationState,
+  SidebarIdentityVerificationStatus,
+} from "@/routes/dashboard/-components/sidebar-identity-verification-status";
 import { getInitials } from "@/utils/string";
 
 type SidebarItem = {
@@ -195,7 +199,7 @@ export function DashboardSidebar() {
     staleTime,
   });
 
-  const isIdVerified = user?.status === "verified";
+  const identityVerificationState = deriveIdentitySidebarVerificationState(user);
   const isSkillVerdictAdmin = adminRole?.role === "skill_verdict_admin";
   const roleLabel = (() => {
     if (adminRole?.role === "skill_verdict_admin") return msg`Skill Verdict Admin`;
@@ -209,19 +213,19 @@ export function DashboardSidebar() {
       collapsible="icon"
       style={
         {
-          "--sidebar-width": "14rem",
+          "--sidebar-width": "16rem",
           "--sidebar-width-icon": "3.5rem",
           ...(isSkillVerdictAdmin ? { "--sidebar-primary": "#2b6a9a" } : {}),
         } as React.CSSProperties
       }
       className="border-none group-data-[side=left]:border-none group-data-[side=right]:border-none md:absolute! md:inset-y-4 md:data-[side=left]:left-4 md:data-[side=right]:right-4"
     >
-      <SidebarHeader className="gap-3 p-3">
+      <SidebarHeader className="gap-3 px-2.5 py-3 sm:px-3">
         <SidebarMenu>
           <SidebarMenuItem>
             <UserDropdownMenu>
               {({ session }) => (
-                <SidebarMenuButton className="mx-1 h-auto gap-x-3 rounded-lg py-2 group-data-[collapsible=icon]:mx-0 group-data-[collapsible=icon]:p-1!">
+                <SidebarMenuButton className="mx-0 h-auto gap-x-2.5 rounded-lg py-2 group-data-[collapsible=icon]:p-1! sm:gap-x-3">
                   <Avatar className="size-8 shrink-0 transition-all group-data-[collapsible=icon]:size-6">
                     <AvatarImage src={session.user.image ?? undefined} />
                     <AvatarFallback className="group-data-[collapsible=icon]:text-[0.5rem]">
@@ -241,12 +245,7 @@ export function DashboardSidebar() {
                     >
                       {roleLabel ? i18n.t(roleLabel) : session.user.email}
                     </p>
-                    {isIdVerified && (
-                      <span className="flex items-center gap-x-1 text-xs font-medium text-green-700">
-                        <Trans>Identity Verified</Trans>
-                        <SealCheckIcon className="size-3.5" />
-                      </span>
-                    )}
+                    <SidebarIdentityVerificationStatus state={identityVerificationState} />
                   </div>
 
                   <DotsThreeIcon className="size-4 shrink-0 text-sidebar-foreground/60 transition-opacity group-data-[collapsible=icon]:opacity-0" />
