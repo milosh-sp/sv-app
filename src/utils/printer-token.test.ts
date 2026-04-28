@@ -1,6 +1,5 @@
 // @vitest-environment node
 import { createHash } from "node:crypto";
-
 import { describe, expect, it } from "vite-plus/test";
 
 import { env } from "./env";

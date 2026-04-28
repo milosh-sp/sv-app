@@ -60,8 +60,7 @@ export const verifyPrinterToken = createIsomorphicFn().server((token: string): V
 
   if (!resumeId || !timestampStr) throw new Error("Invalid token payload");
 
-  const verificationAudience: PrinterVerificationAudience =
-    audienceSegment === "owner" ? "owner" : "public";
+  const verificationAudience: PrinterVerificationAudience = audienceSegment === "owner" ? "owner" : "public";
 
   const timestamp = Number.parseInt(timestampStr, 10);
   if (Number.isNaN(timestamp)) throw new Error("Invalid timestamp");
