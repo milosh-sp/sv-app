@@ -4,7 +4,7 @@ import { UserListIcon } from "@phosphor-icons/react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Link, createFileRoute, useNavigate, useRouteContext } from "@tanstack/react-router";
 import { zodValidator } from "@tanstack/zod-adapter";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
 import { useDebounceCallback } from "usehooks-ts";
 import z from "zod";
@@ -83,6 +83,37 @@ export const Route = createFileRoute("/dashboard/admin/users")({
   component: RouteComponent,
 });
 
+function AdminUsersSearchField({
+  committedQ,
+  onCommittedQChange,
+}: {
+  committedQ: string;
+  onCommittedQChange: (q: string) => void;
+}) {
+  const [qInput, setQInput] = useState(committedQ);
+  useEffect(() => {
+    setQInput(committedQ);
+  }, [committedQ]);
+
+  return (
+    <div className="space-y-1.5 md:col-span-2">
+      <label className="text-xs font-medium text-muted-foreground" htmlFor="admin-users-search">
+        <Trans>Search</Trans>
+      </label>
+      <Input
+        id="admin-users-search"
+        value={qInput}
+        placeholder={t`Name, email, or @username…`}
+        onChange={(e) => {
+          const v = e.target.value;
+          setQInput(v);
+          onCommittedQChange(v);
+        }}
+      />
+    </div>
+  );
+}
+
 function RouteComponent() {
   const queryClient = useQueryClient();
   const navigate = useNavigate({ from: Route.fullPath });
@@ -91,10 +122,6 @@ function RouteComponent() {
 
   const search = Route.useSearch();
   const [expandedUserId, setExpandedUserId] = useState<string | null>(null);
-  const [qInput, setQInput] = useState(search.q);
-  useEffect(() => {
-    setQInput(search.q);
-  }, [search.q]);
 
   const listInput = useMemo(
     () => ({
@@ -106,11 +133,16 @@ function RouteComponent() {
     [search.page, search.q, search.role],
   );
 
-  const debouncedCommitQuery = useDebounceCallback((q: string) => {
-    void navigate({
-      search: (prev) => ({ ...prev, q, page: 1 }),
-    });
-  }, 400);
+  const commitSearchToUrl = useCallback(
+    (q: string) => {
+      void navigate({
+        search: (prev) => ({ ...prev, q, page: 1 }),
+      });
+    },
+    [navigate],
+  );
+
+  const debouncedCommitSearch = useDebounceCallback(commitSearchToUrl, 400);
 
   const listQuery = useQuery({
     ...orpc.admin.users.listUsers.queryOptions({ input: listInput }),
@@ -148,21 +180,7 @@ function RouteComponent() {
       <Separator />
 
       <div className="grid gap-3 rounded-lg border p-4 md:grid-cols-2">
-        <div className="space-y-1.5 md:col-span-2">
-          <label className="text-xs font-medium text-muted-foreground" htmlFor="admin-users-search">
-            <Trans>Search</Trans>
-          </label>
-          <Input
-            id="admin-users-search"
-            value={qInput}
-            placeholder={t`Name, email, or @username…`}
-            onChange={(e) => {
-              const v = e.target.value;
-              setQInput(v);
-              debouncedCommitQuery(v);
-            }}
-          />
-        </div>
+        <AdminUsersSearchField committedQ={search.q} onCommittedQChange={debouncedCommitSearch} />
         <div className="space-y-1.5">
           <p className="text-xs font-medium text-muted-foreground">
             <Trans>Role</Trans>
