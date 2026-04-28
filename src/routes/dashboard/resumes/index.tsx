@@ -19,6 +19,7 @@ import { cn } from "@/utils/style";
 import { DashboardHeader } from "../-components/header";
 import { GridView } from "./-components/grid-view";
 import { ListView } from "./-components/list-view";
+import { ResumeQuickActions } from "./-components/resume-quick-actions";
 
 type SortOption = "lastUpdatedAt" | "createdAt" | "name";
 
@@ -72,6 +73,8 @@ function RouteComponent() {
       <DashboardHeader icon={ReadCvLogoIcon} title={t`Resumes`} />
 
       <Separator />
+
+      <ResumeQuickActions />
 
       <div className="flex items-center gap-x-4">
         <Combobox

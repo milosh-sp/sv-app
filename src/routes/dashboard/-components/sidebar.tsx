@@ -38,11 +38,11 @@ import {
   SidebarSeparator,
 } from "@/components/ui/sidebar";
 import { UserDropdownMenu } from "@/components/user/dropdown-menu";
+import { orpc } from "@/integrations/orpc/client";
 import {
   deriveIdentitySidebarVerificationState,
   SidebarIdentityVerificationStatus,
 } from "@/routes/dashboard/-components/sidebar-identity-verification-status";
-import { orpc } from "@/integrations/orpc/client";
 import { getInitials } from "@/utils/string";
 
 type SidebarItem = {
@@ -225,7 +225,7 @@ export function DashboardSidebar() {
           <SidebarMenuItem>
             <UserDropdownMenu>
               {({ session }) => (
-                <SidebarMenuButton className="mx-0 h-auto gap-x-2.5 rounded-lg py-2 sm:gap-x-3 group-data-[collapsible=icon]:p-1!">
+                <SidebarMenuButton className="mx-0 h-auto gap-x-2.5 rounded-lg py-2 group-data-[collapsible=icon]:p-1! sm:gap-x-3">
                   <Avatar className="size-8 shrink-0 transition-all group-data-[collapsible=icon]:size-6">
                     <AvatarImage src={session.user.image ?? undefined} />
                     <AvatarFallback className="group-data-[collapsible=icon]:text-[0.5rem]">

@@ -1,4 +1,5 @@
 import type { ReactElement } from "react";
+
 import { Trans } from "@lingui/react/macro";
 import { ClockIcon, SealCheckIcon, WarningIcon } from "@phosphor-icons/react";
 
@@ -23,9 +24,7 @@ const identityStatusIconClass = "size-3.5 shrink-0";
 const iconByState = {
   verified: <SealCheckIcon className={identityStatusIconClass} />,
   pending: <ClockIcon className={identityStatusIconClass} />,
-  unverified: (
-    <WarningIcon className={cn(identityStatusIconClass, "text-amber-600/90")} />
-  ),
+  unverified: <WarningIcon className={cn(identityStatusIconClass, "text-amber-600/90")} />,
 } satisfies Record<IdentitySidebarVerificationState, ReactElement>;
 
 export function deriveIdentitySidebarVerificationState(
@@ -43,12 +42,7 @@ type SidebarIdentityVerificationStatusProps = {
 
 export function SidebarIdentityVerificationStatus({ state }: SidebarIdentityVerificationStatusProps) {
   return (
-    <span
-      className={cn(
-        "mt-1 flex min-w-0 items-center gap-x-1.5 text-xs font-medium",
-        textClassByState[state],
-      )}
-    >
+    <span className={cn("mt-1 flex min-w-0 items-center gap-x-1.5 text-xs font-medium", textClassByState[state])}>
       <span className="min-w-0 flex-1 truncate leading-snug">{labelByState[state]}</span>
       {iconByState[state]}
     </span>
