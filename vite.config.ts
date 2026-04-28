@@ -224,6 +224,7 @@ const config = defineConfig({
 
   test: {
     environment: "jsdom",
+    setupFiles: ["./vitest.setup.ts"],
     reporters: process.env.GITHUB_ACTIONS ? ["github-actions"] : ["dot"],
   },
 
