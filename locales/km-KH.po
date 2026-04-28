@@ -33,6 +33,10 @@ msgstr "បាន​បង្កើត"
 msgid "Name"
 msgstr "ឈ្មោះ"
 
+#: src/routes/dashboard/admin/users.tsx
+msgid "(you)"
+msgstr ""
+
 #. placeholder {0}: section.items.length
 #: src/routes/builder/$resumeId/-sidebar/left/sections/custom.tsx
 msgid "{0, plural, one {# item} other {# items}}"
@@ -66,6 +70,21 @@ msgstr "{column, plural, other {# ជួរឈរ}}"
 
 #: src/routes/dashboard/job-search/-components/job-utils.ts
 msgid "{diffDays} days ago"
+msgstr ""
+
+#. placeholder {0}: detailsQuery.data.resumes.hiddenCount
+#: src/routes/dashboard/admin/users.tsx
+msgid "+{0} more"
+msgstr ""
+
+#. placeholder {0}: detailsQuery.data.verification.approvedExperience.hiddenCount
+#: src/routes/dashboard/admin/users.tsx
+msgid "+{0} more approved"
+msgstr ""
+
+#. placeholder {0}: detailsQuery.data.verification.uploadedDocuments.hiddenCount
+#: src/routes/dashboard/admin/users.tsx
+msgid "+{0} more uploaded"
 msgstr ""
 
 #: src/routes/_home/-sections/faq.tsx
@@ -143,12 +162,20 @@ msgstr "A4"
 msgid "Account created"
 msgstr ""
 
+#: src/routes/dashboard/admin/users.tsx
+msgid "Account health"
+msgstr ""
+
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Account updated"
 msgstr ""
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Action oriented"
+msgstr ""
+
+#: src/routes/dashboard/admin/users.tsx
+msgid "Active sessions"
 msgstr ""
 
 #: src/routes/builder/$resumeId/-sidebar/left/sections/custom-fields.tsx
@@ -224,6 +251,10 @@ msgstr "បន្ថែម​ជួរឈរ​នៅ​ក្រោយ"
 msgid "Add Column Before"
 msgstr "បន្ថែម​ជួរឈរ​នៅ​មុខ"
 
+#: src/routes/dashboard/work-authorization/index.tsx
+msgid "Add extra context for recruiters (optional)."
+msgstr ""
+
 #: src/dialogs/resume/sections/experience.tsx
 msgid "Add multiple roles to show career progression at the same company."
 msgstr "បន្ថែមតួនាទីច្រើនដើម្បីបង្ហាញការរីកចម្រើនអាជីពនៅក្រុមហ៊ុនដដែល។"
@@ -257,6 +288,10 @@ msgstr ""
 msgid "Admin AI"
 msgstr ""
 
+#: src/routes/dashboard/admin/users.tsx
+msgid "Admin role"
+msgstr ""
+
 #: src/components/command-palette/pages/navigation.tsx
 #: src/routes/dashboard/-components/sidebar.tsx
 msgid "Administration"
@@ -282,6 +317,7 @@ msgstr ""
 msgid "AI integration is not configured. Contact an administrator to enable AI features."
 msgstr ""
 
+#: src/routes/dashboard/resumes/-components/cards/resume-card.tsx
 #: src/routes/dashboard/resumes/-components/menus/context-menu.tsx
 #: src/routes/dashboard/resumes/-components/menus/dropdown-menu.tsx
 msgid "AI review"
@@ -298,6 +334,10 @@ msgstr "Albanian"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Alex Smith"
+msgstr ""
+
+#: src/routes/dashboard/admin/users.tsx
+msgid "All roles"
 msgstr ""
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
@@ -358,6 +398,10 @@ msgstr "អ្នក​ណា​ដែល​មាន​តំណ​នេះ �
 msgid "API Key"
 msgstr "កូនសោ API"
 
+#: src/routes/dashboard/admin/users.tsx
+msgid "API keys"
+msgstr ""
+
 #: src/components/command-palette/pages/navigation.tsx
 #: src/components/command-palette/pages/navigation.tsx
 #: src/routes/dashboard/-components/sidebar.tsx
@@ -383,6 +427,14 @@ msgstr ""
 
 #: src/routes/dashboard/job-search/-components/job-detail.tsx
 msgid "Apply Via"
+msgstr ""
+
+#: src/routes/dashboard/admin/users.tsx
+msgid "Approved experience"
+msgstr ""
+
+#: src/routes/dashboard/admin/users.tsx
+msgid "Approved identity"
 msgstr ""
 
 #: src/utils/locale.ts
@@ -433,12 +485,20 @@ msgstr ""
 msgid "Aspect Ratio"
 msgstr "សមាមាត្រទ្រង់ទ្រាយ"
 
+#: src/routes/dashboard/admin/users.tsx
+msgid "Auth providers"
+msgstr ""
+
 #: src/components/command-palette/pages/navigation.tsx
 #: src/components/command-palette/pages/navigation.tsx
 #: src/routes/dashboard/-components/sidebar.tsx
 #: src/routes/dashboard/settings/authentication/index.tsx
 msgid "Authentication"
 msgstr "ការផ្ទៀងផ្ទាត់​ភាពត្រឹមត្រូវ"
+
+#: src/routes/dashboard/work-authorization/index.tsx
+msgid "Authorization details are stored per resume profile."
+msgstr ""
 
 #: src/dialogs/resume/sections/award.tsx
 msgctxt "(noun) person, organization, or entity that gives an award"
@@ -470,6 +530,10 @@ msgstr ""
 #: src/routes/auth/verify-2fa.tsx
 msgid "Back to Login"
 msgstr "ត្រឡប់​ទៅ​ការចូល"
+
+#: src/routes/dashboard/admin/resume/$resumeId.tsx
+msgid "Back to users"
+msgstr ""
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/design.tsx
 msgid "Background Color"
@@ -668,6 +732,10 @@ msgstr ""
 msgid "Circle"
 msgstr "រង្វង់"
 
+#: src/routes/dashboard/admin/users.tsx
+msgid "Claimed"
+msgstr ""
+
 #: src/routes/dashboard/job-search/index.tsx
 msgid "Clear all"
 msgstr ""
@@ -755,6 +823,10 @@ msgstr "តភ្ជាប់"
 msgid "Connect your professional accounts and portfolio to instantly build a living, evidence-backed profile that showcases real experience."
 msgstr ""
 
+#: src/routes/dashboard/work-authorization/index.tsx
+msgid "Consent"
+msgstr ""
+
 #: src/routes/_home/-sections/footer.tsx
 msgid "Contact us"
 msgstr ""
@@ -811,6 +883,10 @@ msgstr "ចម្លង URL"
 
 #: src/routes/dashboard/job-search/index.tsx
 msgid "Could not fetch jobs"
+msgstr ""
+
+#: src/routes/dashboard/work-authorization/index.tsx
+msgid "Could not load the selected resume. Please choose another resume and try again."
 msgstr ""
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
@@ -921,6 +997,10 @@ msgstr "បង្កើត​បទពិសោធន៍​ស្ម័គ្រ
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "Create a resume first to start verifying your skills, projects, and experience."
+msgstr ""
+
+#: src/routes/dashboard/work-authorization/index.tsx
+msgid "Create a resume first, then add your work authorization details."
 msgstr ""
 
 #: src/dialogs/resume/index.tsx
@@ -1202,6 +1282,10 @@ msgstr ""
 msgid "e.g. frontend developer jobs in Berlin"
 msgstr ""
 
+#: src/routes/dashboard/work-authorization/index.tsx
+msgid "e.g. Skilled Worker"
+msgstr ""
+
 #: src/routes/_home/-sections/features.tsx
 msgid "Earn peer-endorsed badges from domain experts — turn claims into evidence employers can trust at a glance."
 msgstr ""
@@ -1229,6 +1313,7 @@ msgid "Email Address"
 msgstr "អាសយដ្ឋាន​អ៊ីមែល"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+#: src/routes/dashboard/admin/users.tsx
 msgid "Email verified"
 msgstr ""
 
@@ -1244,6 +1329,10 @@ msgstr "បើក​ប្រើ 2FA"
 #: src/dialogs/auth/enable-two-factor.tsx
 msgid "Enable Two-Factor Authentication"
 msgstr "បើក​ប្រើ​ការ​ផ្ទៀងផ្ទាត់​ពីរ​ជាន់"
+
+#: src/routes/dashboard/admin/users.tsx
+msgid "Enabled"
+msgstr ""
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 msgid "Enabling password protection..."
@@ -1348,6 +1437,10 @@ msgstr ""
 msgid "Experience verified successfully."
 msgstr ""
 
+#: src/routes/dashboard/work-authorization/index.tsx
+msgid "Expiration date"
+msgstr ""
+
 #: src/dialogs/api-key/create.tsx
 msgid "Expires in"
 msgstr "ផុតកំណត់ក្នុង"
@@ -1375,6 +1468,14 @@ msgstr ""
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Failed to load document."
+msgstr ""
+
+#: src/routes/dashboard/admin/users.tsx
+msgid "Failed to load user details."
+msgstr ""
+
+#: src/routes/dashboard/work-authorization/index.tsx
+msgid "Failed to save work authorization."
 msgstr ""
 
 #: src/dialogs/auth/enable-two-factor.tsx
@@ -1627,6 +1728,10 @@ msgstr "លាក់"
 msgid "Hide all icons on the resume"
 msgstr "លាក់​រូបតំណាង​ទាំងអស់​លើ​ប្រវត្តិរូប"
 
+#: src/routes/dashboard/admin/users.tsx
+msgid "Hide details"
+msgstr ""
+
 #: src/components/input/rich-input.tsx
 msgid "Highlight"
 msgstr "រំលេច"
@@ -1661,6 +1766,10 @@ msgstr ""
 msgid "Hungarian"
 msgstr "Hungarian"
 
+#: src/routes/dashboard/work-authorization/index.tsx
+msgid "I consent to sharing my work authorization details with employers for matching."
+msgstr ""
+
 #: src/components/level/combobox.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/design.tsx
 msgid "Icon"
@@ -1680,6 +1789,10 @@ msgstr ""
 
 #: src/routes/dashboard/admin/identity.tsx
 msgid "Identity request rejected."
+msgstr ""
+
+#: src/routes/dashboard/-components/sidebar.tsx
+msgid "Identity Unverified"
 msgstr ""
 
 #: src/routes/dashboard/admin/identity.tsx
@@ -1748,6 +1861,10 @@ msgstr ""
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "Is the review really unbiased?"
+msgstr ""
+
+#: src/routes/dashboard/work-authorization/index.tsx
+msgid "Issue date"
 msgstr ""
 
 #: src/dialogs/resume/sections/certification.tsx
@@ -1835,6 +1952,7 @@ msgid "Last 3 days"
 msgstr ""
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+#: src/routes/dashboard/admin/users.tsx
 msgid "Last active"
 msgstr ""
 
@@ -1842,6 +1960,14 @@ msgstr ""
 #: src/routes/builder/$resumeId/-sidebar/right/sections/statistics.tsx
 msgid "Last downloaded on {0}"
 msgstr "បាន​ទាញយក​ចុងក្រោយ​នៅ​ថ្ងៃទី {0}"
+
+#: src/routes/dashboard/admin/users.tsx
+msgid "Last request"
+msgstr ""
+
+#: src/routes/dashboard/admin/users.tsx
+msgid "Last resume update"
+msgstr ""
 
 #: src/routes/dashboard/resumes/-components/cards/resume-card.tsx
 #: src/routes/dashboard/resumes/-components/list-view.tsx
@@ -1922,6 +2048,10 @@ msgstr "ស្បែកភ្លឺ"
 msgid "Line Height"
 msgstr "កម្ពស់​បន្ទាត់"
 
+#: src/routes/dashboard/admin/users.tsx
+msgid "Linked accounts"
+msgstr ""
+
 #: src/routes/dashboard/settings/authentication/-components/hooks.tsx
 msgid "Linking your {providerName} account..."
 msgstr "កំពុង​តភ្ជាប់​គណនី {providerName} របស់​អ្នក..."
@@ -1958,6 +2088,18 @@ msgstr ""
 msgid "Loading resumes..."
 msgstr "កំពុង​ផ្ទុក​ប្រវត្តិរូប..."
 
+#: src/routes/dashboard/work-authorization/index.tsx
+msgid "Loading selected resume details..."
+msgstr ""
+
+#: src/routes/dashboard/admin/users.tsx
+msgid "Loading user details…"
+msgstr ""
+
+#: src/routes/dashboard/admin/users.tsx
+msgid "Loading users…"
+msgstr ""
+
 #: src/components/layout/loading-screen.tsx
 msgid "Loading..."
 msgstr "កំពុង​ផ្ទុក..."
@@ -1979,6 +2121,14 @@ msgstr "ទីតាំង"
 #: src/routes/dashboard/resumes/-components/menus/dropdown-menu.tsx
 msgid "Lock"
 msgstr "ចាក់សោ"
+
+#: src/routes/dashboard/admin/users.tsx
+msgid "Lock status"
+msgstr ""
+
+#: src/routes/dashboard/admin/users.tsx
+msgid "Locked"
+msgstr ""
 
 #: src/components/user/dropdown-menu.tsx
 msgid "Logout"
@@ -2024,6 +2174,11 @@ msgstr "រឹម (បញ្ឈរ)"
 msgid "Maximum Salary"
 msgstr ""
 
+#: src/routes/dashboard/admin/users.tsx
+#: src/routes/dashboard/admin/users.tsx
+msgid "Method"
+msgstr ""
+
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Minimum Salary"
 msgstr ""
@@ -2061,6 +2216,10 @@ msgstr ""
 msgid "Name"
 msgstr "ឈ្មោះ"
 
+#: src/routes/dashboard/admin/users.tsx
+msgid "Name, email, or @username…"
+msgstr ""
+
 #: src/utils/locale.ts
 msgid "Nepali"
 msgstr "Nepali"
@@ -2094,6 +2253,7 @@ msgstr ""
 msgid "New skills were found in your experience that match this job. Select which ones to save back to your original resume for future applications. This will permanently modify your original resume and cannot be undone."
 msgstr ""
 
+#: src/routes/dashboard/admin/users.tsx
 #: src/routes/dashboard/job-search/index.tsx
 msgid "Next"
 msgstr ""
@@ -2105,6 +2265,18 @@ msgstr ""
 
 #: src/dialogs/resume/ai-review.tsx
 msgid "No analysis was generated. Try again."
+msgstr ""
+
+#: src/routes/dashboard/admin/users.tsx
+msgid "No approved experience information."
+msgstr ""
+
+#: src/routes/dashboard/admin/users.tsx
+msgid "No approved identity documents."
+msgstr ""
+
+#: src/routes/dashboard/admin/users.tsx
+msgid "No approved identity information."
 msgstr ""
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
@@ -2143,8 +2315,24 @@ msgstr ""
 msgid "No results found."
 msgstr "រក​មិន​ឃើញ​លទ្ធផល។"
 
+#: src/routes/dashboard/admin/users.tsx
+msgid "No resumes found."
+msgstr ""
+
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 msgid "No resumes found. Create a resume first."
+msgstr ""
+
+#: src/routes/dashboard/admin/users.tsx
+msgid "No sessions found."
+msgstr ""
+
+#: src/routes/dashboard/admin/users.tsx
+msgid "No uploaded documents found."
+msgstr ""
+
+#: src/routes/dashboard/admin/users.tsx
+msgid "No users match your filters."
 msgstr ""
 
 #: src/routes/dashboard/admin/experience-queue.tsx
@@ -2153,6 +2341,10 @@ msgstr ""
 
 #: src/routes/dashboard/settings/privacy.tsx
 msgid "No verified items yet."
+msgstr ""
+
+#: src/routes/dashboard/admin/users.tsx
+msgid "No visa authorization data available."
 msgstr ""
 
 #: src/routes/_home/-sections/hero-visual.tsx
@@ -2167,6 +2359,12 @@ msgstr ""
 msgid "Norwegian"
 msgstr "Norwegian"
 
+#: src/routes/dashboard/admin/users.tsx
+#: src/routes/dashboard/admin/users.tsx
+msgid "Note"
+msgstr ""
+
+#: src/routes/dashboard/work-authorization/index.tsx
 #: src/utils/resume/section.tsx
 msgid "Notes"
 msgstr "កំណត់ចំណាំ"
@@ -2174,6 +2372,10 @@ msgstr "កំណត់ចំណាំ"
 #: src/utils/locale.ts
 msgid "Odia"
 msgstr "Odia"
+
+#: src/routes/dashboard/work-authorization/index.tsx
+msgid "Only employers with permission can use these fields for filtering."
+msgstr ""
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "Only PDF, JPG, JPEG, and PNG files are allowed."
@@ -2277,6 +2479,12 @@ msgstr "ទំព័រ"
 msgid "Page {0}"
 msgstr "ទំព័រ {0}"
 
+#. placeholder {0}: search.page
+#. placeholder {1}: data.total
+#: src/routes/dashboard/admin/users.tsx
+msgid "Page {0} of {totalPages} — {1} users"
+msgstr ""
+
 #: src/routes/dashboard/job-search/index.tsx
 msgid "Page {currentPage}"
 msgstr ""
@@ -2322,12 +2530,17 @@ msgstr "ការ​ការពារ​ដោយ​ពាក្យសម្ង
 msgid "Password protection has been enabled."
 msgstr "ការ​ការពារ​ដោយ​ពាក្យសម្ងាត់​ត្រូវ​បាន​បើក។"
 
+#: src/routes/dashboard/admin/users.tsx
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Pending"
 msgstr ""
 
 #: src/routes/dashboard/admin/experience-queue.tsx
 msgid "Pending Verdicts"
+msgstr ""
+
+#: src/routes/dashboard/-components/sidebar.tsx
+msgid "Pending verification"
 msgstr ""
 
 #: src/dialogs/resume/sections/education.tsx
@@ -2359,6 +2572,10 @@ msgstr "ទូរស័ព្ទ"
 msgid "Pick a presentation that puts verification and outcomes first. Each card shows a real export layout from the builder — same document you share, with structure tuned for how people actually skim proof."
 msgstr ""
 
+#: src/routes/dashboard/work-authorization/index.tsx
+msgid "Pick a region to fill in your authorization details. Statuses already filled are shown next to each region."
+msgstr ""
+
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Pick skills to verify"
 msgstr ""
@@ -2369,6 +2586,10 @@ msgstr "រូបភាព"
 
 #: src/routes/_home/-sections/statistics.tsx
 msgid "Platform statistics"
+msgstr ""
+
+#: src/routes/dashboard/work-authorization/index.tsx
+msgid "Please complete the required work authorization fields before saving."
 msgstr ""
 
 #: src/routes/auth/reset-password.tsx
@@ -2382,6 +2603,14 @@ msgstr "សូម​បញ្ចូល​ពាក្យសម្ងាត់ �
 #: src/components/input/rich-input.tsx
 msgid "Please enter the URL you want to link to:"
 msgstr "សូម​បញ្ចូល URL ដែល​អ្នក​ចង់​តភ្ជាប់​ទៅ៖"
+
+#: src/routes/dashboard/work-authorization/index.tsx
+msgid "Please select a resume before saving."
+msgstr ""
+
+#: src/dialogs/resume/import.tsx
+msgid "Please wait for AI availability to finish loading, then try again."
+msgstr ""
 
 #: src/routes/builder/$resumeId/-components/dock.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/export.tsx
@@ -2430,6 +2659,7 @@ msgstr ""
 msgid "Preview of a verified candidate profile"
 msgstr ""
 
+#: src/routes/dashboard/admin/users.tsx
 #: src/routes/dashboard/job-search/index.tsx
 msgid "Previous"
 msgstr ""
@@ -2494,6 +2724,14 @@ msgstr "ការពារ​ប្រវត្តិរូប​របស់​
 msgid "Provider"
 msgstr "អ្នកផ្តល់សេវា"
 
+#: src/routes/dashboard/admin/users.tsx
+msgid "Providers"
+msgstr ""
+
+#: src/routes/dashboard/admin/users.tsx
+msgid "Public"
+msgstr ""
+
 #: src/dialogs/resume/sections/custom.tsx
 #: src/utils/resume/section.tsx
 msgid "Publications"
@@ -2532,6 +2770,10 @@ msgstr ""
 msgid "Receive a practical assignment from your reviewer, submit your work, and get actionable feedback in a real conversation."
 msgstr ""
 
+#: src/routes/dashboard/admin/users.tsx
+msgid "Recent sessions"
+msgstr ""
+
 #: src/dialogs/resume/sections/cover-letter.tsx
 msgid "Recipient"
 msgstr "អ្នកទទួល"
@@ -2560,6 +2802,14 @@ msgstr "ផ្ទៀងផ្ទាត់​ម្ដងទៀត"
 
 #: src/dialogs/resume/ai-review.tsx
 msgid "Regenerate review"
+msgstr ""
+
+#: src/routes/dashboard/work-authorization/index.tsx
+msgid "Region"
+msgstr ""
+
+#: src/routes/dashboard/admin/users.tsx
+msgid "Rejected/issue"
 msgstr ""
 
 #: src/routes/_home/-sections/templates.tsx
@@ -2641,6 +2891,14 @@ msgstr "កំណត់​ពាក្យសម្ងាត់​របស់​
 msgid "Resetting your password..."
 msgstr "កំពុង​កំណត់​ពាក្យសម្ងាត់​របស់​អ្នក​ឡើងវិញ..."
 
+#: src/routes/dashboard/work-authorization/index.tsx
+msgid "Resume"
+msgstr ""
+
+#: src/routes/dashboard/admin/users.tsx
+msgid "Resume footprint"
+msgstr ""
+
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
@@ -2653,10 +2911,12 @@ msgstr ""
 #: src/components/command-palette/pages/resumes.tsx
 #: src/components/command-palette/pages/resumes.tsx
 #: src/routes/dashboard/-components/sidebar.tsx
+#: src/routes/dashboard/admin/users.tsx
 #: src/routes/dashboard/resumes/index.tsx
 msgid "Resumes"
 msgstr "ប្រវត្តិរូប"
 
+#: src/routes/dashboard/admin/users.tsx
 #: src/routes/dashboard/job-search/index.tsx
 #: src/routes/dashboard/verification/index.tsx
 #: src/routes/dashboard/verification/index.tsx
@@ -2697,9 +2957,21 @@ msgstr ""
 msgid "Right Align"
 msgstr "តម្រង់​ស្ដាំ"
 
+#: src/routes/dashboard/admin/users.tsx
+msgid "Role"
+msgstr ""
+
+#: src/routes/dashboard/admin/users.tsx
+msgid "Role assigned"
+msgstr ""
+
 #: src/dialogs/resume/sections/experience.tsx
 msgid "Role Progression"
 msgstr "ការរីកចម្រើនតួនាទី"
+
+#: src/routes/dashboard/admin/users.tsx
+msgid "Role updated"
+msgstr ""
 
 #: src/utils/locale.ts
 msgid "Romanian"
@@ -2712,6 +2984,10 @@ msgstr "មុំ​បង្វែរ"
 #: src/utils/locale.ts
 msgid "Russian"
 msgstr "Russian"
+
+#: src/routes/dashboard/admin/users.tsx
+msgid "Save"
+msgstr ""
 
 #. placeholder {0}: selectedSkills.size
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
@@ -2743,9 +3019,17 @@ msgstr ""
 msgid "Save Changes"
 msgstr "រក្សាទុក​ការ​ផ្លាស់ប្ដូរ"
 
+#: src/routes/dashboard/work-authorization/index.tsx
+msgid "Save work authorization"
+msgstr ""
+
 #: src/routes/dashboard/admin/ai.tsx
 #: src/routes/dashboard/admin/job-search.tsx
 msgid "Saved, but the connection test did not succeed"
+msgstr ""
+
+#: src/routes/dashboard/work-authorization/index.tsx
+msgid "Saving..."
 msgstr ""
 
 #: src/dialogs/auth/enable-two-factor.tsx
@@ -2764,6 +3048,7 @@ msgstr ""
 msgid "School"
 msgstr "សាលា"
 
+#: src/routes/dashboard/admin/users.tsx
 #: src/routes/dashboard/job-search/index.tsx
 #: src/routes/dashboard/job-search/index.tsx
 msgid "Search"
@@ -2817,8 +3102,24 @@ msgstr ""
 msgid "Select country"
 msgstr ""
 
+#: src/routes/dashboard/work-authorization/index.tsx
+msgid "Select region"
+msgstr ""
+
+#: src/routes/dashboard/work-authorization/index.tsx
+msgid "Select resume"
+msgstr ""
+
 #: src/routes/dashboard/verification/index.tsx
 msgid "Select Resume"
+msgstr ""
+
+#: src/routes/dashboard/work-authorization/index.tsx
+msgid "Select sponsorship requirement"
+msgstr ""
+
+#: src/routes/dashboard/work-authorization/index.tsx
+msgid "Select status"
 msgstr ""
 
 #: src/routes/_home/-sections/how-it-works.tsx
@@ -2856,6 +3157,10 @@ msgstr "បន្ទាត់​បំបែក"
 #: src/utils/locale.ts
 msgid "Serbian"
 msgstr "Serbian"
+
+#: src/routes/dashboard/admin/users.tsx
+msgid "Session summary"
+msgstr ""
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
@@ -3053,6 +3358,14 @@ msgstr "Spanish"
 msgid "Split identity and evidence panes; keeps personality context beside hard verification."
 msgstr ""
 
+#: src/routes/dashboard/admin/users.tsx
+msgid "Sponsorship"
+msgstr ""
+
+#: src/routes/dashboard/work-authorization/index.tsx
+msgid "Sponsorship required"
+msgstr ""
+
 #: src/components/level/combobox.tsx
 #: src/routes/builder/$resumeId/-sidebar/left/sections/picture.tsx
 msgid "Square"
@@ -3079,6 +3392,10 @@ msgstr "ចាប់ផ្តើម​បង្កើត​ប្រវត្ត
 #: src/utils/resume/section.tsx
 msgid "Statistics"
 msgstr "ស្ថិតិ"
+
+#: src/routes/dashboard/work-authorization/index.tsx
+msgid "Status"
+msgstr ""
 
 #: src/hooks/use-form-blocker.tsx
 msgid "Stay"
@@ -3267,7 +3584,6 @@ msgid "This action cannot be undone. All your data will be permanently deleted."
 msgstr "សកម្មភាព​នេះ​មិន​អាច​មិនធ្វើវិញ​បានទេ។ ទិន្នន័យ​ទាំងអស់​របស់​អ្នក​នឹង​ត្រូវ​បាន​លុប​ជា​អចិន្ត្រៃយ៍។"
 
 #: src/dialogs/resume/import.tsx
-#: src/dialogs/resume/import.tsx
 msgid "This import option is not available right now. Please try another format."
 msgstr ""
 
@@ -3344,6 +3660,26 @@ msgstr "ដើម្បី​លុប​គណនី​របស់​អ្ន
 msgid "Today"
 msgstr ""
 
+#: src/routes/dashboard/admin/users.tsx
+msgid "Total keys"
+msgstr ""
+
+#: src/routes/dashboard/admin/users.tsx
+msgid "Total request count"
+msgstr ""
+
+#: src/routes/dashboard/admin/users.tsx
+msgid "Total requests"
+msgstr ""
+
+#: src/routes/dashboard/admin/users.tsx
+msgid "Total resumes"
+msgstr ""
+
+#: src/routes/dashboard/admin/users.tsx
+msgid "Total sessions"
+msgstr ""
+
 #: src/routes/builder/$resumeId/-sidebar/right/sections/statistics.tsx
 msgid "Track your resume's views and downloads"
 msgstr "តាមដាន​ចំនួន​មើល និង​ចំនួន​ទាញយក​ប្រវត្តិរូប​របស់​អ្នក"
@@ -3406,6 +3742,7 @@ msgid "Two-factor authentication has been setup successfully."
 msgstr "ការ​ផ្ទៀងផ្ទាត់​ពីរ​ជាន់ ត្រូវ​បាន​រៀបចំ​ដោយ​ជោគជ័យ។"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+#: src/routes/dashboard/admin/users.tsx
 msgid "Two-factor enabled"
 msgstr ""
 
@@ -3555,6 +3892,8 @@ msgid "Update your password"
 msgstr "បច្ចុប្បន្នភាព​ពាក្យសម្ងាត់​របស់​អ្នក"
 
 #: src/components/ai/chat.tsx
+#: src/routes/dashboard/admin/users.tsx
+#: src/routes/dashboard/admin/users.tsx
 msgid "Updated"
 msgstr ""
 
@@ -3568,6 +3907,10 @@ msgstr "កំពុង​បច្ចុប្បន្នភាព​ប្រ
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "Upload Document"
+msgstr ""
+
+#: src/routes/dashboard/admin/users.tsx
+msgid "Uploaded documents"
 msgstr ""
 
 #: src/routes/builder/$resumeId/-sidebar/left/sections/picture.tsx
@@ -3593,6 +3936,11 @@ msgstr ""
 msgid "Username"
 msgstr "ឈ្មោះ​អ្នក​ប្រើ"
 
+#: src/routes/dashboard/-components/sidebar.tsx
+#: src/routes/dashboard/admin/users.tsx
+msgid "Users"
+msgstr ""
+
 #: src/utils/locale.ts
 msgid "Uzbek"
 msgstr "Uzbek"
@@ -3609,7 +3957,12 @@ msgstr ""
 msgid "Verdict overridden successfully."
 msgstr ""
 
+#: src/routes/dashboard/admin/users.tsx
+msgid "Verdict pending"
+msgstr ""
+
 #: src/routes/dashboard/-components/sidebar.tsx
+#: src/routes/dashboard/admin/users.tsx
 #: src/routes/dashboard/verification/index.tsx
 #: src/routes/dashboard/verification/index.tsx
 msgid "Verification"
@@ -3638,6 +3991,7 @@ msgstr ""
 msgid "verified"
 msgstr ""
 
+#: src/routes/dashboard/admin/users.tsx
 #: src/routes/dashboard/settings/profile.tsx
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Verified"
@@ -3700,9 +4054,29 @@ msgstr "ការផ្ទៀងផ្ទាត់​អ៊ីមែល​ជា
 msgid "Vietnamese"
 msgstr "Vietnamese"
 
+#: src/routes/dashboard/admin/users.tsx
+msgid "View details"
+msgstr ""
+
 #: src/routes/builder/$resumeId/-sidebar/right/sections/statistics.tsx
 msgid "Views"
 msgstr "ចំនួន​មើល"
+
+#: src/routes/dashboard/admin/users.tsx
+msgid "Views / downloads"
+msgstr ""
+
+#: src/routes/dashboard/admin/users.tsx
+msgid "Visa authorization"
+msgstr ""
+
+#: src/routes/dashboard/work-authorization/index.tsx
+msgid "Visa type (optional)"
+msgstr ""
+
+#: src/routes/dashboard/admin/users.tsx
+msgid "Visibility"
+msgstr ""
 
 #: src/dialogs/resume/sections/custom.tsx
 #: src/utils/resume/section.tsx
@@ -3738,6 +4112,15 @@ msgstr ""
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Why candidates choose us"
+msgstr ""
+
+#: src/routes/dashboard/-components/sidebar.tsx
+#: src/routes/dashboard/work-authorization/index.tsx
+msgid "Work Authorization"
+msgstr ""
+
+#: src/routes/dashboard/work-authorization/index.tsx
+msgid "Work authorization saved."
 msgstr ""
 
 #: src/routes/dashboard/verification/index.tsx
