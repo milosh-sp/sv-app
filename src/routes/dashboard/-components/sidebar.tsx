@@ -245,7 +245,9 @@ export function DashboardSidebar() {
                     >
                       {roleLabel ? i18n.t(roleLabel) : session.user.email}
                     </p>
-                    <SidebarIdentityVerificationStatus state={identityVerificationState} />
+                    {!adminRole?.role && (
+                      <SidebarIdentityVerificationStatus state={identityVerificationState} />
+                    )}
                   </div>
 
                   <DotsThreeIcon className="size-4 shrink-0 text-sidebar-foreground/60 transition-opacity group-data-[collapsible=icon]:opacity-0" />
