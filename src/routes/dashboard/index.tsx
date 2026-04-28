@@ -1,9 +1,11 @@
 import { createFileRoute, redirect } from "@tanstack/react-router";
 
+import { getAdminRoleQueryOptionsForUser } from "@/integrations/orpc/get-admin-role-query-options";
+
 export const Route = createFileRoute("/dashboard/")({
   beforeLoad: async ({ context }) => {
     const adminRole = context.session
-      ? await context.queryClient.ensureQueryData(context.orpc.auth.getAdminRole.queryOptions())
+      ? await context.queryClient.ensureQueryData(getAdminRoleQueryOptionsForUser(context.session.user.id))
       : null;
 
     if (adminRole?.role === "skill_verdict_admin") {
