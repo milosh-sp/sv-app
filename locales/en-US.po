@@ -1786,7 +1786,7 @@ msgstr "Identity request flagged as issue."
 msgid "Identity request rejected."
 msgstr "Identity request rejected."
 
-#: src/routes/dashboard/-components/sidebar.tsx
+#: src/routes/dashboard/-components/sidebar-identity-verification-status.tsx
 msgid "Identity Unverified"
 msgstr "Identity Unverified"
 
@@ -1803,7 +1803,7 @@ msgstr "Identity verification request cancelled."
 msgid "Identity verification requested. Please check your email for next steps."
 msgstr "Identity verification requested. Please check your email for next steps."
 
-#: src/routes/dashboard/-components/sidebar.tsx
+#: src/routes/dashboard/-components/sidebar-identity-verification-status.tsx
 msgid "Identity Verified"
 msgstr "Identity Verified"
 
@@ -2534,7 +2534,7 @@ msgstr "Pending"
 msgid "Pending Verdicts"
 msgstr "Pending Verdicts"
 
-#: src/routes/dashboard/-components/sidebar.tsx
+#: src/routes/dashboard/-components/sidebar-identity-verification-status.tsx
 msgid "Pending verification"
 msgstr "Pending verification"
 

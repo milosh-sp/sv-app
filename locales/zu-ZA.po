@@ -1786,7 +1786,7 @@ msgstr ""
 msgid "Identity request rejected."
 msgstr ""
 
-#: src/routes/dashboard/-components/sidebar.tsx
+#: src/routes/dashboard/-components/sidebar-identity-verification-status.tsx
 msgid "Identity Unverified"
 msgstr ""
 
@@ -1803,7 +1803,7 @@ msgstr ""
 msgid "Identity verification requested. Please check your email for next steps."
 msgstr ""
 
-#: src/routes/dashboard/-components/sidebar.tsx
+#: src/routes/dashboard/-components/sidebar-identity-verification-status.tsx
 msgid "Identity Verified"
 msgstr ""
 
@@ -2534,7 +2534,7 @@ msgstr ""
 msgid "Pending Verdicts"
 msgstr ""
 
-#: src/routes/dashboard/-components/sidebar.tsx
+#: src/routes/dashboard/-components/sidebar-identity-verification-status.tsx
 msgid "Pending verification"
 msgstr ""
 

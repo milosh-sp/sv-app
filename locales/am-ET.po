@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "POT-Creation-Date: 2025-11-04 23:14+0100\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: @lingui/cli\n"
 "Language: am\n"
@@ -31,11 +31,11 @@ msgstr "የተፈጠረበት ቀን።"
 #. js-lingui-explicit-id
 #: src/routes/dashboard/resumes/index.tsx
 msgid "Name"
-msgstr "ስም"
+msgstr ""
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "(you)"
-msgstr ""
+msgstr "(you)"
 
 #. placeholder {0}: section.items.length
 #: src/routes/builder/$resumeId/-sidebar/left/sections/custom.tsx
@@ -51,17 +51,17 @@ msgstr "{0, plural, one {# ሚና} other {# ሚናዎች}}"
 #. placeholder {1}: quota.limit
 #: src/routes/dashboard/job-search/index.tsx
 msgid "{0} / {1} requests used"
-msgstr ""
+msgstr "{0} / {1} requests used"
 
 #. placeholder {0}: Math.floor(diffDays / 30)
 #: src/routes/dashboard/job-search/-components/job-utils.ts
 msgid "{0} months ago"
-msgstr ""
+msgstr "{0} months ago"
 
 #. placeholder {0}: Math.floor(diffDays / 7)
 #: src/routes/dashboard/job-search/-components/job-utils.ts
 msgid "{0} weeks ago"
-msgstr ""
+msgstr "{0} weeks ago"
 
 #: src/routes/builder/$resumeId/-sidebar/left/sections/custom.tsx
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-menu.tsx
@@ -70,22 +70,22 @@ msgstr "{column, plural, one {# አምድ} other {# አምዶች}}"
 
 #: src/routes/dashboard/job-search/-components/job-utils.ts
 msgid "{diffDays} days ago"
-msgstr ""
+msgstr "{diffDays} days ago"
 
 #. placeholder {0}: detailsQuery.data.resumes.hiddenCount
 #: src/routes/dashboard/admin/users.tsx
 msgid "+{0} more"
-msgstr ""
+msgstr "+{0} more"
 
 #. placeholder {0}: detailsQuery.data.verification.approvedExperience.hiddenCount
 #: src/routes/dashboard/admin/users.tsx
 msgid "+{0} more approved"
-msgstr ""
+msgstr "+{0} more approved"
 
 #. placeholder {0}: detailsQuery.data.verification.uploadedDocuments.hiddenCount
 #: src/routes/dashboard/admin/users.tsx
 msgid "+{0} more uploaded"
-msgstr ""
+msgstr "+{0} more uploaded"
 
 #: src/routes/_home/-sections/faq.tsx
 msgctxt "Every word needs to be wrapped in a tag"
@@ -94,7 +94,7 @@ msgstr "<0>ብዙ ጊዜ</0><1>የሚጠየቁ</1><2>ጥያቄዎች</2>"
 
 #: src/routes/_home/-sections/hero.tsx
 msgid "<0>Your skills, finally,</0><1>Proven. Not just claimed.</1>"
-msgstr ""
+msgstr "<0>Your skills, finally,</0><1>Proven. Not just claimed.</1>"
 
 #: src/dialogs/api-key/create.tsx
 msgid "1 month"
@@ -106,15 +106,15 @@ msgstr "1 ዓመት"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "2010 - 2014"
-msgstr ""
+msgstr "2010 - 2014"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "2014 - 2016"
-msgstr ""
+msgstr "2014 - 2016"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "2020 - Present"
-msgstr ""
+msgstr "2020 - Present"
 
 #: src/dialogs/api-key/create.tsx
 msgid "3 months"
@@ -139,11 +139,11 @@ msgstr "አዲስ የማረጋገጫ አገናኝ ወደ ኢሜል አድራሻ�
 
 #: src/routes/_home/-sections/features.tsx
 msgid "A profile that reflects what you can actually do — verified by people who know what they're looking at, and built to travel with you wherever you go."
-msgstr ""
+msgstr "A profile that reflects what you can actually do — verified by people who know what they're looking at, and built to travel with you wherever you go."
 
 #: src/routes/dashboard/admin/experience-queue.tsx
 msgid "A reason is required to override."
-msgstr ""
+msgstr "A reason is required to override."
 
 #: src/dialogs/resume/index.tsx
 #: src/dialogs/resume/index.tsx
@@ -152,7 +152,7 @@ msgstr "ይህን የየታሪክ ማቅረቢያ ያለዚህ ስለተመሳ�
 
 #: src/routes/_home/-sections/features.tsx
 msgid "A unique QR code and public link make your profile shareable in person, online, and in recruiter searches."
-msgstr ""
+msgstr "A unique QR code and public link make your profile shareable in person, online, and in recruiter searches."
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/page.tsx
 msgid "A4"
@@ -160,23 +160,23 @@ msgstr "A4"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Account created"
-msgstr ""
+msgstr "Account created"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Account health"
-msgstr ""
+msgstr "Account health"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Account updated"
-msgstr ""
+msgstr "Account updated"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Action oriented"
-msgstr ""
+msgstr "Action oriented"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Active sessions"
-msgstr ""
+msgstr "Active sessions"
 
 #: src/routes/builder/$resumeId/-sidebar/left/sections/custom-fields.tsx
 msgid "Add a custom field"
@@ -253,7 +253,7 @@ msgstr "ከዚህ በፊት አምድ ያክሉ"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Add extra context for recruiters (optional)."
-msgstr ""
+msgstr "Add extra context for recruiters (optional)."
 
 #: src/dialogs/resume/sections/experience.tsx
 msgid "Add multiple roles to show career progression at the same company."
@@ -277,29 +277,29 @@ msgstr "ከዚህ በፊት ረድፍ ያክሉ"
 
 #: src/components/ai/chat.tsx
 msgid "Added"
-msgstr ""
+msgstr "Added"
 
 #. placeholder {0}: skillsToSync.length
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 msgid "Added {0} new skills to your original resume"
-msgstr ""
+msgstr "Added {0} new skills to your original resume"
 
 #: src/components/command-palette/pages/navigation.tsx
 msgid "Admin AI"
-msgstr ""
+msgstr "Admin AI"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Admin role"
-msgstr ""
+msgstr "Admin role"
 
 #: src/components/command-palette/pages/navigation.tsx
 #: src/routes/dashboard/-components/sidebar.tsx
 msgid "Administration"
-msgstr ""
+msgstr "Administration"
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Advanced Filters"
-msgstr ""
+msgstr "Advanced Filters"
 
 #: src/utils/locale.ts
 msgid "Afrikaans"
@@ -307,26 +307,26 @@ msgstr "አፍሪካንስ"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "AI / ML"
-msgstr ""
+msgstr "AI / ML"
 
 #: src/components/ai/chat.tsx
 msgid "AI Chat"
-msgstr ""
+msgstr "AI Chat"
 
 #: src/dialogs/resume/ai-review.tsx
 msgid "AI integration is not configured. Contact an administrator to enable AI features."
-msgstr ""
+msgstr "AI integration is not configured. Contact an administrator to enable AI features."
 
 #: src/routes/dashboard/resumes/-components/cards/resume-card.tsx
 #: src/routes/dashboard/resumes/-components/menus/context-menu.tsx
 #: src/routes/dashboard/resumes/-components/menus/dropdown-menu.tsx
 msgid "AI review"
-msgstr ""
+msgstr "AI review"
 
 #. placeholder {0}: data.name
 #: src/dialogs/resume/ai-review.tsx
 msgid "AI review for {0}"
-msgstr ""
+msgstr "AI review for {0}"
 
 #: src/utils/locale.ts
 msgid "Albanian"
@@ -334,11 +334,11 @@ msgstr "አልባኒኛ"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Alex Smith"
-msgstr ""
+msgstr "Alex Smith"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "All roles"
-msgstr ""
+msgstr "All roles"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 msgid "Allow Public Access"
@@ -363,24 +363,24 @@ msgstr "የየታሪክዎን ማምጣት ላይ ሳለ ያልታወቀ ስህ�
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Analytical"
-msgstr ""
+msgstr "Analytical"
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Anonymous, bias-free review"
-msgstr ""
+msgstr "Anonymous, bias-free review"
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Any level"
-msgstr ""
+msgstr "Any level"
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Any time"
-msgstr ""
+msgstr "Any time"
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Any type"
-msgstr ""
+msgstr "Any type"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 msgid "Anyone visiting the resume's public URL must enter this password to access it."
@@ -400,7 +400,7 @@ msgstr "API ቁልፍ"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "API keys"
-msgstr ""
+msgstr "API keys"
 
 #: src/components/command-palette/pages/navigation.tsx
 #: src/components/command-palette/pages/navigation.tsx
@@ -415,27 +415,27 @@ msgstr "API ማጣቀሻ"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Applicant"
-msgstr ""
+msgstr "Applicant"
 
 #: src/routes/dashboard/job-search/-components/job-detail.tsx
 msgid "Apply"
-msgstr ""
+msgstr "Apply"
 
 #: src/routes/dashboard/job-search/-components/job-detail.tsx
 msgid "Apply Link"
-msgstr ""
+msgstr "Apply Link"
 
 #: src/routes/dashboard/job-search/-components/job-detail.tsx
 msgid "Apply Via"
-msgstr ""
+msgstr "Apply Via"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Approved experience"
-msgstr ""
+msgstr "Approved experience"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Approved identity"
-msgstr ""
+msgstr "Approved identity"
 
 #: src/utils/locale.ts
 msgid "Arabic"
@@ -443,7 +443,7 @@ msgstr "ዓረብኛ"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Arc"
-msgstr ""
+msgstr "Arc"
 
 #: src/hooks/use-form-blocker.tsx
 msgid "Are you sure you want to close this dialog?"
@@ -479,7 +479,7 @@ msgstr "የስልጠና መስክ"
 
 #: src/components/ai/chat.tsx
 msgid "Ask me to update your resume..."
-msgstr ""
+msgstr "Ask me to update your resume..."
 
 #: src/routes/builder/$resumeId/-sidebar/left/sections/picture.tsx
 msgid "Aspect Ratio"
@@ -487,7 +487,7 @@ msgstr "የመገናኛ መጠን"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Auth providers"
-msgstr ""
+msgstr "Auth providers"
 
 #: src/components/command-palette/pages/navigation.tsx
 #: src/components/command-palette/pages/navigation.tsx
@@ -498,7 +498,7 @@ msgstr "ማረጋገጫ"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Authorization details are stored per resume profile."
-msgstr ""
+msgstr "Authorization details are stored per resume profile."
 
 #: src/dialogs/resume/sections/award.tsx
 msgctxt "(noun) person, organization, or entity that gives an award"
@@ -512,11 +512,11 @@ msgstr "ሽልማቶች"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "AWS"
-msgstr ""
+msgstr "AWS"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "AWS Certified Solutions Architect"
-msgstr ""
+msgstr "AWS Certified Solutions Architect"
 
 #: src/utils/locale.ts
 msgid "Azerbaijani"
@@ -525,7 +525,7 @@ msgstr "አዘርባይጃንኛ"
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/experience-queue.tsx
 msgid "Back"
-msgstr ""
+msgstr "Back"
 
 #: src/routes/auth/verify-2fa.tsx
 msgid "Back to Login"
@@ -533,7 +533,7 @@ msgstr "ወደ መግቢያ ተመለስ"
 
 #: src/routes/dashboard/admin/resume/$resumeId.tsx
 msgid "Back to users"
-msgstr ""
+msgstr "Back to users"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/design.tsx
 msgid "Background Color"
@@ -553,11 +553,11 @@ msgstr "መሰረታዊ"
 
 #: src/routes/_home/-sections/footer.tsx
 msgid "Become a verifier"
-msgstr ""
+msgstr "Become a verifier"
 
 #: src/routes/dashboard/job-search/-components/job-detail.tsx
 msgid "Benefits"
-msgstr ""
+msgstr "Benefits"
 
 #: src/utils/locale.ts
 msgid "Bengali"
@@ -582,15 +582,15 @@ msgstr "የክልል ወፍራምነት"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "BSc Software Engineering"
-msgstr ""
+msgstr "BSc Software Engineering"
 
 #: src/routes/_home/-sections/hero.tsx
 msgid "Build a living profile backed by real evidence. Get your skills endorsed by domain experts in short, practical reviews — and let opportunities come to you."
-msgstr ""
+msgstr "Build a living profile backed by real evidence. Get your skills endorsed by domain experts in short, practical reviews — and let opportunities come to you."
 
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Build your profile"
-msgstr ""
+msgstr "Build your profile"
 
 #: src/components/command-palette/index.tsx
 msgid "Builder Command Palette"
@@ -606,11 +606,11 @@ msgstr "የነጥብ ዝርዝር"
 
 #: src/routes/dashboard/admin/identity.tsx
 msgid "Call link sent"
-msgstr ""
+msgstr "Call link sent"
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "Can I update my profile and re-verify skills later?"
-msgstr ""
+msgstr "Can I update my profile and re-verify skills later?"
 
 #: src/dialogs/auth/enable-two-factor.tsx
 #: src/dialogs/resume/sections/award.tsx
@@ -660,15 +660,15 @@ msgstr "ሰርዝ"
 
 #: src/routes/dashboard/admin/experience-queue.tsx
 msgid "Cancel Override"
-msgstr ""
+msgstr "Cancel Override"
 
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Cancel Verification"
-msgstr ""
+msgstr "Cancel Verification"
 
 #: src/routes/_home/-sections/statistics.tsx
 msgid "Candidates"
-msgstr ""
+msgstr "Candidates"
 
 #: src/utils/locale.ts
 msgid "Catalan"
@@ -722,11 +722,11 @@ msgstr "ቻይንኛ (ባለባለት)"
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "Choose a verification method:"
-msgstr ""
+msgstr "Choose a verification method:"
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "Choose File"
-msgstr ""
+msgstr "Choose File"
 
 #: src/components/level/combobox.tsx
 msgid "Circle"
@@ -734,15 +734,15 @@ msgstr "ክብ"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Claimed"
-msgstr ""
+msgstr "Claimed"
 
 #: src/routes/dashboard/job-search/index.tsx
 msgid "Clear all"
-msgstr ""
+msgstr "Clear all"
 
 #: src/components/ai/chat.tsx
 msgid "Clear chat history"
-msgstr ""
+msgstr "Clear chat history"
 
 #: src/dialogs/resume/import.tsx
 msgid "Click here to select a file to import"
@@ -756,7 +756,7 @@ msgstr "ዝጋ"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Cluster"
-msgstr ""
+msgstr "Cluster"
 
 #: src/components/input/rich-input.tsx
 msgid "Code Block"
@@ -765,7 +765,7 @@ msgstr "የኮድ ብሎክ"
 #: src/routes/dashboard/admin/experience-queue.tsx
 #: src/routes/dashboard/admin/identity.tsx
 msgid "Collapse"
-msgstr ""
+msgstr "Collapse"
 
 #: src/routes/builder/$resumeId/-sidebar/left/sections/custom.tsx
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-menu.tsx
@@ -774,7 +774,7 @@ msgstr "አምዶች"
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Combine verified skills with research-backed personality insights so teams hire for both capability and fit."
-msgstr ""
+msgstr "Combine verified skills with research-backed personality insights so teams hire for both capability and fit."
 
 #: src/routes/_home/-sections/footer.tsx
 msgid "Community"
@@ -782,11 +782,11 @@ msgstr "ማህበረሰብ"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Compact"
-msgstr ""
+msgstr "Compact"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Compact signal row for endorsements and recency — less chrome, more \"what passed\"."
-msgstr ""
+msgstr "Compact signal row for endorsements and recency — less chrome, more \"what passed\"."
 
 #: src/dialogs/resume/sections/experience.tsx
 msgid "Company"
@@ -794,7 +794,7 @@ msgstr "ኩባንያ"
 
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Complete the assessment"
-msgstr ""
+msgstr "Complete the assessment"
 
 #: src/dialogs/api-key/create.tsx
 #: src/hooks/use-prompt.tsx
@@ -809,11 +809,11 @@ msgstr "አረጋግጥ"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Confirm decision: "
-msgstr ""
+msgstr "Confirm decision: "
 
 #: src/routes/dashboard/admin/experience-queue.tsx
 msgid "Confirming..."
-msgstr ""
+msgstr "Confirming..."
 
 #: src/routes/dashboard/settings/authentication/-components/social-provider.tsx
 msgid "Connect"
@@ -821,15 +821,15 @@ msgstr "አገናኝ"
 
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Connect your professional accounts and portfolio to instantly build a living, evidence-backed profile that showcases real experience."
-msgstr ""
+msgstr "Connect your professional accounts and portfolio to instantly build a living, evidence-backed profile that showcases real experience."
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Consent"
-msgstr ""
+msgstr "Consent"
 
 #: src/routes/_home/-sections/footer.tsx
 msgid "Contact us"
-msgstr ""
+msgstr "Contact us"
 
 #: src/dialogs/resume/sections/cover-letter.tsx
 #: src/dialogs/resume/sections/summary-item.tsx
@@ -855,11 +855,11 @@ msgstr "ትቆሙበት ቦታ በመውሰድ በ Skill Verdict ወይም በ�
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Contractor"
-msgstr ""
+msgstr "Contractor"
 
 #: src/routes/dashboard/settings/privacy.tsx
 msgid "Control which verification badges are visible on your public CV."
-msgstr ""
+msgstr "Control which verification badges are visible on your public CV."
 
 #: src/dialogs/auth/enable-two-factor.tsx
 msgid "Copy"
@@ -883,15 +883,15 @@ msgstr "URL ቅጂ አድርግ"
 
 #: src/routes/dashboard/job-search/index.tsx
 msgid "Could not fetch jobs"
-msgstr ""
+msgstr "Could not fetch jobs"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Could not load the selected resume. Please choose another resume and try again."
-msgstr ""
+msgstr "Could not load the selected resume. Please choose another resume and try again."
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Country"
-msgstr ""
+msgstr "Country"
 
 #: src/dialogs/resume/sections/custom.tsx
 #: src/utils/resume/section.tsx
@@ -997,11 +997,11 @@ msgstr "አዲስ የበኩል መደገፍ ልምድ ፍጠር"
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "Create a resume first to start verifying your skills, projects, and experience."
-msgstr ""
+msgstr "Create a resume first to start verifying your skills, projects, and experience."
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Create a resume first, then add your work authorization details."
-msgstr ""
+msgstr "Create a resume first, then add your work authorization details."
 
 #: src/dialogs/resume/index.tsx
 msgid "Create a Sample Resume"
@@ -1018,7 +1018,7 @@ msgstr "የየታሪክዎን መስራት በመፍጠር ላይ…"
 
 #: src/routes/dashboard/admin/ai.tsx
 msgid "Credentials are stored in the database and used for all users who enable AI in their account. Only Skill Verdict administrators can change this configuration."
-msgstr ""
+msgstr "Credentials are stored in the database and used for all users who enable AI in their account. Only Skill Verdict administrators can change this configuration."
 
 #: src/dialogs/auth/change-password.tsx
 msgid "Current Password"
@@ -1034,7 +1034,7 @@ msgstr "ብጁ ክፍሎች"
 
 #: src/routes/dashboard/admin/experience-queue.tsx
 msgid "CV / resume"
-msgstr ""
+msgstr "CV / resume"
 
 #: src/utils/locale.ts
 msgid "Czech"
@@ -1062,11 +1062,11 @@ msgstr "ጨለማ ገጽታ"
 
 #: src/routes/_home/-sections/footer.tsx
 msgid "Dashboard"
-msgstr ""
+msgstr "Dashboard"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Data Analytics Dashboard"
-msgstr ""
+msgstr "Data Analytics Dashboard"
 
 #: src/dialogs/resume/sections/award.tsx
 #: src/dialogs/resume/sections/certification.tsx
@@ -1076,7 +1076,7 @@ msgstr "ቀን"
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Date Posted"
-msgstr ""
+msgstr "Date Posted"
 
 #: src/dialogs/resume/sections/education.tsx
 msgid "Degree"
@@ -1144,15 +1144,15 @@ msgstr "ዲዛይን"
 
 #: src/routes/dashboard/job-search/-components/job-detail.tsx
 msgid "Direct"
-msgstr ""
+msgstr "Direct"
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Direct Apply"
-msgstr ""
+msgstr "Direct Apply"
 
 #: src/routes/dashboard/job-search/-components/use-job-search.ts
 msgid "Direct apply only"
-msgstr ""
+msgstr "Direct apply only"
 
 #: src/dialogs/auth/disable-two-factor.tsx
 #: src/routes/dashboard/settings/authentication/-components/two-factor.tsx
@@ -1173,24 +1173,24 @@ msgstr "ግንኙነትን ቁርጥ"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Display username"
-msgstr ""
+msgstr "Display username"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Docker"
-msgstr ""
+msgstr "Docker"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Document"
-msgstr ""
+msgstr "Document"
 
 #: src/routes/dashboard/admin/experience-queue.tsx
 #: src/routes/dashboard/admin/identity.tsx
 msgid "Documents"
-msgstr ""
+msgstr "Documents"
 
 #: src/routes/_home/-sections/hero.tsx
 msgid "Don't chase. Attract."
-msgstr ""
+msgstr "Don't chase. Attract."
 
 #: src/routes/auth/login.tsx
 msgid "Don't have an account? <0/>"
@@ -1203,7 +1203,7 @@ msgstr "አውርድ"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/export.tsx
 msgid "Download a copy of your resume as a Word document. Use this file to further customize your resume in Microsoft Word or Google Docs."
-msgstr ""
+msgstr "Download a copy of your resume as a Word document. Use this file to further customize your resume in Microsoft Word or Google Docs."
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/export.tsx
 msgid "Download a copy of your resume in JSON format. Use this file for backup or to import your resume into other applications, including AI assistants."
@@ -1215,7 +1215,7 @@ msgstr "የየታሪክዎን ቅጂ በ PDF ቅርጽ ያውርዱ። ይህን
 
 #: src/routes/builder/$resumeId/-components/dock.tsx
 msgid "Download DOCX"
-msgstr ""
+msgstr "Download DOCX"
 
 #: src/routes/builder/$resumeId/-components/dock.tsx
 msgid "Download JSON"
@@ -1264,35 +1264,35 @@ msgstr "ደች"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "E-commerce Platform"
-msgstr ""
+msgstr "E-commerce Platform"
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "e.g. 150000"
-msgstr ""
+msgstr "e.g. 150000"
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "e.g. 50000"
-msgstr ""
+msgstr "e.g. 50000"
 
 #: src/components/ai/chat.tsx
 msgid "e.g. Change my name to..."
-msgstr ""
+msgstr "e.g. Change my name to..."
 
 #: src/routes/dashboard/job-search/index.tsx
 msgid "e.g. frontend developer jobs in Berlin"
-msgstr ""
+msgstr "e.g. frontend developer jobs in Berlin"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "e.g. Skilled Worker"
-msgstr ""
+msgstr "e.g. Skilled Worker"
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Earn peer-endorsed badges from domain experts — turn claims into evidence employers can trust at a glance."
-msgstr ""
+msgstr "Earn peer-endorsed badges from domain experts — turn claims into evidence employers can trust at a glance."
 
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Earn your verdict"
-msgstr ""
+msgstr "Earn your verdict"
 
 #: src/dialogs/resume/sections/custom.tsx
 #: src/routes/_home/-sections/hero-visual.tsx
@@ -1315,7 +1315,7 @@ msgstr "የኢሜል አድራሻ"
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/users.tsx
 msgid "Email verified"
-msgstr ""
+msgstr "Email verified"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/css.tsx
 msgctxt "Turn On/Apply Custom CSS"
@@ -1332,7 +1332,7 @@ msgstr "ሁለት-ደረጃ ማረጋገጫን አንቃ"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Enabled"
-msgstr ""
+msgstr "Enabled"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 msgid "Enabling password protection..."
@@ -1353,7 +1353,7 @@ msgstr "እንግሊዝኛ (ዩናይትድ ኪንግደም)"
 #: src/routes/dashboard/admin/ai.tsx
 #: src/routes/dashboard/admin/job-search.tsx
 msgid "Enter an API key before testing."
-msgstr ""
+msgstr "Enter an API key before testing."
 
 #: src/routes/auth/verify-2fa-backup.tsx
 msgid "Enter one of your saved backup codes to access your account"
@@ -1373,7 +1373,7 @@ msgstr "መለያዎን ለማዘመን አሁን ያለዎትን የይለፍ �
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "Enter your freelancer profile URL (e.g. Upwork, Fiverr, Toptal):"
-msgstr ""
+msgstr "Enter your freelancer profile URL (e.g. Upwork, Fiverr, Toptal):"
 
 #: src/dialogs/auth/enable-two-factor.tsx
 msgid "Enter your password to confirm setting up two-factor authentication. When enabled, you'll need to enter a code from your authenticator app every time you log in."
@@ -1385,19 +1385,19 @@ msgstr "ሁለት-ደረጃ ማረጋገጫን ለማቦዘን የይለፍ ቃ�
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Every assessment comes with actionable feedback, so you level up even when you're already getting hired."
-msgstr ""
+msgstr "Every assessment comes with actionable feedback, so you level up even when you're already getting hired."
 
 #: src/routes/dashboard/job-search/-components/use-job-search.ts
 msgid "Exclude {value}"
-msgstr ""
+msgstr "Exclude {value}"
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Exclude Companies"
-msgstr ""
+msgstr "Exclude Companies"
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Exclude Keywords"
-msgstr ""
+msgstr "Exclude Keywords"
 
 #: src/components/input/rich-input.tsx
 msgid "Exit Fullscreen"
@@ -1413,33 +1413,33 @@ msgstr "ልምድ"
 #: src/routes/dashboard/-components/sidebar.tsx
 #: src/routes/dashboard/admin/experience-queue.tsx
 msgid "Experience Queue"
-msgstr ""
+msgstr "Experience Queue"
 
 #: src/routes/dashboard/admin/experience-queue.tsx
 msgid "Experience request flagged as issue."
-msgstr ""
+msgstr "Experience request flagged as issue."
 
 #: src/routes/dashboard/admin/experience-queue.tsx
 msgid "Experience request rejected."
-msgstr ""
+msgstr "Experience request rejected."
 
 #: src/routes/dashboard/admin/experience-queue.tsx
 msgid "Experience Verification"
-msgstr ""
+msgstr "Experience Verification"
 
 #. placeholder {0}: item.label
 #: src/routes/dashboard/verification/index.tsx
 #: src/routes/dashboard/verification/index.tsx
 msgid "Experience verification requested for \"{0}\"."
-msgstr ""
+msgstr "Experience verification requested for \"{0}\"."
 
 #: src/routes/dashboard/admin/experience-queue.tsx
 msgid "Experience verified successfully."
-msgstr ""
+msgstr "Experience verified successfully."
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Expiration date"
-msgstr ""
+msgstr "Expiration date"
 
 #: src/dialogs/api-key/create.tsx
 msgid "Expires in"
@@ -1460,23 +1460,23 @@ msgstr "ወደ ውጪ አስመጣ"
 
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 msgid "Failed to duplicate resume"
-msgstr ""
+msgstr "Failed to duplicate resume"
 
 #: src/dialogs/resume/ai-review.tsx
 msgid "Failed to generate AI review"
-msgstr ""
+msgstr "Failed to generate AI review"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Failed to load document."
-msgstr ""
+msgstr "Failed to load document."
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Failed to load user details."
-msgstr ""
+msgstr "Failed to load user details."
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Failed to save work authorization."
-msgstr ""
+msgstr "Failed to save work authorization."
 
 #: src/dialogs/auth/enable-two-factor.tsx
 msgid "Failed to setup two-factor authentication."
@@ -1488,11 +1488,11 @@ msgstr "መግባት አልተሳካም። እባክዎ እንደገና ይሞ�
 
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 msgid "Failed to sync skills"
-msgstr ""
+msgstr "Failed to sync skills"
 
 #: src/routes/_home/-sections/footer.tsx
 msgid "FAQ"
-msgstr ""
+msgstr "FAQ"
 
 #: src/routes/_home/-sections/footer.tsx
 msgid "Features"
@@ -1501,11 +1501,11 @@ msgstr "መለያዎች"
 #. placeholder {0}: selectedFile.name
 #: src/routes/dashboard/verification/index.tsx
 msgid "File selected: {0}. Submit your verification request?"
-msgstr ""
+msgstr "File selected: {0}. Submit your verification request?"
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "File size must be under 5MB."
-msgstr ""
+msgstr "File size must be under 5MB."
 
 #: src/routes/dashboard/resumes/index.tsx
 msgid "Filter by"
@@ -1560,7 +1560,7 @@ msgstr "ቅርጸት"
 
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Four simple steps to turn your claims into evidence. No keyword stuffing, no job-title theatre — just practical assessments reviewed by domain experts."
-msgstr ""
+msgstr "Four simple steps to turn your claims into evidence. No keyword stuffing, no job-title theatre — just practical assessments reviewed by domain experts."
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/page.tsx
 msgid "Free-Form"
@@ -1568,11 +1568,11 @@ msgstr "ነፃ ቅርጸት"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Freelancer Link"
-msgstr ""
+msgstr "Freelancer Link"
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "Freelancer Profile Link"
-msgstr ""
+msgstr "Freelancer Profile Link"
 
 #: src/utils/locale.ts
 msgid "French"
@@ -1584,11 +1584,11 @@ msgstr "ሙሉ ወፍር "
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Full-stack React/Node.js application with payment integration"
-msgstr ""
+msgstr "Full-stack React/Node.js application with payment integration"
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Full-time"
-msgstr ""
+msgstr "Full-time"
 
 #: src/components/input/rich-input.tsx
 msgid "Fullscreen"
@@ -1604,18 +1604,18 @@ msgstr "ጀርመንኛ"
 
 #: src/dialogs/resume/ai-review.tsx
 msgid "Get AI feedback on what is strong in this resume and what should be improved."
-msgstr ""
+msgstr "Get AI feedback on what is strong in this resume and what should be improved."
 
 #: src/routes/_home/-sections/footer.tsx
 msgid "Get verified"
-msgstr ""
+msgstr "Get verified"
 
 #: src/components/command-palette/pages/navigation.tsx
 #: src/components/command-palette/pages/navigation.tsx
 #: src/routes/dashboard/-components/sidebar.tsx
 #: src/routes/dashboard/admin/ai.tsx
 msgid "Global AI"
-msgstr ""
+msgstr "Global AI"
 
 #: src/components/layout/not-found-screen.tsx
 #: src/routes/auth/verify-2fa-backup.tsx
@@ -1632,7 +1632,7 @@ msgstr "ወደ ... ሂድ"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Google Professional Cloud Architect"
-msgstr ""
+msgstr "Google Professional Cloud Architect"
 
 #: src/dialogs/resume/sections/education.tsx
 msgid "Grade"
@@ -1648,15 +1648,15 @@ msgstr "ግሪድ"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Grouped capabilities with micro-labels — shows breadth without a wall of bullet points."
-msgstr ""
+msgstr "Grouped capabilities with micro-labels — shows breadth without a wall of bullet points."
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Growth-focused feedback"
-msgstr ""
+msgstr "Growth-focused feedback"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Harvard University"
-msgstr ""
+msgstr "Harvard University"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/typography.tsx
 msgctxt "Headings or Titles (H1, H2, H3, H4, H5, H6)"
@@ -1709,7 +1709,7 @@ msgstr "ይህ አዲሱ የ API ቁልፎት ነው"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Hero statement up top, verified skills as the spine — built for reviewers who scan in seconds."
-msgstr ""
+msgstr "Hero statement up top, verified skills as the spine — built for reviewers who scan in seconds."
 
 #: src/components/level/combobox.tsx
 #: src/dialogs/resume/sections/language.tsx
@@ -1730,7 +1730,7 @@ msgstr "በየታሪክ ማቅረቢያው ላይ ያሉ ሁሉንም አዶዎ�
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Hide details"
-msgstr ""
+msgstr "Hide details"
 
 #: src/components/input/rich-input.tsx
 msgid "Highlight"
@@ -1751,16 +1751,16 @@ msgstr "APIን እንዴት እጠቀማለሁ?"
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "How does skill verification work?"
-msgstr ""
+msgstr "How does skill verification work?"
 
 #: src/routes/_home/-sections/footer.tsx
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "How it works"
-msgstr ""
+msgstr "How it works"
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "How long does a verification take?"
-msgstr ""
+msgstr "How long does a verification take?"
 
 #: src/utils/locale.ts
 msgid "Hungarian"
@@ -1768,7 +1768,7 @@ msgstr "ሀንጋሪኛ"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "I consent to sharing my work authorization details with employers for matching."
-msgstr ""
+msgstr "I consent to sharing my work authorization details with employers for matching."
 
 #: src/components/level/combobox.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/design.tsx
@@ -1777,44 +1777,44 @@ msgstr "አዶ"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Identity Call"
-msgstr ""
+msgstr "Identity Call"
 
 #: src/routes/dashboard/-components/sidebar.tsx
 msgid "Identity Queue"
-msgstr ""
+msgstr "Identity Queue"
 
 #: src/routes/dashboard/admin/identity.tsx
 msgid "Identity request flagged as issue."
-msgstr ""
+msgstr "Identity request flagged as issue."
 
 #: src/routes/dashboard/admin/identity.tsx
 msgid "Identity request rejected."
-msgstr ""
+msgstr "Identity request rejected."
 
-#: src/routes/dashboard/-components/sidebar.tsx
+#: src/routes/dashboard/-components/sidebar-identity-verification-status.tsx
 msgid "Identity Unverified"
-msgstr ""
+msgstr "Identity Unverified"
 
 #: src/routes/dashboard/admin/identity.tsx
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Identity Verification"
-msgstr ""
+msgstr "Identity Verification"
 
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Identity verification request cancelled."
-msgstr ""
+msgstr "Identity verification request cancelled."
 
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Identity verification requested. Please check your email for next steps."
-msgstr ""
+msgstr "Identity verification requested. Please check your email for next steps."
 
-#: src/routes/dashboard/-components/sidebar.tsx
+#: src/routes/dashboard/-components/sidebar-identity-verification-status.tsx
 msgid "Identity Verified"
-msgstr ""
+msgstr "Identity Verified"
 
 #: src/routes/dashboard/admin/identity.tsx
 msgid "Identity verified successfully."
-msgstr ""
+msgstr "Identity verified successfully."
 
 #: src/dialogs/resume/import.tsx
 msgid "Import"
@@ -1836,7 +1836,7 @@ msgstr "በመጫን ላይ…"
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Include Keywords"
-msgstr ""
+msgstr "Include Keywords"
 
 #: src/utils/locale.ts
 msgid "Indonesian"
@@ -1857,15 +1857,15 @@ msgstr "ፍላጎቶች"
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Intern"
-msgstr ""
+msgstr "Intern"
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "Is the review really unbiased?"
-msgstr ""
+msgstr "Is the review really unbiased?"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Issue date"
-msgstr ""
+msgstr "Issue date"
 
 #: src/dialogs/resume/sections/certification.tsx
 msgid "Issuer"
@@ -1885,25 +1885,25 @@ msgstr "ጃፓንኛ"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "JavaScript"
-msgstr ""
+msgstr "JavaScript"
 
 #: src/routes/dashboard/-components/sidebar.tsx
 #: src/routes/dashboard/job-search/index.tsx
 msgid "Job Search"
-msgstr ""
+msgstr "Job Search"
 
 #: src/routes/dashboard/-components/sidebar.tsx
 #: src/routes/dashboard/admin/job-search.tsx
 msgid "Job Search API"
-msgstr ""
+msgstr "Job Search API"
 
 #: src/routes/dashboard/job-search/index.tsx
 msgid "Job search has not been configured yet. Contact an administrator to set it up."
-msgstr ""
+msgstr "Job search has not been configured yet. Contact an administrator to set it up."
 
 #: src/routes/dashboard/job-search/index.tsx
 msgid "Job Search Not Available"
-msgstr ""
+msgstr "Job Search Not Available"
 
 #: src/components/input/rich-input.tsx
 msgid "Justify Align"
@@ -1949,12 +1949,12 @@ msgstr "ቋንቋዎች"
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Last 3 days"
-msgstr ""
+msgstr "Last 3 days"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/users.tsx
 msgid "Last active"
-msgstr ""
+msgstr "Last active"
 
 #. placeholder {0}: statistics.lastDownloadedAt.toDateString()
 #: src/routes/builder/$resumeId/-sidebar/right/sections/statistics.tsx
@@ -1963,11 +1963,11 @@ msgstr "መጨረሻ በ{0} ተወርዷል"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Last request"
-msgstr ""
+msgstr "Last request"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Last resume update"
-msgstr ""
+msgstr "Last resume update"
 
 #: src/routes/dashboard/resumes/-components/cards/resume-card.tsx
 #: src/routes/dashboard/resumes/-components/list-view.tsx
@@ -1981,7 +1981,7 @@ msgstr "መጨረሻ በ{0} ታይቷል"
 
 #: src/routes/dashboard/admin/identity.tsx
 msgid "Latest CV / resume"
-msgstr ""
+msgstr "Latest CV / resume"
 
 #: src/utils/locale.ts
 msgid "Latvian"
@@ -1993,7 +1993,7 @@ msgstr "እቅድ"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Layouts for evidence, not decoration"
-msgstr ""
+msgstr "Layouts for evidence, not decoration"
 
 #: src/components/resume/preview.tsx
 msgid "Learn more about how to fit content on a page"
@@ -2006,7 +2006,7 @@ msgstr "ውጣ"
 #: src/routes/dashboard/admin/ai.tsx
 #: src/routes/dashboard/admin/job-search.tsx
 msgid "Leave blank to keep the existing key"
-msgstr ""
+msgstr "Leave blank to keep the existing key"
 
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-menu.tsx
 msgid "Leave empty to reset the title to the original."
@@ -2014,7 +2014,7 @@ msgstr "ነጥሉን ባዶ ትተው ርዕሱን ወደ መጀመሪያው ሁ
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Ledger"
-msgstr ""
+msgstr "Ledger"
 
 #: src/components/input/rich-input.tsx
 msgid "Left Align"
@@ -2050,7 +2050,7 @@ msgstr "የመስመር ከፍታ"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Linked accounts"
-msgstr ""
+msgstr "Linked accounts"
 
 #: src/routes/dashboard/settings/authentication/-components/hooks.tsx
 msgid "Linking your {providerName} account..."
@@ -2066,23 +2066,23 @@ msgstr "ሊቱዌንያንኛ"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Loading document..."
-msgstr ""
+msgstr "Loading document..."
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "Loading history..."
-msgstr ""
+msgstr "Loading history..."
 
 #: src/routes/dashboard/admin/experience-queue.tsx
 msgid "Loading pending verdicts..."
-msgstr ""
+msgstr "Loading pending verdicts..."
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Loading preview…"
-msgstr ""
+msgstr "Loading preview…"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Loading queue..."
-msgstr ""
+msgstr "Loading queue..."
 
 #: src/components/command-palette/pages/resumes.tsx
 msgid "Loading resumes..."
@@ -2090,15 +2090,15 @@ msgstr "የየታሪክ ማቅረቢያዎችን በመጫን ላይ…"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Loading selected resume details..."
-msgstr ""
+msgstr "Loading selected resume details..."
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Loading user details…"
-msgstr ""
+msgstr "Loading user details…"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Loading users…"
-msgstr ""
+msgstr "Loading users…"
 
 #: src/components/layout/loading-screen.tsx
 msgid "Loading..."
@@ -2107,7 +2107,7 @@ msgstr "በመጫን ላይ…"
 #: src/routes/dashboard/admin/ai.tsx
 #: src/routes/dashboard/admin/job-search.tsx
 msgid "Loading…"
-msgstr ""
+msgstr "Loading…"
 
 #: src/dialogs/resume/sections/education.tsx
 #: src/dialogs/resume/sections/experience.tsx
@@ -2124,11 +2124,11 @@ msgstr "ቆልፍ"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Lock status"
-msgstr ""
+msgstr "Lock status"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Locked"
-msgstr ""
+msgstr "Locked"
 
 #: src/components/user/dropdown-menu.tsx
 msgid "Logout"
@@ -2148,7 +2148,7 @@ msgstr "ዋና አቅጣጫ"
 
 #: src/routes/dashboard/settings/privacy.tsx
 msgid "Make at least one resume public to control the timeline on your public CV."
-msgstr ""
+msgstr "Make at least one resume public to control the timeline on your public CV."
 
 #: src/utils/locale.ts
 msgid "Malay"
@@ -2172,16 +2172,16 @@ msgstr "ማርጂን (አቀባዊ)"
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Maximum Salary"
-msgstr ""
+msgstr "Maximum Salary"
 
 #: src/routes/dashboard/admin/users.tsx
 #: src/routes/dashboard/admin/users.tsx
 msgid "Method"
-msgstr ""
+msgstr "Method"
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Minimum Salary"
-msgstr ""
+msgstr "Minimum Salary"
 
 #: src/routes/dashboard/admin/ai.tsx
 msgid "Model"
@@ -2189,11 +2189,11 @@ msgstr "ሞዴል"
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "More than 3 years"
-msgstr ""
+msgstr "More than 3 years"
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "Most verifications wrap up in 1–3 days depending on the skill and reviewer availability — no weeks of waiting around."
-msgstr ""
+msgstr "Most verifications wrap up in 1–3 days depending on the skill and reviewer availability — no weeks of waiting around."
 
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
 msgid "Move to"
@@ -2201,7 +2201,7 @@ msgstr "አንቀሳቅስ ወደ"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "MSc Computer Science"
-msgstr ""
+msgstr "MSc Computer Science"
 
 #: src/dialogs/api-key/create.tsx
 #: src/dialogs/resume/index.tsx
@@ -2218,7 +2218,7 @@ msgstr "ስም"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Name, email, or @username…"
-msgstr ""
+msgstr "Name, email, or @username…"
 
 #: src/utils/locale.ts
 msgid "Nepali"
@@ -2247,69 +2247,69 @@ msgstr "አዲስ ክፍል"
 
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 msgid "New Skills Detected"
-msgstr ""
+msgstr "New Skills Detected"
 
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 msgid "New skills were found in your experience that match this job. Select which ones to save back to your original resume for future applications. This will permanently modify your original resume and cannot be undone."
-msgstr ""
+msgstr "New skills were found in your experience that match this job. Select which ones to save back to your original resume for future applications. This will permanently modify your original resume and cannot be undone."
 
 #: src/routes/dashboard/admin/users.tsx
 #: src/routes/dashboard/job-search/index.tsx
 msgid "Next"
-msgstr ""
+msgstr "Next"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "No"
-msgstr ""
+msgstr "No"
 
 #: src/dialogs/resume/ai-review.tsx
 msgid "No analysis was generated. Try again."
-msgstr ""
+msgstr "No analysis was generated. Try again."
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "No approved experience information."
-msgstr ""
+msgstr "No approved experience information."
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "No approved identity documents."
-msgstr ""
+msgstr "No approved identity documents."
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "No approved identity information."
-msgstr ""
+msgstr "No approved identity information."
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "No degree required"
-msgstr ""
+msgstr "No degree required"
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "No experience"
-msgstr ""
+msgstr "No experience"
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "No experience items in your resume. Add some to get started."
-msgstr ""
+msgstr "No experience items in your resume. Add some to get started."
 
 #: src/routes/dashboard/admin/experience-queue.tsx
 msgid "No experience verification requests pending."
-msgstr ""
+msgstr "No experience verification requests pending."
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "No history available."
-msgstr ""
+msgstr "No history available."
 
 #: src/routes/dashboard/admin/identity.tsx
 msgid "No identity verification requests pending."
-msgstr ""
+msgstr "No identity verification requests pending."
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "No items in this section. Add some to your resume first."
-msgstr ""
+msgstr "No items in this section. Add some to your resume first."
 
 #: src/routes/dashboard/job-search/index.tsx
 msgid "No jobs found. Try a different search query."
-msgstr ""
+msgstr "No jobs found. Try a different search query."
 
 #: src/components/ui/combobox.tsx
 msgid "No results found."
@@ -2317,43 +2317,43 @@ msgstr "ምንም ውጤት አልተገኘም።"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "No resumes found."
-msgstr ""
+msgstr "No resumes found."
 
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 msgid "No resumes found. Create a resume first."
-msgstr ""
+msgstr "No resumes found. Create a resume first."
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "No sessions found."
-msgstr ""
+msgstr "No sessions found."
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "No uploaded documents found."
-msgstr ""
+msgstr "No uploaded documents found."
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "No users match your filters."
-msgstr ""
+msgstr "No users match your filters."
 
 #: src/routes/dashboard/admin/experience-queue.tsx
 msgid "No verdicts awaiting confirmation."
-msgstr ""
+msgstr "No verdicts awaiting confirmation."
 
 #: src/routes/dashboard/settings/privacy.tsx
 msgid "No verified items yet."
-msgstr ""
+msgstr "No verified items yet."
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "No visa authorization data available."
-msgstr ""
+msgstr "No visa authorization data available."
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Node.js"
-msgstr ""
+msgstr "Node.js"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Northline"
-msgstr ""
+msgstr "Northline"
 
 #: src/utils/locale.ts
 msgid "Norwegian"
@@ -2362,7 +2362,7 @@ msgstr "ኖርዌጂያንኛ"
 #: src/routes/dashboard/admin/users.tsx
 #: src/routes/dashboard/admin/users.tsx
 msgid "Note"
-msgstr ""
+msgstr "Note"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 #: src/utils/resume/section.tsx
@@ -2375,15 +2375,15 @@ msgstr "ኦዲያ"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Only employers with permission can use these fields for filtering."
-msgstr ""
+msgstr "Only employers with permission can use these fields for filtering."
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "Only PDF, JPG, JPEG, and PNG files are allowed."
-msgstr ""
+msgstr "Only PDF, JPG, JPEG, and PNG files are allowed."
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "Only your assigned reviewer sees the assignments you submit. On your public profile, you decide which verified skills to display — everything else stays private."
-msgstr ""
+msgstr "Only your assigned reviewer sees the assignments you submit. On your public profile, you decide which verified skills to display — everything else stays private."
 
 #: src/routes/dashboard/resumes/-components/menus/context-menu.tsx
 #: src/routes/dashboard/resumes/-components/menus/dropdown-menu.tsx
@@ -2396,11 +2396,11 @@ msgstr "የኢሜል ደንበኛን ክፈት"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Open Profile"
-msgstr ""
+msgstr "Open Profile"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "OpenAI"
-msgstr ""
+msgstr "OpenAI"
 
 #: src/routes/_home/-sections/footer.tsx
 #: src/routes/_home/-sections/footer.tsx
@@ -2410,11 +2410,11 @@ msgstr "በአዲስ ታብ ይከፈታል"
 #. placeholder {0}: job.job_title
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 msgid "Optimizing summary, experience, and skills for {0}"
-msgstr ""
+msgstr "Optimizing summary, experience, and skills for {0}"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Optional notes for the applicant..."
-msgstr ""
+msgstr "Optional notes for the applicant..."
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 msgid "Optionally, set a password so that only people with the password can view your resume through the link."
@@ -2435,11 +2435,11 @@ msgstr "ድርጅት"
 
 #: src/routes/dashboard/admin/ai.tsx
 msgid "Organization-wide AI"
-msgstr ""
+msgstr "Organization-wide AI"
 
 #: src/routes/dashboard/admin/job-search.tsx
 msgid "Organization-wide Job Search"
-msgstr ""
+msgstr "Organization-wide Job Search"
 
 #: src/dialogs/resume/sections/experience.tsx
 msgid "Overall Period"
@@ -2451,23 +2451,23 @@ msgstr "አጠቃላይ ርዕስ (አማራጭ)"
 
 #: src/routes/dashboard/admin/experience-queue.tsx
 msgid "Override"
-msgstr ""
+msgstr "Override"
 
 #: src/routes/dashboard/admin/experience-queue.tsx
 msgid "Override Decision"
-msgstr ""
+msgstr "Override Decision"
 
 #: src/routes/dashboard/admin/experience-queue.tsx
 msgid "Override to "
-msgstr ""
+msgstr "Override to "
 
 #: src/routes/dashboard/admin/experience-queue.tsx
 msgid "Overriding..."
-msgstr ""
+msgstr "Overriding..."
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Oxford University"
-msgstr ""
+msgstr "Oxford University"
 
 #: src/utils/resume/section.tsx
 msgid "Page"
@@ -2483,11 +2483,11 @@ msgstr "ገጽ {0}"
 #. placeholder {1}: data.total
 #: src/routes/dashboard/admin/users.tsx
 msgid "Page {0} of {totalPages} — {1} users"
-msgstr ""
+msgstr "Page {0} of {totalPages} — {1} users"
 
 #: src/routes/dashboard/job-search/index.tsx
 msgid "Page {currentPage}"
-msgstr ""
+msgstr "Page {currentPage}"
 
 #: src/components/resume/preview.tsx
 msgid "Page {pageNumber} of {totalNumberOfPages}"
@@ -2499,15 +2499,15 @@ msgstr "አንቀጽ"
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Part-time"
-msgstr ""
+msgstr "Part-time"
 
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Pass the review to earn a verified skill badge, boost your profile visibility, and let opportunities come to you."
-msgstr ""
+msgstr "Pass the review to earn a verified skill badge, boost your profile visibility, and let opportunities come to you."
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Passive discovery"
-msgstr ""
+msgstr "Passive discovery"
 
 #: src/dialogs/auth/disable-two-factor.tsx
 #: src/dialogs/auth/enable-two-factor.tsx
@@ -2533,15 +2533,15 @@ msgstr "የይለፍ ቃል ጥበቃ ተነስቷል።"
 #: src/routes/dashboard/admin/users.tsx
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Pending"
-msgstr ""
+msgstr "Pending"
 
 #: src/routes/dashboard/admin/experience-queue.tsx
 msgid "Pending Verdicts"
-msgstr ""
+msgstr "Pending Verdicts"
 
-#: src/routes/dashboard/-components/sidebar.tsx
+#: src/routes/dashboard/-components/sidebar-identity-verification-status.tsx
 msgid "Pending verification"
-msgstr ""
+msgstr "Pending verification"
 
 #: src/dialogs/resume/sections/education.tsx
 #: src/dialogs/resume/sections/experience.tsx
@@ -2557,11 +2557,11 @@ msgstr "ፐርሲያንኛ"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Personality"
-msgstr ""
+msgstr "Personality"
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Personality & culture fit"
-msgstr ""
+msgstr "Personality & culture fit"
 
 #: src/dialogs/resume/sections/reference.tsx
 #: src/routes/builder/$resumeId/-sidebar/left/sections/basics.tsx
@@ -2570,15 +2570,15 @@ msgstr "ስልክ"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Pick a presentation that puts verification and outcomes first. Each card shows a real export layout from the builder — same document you share, with structure tuned for how people actually skim proof."
-msgstr ""
+msgstr "Pick a presentation that puts verification and outcomes first. Each card shows a real export layout from the builder — same document you share, with structure tuned for how people actually skim proof."
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Pick a region to fill in your authorization details. Statuses already filled are shown next to each region."
-msgstr ""
+msgstr "Pick a region to fill in your authorization details. Statuses already filled are shown next to each region."
 
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Pick skills to verify"
-msgstr ""
+msgstr "Pick skills to verify"
 
 #: src/utils/resume/section.tsx
 msgid "Picture"
@@ -2586,11 +2586,11 @@ msgstr "ፎቶ"
 
 #: src/routes/_home/-sections/statistics.tsx
 msgid "Platform statistics"
-msgstr ""
+msgstr "Platform statistics"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Please complete the required work authorization fields before saving."
-msgstr ""
+msgstr "Please complete the required work authorization fields before saving."
 
 #: src/routes/auth/reset-password.tsx
 msgid "Please enter a new password for your account"
@@ -2606,11 +2606,11 @@ msgstr "ሊያገናኙት የሚፈልጉትን URL እባክዎን ያስገ�
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Please select a resume before saving."
-msgstr ""
+msgstr "Please select a resume before saving."
 
 #: src/dialogs/resume/import.tsx
 msgid "Please wait for AI availability to finish loading, then try again."
-msgstr ""
+msgstr "Please wait for AI availability to finish loading, then try again."
 
 #: src/routes/builder/$resumeId/-components/dock.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/export.tsx
@@ -2653,16 +2653,16 @@ msgstr "የአሁኑን ቁልፍ ቃል ለማከል ወይም ለማስቀመ�
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Preview"
-msgstr ""
+msgstr "Preview"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Preview of a verified candidate profile"
-msgstr ""
+msgstr "Preview of a verified candidate profile"
 
 #: src/routes/dashboard/admin/users.tsx
 #: src/routes/dashboard/job-search/index.tsx
 msgid "Previous"
-msgstr ""
+msgstr "Previous"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/design.tsx
 msgid "Primary Color"
@@ -2671,11 +2671,11 @@ msgstr "ዋና ቀለም"
 #: src/routes/dashboard/-components/sidebar.tsx
 #: src/routes/dashboard/settings/privacy.tsx
 msgid "Privacy"
-msgstr ""
+msgstr "Privacy"
 
 #: src/routes/_home/-sections/footer.tsx
 msgid "Product"
-msgstr ""
+msgstr "Product"
 
 #: src/dialogs/resume/sections/skill.tsx
 msgid "Proficiency"
@@ -2690,11 +2690,11 @@ msgstr "መገለጫ"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Profile image URL"
-msgstr ""
+msgstr "Profile image URL"
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "Profile link: {freelancerUrl}. Submit your verification request?"
-msgstr ""
+msgstr "Profile link: {freelancerUrl}. Submit your verification request?"
 
 #: src/dialogs/resume/sections/custom.tsx
 #: src/utils/resume/section.tsx
@@ -2714,7 +2714,7 @@ msgstr "ፕሮጀክቶች"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Proof-first"
-msgstr ""
+msgstr "Proof-first"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 msgid "Protect your resume from unauthorized access with a password"
@@ -2726,11 +2726,11 @@ msgstr "ሰብታሪ"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Providers"
-msgstr ""
+msgstr "Providers"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Public"
-msgstr ""
+msgstr "Public"
 
 #: src/dialogs/resume/sections/custom.tsx
 #: src/utils/resume/section.tsx
@@ -2743,36 +2743,36 @@ msgstr "አታሚ"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Pulse"
-msgstr ""
+msgstr "Pulse"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Python/Django dashboard with interactive visualizations"
-msgstr ""
+msgstr "Python/Django dashboard with interactive visualizations"
 
 #. placeholder {0}: quota.remaining
 #: src/routes/dashboard/job-search/index.tsx
 msgid "Quota: {0} remaining"
-msgstr ""
+msgstr "Quota: {0} remaining"
 
 #: src/routes/dashboard/admin/job-search.tsx
 msgid "RapidAPI Key"
-msgstr ""
+msgstr "RapidAPI Key"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "React"
-msgstr ""
+msgstr "React"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "React Native mobile app with real-time synchronization"
-msgstr ""
+msgstr "React Native mobile app with real-time synchronization"
 
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Receive a practical assignment from your reviewer, submit your work, and get actionable feedback in a real conversation."
-msgstr ""
+msgstr "Receive a practical assignment from your reviewer, submit your work, and get actionable feedback in a real conversation."
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Recent sessions"
-msgstr ""
+msgstr "Recent sessions"
 
 #: src/dialogs/resume/sections/cover-letter.tsx
 msgid "Recipient"
@@ -2802,19 +2802,19 @@ msgstr "ዳስ አድርግ"
 
 #: src/dialogs/resume/ai-review.tsx
 msgid "Regenerate review"
-msgstr ""
+msgstr "Regenerate review"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Region"
-msgstr ""
+msgstr "Region"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Rejected/issue"
-msgstr ""
+msgstr "Rejected/issue"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Relay"
-msgstr ""
+msgstr "Relay"
 
 #: src/routes/auth/forgot-password.tsx
 msgid "Remember your password? <0/>"
@@ -2824,11 +2824,11 @@ msgstr "የይለፍ ቃልዎን ያስታውሳሉ? <0/>"
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 #: src/routes/dashboard/job-search/index.tsx
 msgid "Remote"
-msgstr ""
+msgstr "Remote"
 
 #: src/routes/dashboard/job-search/-components/use-job-search.ts
 msgid "Remote only"
-msgstr ""
+msgstr "Remote only"
 
 #: src/dialogs/resume/sections/experience.tsx
 msgid "Remove"
@@ -2840,7 +2840,7 @@ msgstr "የይለፍ ቃል አስወግድ"
 
 #: src/components/ai/chat.tsx
 msgid "Removed"
-msgstr ""
+msgstr "Removed"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 msgid "Removing password protection..."
@@ -2856,15 +2856,15 @@ msgstr "ዳግም አስተካክል"
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "Request"
-msgstr ""
+msgstr "Request"
 
 #: src/routes/dashboard/job-search/-components/job-detail.tsx
 msgid "Required Skills"
-msgstr ""
+msgstr "Required Skills"
 
 #: src/routes/dashboard/admin/experience-queue.tsx
 msgid "Required: reason for overriding this verdict..."
-msgstr ""
+msgstr "Required: reason for overriding this verdict..."
 
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Resend verification email"
@@ -2893,17 +2893,17 @@ msgstr "የይለፍ ቃልዎን በመዳግም ላይ…"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Resume"
-msgstr ""
+msgstr "Resume"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Resume footprint"
-msgstr ""
+msgstr "Resume footprint"
 
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 msgid "Resume tailored successfully"
-msgstr ""
+msgstr "Resume tailored successfully"
 
 #: src/components/command-palette/pages/navigation.tsx
 #: src/components/command-palette/pages/navigation.tsx
@@ -2921,37 +2921,37 @@ msgstr "የየታሪክ ማቅረቢያዎች"
 #: src/routes/dashboard/verification/index.tsx
 #: src/routes/dashboard/verification/index.tsx
 msgid "Retry"
-msgstr ""
+msgstr "Retry"
 
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Retry Identity Verification"
-msgstr ""
+msgstr "Retry Identity Verification"
 
 #: src/routes/dashboard/admin/experience-queue.tsx
 #: src/routes/dashboard/admin/identity.tsx
 msgid "Review"
-msgstr ""
+msgstr "Review"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Review Decision"
-msgstr ""
+msgstr "Review Decision"
 
 #: src/routes/dashboard/-components/sidebar.tsx
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Reviewer Admin"
-msgstr ""
+msgstr "Reviewer Admin"
 
 #: src/routes/reviewer/$adminId.tsx
 msgid "Reviewer since {memberSince}"
-msgstr ""
+msgstr "Reviewer since {memberSince}"
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Reviewers don't see who they're assessing, so your skills are judged on their merit — not your background."
-msgstr ""
+msgstr "Reviewers don't see who they're assessing, so your skills are judged on their merit — not your background."
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "Reviewers evaluate your submission without seeing your name, employer, or background. If you're ever unhappy with an outcome, you can request a second opinion from a different reviewer."
-msgstr ""
+msgstr "Reviewers evaluate your submission without seeing your name, employer, or background. If you're ever unhappy with an outcome, you can request a second opinion from a different reviewer."
 
 #: src/components/input/rich-input.tsx
 msgid "Right Align"
@@ -2959,11 +2959,11 @@ msgstr "በቀኝ ማሰለፊያ"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Role"
-msgstr ""
+msgstr "Role"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Role assigned"
-msgstr ""
+msgstr "Role assigned"
 
 #: src/dialogs/resume/sections/experience.tsx
 msgid "Role Progression"
@@ -2971,7 +2971,7 @@ msgstr "የሚና እድገት"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Role updated"
-msgstr ""
+msgstr "Role updated"
 
 #: src/utils/locale.ts
 msgid "Romanian"
@@ -2987,17 +2987,17 @@ msgstr "ሩስኛ"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Save"
-msgstr ""
+msgstr "Save"
 
 #. placeholder {0}: selectedSkills.size
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 msgid "Save {0} Skills"
-msgstr ""
+msgstr "Save {0} Skills"
 
 #: src/routes/dashboard/admin/ai.tsx
 #: src/routes/dashboard/admin/job-search.tsx
 msgid "Save and verify"
-msgstr ""
+msgstr "Save and verify"
 
 #: src/dialogs/resume/index.tsx
 #: src/dialogs/resume/sections/award.tsx
@@ -3021,16 +3021,16 @@ msgstr "ለውጦቹን አስቀምጥ"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Save work authorization"
-msgstr ""
+msgstr "Save work authorization"
 
 #: src/routes/dashboard/admin/ai.tsx
 #: src/routes/dashboard/admin/job-search.tsx
 msgid "Saved, but the connection test did not succeed"
-msgstr ""
+msgstr "Saved, but the connection test did not succeed"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Saving..."
-msgstr ""
+msgstr "Saving..."
 
 #: src/dialogs/auth/enable-two-factor.tsx
 msgid "Scan the QR code below with your preferred authenticator app. You can also copy the secret below and paste it into your app."
@@ -3038,11 +3038,11 @@ msgstr "በታች ያለውን QR ኮድ በሚፈልጉት የማረጋገጫ �
 
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Schedule Identity Verification"
-msgstr ""
+msgstr "Schedule Identity Verification"
 
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Scheduling is not currently available."
-msgstr ""
+msgstr "Scheduling is not currently available."
 
 #: src/dialogs/resume/sections/education.tsx
 msgid "School"
@@ -3052,11 +3052,11 @@ msgstr "ት/ቤት"
 #: src/routes/dashboard/job-search/index.tsx
 #: src/routes/dashboard/job-search/index.tsx
 msgid "Search"
-msgstr ""
+msgstr "Search"
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Search countries"
-msgstr ""
+msgstr "Search countries"
 
 #: src/components/input/icon-picker.tsx
 #: src/components/input/icon-picker.tsx
@@ -3081,50 +3081,50 @@ msgstr "የክፍል ዓይነት"
 
 #: src/routes/_home/-sections/hero.tsx
 msgid "See how it works"
-msgstr ""
+msgstr "See how it works"
 
 #: src/routes/_home/-sections/hero.tsx
 msgid "See how verification works"
-msgstr ""
+msgstr "See how verification works"
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "Select a payslip, contract, or other proof of employment (PDF, JPG, PNG, max 5MB)."
-msgstr ""
+msgstr "Select a payslip, contract, or other proof of employment (PDF, JPG, PNG, max 5MB)."
 
 #. placeholder {0}: job.job_title
 #. placeholder {1}: job.employer_name
 #. placeholder {2}: aiEnabled ? " and optimized for this position." : "."
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 msgid "Select a resume to tailor for \"{0}\" at {1}. A copy will be created{2}"
-msgstr ""
+msgstr "Select a resume to tailor for \"{0}\" at {1}. A copy will be created{2}"
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Select country"
-msgstr ""
+msgstr "Select country"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Select region"
-msgstr ""
+msgstr "Select region"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Select resume"
-msgstr ""
+msgstr "Select resume"
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "Select Resume"
-msgstr ""
+msgstr "Select Resume"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Select sponsorship requirement"
-msgstr ""
+msgstr "Select sponsorship requirement"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Select status"
-msgstr ""
+msgstr "Select status"
 
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Select the skills you want endorsed and choose a reviewer for a personalized, scenario-based assessment."
-msgstr ""
+msgstr "Select the skills you want endorsed and choose a reviewer for a personalized, scenario-based assessment."
 
 #: src/components/ui/combobox.tsx
 msgid "Select..."
@@ -3132,7 +3132,7 @@ msgstr "ምረጥ..."
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Self-starter"
-msgstr ""
+msgstr "Self-starter"
 
 #: src/routes/auth/forgot-password.tsx
 msgid "Send Password Reset Email"
@@ -3144,11 +3144,11 @@ msgstr "የይለፍ ቃል ዳግም እንዲታወቅ ኢሜል በመላክ 
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Senior AI Engineer"
-msgstr ""
+msgstr "Senior AI Engineer"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Senior Full Stack Developer"
-msgstr ""
+msgstr "Senior Full Stack Developer"
 
 #: src/components/input/rich-input.tsx
 msgid "Separator"
@@ -3160,7 +3160,7 @@ msgstr "ሰርቢኛ"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Session summary"
-msgstr ""
+msgstr "Session summary"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
@@ -3178,7 +3178,7 @@ msgstr "ቅንብሮች"
 #: src/routes/dashboard/admin/ai.tsx
 #: src/routes/dashboard/admin/job-search.tsx
 msgid "Settings saved"
-msgstr ""
+msgstr "Settings saved"
 
 #: src/dialogs/auth/enable-two-factor.tsx
 msgid "Setup Authenticator App"
@@ -3190,7 +3190,7 @@ msgstr "የጥላ ወፍራምነት"
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Share anywhere, instantly"
-msgstr ""
+msgstr "Share anywhere, instantly"
 
 #: src/utils/resume/section.tsx
 msgid "Sharing"
@@ -3217,11 +3217,11 @@ msgstr "ርዕስ ውስጥ ማገናኛ አሳይ"
 #: src/routes/dashboard/settings/privacy.tsx
 #: src/routes/dashboard/settings/privacy.tsx
 msgid "Show or hide the verification timeline on your public CV. This is off by default."
-msgstr ""
+msgstr "Show or hide the verification timeline on your public CV. This is off by default."
 
 #: src/routes/dashboard/settings/privacy.tsx
 msgid "Show Timeline on Public CV"
-msgstr ""
+msgstr "Show Timeline on Public CV"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/layout/pages.tsx
 msgid "Sidebar"
@@ -3245,7 +3245,7 @@ msgstr "መመዝገብ"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Signal density"
-msgstr ""
+msgstr "Signal density"
 
 #: src/routes/auth/-components/social-auth.tsx
 #: src/routes/auth/-components/social-auth.tsx
@@ -3283,24 +3283,24 @@ msgstr "መጠን"
 
 #: src/routes/dashboard/-components/sidebar.tsx
 msgid "Skill Center"
-msgstr ""
+msgstr "Skill Center"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Skill clusters"
-msgstr ""
+msgstr "Skill clusters"
 
 #: src/routes/_home/-sections/header.tsx
 msgid "Skill Verdict - Go to homepage"
-msgstr ""
+msgstr "Skill Verdict - Go to homepage"
 
 #: src/routes/dashboard/-components/sidebar.tsx
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Skill Verdict Admin"
-msgstr ""
+msgstr "Skill Verdict Admin"
 
 #: src/routes/dashboard/-components/sidebar.tsx
 msgid "Skill Verdict Verification"
-msgstr ""
+msgstr "Skill Verdict Verification"
 
 #: src/dialogs/resume/sections/custom.tsx
 #: src/routes/dashboard/verification/index.tsx
@@ -3310,7 +3310,7 @@ msgstr "ችሎታዎች"
 
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 msgid "Skip"
-msgstr ""
+msgstr "Skip"
 
 #: src/routes/_home/route.tsx
 msgid "Skip to main content"
@@ -3322,7 +3322,7 @@ msgstr "ስሎቫክኛ"
 
 #: src/utils/locale.ts
 msgid "Slovenian"
-msgstr ""
+msgstr "Slovenian"
 
 #: src/dialogs/resume/index.tsx
 msgid "Slug"
@@ -3330,7 +3330,7 @@ msgstr "Slug"
 
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 msgid "Some suggestions could not be applied"
-msgstr ""
+msgstr "Some suggestions could not be applied"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
@@ -3356,15 +3356,15 @@ msgstr "ስፓኒሽ"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Split identity and evidence panes; keeps personality context beside hard verification."
-msgstr ""
+msgstr "Split identity and evidence panes; keeps personality context beside hard verification."
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Sponsorship"
-msgstr ""
+msgstr "Sponsorship"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Sponsorship required"
-msgstr ""
+msgstr "Sponsorship required"
 
 #: src/components/level/combobox.tsx
 #: src/routes/builder/$resumeId/-sidebar/left/sections/picture.tsx
@@ -3395,7 +3395,7 @@ msgstr "ስታቲስቲክስ"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Status"
-msgstr ""
+msgstr "Status"
 
 #: src/hooks/use-form-blocker.tsx
 msgid "Stay"
@@ -3403,11 +3403,11 @@ msgstr "ቆይ"
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Stop chasing. Companies reach out directly to candidates whose verified skills match their requirements."
-msgstr ""
+msgstr "Stop chasing. Companies reach out directly to candidates whose verified skills match their requirements."
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Story arc"
-msgstr ""
+msgstr "Story arc"
 
 #: src/components/input/rich-input.tsx
 msgid "Strike"
@@ -3415,24 +3415,24 @@ msgstr "መሰረዣ"
 
 #: src/routes/dashboard/admin/experience-queue.tsx
 msgid "Submit Override"
-msgstr ""
+msgstr "Submit Override"
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "Submit Request"
-msgstr ""
+msgstr "Submit Request"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Submit Review"
-msgstr ""
+msgstr "Submit Review"
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "Submit?"
-msgstr ""
+msgstr "Submit?"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/verification/index.tsx
 msgid "Submitting..."
-msgstr ""
+msgstr "Submitting..."
 
 #: src/dialogs/resume/sections/custom.tsx
 #: src/utils/resume/section.tsx
@@ -3466,15 +3466,15 @@ msgstr "መለያዎች በአርእስት መሰረት የየታሪክዎን �
 #: src/routes/dashboard/job-search/-components/job-detail.tsx
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 msgid "Tailor Resume"
-msgstr ""
+msgstr "Tailor Resume"
 
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 msgid "Tailoring failed"
-msgstr ""
+msgstr "Tailoring failed"
 
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 msgid "Tailoring your resume..."
-msgstr ""
+msgstr "Tailoring your resume..."
 
 #: src/utils/locale.ts
 msgid "Tamil"
@@ -3482,15 +3482,15 @@ msgstr "ታሚልኛ"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Task Management App"
-msgstr ""
+msgstr "Task Management App"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Team player"
-msgstr ""
+msgstr "Team player"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Technical skills"
-msgstr ""
+msgstr "Technical skills"
 
 #: src/utils/locale.ts
 msgid "Telugu"
@@ -3507,7 +3507,7 @@ msgstr "ቴምፕሌት ማዕከል"
 #: src/routes/dashboard/admin/ai.tsx
 #: src/routes/dashboard/admin/job-search.tsx
 msgid "Test connection"
-msgstr ""
+msgstr "Test connection"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/design.tsx
 msgid "Text Color"
@@ -3539,7 +3539,7 @@ msgstr "ያስገቡት የይለፍ ቃል ትክክል አይደለም"
 
 #: src/routes/dashboard/admin/job-search.tsx
 msgid "The RapidAPI key is stored in the database and used for all users. Once configured and verified, every signed-in user can search for job listings via the JSearch API. Only Skill Verdict administrators can change this configuration."
-msgstr ""
+msgstr "The RapidAPI key is stored in the database and used for all users. Once configured and verified, every signed-in user can search for job listings via the JSearch API. Only Skill Verdict administrators can change this configuration."
 
 #: src/routes/auth/resume-password.tsx
 msgid "The resume you are trying to access is password protected"
@@ -3562,7 +3562,7 @@ msgstr "ከዚያም መተግበሪያው ሰጥቶት የ 6 አሃዝ ኮድ �
 #: src/routes/builder/$resumeId/-components/dock.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/export.tsx
 msgid "There was a problem while generating the DOCX, please try again."
-msgstr ""
+msgstr "There was a problem while generating the DOCX, please try again."
 
 #: src/routes/builder/$resumeId/-components/dock.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/export.tsx
@@ -3571,7 +3571,7 @@ msgstr "PDF በማመንጨት ጊዜ ችግኝ ተፈጥሯል፣ እባክዎ�
 
 #: src/components/ai/chat.tsx
 msgid "Thinking..."
-msgstr ""
+msgstr "Thinking..."
 
 #: src/routes/builder/$resumeId/-components/header.tsx
 #: src/routes/dashboard/resumes/-components/menus/context-menu.tsx
@@ -3585,7 +3585,7 @@ msgstr "ይህ ተግባር መቀለብ አይቻልም። ሁሉም መረጃ�
 
 #: src/dialogs/resume/import.tsx
 msgid "This import option is not available right now. Please try another format."
-msgstr ""
+msgstr "This import option is not available right now. Please try another format."
 
 #: src/dialogs/resume/index.tsx
 msgid "This is a URL-friendly name for your resume."
@@ -3593,7 +3593,7 @@ msgstr "ይህ ለየታሪክዎ ተመቻቹ የ URL ስም ነው።"
 
 #: src/dialogs/resume/import.tsx
 msgid "This may take a few minutes. Please do not close the window or refresh the page."
-msgstr ""
+msgstr "This may take a few minutes. Please do not close the window or refresh the page."
 
 #: src/routes/builder/$resumeId/-components/dock.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/export.tsx
@@ -3602,11 +3602,11 @@ msgstr "ይህ በሰርቨሩ አቅም ላይ በመመርኮዝ ጥቂት ጊ
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "This month"
-msgstr ""
+msgstr "This month"
 
 #: src/routes/reviewer/$adminId.tsx
 msgid "This page shows live profile information. Verification snapshots captured at the time of review may differ from the current details shown here."
-msgstr ""
+msgstr "This page shows live profile information. Verification snapshots captured at the time of review may differ from the current details shown here."
 
 #: src/components/resume/store/resume.ts
 msgid "This resume is locked and cannot be updated."
@@ -3622,7 +3622,7 @@ msgstr "ይህ እርስዎ መፈለጌ ቢሆንም የሚመከር ደረጃ 
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "This week"
-msgstr ""
+msgstr "This week"
 
 #: src/dialogs/api-key/create.tsx
 msgid "This will generate a new API key to access the Skill Verdict API to allow machines to interact with your resume data."
@@ -3630,11 +3630,11 @@ msgstr "ይህ አዲስ API ቁልፍ የ Skill Verdict API ጋር እንዲገ
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Tight vertical rhythm for mobile sharing — still readable when the viewport is narrow."
-msgstr ""
+msgstr "Tight vertical rhythm for mobile sharing — still readable when the viewport is narrow."
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Timeline-forward narrative with milestones; good when your evidence has a clear before/after."
-msgstr ""
+msgstr "Timeline-forward narrative with milestones; good when your evidence has a clear before/after."
 
 #: src/dialogs/api-key/create.tsx
 msgid "Tip: Give your API key a name, corresponding to the purpose of the key, to help you identify it later."
@@ -3658,27 +3658,27 @@ msgstr "መለያዎን ለመሰረዝ የማረጋገጫ ጽሑፍን ያስ�
 #: src/routes/dashboard/job-search/-components/job-utils.ts
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Today"
-msgstr ""
+msgstr "Today"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Total keys"
-msgstr ""
+msgstr "Total keys"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Total request count"
-msgstr ""
+msgstr "Total request count"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Total requests"
-msgstr ""
+msgstr "Total requests"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Total resumes"
-msgstr ""
+msgstr "Total resumes"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Total sessions"
-msgstr ""
+msgstr "Total sessions"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/statistics.tsx
 msgid "Track your resume's views and downloads"
@@ -3744,11 +3744,11 @@ msgstr "ሁለት-ደረጃ ማረጋገጫ በተሳካ ሁኔታ ተቋቅሯ�
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/users.tsx
 msgid "Two-factor enabled"
-msgstr ""
+msgstr "Two-factor enabled"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Two-pane"
-msgstr ""
+msgstr "Two-pane"
 
 #: src/dialogs/resume/import.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/design.tsx
@@ -3774,11 +3774,11 @@ msgstr "ዩክሬንኛ"
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "Unable to load verification history right now."
-msgstr ""
+msgstr "Unable to load verification history right now."
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Under 3 years"
-msgstr ""
+msgstr "Under 3 years"
 
 #: src/components/input/rich-input.tsx
 msgid "Underline"
@@ -3792,7 +3792,7 @@ msgstr "ይመልሱ (Ctrl+Z)"
 #: src/routes/dashboard/admin/experience-queue.tsx
 #: src/routes/dashboard/admin/identity.tsx
 msgid "Unknown applicant"
-msgstr ""
+msgstr "Unknown applicant"
 
 #: src/routes/dashboard/settings/authentication/-components/hooks.tsx
 msgid "Unlinking your {providerName} account..."
@@ -3895,7 +3895,7 @@ msgstr "የይለፍ ቃልዎን አዘምኑ"
 #: src/routes/dashboard/admin/users.tsx
 #: src/routes/dashboard/admin/users.tsx
 msgid "Updated"
-msgstr ""
+msgstr "Updated"
 
 #: src/dialogs/auth/change-password.tsx
 msgid "Updating your password..."
@@ -3907,11 +3907,11 @@ msgstr "የየታሪክዎን በመዘመን ላይ…"
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "Upload Document"
-msgstr ""
+msgstr "Upload Document"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Uploaded documents"
-msgstr ""
+msgstr "Uploaded documents"
 
 #: src/routes/builder/$resumeId/-sidebar/left/sections/picture.tsx
 msgid "Uploading picture..."
@@ -3919,7 +3919,7 @@ msgstr "ፎቶ በመጫን ላይ…"
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "Uploading..."
-msgstr ""
+msgstr "Uploading..."
 
 #: src/routes/builder/$resumeId/-sidebar/left/sections/picture.tsx
 msgid "URL"
@@ -3927,7 +3927,7 @@ msgstr "URL"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "User ID"
-msgstr ""
+msgstr "User ID"
 
 #: src/dialogs/resume/sections/profile.tsx
 #: src/routes/auth/register.tsx
@@ -3939,7 +3939,7 @@ msgstr "የተጠቃሚ ስም"
 #: src/routes/dashboard/-components/sidebar.tsx
 #: src/routes/dashboard/admin/users.tsx
 msgid "Users"
-msgstr ""
+msgstr "Users"
 
 #: src/utils/locale.ts
 msgid "Uzbek"
@@ -3951,45 +3951,45 @@ msgstr "ትክክለኛ URL በ http:// ወይም https:// መጀመር አለ�
 
 #: src/routes/dashboard/admin/experience-queue.tsx
 msgid "Verdict confirmed. Experience verified."
-msgstr ""
+msgstr "Verdict confirmed. Experience verified."
 
 #: src/routes/dashboard/admin/experience-queue.tsx
 msgid "Verdict overridden successfully."
-msgstr ""
+msgstr "Verdict overridden successfully."
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Verdict pending"
-msgstr ""
+msgstr "Verdict pending"
 
 #: src/routes/dashboard/-components/sidebar.tsx
 #: src/routes/dashboard/admin/users.tsx
 #: src/routes/dashboard/verification/index.tsx
 #: src/routes/dashboard/verification/index.tsx
 msgid "Verification"
-msgstr ""
+msgstr "Verification"
 
 #: src/routes/dashboard/settings/privacy.tsx
 msgid "Verification Badges"
-msgstr ""
+msgstr "Verification Badges"
 
 #: src/routes/$username/$slug.tsx
 msgid "Verification History"
-msgstr ""
+msgstr "Verification History"
 
 #: src/routes/dashboard/settings/privacy.tsx
 #: src/routes/dashboard/settings/privacy.tsx
 msgid "Verification History Timeline"
-msgstr ""
+msgstr "Verification History Timeline"
 
 #. placeholder {0}: item.label
 #: src/routes/dashboard/verification/index.tsx
 msgid "Verification requested for \"{0}\"."
-msgstr ""
+msgstr "Verification requested for \"{0}\"."
 
 #: src/routes/dashboard/verification/index.tsx
 #: src/routes/dashboard/verification/index.tsx
 msgid "verified"
-msgstr ""
+msgstr "verified"
 
 #: src/routes/dashboard/admin/users.tsx
 #: src/routes/dashboard/settings/profile.tsx
@@ -4001,19 +4001,19 @@ msgstr "ተረጋግጧል"
 #: src/routes/$username/$slug.tsx
 #: src/routes/dashboard/verification/index.tsx
 msgid "Verified by {0}"
-msgstr ""
+msgstr "Verified by {0}"
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Verified skill badges"
-msgstr ""
+msgstr "Verified skill badges"
 
 #: src/routes/_home/-sections/statistics.tsx
 msgid "Verified skills"
-msgstr ""
+msgstr "Verified skills"
 
 #: src/routes/_home/-sections/footer.tsx
 msgid "Verified skills, honest feedback, and passive discovery — a living profile built on evidence, not keywords."
-msgstr ""
+msgstr "Verified skills, honest feedback, and passive discovery — a living profile built on evidence, not keywords."
 
 #: src/routes/auth/verify-2fa-backup.tsx
 #: src/routes/auth/verify-2fa.tsx
@@ -4023,7 +4023,7 @@ msgstr "አረጋግጥ"
 
 #: src/routes/_home/-sections/hero.tsx
 msgid "Verify my skills"
-msgstr ""
+msgstr "Verify my skills"
 
 #: src/routes/auth/verify-2fa-backup.tsx
 msgid "Verify with a Backup Code"
@@ -4031,7 +4031,7 @@ msgstr "በመከላከያ ኮድ አረጋግጥ"
 
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Verify your identity through a short video call. This adds trust to your resume."
-msgstr ""
+msgstr "Verify your identity through a short video call. This adds trust to your resume."
 
 #: src/routes/auth/verify-2fa-backup.tsx
 msgid "Verifying backup code..."
@@ -4056,7 +4056,7 @@ msgstr "ቪትናምኛ"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "View details"
-msgstr ""
+msgstr "View details"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/statistics.tsx
 msgid "Views"
@@ -4064,19 +4064,19 @@ msgstr "ተመልካቶች"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Views / downloads"
-msgstr ""
+msgstr "Views / downloads"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Visa authorization"
-msgstr ""
+msgstr "Visa authorization"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Visa type (optional)"
-msgstr ""
+msgstr "Visa type (optional)"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Visibility"
-msgstr ""
+msgstr "Visibility"
 
 #: src/dialogs/resume/sections/custom.tsx
 #: src/utils/resume/section.tsx
@@ -4108,37 +4108,37 @@ msgstr "ሲቆለፍ የየታሪክዎን ማቅረቢያ ማዘመን ወይ�
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "Who can see my submissions and results?"
-msgstr ""
+msgstr "Who can see my submissions and results?"
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Why candidates choose us"
-msgstr ""
+msgstr "Why candidates choose us"
 
 #: src/routes/dashboard/-components/sidebar.tsx
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Work Authorization"
-msgstr ""
+msgstr "Work Authorization"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Work authorization saved."
-msgstr ""
+msgstr "Work authorization saved."
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "Work Experience"
-msgstr ""
+msgstr "Work Experience"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Yes"
-msgstr ""
+msgstr "Yes"
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "Yes. Add or remove skills any time, and request re-verification as you level up. Your profile is designed to evolve with your career."
-msgstr ""
+msgstr "Yes. Add or remove skills any time, and request re-verification as you level up. Your profile is designed to evolve with your career."
 
 #: src/routes/dashboard/job-search/-components/job-utils.ts
 msgid "Yesterday"
-msgstr ""
+msgstr "Yesterday"
 
 #: src/routes/auth/login.tsx
 msgid "You can also use your username to login."
@@ -4150,7 +4150,7 @@ msgstr "ያልተቀመጡ ለውጦች አሉዎት።"
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "You pick the skills you want to endorse and a reviewer with relevant expertise. They assign a short, practical assessment, review your submission, and share actionable feedback. If you pass, the skill is added to your profile as a verified badge."
-msgstr ""
+msgstr "You pick the skills you want to endorse and a reviewer with relevant expertise. They assign a short, practical assessment, review your submission, and share actionable feedback. If you pass, the skill is added to your profile as a verified badge."
 
 #: src/routes/auth/forgot-password.tsx
 #: src/routes/auth/register.tsx
@@ -4171,7 +4171,7 @@ msgstr "ለውጦችዎ በራስ-ሰር ይቀመጣሉ።"
 
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Your identity has been verified and your profile is trusted."
-msgstr ""
+msgstr "Your identity has been verified and your profile is trusted."
 
 #: src/routes/auth/reset-password.tsx
 msgid "Your password has been reset successfully. You can now sign in with your new password."
@@ -4183,7 +4183,7 @@ msgstr "የይለፍ ቃልዎ በተሳካ ሁኔታ ታዘመነ።"
 
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Your previous identity verification was unsuccessful. You may try again."
-msgstr ""
+msgstr "Your previous identity verification was unsuccessful. You may try again."
 
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Your profile has been updated successfully."
@@ -4218,7 +4218,7 @@ msgstr "የየታሪክዎ የህዝብ አገናኝ አሁን በይለፍ ቃ�
 
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Your verification call has been scheduled. Our team will review and confirm your identity shortly."
-msgstr ""
+msgstr "Your verification call has been scheduled. Our team will review and confirm your identity shortly."
 
 #: src/routes/builder/$resumeId/-components/dock.tsx
 msgid "Zoom in"
