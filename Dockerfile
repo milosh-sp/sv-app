@@ -12,11 +12,9 @@ RUN mkdir -p /tmp/dev /tmp/prod
 COPY package.json pnpm-lock.yaml /tmp/dev/
 COPY package.json pnpm-lock.yaml /tmp/prod/
 
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store \
-    cd /tmp/dev && pnpm install --frozen-lockfile
+RUN cd /tmp/dev && pnpm install --frozen-lockfile
 
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store \
-    cd /tmp/prod && pnpm install --frozen-lockfile --prod
+RUN cd /tmp/prod && pnpm install --frozen-lockfile --prod
 
 # ---------- Builder Layer ----------
 FROM node:24-slim AS builder
