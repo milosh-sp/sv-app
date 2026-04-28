@@ -485,7 +485,7 @@ describe("verificationService.getPublicStatus", () => {
     expect(result[1]).toEqual(identityStatus);
   });
 
-  it("returns section statuses when identity is missing", async () => {
+  it("omits pending section statuses from public response when identity is missing", async () => {
     const sectionStatuses = [
       {
         id: "req-1",
@@ -511,7 +511,7 @@ describe("verificationService.getPublicStatus", () => {
 
     const result = await verificationService.getPublicStatus("resume-1");
 
-    expect(result).toEqual(sectionStatuses);
+    expect(result).toEqual([]);
   });
 });
 
@@ -564,6 +564,45 @@ describe("verificationService.getPrinterStatus", () => {
     expect(result).toHaveLength(2);
     expect(result[0]).toEqual(sectionStatuses[0]);
     expect(result[1]).toEqual(identityStatus);
+  });
+
+  it("omits pending-like rows when includePendingLike is false", async () => {
+    const sectionStatuses = [
+      {
+        id: "req-1",
+        sectionType: "skill",
+        itemId: "item-1",
+        itemLabel: "TypeScript",
+        status: "verified",
+        badgeVisible: true,
+        submittedAt: new Date(),
+      },
+      {
+        id: "req-2",
+        sectionType: "project",
+        itemId: "item-2",
+        itemLabel: "App",
+        status: "pending",
+        badgeVisible: true,
+        submittedAt: new Date(),
+      },
+    ];
+
+    mockFrom
+      .mockReturnValueOnce({
+        where: vi.fn(() => ({ limit: vi.fn(() => [{ userId: "user-1", isPublic: false }]) })),
+      })
+      .mockReturnValueOnce({
+        where: vi.fn(() => sectionStatuses),
+      })
+      .mockReturnValueOnce({
+        where: vi.fn(() => ({ orderBy: vi.fn(() => ({ limit: vi.fn(() => []) })) })),
+      });
+
+    const result = await verificationService.getPrinterStatus("resume-1", { includePendingLike: false });
+
+    expect(result).toHaveLength(1);
+    expect(result[0]?.id).toBe("req-1");
   });
 });
 
@@ -657,9 +696,9 @@ describe("verificationService.getPublicTimeline", () => {
     const result = await verificationService.getPublicTimeline({ resumeId: "resume-1" });
 
     expect(result.enabled).toBe(true);
-    expect(result.entries).toHaveLength(2);
+    expect(result.entries).toHaveLength(1);
+    expect(result.entries[0]?.id).toBe("req-1");
     expect(result.entries[0]?.verifiedBy).toBe("Jane Reviewer");
-    expect(result.entries[1]?.verifiedBy).toBeNull();
   });
 });
 

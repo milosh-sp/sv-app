@@ -78,13 +78,20 @@ export const verificationRouter = {
     .input(verificationDto.getPrinterStatus.input)
     .output(verificationDto.getPrinterStatus.output)
     .handler(async ({ input }) => {
-      const tokenResumeId = verifyPrinterToken(input.token);
+      const payload = verifyPrinterToken(input.token);
+      if (!payload) {
+        throw new ORPCError("FORBIDDEN", { message: "Invalid printer token" });
+      }
+
+      const { resumeId: tokenResumeId, verificationAudience } = payload;
 
       if (tokenResumeId !== input.resumeId) {
         throw new ORPCError("FORBIDDEN", { message: "Invalid printer token" });
       }
 
-      return await verificationService.getPrinterStatus(input.resumeId);
+      return await verificationService.getPrinterStatus(input.resumeId, {
+        includePendingLike: verificationAudience === "owner",
+      });
     }),
 
   getHistory: protectedProcedure.input(verificationDto.getHistory.input).handler(async ({ context, input }) => {
