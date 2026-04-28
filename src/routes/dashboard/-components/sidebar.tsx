@@ -211,6 +211,7 @@ export function DashboardSidebar() {
         {
           "--sidebar-width": "14rem",
           "--sidebar-width-icon": "3.5rem",
+          ...(isSkillVerdictAdmin ? { "--sidebar-primary": "#2b6a9a" } : {}),
         } as React.CSSProperties
       }
       className="border-none group-data-[side=left]:border-none group-data-[side=right]:border-none md:absolute! md:inset-y-4 md:data-[side=left]:left-4 md:data-[side=right]:right-4"
@@ -231,7 +232,13 @@ export function DashboardSidebar() {
                   <div className="min-w-0 flex-1 transition-[margin,opacity] duration-200 ease-in-out group-data-[collapsible=icon]:-ms-8 group-data-[collapsible=icon]:opacity-0">
                     <p className="truncate font-medium">{session.user.name}</p>
 
-                    <p className="truncate text-xs text-muted-foreground">
+                    <p
+                      className={
+                        adminRole?.role === "skill_verdict_admin"
+                          ? "truncate text-xs text-sidebar-primary"
+                          : "truncate text-xs text-muted-foreground"
+                      }
+                    >
                       {roleLabel ? i18n.t(roleLabel) : session.user.email}
                     </p>
                     {isIdVerified && (
