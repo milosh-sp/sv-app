@@ -10,7 +10,7 @@ import type { schema } from "@/integrations/drizzle";
 import { pageDimensionsAsPixels } from "@/schema/page";
 import { printMarginTemplates } from "@/schema/templates";
 import { env } from "@/utils/env";
-import { generatePrinterToken } from "@/utils/printer-token";
+import { generatePrinterToken, type PrinterVerificationAudience } from "@/utils/printer-token";
 
 import { getStorageService, uploadFile } from "./storage";
 
@@ -97,6 +97,7 @@ export const printerService = {
    */
   printResumeAsPDF: async (
     input: Pick<InferSelectModel<typeof schema.resume>, "id" | "data" | "userId">,
+    requestingUserId?: string,
   ): Promise<string> => {
     const { id, data, userId } = input;
 
@@ -114,8 +115,11 @@ export const printerService = {
     const locale = data.metadata.page.locale;
     const template = data.metadata.template;
 
+    const verificationAudience: PrinterVerificationAudience =
+      requestingUserId !== undefined && requestingUserId === userId ? "owner" : "public";
+
     // Generate a secure token to authenticate the printer request
-    const token = generatePrinterToken(id);
+    const token = generatePrinterToken(id, verificationAudience);
     const url = `${baseUrl}/printer/${id}?token=${token}`;
 
     // Step 3: Calculate print paddings for templates that disable CSS padding in print mode.
@@ -345,7 +349,7 @@ export const printerService = {
 
     const locale = data.metadata.page.locale;
 
-    const token = generatePrinterToken(id);
+    const token = generatePrinterToken(id, "owner");
     const url = `${baseUrl}/printer/${id}?token=${token}`;
 
     let browser: Browser | null = null;

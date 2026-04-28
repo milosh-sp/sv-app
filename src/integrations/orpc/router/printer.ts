@@ -20,7 +20,7 @@ export const printerRouter = {
     .output(z.object({ url: z.string().describe("The URL to download the generated PDF file.") }))
     .handler(async ({ input, context }) => {
       const { id, data, userId } = await resumeService.getByIdForPrinter({ id: input.id, userId: context.user?.id });
-      const url = await printerService.printResumeAsPDF({ id, data, userId });
+      const url = await printerService.printResumeAsPDF({ id, data, userId }, context.user?.id);
 
       if (!context.user) {
         await resumeService.statistics.increment({ id: input.id, downloads: true });

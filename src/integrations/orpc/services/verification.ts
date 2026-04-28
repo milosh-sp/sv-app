@@ -19,6 +19,13 @@ import { getStorageService, uploadFile } from "./storage";
 const ACTIVE_STATUSES = ["pending", "claimed", "verdict_pending", "verified"] as const;
 const FINAL_STATUSES = ["verified", "rejected", "issue"] as const;
 
+/** Shown on badges as "pending" clock; hidden from public resume + non-owner PDF. */
+const PENDING_LIKE_STATUSES = new Set<string>(["pending", "claimed", "verdict_pending"]);
+
+function stripPendingLikeStatuses<T extends { status: string }>(rows: T[]): T[] {
+  return rows.filter((r) => !PENDING_LIKE_STATUSES.has(r.status));
+}
+
 async function sendFinalStatusEmail(
   request: { userId: string; itemLabel: string; sectionType: string },
   status: "verified" | "rejected" | "issue",
@@ -390,13 +397,13 @@ export const verificationService = {
       .limit(1);
 
     if (!identityStatus) {
-      return sectionStatuses;
+      return stripPendingLikeStatuses(sectionStatuses);
     }
 
-    return [...sectionStatuses, identityStatus];
+    return stripPendingLikeStatuses([...sectionStatuses, identityStatus]);
   },
 
-  getPrinterStatus: async (resumeId: string) => {
+  getPrinterStatus: async (resumeId: string, options?: { includePendingLike?: boolean }) => {
     const [resumeRow] = await db
       .select({
         userId: resume.userId,
@@ -438,10 +445,11 @@ export const verificationService = {
       .limit(1);
 
     if (!identityStatus) {
-      return sectionStatuses;
+      return options?.includePendingLike === false ? stripPendingLikeStatuses(sectionStatuses) : sectionStatuses;
     }
 
-    return [...sectionStatuses, identityStatus];
+    const combined = [...sectionStatuses, identityStatus];
+    return options?.includePendingLike === false ? stripPendingLikeStatuses(combined) : combined;
   },
 
   getHistory: async (input: { userId: string; resumeId: string; itemId: string }) => {
@@ -525,7 +533,7 @@ export const verificationService = {
       verifiedBy: entry.status === "verified" ? (verifierByRequestId.get(entry.id) ?? null) : null,
     }));
 
-    return { enabled: true, entries: entriesWithVerifier };
+    return { enabled: true, entries: stripPendingLikeStatuses(entriesWithVerifier) };
   },
 
   toggleBadge: async (input: { userId: string; requestId: string; visible: boolean }) => {
