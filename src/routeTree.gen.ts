@@ -18,7 +18,6 @@ import { Route as DashboardIndexRouteImport } from "./routes/dashboard/index";
 import { Route as AuthIndexRouteImport } from "./routes/auth/index";
 import { Route as HomeIndexRouteImport } from "./routes/_home/index";
 import { Route as ReviewerAdminIdRouteImport } from "./routes/reviewer/$adminId";
-import { Route as PrinterResumeIdRouteImport } from "./routes/printer/$resumeId";
 import { Route as PrinterIdRouteImport } from "./routes/printer/$id";
 import { Route as AuthVerify2faBackupRouteImport } from "./routes/auth/verify-2fa-backup";
 import { Route as AuthVerify2faRouteImport } from "./routes/auth/verify-2fa";
@@ -104,11 +103,6 @@ const HomeIndexRoute = HomeIndexRouteImport.update({
 const ReviewerAdminIdRoute = ReviewerAdminIdRouteImport.update({
   id: "/reviewer/$adminId",
   path: "/reviewer/$adminId",
-  getParentRoute: () => rootRouteImport,
-} as any);
-const PrinterResumeIdRoute = PrinterResumeIdRouteImport.update({
-  id: "/printer/$resumeId",
-  path: "/printer/$resumeId",
   getParentRoute: () => rootRouteImport,
 } as any);
 const PrinterIdRoute = PrinterIdRouteImport.update({
@@ -360,7 +354,6 @@ export interface FileRoutesByFullPath {
   "/auth/verify-2fa": typeof AuthVerify2faRoute;
   "/auth/verify-2fa-backup": typeof AuthVerify2faBackupRoute;
   "/printer/$id": typeof PrinterIdRoute;
-  "/printer/$resumeId": typeof PrinterResumeIdRoute;
   "/reviewer/$adminId": typeof ReviewerAdminIdRoute;
   "/auth/": typeof AuthIndexRoute;
   "/dashboard/": typeof DashboardIndexRoute;
@@ -409,7 +402,6 @@ export interface FileRoutesByTo {
   "/auth/verify-2fa": typeof AuthVerify2faRoute;
   "/auth/verify-2fa-backup": typeof AuthVerify2faBackupRoute;
   "/printer/$id": typeof PrinterIdRoute;
-  "/printer/$resumeId": typeof PrinterResumeIdRoute;
   "/reviewer/$adminId": typeof ReviewerAdminIdRoute;
   "/": typeof HomeIndexRoute;
   "/auth": typeof AuthIndexRoute;
@@ -464,7 +456,6 @@ export interface FileRoutesById {
   "/auth/verify-2fa": typeof AuthVerify2faRoute;
   "/auth/verify-2fa-backup": typeof AuthVerify2faBackupRoute;
   "/printer/$id": typeof PrinterIdRoute;
-  "/printer/$resumeId": typeof PrinterResumeIdRoute;
   "/reviewer/$adminId": typeof ReviewerAdminIdRoute;
   "/_home/": typeof HomeIndexRoute;
   "/auth/": typeof AuthIndexRoute;
@@ -520,7 +511,6 @@ export interface FileRouteTypes {
     | "/auth/verify-2fa"
     | "/auth/verify-2fa-backup"
     | "/printer/$id"
-    | "/printer/$resumeId"
     | "/reviewer/$adminId"
     | "/auth/"
     | "/dashboard/"
@@ -569,7 +559,6 @@ export interface FileRouteTypes {
     | "/auth/verify-2fa"
     | "/auth/verify-2fa-backup"
     | "/printer/$id"
-    | "/printer/$resumeId"
     | "/reviewer/$adminId"
     | "/"
     | "/auth"
@@ -623,7 +612,6 @@ export interface FileRouteTypes {
     | "/auth/verify-2fa"
     | "/auth/verify-2fa-backup"
     | "/printer/$id"
-    | "/printer/$resumeId"
     | "/reviewer/$adminId"
     | "/_home/"
     | "/auth/"
@@ -668,7 +656,6 @@ export interface RootRouteChildren {
   DotwellKnownOpenidConfigurationRoute: typeof DotwellKnownOpenidConfigurationRoute;
   ApiHealthRoute: typeof ApiHealthRoute;
   PrinterIdRoute: typeof PrinterIdRoute;
-  PrinterResumeIdRoute: typeof PrinterResumeIdRoute;
   ReviewerAdminIdRoute: typeof ReviewerAdminIdRoute;
   McpIndexRoute: typeof McpIndexRoute;
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute;
@@ -740,13 +727,6 @@ declare module "@tanstack/react-router" {
       path: "/reviewer/$adminId";
       fullPath: "/reviewer/$adminId";
       preLoaderRoute: typeof ReviewerAdminIdRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/printer/$resumeId": {
-      id: "/printer/$resumeId";
-      path: "/printer/$resumeId";
-      fullPath: "/printer/$resumeId";
-      preLoaderRoute: typeof PrinterResumeIdRouteImport;
       parentRoute: typeof rootRouteImport;
     };
     "/printer/$id": {
@@ -1215,7 +1195,6 @@ const rootRouteChildren: RootRouteChildren = {
   DotwellKnownOpenidConfigurationRoute: DotwellKnownOpenidConfigurationRoute,
   ApiHealthRoute: ApiHealthRoute,
   PrinterIdRoute: PrinterIdRoute,
-  PrinterResumeIdRoute: PrinterResumeIdRoute,
   ReviewerAdminIdRoute: ReviewerAdminIdRoute,
   McpIndexRoute: McpIndexRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
