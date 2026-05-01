@@ -19,6 +19,7 @@ import { Route as AuthIndexRouteImport } from "./routes/auth/index";
 import { Route as HomeIndexRouteImport } from "./routes/_home/index";
 import { Route as ReviewerAdminIdRouteImport } from "./routes/reviewer/$adminId";
 import { Route as PrinterResumeIdRouteImport } from "./routes/printer/$resumeId";
+import { Route as PrinterIdRouteImport } from "./routes/printer/$id";
 import { Route as AuthVerify2faBackupRouteImport } from "./routes/auth/verify-2fa-backup";
 import { Route as AuthVerify2faRouteImport } from "./routes/auth/verify-2fa";
 import { Route as AuthResumePasswordRouteImport } from "./routes/auth/resume-password";
@@ -108,6 +109,11 @@ const ReviewerAdminIdRoute = ReviewerAdminIdRouteImport.update({
 const PrinterResumeIdRoute = PrinterResumeIdRouteImport.update({
   id: "/printer/$resumeId",
   path: "/printer/$resumeId",
+  getParentRoute: () => rootRouteImport,
+} as any);
+const PrinterIdRoute = PrinterIdRouteImport.update({
+  id: "/printer/$id",
+  path: "/printer/$id",
   getParentRoute: () => rootRouteImport,
 } as any);
 const AuthVerify2faBackupRoute = AuthVerify2faBackupRouteImport.update({
@@ -353,6 +359,7 @@ export interface FileRoutesByFullPath {
   "/auth/resume-password": typeof AuthResumePasswordRoute;
   "/auth/verify-2fa": typeof AuthVerify2faRoute;
   "/auth/verify-2fa-backup": typeof AuthVerify2faBackupRoute;
+  "/printer/$id": typeof PrinterIdRoute;
   "/printer/$resumeId": typeof PrinterResumeIdRoute;
   "/reviewer/$adminId": typeof ReviewerAdminIdRoute;
   "/auth/": typeof AuthIndexRoute;
@@ -401,6 +408,7 @@ export interface FileRoutesByTo {
   "/auth/resume-password": typeof AuthResumePasswordRoute;
   "/auth/verify-2fa": typeof AuthVerify2faRoute;
   "/auth/verify-2fa-backup": typeof AuthVerify2faBackupRoute;
+  "/printer/$id": typeof PrinterIdRoute;
   "/printer/$resumeId": typeof PrinterResumeIdRoute;
   "/reviewer/$adminId": typeof ReviewerAdminIdRoute;
   "/": typeof HomeIndexRoute;
@@ -455,6 +463,7 @@ export interface FileRoutesById {
   "/auth/resume-password": typeof AuthResumePasswordRoute;
   "/auth/verify-2fa": typeof AuthVerify2faRoute;
   "/auth/verify-2fa-backup": typeof AuthVerify2faBackupRoute;
+  "/printer/$id": typeof PrinterIdRoute;
   "/printer/$resumeId": typeof PrinterResumeIdRoute;
   "/reviewer/$adminId": typeof ReviewerAdminIdRoute;
   "/_home/": typeof HomeIndexRoute;
@@ -510,6 +519,7 @@ export interface FileRouteTypes {
     | "/auth/resume-password"
     | "/auth/verify-2fa"
     | "/auth/verify-2fa-backup"
+    | "/printer/$id"
     | "/printer/$resumeId"
     | "/reviewer/$adminId"
     | "/auth/"
@@ -558,6 +568,7 @@ export interface FileRouteTypes {
     | "/auth/resume-password"
     | "/auth/verify-2fa"
     | "/auth/verify-2fa-backup"
+    | "/printer/$id"
     | "/printer/$resumeId"
     | "/reviewer/$adminId"
     | "/"
@@ -611,6 +622,7 @@ export interface FileRouteTypes {
     | "/auth/resume-password"
     | "/auth/verify-2fa"
     | "/auth/verify-2fa-backup"
+    | "/printer/$id"
     | "/printer/$resumeId"
     | "/reviewer/$adminId"
     | "/_home/"
@@ -655,6 +667,7 @@ export interface RootRouteChildren {
   DotwellKnownOauthProtectedResourceRoute: typeof DotwellKnownOauthProtectedResourceRouteWithChildren;
   DotwellKnownOpenidConfigurationRoute: typeof DotwellKnownOpenidConfigurationRoute;
   ApiHealthRoute: typeof ApiHealthRoute;
+  PrinterIdRoute: typeof PrinterIdRoute;
   PrinterResumeIdRoute: typeof PrinterResumeIdRoute;
   ReviewerAdminIdRoute: typeof ReviewerAdminIdRoute;
   McpIndexRoute: typeof McpIndexRoute;
@@ -734,6 +747,13 @@ declare module "@tanstack/react-router" {
       path: "/printer/$resumeId";
       fullPath: "/printer/$resumeId";
       preLoaderRoute: typeof PrinterResumeIdRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/printer/$id": {
+      id: "/printer/$id";
+      path: "/printer/$id";
+      fullPath: "/printer/$id";
+      preLoaderRoute: typeof PrinterIdRouteImport;
       parentRoute: typeof rootRouteImport;
     };
     "/auth/verify-2fa-backup": {
@@ -1194,6 +1214,7 @@ const rootRouteChildren: RootRouteChildren = {
     DotwellKnownOauthProtectedResourceRouteWithChildren,
   DotwellKnownOpenidConfigurationRoute: DotwellKnownOpenidConfigurationRoute,
   ApiHealthRoute: ApiHealthRoute,
+  PrinterIdRoute: PrinterIdRoute,
   PrinterResumeIdRoute: PrinterResumeIdRoute,
   ReviewerAdminIdRoute: ReviewerAdminIdRoute,
   McpIndexRoute: McpIndexRoute,
