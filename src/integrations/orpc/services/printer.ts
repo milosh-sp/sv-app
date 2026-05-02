@@ -140,15 +140,16 @@ export const printerService = {
       // Step 4: Connect to the browser and navigate to the printer route
       browser = await getBrowser();
 
-      // Set locale cookie so the resume renders in the correct language
-      await browser.setCookie({ name: "locale", value: locale, domain });
-
       page = await browser.newPage();
 
       // Wait for the page to fully load (network idle + custom loaded attribute)
       await page.emulateMediaType("print");
       await page.setViewport(pageDimensionsAsPixels[format]);
       await page.goto(url, { waitUntil: "networkidle0" });
+
+      // Set locale cookie so the resume renders in the correct language
+      await browser.setCookie({ name: "locale", value: locale, domain });
+
       await page.waitForFunction(() => document.body.getAttribute("data-wf-loaded") === "true", { timeout: 5_000 });
 
       // Step 5: Adjust the DOM for proper PDF pagination
