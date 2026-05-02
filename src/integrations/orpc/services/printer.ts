@@ -122,6 +122,11 @@ export const printerService = {
     const token = generatePrinterToken(id, verificationAudience);
     const url = `${baseUrl}/printer/${id}?token=${token}`;
 
+    // Debug: Log the URL being navigated to
+    console.log(`[Printer] Navigating to: ${url}`);
+    console.log(`[Printer] Using baseUrl: ${baseUrl}`);
+    console.log(`[Printer] Domain for cookie: ${domain}`);
+
     // Step 3: Calculate print paddings for templates that disable CSS padding in print mode.
     // We render these margins inside the page (not via Puppeteer's PDF margins), so the margin
     // area matches the resume background color instead of staying white.
@@ -145,7 +150,13 @@ export const printerService = {
       // Wait for the page to fully load (network idle + custom loaded attribute)
       await page.emulateMediaType("print");
       await page.setViewport(pageDimensionsAsPixels[format]);
-      await page.goto(url, { waitUntil: "networkidle0" });
+
+      try {
+        await page.goto(url, { waitUntil: "networkidle0" });
+      } catch (error) {
+        console.log(`[Printer] page.goto() error:`, error);
+        throw error;
+      }
 
       // Set locale cookie so the resume renders in the correct language
       await browser.setCookie({ name: "locale", value: locale, domain });
@@ -298,6 +309,7 @@ export const printerService = {
 
       return result.url;
     } catch (error) {
+      console.log(`[Printer] Error during PDF generation:`, error);
       throw new ORPCError("INTERNAL_SERVER_ERROR", error as Error);
     } finally {
       if (page) await page.close().catch(() => null);
