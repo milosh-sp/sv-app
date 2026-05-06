@@ -46,13 +46,15 @@ export const env = createEnv({
       .transform((value) => value.split(" "))
       .default(["openid", "profile", "email"]),
 
-    // Email (SMTP)
-    SMTP_HOST: z.string().min(1).optional(),
-    SMTP_PORT: z.coerce.number().int().min(1).max(65535).default(587),
-    SMTP_USER: z.string().min(1).optional(),
-    SMTP_PASS: z.string().min(1).optional(),
-    SMTP_FROM: z.string().min(1).optional(),
-    SMTP_SECURE: z.stringbool().default(false),
+    // Email
+    // Set EMAIL_DRIVER to the name of the provider to use (e.g. "sender", "resend").
+    // Omit or set to "console" to log emails to stdout without sending (dev default).
+    EMAIL_DRIVER: z.string().min(1).optional(),
+    EMAIL_FROM: z.string().min(1).optional(),
+    // Sender.net driver (EMAIL_DRIVER=sender)
+    SENDER_API_TOKEN: z.string().min(1).optional(),
+    // Resend driver (EMAIL_DRIVER=resend)
+    RESEND_API_KEY: z.string().min(1).optional(),
 
     // Storage (Optional)
     S3_ACCESS_KEY_ID: z.string().min(1).optional(),
