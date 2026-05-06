@@ -1,6 +1,24 @@
-import nodemailer, { type Transporter } from "nodemailer";
-
 import { env } from "@/utils/env";
+
+import { consoleDriver } from "./drivers/console";
+import { resendDriver } from "./drivers/resend";
+import { senderDriver } from "./drivers/sender";
+import type { EmailDriver, EmailOptions } from "./drivers/types";
+
+// Registry: add a new entry here when adding a driver.
+const drivers: Record<string, EmailDriver> = {
+  sender: senderDriver,
+  resend: resendDriver,
+  console: consoleDriver,
+};
+
+const getDriver = (): EmailDriver => {
+  const name = env.EMAIL_DRIVER;
+  if (!name) return consoleDriver;
+  const driver = drivers[name];
+  if (!driver) throw new Error(`Unknown EMAIL_DRIVER "${name}". Available: ${Object.keys(drivers).join(", ")}`);
+  return driver;
+};
 
 type SendEmailOptions = {
   to: string | string[];
@@ -9,52 +27,12 @@ type SendEmailOptions = {
   from?: string;
 };
 
-const isSmtpEnabled = () => {
-  return !!env.SMTP_HOST && !!env.SMTP_USER && !!env.SMTP_PASS && !!env.SMTP_FROM;
-};
-
-let cachedTransport: Transporter | undefined;
-
-const getTransport = () => {
-  if (!isSmtpEnabled()) return;
-  if (cachedTransport) return cachedTransport;
-
-  cachedTransport = nodemailer.createTransport({
-    host: env.SMTP_HOST,
-    port: env.SMTP_PORT,
-    secure: env.SMTP_SECURE,
-    auth: {
-      user: env.SMTP_USER!,
-      pass: env.SMTP_PASS!,
-    },
-  });
-
-  return cachedTransport;
-};
-
 export const sendEmail = async (options: SendEmailOptions) => {
-  const transport = getTransport();
-
-  const from = options.from ?? env.SMTP_FROM ?? "Skill Verdict <noreply@localhost>";
-  const payload: nodemailer.SendMailOptions = {
-    to: options.to,
-    from,
-    subject: options.subject,
-    text: options.text,
-  };
-
-  if (!transport) {
-    console.info("SMTP not configured; skipping email send.", {
-      to: payload.to,
-      subject: payload.subject,
-      text: payload.text,
-    });
-
-    return;
-  }
+  const from = options.from ?? env.EMAIL_FROM ?? "Skill Verdict <noreply@localhost>";
+  const driver = getDriver();
 
   try {
-    await transport.sendMail({ ...options, from });
+    await driver({ ...options, from });
   } catch (error) {
     console.error("There was an error sending mail.", error);
   }
