@@ -1,9 +1,10 @@
 import { env } from "@/utils/env";
 
+import type { EmailDriver } from "./drivers/types";
+
 import { consoleDriver } from "./drivers/console";
 import { resendDriver } from "./drivers/resend";
 import { senderDriver } from "./drivers/sender";
-import type { EmailDriver } from "./drivers/types";
 
 // Registry: add a new entry here when adding a driver.
 const drivers: Record<string, EmailDriver> = {
