@@ -16,6 +16,8 @@ interface ORPCContext {
   reqHeaders?: Headers;
 }
 
+type AuthSource = "api-key" | "bearer" | "session";
+
 async function getUserFromBearerToken(headers: Headers): Promise<User | null> {
   try {
     const authHeader = headers.get("authorization");
@@ -61,21 +63,40 @@ const base = os.$context<ORPCContext>();
 export const publicProcedure = base.use(async ({ context, next }) => {
   const headers = context.reqHeaders ?? new Headers();
   const apiKey = headers.get("x-api-key");
+  let user: User | null = null;
+  let authSource: AuthSource | null = null;
 
-  const user = apiKey
-    ? await getUserFromApiKey(apiKey)
-    : ((await getUserFromBearerToken(headers)) ?? (await getUserFromHeaders(headers)));
+  if (apiKey) {
+    user = await getUserFromApiKey(apiKey);
+    if (user) authSource = "api-key";
+  }
+
+  if (!user) {
+    user = await getUserFromBearerToken(headers);
+    if (user) authSource = "bearer";
+  }
+
+  if (!user) {
+    user = await getUserFromHeaders(headers);
+    if (user) authSource = "session";
+  }
 
   return next({
     context: {
       ...context,
       user: user ?? null,
+      authSource,
     },
   });
 });
 
 export const protectedProcedure = publicProcedure.use(async ({ context, next }) => {
   if (!context.user) throw new ORPCError("UNAUTHORIZED");
+  if (context.authSource === "session" && !context.user.emailVerified) {
+    throw new ORPCError("FORBIDDEN", {
+      message: "Please verify your email address before continuing.",
+    });
+  }
 
   return next({
     context: {

@@ -18,7 +18,13 @@ import { SocialAuth } from "./-components/social-auth";
 export const Route = createFileRoute("/auth/login")({
   component: RouteComponent,
   beforeLoad: async ({ context }) => {
-    if (context.session) throw redirect({ to: "/dashboard", replace: true });
+    if (context.session) {
+      throw redirect({
+        to: context.session.user.emailVerified ? "/dashboard" : "/auth/verify-email",
+        replace: true,
+      });
+    }
+
     return { session: null };
   },
 });
@@ -55,6 +61,16 @@ function RouteComponent() {
         : await authClient.signIn.username({ username: data.identifier, password: data.password });
 
       if (result.error) {
+        if (isEmail && isEmailVerificationError(result.error)) {
+          toast.dismiss(toastId);
+          void navigate({
+            to: "/auth/verify-email",
+            search: { email: data.identifier, callbackURL: "/dashboard" },
+            replace: true,
+          });
+          return;
+        }
+
         toast.error(result.error.message, { id: toastId });
         return;
       }
@@ -190,4 +206,10 @@ function RouteComponent() {
       )}
     </div>
   );
+}
+
+function isEmailVerificationError(error: { code?: string; message?: string }) {
+  const errorText = `${error.code ?? ""} ${error.message ?? ""}`.toLowerCase();
+
+  return errorText.includes("email") && errorText.includes("verif");
 }

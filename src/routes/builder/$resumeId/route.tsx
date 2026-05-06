@@ -23,8 +23,16 @@ import { useBuilderSidebar, useBuilderSidebarStore } from "./-store/sidebar";
 
 export const Route = createFileRoute("/builder/$resumeId")({
   component: RouteComponent,
-  beforeLoad: async ({ context }) => {
+  beforeLoad: async ({ context, location }) => {
     if (!context.session) throw redirect({ to: "/auth/login", replace: true });
+    if (!context.session.user.emailVerified) {
+      throw redirect({
+        to: "/auth/verify-email",
+        search: { callbackURL: location.href },
+        replace: true,
+      });
+    }
+
     return { session: context.session };
   },
   loader: async ({ params, context }) => {

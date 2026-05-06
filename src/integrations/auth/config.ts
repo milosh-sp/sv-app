@@ -138,7 +138,7 @@ const getAuthConfig = () => {
       autoSignIn: true,
       minPasswordLength: 6,
       maxPasswordLength: 64,
-      requireEmailVerification: false,
+      requireEmailVerification: true,
       disableSignUp: env.FLAG_DISABLE_SIGNUPS || env.FLAG_DISABLE_EMAIL_AUTH,
       sendResetPassword: async ({ user, url }) => {
         await sendEmail({

@@ -20,7 +20,13 @@ import { SocialAuth } from "./-components/social-auth";
 export const Route = createFileRoute("/auth/register")({
   component: RouteComponent,
   beforeLoad: async ({ context }) => {
-    if (context.session) throw redirect({ to: "/dashboard", replace: true });
+    if (context.session) {
+      throw redirect({
+        to: context.session.user.emailVerified ? "/dashboard" : "/auth/verify-email",
+        replace: true,
+      });
+    }
+
     if (context.flags.disableSignups) throw redirect({ to: "/auth/login", replace: true });
     return { session: null };
   },
@@ -44,7 +50,7 @@ const formSchema = z.object({
 type FormValues = z.infer<typeof formSchema>;
 
 function RouteComponent() {
-  const [submitted, setSubmitted] = useState(false);
+  const [submittedEmail, setSubmittedEmail] = useState<string | null>(null);
   const [showPassword, toggleShowPassword] = useToggle(false);
   const { flags } = Route.useRouteContext();
 
@@ -75,11 +81,11 @@ function RouteComponent() {
       return;
     }
 
-    setSubmitted(true);
+    setSubmittedEmail(data.email);
     toast.dismiss(toastId);
   };
 
-  if (submitted) return <PostSignupScreen />;
+  if (submittedEmail) return <PostSignupScreen email={submittedEmail} />;
 
   return (
     <div className="space-y-6">
@@ -217,7 +223,7 @@ function RouteComponent() {
   );
 }
 
-function PostSignupScreen() {
+function PostSignupScreen({ email }: { email: string }) {
   return (
     <div className="space-y-6">
       <div className="space-y-1 text-center">
@@ -231,10 +237,10 @@ function PostSignupScreen() {
 
       <Alert>
         <AlertTitle>
-          <Trans>This step is optional, but recommended.</Trans>
+          <Trans>Email verification is required.</Trans>
         </AlertTitle>
         <AlertDescription>
-          <Trans>Verifying your email is required when resetting your password.</Trans>
+          <Trans>You won't be able to access Skill Verdict until your email address is verified.</Trans>
         </AlertDescription>
       </Alert>
 
@@ -242,8 +248,8 @@ function PostSignupScreen() {
         className="w-full"
         nativeButton={false}
         render={
-          <Link to="/dashboard">
-            <Trans>Continue</Trans> <ArrowRightIcon />
+          <Link to="/auth/verify-email" search={{ email, callbackURL: "/dashboard" }}>
+            <Trans>Continue to verification</Trans> <ArrowRightIcon />
           </Link>
         }
       />

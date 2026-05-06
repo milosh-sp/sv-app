@@ -1,8 +1,10 @@
+import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
 import { ArrowRightIcon, CheckCircleIcon, WarningCircleIcon } from "@phosphor-icons/react";
 import { createFileRoute, Link, useRouter } from "@tanstack/react-router";
 import { zodValidator } from "@tanstack/zod-adapter";
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
 import z from "zod";
 
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -12,6 +14,7 @@ import { authClient } from "@/integrations/auth/client";
 const searchSchema = z.object({
   token: z.string().optional(),
   callbackURL: z.string().optional(),
+  email: z.email().optional(),
 });
 
 type VerificationResult =
@@ -33,7 +36,8 @@ export const Route = createFileRoute("/auth/verify-email")({
 
 function RouteComponent() {
   const router = useRouter();
-  const { token, callbackURL } = Route.useSearch();
+  const { token, callbackURL, email } = Route.useSearch();
+  const { session } = Route.useRouteContext();
   const [result, setResult] = useState<VerificationResult | null>(null);
   const continueUrl = getSafeCallbackUrl(callbackURL);
 
@@ -77,12 +81,112 @@ function RouteComponent() {
     };
   }, [router, token]);
 
+  if (!token) {
+    if (!session && email) return <PendingVerificationState email={email} continueUrl={continueUrl} />;
+    if (!session) return <SignInRequiredState />;
+    if (session.user.emailVerified) return <SuccessState continueUrl={continueUrl} />;
+
+    return <PendingVerificationState email={session.user.email} continueUrl={continueUrl} />;
+  }
+
   if (!result) return null;
 
   return result.status === "success" ? (
     <SuccessState continueUrl={continueUrl} />
   ) : (
     <ErrorState message={result.message} />
+  );
+}
+
+function PendingVerificationState({ email, continueUrl }: { email: string; continueUrl: string }) {
+  const [isResending, setIsResending] = useState(false);
+
+  const handleResendVerificationEmail = async () => {
+    const toastId = toast.loading(t`Resending verification email...`);
+    setIsResending(true);
+
+    try {
+      const { error } = await authClient.sendVerificationEmail({
+        email,
+        callbackURL: continueUrl,
+      });
+
+      if (error) {
+        toast.error(error.message, { id: toastId });
+        return;
+      }
+
+      toast.success(t`A new verification link has been sent to your email address.`, { id: toastId });
+    } catch {
+      toast.error(t`Failed to resend verification email. Please try again.`, { id: toastId });
+    } finally {
+      setIsResending(false);
+    }
+  };
+
+  return (
+    <div className="space-y-6">
+      <div className="space-y-3 text-center">
+        <div className="mx-auto flex size-14 items-center justify-center rounded-full bg-amber-500/10 text-amber-600">
+          <WarningCircleIcon className="size-8" weight="fill" />
+        </div>
+
+        <div className="space-y-1">
+          <h1 className="text-2xl font-bold tracking-tight">
+            <Trans>Verify your email</Trans>
+          </h1>
+          <p className="text-muted-foreground">
+            <Trans>You must verify your email address before you can access Skill Verdict.</Trans>
+          </p>
+        </div>
+      </div>
+
+      <Alert>
+        <WarningCircleIcon />
+        <AlertTitle>
+          <Trans>Check your inbox</Trans>
+        </AlertTitle>
+        <AlertDescription>
+          <Trans>We sent a verification link to your email address.</Trans>{" "}
+          <span className="font-medium text-foreground">{email}</span>
+        </AlertDescription>
+      </Alert>
+
+      <Button className="w-full" onClick={handleResendVerificationEmail} disabled={isResending}>
+        <Trans>Resend verification email</Trans>
+      </Button>
+    </div>
+  );
+}
+
+function SignInRequiredState() {
+  return (
+    <div className="space-y-6">
+      <div className="space-y-3 text-center">
+        <div className="mx-auto flex size-14 items-center justify-center rounded-full bg-primary/10 text-primary">
+          <WarningCircleIcon className="size-8" weight="fill" />
+        </div>
+
+        <div className="space-y-1">
+          <h1 className="text-2xl font-bold tracking-tight">
+            <Trans>Sign in to verify your email</Trans>
+          </h1>
+          <p className="text-muted-foreground">
+            <Trans>Sign in to your account to request a new verification email.</Trans>
+          </p>
+        </div>
+      </div>
+
+      <Button
+        className="w-full"
+        nativeButton={false}
+        render={
+          <Link to="/auth/login">
+            <Trans>Sign in</Trans> <ArrowRightIcon />
+          </Link>
+        }
+      />
+    </div>
   );
 }
 
@@ -152,7 +256,7 @@ function ErrorState({ message }: { message?: string }) {
         </AlertTitle>
         <AlertDescription>
           {message ?? (
-            <Trans>Sign in to your account, then resend the verification email from your profile settings.</Trans>
+            <Trans>Sign in to your account, then request a new verification email.</Trans>
           )}
         </AlertDescription>
       </Alert>
@@ -173,8 +277,8 @@ function ErrorState({ message }: { message?: string }) {
           variant="outline"
           nativeButton={false}
           render={
-            <Link to="/dashboard/settings/profile">
-              <Trans>Open profile settings</Trans>
+            <Link to="/auth/verify-email">
+              <Trans>Request a new link</Trans>
             </Link>
           }
         />
