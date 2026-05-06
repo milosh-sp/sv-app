@@ -255,9 +255,7 @@ function ErrorState({ message }: { message?: string }) {
           <Trans>Try requesting a new verification link.</Trans>
         </AlertTitle>
         <AlertDescription>
-          {message ?? (
-            <Trans>Sign in to your account, then request a new verification email.</Trans>
-          )}
+          {message ?? <Trans>Sign in to your account, then request a new verification email.</Trans>}
         </AlertDescription>
       </Alert>
 
