@@ -46,7 +46,7 @@ await loadLocale(await getLocale());
 export const Route = createRootRouteWithContext<RouterContext>()({
   shellComponent: RootDocument,
   head: () => {
-    const appUrl = process.env.APP_URL ?? "https://skillverdict.com/";
+    const appUrl = (process.env.APP_URL ?? "https://skillverdict.com").replace(/\/$/, "");
 
     return {
       links: [
@@ -69,7 +69,9 @@ export const Route = createRootRouteWithContext<RouterContext>()({
         { property: "twitter:title", content: title },
         { property: "twitter:description", content: description },
         // OpenGraph Tags
+        { property: "og:type", content: "website" },
         { property: "og:image", content: `${appUrl}/opengraph/banner.jpg` },
+        { property: "og:logo", content: `${appUrl}/opengraph/logo.svg` },
         { property: "og:site_name", content: appName },
         { property: "og:title", content: title },
         { property: "og:description", content: description },
