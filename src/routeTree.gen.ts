@@ -19,6 +19,7 @@ import { Route as AuthIndexRouteImport } from "./routes/auth/index";
 import { Route as HomeIndexRouteImport } from "./routes/_home/index";
 import { Route as ReviewerAdminIdRouteImport } from "./routes/reviewer/$adminId";
 import { Route as PrinterIdRouteImport } from "./routes/printer/$id";
+import { Route as AuthVerifyEmailRouteImport } from "./routes/auth/verify-email";
 import { Route as AuthVerify2faBackupRouteImport } from "./routes/auth/verify-2fa-backup";
 import { Route as AuthVerify2faRouteImport } from "./routes/auth/verify-2fa";
 import { Route as AuthResumePasswordRouteImport } from "./routes/auth/resume-password";
@@ -109,6 +110,11 @@ const PrinterIdRoute = PrinterIdRouteImport.update({
   id: "/printer/$id",
   path: "/printer/$id",
   getParentRoute: () => rootRouteImport,
+} as any);
+const AuthVerifyEmailRoute = AuthVerifyEmailRouteImport.update({
+  id: "/verify-email",
+  path: "/verify-email",
+  getParentRoute: () => AuthRouteRoute,
 } as any);
 const AuthVerify2faBackupRoute = AuthVerify2faBackupRouteImport.update({
   id: "/verify-2fa-backup",
@@ -353,6 +359,7 @@ export interface FileRoutesByFullPath {
   "/auth/resume-password": typeof AuthResumePasswordRoute;
   "/auth/verify-2fa": typeof AuthVerify2faRoute;
   "/auth/verify-2fa-backup": typeof AuthVerify2faBackupRoute;
+  "/auth/verify-email": typeof AuthVerifyEmailRoute;
   "/printer/$id": typeof PrinterIdRoute;
   "/reviewer/$adminId": typeof ReviewerAdminIdRoute;
   "/auth/": typeof AuthIndexRoute;
@@ -401,6 +408,7 @@ export interface FileRoutesByTo {
   "/auth/resume-password": typeof AuthResumePasswordRoute;
   "/auth/verify-2fa": typeof AuthVerify2faRoute;
   "/auth/verify-2fa-backup": typeof AuthVerify2faBackupRoute;
+  "/auth/verify-email": typeof AuthVerifyEmailRoute;
   "/printer/$id": typeof PrinterIdRoute;
   "/reviewer/$adminId": typeof ReviewerAdminIdRoute;
   "/": typeof HomeIndexRoute;
@@ -455,6 +463,7 @@ export interface FileRoutesById {
   "/auth/resume-password": typeof AuthResumePasswordRoute;
   "/auth/verify-2fa": typeof AuthVerify2faRoute;
   "/auth/verify-2fa-backup": typeof AuthVerify2faBackupRoute;
+  "/auth/verify-email": typeof AuthVerifyEmailRoute;
   "/printer/$id": typeof PrinterIdRoute;
   "/reviewer/$adminId": typeof ReviewerAdminIdRoute;
   "/_home/": typeof HomeIndexRoute;
@@ -510,6 +519,7 @@ export interface FileRouteTypes {
     | "/auth/resume-password"
     | "/auth/verify-2fa"
     | "/auth/verify-2fa-backup"
+    | "/auth/verify-email"
     | "/printer/$id"
     | "/reviewer/$adminId"
     | "/auth/"
@@ -558,6 +568,7 @@ export interface FileRouteTypes {
     | "/auth/resume-password"
     | "/auth/verify-2fa"
     | "/auth/verify-2fa-backup"
+    | "/auth/verify-email"
     | "/printer/$id"
     | "/reviewer/$adminId"
     | "/"
@@ -611,6 +622,7 @@ export interface FileRouteTypes {
     | "/auth/resume-password"
     | "/auth/verify-2fa"
     | "/auth/verify-2fa-backup"
+    | "/auth/verify-email"
     | "/printer/$id"
     | "/reviewer/$adminId"
     | "/_home/"
@@ -735,6 +747,13 @@ declare module "@tanstack/react-router" {
       fullPath: "/printer/$id";
       preLoaderRoute: typeof PrinterIdRouteImport;
       parentRoute: typeof rootRouteImport;
+    };
+    "/auth/verify-email": {
+      id: "/auth/verify-email";
+      path: "/verify-email";
+      fullPath: "/auth/verify-email";
+      preLoaderRoute: typeof AuthVerifyEmailRouteImport;
+      parentRoute: typeof AuthRouteRoute;
     };
     "/auth/verify-2fa-backup": {
       id: "/auth/verify-2fa-backup";
@@ -1047,6 +1066,7 @@ interface AuthRouteRouteChildren {
   AuthResumePasswordRoute: typeof AuthResumePasswordRoute;
   AuthVerify2faRoute: typeof AuthVerify2faRoute;
   AuthVerify2faBackupRoute: typeof AuthVerify2faBackupRoute;
+  AuthVerifyEmailRoute: typeof AuthVerifyEmailRoute;
   AuthIndexRoute: typeof AuthIndexRoute;
 }
 
@@ -1059,6 +1079,7 @@ const AuthRouteRouteChildren: AuthRouteRouteChildren = {
   AuthResumePasswordRoute: AuthResumePasswordRoute,
   AuthVerify2faRoute: AuthVerify2faRoute,
   AuthVerify2faBackupRoute: AuthVerify2faBackupRoute,
+  AuthVerifyEmailRoute: AuthVerifyEmailRoute,
   AuthIndexRoute: AuthIndexRoute,
 };
 

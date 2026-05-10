@@ -15,7 +15,12 @@ import { authClient } from "@/integrations/auth/client";
 export const Route = createFileRoute("/auth/verify-2fa-backup")({
   component: RouteComponent,
   beforeLoad: async ({ context }) => {
-    if (context.session) throw redirect({ to: "/dashboard", replace: true });
+    if (context.session) {
+      throw redirect({
+        to: context.session.user.emailVerified ? "/dashboard" : "/auth/verify-email",
+        replace: true,
+      });
+    }
   },
 });
 

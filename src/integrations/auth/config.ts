@@ -65,6 +65,18 @@ function getTrustedOrigins(): string[] {
   return Array.from(trustedOrigins);
 }
 
+function getVerificationPageUrl(url: string): string {
+  const originalUrl = new URL(url);
+  const verificationUrl = new URL("/auth/verify-email", env.APP_URL);
+  const token = originalUrl.searchParams.get("token");
+  const callbackURL = originalUrl.searchParams.get("callbackURL");
+
+  if (token) verificationUrl.searchParams.set("token", token);
+  if (callbackURL) verificationUrl.searchParams.set("callbackURL", callbackURL);
+
+  return verificationUrl.toString();
+}
+
 const getAuthConfig = () => {
   const authConfigs: GenericOAuthConfig[] = [];
 
@@ -126,7 +138,7 @@ const getAuthConfig = () => {
       autoSignIn: true,
       minPasswordLength: 6,
       maxPasswordLength: 64,
-      requireEmailVerification: false,
+      requireEmailVerification: true,
       disableSignUp: env.FLAG_DISABLE_SIGNUPS || env.FLAG_DISABLE_EMAIL_AUTH,
       sendResetPassword: async ({ user, url }) => {
         await sendEmail({
@@ -145,10 +157,12 @@ const getAuthConfig = () => {
       sendOnSignUp: true,
       autoSignInAfterVerification: true,
       sendVerificationEmail: async ({ user, url }) => {
+        const verificationUrl = getVerificationPageUrl(url);
+
         await sendEmail({
           to: user.email,
           subject: "Verify your email",
-          text: `You recently signed up for an account on Skill Verdict.\n\nTo verify your email, please visit the following URL:\n${url}`,
+          text: `You recently signed up for an account on Skill Verdict.\n\nTo verify your email, please visit the following URL:\n${verificationUrl}`,
         });
       },
     },
