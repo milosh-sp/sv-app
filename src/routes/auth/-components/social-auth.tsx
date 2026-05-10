@@ -10,7 +10,13 @@ import { authClient } from "@/integrations/auth/client";
 import { orpc } from "@/integrations/orpc/client";
 import { cn } from "@/utils/style";
 
-export function SocialAuth() {
+import { PrivacyPolicyNotice } from "./privacy-policy-notice";
+
+type SocialAuthProps = {
+  showPrivacyPolicyNotice?: boolean;
+};
+
+export function SocialAuth({ showPrivacyPolicyNotice = false }: SocialAuthProps) {
   const router = useRouter();
   const { data: authProviders = {} } = useQuery(orpc.auth.providers.list.queryOptions());
   const hasCustomProvider = "custom" in authProviders;
@@ -103,6 +109,8 @@ export function SocialAuth() {
           GitHub
         </Button>
       </div>
+
+      {showPrivacyPolicyNotice && <PrivacyPolicyNotice variant="continue" />}
     </>
   );
 }

@@ -105,7 +105,7 @@ function RouteComponent() {
         </h1>
       </div>
 
-      <SocialAuth />
+      <SocialAuth showPrivacyPolicyNotice />
 
       {!flags.disableEmailAuth && (
         <Form {...form}>

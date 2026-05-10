@@ -2,19 +2,19 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
 import { ArrowRightIcon, EyeIcon, EyeSlashIcon } from "@phosphor-icons/react";
-import { createFileRoute, Link, redirect } from "@tanstack/react-router";
-import { useState } from "react";
+import { createFileRoute, Link, redirect, useNavigate } from "@tanstack/react-router";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { useToggle } from "usehooks-ts";
 import z from "zod";
 
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { authClient } from "@/integrations/auth/client";
+import { getPrivacyPolicyAcceptance } from "@/utils/privacy-policy";
 
+import { PrivacyPolicyNotice } from "./-components/privacy-policy-notice";
 import { SocialAuth } from "./-components/social-auth";
 
 export const Route = createFileRoute("/auth/register")({
@@ -50,7 +50,7 @@ const formSchema = z.object({
 type FormValues = z.infer<typeof formSchema>;
 
 function RouteComponent() {
-  const [submittedEmail, setSubmittedEmail] = useState<string | null>(null);
+  const navigate = useNavigate();
   const [showPassword, toggleShowPassword] = useToggle(false);
   const { flags } = Route.useRouteContext();
 
@@ -73,6 +73,7 @@ function RouteComponent() {
       password: data.password,
       username: data.username,
       displayUsername: data.username,
+      ...getPrivacyPolicyAcceptance(),
       callbackURL: "/dashboard",
     });
 
@@ -81,11 +82,13 @@ function RouteComponent() {
       return;
     }
 
-    setSubmittedEmail(data.email);
     toast.dismiss(toastId);
+    void navigate({
+      to: "/auth/verify-email",
+      search: { email: data.email, callbackURL: "/dashboard" },
+      replace: true,
+    });
   };
-
-  if (submittedEmail) return <PostSignupScreen email={submittedEmail} />;
 
   return (
     <div className="space-y-6">
@@ -95,7 +98,7 @@ function RouteComponent() {
         </h1>
       </div>
 
-      <SocialAuth />
+      <SocialAuth showPrivacyPolicyNotice={flags.disableEmailAuth} />
 
       {!flags.disableEmailAuth && (
         <Form {...form}>
@@ -200,6 +203,8 @@ function RouteComponent() {
             <Button type="submit" className="w-full">
               <Trans>Sign up</Trans>
             </Button>
+
+            <PrivacyPolicyNotice />
           </form>
         </Form>
       )}
@@ -219,40 +224,6 @@ function RouteComponent() {
           />
         </Trans>
       </div>
-    </div>
-  );
-}
-
-function PostSignupScreen({ email }: { email: string }) {
-  return (
-    <div className="space-y-6">
-      <div className="space-y-1 text-center">
-        <h1 className="text-2xl font-bold tracking-tight">
-          <Trans>You've got mail!</Trans>
-        </h1>
-        <p className="text-muted-foreground">
-          <Trans>Check your email for a link to verify your account.</Trans>
-        </p>
-      </div>
-
-      <Alert>
-        <AlertTitle>
-          <Trans>Email verification is required.</Trans>
-        </AlertTitle>
-        <AlertDescription>
-          <Trans>You won't be able to access Skill Verdict until your email address is verified.</Trans>
-        </AlertDescription>
-      </Alert>
-
-      <Button
-        className="w-full"
-        nativeButton={false}
-        render={
-          <Link to="/auth/verify-email" search={{ email, callbackURL: "/dashboard" }}>
-            <Trans>Continue to verification</Trans> <ArrowRightIcon />
-          </Link>
-        }
-      />
     </div>
   );
 }
