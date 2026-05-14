@@ -4,6 +4,7 @@ import {
   ArrowUUpRightIcon,
   CircleNotchIcon,
   CubeFocusIcon,
+  DotsThreeVerticalIcon,
   FileDocIcon,
   FileJsIcon,
   FilePdfIcon,
@@ -24,7 +25,15 @@ import { useCopyToClipboard } from "usehooks-ts";
 import { AIChat } from "@/components/ai/chat";
 import { useTemporalStore } from "@/components/resume/store/resume";
 import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { useIsMobile } from "@/hooks/use-mobile";
 import { authClient } from "@/integrations/auth/client";
 import { orpc } from "@/integrations/orpc/client";
 import { downloadFromUrl, downloadWithAnchor, generateFilename } from "@/utils/file";
@@ -32,6 +41,7 @@ import { buildDocx } from "@/utils/resume/docx";
 import { cn } from "@/utils/style";
 
 export function BuilderDock() {
+  const isMobile = useIsMobile();
   const { data: session } = authClient.useSession();
   const params = useParams({ from: "/builder/$resumeId" });
 
@@ -105,6 +115,79 @@ export function BuilderDock() {
     }
   }, [resume?.id, resume?.name, printResumeAsPDF]);
 
+  if (isMobile) {
+    return (
+      <div className="fixed inset-x-0 bottom-[calc(env(safe-area-inset-bottom)+0.75rem)] z-30 flex items-center justify-center px-3">
+        <motion.div
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.2, ease: "easeOut" }}
+          style={{ willChange: "transform, opacity" }}
+          className="flex w-full max-w-sm items-center justify-center rounded-full border bg-popover/95 px-2 py-1 shadow-xl backdrop-blur"
+        >
+          <DockIcon
+            disabled={!canUndo}
+            onClick={() => undo()}
+            icon={ArrowUUpLeftIcon}
+            title={t({
+              context: "'Ctrl' may be replaced with the locale-specific equivalent (e.g. 'Strg' for QWERTZ layouts).",
+              message: "Undo (Ctrl+Z)",
+            })}
+          />
+          <DockIcon
+            disabled={!canRedo}
+            onClick={() => redo()}
+            icon={ArrowUUpRightIcon}
+            title={t({
+              context: "'Ctrl' may be replaced with the locale-specific equivalent (e.g. 'Strg' for QWERTZ layouts).",
+              message: "Redo (Ctrl+Y)",
+            })}
+          />
+          <DockIcon icon={CubeFocusIcon} title={t`Fit resume to screen`} onClick={() => centerView()} />
+          <AIChat />
+
+          <DropdownMenu>
+            <DropdownMenuTrigger
+              render={
+                <Button size="icon" variant="ghost" className="size-10" aria-label={t`More builder actions`}>
+                  <DotsThreeVerticalIcon />
+                </Button>
+              }
+            />
+
+            <DropdownMenuContent side="top" align="end" className="min-w-48">
+              <DropdownMenuItem onClick={() => zoomIn(0.1)}>
+                <MagnifyingGlassPlusIcon />
+                {t`Zoom in`}
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => zoomOut(0.1)}>
+                <MagnifyingGlassMinusIcon />
+                {t`Zoom out`}
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem disabled={!publicUrl} onClick={() => onCopyUrl()}>
+                <LinkSimpleIcon />
+                {t`Copy URL`}
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => onDownloadJSON()}>
+                <FileJsIcon />
+                {t`Download JSON`}
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => onDownloadDOCX()}>
+                <FileDocIcon />
+                {t`Download DOCX`}
+              </DropdownMenuItem>
+              <DropdownMenuItem disabled={isPrinting} onClick={() => onDownloadPDF()}>
+                {isPrinting ? <CircleNotchIcon className="animate-spin" /> : <FilePdfIcon />}
+                {t`Download PDF`}
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </motion.div>
+      </div>
+    );
+  }
+
   return (
     <div className="fixed inset-x-0 bottom-4 flex items-center justify-center">
       <motion.div
@@ -173,7 +256,7 @@ function DockIcon({ icon: Icon, title, disabled, onClick, iconClassName }: DockI
             transition={{ duration: 0.15, ease: "easeOut" }}
             style={{ willChange: "transform" }}
           >
-            <Button size="icon" variant="ghost" disabled={disabled} onClick={onClick}>
+            <Button size="icon" variant="ghost" disabled={disabled} onClick={onClick} className="size-10 md:size-9">
               <Icon className={cn("size-4", iconClassName)} />
             </Button>
           </motion.div>

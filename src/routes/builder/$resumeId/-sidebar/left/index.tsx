@@ -51,13 +51,30 @@ function getSectionComponent(type: LeftSidebarSection) {
 
 export function BuilderSidebarLeft() {
   const scrollAreaRef = useRef<HTMLDivElement | null>(null);
+  const toggleSidebar = useBuilderSidebar((state) => state.toggleSidebar);
+
+  const scrollToSection = useCallback(
+    (section: LeftSidebarSection) => {
+      if (!scrollAreaRef.current) return;
+      toggleSidebar("left", true);
+
+      const sectionElement = scrollAreaRef.current.querySelector(`#sidebar-${section}`);
+      sectionElement?.scrollIntoView({ block: "nearest", inline: "nearest", behavior: "smooth" });
+    },
+    [toggleSidebar],
+  );
 
   return (
     <>
       <SidebarEdge scrollAreaRef={scrollAreaRef} />
 
-      <ScrollArea ref={scrollAreaRef} className="@container h-[calc(100svh-3.5rem)] bg-background sm:ms-12">
+      <ScrollArea
+        ref={scrollAreaRef}
+        className="@container h-[calc(100svh-3.5rem)] min-h-0 flex-1 bg-background md:ms-12"
+      >
         <div className="space-y-4 p-4">
+          <MobileSectionNavigator scrollToSection={scrollToSection} />
+
           {leftSidebarSections.map((section) => (
             <Fragment key={section}>
               {getSectionComponent(section)}
@@ -73,6 +90,32 @@ export function BuilderSidebarLeft() {
 type SidebarEdgeProps = {
   scrollAreaRef: React.RefObject<HTMLDivElement | null>;
 };
+
+type MobileSectionNavigatorProps = {
+  scrollToSection: (section: LeftSidebarSection) => void;
+};
+
+function MobileSectionNavigator({ scrollToSection }: MobileSectionNavigatorProps) {
+  return (
+    <div className="sticky top-0 z-10 -mx-4 -mt-4 border-b bg-background/95 px-4 py-3 backdrop-blur md:hidden">
+      <div className="no-scrollbar flex gap-2 overflow-x-auto">
+        {leftSidebarSections.map((section) => (
+          <Button
+            key={section}
+            size="sm"
+            variant="outline"
+            className="shrink-0"
+            title={getSectionTitle(section)}
+            onClick={() => scrollToSection(section)}
+          >
+            {getSectionIcon(section)}
+            <span>{getSectionTitle(section)}</span>
+          </Button>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 function SidebarEdge({ scrollAreaRef }: SidebarEdgeProps) {
   const toggleSidebar = useBuilderSidebar((state) => state.toggleSidebar);

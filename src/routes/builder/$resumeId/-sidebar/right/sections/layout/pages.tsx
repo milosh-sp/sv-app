@@ -260,8 +260,8 @@ function PageContainer({
 
   return (
     <div className="space-y-3 rounded-md border border-dashed bg-background/40">
-      <div className="flex items-center justify-between bg-secondary/50 px-4 py-3">
-        <div className="flex w-full items-center gap-4">
+      <div className="flex flex-col gap-3 bg-secondary/50 px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex w-full flex-wrap items-center gap-4">
           <span className="text-xs font-medium">
             <Trans>Page {pageIndex + 1}</Trans>
           </span>
@@ -276,7 +276,7 @@ function PageContainer({
         </div>
 
         {canDelete && (
-          <Button variant="ghost" onClick={() => onDelete(pageIndex)} className="h-5 w-auto gap-x-2.5 px-0!">
+          <Button variant="ghost" onClick={() => onDelete(pageIndex)} className="h-8 w-fit gap-x-2.5 px-0! sm:h-5">
             <TrashIcon />
             <Trans>Delete Page</Trans>
           </Button>
@@ -398,7 +398,7 @@ const LayoutItemContent = forwardRef<HTMLDivElement, LayoutItemContentProps>(
         data-overlay={isOverlay ? "true" : undefined}
         data-dragging={isDragging ? "true" : undefined}
         className={cn(
-          "group/item flex cursor-grab touch-none items-center gap-x-2 rounded-md border border-border bg-background px-2 py-1.5 text-sm font-medium transition-all duration-200 ease-out select-none",
+          "group/item flex cursor-grab touch-manipulation items-center gap-x-2 rounded-md border border-border bg-background px-2 py-2 text-sm font-medium transition-all duration-200 ease-out select-none md:touch-none md:py-1.5",
           "hover:bg-secondary/40 active:cursor-grabbing active:border-primary/60 active:bg-secondary/40",
           "data-[overlay=true]:cursor-grabbing data-[overlay=true]:border-primary/60 data-[overlay=true]:bg-background",
           "data-[dragging=true]:cursor-grabbing data-[dragging=true]:border-primary/60 data-[dragging=true]:bg-background",
@@ -406,7 +406,7 @@ const LayoutItemContent = forwardRef<HTMLDivElement, LayoutItemContentProps>(
         )}
         {...rest}
       >
-        <DotsSixVerticalIcon className="opacity-40 transition-opacity group-hover/item:opacity-100" />
+        <DotsSixVerticalIcon className="opacity-70 transition-opacity md:opacity-40 md:group-hover/item:opacity-100" />
         <span className="truncate">{title}</span>
       </div>
     );

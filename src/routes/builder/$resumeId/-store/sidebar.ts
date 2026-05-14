@@ -10,12 +10,16 @@ type PanelImperativeHandle = ReturnType<typeof usePanelRef>;
 
 interface BuilderSidebarState {
   leftSidebar: PanelImperativeHandle | null;
+  leftSheetOpen: boolean;
   rightSidebar: PanelImperativeHandle | null;
+  rightSheetOpen: boolean;
 }
 
 interface BuilderSidebarActions {
   setLeftSidebar: (ref: PanelImperativeHandle | null) => void;
+  setLeftSheetOpen: (open: boolean) => void;
   setRightSidebar: (ref: PanelImperativeHandle | null) => void;
+  setRightSheetOpen: (open: boolean) => void;
 }
 
 type BuilderSidebar = BuilderSidebarState & BuilderSidebarActions;
@@ -23,9 +27,13 @@ type BuilderSidebar = BuilderSidebarState & BuilderSidebarActions;
 export const useBuilderSidebarStore = create<BuilderSidebar>((set) => ({
   isDragging: false,
   leftSidebar: null,
+  leftSheetOpen: false,
   rightSidebar: null,
+  rightSheetOpen: false,
   setLeftSidebar: (ref) => set({ leftSidebar: ref }),
+  setLeftSheetOpen: (open) => set({ leftSheetOpen: open }),
   setRightSidebar: (ref) => set({ rightSidebar: ref }),
+  setRightSheetOpen: (open) => set({ rightSheetOpen: open }),
 }));
 
 type UseBuilderSidebarReturn = {
@@ -63,6 +71,14 @@ export function useBuilderSidebar<T = UseBuilderSidebarReturn>(selector?: (build
 
   const toggleSidebar = useCallback(
     (side: "left" | "right", forceState?: boolean) => {
+      if (isMobile) {
+        const sheetKey = side === "left" ? "leftSheetOpen" : "rightSheetOpen";
+        const setterKey = side === "left" ? "setLeftSheetOpen" : "setRightSheetOpen";
+        const isOpen = useBuilderSidebarStore.getState()[sheetKey];
+        useBuilderSidebarStore.getState()[setterKey](forceState ?? !isOpen);
+        return;
+      }
+
       const sidebar =
         side === "left"
           ? useBuilderSidebarStore.getState().leftSidebar?.current
@@ -75,7 +91,7 @@ export function useBuilderSidebar<T = UseBuilderSidebarReturn>(selector?: (build
       if (shouldExpand) sidebar.resize(expandSize);
       else sidebar.collapse();
     },
-    [expandSize],
+    [expandSize, isMobile],
   );
 
   const state = useMemo(() => {
