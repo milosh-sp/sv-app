@@ -16,6 +16,7 @@ import {
   verificationSectionTypeEnum,
   verificationStatusEnum,
   resume,
+  user,
 } from "./schema";
 
 describe("verification enums", () => {
@@ -72,6 +73,17 @@ describe("adminRoles table", () => {
 
   it("userId is not nullable", () => {
     expect(adminRoles.userId.notNull).toBe(true);
+  });
+});
+
+describe("user table privacy policy acceptance", () => {
+  it("has required privacy policy acceptance columns", () => {
+    expect(user.privacyPolicyAcceptedAt).toBeDefined();
+    expect(user.privacyPolicyVersion).toBeDefined();
+  });
+
+  it("privacyPolicyAcceptedAt is required", () => {
+    expect(user.privacyPolicyAcceptedAt.notNull).toBe(true);
   });
 });
 

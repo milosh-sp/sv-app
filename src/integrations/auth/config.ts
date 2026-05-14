@@ -15,6 +15,7 @@ import { and, eq, or } from "drizzle-orm";
 
 import { env } from "@/utils/env";
 import { hashPassword, verifyPassword } from "@/utils/password";
+import { getPrivacyPolicyAcceptance } from "@/utils/privacy-policy";
 import { generateId, toUsername } from "@/utils/string";
 
 import { schema } from "../drizzle";
@@ -112,6 +113,7 @@ const getAuthConfig = () => {
           username,
           displayUsername: username,
           emailVerified: true,
+          ...getPrivacyPolicyAcceptance(),
         };
       },
     } satisfies GenericOAuthConfig);
@@ -183,6 +185,14 @@ const getAuthConfig = () => {
           type: "string",
           required: true,
         },
+        privacyPolicyAcceptedAt: {
+          type: "date",
+          required: true,
+        },
+        privacyPolicyVersion: {
+          type: "string",
+          required: false,
+        },
       },
     },
 
@@ -209,6 +219,7 @@ const getAuthConfig = () => {
             username: profile.email.split("@")[0],
             displayUsername: profile.email.split("@")[0],
             emailVerified: true,
+            ...getPrivacyPolicyAcceptance(),
           };
         },
       },
@@ -260,6 +271,7 @@ const getAuthConfig = () => {
             username: normalizedLogin,
             displayUsername: login,
             emailVerified: true,
+            ...getPrivacyPolicyAcceptance(),
           };
         },
       },

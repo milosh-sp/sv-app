@@ -19,6 +19,8 @@ export const user = pg.pgTable(
     username: pg.text("username").notNull().unique(),
     displayUsername: pg.text("display_username").notNull().unique(),
     twoFactorEnabled: pg.boolean("two_factor_enabled").notNull().default(false),
+    privacyPolicyAcceptedAt: pg.timestamp("privacy_policy_accepted_at", { withTimezone: true }).notNull().defaultNow(),
+    privacyPolicyVersion: pg.text("privacy_policy_version"),
     lastActiveAt: pg.timestamp("last_active_at", { withTimezone: true }),
     createdAt: pg.timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
     updatedAt: pg
