@@ -1,9 +1,9 @@
 import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
 import {
+  ArrowLeftIcon,
   CaretDownIcon,
   CopySimpleIcon,
-  HouseSimpleIcon,
   LockSimpleIcon,
   LockSimpleOpenIcon,
   PencilSimpleLineIcon,
@@ -47,21 +47,22 @@ export function BuilderHeader() {
         <SidebarSimpleIcon />
       </Button>
 
-      <div className="flex min-w-0 flex-1 items-center justify-center gap-x-1 px-2 sm:justify-start">
+      <div className="flex min-w-0 flex-1 items-center justify-center gap-x-1 px-2">
         <Button
-          size="icon"
+          size="sm"
           variant="ghost"
-          className="xs:inline-flex hidden md:size-9"
+          className="shrink-0"
           aria-label={t`Back to resumes`}
           title={t`Back to resumes`}
           nativeButton={false}
           render={
             <Link to="/dashboard/resumes" search={{ sort: "lastUpdatedAt", tags: [] }}>
-              <HouseSimpleIcon />
+              <ArrowLeftIcon />
+              <Trans>Back to resumes</Trans>
             </Link>
           }
         />
-        <span className="xs:inline me-2.5 hidden text-muted-foreground">/</span>
+        <span className="me-2.5 text-muted-foreground">/</span>
         <h2 className="min-w-0 truncate text-sm font-medium sm:text-base">{name}</h2>
         {isLocked && <LockSimpleIcon className="ms-2 text-muted-foreground" />}
         <BuilderHeaderDropdown />

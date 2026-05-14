@@ -213,8 +213,8 @@ export function ImportResumeDialog(_: DialogProps<"resume.import">) {
         </DialogTitle>
         <DialogDescription>
           <Trans>
-            Continue where you left off by importing an existing resume you created using Skill Verdict or any another
-            resume builder. Supported formats include PDF, Microsoft Word, as well as JSON files from Skill Verdict.
+            Continue where you left off by importing an existing resume you created using another resume builder.
+            Supported formats include PDF, Microsoft Word, and JSON Resume files.
           </Trans>
         </DialogDescription>
       </DialogHeader>
@@ -236,8 +236,6 @@ export function ImportResumeDialog(_: DialogProps<"resume.import">) {
                       value={field.value}
                       onValueChange={field.onChange}
                       options={[
-                        { value: "skill-verdict-json", label: "Skill Verdict (JSON)" },
-                        { value: "skill-verdict-v4-json", label: "Skill Verdict v4 (JSON)" },
                         { value: "json-resume-json", label: "JSON Resume" },
                         { value: "pdf", label: "PDF" },
                         { value: "docx", label: "Microsoft Word" },

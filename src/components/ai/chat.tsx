@@ -291,7 +291,11 @@ export function AIChat() {
         }
       />
 
-      <PopoverContent className="flex h-128 w-md flex-col gap-y-0 overflow-hidden p-0" side="top" align="center">
+      <PopoverContent
+        className="flex h-128 max-h-(--available-height) w-md max-w-(--available-width) flex-col gap-y-0 overflow-hidden p-0"
+        side="top"
+        align="center"
+      >
         <div className="flex shrink-0 items-center justify-between border-b px-3 py-1.5">
           <p className="text-xs font-medium text-muted-foreground">
             <Trans>AI Chat</Trans>
