@@ -51,10 +51,10 @@ export function Hero() {
               transition={{ duration: 0.45, delay: 0.75 }}
               style={{ willChange: "transform, opacity" }}
             >
-            <Badge variant="secondary" className="h-auto gap-1.5 px-3 py-0.5">
-              <SparkleIcon aria-hidden="true" className="size-3.5" weight="fill" />
-              <Trans>Don't chase. Attract.</Trans>
-            </Badge>
+              <Badge variant="secondary" className="h-auto gap-1.5 px-3 py-0.5">
+                <SparkleIcon aria-hidden="true" className="size-3.5" weight="fill" />
+                <Trans>Don't chase. Attract.</Trans>
+              </Badge>
             </motion.div>
 
             {/* Description */}
