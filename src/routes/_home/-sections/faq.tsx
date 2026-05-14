@@ -48,11 +48,7 @@ export function FAQ() {
         transition={{ duration: 0.45 }}
         style={{ willChange: "transform, opacity" }}
       >
-        <Trans>
-         Frequently
-         Asked
-         Questions
-        </Trans>
+        <Trans>Frequently Asked Questions</Trans>
       </motion.h2>
 
       <motion.div
