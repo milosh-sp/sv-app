@@ -1,5 +1,6 @@
 import type React from "react";
 
+import { Trans } from "@lingui/react/macro";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
@@ -13,6 +14,7 @@ import { LoadingScreen } from "@/components/layout/loading-screen";
 import { useCSSVariables } from "@/components/resume/hooks/use-css-variables";
 import { useResumeStore } from "@/components/resume/store/resume";
 import { ResizableGroup, ResizablePanel, ResizableSeparator } from "@/components/ui/resizable";
+import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { orpc } from "@/integrations/orpc/client";
 
@@ -103,6 +105,8 @@ function BuilderLayout({ initialLayout, ...props }: BuilderLayoutProps) {
   const rightSidebarSize = isMobile ? 0 : initialLayout.right;
   const artboardSize = isMobile ? 100 : initialLayout.artboard;
 
+  if (isMobile) return <MobileBuilderLayout {...props} />;
+
   return (
     <div className="flex h-svh flex-col" {...props}>
       <BuilderHeader />
@@ -138,6 +142,53 @@ function BuilderLayout({ initialLayout, ...props }: BuilderLayoutProps) {
           <BuilderSidebarRight />
         </ResizablePanel>
       </ResizableGroup>
+    </div>
+  );
+}
+
+function MobileBuilderLayout(props: React.ComponentProps<"div">) {
+  const leftSheetOpen = useBuilderSidebarStore((state) => state.leftSheetOpen);
+  const rightSheetOpen = useBuilderSidebarStore((state) => state.rightSheetOpen);
+  const setLeftSheetOpen = useBuilderSidebarStore((state) => state.setLeftSheetOpen);
+  const setRightSheetOpen = useBuilderSidebarStore((state) => state.setRightSheetOpen);
+
+  return (
+    <div className="h-svh overflow-hidden" {...props}>
+      <BuilderHeader />
+
+      <main className="h-svh">
+        <Outlet />
+      </main>
+
+      <Sheet open={leftSheetOpen} onOpenChange={setLeftSheetOpen}>
+        <SheetContent
+          side="left"
+          className="w-[min(100dvw,28rem)] gap-0 overflow-hidden p-0 pb-[env(safe-area-inset-bottom)] sm:max-w-none"
+        >
+          <SheetHeader className="h-14 shrink-0 justify-center border-b px-4 py-0">
+            <SheetTitle>
+              <Trans>Content</Trans>
+            </SheetTitle>
+          </SheetHeader>
+
+          <BuilderSidebarLeft />
+        </SheetContent>
+      </Sheet>
+
+      <Sheet open={rightSheetOpen} onOpenChange={setRightSheetOpen}>
+        <SheetContent
+          side="right"
+          className="w-[min(100dvw,28rem)] gap-0 overflow-hidden p-0 pb-[env(safe-area-inset-bottom)] sm:max-w-none"
+        >
+          <SheetHeader className="h-14 shrink-0 justify-center border-b px-4 py-0">
+            <SheetTitle>
+              <Trans>Design</Trans>
+            </SheetTitle>
+          </SheetHeader>
+
+          <BuilderSidebarRight />
+        </SheetContent>
+      </Sheet>
     </div>
   );
 }

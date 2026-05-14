@@ -73,7 +73,7 @@ export function Hero() {
 
             {/* CTA Buttons */}
             <motion.div
-              className="flex flex-col items-start gap-3 sm:flex-row sm:gap-4"
+              className="flex w-full flex-col items-center gap-3 sm:w-auto sm:flex-row sm:items-start sm:gap-4"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.45, delay: 0.95 }}

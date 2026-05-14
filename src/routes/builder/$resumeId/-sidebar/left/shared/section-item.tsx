@@ -14,7 +14,7 @@ import {
   TrashSimpleIcon,
 } from "@phosphor-icons/react";
 import { Reorder, useDragControls } from "motion/react";
-import { useMemo } from "react";
+import { Fragment, useMemo } from "react";
 
 import type {
   CustomSectionItem,
@@ -56,6 +56,7 @@ type MoveItemSubmenuProps = {
   type: CustomSectionType;
   item: CustomSectionItem | SectionItemType;
   customSectionId?: string;
+  className?: string;
 };
 
 /**
@@ -65,7 +66,7 @@ type MoveItemSubmenuProps = {
  * - Create new section on existing page
  * - Create new page with new section
  */
-function MoveItemSubmenu({ type, item, customSectionId }: MoveItemSubmenuProps) {
+function MoveItemSubmenu({ type, item, customSectionId, className }: MoveItemSubmenuProps) {
   const resume = useResumeStore((state) => state.resume);
   const updateResumeData = useResumeStore((state) => state.updateResumeData);
 
@@ -110,7 +111,7 @@ function MoveItemSubmenu({ type, item, customSectionId }: MoveItemSubmenuProps) 
 
   return (
     <DropdownMenuSub>
-      <DropdownMenuSubTrigger>
+      <DropdownMenuSubTrigger className={className}>
         <ArrowBendUpRightIcon />
         <Trans>Move to</Trans>
       </DropdownMenuSubTrigger>
@@ -153,6 +154,74 @@ function MoveItemSubmenu({ type, item, customSectionId }: MoveItemSubmenuProps) 
         </DropdownMenuItem>
       </DropdownMenuSubContent>
     </DropdownMenuSub>
+  );
+}
+
+function MoveItemMobileMenuItems({ type, item, customSectionId }: MoveItemSubmenuProps) {
+  const resume = useResumeStore((state) => state.resume);
+  const updateResumeData = useResumeStore((state) => state.updateResumeData);
+
+  const moveTargets = useMemo(
+    () => getCompatibleMoveTargets(resume.data, type, customSectionId),
+    [resume.data, type, customSectionId],
+  );
+
+  const currentSectionTitle = useMemo(
+    () => getSourceSectionTitle(resume.data, type, customSectionId),
+    [resume.data, type, customSectionId],
+  );
+
+  const handleMoveToSection = (targetSectionId: string) => {
+    updateResumeData((draft) => {
+      const removedItem = removeItemFromSource(draft, item.id, type, customSectionId);
+      if (!removedItem) return;
+      addItemToSection(draft, removedItem, targetSectionId, type);
+    });
+  };
+
+  const handleNewSectionOnPage = (pageIndex: number) => {
+    updateResumeData((draft) => {
+      const removedItem = removeItemFromSource(draft, item.id, type, customSectionId);
+      if (!removedItem) return;
+      createCustomSectionWithItem(draft, removedItem, type, currentSectionTitle, pageIndex);
+    });
+  };
+
+  const handleNewPage = () => {
+    updateResumeData((draft) => {
+      const removedItem = removeItemFromSource(draft, item.id, type, customSectionId);
+      if (!removedItem) return;
+      createPageWithSection(draft, removedItem, type, currentSectionTitle);
+    });
+  };
+
+  return (
+    <>
+      {moveTargets.map(({ pageIndex, sections }) => (
+        <Fragment key={pageIndex}>
+          {sections.map(({ sectionId, sectionTitle }) => (
+            <DropdownMenuItem key={sectionId} className="md:hidden" onClick={() => handleMoveToSection(sectionId)}>
+              <ArrowBendUpRightIcon />
+              <span className="truncate">
+                <Trans>
+                  Page {pageIndex + 1}: {sectionTitle}
+                </Trans>
+              </span>
+            </DropdownMenuItem>
+          ))}
+
+          <DropdownMenuItem className="md:hidden" onClick={() => handleNewSectionOnPage(pageIndex)}>
+            <FolderPlusIcon />
+            <Trans>New section on page {pageIndex + 1}</Trans>
+          </DropdownMenuItem>
+        </Fragment>
+      ))}
+
+      <DropdownMenuItem className="md:hidden" onClick={handleNewPage}>
+        <PlusCircleIcon />
+        <Trans>New page</Trans>
+      </DropdownMenuItem>
+    </>
   );
 }
 
@@ -246,10 +315,10 @@ export function SectionItem<T extends CustomSectionItem | SectionItemType>({
       exit={{ opacity: 0, y: -8 }}
       transition={{ duration: 0.16, ease: "easeOut" }}
       style={{ willChange: "transform, opacity" }}
-      className="group relative flex h-18 border-b select-none"
+      className="group relative flex min-h-18 border-b select-none"
     >
       <div
-        className="flex cursor-ns-resize touch-none items-center px-1.5 opacity-40 transition-[background-color,opacity] group-hover:opacity-100 hover:bg-secondary/40"
+        className="flex cursor-ns-resize touch-none items-center px-2 opacity-70 transition-[background-color,opacity] hover:bg-secondary/40 md:opacity-40 md:group-hover:opacity-100"
         onPointerDown={(e) => {
           e.preventDefault();
           controls.start(e);
@@ -261,7 +330,7 @@ export function SectionItem<T extends CustomSectionItem | SectionItemType>({
       <button
         onClick={onUpdate}
         className={cn(
-          "flex flex-1 flex-col items-start justify-center space-y-0.5 ps-1.5 text-start opacity-100 transition-opacity hover:bg-secondary/40 focus:outline-none focus-visible:ring-1",
+          "flex min-w-0 flex-1 flex-col items-start justify-center space-y-0.5 ps-1.5 text-start opacity-100 transition-opacity hover:bg-secondary/40 focus:outline-none focus-visible:ring-1",
           item.hidden && "opacity-50",
         )}
       >
@@ -270,11 +339,11 @@ export function SectionItem<T extends CustomSectionItem | SectionItemType>({
       </button>
 
       <DropdownMenu>
-        <DropdownMenuTrigger className="flex cursor-context-menu items-center px-1.5 opacity-40 transition-[background-color,opacity] group-hover:opacity-100 hover:bg-secondary/40 focus:outline-none focus-visible:ring-1">
+        <DropdownMenuTrigger className="flex cursor-context-menu items-center px-3 opacity-100 transition-[background-color,opacity] hover:bg-secondary/40 focus:outline-none focus-visible:ring-1 md:px-1.5 md:opacity-40 md:group-hover:opacity-100">
           <DotsThreeVerticalIcon />
         </DropdownMenuTrigger>
 
-        <DropdownMenuContent align="end">
+        <DropdownMenuContent align="end" className="min-w-44">
           <DropdownMenuGroup>
             <DropdownMenuItem onClick={onToggleVisibility}>
               {item.hidden ? <EyeIcon /> : <EyeClosedIcon />}
@@ -295,7 +364,8 @@ export function SectionItem<T extends CustomSectionItem | SectionItemType>({
               <Trans>Duplicate</Trans>
             </DropdownMenuItem>
 
-            <MoveItemSubmenu type={type} item={item} customSectionId={customSectionId} />
+            <MoveItemSubmenu className="hidden md:flex" type={type} item={item} customSectionId={customSectionId} />
+            <MoveItemMobileMenuItems type={type} item={item} customSectionId={customSectionId} />
           </DropdownMenuGroup>
 
           <DropdownMenuSeparator />

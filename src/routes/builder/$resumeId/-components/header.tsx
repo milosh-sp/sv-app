@@ -1,9 +1,9 @@
 import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
 import {
+  ArrowLeftIcon,
   CaretDownIcon,
   CopySimpleIcon,
-  HouseSimpleIcon,
   LockSimpleIcon,
   LockSimpleOpenIcon,
   PencilSimpleLineIcon,
@@ -35,29 +35,47 @@ export function BuilderHeader() {
   const toggleSidebar = useBuilderSidebar((state) => state.toggleSidebar);
 
   return (
-    <div className="absolute inset-x-0 top-0 z-10 flex h-14 items-center justify-between border-b bg-popover px-1.5">
-      <Button size="icon" variant="ghost" onClick={() => toggleSidebar("left")}>
+    <div className="absolute inset-x-0 top-0 z-10 flex h-14 items-center justify-between border-b bg-popover px-2">
+      <Button
+        size="icon"
+        variant="ghost"
+        className="size-10 md:size-9"
+        aria-label={t`Open content editor`}
+        title={t`Open content editor`}
+        onClick={() => toggleSidebar("left")}
+      >
         <SidebarSimpleIcon />
       </Button>
 
-      <div className="flex items-center gap-x-1">
+      <div className="flex min-w-0 flex-1 items-center justify-center gap-x-1 px-2">
         <Button
-          size="icon"
+          size="sm"
           variant="ghost"
+          className="shrink-0"
+          aria-label={t`Back to resumes`}
+          title={t`Back to resumes`}
           nativeButton={false}
           render={
             <Link to="/dashboard/resumes" search={{ sort: "lastUpdatedAt", tags: [] }}>
-              <HouseSimpleIcon />
+              <ArrowLeftIcon />
+              <Trans>Back to resumes</Trans>
             </Link>
           }
         />
         <span className="me-2.5 text-muted-foreground">/</span>
-        <h2 className="flex-1 truncate font-medium">{name}</h2>
+        <h2 className="min-w-0 truncate text-sm font-medium sm:text-base">{name}</h2>
         {isLocked && <LockSimpleIcon className="ms-2 text-muted-foreground" />}
         <BuilderHeaderDropdown />
       </div>
 
-      <Button size="icon" variant="ghost" onClick={() => toggleSidebar("right")}>
+      <Button
+        size="icon"
+        variant="ghost"
+        className="size-10 md:size-9"
+        aria-label={t`Open design settings`}
+        title={t`Open design settings`}
+        onClick={() => toggleSidebar("right")}
+      >
         <SidebarSimpleIcon className="-scale-x-100" />
       </Button>
     </div>

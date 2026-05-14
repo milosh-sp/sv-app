@@ -46,9 +46,9 @@ export function SectionBase({ type, className, ...props }: Props) {
             }
           />
 
-          <div className="flex flex-1 items-center gap-x-4">
+          <div className="flex min-w-0 flex-1 items-center gap-x-3 sm:gap-x-4">
             {getSectionIcon(type)}
-            <h2 className="line-clamp-1 text-2xl font-bold tracking-tight">
+            <h2 className="line-clamp-1 text-xl font-bold tracking-tight sm:text-2xl">
               {("title" in section && section.title) || getSectionTitle(type)}
             </h2>
           </div>
