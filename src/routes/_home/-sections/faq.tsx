@@ -48,10 +48,10 @@ export function FAQ() {
         transition={{ duration: 0.45 }}
         style={{ willChange: "transform, opacity" }}
       >
-        <Trans context="Every word needs to be wrapped in a tag">
-          <span>Frequently</span>
-          <span>Asked</span>
-          <span>Questions</span>
+        <Trans>
+         Frequently
+         Asked
+         Questions
         </Trans>
       </motion.h2>
 
