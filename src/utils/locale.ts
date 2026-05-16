@@ -166,8 +166,22 @@ export const setLocaleServerFn = createServerFn({ method: "POST" })
     setCookie(storageKey, data);
   });
 
+const loadMessages = async (locale: Locale) => {
+  const { messages } = await (import(`../../locales/${locale}.po`) as Promise<{ messages: Messages }>);
+  return messages;
+};
+
 export const loadLocale = async (locale: string) => {
   if (!isLocale(locale)) locale = defaultLocale;
-  const { messages } = await (import(`../../locales/${locale}.po`) as Promise<{ messages: Messages }>);
-  i18n.loadAndActivate({ locale, messages });
+
+  const messages = await loadMessages(locale);
+  if (locale === defaultLocale) {
+    i18n.loadAndActivate({ locale, messages });
+    return;
+  }
+
+  const defaultMessages = await loadMessages(defaultLocale);
+  const translatedMessages = Object.fromEntries(Object.entries(messages).filter(([, message]) => message !== ""));
+
+  i18n.loadAndActivate({ locale, messages: { ...defaultMessages, ...translatedMessages } });
 };
