@@ -172,16 +172,16 @@ const loadMessages = async (locale: Locale) => {
 };
 
 export const loadLocale = async (locale: string) => {
-  if (!isLocale(locale)) locale = defaultLocale;
+  const activeLocale = isLocale(locale) ? locale : defaultLocale;
 
-  const messages = await loadMessages(locale);
-  if (locale === defaultLocale) {
-    i18n.loadAndActivate({ locale, messages });
+  const messages = await loadMessages(activeLocale);
+  if (activeLocale === defaultLocale) {
+    i18n.loadAndActivate({ locale: activeLocale, messages });
     return;
   }
 
   const defaultMessages = await loadMessages(defaultLocale);
   const translatedMessages = Object.fromEntries(Object.entries(messages).filter(([, message]) => message !== ""));
 
-  i18n.loadAndActivate({ locale, messages: { ...defaultMessages, ...translatedMessages } });
+  i18n.loadAndActivate({ locale: activeLocale, messages: { ...defaultMessages, ...translatedMessages } });
 };
