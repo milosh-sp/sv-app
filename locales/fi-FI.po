@@ -841,6 +841,7 @@ msgstr "Sisältö"
 #: src/dialogs/auth/enable-two-factor.tsx
 #: src/routes/auth/register.tsx
 #: src/routes/dashboard/verification/index.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Continue"
 msgstr "Jatka"
 
@@ -1314,6 +1315,7 @@ msgstr "Sähköpostiosoite"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/users.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Email verified"
 msgstr "Email verified"
 
@@ -2867,10 +2869,12 @@ msgid "Required: reason for overriding this verdict..."
 msgstr "Required: reason for overriding this verdict..."
 
 #: src/routes/dashboard/settings/profile.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Resend verification email"
 msgstr "Lähetä vahvistussähköposti uudelleen"
 
 #: src/routes/dashboard/settings/profile.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Resending verification email..."
 msgstr "Lähetetään vahvistussähköpostia uudelleen..."
 
@@ -3232,6 +3236,7 @@ msgid "Sidebar Width"
 msgstr "Sivupalkin leveys"
 
 #: src/routes/auth/login.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Sign in"
 msgstr "Kirjaudu sisään"
 
@@ -4231,3 +4236,67 @@ msgstr "Loitonna"
 #: src/utils/locale.ts
 msgid "Zulu"
 msgstr "Zulu"
+
+#: src/routes/auth/verify-email.tsx
+msgid "A new verification link has been sent to your email address."
+msgstr "Uusi vahvistuslinkki on lähetetty sähköpostiosoitteeseesi."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Check your inbox"
+msgstr "Tarkista saapuneet-kansiosi"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Failed to resend verification email. Please try again."
+msgstr "Vahvistussähköpostin uudelleenlähetys epäonnistui. Yritä uudelleen."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Request a new link"
+msgstr "Pyydä uusi linkki"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to your account to request a new verification email."
+msgstr "Kirjaudu tilillesi pyytääksesi uuden vahvistussähköpostin."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to your account, then request a new verification email."
+msgstr "Kirjaudu tilillesi ja pyydä sitten uusi vahvistussähköposti."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to verify your email"
+msgstr "Kirjaudu sisään vahvistaaksesi sähköpostisi"
+
+#: src/routes/auth/verify-email.tsx
+msgid "The verification link may be invalid, expired, or already used."
+msgstr "Vahvistuslinkki voi olla virheellinen, vanhentunut tai jo käytetty."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Try requesting a new verification link."
+msgstr "Yritä pyytää uutta vahvistuslinkkiä."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Verify your email"
+msgstr "Vahvista sähköpostisi"
+
+#: src/routes/auth/verify-email.tsx
+msgid "We couldn't verify your email"
+msgstr "Emme voineet vahvistaa sähköpostiasi"
+
+#: src/routes/auth/verify-email.tsx
+msgid "We sent a verification link to your email address."
+msgstr "Lähetimme vahvistuslinkin sähköpostiosoitteeseesi."
+
+#: src/routes/auth/verify-email.tsx
+msgid "You can now use account recovery and other features that require a verified email address."
+msgstr "Voit nyt käyttää tilin palautusta ja muita ominaisuuksia, jotka edellyttävät vahvistettua sähköpostiosoitetta."
+
+#: src/routes/auth/verify-email.tsx
+msgid "You must verify your email address before you can access Skill Verdict."
+msgstr "Sinun on vahvistettava sähköpostiosoitteesi ennen kuin voit käyttää Skill Verdictiä."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Your account is up to date."
+msgstr "Tilisi on ajan tasalla."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Your email address is confirmed. You can continue using Skill Verdict."
+msgstr "Sähköpostiosoitteesi on vahvistettu. Voit jatkaa Skill Verdictin käyttöä."

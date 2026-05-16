@@ -841,6 +841,7 @@ msgstr "सामग्री"
 #: src/dialogs/auth/enable-two-factor.tsx
 #: src/routes/auth/register.tsx
 #: src/routes/dashboard/verification/index.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Continue"
 msgstr "पुढे"
 
@@ -1314,6 +1315,7 @@ msgstr "ईमेल पत्ता"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/users.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Email verified"
 msgstr "Email verified"
 
@@ -2867,10 +2869,12 @@ msgid "Required: reason for overriding this verdict..."
 msgstr "Required: reason for overriding this verdict..."
 
 #: src/routes/dashboard/settings/profile.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Resend verification email"
 msgstr "पडताळणी ईमेल पुन्हा पाठवा"
 
 #: src/routes/dashboard/settings/profile.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Resending verification email..."
 msgstr "पडताळणी ईमेल पुन्हा पाठवला जात आहे..."
 
@@ -3232,6 +3236,7 @@ msgid "Sidebar Width"
 msgstr "साइडबारची रुंदी"
 
 #: src/routes/auth/login.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Sign in"
 msgstr "साइन इन"
 
@@ -4231,3 +4236,67 @@ msgstr "बाहेर झूम करा"
 #: src/utils/locale.ts
 msgid "Zulu"
 msgstr "झुलू"
+
+#: src/routes/auth/verify-email.tsx
+msgid "A new verification link has been sent to your email address."
+msgstr "तुमच्या ईमेल पत्त्यावर नवीन पडताळणी दुवा पाठवला आहे."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Check your inbox"
+msgstr "तुमचा इनबॉक्स तपासा"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Failed to resend verification email. Please try again."
+msgstr "पडताळणी ईमेल पुन्हा पाठवता आला नाही. कृपया पुन्हा प्रयत्न करा."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Request a new link"
+msgstr "नवीन दुवा मागवा"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to your account to request a new verification email."
+msgstr "नवीन पडताळणी ईमेल मागवण्यासाठी तुमच्या खात्यात साइन इन करा."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to your account, then request a new verification email."
+msgstr "तुमच्या खात्यात साइन इन करा, नंतर नवीन पडताळणी ईमेल मागवा."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to verify your email"
+msgstr "तुमचा ईमेल पडताळण्यासाठी साइन इन करा"
+
+#: src/routes/auth/verify-email.tsx
+msgid "The verification link may be invalid, expired, or already used."
+msgstr "पडताळणी दुवा अवैध, कालबाह्य किंवा आधीच वापरलेला असू शकतो."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Try requesting a new verification link."
+msgstr "नवीन पडताळणी दुवा मागवण्याचा प्रयत्न करा."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Verify your email"
+msgstr "तुमचा ईमेल पडताळा"
+
+#: src/routes/auth/verify-email.tsx
+msgid "We couldn't verify your email"
+msgstr "आम्ही तुमचा ईमेल पडताळू शकलो नाही"
+
+#: src/routes/auth/verify-email.tsx
+msgid "We sent a verification link to your email address."
+msgstr "आम्ही तुमच्या ईमेल पत्त्यावर पडताळणी दुवा पाठवला आहे."
+
+#: src/routes/auth/verify-email.tsx
+msgid "You can now use account recovery and other features that require a verified email address."
+msgstr "आता तुम्ही पडताळलेल्या ईमेल पत्त्याची आवश्यकता असलेली खाते पुनर्प्राप्ती आणि इतर वैशिष्ट्ये वापरू शकता."
+
+#: src/routes/auth/verify-email.tsx
+msgid "You must verify your email address before you can access Skill Verdict."
+msgstr "Skill Verdict मध्ये प्रवेश करण्यापूर्वी तुम्ही तुमचा ईमेल पत्ता पडताळणे आवश्यक आहे."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Your account is up to date."
+msgstr "तुमचे खाते अद्ययावत आहे."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Your email address is confirmed. You can continue using Skill Verdict."
+msgstr "तुमचा ईमेल पत्ता पुष्टी झाला आहे. तुम्ही Skill Verdict वापरणे सुरू ठेवू शकता."

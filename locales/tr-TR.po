@@ -841,6 +841,7 @@ msgstr "İçerik"
 #: src/dialogs/auth/enable-two-factor.tsx
 #: src/routes/auth/register.tsx
 #: src/routes/dashboard/verification/index.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Continue"
 msgstr "Devam et"
 
@@ -1314,6 +1315,7 @@ msgstr "E-Posta Adresi"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/users.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Email verified"
 msgstr "Email verified"
 
@@ -2867,10 +2869,12 @@ msgid "Required: reason for overriding this verdict..."
 msgstr "Required: reason for overriding this verdict..."
 
 #: src/routes/dashboard/settings/profile.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Resend verification email"
 msgstr "Doğrulama e-postasını tekrar gönder"
 
 #: src/routes/dashboard/settings/profile.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Resending verification email..."
 msgstr "Doğrulama e-postası tekrar gönderiliyor..."
 
@@ -3232,6 +3236,7 @@ msgid "Sidebar Width"
 msgstr "Kenar Çubuğu Genişliği"
 
 #: src/routes/auth/login.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Sign in"
 msgstr "Giriş yap"
 
@@ -4231,3 +4236,67 @@ msgstr "Uzaklaştır"
 #: src/utils/locale.ts
 msgid "Zulu"
 msgstr "Zulu"
+
+#: src/routes/auth/verify-email.tsx
+msgid "A new verification link has been sent to your email address."
+msgstr "E-posta adresinize yeni bir doğrulama bağlantısı gönderildi."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Check your inbox"
+msgstr "Gelen kutunuzu kontrol edin"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Failed to resend verification email. Please try again."
+msgstr "Doğrulama e-postası yeniden gönderilemedi. Lütfen tekrar deneyin."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Request a new link"
+msgstr "Yeni bağlantı iste"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to your account to request a new verification email."
+msgstr "Yeni bir doğrulama e-postası istemek için hesabınıza giriş yapın."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to your account, then request a new verification email."
+msgstr "Hesabınıza giriş yapın, ardından yeni bir doğrulama e-postası isteyin."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to verify your email"
+msgstr "E-postanızı doğrulamak için giriş yapın"
+
+#: src/routes/auth/verify-email.tsx
+msgid "The verification link may be invalid, expired, or already used."
+msgstr "Doğrulama bağlantısı geçersiz, süresi dolmuş veya zaten kullanılmış olabilir."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Try requesting a new verification link."
+msgstr "Yeni bir doğrulama bağlantısı istemeyi deneyin."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Verify your email"
+msgstr "E-postanızı doğrulayın"
+
+#: src/routes/auth/verify-email.tsx
+msgid "We couldn't verify your email"
+msgstr "E-postanızı doğrulayamadık"
+
+#: src/routes/auth/verify-email.tsx
+msgid "We sent a verification link to your email address."
+msgstr "E-posta adresinize bir doğrulama bağlantısı gönderdik."
+
+#: src/routes/auth/verify-email.tsx
+msgid "You can now use account recovery and other features that require a verified email address."
+msgstr "Artık doğrulanmış e-posta adresi gerektiren hesap kurtarma ve diğer özellikleri kullanabilirsiniz."
+
+#: src/routes/auth/verify-email.tsx
+msgid "You must verify your email address before you can access Skill Verdict."
+msgstr "Skill Verdict'e erişmeden önce e-posta adresinizi doğrulamalısınız."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Your account is up to date."
+msgstr "Hesabınız güncel."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Your email address is confirmed. You can continue using Skill Verdict."
+msgstr "E-posta adresiniz onaylandı. Skill Verdict'i kullanmaya devam edebilirsiniz."

@@ -841,6 +841,7 @@ msgstr "Inhoud"
 #: src/dialogs/auth/enable-two-factor.tsx
 #: src/routes/auth/register.tsx
 #: src/routes/dashboard/verification/index.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Continue"
 msgstr "Gaan voort"
 
@@ -1314,6 +1315,7 @@ msgstr "E-posadres"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/users.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Email verified"
 msgstr "Email verified"
 
@@ -2867,10 +2869,12 @@ msgid "Required: reason for overriding this verdict..."
 msgstr "Required: reason for overriding this verdict..."
 
 #: src/routes/dashboard/settings/profile.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Resend verification email"
 msgstr "Stuur verifikasie-e-pos weer"
 
 #: src/routes/dashboard/settings/profile.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Resending verification email..."
 msgstr "Stuur tans verifikasie-e-pos weer..."
 
@@ -3232,6 +3236,7 @@ msgid "Sidebar Width"
 msgstr "Sybalkbreedte"
 
 #: src/routes/auth/login.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Sign in"
 msgstr "Meld aan"
 
@@ -4231,3 +4236,67 @@ msgstr "Zoem uit"
 #: src/utils/locale.ts
 msgid "Zulu"
 msgstr "Zoeloe"
+
+#: src/routes/auth/verify-email.tsx
+msgid "A new verification link has been sent to your email address."
+msgstr "'n Nuwe verifikasieskakel is na jou e-posadres gestuur."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Check your inbox"
+msgstr "Gaan jou inkassie na"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Failed to resend verification email. Please try again."
+msgstr "Kon nie die verifikasie-e-pos weer stuur nie. Probeer asseblief weer."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Request a new link"
+msgstr "Versoek 'n nuwe skakel"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to your account to request a new verification email."
+msgstr "Meld by jou rekening aan om 'n nuwe verifikasie-e-pos te versoek."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to your account, then request a new verification email."
+msgstr "Meld by jou rekening aan en versoek dan 'n nuwe verifikasie-e-pos."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to verify your email"
+msgstr "Meld aan om jou e-pos te verifieer"
+
+#: src/routes/auth/verify-email.tsx
+msgid "The verification link may be invalid, expired, or already used."
+msgstr "Die verifikasieskakel is dalk ongeldig, verval of reeds gebruik."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Try requesting a new verification link."
+msgstr "Probeer om 'n nuwe verifikasieskakel te versoek."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Verify your email"
+msgstr "Verifieer jou e-pos"
+
+#: src/routes/auth/verify-email.tsx
+msgid "We couldn't verify your email"
+msgstr "Ons kon nie jou e-pos verifieer nie"
+
+#: src/routes/auth/verify-email.tsx
+msgid "We sent a verification link to your email address."
+msgstr "Ons het 'n verifikasieskakel na jou e-posadres gestuur."
+
+#: src/routes/auth/verify-email.tsx
+msgid "You can now use account recovery and other features that require a verified email address."
+msgstr "Jy kan nou rekeningherstel en ander kenmerke gebruik wat 'n geverifieerde e-posadres vereis."
+
+#: src/routes/auth/verify-email.tsx
+msgid "You must verify your email address before you can access Skill Verdict."
+msgstr "Jy moet jou e-posadres verifieer voordat jy toegang tot Skill Verdict kan kry."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Your account is up to date."
+msgstr "Jou rekening is op datum."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Your email address is confirmed. You can continue using Skill Verdict."
+msgstr "Jou e-posadres is bevestig. Jy kan voortgaan om Skill Verdict te gebruik."

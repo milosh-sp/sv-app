@@ -841,6 +841,7 @@ msgstr "Konten"
 #: src/dialogs/auth/enable-two-factor.tsx
 #: src/routes/auth/register.tsx
 #: src/routes/dashboard/verification/index.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Continue"
 msgstr "Lanjutkan"
 
@@ -1314,6 +1315,7 @@ msgstr "Alamat Email"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/users.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Email verified"
 msgstr "Email verified"
 
@@ -2867,10 +2869,12 @@ msgid "Required: reason for overriding this verdict..."
 msgstr "Required: reason for overriding this verdict..."
 
 #: src/routes/dashboard/settings/profile.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Resend verification email"
 msgstr "Kirim ulang email verifikasi"
 
 #: src/routes/dashboard/settings/profile.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Resending verification email..."
 msgstr "Mengirim ulang email verifikasi..."
 
@@ -3232,6 +3236,7 @@ msgid "Sidebar Width"
 msgstr "Lebar Bilah Sisi"
 
 #: src/routes/auth/login.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Sign in"
 msgstr "Masuk"
 
@@ -4231,3 +4236,67 @@ msgstr "Perkecil"
 #: src/utils/locale.ts
 msgid "Zulu"
 msgstr "Zulu"
+
+#: src/routes/auth/verify-email.tsx
+msgid "A new verification link has been sent to your email address."
+msgstr "Tautan verifikasi baru telah dikirim ke alamat email Anda."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Check your inbox"
+msgstr "Periksa kotak masuk Anda"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Failed to resend verification email. Please try again."
+msgstr "Gagal mengirim ulang email verifikasi. Silakan coba lagi."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Request a new link"
+msgstr "Minta tautan baru"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to your account to request a new verification email."
+msgstr "Masuk ke akun Anda untuk meminta email verifikasi baru."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to your account, then request a new verification email."
+msgstr "Masuk ke akun Anda, lalu minta email verifikasi baru."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to verify your email"
+msgstr "Masuk untuk memverifikasi email Anda"
+
+#: src/routes/auth/verify-email.tsx
+msgid "The verification link may be invalid, expired, or already used."
+msgstr "Tautan verifikasi mungkin tidak valid, kedaluwarsa, atau sudah digunakan."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Try requesting a new verification link."
+msgstr "Coba minta tautan verifikasi baru."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Verify your email"
+msgstr "Verifikasi email Anda"
+
+#: src/routes/auth/verify-email.tsx
+msgid "We couldn't verify your email"
+msgstr "Kami tidak dapat memverifikasi email Anda"
+
+#: src/routes/auth/verify-email.tsx
+msgid "We sent a verification link to your email address."
+msgstr "Kami telah mengirim tautan verifikasi ke alamat email Anda."
+
+#: src/routes/auth/verify-email.tsx
+msgid "You can now use account recovery and other features that require a verified email address."
+msgstr "Anda sekarang dapat menggunakan pemulihan akun dan fitur lain yang memerlukan alamat email terverifikasi."
+
+#: src/routes/auth/verify-email.tsx
+msgid "You must verify your email address before you can access Skill Verdict."
+msgstr "Anda harus memverifikasi alamat email sebelum dapat mengakses Skill Verdict."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Your account is up to date."
+msgstr "Akun Anda sudah diperbarui."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Your email address is confirmed. You can continue using Skill Verdict."
+msgstr "Alamat email Anda telah dikonfirmasi. Anda dapat terus menggunakan Skill Verdict."

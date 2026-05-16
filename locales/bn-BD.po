@@ -841,6 +841,7 @@ msgstr "বিষয়বস্তু"
 #: src/dialogs/auth/enable-two-factor.tsx
 #: src/routes/auth/register.tsx
 #: src/routes/dashboard/verification/index.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Continue"
 msgstr "চালিয়ে যান"
 
@@ -1314,6 +1315,7 @@ msgstr "ইমেইল ঠিকানা"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/users.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Email verified"
 msgstr "Email verified"
 
@@ -2867,10 +2869,12 @@ msgid "Required: reason for overriding this verdict..."
 msgstr "Required: reason for overriding this verdict..."
 
 #: src/routes/dashboard/settings/profile.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Resend verification email"
 msgstr "যাচাইকরণের ইমেইল পুনরায় পাঠান"
 
 #: src/routes/dashboard/settings/profile.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Resending verification email..."
 msgstr "যাচাইকরণের ইমেইল পুনরায় পাঠানো হচ্ছে..."
 
@@ -3232,6 +3236,7 @@ msgid "Sidebar Width"
 msgstr "সাইডবার প্রস্থ"
 
 #: src/routes/auth/login.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Sign in"
 msgstr "সাইন ইন"
 
@@ -4231,3 +4236,67 @@ msgstr "জুম আউট"
 #: src/utils/locale.ts
 msgid "Zulu"
 msgstr "জুলু"
+
+#: src/routes/auth/verify-email.tsx
+msgid "A new verification link has been sent to your email address."
+msgstr "আপনার ইমেইল ঠিকানায় একটি নতুন যাচাইকরণ লিংক পাঠানো হয়েছে।"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Check your inbox"
+msgstr "আপনার ইনবক্স দেখুন"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Failed to resend verification email. Please try again."
+msgstr "যাচাইকরণ ইমেইল পুনরায় পাঠানো যায়নি। অনুগ্রহ করে আবার চেষ্টা করুন।"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Request a new link"
+msgstr "নতুন লিংক অনুরোধ করুন"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to your account to request a new verification email."
+msgstr "নতুন যাচাইকরণ ইমেইল অনুরোধ করতে আপনার অ্যাকাউন্টে সাইন ইন করুন।"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to your account, then request a new verification email."
+msgstr "আপনার অ্যাকাউন্টে সাইন ইন করুন, তারপর নতুন যাচাইকরণ ইমেইল অনুরোধ করুন।"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to verify your email"
+msgstr "আপনার ইমেইল যাচাই করতে সাইন ইন করুন"
+
+#: src/routes/auth/verify-email.tsx
+msgid "The verification link may be invalid, expired, or already used."
+msgstr "যাচাইকরণ লিংকটি অবৈধ, মেয়াদোত্তীর্ণ বা ইতিমধ্যে ব্যবহৃত হতে পারে।"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Try requesting a new verification link."
+msgstr "নতুন যাচাইকরণ লিংক অনুরোধ করার চেষ্টা করুন।"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Verify your email"
+msgstr "আপনার ইমেইল যাচাই করুন"
+
+#: src/routes/auth/verify-email.tsx
+msgid "We couldn't verify your email"
+msgstr "আমরা আপনার ইমেইল যাচাই করতে পারিনি"
+
+#: src/routes/auth/verify-email.tsx
+msgid "We sent a verification link to your email address."
+msgstr "আমরা আপনার ইমেইল ঠিকানায় একটি যাচাইকরণ লিংক পাঠিয়েছি।"
+
+#: src/routes/auth/verify-email.tsx
+msgid "You can now use account recovery and other features that require a verified email address."
+msgstr "আপনি এখন অ্যাকাউন্ট পুনরুদ্ধার এবং যাচাইকৃত ইমেইল ঠিকানা প্রয়োজন এমন অন্যান্য সুবিধা ব্যবহার করতে পারেন।"
+
+#: src/routes/auth/verify-email.tsx
+msgid "You must verify your email address before you can access Skill Verdict."
+msgstr "Skill Verdict-এ প্রবেশ করার আগে আপনাকে আপনার ইমেইল ঠিকানা যাচাই করতে হবে।"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Your account is up to date."
+msgstr "আপনার অ্যাকাউন্ট আপ টু ডেট।"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Your email address is confirmed. You can continue using Skill Verdict."
+msgstr "আপনার ইমেইল ঠিকানা নিশ্চিত হয়েছে। আপনি Skill Verdict ব্যবহার চালিয়ে যেতে পারেন।"

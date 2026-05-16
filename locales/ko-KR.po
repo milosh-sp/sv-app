@@ -841,6 +841,7 @@ msgstr "내용"
 #: src/dialogs/auth/enable-two-factor.tsx
 #: src/routes/auth/register.tsx
 #: src/routes/dashboard/verification/index.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Continue"
 msgstr "계속"
 
@@ -1314,6 +1315,7 @@ msgstr "이메일 주소"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/users.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Email verified"
 msgstr "Email verified"
 
@@ -2867,10 +2869,12 @@ msgid "Required: reason for overriding this verdict..."
 msgstr "Required: reason for overriding this verdict..."
 
 #: src/routes/dashboard/settings/profile.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Resend verification email"
 msgstr "인증 이메일 다시 보내기"
 
 #: src/routes/dashboard/settings/profile.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Resending verification email..."
 msgstr "인증 이메일을 다시 보내는 중입니다..."
 
@@ -3232,6 +3236,7 @@ msgid "Sidebar Width"
 msgstr "사이드바 너비"
 
 #: src/routes/auth/login.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Sign in"
 msgstr "로그인"
 
@@ -4231,3 +4236,67 @@ msgstr "축소"
 #: src/utils/locale.ts
 msgid "Zulu"
 msgstr "줄루어"
+
+#: src/routes/auth/verify-email.tsx
+msgid "A new verification link has been sent to your email address."
+msgstr "새 인증 링크가 이메일 주소로 전송되었습니다."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Check your inbox"
+msgstr "받은편지함을 확인하세요"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Failed to resend verification email. Please try again."
+msgstr "인증 이메일을 다시 보내지 못했습니다. 다시 시도해 주세요."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Request a new link"
+msgstr "새 링크 요청"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to your account to request a new verification email."
+msgstr "새 인증 이메일을 요청하려면 계정에 로그인하세요."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to your account, then request a new verification email."
+msgstr "계정에 로그인한 다음 새 인증 이메일을 요청하세요."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to verify your email"
+msgstr "이메일을 인증하려면 로그인하세요"
+
+#: src/routes/auth/verify-email.tsx
+msgid "The verification link may be invalid, expired, or already used."
+msgstr "인증 링크가 유효하지 않거나 만료되었거나 이미 사용되었을 수 있습니다."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Try requesting a new verification link."
+msgstr "새 인증 링크를 요청해 보세요."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Verify your email"
+msgstr "이메일 인증"
+
+#: src/routes/auth/verify-email.tsx
+msgid "We couldn't verify your email"
+msgstr "이메일을 인증할 수 없습니다"
+
+#: src/routes/auth/verify-email.tsx
+msgid "We sent a verification link to your email address."
+msgstr "이메일 주소로 인증 링크를 보냈습니다."
+
+#: src/routes/auth/verify-email.tsx
+msgid "You can now use account recovery and other features that require a verified email address."
+msgstr "이제 인증된 이메일 주소가 필요한 계정 복구 및 기타 기능을 사용할 수 있습니다."
+
+#: src/routes/auth/verify-email.tsx
+msgid "You must verify your email address before you can access Skill Verdict."
+msgstr "Skill Verdict에 액세스하려면 먼저 이메일 주소를 인증해야 합니다."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Your account is up to date."
+msgstr "계정이 최신 상태입니다."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Your email address is confirmed. You can continue using Skill Verdict."
+msgstr "이메일 주소가 확인되었습니다. Skill Verdict를 계속 사용할 수 있습니다."

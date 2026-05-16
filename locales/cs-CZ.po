@@ -841,6 +841,7 @@ msgstr "Obsah"
 #: src/dialogs/auth/enable-two-factor.tsx
 #: src/routes/auth/register.tsx
 #: src/routes/dashboard/verification/index.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Continue"
 msgstr "Pokračovat"
 
@@ -1314,6 +1315,7 @@ msgstr "E-mailová adresa"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/users.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Email verified"
 msgstr "Email verified"
 
@@ -2867,10 +2869,12 @@ msgid "Required: reason for overriding this verdict..."
 msgstr "Required: reason for overriding this verdict..."
 
 #: src/routes/dashboard/settings/profile.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Resend verification email"
 msgstr "Znovu odeslat ověřovací e-mail"
 
 #: src/routes/dashboard/settings/profile.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Resending verification email..."
 msgstr "Opětovné odesílání ověřovacího e-mailu…"
 
@@ -3232,6 +3236,7 @@ msgid "Sidebar Width"
 msgstr "Šířka postranního panelu"
 
 #: src/routes/auth/login.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Sign in"
 msgstr "Přihlásit se"
 
@@ -4231,3 +4236,67 @@ msgstr "Oddálit"
 #: src/utils/locale.ts
 msgid "Zulu"
 msgstr "Zulu"
+
+#: src/routes/auth/verify-email.tsx
+msgid "A new verification link has been sent to your email address."
+msgstr "Na vaši e-mailovou adresu byl odeslán nový ověřovací odkaz."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Check your inbox"
+msgstr "Zkontrolujte doručenou poštu"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Failed to resend verification email. Please try again."
+msgstr "Nepodařilo se znovu odeslat ověřovací e-mail. Zkuste to prosím znovu."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Request a new link"
+msgstr "Požádat o nový odkaz"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to your account to request a new verification email."
+msgstr "Přihlaste se ke svému účtu a požádejte o nový ověřovací e-mail."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to your account, then request a new verification email."
+msgstr "Přihlaste se ke svému účtu a poté požádejte o nový ověřovací e-mail."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to verify your email"
+msgstr "Přihlaste se pro ověření e-mailu"
+
+#: src/routes/auth/verify-email.tsx
+msgid "The verification link may be invalid, expired, or already used."
+msgstr "Ověřovací odkaz může být neplatný, vypršel nebo již byl použit."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Try requesting a new verification link."
+msgstr "Zkuste požádat o nový ověřovací odkaz."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Verify your email"
+msgstr "Ověřte svůj e-mail"
+
+#: src/routes/auth/verify-email.tsx
+msgid "We couldn't verify your email"
+msgstr "Nepodařilo se nám ověřit váš e-mail"
+
+#: src/routes/auth/verify-email.tsx
+msgid "We sent a verification link to your email address."
+msgstr "Na vaši e-mailovou adresu jsme odeslali ověřovací odkaz."
+
+#: src/routes/auth/verify-email.tsx
+msgid "You can now use account recovery and other features that require a verified email address."
+msgstr "Nyní můžete používat obnovení účtu a další funkce, které vyžadují ověřenou e-mailovou adresu."
+
+#: src/routes/auth/verify-email.tsx
+msgid "You must verify your email address before you can access Skill Verdict."
+msgstr "Před přístupem ke Skill Verdict musíte ověřit svou e-mailovou adresu."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Your account is up to date."
+msgstr "Váš účet je aktuální."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Your email address is confirmed. You can continue using Skill Verdict."
+msgstr "Vaše e-mailová adresa je potvrzena. Můžete pokračovat v používání Skill Verdict."

@@ -841,6 +841,7 @@ msgstr "Nội dung"
 #: src/dialogs/auth/enable-two-factor.tsx
 #: src/routes/auth/register.tsx
 #: src/routes/dashboard/verification/index.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Continue"
 msgstr "Tiếp tục"
 
@@ -1314,6 +1315,7 @@ msgstr "Địa chỉ Email"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/users.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Email verified"
 msgstr "Email verified"
 
@@ -2867,10 +2869,12 @@ msgid "Required: reason for overriding this verdict..."
 msgstr "Required: reason for overriding this verdict..."
 
 #: src/routes/dashboard/settings/profile.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Resend verification email"
 msgstr "Gửi lại email xác minh"
 
 #: src/routes/dashboard/settings/profile.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Resending verification email..."
 msgstr "Đang gửi lại email xác minh..."
 
@@ -3232,6 +3236,7 @@ msgid "Sidebar Width"
 msgstr "Độ rộng thanh bên"
 
 #: src/routes/auth/login.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Sign in"
 msgstr "Đăng nhập"
 
@@ -4231,3 +4236,67 @@ msgstr "Thu nhỏ"
 #: src/utils/locale.ts
 msgid "Zulu"
 msgstr "Zulu"
+
+#: src/routes/auth/verify-email.tsx
+msgid "A new verification link has been sent to your email address."
+msgstr "Một liên kết xác minh mới đã được gửi đến địa chỉ email của bạn."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Check your inbox"
+msgstr "Kiểm tra hộp thư đến của bạn"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Failed to resend verification email. Please try again."
+msgstr "Không thể gửi lại email xác minh. Vui lòng thử lại."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Request a new link"
+msgstr "Yêu cầu liên kết mới"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to your account to request a new verification email."
+msgstr "Đăng nhập vào tài khoản của bạn để yêu cầu email xác minh mới."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to your account, then request a new verification email."
+msgstr "Đăng nhập vào tài khoản của bạn, sau đó yêu cầu email xác minh mới."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to verify your email"
+msgstr "Đăng nhập để xác minh email của bạn"
+
+#: src/routes/auth/verify-email.tsx
+msgid "The verification link may be invalid, expired, or already used."
+msgstr "Liên kết xác minh có thể không hợp lệ, đã hết hạn hoặc đã được sử dụng."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Try requesting a new verification link."
+msgstr "Hãy thử yêu cầu một liên kết xác minh mới."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Verify your email"
+msgstr "Xác minh email của bạn"
+
+#: src/routes/auth/verify-email.tsx
+msgid "We couldn't verify your email"
+msgstr "Chúng tôi không thể xác minh email của bạn"
+
+#: src/routes/auth/verify-email.tsx
+msgid "We sent a verification link to your email address."
+msgstr "Chúng tôi đã gửi một liên kết xác minh đến địa chỉ email của bạn."
+
+#: src/routes/auth/verify-email.tsx
+msgid "You can now use account recovery and other features that require a verified email address."
+msgstr "Giờ đây bạn có thể sử dụng khôi phục tài khoản và các tính năng khác yêu cầu địa chỉ email đã xác minh."
+
+#: src/routes/auth/verify-email.tsx
+msgid "You must verify your email address before you can access Skill Verdict."
+msgstr "Bạn phải xác minh địa chỉ email trước khi có thể truy cập Skill Verdict."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Your account is up to date."
+msgstr "Tài khoản của bạn đã được cập nhật."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Your email address is confirmed. You can continue using Skill Verdict."
+msgstr "Địa chỉ email của bạn đã được xác nhận. Bạn có thể tiếp tục sử dụng Skill Verdict."

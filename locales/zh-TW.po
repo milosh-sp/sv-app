@@ -841,6 +841,7 @@ msgstr "內容"
 #: src/dialogs/auth/enable-two-factor.tsx
 #: src/routes/auth/register.tsx
 #: src/routes/dashboard/verification/index.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Continue"
 msgstr "繼續"
 
@@ -1314,6 +1315,7 @@ msgstr "電子郵件地址"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/users.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Email verified"
 msgstr "Email verified"
 
@@ -2867,10 +2869,12 @@ msgid "Required: reason for overriding this verdict..."
 msgstr "Required: reason for overriding this verdict..."
 
 #: src/routes/dashboard/settings/profile.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Resend verification email"
 msgstr "重新傳送驗證電子郵件"
 
 #: src/routes/dashboard/settings/profile.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Resending verification email..."
 msgstr "正在重新傳送驗證電子郵件…"
 
@@ -3232,6 +3236,7 @@ msgid "Sidebar Width"
 msgstr "側邊欄寬度"
 
 #: src/routes/auth/login.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Sign in"
 msgstr "登入"
 
@@ -4231,3 +4236,67 @@ msgstr "縮小"
 #: src/utils/locale.ts
 msgid "Zulu"
 msgstr "祖魯語"
+
+#: src/routes/auth/verify-email.tsx
+msgid "A new verification link has been sent to your email address."
+msgstr "新的驗證連結已傳送到你的電子郵件地址。"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Check your inbox"
+msgstr "檢查你的收件匣"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Failed to resend verification email. Please try again."
+msgstr "無法重新傳送驗證電子郵件。請再試一次。"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Request a new link"
+msgstr "要求新的連結"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to your account to request a new verification email."
+msgstr "登入你的帳戶以要求新的驗證電子郵件。"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to your account, then request a new verification email."
+msgstr "登入你的帳戶，然後要求新的驗證電子郵件。"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to verify your email"
+msgstr "登入以驗證你的電子郵件"
+
+#: src/routes/auth/verify-email.tsx
+msgid "The verification link may be invalid, expired, or already used."
+msgstr "驗證連結可能無效、已過期或已被使用。"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Try requesting a new verification link."
+msgstr "請嘗試要求新的驗證連結。"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Verify your email"
+msgstr "驗證你的電子郵件"
+
+#: src/routes/auth/verify-email.tsx
+msgid "We couldn't verify your email"
+msgstr "我們無法驗證你的電子郵件"
+
+#: src/routes/auth/verify-email.tsx
+msgid "We sent a verification link to your email address."
+msgstr "我們已將驗證連結傳送到你的電子郵件地址。"
+
+#: src/routes/auth/verify-email.tsx
+msgid "You can now use account recovery and other features that require a verified email address."
+msgstr "你現在可以使用帳戶復原和其他需要已驗證電子郵件地址的功能。"
+
+#: src/routes/auth/verify-email.tsx
+msgid "You must verify your email address before you can access Skill Verdict."
+msgstr "你必須先驗證電子郵件地址，才能存取 Skill Verdict。"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Your account is up to date."
+msgstr "你的帳戶已是最新狀態。"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Your email address is confirmed. You can continue using Skill Verdict."
+msgstr "你的電子郵件地址已確認。你可以繼續使用 Skill Verdict。"

@@ -841,6 +841,7 @@ msgstr "Conteúdo"
 #: src/dialogs/auth/enable-two-factor.tsx
 #: src/routes/auth/register.tsx
 #: src/routes/dashboard/verification/index.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Continue"
 msgstr "Continuar"
 
@@ -1314,6 +1315,7 @@ msgstr "Endereço de email"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/users.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Email verified"
 msgstr "Email verified"
 
@@ -2867,10 +2869,12 @@ msgid "Required: reason for overriding this verdict..."
 msgstr "Required: reason for overriding this verdict..."
 
 #: src/routes/dashboard/settings/profile.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Resend verification email"
 msgstr "Reenviar email de verificação"
 
 #: src/routes/dashboard/settings/profile.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Resending verification email..."
 msgstr "A reenviar email de verificação..."
 
@@ -3232,6 +3236,7 @@ msgid "Sidebar Width"
 msgstr "Largura da barra lateral"
 
 #: src/routes/auth/login.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Sign in"
 msgstr "Iniciar sessão"
 
@@ -4231,3 +4236,67 @@ msgstr "Afastar"
 #: src/utils/locale.ts
 msgid "Zulu"
 msgstr "Zulu"
+
+#: src/routes/auth/verify-email.tsx
+msgid "A new verification link has been sent to your email address."
+msgstr "Foi enviado um novo link de verificação para o seu endereço de email."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Check your inbox"
+msgstr "Verifique a sua caixa de entrada"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Failed to resend verification email. Please try again."
+msgstr "Não foi possível reenviar o email de verificação. Tente novamente."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Request a new link"
+msgstr "Pedir um novo link"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to your account to request a new verification email."
+msgstr "Inicie sessão na sua conta para pedir um novo email de verificação."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to your account, then request a new verification email."
+msgstr "Inicie sessão na sua conta e depois peça um novo email de verificação."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to verify your email"
+msgstr "Inicie sessão para verificar o seu email"
+
+#: src/routes/auth/verify-email.tsx
+msgid "The verification link may be invalid, expired, or already used."
+msgstr "O link de verificação pode ser inválido, ter expirado ou já ter sido usado."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Try requesting a new verification link."
+msgstr "Tente pedir um novo link de verificação."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Verify your email"
+msgstr "Verifique o seu email"
+
+#: src/routes/auth/verify-email.tsx
+msgid "We couldn't verify your email"
+msgstr "Não foi possível verificar o seu email"
+
+#: src/routes/auth/verify-email.tsx
+msgid "We sent a verification link to your email address."
+msgstr "Enviámos um link de verificação para o seu endereço de email."
+
+#: src/routes/auth/verify-email.tsx
+msgid "You can now use account recovery and other features that require a verified email address."
+msgstr "Agora pode usar a recuperação de conta e outras funcionalidades que exigem um endereço de email verificado."
+
+#: src/routes/auth/verify-email.tsx
+msgid "You must verify your email address before you can access Skill Verdict."
+msgstr "Tem de verificar o seu endereço de email antes de aceder ao Skill Verdict."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Your account is up to date."
+msgstr "A sua conta está atualizada."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Your email address is confirmed. You can continue using Skill Verdict."
+msgstr "O seu endereço de email foi confirmado. Pode continuar a usar o Skill Verdict."

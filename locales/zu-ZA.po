@@ -836,8 +836,9 @@ msgstr ""
 #: src/dialogs/auth/enable-two-factor.tsx
 #: src/routes/auth/register.tsx
 #: src/routes/dashboard/verification/index.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Continue"
-msgstr ""
+msgstr "Qhubeka"
 
 #: src/routes/dashboard/resumes/-components/cards/import-card.tsx
 #: src/routes/dashboard/resumes/-components/list-view.tsx
@@ -1309,8 +1310,9 @@ msgstr ""
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/users.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Email verified"
-msgstr ""
+msgstr "I-imeyili iqinisekisiwe"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/css.tsx
 msgctxt "Turn On/Apply Custom CSS"
@@ -2862,12 +2864,14 @@ msgid "Required: reason for overriding this verdict..."
 msgstr ""
 
 #: src/routes/dashboard/settings/profile.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Resend verification email"
-msgstr ""
+msgstr "Thumela kabusha i-imeyili yokuqinisekisa"
 
 #: src/routes/dashboard/settings/profile.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Resending verification email..."
-msgstr ""
+msgstr "Kuthunyelwa kabusha i-imeyili yokuqinisekisa..."
 
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-menu.tsx
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
@@ -3227,8 +3231,9 @@ msgid "Sidebar Width"
 msgstr ""
 
 #: src/routes/auth/login.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Sign in"
-msgstr ""
+msgstr "Ngena ngemvume"
 
 #: src/routes/auth/login.tsx
 msgid "Sign in to your account"
@@ -4226,3 +4231,67 @@ msgstr ""
 #: src/utils/locale.ts
 msgid "Zulu"
 msgstr ""
+
+#: src/routes/auth/verify-email.tsx
+msgid "A new verification link has been sent to your email address."
+msgstr "Isixhumanisi esisha sokuqinisekisa sithunyelwe ekhelini lakho le-imeyili."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Check your inbox"
+msgstr "Hlola ibhokisi lakho lokungenayo"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Failed to resend verification email. Please try again."
+msgstr "Yehlulekile ukuthumela kabusha i-imeyili yokuqinisekisa. Sicela uzame futhi."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Request a new link"
+msgstr "Cela isixhumanisi esisha"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to your account to request a new verification email."
+msgstr "Ngena ku-akhawunti yakho ukuze ucele i-imeyili entsha yokuqinisekisa."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to your account, then request a new verification email."
+msgstr "Ngena ku-akhawunti yakho, bese ucela i-imeyili entsha yokuqinisekisa."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to verify your email"
+msgstr "Ngena ngemvume ukuze uqinisekise i-imeyili yakho"
+
+#: src/routes/auth/verify-email.tsx
+msgid "The verification link may be invalid, expired, or already used."
+msgstr "Isixhumanisi sokuqinisekisa kungenzeka singavumelekile, siphelelwe isikhathi, noma sesisetshenzisiwe."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Try requesting a new verification link."
+msgstr "Zama ukucela isixhumanisi esisha sokuqinisekisa."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Verify your email"
+msgstr "Qinisekisa i-imeyili yakho"
+
+#: src/routes/auth/verify-email.tsx
+msgid "We couldn't verify your email"
+msgstr "Asikwazanga ukuqinisekisa i-imeyili yakho"
+
+#: src/routes/auth/verify-email.tsx
+msgid "We sent a verification link to your email address."
+msgstr "Sithumele isixhumanisi sokuqinisekisa ekhelini lakho le-imeyili."
+
+#: src/routes/auth/verify-email.tsx
+msgid "You can now use account recovery and other features that require a verified email address."
+msgstr "Manje ungasebenzisa ukubuyiselwa kwe-akhawunti nezinye izici ezidinga ikheli le-imeyili eliqinisekisiwe."
+
+#: src/routes/auth/verify-email.tsx
+msgid "You must verify your email address before you can access Skill Verdict."
+msgstr "Kufanele uqinisekise ikheli lakho le-imeyili ngaphambi kokufinyelela ku-Skill Verdict."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Your account is up to date."
+msgstr "I-akhawunti yakho isesikhathini."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Your email address is confirmed. You can continue using Skill Verdict."
+msgstr "Ikheli lakho le-imeyili liqinisekisiwe. Ungaqhubeka nokusebenzisa i-Skill Verdict."

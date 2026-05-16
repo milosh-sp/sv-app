@@ -841,6 +841,7 @@ msgstr "コンテンツ"
 #: src/dialogs/auth/enable-two-factor.tsx
 #: src/routes/auth/register.tsx
 #: src/routes/dashboard/verification/index.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Continue"
 msgstr "続行"
 
@@ -1314,6 +1315,7 @@ msgstr "メールアドレス"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/users.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Email verified"
 msgstr "Email verified"
 
@@ -2867,10 +2869,12 @@ msgid "Required: reason for overriding this verdict..."
 msgstr "Required: reason for overriding this verdict..."
 
 #: src/routes/dashboard/settings/profile.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Resend verification email"
 msgstr "確認メールを再送信"
 
 #: src/routes/dashboard/settings/profile.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Resending verification email..."
 msgstr "確認メールを再送信しています..."
 
@@ -3232,6 +3236,7 @@ msgid "Sidebar Width"
 msgstr "サイドバーの幅"
 
 #: src/routes/auth/login.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Sign in"
 msgstr "サインイン"
 
@@ -4231,3 +4236,67 @@ msgstr "ズームアウト"
 #: src/utils/locale.ts
 msgid "Zulu"
 msgstr "ズールー語"
+
+#: src/routes/auth/verify-email.tsx
+msgid "A new verification link has been sent to your email address."
+msgstr "新しい確認リンクをメールアドレスに送信しました。"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Check your inbox"
+msgstr "受信トレイを確認してください"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Failed to resend verification email. Please try again."
+msgstr "確認メールを再送信できませんでした。もう一度お試しください。"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Request a new link"
+msgstr "新しいリンクをリクエスト"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to your account to request a new verification email."
+msgstr "新しい確認メールをリクエストするにはアカウントにサインインしてください。"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to your account, then request a new verification email."
+msgstr "アカウントにサインインしてから、新しい確認メールをリクエストしてください。"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to verify your email"
+msgstr "メールを確認するにはサインインしてください"
+
+#: src/routes/auth/verify-email.tsx
+msgid "The verification link may be invalid, expired, or already used."
+msgstr "確認リンクは無効、期限切れ、またはすでに使用済みの可能性があります。"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Try requesting a new verification link."
+msgstr "新しい確認リンクをリクエストしてみてください。"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Verify your email"
+msgstr "メールを確認"
+
+#: src/routes/auth/verify-email.tsx
+msgid "We couldn't verify your email"
+msgstr "メールを確認できませんでした"
+
+#: src/routes/auth/verify-email.tsx
+msgid "We sent a verification link to your email address."
+msgstr "確認リンクをメールアドレスに送信しました。"
+
+#: src/routes/auth/verify-email.tsx
+msgid "You can now use account recovery and other features that require a verified email address."
+msgstr "確認済みメールアドレスが必要なアカウント復旧やその他の機能を利用できるようになりました。"
+
+#: src/routes/auth/verify-email.tsx
+msgid "You must verify your email address before you can access Skill Verdict."
+msgstr "Skill Verdict にアクセスする前にメールアドレスを確認する必要があります。"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Your account is up to date."
+msgstr "アカウントは最新です。"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Your email address is confirmed. You can continue using Skill Verdict."
+msgstr "メールアドレスが確認されました。引き続き Skill Verdict を利用できます。"

@@ -1,4 +1,4 @@
-import { readFileSync } from "node:fs";
+import { readdirSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { describe, expect, it } from "vite-plus/test";
 
@@ -26,27 +26,49 @@ const verifyEmailMessages = [
   "Your email address is confirmed. You can continue using Skill Verdict.",
 ];
 
-const enUsCatalog = readFileSync(resolve(process.cwd(), "locales/en-US.po"), "utf8");
+const verifyEmailSourceRef = "#: src/routes/auth/verify-email.tsx";
+const localesPath = resolve(process.cwd(), "locales");
+const catalogPaths = readdirSync(localesPath)
+  .filter((file) => file.endsWith(".po"))
+  .map((file) => resolve(localesPath, file));
 
-function toPoString(value: string) {
-  return value.replaceAll("\\", "\\\\").replaceAll('"', '\\"');
+function parsePoString(value: string) {
+  return JSON.parse(value) as string;
 }
 
-function findVerifyEmailCatalogEntry(message: string) {
-  const poMessage = toPoString(message);
+function findCatalogEntry(catalog: string, message: string) {
+  return catalog.split(/\n{2,}/).find((entry) => {
+    const msgid = entry
+      .split("\n")
+      .find((line) => line.startsWith("msgid "))
+      ?.slice(6);
 
-  return enUsCatalog
-    .split(/\n{2,}/)
-    .find((entry) => entry.includes("#: src/routes/auth/verify-email.tsx") && entry.includes(`msgid "${poMessage}"`));
+    return msgid ? parsePoString(msgid) === message : false;
+  });
+}
+
+function getMsgstr(entry: string) {
+  const msgstr = entry
+    .split("\n")
+    .find((line) => line.startsWith("msgstr "))
+    ?.slice(7);
+
+  return msgstr ? parsePoString(msgstr) : "";
 }
 
 describe("verify-email locale catalog", () => {
-  it("keeps all page strings in the English source catalog", () => {
-    for (const message of verifyEmailMessages) {
-      const entry = findVerifyEmailCatalogEntry(message);
+  it("keeps all page strings in every locale catalog", () => {
+    for (const catalogPath of catalogPaths) {
+      const catalog = readFileSync(catalogPath, "utf8");
 
-      expect(entry, `"${message}" should be extracted for /auth/verify-email`).toBeDefined();
-      expect(entry).toContain(`msgstr "${toPoString(message)}"`);
+      for (const message of verifyEmailMessages) {
+        const entry = findCatalogEntry(catalog, message);
+        const localeName = catalogPath.split("/").at(-1);
+
+        expect(entry, `${localeName} should include "${message}"`).toBeDefined();
+        expect(entry).toContain(verifyEmailSourceRef);
+        expect(getMsgstr(entry ?? ""), `${localeName} should translate "${message}"`).not.toBe("");
+      }
     }
   });
 });

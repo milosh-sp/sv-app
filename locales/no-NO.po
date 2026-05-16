@@ -841,6 +841,7 @@ msgstr "Innhold"
 #: src/dialogs/auth/enable-two-factor.tsx
 #: src/routes/auth/register.tsx
 #: src/routes/dashboard/verification/index.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Continue"
 msgstr "Fortsett"
 
@@ -1314,6 +1315,7 @@ msgstr "E-postadresse"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/users.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Email verified"
 msgstr "Email verified"
 
@@ -2867,10 +2869,12 @@ msgid "Required: reason for overriding this verdict..."
 msgstr "Required: reason for overriding this verdict..."
 
 #: src/routes/dashboard/settings/profile.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Resend verification email"
 msgstr "Send verifiserings-e-post på nytt"
 
 #: src/routes/dashboard/settings/profile.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Resending verification email..."
 msgstr "Sender verifiserings-e-post på nytt..."
 
@@ -3232,6 +3236,7 @@ msgid "Sidebar Width"
 msgstr "Bredde på sidepanel"
 
 #: src/routes/auth/login.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Sign in"
 msgstr "Logg inn"
 
@@ -4231,3 +4236,67 @@ msgstr "Zoom ut"
 #: src/utils/locale.ts
 msgid "Zulu"
 msgstr "Zulu"
+
+#: src/routes/auth/verify-email.tsx
+msgid "A new verification link has been sent to your email address."
+msgstr "En ny verifiseringslenke er sendt til e-postadressen din."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Check your inbox"
+msgstr "Sjekk innboksen din"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Failed to resend verification email. Please try again."
+msgstr "Kunne ikke sende verifiserings-e-posten på nytt. Prøv igjen."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Request a new link"
+msgstr "Be om en ny lenke"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to your account to request a new verification email."
+msgstr "Logg inn på kontoen din for å be om en ny verifiserings-e-post."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to your account, then request a new verification email."
+msgstr "Logg inn på kontoen din, og be deretter om en ny verifiserings-e-post."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to verify your email"
+msgstr "Logg inn for å bekrefte e-posten din"
+
+#: src/routes/auth/verify-email.tsx
+msgid "The verification link may be invalid, expired, or already used."
+msgstr "Verifiseringslenken kan være ugyldig, utløpt eller allerede brukt."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Try requesting a new verification link."
+msgstr "Prøv å be om en ny verifiseringslenke."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Verify your email"
+msgstr "Bekreft e-posten din"
+
+#: src/routes/auth/verify-email.tsx
+msgid "We couldn't verify your email"
+msgstr "Vi kunne ikke bekrefte e-posten din"
+
+#: src/routes/auth/verify-email.tsx
+msgid "We sent a verification link to your email address."
+msgstr "Vi har sendt en verifiseringslenke til e-postadressen din."
+
+#: src/routes/auth/verify-email.tsx
+msgid "You can now use account recovery and other features that require a verified email address."
+msgstr "Du kan nå bruke kontogjenoppretting og andre funksjoner som krever en bekreftet e-postadresse."
+
+#: src/routes/auth/verify-email.tsx
+msgid "You must verify your email address before you can access Skill Verdict."
+msgstr "Du må bekrefte e-postadressen din før du kan få tilgang til Skill Verdict."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Your account is up to date."
+msgstr "Kontoen din er oppdatert."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Your email address is confirmed. You can continue using Skill Verdict."
+msgstr "E-postadressen din er bekreftet. Du kan fortsette å bruke Skill Verdict."

@@ -841,6 +841,7 @@ msgstr "محتوا"
 #: src/dialogs/auth/enable-two-factor.tsx
 #: src/routes/auth/register.tsx
 #: src/routes/dashboard/verification/index.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Continue"
 msgstr "ادامه"
 
@@ -1314,6 +1315,7 @@ msgstr "آدرس ایمیل"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/users.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Email verified"
 msgstr "Email verified"
 
@@ -2867,10 +2869,12 @@ msgid "Required: reason for overriding this verdict..."
 msgstr "Required: reason for overriding this verdict..."
 
 #: src/routes/dashboard/settings/profile.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Resend verification email"
 msgstr "ارسال دوباره ایمیل تأیید"
 
 #: src/routes/dashboard/settings/profile.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Resending verification email..."
 msgstr "در حال ارسال دوباره ایمیل تأیید..."
 
@@ -3232,6 +3236,7 @@ msgid "Sidebar Width"
 msgstr "عرض نوار کناری"
 
 #: src/routes/auth/login.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Sign in"
 msgstr "ورود"
 
@@ -4231,3 +4236,67 @@ msgstr "کوچک‌نمایی"
 #: src/utils/locale.ts
 msgid "Zulu"
 msgstr "زولو"
+
+#: src/routes/auth/verify-email.tsx
+msgid "A new verification link has been sent to your email address."
+msgstr "یک پیوند تأیید جدید به نشانی ایمیل شما ارسال شد."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Check your inbox"
+msgstr "صندوق ورودی خود را بررسی کنید"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Failed to resend verification email. Please try again."
+msgstr "ارسال دوباره ایمیل تأیید ناموفق بود. لطفاً دوباره تلاش کنید."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Request a new link"
+msgstr "درخواست پیوند جدید"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to your account to request a new verification email."
+msgstr "برای درخواست ایمیل تأیید جدید وارد حساب خود شوید."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to your account, then request a new verification email."
+msgstr "وارد حساب خود شوید، سپس یک ایمیل تأیید جدید درخواست کنید."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to verify your email"
+msgstr "برای تأیید ایمیل خود وارد شوید"
+
+#: src/routes/auth/verify-email.tsx
+msgid "The verification link may be invalid, expired, or already used."
+msgstr "پیوند تأیید ممکن است نامعتبر، منقضی یا قبلاً استفاده شده باشد."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Try requesting a new verification link."
+msgstr "درخواست یک پیوند تأیید جدید را امتحان کنید."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Verify your email"
+msgstr "ایمیل خود را تأیید کنید"
+
+#: src/routes/auth/verify-email.tsx
+msgid "We couldn't verify your email"
+msgstr "نتوانستیم ایمیل شما را تأیید کنیم"
+
+#: src/routes/auth/verify-email.tsx
+msgid "We sent a verification link to your email address."
+msgstr "یک پیوند تأیید به نشانی ایمیل شما فرستادیم."
+
+#: src/routes/auth/verify-email.tsx
+msgid "You can now use account recovery and other features that require a verified email address."
+msgstr "اکنون می‌توانید از بازیابی حساب و سایر قابلیت‌هایی که به نشانی ایمیل تأییدشده نیاز دارند استفاده کنید."
+
+#: src/routes/auth/verify-email.tsx
+msgid "You must verify your email address before you can access Skill Verdict."
+msgstr "قبل از دسترسی به Skill Verdict باید نشانی ایمیل خود را تأیید کنید."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Your account is up to date."
+msgstr "حساب شما به‌روز است."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Your email address is confirmed. You can continue using Skill Verdict."
+msgstr "نشانی ایمیل شما تأیید شد. می‌توانید به استفاده از Skill Verdict ادامه دهید."

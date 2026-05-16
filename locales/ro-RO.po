@@ -841,6 +841,7 @@ msgstr "Conținut"
 #: src/dialogs/auth/enable-two-factor.tsx
 #: src/routes/auth/register.tsx
 #: src/routes/dashboard/verification/index.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Continue"
 msgstr "Continuă"
 
@@ -1314,6 +1315,7 @@ msgstr "Adresă de e-mail"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/users.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Email verified"
 msgstr "Email verified"
 
@@ -2867,10 +2869,12 @@ msgid "Required: reason for overriding this verdict..."
 msgstr "Required: reason for overriding this verdict..."
 
 #: src/routes/dashboard/settings/profile.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Resend verification email"
 msgstr "Retrimite e-mailul de verificare"
 
 #: src/routes/dashboard/settings/profile.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Resending verification email..."
 msgstr "Se retrimite e-mailul de verificare..."
 
@@ -3232,6 +3236,7 @@ msgid "Sidebar Width"
 msgstr "Lățime bară laterală"
 
 #: src/routes/auth/login.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Sign in"
 msgstr "Autentificare"
 
@@ -4231,3 +4236,67 @@ msgstr "Micșorează"
 #: src/utils/locale.ts
 msgid "Zulu"
 msgstr "Zulu"
+
+#: src/routes/auth/verify-email.tsx
+msgid "A new verification link has been sent to your email address."
+msgstr "Un nou link de verificare a fost trimis la adresa ta de e-mail."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Check your inbox"
+msgstr "Verifică-ți inboxul"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Failed to resend verification email. Please try again."
+msgstr "Nu s-a putut retrimite e-mailul de verificare. Te rugăm să încerci din nou."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Request a new link"
+msgstr "Solicită un link nou"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to your account to request a new verification email."
+msgstr "Autentifică-te în cont pentru a solicita un nou e-mail de verificare."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to your account, then request a new verification email."
+msgstr "Autentifică-te în cont, apoi solicită un nou e-mail de verificare."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to verify your email"
+msgstr "Autentifică-te pentru a-ți verifica e-mailul"
+
+#: src/routes/auth/verify-email.tsx
+msgid "The verification link may be invalid, expired, or already used."
+msgstr "Linkul de verificare poate fi invalid, expirat sau deja folosit."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Try requesting a new verification link."
+msgstr "Încearcă să soliciți un nou link de verificare."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Verify your email"
+msgstr "Verifică-ți e-mailul"
+
+#: src/routes/auth/verify-email.tsx
+msgid "We couldn't verify your email"
+msgstr "Nu am putut verifica e-mailul tău"
+
+#: src/routes/auth/verify-email.tsx
+msgid "We sent a verification link to your email address."
+msgstr "Am trimis un link de verificare la adresa ta de e-mail."
+
+#: src/routes/auth/verify-email.tsx
+msgid "You can now use account recovery and other features that require a verified email address."
+msgstr "Acum poți folosi recuperarea contului și alte funcții care necesită o adresă de e-mail verificată."
+
+#: src/routes/auth/verify-email.tsx
+msgid "You must verify your email address before you can access Skill Verdict."
+msgstr "Trebuie să îți verifici adresa de e-mail înainte de a putea accesa Skill Verdict."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Your account is up to date."
+msgstr "Contul tău este la zi."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Your email address is confirmed. You can continue using Skill Verdict."
+msgstr "Adresa ta de e-mail este confirmată. Poți continua să folosești Skill Verdict."

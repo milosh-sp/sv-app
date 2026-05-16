@@ -841,6 +841,7 @@ msgstr "เนื้อหา"
 #: src/dialogs/auth/enable-two-factor.tsx
 #: src/routes/auth/register.tsx
 #: src/routes/dashboard/verification/index.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Continue"
 msgstr "ทำต่อ"
 
@@ -1314,6 +1315,7 @@ msgstr "ที่อยู่อีเมล"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/users.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Email verified"
 msgstr "Email verified"
 
@@ -2867,10 +2869,12 @@ msgid "Required: reason for overriding this verdict..."
 msgstr "Required: reason for overriding this verdict..."
 
 #: src/routes/dashboard/settings/profile.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Resend verification email"
 msgstr "ส่งอีเมลยืนยันอีกครั้ง"
 
 #: src/routes/dashboard/settings/profile.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Resending verification email..."
 msgstr "กำลังส่งอีเมลยืนยันอีกครั้ง..."
 
@@ -3232,6 +3236,7 @@ msgid "Sidebar Width"
 msgstr "ความกว้างของแถบด้านข้าง"
 
 #: src/routes/auth/login.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Sign in"
 msgstr "เข้าสู่ระบบ"
 
@@ -4231,3 +4236,67 @@ msgstr "ซูมออก"
 #: src/utils/locale.ts
 msgid "Zulu"
 msgstr "ซูลู"
+
+#: src/routes/auth/verify-email.tsx
+msgid "A new verification link has been sent to your email address."
+msgstr "ส่งลิงก์ยืนยันใหม่ไปยังที่อยู่อีเมลของคุณแล้ว"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Check your inbox"
+msgstr "ตรวจสอบกล่องจดหมายของคุณ"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Failed to resend verification email. Please try again."
+msgstr "ไม่สามารถส่งอีเมลยืนยันอีกครั้งได้ โปรดลองอีกครั้ง"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Request a new link"
+msgstr "ขอลิงก์ใหม่"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to your account to request a new verification email."
+msgstr "ลงชื่อเข้าใช้บัญชีของคุณเพื่อขออีเมลยืนยันใหม่"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to your account, then request a new verification email."
+msgstr "ลงชื่อเข้าใช้บัญชีของคุณ จากนั้นขออีเมลยืนยันใหม่"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to verify your email"
+msgstr "ลงชื่อเข้าใช้เพื่อยืนยันอีเมลของคุณ"
+
+#: src/routes/auth/verify-email.tsx
+msgid "The verification link may be invalid, expired, or already used."
+msgstr "ลิงก์ยืนยันอาจไม่ถูกต้อง หมดอายุ หรือถูกใช้ไปแล้ว"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Try requesting a new verification link."
+msgstr "ลองขอลิงก์ยืนยันใหม่"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Verify your email"
+msgstr "ยืนยันอีเมลของคุณ"
+
+#: src/routes/auth/verify-email.tsx
+msgid "We couldn't verify your email"
+msgstr "เราไม่สามารถยืนยันอีเมลของคุณได้"
+
+#: src/routes/auth/verify-email.tsx
+msgid "We sent a verification link to your email address."
+msgstr "เราได้ส่งลิงก์ยืนยันไปยังที่อยู่อีเมลของคุณแล้ว"
+
+#: src/routes/auth/verify-email.tsx
+msgid "You can now use account recovery and other features that require a verified email address."
+msgstr "ตอนนี้คุณสามารถใช้การกู้คืนบัญชีและฟีเจอร์อื่น ๆ ที่ต้องใช้ที่อยู่อีเมลที่ยืนยันแล้วได้"
+
+#: src/routes/auth/verify-email.tsx
+msgid "You must verify your email address before you can access Skill Verdict."
+msgstr "คุณต้องยืนยันที่อยู่อีเมลก่อนจึงจะเข้าถึง Skill Verdict ได้"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Your account is up to date."
+msgstr "บัญชีของคุณเป็นปัจจุบันแล้ว"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Your email address is confirmed. You can continue using Skill Verdict."
+msgstr "ที่อยู่อีเมลของคุณได้รับการยืนยันแล้ว คุณสามารถใช้ Skill Verdict ต่อได้"

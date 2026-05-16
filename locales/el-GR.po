@@ -841,6 +841,7 @@ msgstr "Περιεχόμενο"
 #: src/dialogs/auth/enable-two-factor.tsx
 #: src/routes/auth/register.tsx
 #: src/routes/dashboard/verification/index.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Continue"
 msgstr "Συνέχεια"
 
@@ -1314,6 +1315,7 @@ msgstr "Διεύθυνση email"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/users.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Email verified"
 msgstr "Email verified"
 
@@ -2867,10 +2869,12 @@ msgid "Required: reason for overriding this verdict..."
 msgstr "Required: reason for overriding this verdict..."
 
 #: src/routes/dashboard/settings/profile.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Resend verification email"
 msgstr "Επαναποστολή email επαλήθευσης"
 
 #: src/routes/dashboard/settings/profile.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Resending verification email..."
 msgstr "Επαναποστολή email επαλήθευσης..."
 
@@ -3232,6 +3236,7 @@ msgid "Sidebar Width"
 msgstr "Πλάτος πλαϊνής μπάρας"
 
 #: src/routes/auth/login.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Sign in"
 msgstr "Σύνδεση"
 
@@ -4231,3 +4236,67 @@ msgstr "Σμίκρυνση"
 #: src/utils/locale.ts
 msgid "Zulu"
 msgstr "Ζουλού"
+
+#: src/routes/auth/verify-email.tsx
+msgid "A new verification link has been sent to your email address."
+msgstr "Ένας νέος σύνδεσμος επαλήθευσης στάλθηκε στη διεύθυνση email σας."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Check your inbox"
+msgstr "Ελέγξτε τα εισερχόμενά σας"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Failed to resend verification email. Please try again."
+msgstr "Αποτυχία επαναποστολής email επαλήθευσης. Δοκιμάστε ξανά."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Request a new link"
+msgstr "Ζητήστε νέο σύνδεσμο"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to your account to request a new verification email."
+msgstr "Συνδεθείτε στον λογαριασμό σας για να ζητήσετε νέο email επαλήθευσης."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to your account, then request a new verification email."
+msgstr "Συνδεθείτε στον λογαριασμό σας και μετά ζητήστε νέο email επαλήθευσης."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to verify your email"
+msgstr "Συνδεθείτε για να επαληθεύσετε το email σας"
+
+#: src/routes/auth/verify-email.tsx
+msgid "The verification link may be invalid, expired, or already used."
+msgstr "Ο σύνδεσμος επαλήθευσης μπορεί να είναι άκυρος, να έχει λήξει ή να έχει ήδη χρησιμοποιηθεί."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Try requesting a new verification link."
+msgstr "Δοκιμάστε να ζητήσετε έναν νέο σύνδεσμο επαλήθευσης."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Verify your email"
+msgstr "Επαληθεύστε το email σας"
+
+#: src/routes/auth/verify-email.tsx
+msgid "We couldn't verify your email"
+msgstr "Δεν μπορέσαμε να επαληθεύσουμε το email σας"
+
+#: src/routes/auth/verify-email.tsx
+msgid "We sent a verification link to your email address."
+msgstr "Στείλαμε έναν σύνδεσμο επαλήθευσης στη διεύθυνση email σας."
+
+#: src/routes/auth/verify-email.tsx
+msgid "You can now use account recovery and other features that require a verified email address."
+msgstr "Μπορείτε πλέον να χρησιμοποιείτε ανάκτηση λογαριασμού και άλλες λειτουργίες που απαιτούν επαληθευμένη διεύθυνση email."
+
+#: src/routes/auth/verify-email.tsx
+msgid "You must verify your email address before you can access Skill Verdict."
+msgstr "Πρέπει να επαληθεύσετε τη διεύθυνση email σας πριν αποκτήσετε πρόσβαση στο Skill Verdict."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Your account is up to date."
+msgstr "Ο λογαριασμός σας είναι ενημερωμένος."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Your email address is confirmed. You can continue using Skill Verdict."
+msgstr "Η διεύθυνση email σας επιβεβαιώθηκε. Μπορείτε να συνεχίσετε να χρησιμοποιείτε το Skill Verdict."

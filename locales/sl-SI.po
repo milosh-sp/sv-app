@@ -841,6 +841,7 @@ msgstr "Vsebina"
 #: src/dialogs/auth/enable-two-factor.tsx
 #: src/routes/auth/register.tsx
 #: src/routes/dashboard/verification/index.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Continue"
 msgstr "Nadaljuj"
 
@@ -1314,6 +1315,7 @@ msgstr "E-poštni naslov"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/users.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Email verified"
 msgstr "Email verified"
 
@@ -2867,10 +2869,12 @@ msgid "Required: reason for overriding this verdict..."
 msgstr "Required: reason for overriding this verdict..."
 
 #: src/routes/dashboard/settings/profile.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Resend verification email"
 msgstr "Ponovno pošlji potrditveni e-mail"
 
 #: src/routes/dashboard/settings/profile.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Resending verification email..."
 msgstr "Pošiljanje potrditvenega e-maila ..."
 
@@ -3232,6 +3236,7 @@ msgid "Sidebar Width"
 msgstr "Širina stranske vrstice"
 
 #: src/routes/auth/login.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Sign in"
 msgstr "Prijava"
 
@@ -4231,3 +4236,67 @@ msgstr "Oddalji"
 #: src/utils/locale.ts
 msgid "Zulu"
 msgstr "Zuluščina"
+
+#: src/routes/auth/verify-email.tsx
+msgid "A new verification link has been sent to your email address."
+msgstr "Na vaš e-poštni naslov je bila poslana nova potrditvena povezava."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Check your inbox"
+msgstr "Preverite svoj nabiralnik"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Failed to resend verification email. Please try again."
+msgstr "Potrditvenega e-poštnega sporočila ni bilo mogoče ponovno poslati. Poskusite znova."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Request a new link"
+msgstr "Zahtevaj novo povezavo"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to your account to request a new verification email."
+msgstr "Prijavite se v svoj račun, da zahtevate novo potrditveno e-poštno sporočilo."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to your account, then request a new verification email."
+msgstr "Prijavite se v svoj račun in nato zahtevajte novo potrditveno e-poštno sporočilo."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to verify your email"
+msgstr "Prijavite se za potrditev e-pošte"
+
+#: src/routes/auth/verify-email.tsx
+msgid "The verification link may be invalid, expired, or already used."
+msgstr "Potrditvena povezava je morda neveljavna, potekla ali že uporabljena."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Try requesting a new verification link."
+msgstr "Poskusite zahtevati novo potrditveno povezavo."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Verify your email"
+msgstr "Potrdite svojo e-pošto"
+
+#: src/routes/auth/verify-email.tsx
+msgid "We couldn't verify your email"
+msgstr "Vaše e-pošte nismo mogli potrditi"
+
+#: src/routes/auth/verify-email.tsx
+msgid "We sent a verification link to your email address."
+msgstr "Na vaš e-poštni naslov smo poslali potrditveno povezavo."
+
+#: src/routes/auth/verify-email.tsx
+msgid "You can now use account recovery and other features that require a verified email address."
+msgstr "Zdaj lahko uporabljate obnovitev računa in druge funkcije, ki zahtevajo potrjen e-poštni naslov."
+
+#: src/routes/auth/verify-email.tsx
+msgid "You must verify your email address before you can access Skill Verdict."
+msgstr "Pred dostopom do Skill Verdict morate potrditi svoj e-poštni naslov."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Your account is up to date."
+msgstr "Vaš račun je posodobljen."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Your email address is confirmed. You can continue using Skill Verdict."
+msgstr "Vaš e-poštni naslov je potrjen. Lahko nadaljujete z uporabo Skill Verdict."

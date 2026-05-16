@@ -841,6 +841,7 @@ msgstr "ವಿಷಯ"
 #: src/dialogs/auth/enable-two-factor.tsx
 #: src/routes/auth/register.tsx
 #: src/routes/dashboard/verification/index.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Continue"
 msgstr "ಮುಂದುವರಿಸಿ"
 
@@ -1314,6 +1315,7 @@ msgstr "ಇಮೇಲ್ ವಿಳಾಸ"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/users.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Email verified"
 msgstr "Email verified"
 
@@ -2867,10 +2869,12 @@ msgid "Required: reason for overriding this verdict..."
 msgstr "Required: reason for overriding this verdict..."
 
 #: src/routes/dashboard/settings/profile.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Resend verification email"
 msgstr "ಪರಿಶೀಲನಾ ಇಮೇಲ್ ಅನ್ನು ಮರುಕಳುಹಿಸಿ"
 
 #: src/routes/dashboard/settings/profile.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Resending verification email..."
 msgstr "ಪರಿಶೀಲನಾ ಇಮೇಲ್ ಅನ್ನು ಮರುಕಳುಹಿಸಲಾಗುತ್ತಿದೆ..."
 
@@ -3232,6 +3236,7 @@ msgid "Sidebar Width"
 msgstr "ಸೈಡ್‌ಬಾರ್ ಅಗಲ"
 
 #: src/routes/auth/login.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Sign in"
 msgstr "ಸೈನ್ ಇನ್ ಮಾಡಿ"
 
@@ -4231,3 +4236,67 @@ msgstr "ಗಾತ್ರ ಕುಗ್ಗಿಸಿ"
 #: src/utils/locale.ts
 msgid "Zulu"
 msgstr "ಜೂಲೂ"
+
+#: src/routes/auth/verify-email.tsx
+msgid "A new verification link has been sent to your email address."
+msgstr "ನಿಮ್ಮ ಇಮೇಲ್ ವಿಳಾಸಕ್ಕೆ ಹೊಸ ಪರಿಶೀಲನಾ ಲಿಂಕ್ ಕಳುಹಿಸಲಾಗಿದೆ."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Check your inbox"
+msgstr "ನಿಮ್ಮ ಇನ್‌ಬಾಕ್ಸ್ ಪರಿಶೀಲಿಸಿ"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Failed to resend verification email. Please try again."
+msgstr "ಪರಿಶೀಲನಾ ಇಮೇಲ್ ಅನ್ನು ಮರುಕಳುಹಿಸಲು ವಿಫಲವಾಗಿದೆ. ದಯವಿಟ್ಟು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Request a new link"
+msgstr "ಹೊಸ ಲಿಂಕ್ ವಿನಂತಿಸಿ"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to your account to request a new verification email."
+msgstr "ಹೊಸ ಪರಿಶೀಲನಾ ಇಮೇಲ್ ವಿನಂತಿಸಲು ನಿಮ್ಮ ಖಾತೆಗೆ ಸೈನ್ ಇನ್ ಮಾಡಿ."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to your account, then request a new verification email."
+msgstr "ನಿಮ್ಮ ಖಾತೆಗೆ ಸೈನ್ ಇನ್ ಮಾಡಿ, ನಂತರ ಹೊಸ ಪರಿಶೀಲನಾ ಇಮೇಲ್ ವಿನಂತಿಸಿ."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to verify your email"
+msgstr "ನಿಮ್ಮ ಇಮೇಲ್ ಪರಿಶೀಲಿಸಲು ಸೈನ್ ಇನ್ ಮಾಡಿ"
+
+#: src/routes/auth/verify-email.tsx
+msgid "The verification link may be invalid, expired, or already used."
+msgstr "ಪರಿಶೀಲನಾ ಲಿಂಕ್ ಅಮಾನ್ಯವಾಗಿರಬಹುದು, ಅವಧಿ ಮುಗಿದಿರಬಹುದು ಅಥವಾ ಈಗಾಗಲೇ ಬಳಸಲ್ಪಟ್ಟಿರಬಹುದು."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Try requesting a new verification link."
+msgstr "ಹೊಸ ಪರಿಶೀಲನಾ ಲಿಂಕ್ ವಿನಂತಿಸಲು ಪ್ರಯತ್ನಿಸಿ."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Verify your email"
+msgstr "ನಿಮ್ಮ ಇಮೇಲ್ ಪರಿಶೀಲಿಸಿ"
+
+#: src/routes/auth/verify-email.tsx
+msgid "We couldn't verify your email"
+msgstr "ನಿಮ್ಮ ಇಮೇಲ್ ಪರಿಶೀಲಿಸಲು ನಮಗೆ ಸಾಧ್ಯವಾಗಲಿಲ್ಲ"
+
+#: src/routes/auth/verify-email.tsx
+msgid "We sent a verification link to your email address."
+msgstr "ನಿಮ್ಮ ಇಮೇಲ್ ವಿಳಾಸಕ್ಕೆ ಪರಿಶೀಲನಾ ಲಿಂಕ್ ಕಳುಹಿಸಿದ್ದೇವೆ."
+
+#: src/routes/auth/verify-email.tsx
+msgid "You can now use account recovery and other features that require a verified email address."
+msgstr "ಇದೀಗ ಪರಿಶೀಲಿಸಿದ ಇಮೇಲ್ ವಿಳಾಸ ಅಗತ್ಯವಿರುವ ಖಾತೆ ಮರುಪಡೆಯುವಿಕೆ ಮತ್ತು ಇತರ ವೈಶಿಷ್ಟ್ಯಗಳನ್ನು ಬಳಸಬಹುದು."
+
+#: src/routes/auth/verify-email.tsx
+msgid "You must verify your email address before you can access Skill Verdict."
+msgstr "Skill Verdict ಗೆ ಪ್ರವೇಶಿಸುವ ಮೊದಲು ನಿಮ್ಮ ಇಮೇಲ್ ವಿಳಾಸವನ್ನು ಪರಿಶೀಲಿಸಬೇಕು."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Your account is up to date."
+msgstr "ನಿಮ್ಮ ಖಾತೆ ನವೀಕರಿಸಲಾಗಿದೆ."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Your email address is confirmed. You can continue using Skill Verdict."
+msgstr "ನಿಮ್ಮ ಇಮೇಲ್ ವಿಳಾಸ ದೃಢೀಕರಿಸಲಾಗಿದೆ. ನೀವು Skill Verdict ಬಳಸುವುದನ್ನು ಮುಂದುವರಿಸಬಹುದು."

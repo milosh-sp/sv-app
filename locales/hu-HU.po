@@ -841,6 +841,7 @@ msgstr "Tartalom"
 #: src/dialogs/auth/enable-two-factor.tsx
 #: src/routes/auth/register.tsx
 #: src/routes/dashboard/verification/index.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Continue"
 msgstr "Tovább"
 
@@ -1314,6 +1315,7 @@ msgstr "E‑mail cím"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/users.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Email verified"
 msgstr "Email verified"
 
@@ -2867,10 +2869,12 @@ msgid "Required: reason for overriding this verdict..."
 msgstr "Required: reason for overriding this verdict..."
 
 #: src/routes/dashboard/settings/profile.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Resend verification email"
 msgstr "Megerősítő e‑mail újraküldése"
 
 #: src/routes/dashboard/settings/profile.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Resending verification email..."
 msgstr "Megerősítő e‑mail újraküldése..."
 
@@ -3232,6 +3236,7 @@ msgid "Sidebar Width"
 msgstr "Oldalsáv szélessége"
 
 #: src/routes/auth/login.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Sign in"
 msgstr "Bejelentkezés"
 
@@ -4231,3 +4236,67 @@ msgstr "Kicsinyítés"
 #: src/utils/locale.ts
 msgid "Zulu"
 msgstr "Zulu"
+
+#: src/routes/auth/verify-email.tsx
+msgid "A new verification link has been sent to your email address."
+msgstr "Új ellenőrző linket küldtünk az e-mail-címedre."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Check your inbox"
+msgstr "Ellenőrizd a beérkező leveleidet"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Failed to resend verification email. Please try again."
+msgstr "Nem sikerült újraküldeni az ellenőrző e-mailt. Próbáld újra."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Request a new link"
+msgstr "Új link kérése"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to your account to request a new verification email."
+msgstr "Jelentkezz be a fiókodba új ellenőrző e-mail kéréséhez."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to your account, then request a new verification email."
+msgstr "Jelentkezz be a fiókodba, majd kérj új ellenőrző e-mailt."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to verify your email"
+msgstr "Jelentkezz be az e-mail-címed ellenőrzéséhez"
+
+#: src/routes/auth/verify-email.tsx
+msgid "The verification link may be invalid, expired, or already used."
+msgstr "Az ellenőrző link érvénytelen, lejárt vagy már felhasznált lehet."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Try requesting a new verification link."
+msgstr "Próbálj meg új ellenőrző linket kérni."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Verify your email"
+msgstr "E-mail-cím ellenőrzése"
+
+#: src/routes/auth/verify-email.tsx
+msgid "We couldn't verify your email"
+msgstr "Nem tudtuk ellenőrizni az e-mail-címedet"
+
+#: src/routes/auth/verify-email.tsx
+msgid "We sent a verification link to your email address."
+msgstr "Ellenőrző linket küldtünk az e-mail-címedre."
+
+#: src/routes/auth/verify-email.tsx
+msgid "You can now use account recovery and other features that require a verified email address."
+msgstr "Mostantól használhatod a fiók-helyreállítást és más olyan funkciókat, amelyek ellenőrzött e-mail-címet igényelnek."
+
+#: src/routes/auth/verify-email.tsx
+msgid "You must verify your email address before you can access Skill Verdict."
+msgstr "A Skill Verdict eléréséhez előbb ellenőrizned kell az e-mail-címedet."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Your account is up to date."
+msgstr "A fiókod naprakész."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Your email address is confirmed. You can continue using Skill Verdict."
+msgstr "Az e-mail-címed megerősítve. Folytathatod a Skill Verdict használatát."
