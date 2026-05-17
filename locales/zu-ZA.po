@@ -1662,10 +1662,6 @@ msgstr "I-AI yomhlaba wonke"
 msgid "Go Back"
 msgstr "Buyela Emuva"
 
-#: src/routes/_home/-sections/header.tsx
-msgid "Go to dashboard"
-msgstr "Iya kudeshibhodi"
-
 #: src/components/command-palette/pages/navigation.tsx
 msgid "Go to..."
 msgstr "Iya ku..."
@@ -1809,6 +1805,10 @@ msgstr "https://www.upwork.com/freelancers/~..."
 #: src/utils/locale.ts
 msgid "Hungarian"
 msgstr "IsiHungary"
+
+#: src/routes/_home/-sections/how-it-works.tsx
+msgid "I am ready to start"
+msgstr "Ngikulungele ukuqala"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "I consent to sharing my work authorization details with employers for matching."

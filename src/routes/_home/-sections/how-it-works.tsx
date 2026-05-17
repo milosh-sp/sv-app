@@ -7,7 +7,10 @@ import {
   SealCheckIcon,
   UserCircleCheckIcon,
 } from "@phosphor-icons/react";
+import { Link } from "@tanstack/react-router";
 import { motion } from "motion/react";
+
+import { Button } from "@/components/ui/button";
 
 type Step = {
   id: string;
@@ -114,6 +117,19 @@ export function HowItWorks() {
         {steps.map((step, index) => (
           <StepCard key={step.id} step={step} index={index} />
         ))}
+      </div>
+
+      <div className="mt-8 flex justify-center">
+        <Button
+          size="lg"
+          nativeButton={false}
+          className="px-6"
+          render={
+            <Link to="/dashboard">
+              <Trans>I am ready to start</Trans>
+            </Link>
+          }
+        />
       </div>
     </section>
   );

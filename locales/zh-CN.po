@@ -1667,10 +1667,6 @@ msgstr "Global AI"
 msgid "Go Back"
 msgstr "返回"
 
-#: src/routes/_home/-sections/header.tsx
-msgid "Go to dashboard"
-msgstr "转到控制面板"
-
 #: src/components/command-palette/pages/navigation.tsx
 msgid "Go to..."
 msgstr "前往…"
@@ -1814,6 +1810,10 @@ msgstr "https://www.upwork.com/freelancers/~..."
 #: src/utils/locale.ts
 msgid "Hungarian"
 msgstr "匈牙利语"
+
+#: src/routes/_home/-sections/how-it-works.tsx
+msgid "I am ready to start"
+msgstr "我已准备好开始"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "I consent to sharing my work authorization details with employers for matching."

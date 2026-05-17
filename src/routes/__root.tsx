@@ -12,7 +12,6 @@ import type { AuthSession } from "@/integrations/auth/types";
 import type { FeatureFlags } from "@/integrations/orpc/services/flags";
 
 import { CommandPalette } from "@/components/command-palette";
-import { BreakpointIndicator } from "@/components/layout/breakpoint-indicator";
 import { ThemeProvider } from "@/components/theme/provider";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -130,8 +129,6 @@ function RootDocument({ children }: Props) {
                       <DialogManager />
                       <CommandPalette />
                       <Toaster richColors position="bottom-right" />
-
-                      {import.meta.env.DEV && <BreakpointIndicator />}
                     </PromptDialogProvider>
                   </ConfirmDialogProvider>
                 </TooltipProvider>

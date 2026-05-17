@@ -1,5 +1,5 @@
 import { t } from "@lingui/core/macro";
-import { ArrowRightIcon, TranslateIcon } from "@phosphor-icons/react";
+import { TranslateIcon } from "@phosphor-icons/react";
 import { Link } from "@tanstack/react-router";
 import { motion, useMotionValue, useSpring } from "motion/react";
 import { useEffect, useRef } from "react";
@@ -41,43 +41,34 @@ export function Header() {
   }, [y]);
 
   return (
-    <motion.header
-      style={{ y: springY }}
-      className="fixed inset-x-0 top-0 z-50 border-b border-transparent bg-background/80 backdrop-blur-lg transition-colors"
-      initial={{ y: -100, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.35, ease: "easeOut" }}
-    >
-      <nav aria-label={t`Main navigation`} className="container mx-auto flex items-center gap-x-4 p-3 lg:px-12">
-        <Link to="/" className="transition-opacity hover:opacity-80" aria-label={t`Skill Verdict - Go to homepage`}>
-          <BrandIcon className="size-10" />
-        </Link>
+    <>
+      <motion.header
+        style={{ y: springY }}
+        className="fixed inset-x-0 top-0 z-50 border-b border-transparent bg-background/80 backdrop-blur-lg transition-colors"
+        initial={{ y: -100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.35, ease: "easeOut" }}
+      >
+        <nav aria-label={t`Main navigation`} className="container mx-auto flex items-center gap-x-4 p-3 lg:px-12">
+          <Link to="/" className="transition-opacity hover:opacity-80" aria-label={t`Skill Verdict - Go to homepage`}>
+            <BrandIcon className="size-10" />
+          </Link>
 
-        <div className="ml-auto flex items-center gap-x-2">
-          <LocaleCombobox
-            render={
-              <Button size="icon" variant="ghost" aria-label={t`Change language`}>
-                <TranslateIcon />
-              </Button>
-            }
-          />
-
-          <ThemeToggleButton />
-
-          <div className="hidden items-center gap-x-4 sm:flex">
-            <Button
-              size="icon"
-              nativeButton={false}
-              aria-label={t`Go to dashboard`}
-              render={
-                <Link to="/dashboard">
-                  <ArrowRightIcon aria-hidden="true" />
-                </Link>
-              }
-            />
+          <div className="ml-auto flex items-center gap-x-2">
+            <ThemeToggleButton />
           </div>
-        </div>
-      </nav>
-    </motion.header>
+        </nav>
+      </motion.header>
+
+      <div className="fixed right-4 bottom-4 z-50 print:hidden">
+        <LocaleCombobox
+          render={
+            <Button size="icon" variant="ghost" aria-label={t`Change language`}>
+              <TranslateIcon />
+            </Button>
+          }
+        />
+      </div>
+    </>
   );
 }
