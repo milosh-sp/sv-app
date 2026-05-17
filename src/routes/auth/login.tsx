@@ -11,6 +11,7 @@ import z from "zod";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from "@/components/ui/input-group";
 import { authClient } from "@/integrations/auth/client";
 
 import { SocialAuth } from "./-components/social-auth";
@@ -158,10 +159,10 @@ function RouteComponent() {
                       }
                     />
                   </div>
-                  <div className="flex items-center gap-x-1.5">
+                  <InputGroup>
                     <FormControl
                       render={
-                        <Input
+                        <InputGroupInput
                           min={6}
                           max={64}
                           type={showPassword ? "text" : "password"}
@@ -171,10 +172,12 @@ function RouteComponent() {
                       }
                     />
 
-                    <Button size="icon" variant="ghost" onClick={toggleShowPassword}>
-                      {showPassword ? <EyeIcon /> : <EyeSlashIcon />}
-                    </Button>
-                  </div>
+                    <InputGroupAddon align="inline-end">
+                      <InputGroupButton type="button" size="icon-xs" onClick={toggleShowPassword}>
+                        {showPassword ? <EyeIcon /> : <EyeSlashIcon />}
+                      </InputGroupButton>
+                    </InputGroupAddon>
+                  </InputGroup>
                   <FormMessage />
                 </FormItem>
               )}
