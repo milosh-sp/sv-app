@@ -587,7 +587,7 @@ function ExperienceItemRow({
               type="url"
               value={freelancerUrl}
               onChange={(e) => setFreelancerUrl(e.target.value)}
-              placeholder="https://www.upwork.com/freelancers/~..."
+              placeholder={t`https://www.upwork.com/freelancers/~...`}
               className="h-8 flex-1 rounded-md border bg-transparent px-3 text-sm placeholder:text-muted-foreground focus-visible:ring-1 focus-visible:ring-ring focus-visible:outline-none"
             />
             <Button

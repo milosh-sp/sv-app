@@ -776,6 +776,15 @@ msgstr "Columns"
 msgid "Combine verified skills with research-backed personality insights so teams hire for both capability and fit."
 msgstr "Combine verified skills with research-backed personality insights so teams hire for both capability and fit."
 
+#: src/components/command-palette/index.tsx
+#: src/components/command-palette/index.tsx
+msgid "Command Palette"
+msgstr "Command Palette"
+
+#: src/components/command-palette/index.tsx
+msgid "Command Palette - {currentPage}"
+msgstr "Command Palette - {currentPage}"
+
 #: src/routes/_home/-sections/footer.tsx
 msgid "Community"
 msgstr "Community"
@@ -1009,6 +1018,10 @@ msgstr "Create a resume first, then add your work authorization details."
 msgid "Create a Sample Resume"
 msgstr "Create a Sample Resume"
 
+#: src/dialogs/resume/index.tsx
+msgid "Create Resume with Options"
+msgstr "Create Resume with Options"
+
 #: src/dialogs/api-key/create.tsx
 msgid "Creating your API key..."
 msgstr "Creating your API key..."
@@ -1178,6 +1191,10 @@ msgstr "Disconnect"
 msgid "Display username"
 msgstr "Display username"
 
+#: src/components/ui/sidebar.tsx
+msgid "Displays the mobile sidebar."
+msgstr "Displays the mobile sidebar."
+
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Docker"
 msgstr "Docker"
@@ -1291,6 +1308,10 @@ msgstr "e.g. frontend developer jobs in Berlin"
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "e.g. Skilled Worker"
 msgstr "e.g. Skilled Worker"
+
+#: src/routes/dashboard/admin/ai.tsx
+msgid "e.g., gpt-4, claude-3-opus, gemini-pro"
+msgstr "e.g., gpt-4, claude-3-opus, gemini-pro"
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Earn peer-endorsed badges from domain experts — turn claims into evidence employers can trust at a glance."
@@ -1781,6 +1802,10 @@ msgstr "How it works"
 msgid "How long does a verification take?"
 msgstr "How long does a verification take?"
 
+#: src/routes/dashboard/verification/index.tsx
+msgid "https://www.upwork.com/freelancers/~..."
+msgstr "https://www.upwork.com/freelancers/~..."
+
 #: src/utils/locale.ts
 msgid "Hungarian"
 msgstr "Hungarian"
@@ -2083,6 +2108,10 @@ msgstr "List"
 msgid "Lithuanian"
 msgstr "Lithuanian"
 
+#: src/components/ui/spinner.tsx
+msgid "Loading"
+msgstr "Loading"
+
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Loading document..."
 msgstr "Loading document..."
@@ -2225,6 +2254,10 @@ msgstr "Move to"
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "MSc Computer Science"
 msgstr "MSc Computer Science"
+
+#: src/routes/builder/$resumeId/-sidebar/left/sections/custom-fields.tsx
+msgid "Must start with https://"
+msgstr "Must start with https://"
 
 #: src/dialogs/api-key/create.tsx
 #: src/dialogs/resume/index.tsx
@@ -3108,6 +3141,10 @@ msgstr "School"
 msgid "Search"
 msgstr "Search"
 
+#: src/components/command-palette/index.tsx
+msgid "Search commands"
+msgstr "Search commands"
+
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Search countries"
 msgstr "Search countries"
@@ -3121,6 +3158,7 @@ msgstr "Search for an icon"
 msgid "Search for..."
 msgstr "Search for..."
 
+#: src/components/command-palette/index.tsx
 #: src/components/ui/combobox.tsx
 msgid "Search..."
 msgstr "Search..."
@@ -3277,6 +3315,7 @@ msgstr "Show or hide the verification timeline on your public CV. This is off by
 msgid "Show Timeline on Public CV"
 msgstr "Show Timeline on Public CV"
 
+#: src/components/ui/sidebar.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/layout/pages.tsx
 msgid "Sidebar"
 msgstr "Sidebar"
@@ -3728,6 +3767,12 @@ msgstr "To delete your account, you need to enter the confirmation text and clic
 msgid "Today"
 msgstr "Today"
 
+#: src/components/ui/sidebar.tsx
+#: src/components/ui/sidebar.tsx
+#: src/components/ui/sidebar.tsx
+msgid "Toggle Sidebar"
+msgstr "Toggle Sidebar"
+
 #: src/routes/dashboard/admin/users.tsx
 msgid "Total keys"
 msgstr "Total keys"
@@ -3813,6 +3858,10 @@ msgstr "Two-factor authentication has been disabled successfully."
 msgid "Two-factor authentication has been setup successfully."
 msgstr "Two-factor authentication has been setup successfully."
 
+#: src/dialogs/auth/enable-two-factor.tsx
+msgid "Two-Factor Authentication QR Code"
+msgstr "Two-Factor Authentication QR Code"
+
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/users.tsx
 msgid "Two-factor enabled"
@@ -3832,6 +3881,7 @@ msgstr "Type"
 msgid "Type \"{CONFIRMATION_TEXT}\" to confirm"
 msgstr "Type \"{CONFIRMATION_TEXT}\" to confirm"
 
+#: src/components/command-palette/index.tsx
 #: src/components/command-palette/index.tsx
 msgid "Type a command or search..."
 msgstr "Type a command or search..."

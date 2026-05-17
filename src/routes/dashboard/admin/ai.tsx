@@ -174,7 +174,7 @@ function AdminAiForm() {
             setModel(e.target.value);
             setTestStatus("unverified");
           }}
-          placeholder="e.g., gpt-4, claude-3-opus, gemini-pro"
+          placeholder={t`e.g., gpt-4, claude-3-opus, gemini-pro`}
           autoCorrect="off"
           autoComplete="off"
           spellCheck="false"

@@ -31,7 +31,7 @@ msgstr "സൃഷ്‌ടിച്ചത്"
 #. js-lingui-explicit-id
 #: src/routes/dashboard/resumes/index.tsx
 msgid "Name"
-msgstr ""
+msgstr "പേര്"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "(you)"
@@ -87,11 +87,6 @@ msgstr "+{0} more approved"
 msgid "+{0} more uploaded"
 msgstr "+{0} more uploaded"
 
-#: src/routes/_home/-sections/faq.tsx
-msgctxt "Every word needs to be wrapped in a tag"
-msgid "<0>Frequently</0><1>Asked</1><2>Questions</2>"
-msgstr "<0>പതിവായി</0><1>ചോദിക്കപ്പെടുന്ന</1><2>ചോദ്യങ്ങൾ</2>"
-
 #: src/routes/_home/-sections/hero.tsx
 msgid "<0>Your skills, finally,</0><1>Proven. Not just claimed.</1>"
 msgstr "<0>Your skills, finally,</0><1>Proven. Not just claimed.</1>"
@@ -132,6 +127,10 @@ msgstr "നിങ്ങളുടെ ഇപ്പോഴത്തെ ഇമെയ�
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 msgid "A link to your resume has been copied to clipboard."
 msgstr "നിങ്ങളുടെ റിസ്യൂമിലേക്കുള്ള ലിങ്ക് ക്ലിപ്പ്ബോർഡിലേക്ക് പകർത്തിയിരിക്കുന്നു."
+
+#: src/routes/auth/verify-email.tsx
+msgid "A new verification link has been sent to your email address."
+msgstr "നിങ്ങളുടെ ഇമെയിൽ വിലാസത്തിലേക്ക് പുതിയ സ്ഥിരീകരണ ലിങ്ക് അയച്ചു."
 
 #: src/routes/dashboard/settings/profile.tsx
 msgid "A new verification link has been sent to your email address. Please check your inbox to verify your account."
@@ -531,6 +530,12 @@ msgstr "Back"
 msgid "Back to Login"
 msgstr "ലോഗിനിലേക്കു മടങ്ങുക"
 
+#: src/routes/builder/$resumeId/-components/header.tsx
+#: src/routes/builder/$resumeId/-components/header.tsx
+#: src/routes/builder/$resumeId/-components/header.tsx
+msgid "Back to resumes"
+msgstr "റെസ്യൂമെകളിലേക്ക് മടങ്ങുക"
+
 #: src/routes/dashboard/admin/resume/$resumeId.tsx
 msgid "Back to users"
 msgstr "Back to users"
@@ -708,9 +713,9 @@ msgstr "കരുതൽ മാറിയോ? നിങ്ങളുടെ റി�
 msgid "Check your email for a link to reset your password."
 msgstr "നിങ്ങളുടെ പാസ്‌വേഡ് റീസെറ്റ് ചെയ്യുന്നതിനുള്ള ഒരു ലിങ്കിനായി നിങ്ങളുടെ ഇമെയിൽ പരിശോധിക്കുക."
 
-#: src/routes/auth/register.tsx
-msgid "Check your email for a link to verify your account."
-msgstr "നിങ്ങളുടെ അക്കൗണ്ട് സ്ഥിരീകരിക്കുന്നതിന് ഒരു ലിങ്കിനായി നിങ്ങളുടെ ഇമെയിൽ പരിശോധിക്കുക."
+#: src/routes/auth/verify-email.tsx
+msgid "Check your inbox"
+msgstr "നിങ്ങളുടെ ഇൻബോക്സ് പരിശോധിക്കുക"
 
 #: src/utils/locale.ts
 msgid "Chinese (Simplified)"
@@ -776,6 +781,15 @@ msgstr "കോളങ്ങൾ"
 msgid "Combine verified skills with research-backed personality insights so teams hire for both capability and fit."
 msgstr "Combine verified skills with research-backed personality insights so teams hire for both capability and fit."
 
+#: src/components/command-palette/index.tsx
+#: src/components/command-palette/index.tsx
+msgid "Command Palette"
+msgstr "കമാൻഡ് പാലറ്റ്"
+
+#: src/components/command-palette/index.tsx
+msgid "Command Palette - {currentPage}"
+msgstr "കമാൻഡ് പാലറ്റ് - {currentPage}"
+
 #: src/routes/_home/-sections/footer.tsx
 msgid "Community"
 msgstr "കമ്മ്യൂണിറ്റി"
@@ -833,26 +847,26 @@ msgstr "Contact us"
 
 #: src/dialogs/resume/sections/cover-letter.tsx
 #: src/dialogs/resume/sections/summary-item.tsx
+#: src/routes/builder/$resumeId/route.tsx
 msgid "Content"
 msgstr "ഉള്ളടക്കം"
 
 #: src/dialogs/auth/enable-two-factor.tsx
 #: src/dialogs/auth/enable-two-factor.tsx
 #: src/dialogs/auth/enable-two-factor.tsx
-#: src/routes/auth/register.tsx
-#: src/routes/dashboard/verification/index.tsx
 #: src/routes/auth/verify-email.tsx
+#: src/routes/dashboard/verification/index.tsx
 msgid "Continue"
 msgstr "തുടരുക"
 
 #: src/routes/dashboard/resumes/-components/cards/import-card.tsx
-#: src/routes/dashboard/resumes/-components/list-view.tsx
+#: src/routes/dashboard/resumes/-components/resume-quick-actions.tsx
 msgid "Continue where you left off"
 msgstr "നിങ്ങൾ അവസാനിപ്പിച്ചിടത്തു നിന്നു തുടരുക"
 
 #: src/dialogs/resume/import.tsx
-msgid "Continue where you left off by importing an existing resume you created using Skill Verdict or any another resume builder. Supported formats include PDF, Microsoft Word, as well as JSON files from Skill Verdict."
-msgstr "Skill Verdict അല്ലെങ്കിൽ മറ്റേതെങ്കിലും റിസ്യൂം ബിൽഡർ ഉപയോഗിച്ച് നിങ്ങൾ മുമ്പ് സൃഷ്‌ടിച്ച റിസ്യൂം ഇംപോർട്ട് ചെയ്ത്, നിങ്ങൾ അവസാനിപ്പിച്ചിടത്തു നിന്നു തുടരും. പിന്തുണയുള്ള ഫോർമാറ്റുകളിൽ PDF, Microsoft Word, കൂടാതെ Skill Verdict ലെ JSON ഫയലുകളും ഉൾപ്പെടുന്നു."
+msgid "Continue where you left off by importing an existing resume you created using another resume builder. Supported formats include PDF, Microsoft Word, and JSON Resume files."
+msgstr "മറ്റൊരു റെസ്യൂം ബിൽഡർ ഉപയോഗിച്ച് നിങ്ങൾ സൃഷ്‌ടിച്ച നിലവിലുള്ള ഒരു റെസ്യൂം ഇറക്കുമതി ചെയ്‌ത് നിർത്തിയിടത്ത് തുടരുക. പിന്തുണയ്‌ക്കുന്ന ഫോർമാറ്റുകളിൽ PDF, Microsoft Word, JSON റെസ്യൂം ഫയലുകൾ എന്നിവ ഉൾപ്പെടുന്നു."
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Contractor"
@@ -878,6 +892,7 @@ msgstr "ബാക്കപ്പ് കോഡുകൾ പകർത്തുക"
 msgid "Copy this secret key and use it in your applications to access your data."
 msgstr "ഈ സീക്രട്ട് കീ പകർത്തി, നിങ്ങളുടെ ആപ്പ്ലിക്കേഷനുകളിൽ നിങ്ങൾക്കുള്ള ഡാറ്റ ആക്സ്സ് ചെയ്യുന്നതിനായി ഉപയോഗിക്കുക."
 
+#: src/routes/builder/$resumeId/-components/dock.tsx
 #: src/routes/builder/$resumeId/-components/dock.tsx
 msgid "Copy URL"
 msgstr "URL പകർത്തുക"
@@ -979,7 +994,7 @@ msgstr "ഒരു പുതിയ റഫറൻസ് സൃഷ്‌ടിക്
 #: src/components/command-palette/pages/resumes.tsx
 #: src/dialogs/resume/index.tsx
 #: src/routes/dashboard/resumes/-components/cards/create-card.tsx
-#: src/routes/dashboard/resumes/-components/list-view.tsx
+#: src/routes/dashboard/resumes/-components/resume-quick-actions.tsx
 #: src/routes/dashboard/verification/index.tsx
 msgid "Create a new resume"
 msgstr "ഒരു പുതിയ റിസ്യൂം സൃഷ്‌ടിക്കുക"
@@ -1007,6 +1022,10 @@ msgstr "Create a resume first, then add your work authorization details."
 #: src/dialogs/resume/index.tsx
 msgid "Create a Sample Resume"
 msgstr "ഒരു സാമ്പിള്‍ റിസ്യൂം സൃഷ്‌ടിക്കുക"
+
+#: src/dialogs/resume/index.tsx
+msgid "Create Resume with Options"
+msgstr "ഓപ്‌ഷനുകൾ ഉപയോഗിച്ച് റെസ്യൂം സൃഷ്‌ടിക്കുക"
 
 #: src/dialogs/api-key/create.tsx
 msgid "Creating your API key..."
@@ -1139,6 +1158,7 @@ msgstr "നിങ്ങളുടെ റിസ്യൂം ഡിലീറ്റ�
 msgid "Description"
 msgstr "വിവരണം"
 
+#: src/routes/builder/$resumeId/route.tsx
 #: src/utils/resume/section.tsx
 msgid "Design"
 msgstr "ഡിസൈൻ"
@@ -1175,6 +1195,10 @@ msgstr "ഡിസ്കണക്റ്റ് ചെയ്യുക"
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Display username"
 msgstr "Display username"
+
+#: src/components/ui/sidebar.tsx
+msgid "Displays the mobile sidebar."
+msgstr "മൊബൈൽ സൈഡ്ബാർ പ്രദർശിപ്പിക്കുന്നു."
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Docker"
@@ -1215,13 +1239,16 @@ msgid "Download a copy of your resume in PDF format. Use this file for printing 
 msgstr "നിങ്ങളുടെ റിസ്യൂമിന്റെ ഒരു കോപ്പി PDF ഫോർമാറ്റിൽ ഡൗൺലോഡ് ചെയ്യുക. പ്രിന്റ് ചെയ്യുന്നതിനോ റിക്രൂട്ടർമാർക്കൊപ്പം എളുപ്പത്തിൽ പങ്കിടുന്നതിനോ ഈ ഫയൽ ഉപയോഗിക്കുക."
 
 #: src/routes/builder/$resumeId/-components/dock.tsx
+#: src/routes/builder/$resumeId/-components/dock.tsx
 msgid "Download DOCX"
 msgstr "ഡോക്സ് ഡൗൺലോഡ് ചെയ്യുക"
 
 #: src/routes/builder/$resumeId/-components/dock.tsx
+#: src/routes/builder/$resumeId/-components/dock.tsx
 msgid "Download JSON"
 msgstr "JSON ഡൗൺലോഡ് ചെയ്യുക"
 
+#: src/routes/builder/$resumeId/-components/dock.tsx
 #: src/routes/builder/$resumeId/-components/dock.tsx
 msgid "Download PDF"
 msgstr "PDF ഡൗൺലോഡ് ചെയ്യുക"
@@ -1287,6 +1314,10 @@ msgstr "ഉദാ. ബെർലിനിലെ ഫ്രണ്ടെൻഡ് �
 msgid "e.g. Skilled Worker"
 msgstr "e.g. Skilled Worker"
 
+#: src/routes/dashboard/admin/ai.tsx
+msgid "e.g., gpt-4, claude-3-opus, gemini-pro"
+msgstr "ഉദാ., gpt-4, claude-3-opus, gemini-pro"
+
 #: src/routes/_home/-sections/features.tsx
 msgid "Earn peer-endorsed badges from domain experts — turn claims into evidence employers can trust at a glance."
 msgstr "Earn peer-endorsed badges from domain experts — turn claims into evidence employers can trust at a glance."
@@ -1313,9 +1344,9 @@ msgstr "ഇമെയിൽ"
 msgid "Email Address"
 msgstr "ഇമെയിൽ വിലാസം"
 
+#: src/routes/auth/verify-email.tsx
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/users.tsx
-#: src/routes/auth/verify-email.tsx
 msgid "Email verified"
 msgstr "Email verified"
 
@@ -1476,6 +1507,10 @@ msgstr "Failed to load document."
 msgid "Failed to load user details."
 msgstr "Failed to load user details."
 
+#: src/routes/auth/verify-email.tsx
+msgid "Failed to resend verification email. Please try again."
+msgstr "സ്ഥിരീകരണ ഇമെയിൽ വീണ്ടും അയക്കാനായില്ല. ദയവായി വീണ്ടും ശ്രമിക്കുക."
+
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Failed to save work authorization."
 msgstr "Failed to save work authorization."
@@ -1516,6 +1551,10 @@ msgstr "ഫിൽറ്റർ ചെയ്യുക"
 #: src/utils/locale.ts
 msgid "Finnish"
 msgstr "ഫിന്നിഷ്"
+
+#: src/routes/builder/$resumeId/-components/dock.tsx
+msgid "Fit resume to screen"
+msgstr "സ്ക്രീനിലേക്ക് ഫിറ്റ് റെസ്യൂമെ"
 
 #: src/dialogs/resume/sections/language.tsx
 msgid "Fluency"
@@ -1579,6 +1618,10 @@ msgstr "Freelancer Profile Link"
 #: src/utils/locale.ts
 msgid "French"
 msgstr "ഫ്രഞ്ച്"
+
+#: src/routes/_home/-sections/faq.tsx
+msgid "Frequently Asked Questions"
+msgstr "പതിവായി ചോദിക്കുന്ന ചോദ്യങ്ങൾ"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/layout/pages.tsx
 msgid "Full Width"
@@ -1764,6 +1807,10 @@ msgstr "How it works"
 msgid "How long does a verification take?"
 msgstr "How long does a verification take?"
 
+#: src/routes/dashboard/verification/index.tsx
+msgid "https://www.upwork.com/freelancers/~..."
+msgstr "https://www.upwork.com/freelancers/~..."
+
 #: src/utils/locale.ts
 msgid "Hungarian"
 msgstr "ഹംഗേറിയൻ"
@@ -1824,7 +1871,7 @@ msgstr "ഇംപോർട്ട്"
 
 #: src/dialogs/resume/import.tsx
 #: src/routes/dashboard/resumes/-components/cards/import-card.tsx
-#: src/routes/dashboard/resumes/-components/list-view.tsx
+#: src/routes/dashboard/resumes/-components/resume-quick-actions.tsx
 msgid "Import an existing resume"
 msgstr "നിലവിലുള്ള ഒരു റിസ്യൂം ഇംപോർട്ട് ചെയ്യുക"
 
@@ -2066,6 +2113,10 @@ msgstr "ലിസ്റ്റ്"
 msgid "Lithuanian"
 msgstr "ലിത്വാനിയൻ"
 
+#: src/components/ui/spinner.tsx
+msgid "Loading"
+msgstr "ലോഡ് ചെയ്യുന്നു"
+
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Loading document..."
 msgstr "Loading document..."
@@ -2189,6 +2240,10 @@ msgstr "ഏറ്റവും കുറഞ്ഞ ശമ്പളം"
 msgid "Model"
 msgstr "മോഡൽ"
 
+#: src/routes/builder/$resumeId/-components/dock.tsx
+msgid "More builder actions"
+msgstr "കൂടുതൽ ബിൽഡർ പ്രവർത്തനങ്ങൾ"
+
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "More than 3 years"
 msgstr "മൂന്ന് വർഷത്തിൽ കൂടുതൽ"
@@ -2204,6 +2259,10 @@ msgstr "ഇതിലേക്കു മാറ്റുക"
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "MSc Computer Science"
 msgstr "MSc Computer Science"
+
+#: src/routes/builder/$resumeId/-sidebar/left/sections/custom-fields.tsx
+msgid "Must start with https://"
+msgstr "https:// എന്നതിൽ തുടങ്ങണം"
 
 #: src/dialogs/api-key/create.tsx
 #: src/dialogs/resume/index.tsx
@@ -2235,6 +2294,10 @@ msgid "New Line"
 msgstr "പുതിയ വരി"
 
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
+msgid "New page"
+msgstr "പുതിയ പേജ്"
+
+#: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
 msgid "New Page"
 msgstr "പുതിയ പേജ്"
 
@@ -2246,6 +2309,11 @@ msgstr "പുതിയ പാസ്‌വേഡ്"
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
 msgid "New Section"
 msgstr "പുതിയ സെക്ഷൻ"
+
+#. placeholder {0}: pageIndex + 1
+#: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
+msgid "New section on page {0}"
+msgstr "{0} പേജിലെ പുതിയ വിഭാഗം"
 
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 msgid "New Skills Detected"
@@ -2392,6 +2460,16 @@ msgstr "Only your assigned reviewer sees the assignments you submit. On your pub
 msgid "Open"
 msgstr "ഓപ്പൺ ചെയ്യുക"
 
+#: src/routes/builder/$resumeId/-components/header.tsx
+#: src/routes/builder/$resumeId/-components/header.tsx
+msgid "Open content editor"
+msgstr "ഉള്ളടക്ക എഡിറ്റർ തുറക്കുക"
+
+#: src/routes/builder/$resumeId/-components/header.tsx
+#: src/routes/builder/$resumeId/-components/header.tsx
+msgid "Open design settings"
+msgstr "ഡിസൈൻ ക്രമീകരണങ്ങൾ തുറക്കുക"
+
 #: src/routes/auth/forgot-password.tsx
 msgid "Open Email Client"
 msgstr "ഇമെയിൽ ക്ലയന്റ് ഓപ്പൺ ചെയ്യുക"
@@ -2486,6 +2564,11 @@ msgstr "പേജ് {0}"
 #: src/routes/dashboard/admin/users.tsx
 msgid "Page {0} of {totalPages} — {1} users"
 msgstr "Page {0} of {totalPages} — {1} users"
+
+#. placeholder {0}: pageIndex + 1
+#: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
+msgid "Page {0}: {sectionTitle}"
+msgstr "പേജ് {0}: {sectionTitle}"
 
 #: src/routes/dashboard/job-search/index.tsx
 msgid "Page {currentPage}"
@@ -2789,6 +2872,7 @@ msgid "Rectangle (Full Width)"
 msgstr "ചതുരാകൃതി (പൂർണ്ണ വീതി)"
 
 #: src/routes/builder/$resumeId/-components/dock.tsx
+#: src/routes/builder/$resumeId/-components/dock.tsx
 msgctxt "'Ctrl' may be replaced with the locale-specific equivalent (e.g. 'Strg' for QWERTZ layouts)."
 msgid "Redo (Ctrl+Y)"
 msgstr "റീഡു (Ctrl+Y)"
@@ -2860,6 +2944,10 @@ msgstr "പുനഃക്രമീകരിക്കുക"
 msgid "Request"
 msgstr "Request"
 
+#: src/routes/auth/verify-email.tsx
+msgid "Request a new link"
+msgstr "പുതിയ ലിങ്ക് അഭ്യർത്ഥിക്കുക"
+
 #: src/routes/dashboard/job-search/-components/job-detail.tsx
 msgid "Required Skills"
 msgstr "ആവശ്യമായ കഴിവുകൾ"
@@ -2868,13 +2956,13 @@ msgstr "ആവശ്യമായ കഴിവുകൾ"
 msgid "Required: reason for overriding this verdict..."
 msgstr "Required: reason for overriding this verdict..."
 
-#: src/routes/dashboard/settings/profile.tsx
 #: src/routes/auth/verify-email.tsx
+#: src/routes/dashboard/settings/profile.tsx
 msgid "Resend verification email"
 msgstr "സ്ഥിരീകരണ ഇമെയിൽ വീണ്ടും അയക്കുക"
 
-#: src/routes/dashboard/settings/profile.tsx
 #: src/routes/auth/verify-email.tsx
+#: src/routes/dashboard/settings/profile.tsx
 msgid "Resending verification email..."
 msgstr "സ്ഥിരീകരണ ഇമെയിൽ വീണ്ടും അയക്കുന്നു..."
 
@@ -3058,6 +3146,10 @@ msgstr "സ്കൂൾ"
 msgid "Search"
 msgstr "തിരയുക"
 
+#: src/components/command-palette/index.tsx
+msgid "Search commands"
+msgstr "തിരയൽ കമാൻഡുകൾ"
+
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Search countries"
 msgstr "രാജ്യങ്ങൾ തിരയുക"
@@ -3071,6 +3163,7 @@ msgstr "ഒരു ഐക്കൺ തിരയുക"
 msgid "Search for..."
 msgstr "തിരയുക..."
 
+#: src/components/command-palette/index.tsx
 #: src/components/ui/combobox.tsx
 msgid "Search..."
 msgstr "തിരയുക..."
@@ -3227,6 +3320,7 @@ msgstr "Show or hide the verification timeline on your public CV. This is off by
 msgid "Show Timeline on Public CV"
 msgstr "Show Timeline on Public CV"
 
+#: src/components/ui/sidebar.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/layout/pages.tsx
 msgid "Sidebar"
 msgstr "സൈഡ്ബാർ"
@@ -3237,12 +3331,25 @@ msgstr "സൈഡ്ബാർ വീതി"
 
 #: src/routes/auth/login.tsx
 #: src/routes/auth/verify-email.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Sign in"
 msgstr "സൈൻ ഇൻ"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to verify your email"
+msgstr "നിങ്ങളുടെ ഇമെയിൽ സ്ഥിരീകരിക്കാൻ സൈൻ ഇൻ ചെയ്യുക"
 
 #: src/routes/auth/login.tsx
 msgid "Sign in to your account"
 msgstr "നിങ്ങളുടെ അക്കൗണ്ടിലേക്ക് സൈൻ ഇൻ ചെയ്യുക"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to your account to request a new verification email."
+msgstr "പുതിയ സ്ഥിരീകരണ ഇമെയിൽ അഭ്യർത്ഥിക്കാൻ നിങ്ങളുടെ അക്കൗണ്ടിൽ സൈൻ ഇൻ ചെയ്യുക."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to your account, then request a new verification email."
+msgstr "നിങ്ങളുടെ അക്കൗണ്ടിൽ സൈൻ ഇൻ ചെയ്ത ശേഷം പുതിയ സ്ഥിരീകരണ ഇമെയിൽ അഭ്യർത്ഥിക്കുക."
 
 #: src/routes/auth/register.tsx
 msgid "Sign up"
@@ -3390,7 +3497,7 @@ msgid "Start building your resume by giving it a name."
 msgstr "ഒരു പേര് നൽകിക്കൊണ്ട് നിങ്ങളുടെ റിസ്യൂം നിർമ്മിക്കൽ ആരംഭിക്കുക."
 
 #: src/routes/dashboard/resumes/-components/cards/create-card.tsx
-#: src/routes/dashboard/resumes/-components/list-view.tsx
+#: src/routes/dashboard/resumes/-components/resume-quick-actions.tsx
 msgid "Start building your resume from scratch"
 msgstr "നിറുത്തിടുന്നിടത്ത് നിന്ന് നിങ്ങളുടെ റിസ്യൂം പൂർണ്ണമായും പുതിയതായി നിർമ്മിക്കാൻ ആരംഭിക്കുക"
 
@@ -3554,6 +3661,10 @@ msgstr "നിങ്ങൾ ആക്സസ് ചെയ്യാൻ ശ്രമ
 msgid "The URL you entered is not valid."
 msgstr "നിങ്ങൾ നൽകിയ URL സാധുവല്ല."
 
+#: src/routes/auth/verify-email.tsx
+msgid "The verification link may be invalid, expired, or already used."
+msgstr "സ്ഥിരീകരണ ലിങ്ക് അസാധുവായതോ കാലഹരണപ്പെട്ടതോ ഇതിനകം ഉപയോഗിച്ചതോ ആയിരിക്കാം."
+
 #: src/components/command-palette/pages/preferences/theme.tsx
 #: src/components/user/dropdown-menu.tsx
 #: src/routes/dashboard/settings/preferences.tsx
@@ -3621,10 +3732,6 @@ msgstr "ഈ റിസ്യൂം ലോക്ക് ചെയ്തതിനാ
 msgid "This section is reserved for your personal notes specific to this resume. The content here remains private and is not shared with anyone else."
 msgstr "ഈ സെക്ഷൻ, ഈ റിസ്യൂമിനോട് പ്രത്യേകിച്ച് ബന്ധപ്പെട്ട നിങ്ങളുടെ സ്വകാര്യ കുറിപ്പുകൾക്കായി സംവരണം ചെയ്തിരിക്കുന്നു. ഇവിടെ ഉള്ള ഉള്ളടക്കം സ്വകാര്യമാണ്, മറ്റാരുമായും പങ്കിടുകയില്ല."
 
-#: src/routes/auth/register.tsx
-msgid "This step is optional, but recommended."
-msgstr "ഈ പടി ഐച്ചികമാണ്, പക്ഷേ നിർദ്ദേശിക്കപ്പെടുന്നു."
-
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "This week"
 msgstr "ഈ ആഴ്ച"
@@ -3665,6 +3772,12 @@ msgstr "നിങ്ങളുടെ അക്കൗണ്ട് ഡിലീറ�
 msgid "Today"
 msgstr "ഇന്ന്"
 
+#: src/components/ui/sidebar.tsx
+#: src/components/ui/sidebar.tsx
+#: src/components/ui/sidebar.tsx
+msgid "Toggle Sidebar"
+msgstr "സൈഡ്‌ബാർ ടോഗിൾ ചെയ്യുക"
+
 #: src/routes/dashboard/admin/users.tsx
 msgid "Total keys"
 msgstr "Total keys"
@@ -3688,6 +3801,10 @@ msgstr "Total sessions"
 #: src/routes/builder/$resumeId/-sidebar/right/sections/statistics.tsx
 msgid "Track your resume's views and downloads"
 msgstr "നിങ്ങളുടെ റിസ്യൂമിന്റെ വ്യൂകളും ഡൗൺലോഡുകളും ട്രാക്ക് ചെയ്യുക"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Try requesting a new verification link."
+msgstr "പുതിയ സ്ഥിരീകരണ ലിങ്ക് അഭ്യർത്ഥിക്കാൻ ശ്രമിക്കുക."
 
 #: src/utils/locale.ts
 msgid "Turkish"
@@ -3746,6 +3863,10 @@ msgstr "ടു‑ഫാക്ടർ ഓത്‌ന്റിക്കേഷൻ �
 msgid "Two-factor authentication has been setup successfully."
 msgstr "ടു‑ഫാക്ടർ ഓത്‌ന്റിക്കേഷൻ വിജയകരമായി സജ്ജീകരിച്ചു."
 
+#: src/dialogs/auth/enable-two-factor.tsx
+msgid "Two-Factor Authentication QR Code"
+msgstr "ടു-ഫാക്ടർ ഓതൻ്റിക്കേഷൻ ക്യുആർ കോഡ്"
+
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/users.tsx
 msgid "Two-factor enabled"
@@ -3765,6 +3886,7 @@ msgstr "ടൈപ്പ്"
 msgid "Type \"{CONFIRMATION_TEXT}\" to confirm"
 msgstr "സ്ഥിരീകരിക്കാൻ \"{CONFIRMATION_TEXT}\" ടൈപ്പ് ചെയ്യുക"
 
+#: src/components/command-palette/index.tsx
 #: src/components/command-palette/index.tsx
 msgid "Type a command or search..."
 msgstr "ഒരു കമാൻഡ് ടൈപ്പ് ചെയ്യുകയോ തിരയുകയോ ചെയ്യൂ..."
@@ -3789,6 +3911,7 @@ msgstr "3 വയസ്സിന് താഴെ"
 msgid "Underline"
 msgstr "അണ്ടർലൈൻ"
 
+#: src/routes/builder/$resumeId/-components/dock.tsx
 #: src/routes/builder/$resumeId/-components/dock.tsx
 msgctxt "'Ctrl' may be replaced with the locale-specific equivalent (e.g. 'Strg' for QWERTZ layouts)."
 msgid "Undo (Ctrl+Z)"
@@ -4034,6 +4157,10 @@ msgstr "Verify my skills"
 msgid "Verify with a Backup Code"
 msgstr "ഒരു ബാക്കപ്പ് കോഡ് ഉപയോഗിച്ച് സ്ഥിരീകരിക്കുക"
 
+#: src/routes/auth/verify-email.tsx
+msgid "Verify your email"
+msgstr "നിങ്ങളുടെ ഇമെയിൽ സ്ഥിരീകരിക്കുക"
+
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Verify your identity through a short video call. This adds trust to your resume."
 msgstr "Verify your identity through a short video call. This adds trust to your resume."
@@ -4050,10 +4177,6 @@ msgstr "കോഡ് പരിശോദിക്കുന്നു..."
 #: src/routes/auth/resume-password.tsx
 msgid "Verifying password..."
 msgstr "പാസ്‌വേഡ് പരിശോദിക്കുന്നു..."
-
-#: src/routes/auth/register.tsx
-msgid "Verifying your email is required when resetting your password."
-msgstr "നിങ്ങളുടെ പാസ്‌വേഡ് റീസെറ്റ് ചെയ്യുമ്പോൾ ഇമെയിൽ സ്ഥിരീകരണം നിർബന്ധമാണ്."
 
 #: src/utils/locale.ts
 msgid "Vietnamese"
@@ -4087,6 +4210,14 @@ msgstr "Visibility"
 #: src/utils/resume/section.tsx
 msgid "Volunteer"
 msgstr "വളന്റിയർ"
+
+#: src/routes/auth/verify-email.tsx
+msgid "We couldn't verify your email"
+msgstr "നിങ്ങളുടെ ഇമെയിൽ സ്ഥിരീകരിക്കാൻ ഞങ്ങൾക്ക് കഴിഞ്ഞില്ല"
+
+#: src/routes/auth/verify-email.tsx
+msgid "We sent a verification link to your email address."
+msgstr "നിങ്ങളുടെ ഇമെയിൽ വിലാസത്തിലേക്ക് സ്ഥിരീകരണ ലിങ്ക് അയച്ചു."
 
 #: src/dialogs/resume/sections/award.tsx
 #: src/dialogs/resume/sections/certification.tsx
@@ -4149,22 +4280,33 @@ msgstr "ഇന്നലെ"
 msgid "You can also use your username to login."
 msgstr "ലോഗിൻ ചെയ്യാൻ നിങ്ങൾക്ക് നിങ്ങളുടെ യൂസർനെയിംയും ഉപയോഗിക്കാം."
 
+#: src/routes/auth/verify-email.tsx
+msgid "You can now use account recovery and other features that require a verified email address."
+msgstr "സ്ഥിരീകരിച്ച ഇമെയിൽ വിലാസം ആവശ്യമായ അക്കൗണ്ട് വീണ്ടെടുക്കലും മറ്റ് സവിശേഷതകളും ഇപ്പോൾ ഉപയോഗിക്കാം."
+
 #: src/hooks/use-form-blocker.tsx
 msgid "You have unsaved changes that will be lost."
 msgstr "സേവ് ചെയ്യാത്ത മാറ്റങ്ങൾ നഷ്ടമാകും."
+
+#: src/routes/auth/verify-email.tsx
+msgid "You must verify your email address before you can access Skill Verdict."
+msgstr "Skill Verdict ആക്സസ് ചെയ്യുന്നതിന് മുമ്പ് നിങ്ങളുടെ ഇമെയിൽ വിലാസം സ്ഥിരീകരിക്കണം."
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "You pick the skills you want to endorse and a reviewer with relevant expertise. They assign a short, practical assessment, review your submission, and share actionable feedback. If you pass, the skill is added to your profile as a verified badge."
 msgstr "You pick the skills you want to endorse and a reviewer with relevant expertise. They assign a short, practical assessment, review your submission, and share actionable feedback. If you pass, the skill is added to your profile as a verified badge."
 
 #: src/routes/auth/forgot-password.tsx
-#: src/routes/auth/register.tsx
 msgid "You've got mail!"
 msgstr "നിങ്ങൾക്ക് ഒരു ഇമെയിൽ വന്നിരിക്കുന്നു!"
 
 #: src/routes/dashboard/settings/danger-zone.tsx
 msgid "Your account has been deleted successfully."
 msgstr "നിങ്ങളുടെ അക്കൗണ്ട് വിജയകരമായി ഡിലീറ്റ് ചെയ്തിട്ടുണ്ട്."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Your account is up to date."
+msgstr "നിങ്ങളുടെ അക്കൗണ്ട് പുതുക്കപ്പെട്ടിരിക്കുന്നു."
 
 #: src/dialogs/api-key/create.tsx
 msgid "Your API key has been copied to the clipboard."
@@ -4173,6 +4315,10 @@ msgstr "നിങ്ങളുടെ API കീ ക്ലിപ്പ്ബോർ
 #: src/routes/builder/$resumeId/index.tsx
 msgid "Your changes are saved automatically."
 msgstr "നിങ്ങളുടെ മാറ്റങ്ങൾ സ്വയം സേവ് ചെയ്യപ്പെടുന്നു."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Your email address is confirmed. You can continue using Skill Verdict."
+msgstr "നിങ്ങളുടെ ഇമെയിൽ വിലാസം സ്ഥിരീകരിച്ചു. Skill Verdict ഉപയോഗിക്കുന്നത് തുടരാം."
 
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Your identity has been verified and your profile is trusted."
@@ -4226,9 +4372,11 @@ msgid "Your verification call has been scheduled. Our team will review and confi
 msgstr "Your verification call has been scheduled. Our team will review and confirm your identity shortly."
 
 #: src/routes/builder/$resumeId/-components/dock.tsx
+#: src/routes/builder/$resumeId/-components/dock.tsx
 msgid "Zoom in"
 msgstr "സൂം ഇൻ ചെയ്യുക"
 
+#: src/routes/builder/$resumeId/-components/dock.tsx
 #: src/routes/builder/$resumeId/-components/dock.tsx
 msgid "Zoom out"
 msgstr "സൂം ഔട്ട് ചെയ്യുക"
@@ -4236,67 +4384,3 @@ msgstr "സൂം ഔട്ട് ചെയ്യുക"
 #: src/utils/locale.ts
 msgid "Zulu"
 msgstr "സൂളു"
-
-#: src/routes/auth/verify-email.tsx
-msgid "A new verification link has been sent to your email address."
-msgstr "നിങ്ങളുടെ ഇമെയിൽ വിലാസത്തിലേക്ക് പുതിയ സ്ഥിരീകരണ ലിങ്ക് അയച്ചു."
-
-#: src/routes/auth/verify-email.tsx
-msgid "Check your inbox"
-msgstr "നിങ്ങളുടെ ഇൻബോക്സ് പരിശോധിക്കുക"
-
-#: src/routes/auth/verify-email.tsx
-msgid "Failed to resend verification email. Please try again."
-msgstr "സ്ഥിരീകരണ ഇമെയിൽ വീണ്ടും അയക്കാനായില്ല. ദയവായി വീണ്ടും ശ്രമിക്കുക."
-
-#: src/routes/auth/verify-email.tsx
-msgid "Request a new link"
-msgstr "പുതിയ ലിങ്ക് അഭ്യർത്ഥിക്കുക"
-
-#: src/routes/auth/verify-email.tsx
-msgid "Sign in to your account to request a new verification email."
-msgstr "പുതിയ സ്ഥിരീകരണ ഇമെയിൽ അഭ്യർത്ഥിക്കാൻ നിങ്ങളുടെ അക്കൗണ്ടിൽ സൈൻ ഇൻ ചെയ്യുക."
-
-#: src/routes/auth/verify-email.tsx
-msgid "Sign in to your account, then request a new verification email."
-msgstr "നിങ്ങളുടെ അക്കൗണ്ടിൽ സൈൻ ഇൻ ചെയ്ത ശേഷം പുതിയ സ്ഥിരീകരണ ഇമെയിൽ അഭ്യർത്ഥിക്കുക."
-
-#: src/routes/auth/verify-email.tsx
-msgid "Sign in to verify your email"
-msgstr "നിങ്ങളുടെ ഇമെയിൽ സ്ഥിരീകരിക്കാൻ സൈൻ ഇൻ ചെയ്യുക"
-
-#: src/routes/auth/verify-email.tsx
-msgid "The verification link may be invalid, expired, or already used."
-msgstr "സ്ഥിരീകരണ ലിങ്ക് അസാധുവായതോ കാലഹരണപ്പെട്ടതോ ഇതിനകം ഉപയോഗിച്ചതോ ആയിരിക്കാം."
-
-#: src/routes/auth/verify-email.tsx
-msgid "Try requesting a new verification link."
-msgstr "പുതിയ സ്ഥിരീകരണ ലിങ്ക് അഭ്യർത്ഥിക്കാൻ ശ്രമിക്കുക."
-
-#: src/routes/auth/verify-email.tsx
-msgid "Verify your email"
-msgstr "നിങ്ങളുടെ ഇമെയിൽ സ്ഥിരീകരിക്കുക"
-
-#: src/routes/auth/verify-email.tsx
-msgid "We couldn't verify your email"
-msgstr "നിങ്ങളുടെ ഇമെയിൽ സ്ഥിരീകരിക്കാൻ ഞങ്ങൾക്ക് കഴിഞ്ഞില്ല"
-
-#: src/routes/auth/verify-email.tsx
-msgid "We sent a verification link to your email address."
-msgstr "നിങ്ങളുടെ ഇമെയിൽ വിലാസത്തിലേക്ക് സ്ഥിരീകരണ ലിങ്ക് അയച്ചു."
-
-#: src/routes/auth/verify-email.tsx
-msgid "You can now use account recovery and other features that require a verified email address."
-msgstr "സ്ഥിരീകരിച്ച ഇമെയിൽ വിലാസം ആവശ്യമായ അക്കൗണ്ട് വീണ്ടെടുക്കലും മറ്റ് സവിശേഷതകളും ഇപ്പോൾ ഉപയോഗിക്കാം."
-
-#: src/routes/auth/verify-email.tsx
-msgid "You must verify your email address before you can access Skill Verdict."
-msgstr "Skill Verdict ആക്സസ് ചെയ്യുന്നതിന് മുമ്പ് നിങ്ങളുടെ ഇമെയിൽ വിലാസം സ്ഥിരീകരിക്കണം."
-
-#: src/routes/auth/verify-email.tsx
-msgid "Your account is up to date."
-msgstr "നിങ്ങളുടെ അക്കൗണ്ട് പുതുക്കപ്പെട്ടിരിക്കുന്നു."
-
-#: src/routes/auth/verify-email.tsx
-msgid "Your email address is confirmed. You can continue using Skill Verdict."
-msgstr "നിങ്ങളുടെ ഇമെയിൽ വിലാസം സ്ഥിരീകരിച്ചു. Skill Verdict ഉപയോഗിക്കുന്നത് തുടരാം."

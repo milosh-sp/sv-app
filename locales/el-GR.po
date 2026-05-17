@@ -31,7 +31,7 @@ msgstr "Ημερομηνία δημιουργίας"
 #. js-lingui-explicit-id
 #: src/routes/dashboard/resumes/index.tsx
 msgid "Name"
-msgstr ""
+msgstr "Ονομα"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "(you)"
@@ -87,14 +87,9 @@ msgstr "+{0} more approved"
 msgid "+{0} more uploaded"
 msgstr "+{0} more uploaded"
 
-#: src/routes/_home/-sections/faq.tsx
-msgctxt "Every word needs to be wrapped in a tag"
-msgid "<0>Frequently</0><1>Asked</1><2>Questions</2>"
-msgstr "<0>Συχνές</0><1>Ερωτήσεις</1><2>Χρηστών</2>"
-
 #: src/routes/_home/-sections/hero.tsx
 msgid "<0>Your skills, finally,</0><1>Proven. Not just claimed.</1>"
-msgstr "<0>Your skills, finally,</0><1>Proven. Not just claimed.</1>"
+msgstr "<0>Οι δεξιότητές σας, επιτέλους,</0><1>Αποδεδειγμένα. Όχι απλώς αξίωση.</1>"
 
 #: src/dialogs/api-key/create.tsx
 msgid "1 month"
@@ -114,7 +109,7 @@ msgstr "2014 - 2016"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "2020 - Present"
-msgstr "2020 - Present"
+msgstr "2020 - Σήμερα"
 
 #: src/dialogs/api-key/create.tsx
 msgid "3 months"
@@ -133,13 +128,17 @@ msgstr "Ένας σύνδεσμος επιβεβαίωσης στάλθηκε σ
 msgid "A link to your resume has been copied to clipboard."
 msgstr "Ένας σύνδεσμος προς το βιογραφικό σας σημείωμα αντιγράφηκε στο πρόχειρο."
 
+#: src/routes/auth/verify-email.tsx
+msgid "A new verification link has been sent to your email address."
+msgstr "Ένας νέος σύνδεσμος επαλήθευσης στάλθηκε στη διεύθυνση email σας."
+
 #: src/routes/dashboard/settings/profile.tsx
 msgid "A new verification link has been sent to your email address. Please check your inbox to verify your account."
 msgstr "Ένας νέος σύνδεσμος επαλήθευσης στάλθηκε στη διεύθυνση email σας. Ελέγξτε τα εισερχόμενά σας για να επαληθεύσετε τον λογαριασμό σας."
 
 #: src/routes/_home/-sections/features.tsx
 msgid "A profile that reflects what you can actually do — verified by people who know what they're looking at, and built to travel with you wherever you go."
-msgstr "A profile that reflects what you can actually do — verified by people who know what they're looking at, and built to travel with you wherever you go."
+msgstr "Ένα προφίλ που αντικατοπτρίζει τι μπορείτε πραγματικά να κάνετε - επαληθευμένο από άτομα που ξέρουν τι βλέπουν και είναι κατασκευασμένο για να σας ταξιδεύει όπου κι αν πάτε."
 
 #: src/routes/dashboard/admin/experience-queue.tsx
 msgid "A reason is required to override."
@@ -152,7 +151,7 @@ msgstr "Υπάρχει ήδη βιογραφικό σημείωμα με αυτ�
 
 #: src/routes/_home/-sections/features.tsx
 msgid "A unique QR code and public link make your profile shareable in person, online, and in recruiter searches."
-msgstr "A unique QR code and public link make your profile shareable in person, online, and in recruiter searches."
+msgstr "Ένας μοναδικός κωδικός QR και ένας δημόσιος σύνδεσμος καθιστούν το προφίλ σας κοινόχρηστο αυτοπροσώπως, στο διαδίκτυο και σε αναζητήσεις εργαζομένων."
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/page.tsx
 msgid "A4"
@@ -172,7 +171,7 @@ msgstr "Account updated"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Action oriented"
-msgstr "Action oriented"
+msgstr "Προσανατολισμένη στη δράση"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Active sessions"
@@ -363,11 +362,11 @@ msgstr "Προέκυψε άγνωστο σφάλμα κατά την εισαγ�
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Analytical"
-msgstr "Analytical"
+msgstr "Αναλυτικός"
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Anonymous, bias-free review"
-msgstr "Anonymous, bias-free review"
+msgstr "Ανώνυμη, χωρίς μεροληψία κριτική"
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Any level"
@@ -443,7 +442,7 @@ msgstr "Αραβικά"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Arc"
-msgstr "Arc"
+msgstr "Τόξο"
 
 #: src/hooks/use-form-blocker.tsx
 msgid "Are you sure you want to close this dialog?"
@@ -531,6 +530,12 @@ msgstr "Back"
 msgid "Back to Login"
 msgstr "Επιστροφή στη σύνδεση"
 
+#: src/routes/builder/$resumeId/-components/header.tsx
+#: src/routes/builder/$resumeId/-components/header.tsx
+#: src/routes/builder/$resumeId/-components/header.tsx
+msgid "Back to resumes"
+msgstr "Επιστροφή στα βιογραφικά"
+
 #: src/routes/dashboard/admin/resume/$resumeId.tsx
 msgid "Back to users"
 msgstr "Back to users"
@@ -553,7 +558,7 @@ msgstr "Βασικά στοιχεία"
 
 #: src/routes/_home/-sections/footer.tsx
 msgid "Become a verifier"
-msgstr "Become a verifier"
+msgstr "Γίνετε επαληθευτής"
 
 #: src/routes/dashboard/job-search/-components/job-detail.tsx
 msgid "Benefits"
@@ -586,11 +591,11 @@ msgstr "BSc Software Engineering"
 
 #: src/routes/_home/-sections/hero.tsx
 msgid "Build a living profile backed by real evidence. Get your skills endorsed by domain experts in short, practical reviews — and let opportunities come to you."
-msgstr "Build a living profile backed by real evidence. Get your skills endorsed by domain experts in short, practical reviews — and let opportunities come to you."
+msgstr "Δημιουργήστε ένα ζωντανό προφίλ που να υποστηρίζεται από πραγματικά στοιχεία. Αποκτήστε τις δεξιότητές σας που υποστηρίζονται από ειδικούς του τομέα σε σύντομες, πρακτικές αξιολογήσεις â και αφήστε τις ευκαιρίες να σας έρθουν."
 
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Build your profile"
-msgstr "Build your profile"
+msgstr "Φτιάξτε το προφίλ σας"
 
 #: src/components/command-palette/index.tsx
 msgid "Builder Command Palette"
@@ -610,7 +615,7 @@ msgstr "Call link sent"
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "Can I update my profile and re-verify skills later?"
-msgstr "Can I update my profile and re-verify skills later?"
+msgstr "Μπορώ να ενημερώσω το προφίλ μου και να επαληθεύσω ξανά τις δεξιότητές μου αργότερα;"
 
 #: src/dialogs/auth/enable-two-factor.tsx
 #: src/dialogs/resume/sections/award.tsx
@@ -668,7 +673,7 @@ msgstr "Cancel Verification"
 
 #: src/routes/_home/-sections/statistics.tsx
 msgid "Candidates"
-msgstr "Candidates"
+msgstr "Υποψήφιοι"
 
 #: src/utils/locale.ts
 msgid "Catalan"
@@ -708,9 +713,9 @@ msgstr "Αλλάξατε γνώμη; Μετονομάστε το βιογραφ�
 msgid "Check your email for a link to reset your password."
 msgstr "Ελέγξτε το email σας για έναν σύνδεσμο επαναφοράς του κωδικού πρόσβασης."
 
-#: src/routes/auth/register.tsx
-msgid "Check your email for a link to verify your account."
-msgstr "Ελέγξτε το email σας για έναν σύνδεσμο επαλήθευσης του λογαριασμού σας."
+#: src/routes/auth/verify-email.tsx
+msgid "Check your inbox"
+msgstr "Ελέγξτε τα εισερχόμενά σας"
 
 #: src/utils/locale.ts
 msgid "Chinese (Simplified)"
@@ -756,7 +761,7 @@ msgstr "Κλείσιμο"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Cluster"
-msgstr "Cluster"
+msgstr "Σύμπλεγμα"
 
 #: src/components/input/rich-input.tsx
 msgid "Code Block"
@@ -774,7 +779,16 @@ msgstr "Στήλες"
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Combine verified skills with research-backed personality insights so teams hire for both capability and fit."
-msgstr "Combine verified skills with research-backed personality insights so teams hire for both capability and fit."
+msgstr "Συνδυάστε επαληθευμένες δεξιότητες με γνώσεις προσωπικότητας που υποστηρίζονται από έρευνα, ώστε οι ομάδες να προσλαμβάνουν τόσο για ικανότητες όσο και για φυσική κατάσταση."
+
+#: src/components/command-palette/index.tsx
+#: src/components/command-palette/index.tsx
+msgid "Command Palette"
+msgstr "Παλέτα εντολών"
+
+#: src/components/command-palette/index.tsx
+msgid "Command Palette - {currentPage}"
+msgstr "Παλέτα εντολών - {currentPage}"
 
 #: src/routes/_home/-sections/footer.tsx
 msgid "Community"
@@ -782,7 +796,7 @@ msgstr "Κοινότητα"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Compact"
-msgstr "Compact"
+msgstr "Συμπαγής"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Compact signal row for endorsements and recency — less chrome, more \"what passed\"."
@@ -794,7 +808,7 @@ msgstr "Εταιρεία"
 
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Complete the assessment"
-msgstr "Complete the assessment"
+msgstr "Ολοκληρώστε την αξιολόγηση"
 
 #: src/dialogs/api-key/create.tsx
 #: src/hooks/use-prompt.tsx
@@ -821,7 +835,7 @@ msgstr "Σύνδεση"
 
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Connect your professional accounts and portfolio to instantly build a living, evidence-backed profile that showcases real experience."
-msgstr "Connect your professional accounts and portfolio to instantly build a living, evidence-backed profile that showcases real experience."
+msgstr "Συνδέστε τους επαγγελματικούς λογαριασμούς και το χαρτοφυλάκιό σας για να δημιουργήσετε άμεσα ένα ζωντανό, τεκμηριωμένο προφίλ που προβάλλει πραγματική εμπειρία."
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Consent"
@@ -829,30 +843,30 @@ msgstr "Consent"
 
 #: src/routes/_home/-sections/footer.tsx
 msgid "Contact us"
-msgstr "Contact us"
+msgstr "Επικοινωνήστε μαζί μας"
 
 #: src/dialogs/resume/sections/cover-letter.tsx
 #: src/dialogs/resume/sections/summary-item.tsx
+#: src/routes/builder/$resumeId/route.tsx
 msgid "Content"
 msgstr "Περιεχόμενο"
 
 #: src/dialogs/auth/enable-two-factor.tsx
 #: src/dialogs/auth/enable-two-factor.tsx
 #: src/dialogs/auth/enable-two-factor.tsx
-#: src/routes/auth/register.tsx
-#: src/routes/dashboard/verification/index.tsx
 #: src/routes/auth/verify-email.tsx
+#: src/routes/dashboard/verification/index.tsx
 msgid "Continue"
 msgstr "Συνέχεια"
 
 #: src/routes/dashboard/resumes/-components/cards/import-card.tsx
-#: src/routes/dashboard/resumes/-components/list-view.tsx
+#: src/routes/dashboard/resumes/-components/resume-quick-actions.tsx
 msgid "Continue where you left off"
 msgstr "Συνεχίστε από εκεί που σταματήσατε"
 
 #: src/dialogs/resume/import.tsx
-msgid "Continue where you left off by importing an existing resume you created using Skill Verdict or any another resume builder. Supported formats include PDF, Microsoft Word, as well as JSON files from Skill Verdict."
-msgstr "Συνεχίστε από εκεί που σταματήσατε, εισάγοντας ένα υπάρχον βιογραφικό σημείωμα που δημιουργήσατε με το Skill Verdict ή οποιονδήποτε άλλο κατασκευαστή βιογραφικών σημειωμάτων. Οι υποστηριζόμενες μορφές περιλαμβάνουν PDF, Microsoft Word, καθώς και αρχεία JSON από το Skill Verdict."
+msgid "Continue where you left off by importing an existing resume you created using another resume builder. Supported formats include PDF, Microsoft Word, and JSON Resume files."
+msgstr "Συνεχίστε από εκεί που σταματήσατε εισάγοντας ένα υπάρχον βιογραφικό που δημιουργήσατε χρησιμοποιώντας άλλο εργαλείο δημιουργίας βιογραφικών. Οι υποστηριζόμενες μορφές περιλαμβάνουν αρχεία PDF, Microsoft Word και JSON Resume."
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Contractor"
@@ -878,6 +892,7 @@ msgstr "Αντιγραφή εφεδρικών κωδικών"
 msgid "Copy this secret key and use it in your applications to access your data."
 msgstr "Αντιγράψτε αυτό το μυστικό κλειδί και χρησιμοποιήστε το στις εφαρμογές σας για να αποκτήσετε πρόσβαση στα δεδομένα σας."
 
+#: src/routes/builder/$resumeId/-components/dock.tsx
 #: src/routes/builder/$resumeId/-components/dock.tsx
 msgid "Copy URL"
 msgstr "Αντιγραφή URL"
@@ -979,7 +994,7 @@ msgstr "Δημιουργία νέας σύστασης"
 #: src/components/command-palette/pages/resumes.tsx
 #: src/dialogs/resume/index.tsx
 #: src/routes/dashboard/resumes/-components/cards/create-card.tsx
-#: src/routes/dashboard/resumes/-components/list-view.tsx
+#: src/routes/dashboard/resumes/-components/resume-quick-actions.tsx
 #: src/routes/dashboard/verification/index.tsx
 msgid "Create a new resume"
 msgstr "Δημιουργία νέου βιογραφικού σημειώματος"
@@ -1007,6 +1022,10 @@ msgstr "Create a resume first, then add your work authorization details."
 #: src/dialogs/resume/index.tsx
 msgid "Create a Sample Resume"
 msgstr "Δημιουργία δείγματος βιογραφικού σημειώματος"
+
+#: src/dialogs/resume/index.tsx
+msgid "Create Resume with Options"
+msgstr "Δημιουργία βιογραφικού με Επιλογές"
 
 #: src/dialogs/api-key/create.tsx
 msgid "Creating your API key..."
@@ -1063,11 +1082,11 @@ msgstr "Σκουρόχρωμο θέμα"
 
 #: src/routes/_home/-sections/footer.tsx
 msgid "Dashboard"
-msgstr "Dashboard"
+msgstr "Ταμπλό"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Data Analytics Dashboard"
-msgstr "Data Analytics Dashboard"
+msgstr "Πίνακας ελέγχου δεδομένων Analytics"
 
 #: src/dialogs/resume/sections/award.tsx
 #: src/dialogs/resume/sections/certification.tsx
@@ -1139,6 +1158,7 @@ msgstr "Διαγραφή του βιογραφικού σας σημειώματ
 msgid "Description"
 msgstr "Περιγραφή"
 
+#: src/routes/builder/$resumeId/route.tsx
 #: src/utils/resume/section.tsx
 msgid "Design"
 msgstr "Σχεδιασμός"
@@ -1176,6 +1196,10 @@ msgstr "Αποσύνδεση"
 msgid "Display username"
 msgstr "Display username"
 
+#: src/components/ui/sidebar.tsx
+msgid "Displays the mobile sidebar."
+msgstr "Εμφανίζει την πλαϊνή γραμμή του κινητού."
+
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Docker"
 msgstr "Docker"
@@ -1191,7 +1215,7 @@ msgstr "Documents"
 
 #: src/routes/_home/-sections/hero.tsx
 msgid "Don't chase. Attract."
-msgstr "Don't chase. Attract."
+msgstr "Μην κυνηγάς. Προσελκύω."
 
 #: src/routes/auth/login.tsx
 msgid "Don't have an account? <0/>"
@@ -1215,13 +1239,16 @@ msgid "Download a copy of your resume in PDF format. Use this file for printing 
 msgstr "Κατεβάστε ένα αντίγραφο του βιογραφικού σας σημειώματος σε μορφή PDF. Χρησιμοποιήστε αυτό το αρχείο για εκτύπωση ή για να μοιραστείτε εύκολα το βιογραφικό σας σημείωμα με εργοδότες."
 
 #: src/routes/builder/$resumeId/-components/dock.tsx
+#: src/routes/builder/$resumeId/-components/dock.tsx
 msgid "Download DOCX"
 msgstr "Λήψη DOCX"
 
 #: src/routes/builder/$resumeId/-components/dock.tsx
+#: src/routes/builder/$resumeId/-components/dock.tsx
 msgid "Download JSON"
 msgstr "Λήψη JSON"
 
+#: src/routes/builder/$resumeId/-components/dock.tsx
 #: src/routes/builder/$resumeId/-components/dock.tsx
 msgid "Download PDF"
 msgstr "Λήψη PDF"
@@ -1265,7 +1292,7 @@ msgstr "Ολλανδικά"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "E-commerce Platform"
-msgstr "E-commerce Platform"
+msgstr "Πλατφόρμα ηλεκτρονικού εμπορίου"
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "e.g. 150000"
@@ -1287,13 +1314,17 @@ msgstr "π.χ. frontend developer θέσεις εργασίας σε Βερολ�
 msgid "e.g. Skilled Worker"
 msgstr "e.g. Skilled Worker"
 
+#: src/routes/dashboard/admin/ai.tsx
+msgid "e.g., gpt-4, claude-3-opus, gemini-pro"
+msgstr "π.χ. gpt-4, claude-3-opus, gemini-pro"
+
 #: src/routes/_home/-sections/features.tsx
 msgid "Earn peer-endorsed badges from domain experts — turn claims into evidence employers can trust at a glance."
-msgstr "Earn peer-endorsed badges from domain experts — turn claims into evidence employers can trust at a glance."
+msgstr "Κερδίστε σήματα εγκεκριμένα από ομοτίμους από ειδικούς του τομέα - μετατρέψτε τις αξιώσεις σε στοιχεία που μπορούν να εμπιστευτούν οι εργοδότες με μια ματιά."
 
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Earn your verdict"
-msgstr "Earn your verdict"
+msgstr "Κερδίστε την ετυμηγορία σας"
 
 #: src/dialogs/resume/sections/custom.tsx
 #: src/routes/_home/-sections/hero-visual.tsx
@@ -1313,9 +1344,9 @@ msgstr "Ηλ. ταχυδρομείο"
 msgid "Email Address"
 msgstr "Διεύθυνση email"
 
+#: src/routes/auth/verify-email.tsx
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/users.tsx
-#: src/routes/auth/verify-email.tsx
 msgid "Email verified"
 msgstr "Email verified"
 
@@ -1387,7 +1418,7 @@ msgstr "Εισαγάγετε τον κωδικό πρόσβασής σας γι�
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Every assessment comes with actionable feedback, so you level up even when you're already getting hired."
-msgstr "Every assessment comes with actionable feedback, so you level up even when you're already getting hired."
+msgstr "Κάθε αξιολόγηση συνοδεύεται από ανατροφοδότηση με δυνατότητα δράσης, ώστε να ανεβαίνετε επίπεδο ακόμα και όταν έχετε ήδη προσληφθεί."
 
 #: src/routes/dashboard/job-search/-components/use-job-search.ts
 msgid "Exclude {value}"
@@ -1476,6 +1507,10 @@ msgstr "Failed to load document."
 msgid "Failed to load user details."
 msgstr "Failed to load user details."
 
+#: src/routes/auth/verify-email.tsx
+msgid "Failed to resend verification email. Please try again."
+msgstr "Αποτυχία επαναποστολής email επαλήθευσης. Δοκιμάστε ξανά."
+
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Failed to save work authorization."
 msgstr "Failed to save work authorization."
@@ -1516,6 +1551,10 @@ msgstr "Φιλτράρισμα κατά"
 #: src/utils/locale.ts
 msgid "Finnish"
 msgstr "Φινλανδικά"
+
+#: src/routes/builder/$resumeId/-components/dock.tsx
+msgid "Fit resume to screen"
+msgstr "Προσαρμογή βιογραφικού στην οθόνη"
 
 #: src/dialogs/resume/sections/language.tsx
 msgid "Fluency"
@@ -1562,7 +1601,7 @@ msgstr "Μορφή"
 
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Four simple steps to turn your claims into evidence. No keyword stuffing, no job-title theatre — just practical assessments reviewed by domain experts."
-msgstr "Four simple steps to turn your claims into evidence. No keyword stuffing, no job-title theatre — just practical assessments reviewed by domain experts."
+msgstr "Τέσσερα απλά βήματα για να μετατρέψετε τους ισχυρισμούς σας σε αποδεικτικά στοιχεία. Χωρίς γέμιση λέξεων-κλειδιών, χωρίς θέατρο με τίτλους εργασίας - μόνο πρακτικές αξιολογήσεις που αξιολογούνται από ειδικούς του τομέα."
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/page.tsx
 msgid "Free-Form"
@@ -1580,13 +1619,17 @@ msgstr "Freelancer Profile Link"
 msgid "French"
 msgstr "Γαλλικά"
 
+#: src/routes/_home/-sections/faq.tsx
+msgid "Frequently Asked Questions"
+msgstr "Συχνές Ερωτήσεις"
+
 #: src/routes/builder/$resumeId/-sidebar/right/sections/layout/pages.tsx
 msgid "Full Width"
 msgstr "Πλήρες πλάτος"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Full-stack React/Node.js application with payment integration"
-msgstr "Full-stack React/Node.js application with payment integration"
+msgstr "Εφαρμογή Full-stack React/Node.js με ενσωμάτωση πληρωμών"
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Full-time"
@@ -1610,7 +1653,7 @@ msgstr "Get AI feedback on what is strong in this resume and what should be impr
 
 #: src/routes/_home/-sections/footer.tsx
 msgid "Get verified"
-msgstr "Get verified"
+msgstr "Λάβετε επαλήθευση"
 
 #: src/components/command-palette/pages/navigation.tsx
 #: src/components/command-palette/pages/navigation.tsx
@@ -1650,11 +1693,11 @@ msgstr "Πλέγμα"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Grouped capabilities with micro-labels — shows breadth without a wall of bullet points."
-msgstr "Grouped capabilities with micro-labels — shows breadth without a wall of bullet points."
+msgstr "Ομαδοποιημένες δυνατότητες με μικροετικέτες â δείχνει πλάτος χωρίς τείχος κουκκίδων."
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Growth-focused feedback"
-msgstr "Growth-focused feedback"
+msgstr "Ανατροφοδότηση με επίκεντρο την ανάπτυξη"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Harvard University"
@@ -1711,7 +1754,7 @@ msgstr "Ορίστε το νέο σας κλειδί API"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Hero statement up top, verified skills as the spine — built for reviewers who scan in seconds."
-msgstr "Hero statement up top, verified skills as the spine — built for reviewers who scan in seconds."
+msgstr "Δήλωση ήρωα στην κορυφή, επαληθευμένες δεξιότητες όπως η σπονδυλική στήλη â χτίστηκε για αναθεωρητές που σαρώνουν σε δευτερόλεπτα."
 
 #: src/components/level/combobox.tsx
 #: src/dialogs/resume/sections/language.tsx
@@ -1753,16 +1796,20 @@ msgstr "Πώς χρησιμοποιώ το API;"
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "How does skill verification work?"
-msgstr "How does skill verification work?"
+msgstr "Πώς λειτουργεί η επαλήθευση δεξιοτήτων;"
 
 #: src/routes/_home/-sections/footer.tsx
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "How it works"
-msgstr "How it works"
+msgstr "Πώς λειτουργεί"
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "How long does a verification take?"
-msgstr "How long does a verification take?"
+msgstr "Πόσος χρόνος διαρκεί μια επαλήθευση;"
+
+#: src/routes/dashboard/verification/index.tsx
+msgid "https://www.upwork.com/freelancers/~..."
+msgstr "https://www.upwork.com/freelancers/~..."
 
 #: src/utils/locale.ts
 msgid "Hungarian"
@@ -1824,7 +1871,7 @@ msgstr "Εισαγωγή"
 
 #: src/dialogs/resume/import.tsx
 #: src/routes/dashboard/resumes/-components/cards/import-card.tsx
-#: src/routes/dashboard/resumes/-components/list-view.tsx
+#: src/routes/dashboard/resumes/-components/resume-quick-actions.tsx
 msgid "Import an existing resume"
 msgstr "Εισαγωγή υπάρχοντος βιογραφικού σημειώματος"
 
@@ -1863,7 +1910,7 @@ msgstr "Intern"
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "Is the review really unbiased?"
-msgstr "Is the review really unbiased?"
+msgstr "Είναι πραγματικά αμερόληπτη η κριτική;"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Issue date"
@@ -1995,7 +2042,7 @@ msgstr "Διάταξη"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Layouts for evidence, not decoration"
-msgstr "Layouts for evidence, not decoration"
+msgstr "Διατάξεις για αποδείξεις, όχι διακόσμηση"
 
 #: src/components/resume/preview.tsx
 msgid "Learn more about how to fit content on a page"
@@ -2016,7 +2063,7 @@ msgstr "Αφήστε το κενό για να επαναφέρετε τον τ�
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Ledger"
-msgstr "Ledger"
+msgstr "Καθολικό"
 
 #: src/components/input/rich-input.tsx
 msgid "Left Align"
@@ -2065,6 +2112,10 @@ msgstr "Λίστα"
 #: src/utils/locale.ts
 msgid "Lithuanian"
 msgstr "Λιθουανικά"
+
+#: src/components/ui/spinner.tsx
+msgid "Loading"
+msgstr "Φόρτωση"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Loading document..."
@@ -2189,13 +2240,17 @@ msgstr "Ελάχιστος μισθός"
 msgid "Model"
 msgstr "Μοντέλο"
 
+#: src/routes/builder/$resumeId/-components/dock.tsx
+msgid "More builder actions"
+msgstr "Περισσότερες δομικές ενέργειες"
+
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "More than 3 years"
 msgstr "Περισσότερα από 3 χρόνια"
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "Most verifications wrap up in 1–3 days depending on the skill and reviewer availability — no weeks of waiting around."
-msgstr "Most verifications wrap up in 1–3 days depending on the skill and reviewer availability — no weeks of waiting around."
+msgstr "Οι περισσότερες επαληθεύσεις ολοκληρώνονται σε 1â3 ημέρες ανάλογα με την ικανότητα και τη διαθεσιμότητα του κριτικού â χωρίς εβδομάδες αναμονής."
 
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
 msgid "Move to"
@@ -2204,6 +2259,10 @@ msgstr "Μετακίνηση σε"
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "MSc Computer Science"
 msgstr "MSc Computer Science"
+
+#: src/routes/builder/$resumeId/-sidebar/left/sections/custom-fields.tsx
+msgid "Must start with https://"
+msgstr "Πρέπει να ξεκινήσει με https://"
 
 #: src/dialogs/api-key/create.tsx
 #: src/dialogs/resume/index.tsx
@@ -2235,6 +2294,10 @@ msgid "New Line"
 msgstr "Νέα γραμμή"
 
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
+msgid "New page"
+msgstr "Νέα σελίδα"
+
+#: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
 msgid "New Page"
 msgstr "Νέα σελίδα"
 
@@ -2246,6 +2309,11 @@ msgstr "Νέος κωδικός πρόσβασης"
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
 msgid "New Section"
 msgstr "Νέα ενότητα"
+
+#. placeholder {0}: pageIndex + 1
+#: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
+msgid "New section on page {0}"
+msgstr "Νέα ενότητα στη σελίδα {0}"
 
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 msgid "New Skills Detected"
@@ -2385,12 +2453,22 @@ msgstr "Only PDF, JPG, JPEG, and PNG files are allowed."
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "Only your assigned reviewer sees the assignments you submit. On your public profile, you decide which verified skills to display — everything else stays private."
-msgstr "Only your assigned reviewer sees the assignments you submit. On your public profile, you decide which verified skills to display — everything else stays private."
+msgstr "Μόνο ο αναθεωρητής σας βλέπει τις εργασίες που υποβάλλετε. Στο δημόσιο προφίλ σας, αποφασίζετε ποιες επαληθευμένες δεξιότητες θα εμφανίζονται â οτιδήποτε άλλο παραμένει ιδιωτικό."
 
 #: src/routes/dashboard/resumes/-components/menus/context-menu.tsx
 #: src/routes/dashboard/resumes/-components/menus/dropdown-menu.tsx
 msgid "Open"
 msgstr "Άνοιγμα"
+
+#: src/routes/builder/$resumeId/-components/header.tsx
+#: src/routes/builder/$resumeId/-components/header.tsx
+msgid "Open content editor"
+msgstr "Ανοίξτε το πρόγραμμα επεξεργασίας περιεχομένου"
+
+#: src/routes/builder/$resumeId/-components/header.tsx
+#: src/routes/builder/$resumeId/-components/header.tsx
+msgid "Open design settings"
+msgstr "Ανοίξτε τις ρυθμίσεις σχεδίασης"
 
 #: src/routes/auth/forgot-password.tsx
 msgid "Open Email Client"
@@ -2487,6 +2565,11 @@ msgstr "Σελίδα {0}"
 msgid "Page {0} of {totalPages} — {1} users"
 msgstr "Page {0} of {totalPages} — {1} users"
 
+#. placeholder {0}: pageIndex + 1
+#: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
+msgid "Page {0}: {sectionTitle}"
+msgstr "Σελίδα {0}: {sectionTitle}"
+
 #: src/routes/dashboard/job-search/index.tsx
 msgid "Page {currentPage}"
 msgstr "Σελίδα {currentPage}"
@@ -2505,11 +2588,11 @@ msgstr "Μερικής απασχόλησης"
 
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Pass the review to earn a verified skill badge, boost your profile visibility, and let opportunities come to you."
-msgstr "Pass the review to earn a verified skill badge, boost your profile visibility, and let opportunities come to you."
+msgstr "Περάστε την αξιολόγηση για να κερδίσετε ένα σήμα επαληθευμένης ικανότητας, να ενισχύσετε την προβολή του προφίλ σας και να αφήσετε ευκαιρίες να σας έρθουν."
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Passive discovery"
-msgstr "Passive discovery"
+msgstr "Παθητική ανακάλυψη"
 
 #: src/dialogs/auth/disable-two-factor.tsx
 #: src/dialogs/auth/enable-two-factor.tsx
@@ -2559,11 +2642,11 @@ msgstr "Περσικά"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Personality"
-msgstr "Personality"
+msgstr "Προσωπικότητα"
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Personality & culture fit"
-msgstr "Personality & culture fit"
+msgstr "Ταίριασμα προσωπικότητας και κουλτούρας"
 
 #: src/dialogs/resume/sections/reference.tsx
 #: src/routes/builder/$resumeId/-sidebar/left/sections/basics.tsx
@@ -2572,7 +2655,7 @@ msgstr "Τηλέφωνο"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Pick a presentation that puts verification and outcomes first. Each card shows a real export layout from the builder — same document you share, with structure tuned for how people actually skim proof."
-msgstr "Pick a presentation that puts verification and outcomes first. Each card shows a real export layout from the builder — same document you share, with structure tuned for how people actually skim proof."
+msgstr "Επιλέξτε μια παρουσίαση που θέτει πρώτα την επαλήθευση και τα αποτελέσματα. Κάθε κάρτα εμφανίζει μια πραγματική διάταξη εξαγωγής από το πρόγραμμα δημιουργίας â το ίδιο έγγραφο που μοιράζεστε, με δομή προσαρμοσμένη για τον τρόπο με τον οποίο οι χρήστες κάνουν πραγματικά skim proof."
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Pick a region to fill in your authorization details. Statuses already filled are shown next to each region."
@@ -2580,7 +2663,7 @@ msgstr "Pick a region to fill in your authorization details. Statuses already fi
 
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Pick skills to verify"
-msgstr "Pick skills to verify"
+msgstr "Επιλέξτε δεξιότητες για επαλήθευση"
 
 #: src/utils/resume/section.tsx
 msgid "Picture"
@@ -2588,7 +2671,7 @@ msgstr "Φωτογραφία"
 
 #: src/routes/_home/-sections/statistics.tsx
 msgid "Platform statistics"
-msgstr "Platform statistics"
+msgstr "Στατιστικά στοιχεία πλατφόρμας"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Please complete the required work authorization fields before saving."
@@ -2659,7 +2742,7 @@ msgstr "Preview"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Preview of a verified candidate profile"
-msgstr "Preview of a verified candidate profile"
+msgstr "Προεπισκόπηση ενός επαληθευμένου προφίλ υποψηφίου"
 
 #: src/routes/dashboard/admin/users.tsx
 #: src/routes/dashboard/job-search/index.tsx
@@ -2677,7 +2760,7 @@ msgstr "Privacy"
 
 #: src/routes/_home/-sections/footer.tsx
 msgid "Product"
-msgstr "Product"
+msgstr "Προϊόν"
 
 #: src/dialogs/resume/sections/skill.tsx
 msgid "Proficiency"
@@ -2716,7 +2799,7 @@ msgstr "Έργα"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Proof-first"
-msgstr "Proof-first"
+msgstr "Πρώτα απόδειξη"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 msgid "Protect your resume from unauthorized access with a password"
@@ -2745,11 +2828,11 @@ msgstr "Εκδότης"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Pulse"
-msgstr "Pulse"
+msgstr "Σφυγμός"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Python/Django dashboard with interactive visualizations"
-msgstr "Python/Django dashboard with interactive visualizations"
+msgstr "Πίνακας ελέγχου Python/Django με διαδραστικές απεικονίσεις"
 
 #. placeholder {0}: quota.remaining
 #: src/routes/dashboard/job-search/index.tsx
@@ -2766,11 +2849,11 @@ msgstr "React"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "React Native mobile app with real-time synchronization"
-msgstr "React Native mobile app with real-time synchronization"
+msgstr "Εφαρμογή React Native για κινητά με συγχρονισμό σε πραγματικό χρόνο"
 
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Receive a practical assignment from your reviewer, submit your work, and get actionable feedback in a real conversation."
-msgstr "Receive a practical assignment from your reviewer, submit your work, and get actionable feedback in a real conversation."
+msgstr "Λάβετε μια πρακτική εργασία από τον αναθεωρητή σας, υποβάλετε την εργασία σας και λάβετε πρακτικά σχόλια σε μια πραγματική συνομιλία."
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Recent sessions"
@@ -2788,6 +2871,7 @@ msgstr "Ορθογώνιο"
 msgid "Rectangle (Full Width)"
 msgstr "Ορθογώνιο (πλήρους πλάτους)"
 
+#: src/routes/builder/$resumeId/-components/dock.tsx
 #: src/routes/builder/$resumeId/-components/dock.tsx
 msgctxt "'Ctrl' may be replaced with the locale-specific equivalent (e.g. 'Strg' for QWERTZ layouts)."
 msgid "Redo (Ctrl+Y)"
@@ -2816,7 +2900,7 @@ msgstr "Rejected/issue"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Relay"
-msgstr "Relay"
+msgstr "Αναμετάδοση"
 
 #: src/routes/auth/forgot-password.tsx
 msgid "Remember your password? <0/>"
@@ -2860,6 +2944,10 @@ msgstr "Αναδιάταξη"
 msgid "Request"
 msgstr "Request"
 
+#: src/routes/auth/verify-email.tsx
+msgid "Request a new link"
+msgstr "Ζητήστε νέο σύνδεσμο"
+
 #: src/routes/dashboard/job-search/-components/job-detail.tsx
 msgid "Required Skills"
 msgstr "Απαιτούμενες δεξιότητες"
@@ -2868,13 +2956,13 @@ msgstr "Απαιτούμενες δεξιότητες"
 msgid "Required: reason for overriding this verdict..."
 msgstr "Required: reason for overriding this verdict..."
 
-#: src/routes/dashboard/settings/profile.tsx
 #: src/routes/auth/verify-email.tsx
+#: src/routes/dashboard/settings/profile.tsx
 msgid "Resend verification email"
 msgstr "Επαναποστολή email επαλήθευσης"
 
-#: src/routes/dashboard/settings/profile.tsx
 #: src/routes/auth/verify-email.tsx
+#: src/routes/dashboard/settings/profile.tsx
 msgid "Resending verification email..."
 msgstr "Επαναποστολή email επαλήθευσης..."
 
@@ -2951,11 +3039,11 @@ msgstr "Reviewer since {memberSince}"
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Reviewers don't see who they're assessing, so your skills are judged on their merit — not your background."
-msgstr "Reviewers don't see who they're assessing, so your skills are judged on their merit — not your background."
+msgstr "Οι αναθεωρητές δεν βλέπουν ποιον αξιολογούν, επομένως οι δεξιότητές σας κρίνονται βάσει της αξίας τους - όχι με βάση το ιστορικό σας."
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "Reviewers evaluate your submission without seeing your name, employer, or background. If you're ever unhappy with an outcome, you can request a second opinion from a different reviewer."
-msgstr "Reviewers evaluate your submission without seeing your name, employer, or background. If you're ever unhappy with an outcome, you can request a second opinion from a different reviewer."
+msgstr "Οι αναθεωρητές αξιολογούν την υποβολή σας χωρίς να δουν το όνομα, τον εργοδότη ή το ιστορικό σας. Εάν ποτέ δεν είστε ικανοποιημένοι με ένα αποτέλεσμα, μπορείτε να ζητήσετε μια δεύτερη γνώμη από διαφορετικό αναθεωρητή."
 
 #: src/components/input/rich-input.tsx
 msgid "Right Align"
@@ -3058,6 +3146,10 @@ msgstr "Σχολείο"
 msgid "Search"
 msgstr "Αναζήτηση"
 
+#: src/components/command-palette/index.tsx
+msgid "Search commands"
+msgstr "Εντολές αναζήτησης"
+
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Search countries"
 msgstr "Αναζήτηση χωρών"
@@ -3071,6 +3163,7 @@ msgstr "Αναζήτηση για εικονίδιο"
 msgid "Search for..."
 msgstr "Αναζήτηση για..."
 
+#: src/components/command-palette/index.tsx
 #: src/components/ui/combobox.tsx
 msgid "Search..."
 msgstr "Αναζήτηση..."
@@ -3085,11 +3178,11 @@ msgstr "Τύπος ενότητας"
 
 #: src/routes/_home/-sections/hero.tsx
 msgid "See how it works"
-msgstr "See how it works"
+msgstr "Δείτε πώς λειτουργεί"
 
 #: src/routes/_home/-sections/hero.tsx
 msgid "See how verification works"
-msgstr "See how verification works"
+msgstr "Δείτε πώς λειτουργεί η επαλήθευση"
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "Select a payslip, contract, or other proof of employment (PDF, JPG, PNG, max 5MB)."
@@ -3128,7 +3221,7 @@ msgstr "Select status"
 
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Select the skills you want endorsed and choose a reviewer for a personalized, scenario-based assessment."
-msgstr "Select the skills you want endorsed and choose a reviewer for a personalized, scenario-based assessment."
+msgstr "Επιλέξτε τις δεξιότητες που θέλετε να επικυρωθούν και επιλέξτε έναν αναθεωρητή για μια εξατομικευμένη, βασισμένη σε σενάρια αξιολόγηση."
 
 #: src/components/ui/combobox.tsx
 msgid "Select..."
@@ -3136,7 +3229,7 @@ msgstr "Επιλογή..."
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Self-starter"
-msgstr "Self-starter"
+msgstr "Αυτοεκκίνησης"
 
 #: src/routes/auth/forgot-password.tsx
 msgid "Send Password Reset Email"
@@ -3148,11 +3241,11 @@ msgstr "Αποστολή email επαναφοράς κωδικού πρόσβα�
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Senior AI Engineer"
-msgstr "Senior AI Engineer"
+msgstr "Ανώτερος Μηχανικός AI"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Senior Full Stack Developer"
-msgstr "Senior Full Stack Developer"
+msgstr "Ανώτερος προγραμματιστής Full Stack"
 
 #: src/components/input/rich-input.tsx
 msgid "Separator"
@@ -3194,7 +3287,7 @@ msgstr "Πλάτος σκιάς"
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Share anywhere, instantly"
-msgstr "Share anywhere, instantly"
+msgstr "Μοιραστείτε οπουδήποτε, άμεσα"
 
 #: src/utils/resume/section.tsx
 msgid "Sharing"
@@ -3227,6 +3320,7 @@ msgstr "Show or hide the verification timeline on your public CV. This is off by
 msgid "Show Timeline on Public CV"
 msgstr "Show Timeline on Public CV"
 
+#: src/components/ui/sidebar.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/layout/pages.tsx
 msgid "Sidebar"
 msgstr "Πλαϊνή μπάρα"
@@ -3237,12 +3331,25 @@ msgstr "Πλάτος πλαϊνής μπάρας"
 
 #: src/routes/auth/login.tsx
 #: src/routes/auth/verify-email.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Sign in"
 msgstr "Σύνδεση"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to verify your email"
+msgstr "Συνδεθείτε για να επαληθεύσετε το email σας"
 
 #: src/routes/auth/login.tsx
 msgid "Sign in to your account"
 msgstr "Συνδεθείτε στον λογαριασμό σας"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to your account to request a new verification email."
+msgstr "Συνδεθείτε στον λογαριασμό σας για να ζητήσετε νέο email επαλήθευσης."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to your account, then request a new verification email."
+msgstr "Συνδεθείτε στον λογαριασμό σας και μετά ζητήστε νέο email επαλήθευσης."
 
 #: src/routes/auth/register.tsx
 msgid "Sign up"
@@ -3250,7 +3357,7 @@ msgstr "Εγγραφείτε"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Signal density"
-msgstr "Signal density"
+msgstr "Πυκνότητα σήματος"
 
 #: src/routes/auth/-components/social-auth.tsx
 #: src/routes/auth/-components/social-auth.tsx
@@ -3292,11 +3399,11 @@ msgstr "Skill Center"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Skill clusters"
-msgstr "Skill clusters"
+msgstr "Συστάδες δεξιοτήτων"
 
 #: src/routes/_home/-sections/header.tsx
 msgid "Skill Verdict - Go to homepage"
-msgstr "Skill Verdict - Go to homepage"
+msgstr "Skill Verdict - Μετάβαση στην αρχική σελίδα"
 
 #: src/routes/dashboard/-components/sidebar.tsx
 #: src/routes/dashboard/settings/profile.tsx
@@ -3361,7 +3468,7 @@ msgstr "Ισπανικά"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Split identity and evidence panes; keeps personality context beside hard verification."
-msgstr "Split identity and evidence panes; keeps personality context beside hard verification."
+msgstr "Διαχωρισμός παραθύρων ταυτότητας και αποδεικτικών στοιχείων. διατηρεί το πλαίσιο της προσωπικότητας εκτός από τη σκληρή επαλήθευση."
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Sponsorship"
@@ -3390,7 +3497,7 @@ msgid "Start building your resume by giving it a name."
 msgstr "Ξεκινήστε να φτιάχνετε το βιογραφικό σας σημείωμα δίνοντάς του ένα όνομα."
 
 #: src/routes/dashboard/resumes/-components/cards/create-card.tsx
-#: src/routes/dashboard/resumes/-components/list-view.tsx
+#: src/routes/dashboard/resumes/-components/resume-quick-actions.tsx
 msgid "Start building your resume from scratch"
 msgstr "Ξεκινήστε να φτιάχνετε το βιογραφικό σας σημείωμα από την αρχή"
 
@@ -3408,11 +3515,11 @@ msgstr "Παραμονή"
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Stop chasing. Companies reach out directly to candidates whose verified skills match their requirements."
-msgstr "Stop chasing. Companies reach out directly to candidates whose verified skills match their requirements."
+msgstr "Σταμάτα να κυνηγάς. Οι εταιρείες απευθύνονται απευθείας σε υποψηφίους των οποίων οι επαληθευμένες δεξιότητες ταιριάζουν με τις απαιτήσεις τους."
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Story arc"
-msgstr "Story arc"
+msgstr "τόξο ιστορίας"
 
 #: src/components/input/rich-input.tsx
 msgid "Strike"
@@ -3487,15 +3594,15 @@ msgstr "Ταμίλ"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Task Management App"
-msgstr "Task Management App"
+msgstr "Εφαρμογή διαχείρισης εργασιών"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Team player"
-msgstr "Team player"
+msgstr "Παίκτης της ομάδας"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Technical skills"
-msgstr "Technical skills"
+msgstr "Τεχνικές δεξιότητες"
 
 #: src/utils/locale.ts
 msgid "Telugu"
@@ -3553,6 +3660,10 @@ msgstr "Το βιογραφικό σημείωμα στο οποίο προσπ�
 #: src/components/input/rich-input.tsx
 msgid "The URL you entered is not valid."
 msgstr "Το URL που εισαγάγατε δεν είναι έγκυρο."
+
+#: src/routes/auth/verify-email.tsx
+msgid "The verification link may be invalid, expired, or already used."
+msgstr "Ο σύνδεσμος επαλήθευσης μπορεί να είναι άκυρος, να έχει λήξει ή να έχει ήδη χρησιμοποιηθεί."
 
 #: src/components/command-palette/pages/preferences/theme.tsx
 #: src/components/user/dropdown-menu.tsx
@@ -3621,10 +3732,6 @@ msgstr "Αυτό το βιογραφικό σημείωμα είναι κλει�
 msgid "This section is reserved for your personal notes specific to this resume. The content here remains private and is not shared with anyone else."
 msgstr "Αυτή η ενότητα προορίζεται για τις προσωπικές σας σημειώσεις ειδικά για το συγκεκριμένο βιογραφικό σημείωμα. Το περιεχόμενο εδώ παραμένει ιδιωτικό και δεν κοινοποιείται σε κανέναν άλλον."
 
-#: src/routes/auth/register.tsx
-msgid "This step is optional, but recommended."
-msgstr "Αυτό το βήμα είναι προαιρετικό, αλλά συνιστάται."
-
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "This week"
 msgstr "Αυτή την εβδομάδα"
@@ -3635,11 +3742,11 @@ msgstr "Αυτό θα δημιουργήσει ένα νέο κλειδί API γ
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Tight vertical rhythm for mobile sharing — still readable when the viewport is narrow."
-msgstr "Tight vertical rhythm for mobile sharing — still readable when the viewport is narrow."
+msgstr "Σφιχτός κατακόρυφος ρυθμός για κοινή χρήση κινητών â εξακολουθεί να είναι ευανάγνωστος όταν η θύρα προβολής είναι στενή."
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Timeline-forward narrative with milestones; good when your evidence has a clear before/after."
-msgstr "Timeline-forward narrative with milestones; good when your evidence has a clear before/after."
+msgstr "Χρονοδιάγραμμα-μπροστινή αφήγηση με ορόσημα. καλό όταν τα στοιχεία σου έχουν ξεκάθαρο πριν/μετά."
 
 #: src/dialogs/api-key/create.tsx
 msgid "Tip: Give your API key a name, corresponding to the purpose of the key, to help you identify it later."
@@ -3665,6 +3772,12 @@ msgstr "Για να διαγράψετε τον λογαριασμό σας, π�
 msgid "Today"
 msgstr "Σήμερα"
 
+#: src/components/ui/sidebar.tsx
+#: src/components/ui/sidebar.tsx
+#: src/components/ui/sidebar.tsx
+msgid "Toggle Sidebar"
+msgstr "Εναλλαγή πλευρικής γραμμής"
+
 #: src/routes/dashboard/admin/users.tsx
 msgid "Total keys"
 msgstr "Total keys"
@@ -3688,6 +3801,10 @@ msgstr "Total sessions"
 #: src/routes/builder/$resumeId/-sidebar/right/sections/statistics.tsx
 msgid "Track your resume's views and downloads"
 msgstr "Παρακολουθήστε τις προβολές και τις λήψεις του βιογραφικού σας σημειώματος"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Try requesting a new verification link."
+msgstr "Δοκιμάστε να ζητήσετε έναν νέο σύνδεσμο επαλήθευσης."
 
 #: src/utils/locale.ts
 msgid "Turkish"
@@ -3746,6 +3863,10 @@ msgstr "Ο έλεγχος ταυτότητας δύο παραγόντων απ�
 msgid "Two-factor authentication has been setup successfully."
 msgstr "Ο έλεγχος ταυτότητας δύο παραγόντων ρυθμίστηκε με επιτυχία."
 
+#: src/dialogs/auth/enable-two-factor.tsx
+msgid "Two-Factor Authentication QR Code"
+msgstr "Κωδικός QR ελέγχου ταυτότητας δύο παραγόντων"
+
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/users.tsx
 msgid "Two-factor enabled"
@@ -3753,7 +3874,7 @@ msgstr "Two-factor enabled"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Two-pane"
-msgstr "Two-pane"
+msgstr "Δύο υαλοπίνακες"
 
 #: src/dialogs/resume/import.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/design.tsx
@@ -3765,6 +3886,7 @@ msgstr "Τύπος"
 msgid "Type \"{CONFIRMATION_TEXT}\" to confirm"
 msgstr "Πληκτρολογήστε \"{CONFIRMATION_TEXT}\" για επιβεβαίωση"
 
+#: src/components/command-palette/index.tsx
 #: src/components/command-palette/index.tsx
 msgid "Type a command or search..."
 msgstr "Πληκτρολογήστε μια εντολή ή αναζητήστε..."
@@ -3789,6 +3911,7 @@ msgstr "Κάτω των 3 ετών"
 msgid "Underline"
 msgstr "Υπογράμμιση"
 
+#: src/routes/builder/$resumeId/-components/dock.tsx
 #: src/routes/builder/$resumeId/-components/dock.tsx
 msgctxt "'Ctrl' may be replaced with the locale-specific equivalent (e.g. 'Strg' for QWERTZ layouts)."
 msgid "Undo (Ctrl+Z)"
@@ -4010,15 +4133,15 @@ msgstr "Verified by {0}"
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Verified skill badges"
-msgstr "Verified skill badges"
+msgstr "Επαληθευμένα σήματα δεξιοτήτων"
 
 #: src/routes/_home/-sections/statistics.tsx
 msgid "Verified skills"
-msgstr "Verified skills"
+msgstr "Επαληθευμένες δεξιότητες"
 
 #: src/routes/_home/-sections/footer.tsx
 msgid "Verified skills, honest feedback, and passive discovery — a living profile built on evidence, not keywords."
-msgstr "Verified skills, honest feedback, and passive discovery — a living profile built on evidence, not keywords."
+msgstr "Επαληθευμένες δεξιότητες, ειλικρινή σχόλια και παθητική ανακάλυψη â ένα ζωντανό προφίλ βασισμένο σε στοιχεία, όχι σε λέξεις-κλειδιά."
 
 #: src/routes/auth/verify-2fa-backup.tsx
 #: src/routes/auth/verify-2fa.tsx
@@ -4028,11 +4151,15 @@ msgstr "Επαλήθευση"
 
 #: src/routes/_home/-sections/hero.tsx
 msgid "Verify my skills"
-msgstr "Verify my skills"
+msgstr "Επαληθεύστε τις ικανότητές μου"
 
 #: src/routes/auth/verify-2fa-backup.tsx
 msgid "Verify with a Backup Code"
 msgstr "Επαλήθευση με εφεδρικό κωδικό"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Verify your email"
+msgstr "Επαληθεύστε το email σας"
 
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Verify your identity through a short video call. This adds trust to your resume."
@@ -4050,10 +4177,6 @@ msgstr "Γίνεται επαλήθευση κωδικού..."
 #: src/routes/auth/resume-password.tsx
 msgid "Verifying password..."
 msgstr "Γίνεται επαλήθευση κωδικού πρόσβασης..."
-
-#: src/routes/auth/register.tsx
-msgid "Verifying your email is required when resetting your password."
-msgstr "Η επαλήθευση του email σας είναι απαραίτητη κατά την επαναφορά του κωδικού πρόσβασης."
 
 #: src/utils/locale.ts
 msgid "Vietnamese"
@@ -4088,6 +4211,14 @@ msgstr "Visibility"
 msgid "Volunteer"
 msgstr "Εθελοντική εργασία"
 
+#: src/routes/auth/verify-email.tsx
+msgid "We couldn't verify your email"
+msgstr "Δεν μπορέσαμε να επαληθεύσουμε το email σας"
+
+#: src/routes/auth/verify-email.tsx
+msgid "We sent a verification link to your email address."
+msgstr "Στείλαμε έναν σύνδεσμο επαλήθευσης στη διεύθυνση email σας."
+
 #: src/dialogs/resume/sections/award.tsx
 #: src/dialogs/resume/sections/certification.tsx
 #: src/dialogs/resume/sections/education.tsx
@@ -4113,11 +4244,11 @@ msgstr "Όταν είναι κλειδωμένο, το βιογραφικό ση
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "Who can see my submissions and results?"
-msgstr "Who can see my submissions and results?"
+msgstr "Ποιος μπορεί να δει τις υποβολές και τα αποτελέσματά μου;"
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Why candidates choose us"
-msgstr "Why candidates choose us"
+msgstr "Γιατί μας επιλέγουν οι υποψήφιοι"
 
 #: src/routes/dashboard/-components/sidebar.tsx
 #: src/routes/dashboard/work-authorization/index.tsx
@@ -4139,7 +4270,7 @@ msgstr "Yes"
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "Yes. Add or remove skills any time, and request re-verification as you level up. Your profile is designed to evolve with your career."
-msgstr "Yes. Add or remove skills any time, and request re-verification as you level up. Your profile is designed to evolve with your career."
+msgstr "Ναί. Προσθέστε ή αφαιρέστε δεξιότητες ανά πάσα στιγμή και ζητήστε εκ νέου επαλήθευση καθώς ανεβαίνετε επίπεδο. Το προφίλ σας έχει σχεδιαστεί για να εξελίσσεται με την καριέρα σας."
 
 #: src/routes/dashboard/job-search/-components/job-utils.ts
 msgid "Yesterday"
@@ -4149,22 +4280,33 @@ msgstr "Χθες"
 msgid "You can also use your username to login."
 msgstr "Μπορείτε επίσης να χρησιμοποιήσετε το όνομα χρήστη σας για να συνδεθείτε."
 
+#: src/routes/auth/verify-email.tsx
+msgid "You can now use account recovery and other features that require a verified email address."
+msgstr "Μπορείτε πλέον να χρησιμοποιείτε ανάκτηση λογαριασμού και άλλες λειτουργίες που απαιτούν επαληθευμένη διεύθυνση email."
+
 #: src/hooks/use-form-blocker.tsx
 msgid "You have unsaved changes that will be lost."
 msgstr "Έχετε μη αποθηκευμένες αλλαγές που θα χαθούν."
 
+#: src/routes/auth/verify-email.tsx
+msgid "You must verify your email address before you can access Skill Verdict."
+msgstr "Πρέπει να επαληθεύσετε τη διεύθυνση email σας πριν αποκτήσετε πρόσβαση στο Skill Verdict."
+
 #: src/routes/_home/-sections/faq.tsx
 msgid "You pick the skills you want to endorse and a reviewer with relevant expertise. They assign a short, practical assessment, review your submission, and share actionable feedback. If you pass, the skill is added to your profile as a verified badge."
-msgstr "You pick the skills you want to endorse and a reviewer with relevant expertise. They assign a short, practical assessment, review your submission, and share actionable feedback. If you pass, the skill is added to your profile as a verified badge."
+msgstr "Επιλέγετε τις δεξιότητες που θέλετε να υποστηρίξετε και έναν κριτικό με σχετική τεχνογνωσία. Αναθέτουν μια σύντομη, πρακτική αξιολόγηση, επανεξετάζουν την υποβολή σας και μοιράζονται τα σχόλιά σας με δυνατότητα δράσης. Εάν περάσετε, η ικανότητα προστίθεται στο προφίλ σας ως επαληθευμένο σήμα."
 
 #: src/routes/auth/forgot-password.tsx
-#: src/routes/auth/register.tsx
 msgid "You've got mail!"
 msgstr "Έχετε νέο μήνυμα!"
 
 #: src/routes/dashboard/settings/danger-zone.tsx
 msgid "Your account has been deleted successfully."
 msgstr "Ο λογαριασμός σας διαγράφηκε με επιτυχία."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Your account is up to date."
+msgstr "Ο λογαριασμός σας είναι ενημερωμένος."
 
 #: src/dialogs/api-key/create.tsx
 msgid "Your API key has been copied to the clipboard."
@@ -4173,6 +4315,10 @@ msgstr "Το κλειδί API σας αντιγράφηκε στο πρόχει�
 #: src/routes/builder/$resumeId/index.tsx
 msgid "Your changes are saved automatically."
 msgstr "Οι αλλαγές σας αποθηκεύονται αυτόματα."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Your email address is confirmed. You can continue using Skill Verdict."
+msgstr "Η διεύθυνση email σας επιβεβαιώθηκε. Μπορείτε να συνεχίσετε να χρησιμοποιείτε το Skill Verdict."
 
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Your identity has been verified and your profile is trusted."
@@ -4226,9 +4372,11 @@ msgid "Your verification call has been scheduled. Our team will review and confi
 msgstr "Your verification call has been scheduled. Our team will review and confirm your identity shortly."
 
 #: src/routes/builder/$resumeId/-components/dock.tsx
+#: src/routes/builder/$resumeId/-components/dock.tsx
 msgid "Zoom in"
 msgstr "Μεγέθυνση"
 
+#: src/routes/builder/$resumeId/-components/dock.tsx
 #: src/routes/builder/$resumeId/-components/dock.tsx
 msgid "Zoom out"
 msgstr "Σμίκρυνση"
@@ -4236,67 +4384,3 @@ msgstr "Σμίκρυνση"
 #: src/utils/locale.ts
 msgid "Zulu"
 msgstr "Ζουλού"
-
-#: src/routes/auth/verify-email.tsx
-msgid "A new verification link has been sent to your email address."
-msgstr "Ένας νέος σύνδεσμος επαλήθευσης στάλθηκε στη διεύθυνση email σας."
-
-#: src/routes/auth/verify-email.tsx
-msgid "Check your inbox"
-msgstr "Ελέγξτε τα εισερχόμενά σας"
-
-#: src/routes/auth/verify-email.tsx
-msgid "Failed to resend verification email. Please try again."
-msgstr "Αποτυχία επαναποστολής email επαλήθευσης. Δοκιμάστε ξανά."
-
-#: src/routes/auth/verify-email.tsx
-msgid "Request a new link"
-msgstr "Ζητήστε νέο σύνδεσμο"
-
-#: src/routes/auth/verify-email.tsx
-msgid "Sign in to your account to request a new verification email."
-msgstr "Συνδεθείτε στον λογαριασμό σας για να ζητήσετε νέο email επαλήθευσης."
-
-#: src/routes/auth/verify-email.tsx
-msgid "Sign in to your account, then request a new verification email."
-msgstr "Συνδεθείτε στον λογαριασμό σας και μετά ζητήστε νέο email επαλήθευσης."
-
-#: src/routes/auth/verify-email.tsx
-msgid "Sign in to verify your email"
-msgstr "Συνδεθείτε για να επαληθεύσετε το email σας"
-
-#: src/routes/auth/verify-email.tsx
-msgid "The verification link may be invalid, expired, or already used."
-msgstr "Ο σύνδεσμος επαλήθευσης μπορεί να είναι άκυρος, να έχει λήξει ή να έχει ήδη χρησιμοποιηθεί."
-
-#: src/routes/auth/verify-email.tsx
-msgid "Try requesting a new verification link."
-msgstr "Δοκιμάστε να ζητήσετε έναν νέο σύνδεσμο επαλήθευσης."
-
-#: src/routes/auth/verify-email.tsx
-msgid "Verify your email"
-msgstr "Επαληθεύστε το email σας"
-
-#: src/routes/auth/verify-email.tsx
-msgid "We couldn't verify your email"
-msgstr "Δεν μπορέσαμε να επαληθεύσουμε το email σας"
-
-#: src/routes/auth/verify-email.tsx
-msgid "We sent a verification link to your email address."
-msgstr "Στείλαμε έναν σύνδεσμο επαλήθευσης στη διεύθυνση email σας."
-
-#: src/routes/auth/verify-email.tsx
-msgid "You can now use account recovery and other features that require a verified email address."
-msgstr "Μπορείτε πλέον να χρησιμοποιείτε ανάκτηση λογαριασμού και άλλες λειτουργίες που απαιτούν επαληθευμένη διεύθυνση email."
-
-#: src/routes/auth/verify-email.tsx
-msgid "You must verify your email address before you can access Skill Verdict."
-msgstr "Πρέπει να επαληθεύσετε τη διεύθυνση email σας πριν αποκτήσετε πρόσβαση στο Skill Verdict."
-
-#: src/routes/auth/verify-email.tsx
-msgid "Your account is up to date."
-msgstr "Ο λογαριασμός σας είναι ενημερωμένος."
-
-#: src/routes/auth/verify-email.tsx
-msgid "Your email address is confirmed. You can continue using Skill Verdict."
-msgstr "Η διεύθυνση email σας επιβεβαιώθηκε. Μπορείτε να συνεχίσετε να χρησιμοποιείτε το Skill Verdict."

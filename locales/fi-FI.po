@@ -31,7 +31,7 @@ msgstr "Luotu"
 #. js-lingui-explicit-id
 #: src/routes/dashboard/resumes/index.tsx
 msgid "Name"
-msgstr ""
+msgstr "Nimi"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "(you)"
@@ -87,14 +87,9 @@ msgstr "+{0} more approved"
 msgid "+{0} more uploaded"
 msgstr "+{0} more uploaded"
 
-#: src/routes/_home/-sections/faq.tsx
-msgctxt "Every word needs to be wrapped in a tag"
-msgid "<0>Frequently</0><1>Asked</1><2>Questions</2>"
-msgstr "<0>Usein</0><1>kysytyt</1><2>kysymykset</2>"
-
 #: src/routes/_home/-sections/hero.tsx
 msgid "<0>Your skills, finally,</0><1>Proven. Not just claimed.</1>"
-msgstr "<0>Your skills, finally,</0><1>Proven. Not just claimed.</1>"
+msgstr "<0>Taitosi, vihdoinkin</0><1>todistettu. Ei vain väitetty.</1>"
 
 #: src/dialogs/api-key/create.tsx
 msgid "1 month"
@@ -114,7 +109,7 @@ msgstr "2014 - 2016"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "2020 - Present"
-msgstr "2020 - Present"
+msgstr "2020 - Nykyinen"
 
 #: src/dialogs/api-key/create.tsx
 msgid "3 months"
@@ -133,13 +128,17 @@ msgstr "Vahvistuslinkki on lähetetty nykyiseen sähköpostiosoitteeseesi. Tarki
 msgid "A link to your resume has been copied to clipboard."
 msgstr "Linkki ansioluetteloosi on kopioitu leikepöydälle."
 
+#: src/routes/auth/verify-email.tsx
+msgid "A new verification link has been sent to your email address."
+msgstr "Uusi vahvistuslinkki on lähetetty sähköpostiosoitteeseesi."
+
 #: src/routes/dashboard/settings/profile.tsx
 msgid "A new verification link has been sent to your email address. Please check your inbox to verify your account."
 msgstr "Uusi vahvistuslinkki on lähetetty sähköpostiosoitteeseesi. Tarkista postilaatikkosi vahvistaaksesi tilisi."
 
 #: src/routes/_home/-sections/features.tsx
 msgid "A profile that reflects what you can actually do — verified by people who know what they're looking at, and built to travel with you wherever you go."
-msgstr "A profile that reflects what you can actually do — verified by people who know what they're looking at, and built to travel with you wherever you go."
+msgstr "Profiili, joka heijastaa sitä, mitä voit todella tehdä – sen ovat vahvistaneet ihmiset, jotka tietävät, mitä he katsovat, ja se on suunniteltu matkustamaan kanssasi minne ikinä menetkin."
 
 #: src/routes/dashboard/admin/experience-queue.tsx
 msgid "A reason is required to override."
@@ -152,7 +151,7 @@ msgstr "Tällä polkutunnuksella varustettu ansioluettelo on jo olemassa."
 
 #: src/routes/_home/-sections/features.tsx
 msgid "A unique QR code and public link make your profile shareable in person, online, and in recruiter searches."
-msgstr "A unique QR code and public link make your profile shareable in person, online, and in recruiter searches."
+msgstr "Ainutlaatuinen QR-koodi ja julkinen linkki tekevät profiilistasi jaettavan henkilökohtaisesti, verkossa ja rekrytoijahauissa."
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/page.tsx
 msgid "A4"
@@ -172,7 +171,7 @@ msgstr "Account updated"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Action oriented"
-msgstr "Action oriented"
+msgstr "Toimintasuuntautunut"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Active sessions"
@@ -363,11 +362,11 @@ msgstr "Ansioluettelosi tuonnissa tapahtui tuntematon virhe."
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Analytical"
-msgstr "Analytical"
+msgstr "Analyyttinen"
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Anonymous, bias-free review"
-msgstr "Anonymous, bias-free review"
+msgstr "Anonyymi, puolueeton arvostelu"
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Any level"
@@ -531,6 +530,12 @@ msgstr "Back"
 msgid "Back to Login"
 msgstr "Takaisin kirjautumiseen"
 
+#: src/routes/builder/$resumeId/-components/header.tsx
+#: src/routes/builder/$resumeId/-components/header.tsx
+#: src/routes/builder/$resumeId/-components/header.tsx
+msgid "Back to resumes"
+msgstr "Takaisin ansioluetteloihin"
+
 #: src/routes/dashboard/admin/resume/$resumeId.tsx
 msgid "Back to users"
 msgstr "Back to users"
@@ -553,7 +558,7 @@ msgstr "Perustiedot"
 
 #: src/routes/_home/-sections/footer.tsx
 msgid "Become a verifier"
-msgstr "Become a verifier"
+msgstr "Ryhdy todentajaksi"
 
 #: src/routes/dashboard/job-search/-components/job-detail.tsx
 msgid "Benefits"
@@ -586,11 +591,11 @@ msgstr "BSc Software Engineering"
 
 #: src/routes/_home/-sections/hero.tsx
 msgid "Build a living profile backed by real evidence. Get your skills endorsed by domain experts in short, practical reviews — and let opportunities come to you."
-msgstr "Build a living profile backed by real evidence. Get your skills endorsed by domain experts in short, practical reviews — and let opportunities come to you."
+msgstr "Rakenna elävä profiili todellisten todisteiden tukemana. Pyydä toimialueen asiantuntijat vahvistamaan taitosi lyhyillä, käytännöllisillä katsauksilla – ja anna mahdollisuuksien tulla sinulle."
 
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Build your profile"
-msgstr "Build your profile"
+msgstr "Rakenna profiilisi"
 
 #: src/components/command-palette/index.tsx
 msgid "Builder Command Palette"
@@ -610,7 +615,7 @@ msgstr "Call link sent"
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "Can I update my profile and re-verify skills later?"
-msgstr "Can I update my profile and re-verify skills later?"
+msgstr "Voinko päivittää profiilini ja vahvistaa taidot uudelleen myöhemmin?"
 
 #: src/dialogs/auth/enable-two-factor.tsx
 #: src/dialogs/resume/sections/award.tsx
@@ -668,7 +673,7 @@ msgstr "Cancel Verification"
 
 #: src/routes/_home/-sections/statistics.tsx
 msgid "Candidates"
-msgstr "Candidates"
+msgstr "Ehdokkaat"
 
 #: src/utils/locale.ts
 msgid "Catalan"
@@ -708,9 +713,9 @@ msgstr "Muutitko mieltäsi? Nimeä ansioluettelosi uudelleen kuvaavammaksi."
 msgid "Check your email for a link to reset your password."
 msgstr "Tarkista sähköpostisi linkin löytämiseksi salasanan palauttamiseksi."
 
-#: src/routes/auth/register.tsx
-msgid "Check your email for a link to verify your account."
-msgstr "Tarkista sähköpostisi linkin löytämiseksi tilisi vahvistamiseksi."
+#: src/routes/auth/verify-email.tsx
+msgid "Check your inbox"
+msgstr "Tarkista saapuneet-kansiosi"
 
 #: src/utils/locale.ts
 msgid "Chinese (Simplified)"
@@ -756,7 +761,7 @@ msgstr "Sulje"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Cluster"
-msgstr "Cluster"
+msgstr "Klusteri"
 
 #: src/components/input/rich-input.tsx
 msgid "Code Block"
@@ -774,7 +779,16 @@ msgstr "Sarakkeet"
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Combine verified skills with research-backed personality insights so teams hire for both capability and fit."
-msgstr "Combine verified skills with research-backed personality insights so teams hire for both capability and fit."
+msgstr "Yhdistä todetut taidot tutkimukseen perustuviin persoonallisuuden oivalluksiin, jotta tiimit palkkaavat sekä kykyjä että sopivuutta."
+
+#: src/components/command-palette/index.tsx
+#: src/components/command-palette/index.tsx
+msgid "Command Palette"
+msgstr "Komentopaletti"
+
+#: src/components/command-palette/index.tsx
+msgid "Command Palette - {currentPage}"
+msgstr "Komentopaletti - {currentPage}"
 
 #: src/routes/_home/-sections/footer.tsx
 msgid "Community"
@@ -782,7 +796,7 @@ msgstr "Yhteisö"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Compact"
-msgstr "Compact"
+msgstr "Kompakti"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Compact signal row for endorsements and recency — less chrome, more \"what passed\"."
@@ -794,7 +808,7 @@ msgstr "Yritys"
 
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Complete the assessment"
-msgstr "Complete the assessment"
+msgstr "Suorita arviointi loppuun"
 
 #: src/dialogs/api-key/create.tsx
 #: src/hooks/use-prompt.tsx
@@ -821,7 +835,7 @@ msgstr "Yhdistä"
 
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Connect your professional accounts and portfolio to instantly build a living, evidence-backed profile that showcases real experience."
-msgstr "Connect your professional accounts and portfolio to instantly build a living, evidence-backed profile that showcases real experience."
+msgstr "Yhdistä ammattitilisi ja portfoliosi rakentaaksesi välittömästi elävä, todisteisiin perustuva profiili, joka esittelee todellista kokemusta."
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Consent"
@@ -829,30 +843,30 @@ msgstr "Consent"
 
 #: src/routes/_home/-sections/footer.tsx
 msgid "Contact us"
-msgstr "Contact us"
+msgstr "Ota yhteyttä"
 
 #: src/dialogs/resume/sections/cover-letter.tsx
 #: src/dialogs/resume/sections/summary-item.tsx
+#: src/routes/builder/$resumeId/route.tsx
 msgid "Content"
 msgstr "Sisältö"
 
 #: src/dialogs/auth/enable-two-factor.tsx
 #: src/dialogs/auth/enable-two-factor.tsx
 #: src/dialogs/auth/enable-two-factor.tsx
-#: src/routes/auth/register.tsx
-#: src/routes/dashboard/verification/index.tsx
 #: src/routes/auth/verify-email.tsx
+#: src/routes/dashboard/verification/index.tsx
 msgid "Continue"
 msgstr "Jatka"
 
 #: src/routes/dashboard/resumes/-components/cards/import-card.tsx
-#: src/routes/dashboard/resumes/-components/list-view.tsx
+#: src/routes/dashboard/resumes/-components/resume-quick-actions.tsx
 msgid "Continue where you left off"
 msgstr "Jatka siitä, mihin jäit"
 
 #: src/dialogs/resume/import.tsx
-msgid "Continue where you left off by importing an existing resume you created using Skill Verdict or any another resume builder. Supported formats include PDF, Microsoft Word, as well as JSON files from Skill Verdict."
-msgstr "Jatka siitä, mihin jäit, tuomalla aiemmin laatimasi ansioluettelo, jonka loit Skill Verdictlla tai jollakin muulla ansioluettelon laatijalla. Tuetut muodot ovat PDF, Microsoft Word sekä Skill Verdictn JSON-tiedostot."
+msgid "Continue where you left off by importing an existing resume you created using another resume builder. Supported formats include PDF, Microsoft Word, and JSON Resume files."
+msgstr "Jatka siitä, mihin jäit tuomalla olemassa oleva ansioluettelo, jonka loit toisella ansioluettelon rakennustyökalulla. Tuettuja muotoja ovat PDF-, Microsoft Word- ja JSON Resume -tiedostot."
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Contractor"
@@ -878,6 +892,7 @@ msgstr "Kopioi varmuuskoodit"
 msgid "Copy this secret key and use it in your applications to access your data."
 msgstr "Kopioi tämä salainen avain ja käytä sitä sovelluksissasi tietojesi käsittelyyn."
 
+#: src/routes/builder/$resumeId/-components/dock.tsx
 #: src/routes/builder/$resumeId/-components/dock.tsx
 msgid "Copy URL"
 msgstr "Kopioi URL-osoite"
@@ -979,7 +994,7 @@ msgstr "Luo uusi suosittelija"
 #: src/components/command-palette/pages/resumes.tsx
 #: src/dialogs/resume/index.tsx
 #: src/routes/dashboard/resumes/-components/cards/create-card.tsx
-#: src/routes/dashboard/resumes/-components/list-view.tsx
+#: src/routes/dashboard/resumes/-components/resume-quick-actions.tsx
 #: src/routes/dashboard/verification/index.tsx
 msgid "Create a new resume"
 msgstr "Luo uusi ansioluettelo"
@@ -1007,6 +1022,10 @@ msgstr "Create a resume first, then add your work authorization details."
 #: src/dialogs/resume/index.tsx
 msgid "Create a Sample Resume"
 msgstr "Luo esimerkkian sioluettelo"
+
+#: src/dialogs/resume/index.tsx
+msgid "Create Resume with Options"
+msgstr "Luo ansioluettelo vaihtoehdoilla"
 
 #: src/dialogs/api-key/create.tsx
 msgid "Creating your API key..."
@@ -1063,11 +1082,11 @@ msgstr "Tumma teema"
 
 #: src/routes/_home/-sections/footer.tsx
 msgid "Dashboard"
-msgstr "Dashboard"
+msgstr "Kojelauta"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Data Analytics Dashboard"
-msgstr "Data Analytics Dashboard"
+msgstr "Data Analytics -hallintapaneeli"
 
 #: src/dialogs/resume/sections/award.tsx
 #: src/dialogs/resume/sections/certification.tsx
@@ -1139,6 +1158,7 @@ msgstr "Poistetaan ansioluetteloasi..."
 msgid "Description"
 msgstr "Kuvaus"
 
+#: src/routes/builder/$resumeId/route.tsx
 #: src/utils/resume/section.tsx
 msgid "Design"
 msgstr "Ulkoasu"
@@ -1176,6 +1196,10 @@ msgstr "Katkaise yhteys"
 msgid "Display username"
 msgstr "Display username"
 
+#: src/components/ui/sidebar.tsx
+msgid "Displays the mobile sidebar."
+msgstr "Näyttää mobiilisivupalkin."
+
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Docker"
 msgstr "Docker"
@@ -1191,7 +1215,7 @@ msgstr "Documents"
 
 #: src/routes/_home/-sections/hero.tsx
 msgid "Don't chase. Attract."
-msgstr "Don't chase. Attract."
+msgstr "Älä jahtaa. Houkuttele."
 
 #: src/routes/auth/login.tsx
 msgid "Don't have an account? <0/>"
@@ -1215,13 +1239,16 @@ msgid "Download a copy of your resume in PDF format. Use this file for printing 
 msgstr "Lataa kopio ansioluettelostasi PDF-muodossa. Käytä tätä tiedostoa tulostamiseen tai jakaaksesi ansioluettelosi helposti rekrytoijille."
 
 #: src/routes/builder/$resumeId/-components/dock.tsx
+#: src/routes/builder/$resumeId/-components/dock.tsx
 msgid "Download DOCX"
 msgstr "Lataa DOCX"
 
 #: src/routes/builder/$resumeId/-components/dock.tsx
+#: src/routes/builder/$resumeId/-components/dock.tsx
 msgid "Download JSON"
 msgstr "Lataa JSON"
 
+#: src/routes/builder/$resumeId/-components/dock.tsx
 #: src/routes/builder/$resumeId/-components/dock.tsx
 msgid "Download PDF"
 msgstr "Lataa PDF"
@@ -1265,7 +1292,7 @@ msgstr "hollanti"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "E-commerce Platform"
-msgstr "E-commerce Platform"
+msgstr "Sähköisen kaupankäynnin alusta"
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "e.g. 150000"
@@ -1287,13 +1314,17 @@ msgstr "esim. frontend developer työpaikat Berliinissä"
 msgid "e.g. Skilled Worker"
 msgstr "e.g. Skilled Worker"
 
+#: src/routes/dashboard/admin/ai.tsx
+msgid "e.g., gpt-4, claude-3-opus, gemini-pro"
+msgstr "esim. gpt-4, claude-3-opus, gemini-pro"
+
 #: src/routes/_home/-sections/features.tsx
 msgid "Earn peer-endorsed badges from domain experts — turn claims into evidence employers can trust at a glance."
-msgstr "Earn peer-endorsed badges from domain experts — turn claims into evidence employers can trust at a glance."
+msgstr "Ansaitse vertaistukea verkkotunnuksen asiantuntijoilta – muuta väitteet todisteiksi, joihin työnantajat voivat luottaa yhdellä silmäyksellä."
 
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Earn your verdict"
-msgstr "Earn your verdict"
+msgstr "Ansaitse tuomiosi"
 
 #: src/dialogs/resume/sections/custom.tsx
 #: src/routes/_home/-sections/hero-visual.tsx
@@ -1313,9 +1344,9 @@ msgstr "Sähköposti"
 msgid "Email Address"
 msgstr "Sähköpostiosoite"
 
+#: src/routes/auth/verify-email.tsx
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/users.tsx
-#: src/routes/auth/verify-email.tsx
 msgid "Email verified"
 msgstr "Email verified"
 
@@ -1387,7 +1418,7 @@ msgstr "Syötä salasanasi poistaaksesi kaksivaiheisen todennuksen käytöstä. 
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Every assessment comes with actionable feedback, so you level up even when you're already getting hired."
-msgstr "Every assessment comes with actionable feedback, so you level up even when you're already getting hired."
+msgstr "Jokaisen arvioinnin mukana tulee toimivaa palautetta, joten nouset tasolle, vaikka olet jo työllistämässä."
 
 #: src/routes/dashboard/job-search/-components/use-job-search.ts
 msgid "Exclude {value}"
@@ -1476,6 +1507,10 @@ msgstr "Failed to load document."
 msgid "Failed to load user details."
 msgstr "Failed to load user details."
 
+#: src/routes/auth/verify-email.tsx
+msgid "Failed to resend verification email. Please try again."
+msgstr "Vahvistussähköpostin uudelleenlähetys epäonnistui. Yritä uudelleen."
+
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Failed to save work authorization."
 msgstr "Failed to save work authorization."
@@ -1516,6 +1551,10 @@ msgstr "Suodata"
 #: src/utils/locale.ts
 msgid "Finnish"
 msgstr "suomi"
+
+#: src/routes/builder/$resumeId/-components/dock.tsx
+msgid "Fit resume to screen"
+msgstr "Sovita CV näyttöön"
 
 #: src/dialogs/resume/sections/language.tsx
 msgid "Fluency"
@@ -1562,7 +1601,7 @@ msgstr "Muoto"
 
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Four simple steps to turn your claims into evidence. No keyword stuffing, no job-title theatre — just practical assessments reviewed by domain experts."
-msgstr "Four simple steps to turn your claims into evidence. No keyword stuffing, no job-title theatre — just practical assessments reviewed by domain experts."
+msgstr "Neljä yksinkertaista vaihetta muuttaa väitteesi todisteiksi. Ei avainsanojen täyttämistä, ei työnimiketeatteria – vain toimialueen asiantuntijoiden arvioimia käytännön arvioita."
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/page.tsx
 msgid "Free-Form"
@@ -1580,13 +1619,17 @@ msgstr "Freelancer Profile Link"
 msgid "French"
 msgstr "ranska"
 
+#: src/routes/_home/-sections/faq.tsx
+msgid "Frequently Asked Questions"
+msgstr "Usein kysytyt kysymykset"
+
 #: src/routes/builder/$resumeId/-sidebar/right/sections/layout/pages.tsx
 msgid "Full Width"
 msgstr "Täysi leveys"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Full-stack React/Node.js application with payment integration"
-msgstr "Full-stack React/Node.js application with payment integration"
+msgstr "Täysi pino React/Node.js-sovellus maksuintegraatiolla"
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Full-time"
@@ -1610,7 +1653,7 @@ msgstr "Get AI feedback on what is strong in this resume and what should be impr
 
 #: src/routes/_home/-sections/footer.tsx
 msgid "Get verified"
-msgstr "Get verified"
+msgstr "Hanki vahvistus"
 
 #: src/components/command-palette/pages/navigation.tsx
 #: src/components/command-palette/pages/navigation.tsx
@@ -1650,11 +1693,11 @@ msgstr "Ruudukko"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Grouped capabilities with micro-labels — shows breadth without a wall of bullet points."
-msgstr "Grouped capabilities with micro-labels — shows breadth without a wall of bullet points."
+msgstr "Ryhmitellyt ominaisuudet mikroetiketillä – näyttää leveyden ilman luettelomerkkien seinää."
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Growth-focused feedback"
-msgstr "Growth-focused feedback"
+msgstr "Kasvupainotteinen palaute"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Harvard University"
@@ -1711,7 +1754,7 @@ msgstr "Tässä on uusi API-avaimesi"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Hero statement up top, verified skills as the spine — built for reviewers who scan in seconds."
-msgstr "Hero statement up top, verified skills as the spine — built for reviewers who scan in seconds."
+msgstr "Sankarilausunto ylhäällä, vahvistetut taidot selkärangana – rakennettu arvioijille, jotka skannaavat sekunneissa."
 
 #: src/components/level/combobox.tsx
 #: src/dialogs/resume/sections/language.tsx
@@ -1753,16 +1796,20 @@ msgstr "Miten käytän rajapintaa (API:a)?"
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "How does skill verification work?"
-msgstr "How does skill verification work?"
+msgstr "Miten taitojen vahvistaminen toimii?"
 
 #: src/routes/_home/-sections/footer.tsx
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "How it works"
-msgstr "How it works"
+msgstr "Miten se toimii"
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "How long does a verification take?"
-msgstr "How long does a verification take?"
+msgstr "Kuinka kauan vahvistus kestää?"
+
+#: src/routes/dashboard/verification/index.tsx
+msgid "https://www.upwork.com/freelancers/~..."
+msgstr "https://www.upwork.com/freelancers/~..."
 
 #: src/utils/locale.ts
 msgid "Hungarian"
@@ -1824,7 +1871,7 @@ msgstr "Tuo"
 
 #: src/dialogs/resume/import.tsx
 #: src/routes/dashboard/resumes/-components/cards/import-card.tsx
-#: src/routes/dashboard/resumes/-components/list-view.tsx
+#: src/routes/dashboard/resumes/-components/resume-quick-actions.tsx
 msgid "Import an existing resume"
 msgstr "Tuo olemassa oleva ansioluettelo"
 
@@ -1863,7 +1910,7 @@ msgstr "Harjoittelija"
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "Is the review really unbiased?"
-msgstr "Is the review really unbiased?"
+msgstr "Onko arvostelu todella puolueeton?"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Issue date"
@@ -1995,7 +2042,7 @@ msgstr "Asettelu"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Layouts for evidence, not decoration"
-msgstr "Layouts for evidence, not decoration"
+msgstr "Asettelut todisteeksi, ei koristeeksi"
 
 #: src/components/resume/preview.tsx
 msgid "Learn more about how to fit content on a page"
@@ -2065,6 +2112,10 @@ msgstr "Lista"
 #: src/utils/locale.ts
 msgid "Lithuanian"
 msgstr "liettua"
+
+#: src/components/ui/spinner.tsx
+msgid "Loading"
+msgstr "Ladataan"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Loading document..."
@@ -2189,13 +2240,17 @@ msgstr "Vähimmäispalkka"
 msgid "Model"
 msgstr "Malli"
 
+#: src/routes/builder/$resumeId/-components/dock.tsx
+msgid "More builder actions"
+msgstr "Lisää rakentajan toimia"
+
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "More than 3 years"
 msgstr "Yli 3 vuotta"
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "Most verifications wrap up in 1–3 days depending on the skill and reviewer availability — no weeks of waiting around."
-msgstr "Most verifications wrap up in 1–3 days depending on the skill and reviewer availability — no weeks of waiting around."
+msgstr "Useimmat vahvistukset päättyvät 1–3 päivässä taidosta ja arvioijan saatavuudesta riippuen – ei viikkoja odottelua."
 
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
 msgid "Move to"
@@ -2204,6 +2259,10 @@ msgstr "Siirrä"
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "MSc Computer Science"
 msgstr "MSc Computer Science"
+
+#: src/routes/builder/$resumeId/-sidebar/left/sections/custom-fields.tsx
+msgid "Must start with https://"
+msgstr "Täytyy alkaa https://"
 
 #: src/dialogs/api-key/create.tsx
 #: src/dialogs/resume/index.tsx
@@ -2235,6 +2294,10 @@ msgid "New Line"
 msgstr "Uusi rivi"
 
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
+msgid "New page"
+msgstr "Uusi sivu"
+
+#: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
 msgid "New Page"
 msgstr "Uusi sivu"
 
@@ -2246,6 +2309,11 @@ msgstr "Uusi salasana"
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
 msgid "New Section"
 msgstr "Uusi osio"
+
+#. placeholder {0}: pageIndex + 1
+#: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
+msgid "New section on page {0}"
+msgstr "Uusi osio sivulla {0}"
 
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 msgid "New Skills Detected"
@@ -2355,7 +2423,7 @@ msgstr "Node.js"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Northline"
-msgstr "Northline"
+msgstr "Pohjoislinja"
 
 #: src/utils/locale.ts
 msgid "Norwegian"
@@ -2385,12 +2453,22 @@ msgstr "Only PDF, JPG, JPEG, and PNG files are allowed."
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "Only your assigned reviewer sees the assignments you submit. On your public profile, you decide which verified skills to display — everything else stays private."
-msgstr "Only your assigned reviewer sees the assignments you submit. On your public profile, you decide which verified skills to display — everything else stays private."
+msgstr "Vain sinulle määrätty arvioija näkee lähettämäsi tehtävät. Päätät julkisessa profiilissasi, mitkä vahvistetut taidot näytetään – kaikki muu pysyy yksityisenä."
 
 #: src/routes/dashboard/resumes/-components/menus/context-menu.tsx
 #: src/routes/dashboard/resumes/-components/menus/dropdown-menu.tsx
 msgid "Open"
 msgstr "Avaa"
+
+#: src/routes/builder/$resumeId/-components/header.tsx
+#: src/routes/builder/$resumeId/-components/header.tsx
+msgid "Open content editor"
+msgstr "Avaa sisältöeditori"
+
+#: src/routes/builder/$resumeId/-components/header.tsx
+#: src/routes/builder/$resumeId/-components/header.tsx
+msgid "Open design settings"
+msgstr "Avaa suunnitteluasetukset"
 
 #: src/routes/auth/forgot-password.tsx
 msgid "Open Email Client"
@@ -2487,6 +2565,11 @@ msgstr "Sivu {0}"
 msgid "Page {0} of {totalPages} — {1} users"
 msgstr "Page {0} of {totalPages} — {1} users"
 
+#. placeholder {0}: pageIndex + 1
+#: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
+msgid "Page {0}: {sectionTitle}"
+msgstr "Sivu {0}: {sectionTitle}"
+
 #: src/routes/dashboard/job-search/index.tsx
 msgid "Page {currentPage}"
 msgstr "Sivu {currentPage}"
@@ -2505,11 +2588,11 @@ msgstr "Osa-aikainen"
 
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Pass the review to earn a verified skill badge, boost your profile visibility, and let opportunities come to you."
-msgstr "Pass the review to earn a verified skill badge, boost your profile visibility, and let opportunities come to you."
+msgstr "Läpäise arvostelu, niin voit ansaita vahvistetun taitomerkin, parantaa profiilisi näkyvyyttä ja antaa tilaisuuksien tulla sinulle."
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Passive discovery"
-msgstr "Passive discovery"
+msgstr "Passiivinen löytö"
 
 #: src/dialogs/auth/disable-two-factor.tsx
 #: src/dialogs/auth/enable-two-factor.tsx
@@ -2559,11 +2642,11 @@ msgstr "persia"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Personality"
-msgstr "Personality"
+msgstr "Persoonallisuus"
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Personality & culture fit"
-msgstr "Personality & culture fit"
+msgstr "Persoonallisuus ja kulttuuri sopivat"
 
 #: src/dialogs/resume/sections/reference.tsx
 #: src/routes/builder/$resumeId/-sidebar/left/sections/basics.tsx
@@ -2572,7 +2655,7 @@ msgstr "Puhelin"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Pick a presentation that puts verification and outcomes first. Each card shows a real export layout from the builder — same document you share, with structure tuned for how people actually skim proof."
-msgstr "Pick a presentation that puts verification and outcomes first. Each card shows a real export layout from the builder — same document you share, with structure tuned for how people actually skim proof."
+msgstr "Valitse esitys, jossa todentaminen ja tulokset ovat etusijalla. Jokainen kortti näyttää todellisen viennin asettelun rakentajalta – samasta asiakirjasta, jonka jaat, ja rakenne on säädetty sen mukaan, kuinka ihmiset todella luvaavat todisteita."
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Pick a region to fill in your authorization details. Statuses already filled are shown next to each region."
@@ -2580,7 +2663,7 @@ msgstr "Pick a region to fill in your authorization details. Statuses already fi
 
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Pick skills to verify"
-msgstr "Pick skills to verify"
+msgstr "Valitse vahvistettavat taidot"
 
 #: src/utils/resume/section.tsx
 msgid "Picture"
@@ -2588,7 +2671,7 @@ msgstr "Kuva"
 
 #: src/routes/_home/-sections/statistics.tsx
 msgid "Platform statistics"
-msgstr "Platform statistics"
+msgstr "Alustan tilastot"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Please complete the required work authorization fields before saving."
@@ -2659,7 +2742,7 @@ msgstr "Preview"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Preview of a verified candidate profile"
-msgstr "Preview of a verified candidate profile"
+msgstr "Vahvistetun ehdokasprofiilin esikatselu"
 
 #: src/routes/dashboard/admin/users.tsx
 #: src/routes/dashboard/job-search/index.tsx
@@ -2677,7 +2760,7 @@ msgstr "Privacy"
 
 #: src/routes/_home/-sections/footer.tsx
 msgid "Product"
-msgstr "Product"
+msgstr "Tuote"
 
 #: src/dialogs/resume/sections/skill.tsx
 msgid "Proficiency"
@@ -2716,7 +2799,7 @@ msgstr "Projektit"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Proof-first"
-msgstr "Proof-first"
+msgstr "Todistus ensin"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 msgid "Protect your resume from unauthorized access with a password"
@@ -2745,11 +2828,11 @@ msgstr "Julkaisija"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Pulse"
-msgstr "Pulse"
+msgstr "Pulssi"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Python/Django dashboard with interactive visualizations"
-msgstr "Python/Django dashboard with interactive visualizations"
+msgstr "Python/Django-kojelauta interaktiivisilla visualisoinneilla"
 
 #. placeholder {0}: quota.remaining
 #: src/routes/dashboard/job-search/index.tsx
@@ -2766,11 +2849,11 @@ msgstr "React"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "React Native mobile app with real-time synchronization"
-msgstr "React Native mobile app with real-time synchronization"
+msgstr "React Native -mobiilisovellus reaaliaikaisella synkronoinnilla"
 
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Receive a practical assignment from your reviewer, submit your work, and get actionable feedback in a real conversation."
-msgstr "Receive a practical assignment from your reviewer, submit your work, and get actionable feedback in a real conversation."
+msgstr "Vastaanota käytännönläheinen tehtävä arvioijaltasi, lähetä työsi ja saa toimivaa palautetta todellisessa keskustelussa."
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Recent sessions"
@@ -2788,6 +2871,7 @@ msgstr "Suorakulmio"
 msgid "Rectangle (Full Width)"
 msgstr "Suorakulmio (täysi leveys)"
 
+#: src/routes/builder/$resumeId/-components/dock.tsx
 #: src/routes/builder/$resumeId/-components/dock.tsx
 msgctxt "'Ctrl' may be replaced with the locale-specific equivalent (e.g. 'Strg' for QWERTZ layouts)."
 msgid "Redo (Ctrl+Y)"
@@ -2816,7 +2900,7 @@ msgstr "Rejected/issue"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Relay"
-msgstr "Relay"
+msgstr "Rele"
 
 #: src/routes/auth/forgot-password.tsx
 msgid "Remember your password? <0/>"
@@ -2860,6 +2944,10 @@ msgstr "Järjestä uudelleen"
 msgid "Request"
 msgstr "Request"
 
+#: src/routes/auth/verify-email.tsx
+msgid "Request a new link"
+msgstr "Pyydä uusi linkki"
+
 #: src/routes/dashboard/job-search/-components/job-detail.tsx
 msgid "Required Skills"
 msgstr "Tarvittavat taidot"
@@ -2868,13 +2956,13 @@ msgstr "Tarvittavat taidot"
 msgid "Required: reason for overriding this verdict..."
 msgstr "Required: reason for overriding this verdict..."
 
-#: src/routes/dashboard/settings/profile.tsx
 #: src/routes/auth/verify-email.tsx
+#: src/routes/dashboard/settings/profile.tsx
 msgid "Resend verification email"
 msgstr "Lähetä vahvistussähköposti uudelleen"
 
-#: src/routes/dashboard/settings/profile.tsx
 #: src/routes/auth/verify-email.tsx
+#: src/routes/dashboard/settings/profile.tsx
 msgid "Resending verification email..."
 msgstr "Lähetetään vahvistussähköpostia uudelleen..."
 
@@ -2951,11 +3039,11 @@ msgstr "Reviewer since {memberSince}"
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Reviewers don't see who they're assessing, so your skills are judged on their merit — not your background."
-msgstr "Reviewers don't see who they're assessing, so your skills are judged on their merit — not your background."
+msgstr "Arvostelijat eivät näe, ketä he arvioivat, joten taitosi arvioidaan heidän ansioidensa mukaan – ei taustasi perusteella."
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "Reviewers evaluate your submission without seeing your name, employer, or background. If you're ever unhappy with an outcome, you can request a second opinion from a different reviewer."
-msgstr "Reviewers evaluate your submission without seeing your name, employer, or background. If you're ever unhappy with an outcome, you can request a second opinion from a different reviewer."
+msgstr "Arvostelijat arvioivat hakemuksesi näkemättä nimeäsi, työnantajaasi tai taustaasi. Jos olet joskus tyytymätön tulokseen, voit pyytää toista lausuntoa toiselta arvioijalta."
 
 #: src/components/input/rich-input.tsx
 msgid "Right Align"
@@ -3058,6 +3146,10 @@ msgstr "Oppilaitos"
 msgid "Search"
 msgstr "Etsi"
 
+#: src/components/command-palette/index.tsx
+msgid "Search commands"
+msgstr "Hakukomennot"
+
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Search countries"
 msgstr "Etsi maita"
@@ -3071,6 +3163,7 @@ msgstr "Etsi ikonia"
 msgid "Search for..."
 msgstr "Etsi..."
 
+#: src/components/command-palette/index.tsx
 #: src/components/ui/combobox.tsx
 msgid "Search..."
 msgstr "Etsi..."
@@ -3085,11 +3178,11 @@ msgstr "Osion tyyppi"
 
 #: src/routes/_home/-sections/hero.tsx
 msgid "See how it works"
-msgstr "See how it works"
+msgstr "Katso kuinka se toimii"
 
 #: src/routes/_home/-sections/hero.tsx
 msgid "See how verification works"
-msgstr "See how verification works"
+msgstr "Katso kuinka vahvistus toimii"
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "Select a payslip, contract, or other proof of employment (PDF, JPG, PNG, max 5MB)."
@@ -3128,7 +3221,7 @@ msgstr "Select status"
 
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Select the skills you want endorsed and choose a reviewer for a personalized, scenario-based assessment."
-msgstr "Select the skills you want endorsed and choose a reviewer for a personalized, scenario-based assessment."
+msgstr "Valitse taidot, joita haluat vahvistaa, ja valitse arvioija henkilökohtaista, skenaariopohjaista arviointia varten."
 
 #: src/components/ui/combobox.tsx
 msgid "Select..."
@@ -3136,7 +3229,7 @@ msgstr "Valitse..."
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Self-starter"
-msgstr "Self-starter"
+msgstr "Itsekäynnistin"
 
 #: src/routes/auth/forgot-password.tsx
 msgid "Send Password Reset Email"
@@ -3148,11 +3241,11 @@ msgstr "Lähetetään salasanan palautussähköpostia..."
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Senior AI Engineer"
-msgstr "Senior AI Engineer"
+msgstr "Vanhempi AI-insinööri"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Senior Full Stack Developer"
-msgstr "Senior Full Stack Developer"
+msgstr "Vanhempi Full Stack -kehittäjä"
 
 #: src/components/input/rich-input.tsx
 msgid "Separator"
@@ -3194,7 +3287,7 @@ msgstr "Varjon leveys"
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Share anywhere, instantly"
-msgstr "Share anywhere, instantly"
+msgstr "Jaa missä tahansa, heti"
 
 #: src/utils/resume/section.tsx
 msgid "Sharing"
@@ -3227,6 +3320,7 @@ msgstr "Show or hide the verification timeline on your public CV. This is off by
 msgid "Show Timeline on Public CV"
 msgstr "Show Timeline on Public CV"
 
+#: src/components/ui/sidebar.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/layout/pages.tsx
 msgid "Sidebar"
 msgstr "Sivupalkki"
@@ -3237,12 +3331,25 @@ msgstr "Sivupalkin leveys"
 
 #: src/routes/auth/login.tsx
 #: src/routes/auth/verify-email.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Sign in"
 msgstr "Kirjaudu sisään"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to verify your email"
+msgstr "Kirjaudu sisään vahvistaaksesi sähköpostisi"
 
 #: src/routes/auth/login.tsx
 msgid "Sign in to your account"
 msgstr "Kirjaudu tilillesi"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to your account to request a new verification email."
+msgstr "Kirjaudu tilillesi pyytääksesi uuden vahvistussähköpostin."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to your account, then request a new verification email."
+msgstr "Kirjaudu tilillesi ja pyydä sitten uusi vahvistussähköposti."
 
 #: src/routes/auth/register.tsx
 msgid "Sign up"
@@ -3250,7 +3357,7 @@ msgstr "Rekisteröidy"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Signal density"
-msgstr "Signal density"
+msgstr "Signaalin tiheys"
 
 #: src/routes/auth/-components/social-auth.tsx
 #: src/routes/auth/-components/social-auth.tsx
@@ -3292,11 +3399,11 @@ msgstr "Skill Center"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Skill clusters"
-msgstr "Skill clusters"
+msgstr "Taitoklusterit"
 
 #: src/routes/_home/-sections/header.tsx
 msgid "Skill Verdict - Go to homepage"
-msgstr "Skill Verdict - Go to homepage"
+msgstr "Skill Verdict - Siirry kotisivulle"
 
 #: src/routes/dashboard/-components/sidebar.tsx
 #: src/routes/dashboard/settings/profile.tsx
@@ -3361,7 +3468,7 @@ msgstr "espanja"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Split identity and evidence panes; keeps personality context beside hard verification."
-msgstr "Split identity and evidence panes; keeps personality context beside hard verification."
+msgstr "Jaa identiteetti- ja todisteruudut; pitää persoonallisuuden kontekstin kovan todentamisen rinnalla."
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Sponsorship"
@@ -3390,7 +3497,7 @@ msgid "Start building your resume by giving it a name."
 msgstr "Aloita ansioluettelon laatiminen antamalla sille nimi."
 
 #: src/routes/dashboard/resumes/-components/cards/create-card.tsx
-#: src/routes/dashboard/resumes/-components/list-view.tsx
+#: src/routes/dashboard/resumes/-components/resume-quick-actions.tsx
 msgid "Start building your resume from scratch"
 msgstr "Aloita ansioluettelon laatiminen alusta"
 
@@ -3408,11 +3515,11 @@ msgstr "Pysy"
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Stop chasing. Companies reach out directly to candidates whose verified skills match their requirements."
-msgstr "Stop chasing. Companies reach out directly to candidates whose verified skills match their requirements."
+msgstr "Lopeta jahtaaminen. Yritykset ottavat yhteyttä suoraan hakijoihin, joiden todistetut taidot vastaavat heidän vaatimuksiaan."
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Story arc"
-msgstr "Story arc"
+msgstr "Tarinan kaari"
 
 #: src/components/input/rich-input.tsx
 msgid "Strike"
@@ -3487,15 +3594,15 @@ msgstr "tamili"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Task Management App"
-msgstr "Task Management App"
+msgstr "Tehtävienhallintasovellus"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Team player"
-msgstr "Team player"
+msgstr "Joukkueen pelaaja"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Technical skills"
-msgstr "Technical skills"
+msgstr "Tekniset taidot"
 
 #: src/utils/locale.ts
 msgid "Telugu"
@@ -3553,6 +3660,10 @@ msgstr "Ansioluettelo, johon yrität päästä, on salasanalla suojattu"
 #: src/components/input/rich-input.tsx
 msgid "The URL you entered is not valid."
 msgstr "Antamasi URL-osoite ei ole kelvollinen."
+
+#: src/routes/auth/verify-email.tsx
+msgid "The verification link may be invalid, expired, or already used."
+msgstr "Vahvistuslinkki voi olla virheellinen, vanhentunut tai jo käytetty."
 
 #: src/components/command-palette/pages/preferences/theme.tsx
 #: src/components/user/dropdown-menu.tsx
@@ -3621,10 +3732,6 @@ msgstr "Tämä ansioluettelo on lukittu eikä sitä voi päivittää."
 msgid "This section is reserved for your personal notes specific to this resume. The content here remains private and is not shared with anyone else."
 msgstr "Tämä osio on varattu henkilökohtaisille muistiinpanoillesi, jotka koskevat tätä ansioluetteloa. Sisältö pysyy yksityisenä eikä sitä jaeta kenellekään."
 
-#: src/routes/auth/register.tsx
-msgid "This step is optional, but recommended."
-msgstr "Tämä vaihe on vapaaehtoinen, mutta suositeltava."
-
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "This week"
 msgstr "Tällä viikolla"
@@ -3635,11 +3742,11 @@ msgstr "Tämä luo uuden API-avaimen Skill Verdict -rajapinnan käyttöä varten
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Tight vertical rhythm for mobile sharing — still readable when the viewport is narrow."
-msgstr "Tight vertical rhythm for mobile sharing — still readable when the viewport is narrow."
+msgstr "Tiukka pystyrytmi mobiilijakamiseen – edelleen luettavissa, kun näkymä on kapea."
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Timeline-forward narrative with milestones; good when your evidence has a clear before/after."
-msgstr "Timeline-forward narrative with milestones; good when your evidence has a clear before/after."
+msgstr "Aikajana eteenpäin kertova kertomus virstanpylväillä; hyvä, kun todisteillasi on selkeä ennen/jälkeen."
 
 #: src/dialogs/api-key/create.tsx
 msgid "Tip: Give your API key a name, corresponding to the purpose of the key, to help you identify it later."
@@ -3665,6 +3772,12 @@ msgstr "Poistaaksesi tilisi sinun täytyy syöttää vahvistusteksti ja napsautt
 msgid "Today"
 msgstr "Tänään"
 
+#: src/components/ui/sidebar.tsx
+#: src/components/ui/sidebar.tsx
+#: src/components/ui/sidebar.tsx
+msgid "Toggle Sidebar"
+msgstr "Vaihda sivupalkki"
+
 #: src/routes/dashboard/admin/users.tsx
 msgid "Total keys"
 msgstr "Total keys"
@@ -3688,6 +3801,10 @@ msgstr "Total sessions"
 #: src/routes/builder/$resumeId/-sidebar/right/sections/statistics.tsx
 msgid "Track your resume's views and downloads"
 msgstr "Seuraa ansioluettelosi katseluita ja latauksia"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Try requesting a new verification link."
+msgstr "Yritä pyytää uutta vahvistuslinkkiä."
 
 #: src/utils/locale.ts
 msgid "Turkish"
@@ -3746,6 +3863,10 @@ msgstr "Kaksivaiheinen todennus on poistettu käytöstä onnistuneesti."
 msgid "Two-factor authentication has been setup successfully."
 msgstr "Kaksivaiheinen todennus on otettu käyttöön onnistuneesti."
 
+#: src/dialogs/auth/enable-two-factor.tsx
+msgid "Two-Factor Authentication QR Code"
+msgstr "Kaksifaktorinen todennus QR-koodi"
+
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/users.tsx
 msgid "Two-factor enabled"
@@ -3753,7 +3874,7 @@ msgstr "Two-factor enabled"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Two-pane"
-msgstr "Two-pane"
+msgstr "Kaksiruutuinen"
 
 #: src/dialogs/resume/import.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/design.tsx
@@ -3765,6 +3886,7 @@ msgstr "Tyyppi"
 msgid "Type \"{CONFIRMATION_TEXT}\" to confirm"
 msgstr "Kirjoita \"{CONFIRMATION_TEXT}\" vahvistaaksesi"
 
+#: src/components/command-palette/index.tsx
 #: src/components/command-palette/index.tsx
 msgid "Type a command or search..."
 msgstr "Kirjoita komento tai hae..."
@@ -3789,6 +3911,7 @@ msgstr "Alle 3 vuotta"
 msgid "Underline"
 msgstr "Alleviivaus"
 
+#: src/routes/builder/$resumeId/-components/dock.tsx
 #: src/routes/builder/$resumeId/-components/dock.tsx
 msgctxt "'Ctrl' may be replaced with the locale-specific equivalent (e.g. 'Strg' for QWERTZ layouts)."
 msgid "Undo (Ctrl+Z)"
@@ -4010,15 +4133,15 @@ msgstr "Verified by {0}"
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Verified skill badges"
-msgstr "Verified skill badges"
+msgstr "Vahvistetut taitomerkit"
 
 #: src/routes/_home/-sections/statistics.tsx
 msgid "Verified skills"
-msgstr "Verified skills"
+msgstr "Todistetut taidot"
 
 #: src/routes/_home/-sections/footer.tsx
 msgid "Verified skills, honest feedback, and passive discovery — a living profile built on evidence, not keywords."
-msgstr "Verified skills, honest feedback, and passive discovery — a living profile built on evidence, not keywords."
+msgstr "Todistetut taidot, rehellinen palaute ja passiivinen löytö – elävä profiili, joka perustuu todisteisiin, ei avainsanoihin."
 
 #: src/routes/auth/verify-2fa-backup.tsx
 #: src/routes/auth/verify-2fa.tsx
@@ -4028,11 +4151,15 @@ msgstr "Vahvista"
 
 #: src/routes/_home/-sections/hero.tsx
 msgid "Verify my skills"
-msgstr "Verify my skills"
+msgstr "Tarkista taitoni"
 
 #: src/routes/auth/verify-2fa-backup.tsx
 msgid "Verify with a Backup Code"
 msgstr "Vahvista varmuuskoodilla"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Verify your email"
+msgstr "Vahvista sähköpostisi"
 
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Verify your identity through a short video call. This adds trust to your resume."
@@ -4050,10 +4177,6 @@ msgstr "Vahvistetaan koodia..."
 #: src/routes/auth/resume-password.tsx
 msgid "Verifying password..."
 msgstr "Vahvistetaan salasanaa..."
-
-#: src/routes/auth/register.tsx
-msgid "Verifying your email is required when resetting your password."
-msgstr "Sähköpostin vahvistus vaaditaan, kun palautat salasanaasi."
 
 #: src/utils/locale.ts
 msgid "Vietnamese"
@@ -4088,6 +4211,14 @@ msgstr "Visibility"
 msgid "Volunteer"
 msgstr "Vapaaehtoistyö"
 
+#: src/routes/auth/verify-email.tsx
+msgid "We couldn't verify your email"
+msgstr "Emme voineet vahvistaa sähköpostiasi"
+
+#: src/routes/auth/verify-email.tsx
+msgid "We sent a verification link to your email address."
+msgstr "Lähetimme vahvistuslinkin sähköpostiosoitteeseesi."
+
 #: src/dialogs/resume/sections/award.tsx
 #: src/dialogs/resume/sections/certification.tsx
 #: src/dialogs/resume/sections/education.tsx
@@ -4113,11 +4244,11 @@ msgstr "Kun se on lukittu, ansioluetteloa ei voi päivittää tai poistaa."
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "Who can see my submissions and results?"
-msgstr "Who can see my submissions and results?"
+msgstr "Kuka voi nähdä lähetykseni ja tulokset?"
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Why candidates choose us"
-msgstr "Why candidates choose us"
+msgstr "Miksi ehdokkaat valitsevat meidät"
 
 #: src/routes/dashboard/-components/sidebar.tsx
 #: src/routes/dashboard/work-authorization/index.tsx
@@ -4139,7 +4270,7 @@ msgstr "Yes"
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "Yes. Add or remove skills any time, and request re-verification as you level up. Your profile is designed to evolve with your career."
-msgstr "Yes. Add or remove skills any time, and request re-verification as you level up. Your profile is designed to evolve with your career."
+msgstr "Kyllä. Lisää tai poista taitoja milloin tahansa ja pyydä uudelleenvahvistusta tason noustessa. Profiilisi on suunniteltu kehittymään urasi mukana."
 
 #: src/routes/dashboard/job-search/-components/job-utils.ts
 msgid "Yesterday"
@@ -4149,22 +4280,33 @@ msgstr "Eilen"
 msgid "You can also use your username to login."
 msgstr "Voit myös käyttää käyttäjätunnustasi kirjautumiseen."
 
+#: src/routes/auth/verify-email.tsx
+msgid "You can now use account recovery and other features that require a verified email address."
+msgstr "Voit nyt käyttää tilin palautusta ja muita ominaisuuksia, jotka edellyttävät vahvistettua sähköpostiosoitetta."
+
 #: src/hooks/use-form-blocker.tsx
 msgid "You have unsaved changes that will be lost."
 msgstr "Sinulla on tallentamattomia muutoksia, jotka menetetään."
 
+#: src/routes/auth/verify-email.tsx
+msgid "You must verify your email address before you can access Skill Verdict."
+msgstr "Sinun on vahvistettava sähköpostiosoitteesi ennen kuin voit käyttää Skill Verdictiä."
+
 #: src/routes/_home/-sections/faq.tsx
 msgid "You pick the skills you want to endorse and a reviewer with relevant expertise. They assign a short, practical assessment, review your submission, and share actionable feedback. If you pass, the skill is added to your profile as a verified badge."
-msgstr "You pick the skills you want to endorse and a reviewer with relevant expertise. They assign a short, practical assessment, review your submission, and share actionable feedback. If you pass, the skill is added to your profile as a verified badge."
+msgstr "Valitset taidot, joita haluat tukea, ja arvioijan, jolla on asiantuntemusta. He tekevät lyhyen, käytännönläheisen arvioinnin, tarkistavat hakemuksesi ja antavat toimivaa palautetta. Jos läpäiset, taito lisätään profiiliisi vahvistettuna tunnuksena."
 
 #: src/routes/auth/forgot-password.tsx
-#: src/routes/auth/register.tsx
 msgid "You've got mail!"
 msgstr "Sinulle on tullut postia!"
 
 #: src/routes/dashboard/settings/danger-zone.tsx
 msgid "Your account has been deleted successfully."
 msgstr "Tilisi on poistettu onnistuneesti."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Your account is up to date."
+msgstr "Tilisi on ajan tasalla."
 
 #: src/dialogs/api-key/create.tsx
 msgid "Your API key has been copied to the clipboard."
@@ -4173,6 +4315,10 @@ msgstr "API-avaimesi on kopioitu leikepöydälle."
 #: src/routes/builder/$resumeId/index.tsx
 msgid "Your changes are saved automatically."
 msgstr "Muutoksesi tallentuvat automaattisesti."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Your email address is confirmed. You can continue using Skill Verdict."
+msgstr "Sähköpostiosoitteesi on vahvistettu. Voit jatkaa Skill Verdictin käyttöä."
 
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Your identity has been verified and your profile is trusted."
@@ -4226,9 +4372,11 @@ msgid "Your verification call has been scheduled. Our team will review and confi
 msgstr "Your verification call has been scheduled. Our team will review and confirm your identity shortly."
 
 #: src/routes/builder/$resumeId/-components/dock.tsx
+#: src/routes/builder/$resumeId/-components/dock.tsx
 msgid "Zoom in"
 msgstr "Lähennä"
 
+#: src/routes/builder/$resumeId/-components/dock.tsx
 #: src/routes/builder/$resumeId/-components/dock.tsx
 msgid "Zoom out"
 msgstr "Loitonna"
@@ -4236,67 +4384,3 @@ msgstr "Loitonna"
 #: src/utils/locale.ts
 msgid "Zulu"
 msgstr "Zulu"
-
-#: src/routes/auth/verify-email.tsx
-msgid "A new verification link has been sent to your email address."
-msgstr "Uusi vahvistuslinkki on lähetetty sähköpostiosoitteeseesi."
-
-#: src/routes/auth/verify-email.tsx
-msgid "Check your inbox"
-msgstr "Tarkista saapuneet-kansiosi"
-
-#: src/routes/auth/verify-email.tsx
-msgid "Failed to resend verification email. Please try again."
-msgstr "Vahvistussähköpostin uudelleenlähetys epäonnistui. Yritä uudelleen."
-
-#: src/routes/auth/verify-email.tsx
-msgid "Request a new link"
-msgstr "Pyydä uusi linkki"
-
-#: src/routes/auth/verify-email.tsx
-msgid "Sign in to your account to request a new verification email."
-msgstr "Kirjaudu tilillesi pyytääksesi uuden vahvistussähköpostin."
-
-#: src/routes/auth/verify-email.tsx
-msgid "Sign in to your account, then request a new verification email."
-msgstr "Kirjaudu tilillesi ja pyydä sitten uusi vahvistussähköposti."
-
-#: src/routes/auth/verify-email.tsx
-msgid "Sign in to verify your email"
-msgstr "Kirjaudu sisään vahvistaaksesi sähköpostisi"
-
-#: src/routes/auth/verify-email.tsx
-msgid "The verification link may be invalid, expired, or already used."
-msgstr "Vahvistuslinkki voi olla virheellinen, vanhentunut tai jo käytetty."
-
-#: src/routes/auth/verify-email.tsx
-msgid "Try requesting a new verification link."
-msgstr "Yritä pyytää uutta vahvistuslinkkiä."
-
-#: src/routes/auth/verify-email.tsx
-msgid "Verify your email"
-msgstr "Vahvista sähköpostisi"
-
-#: src/routes/auth/verify-email.tsx
-msgid "We couldn't verify your email"
-msgstr "Emme voineet vahvistaa sähköpostiasi"
-
-#: src/routes/auth/verify-email.tsx
-msgid "We sent a verification link to your email address."
-msgstr "Lähetimme vahvistuslinkin sähköpostiosoitteeseesi."
-
-#: src/routes/auth/verify-email.tsx
-msgid "You can now use account recovery and other features that require a verified email address."
-msgstr "Voit nyt käyttää tilin palautusta ja muita ominaisuuksia, jotka edellyttävät vahvistettua sähköpostiosoitetta."
-
-#: src/routes/auth/verify-email.tsx
-msgid "You must verify your email address before you can access Skill Verdict."
-msgstr "Sinun on vahvistettava sähköpostiosoitteesi ennen kuin voit käyttää Skill Verdictiä."
-
-#: src/routes/auth/verify-email.tsx
-msgid "Your account is up to date."
-msgstr "Tilisi on ajan tasalla."
-
-#: src/routes/auth/verify-email.tsx
-msgid "Your email address is confirmed. You can continue using Skill Verdict."
-msgstr "Sähköpostiosoitteesi on vahvistettu. Voit jatkaa Skill Verdictin käyttöä."

@@ -31,7 +31,7 @@ msgstr "Criado em"
 #. js-lingui-explicit-id
 #: src/routes/dashboard/resumes/index.tsx
 msgid "Name"
-msgstr ""
+msgstr "Nome"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "(you)"
@@ -87,11 +87,6 @@ msgstr "+{0} more approved"
 msgid "+{0} more uploaded"
 msgstr "+{0} more uploaded"
 
-#: src/routes/_home/-sections/faq.tsx
-msgctxt "Every word needs to be wrapped in a tag"
-msgid "<0>Frequently</0><1>Asked</1><2>Questions</2>"
-msgstr "<0>Perguntas</0><1>Frequentes</1>"
-
 #: src/routes/_home/-sections/hero.tsx
 msgid "<0>Your skills, finally,</0><1>Proven. Not just claimed.</1>"
 msgstr "<0>Your skills, finally,</0><1>Proven. Not just claimed.</1>"
@@ -132,6 +127,10 @@ msgstr "Um link de confirmação foi enviado para o seu endereço de email atual
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 msgid "A link to your resume has been copied to clipboard."
 msgstr "Um link para o seu currículo foi copiado para a área de transferência."
+
+#: src/routes/auth/verify-email.tsx
+msgid "A new verification link has been sent to your email address."
+msgstr "Um novo link de verificação foi enviado para seu endereço de email."
 
 #: src/routes/dashboard/settings/profile.tsx
 msgid "A new verification link has been sent to your email address. Please check your inbox to verify your account."
@@ -531,6 +530,12 @@ msgstr "Back"
 msgid "Back to Login"
 msgstr "Voltar para o Login"
 
+#: src/routes/builder/$resumeId/-components/header.tsx
+#: src/routes/builder/$resumeId/-components/header.tsx
+#: src/routes/builder/$resumeId/-components/header.tsx
+msgid "Back to resumes"
+msgstr "Voltar aos currículos"
+
 #: src/routes/dashboard/admin/resume/$resumeId.tsx
 msgid "Back to users"
 msgstr "Back to users"
@@ -708,9 +713,9 @@ msgstr "Mudou de ideia? Renomeie seu currículo para algo mais descritivo."
 msgid "Check your email for a link to reset your password."
 msgstr "Verifique seu email em busca de um link para redefinir sua senha."
 
-#: src/routes/auth/register.tsx
-msgid "Check your email for a link to verify your account."
-msgstr "Verifique seu email em busca de um link para verificar sua conta."
+#: src/routes/auth/verify-email.tsx
+msgid "Check your inbox"
+msgstr "Verifique sua caixa de entrada"
 
 #: src/utils/locale.ts
 msgid "Chinese (Simplified)"
@@ -776,6 +781,15 @@ msgstr "Colunas"
 msgid "Combine verified skills with research-backed personality insights so teams hire for both capability and fit."
 msgstr "Combine verified skills with research-backed personality insights so teams hire for both capability and fit."
 
+#: src/components/command-palette/index.tsx
+#: src/components/command-palette/index.tsx
+msgid "Command Palette"
+msgstr "Paleta de Comandos"
+
+#: src/components/command-palette/index.tsx
+msgid "Command Palette - {currentPage}"
+msgstr "Paleta de Comandos - {currentPage}"
+
 #: src/routes/_home/-sections/footer.tsx
 msgid "Community"
 msgstr "Comunidade"
@@ -833,26 +847,26 @@ msgstr "Contact us"
 
 #: src/dialogs/resume/sections/cover-letter.tsx
 #: src/dialogs/resume/sections/summary-item.tsx
+#: src/routes/builder/$resumeId/route.tsx
 msgid "Content"
 msgstr "Conteúdo"
 
 #: src/dialogs/auth/enable-two-factor.tsx
 #: src/dialogs/auth/enable-two-factor.tsx
 #: src/dialogs/auth/enable-two-factor.tsx
-#: src/routes/auth/register.tsx
-#: src/routes/dashboard/verification/index.tsx
 #: src/routes/auth/verify-email.tsx
+#: src/routes/dashboard/verification/index.tsx
 msgid "Continue"
 msgstr "Continuar"
 
 #: src/routes/dashboard/resumes/-components/cards/import-card.tsx
-#: src/routes/dashboard/resumes/-components/list-view.tsx
+#: src/routes/dashboard/resumes/-components/resume-quick-actions.tsx
 msgid "Continue where you left off"
 msgstr "Continue de onde parou"
 
 #: src/dialogs/resume/import.tsx
-msgid "Continue where you left off by importing an existing resume you created using Skill Verdict or any another resume builder. Supported formats include PDF, Microsoft Word, as well as JSON files from Skill Verdict."
-msgstr "Continue de onde parou importando um currículo existente que você criou usando o Skill Verdict ou qualquer outro criador de currículos. Os formatos compatíveis incluem PDF, Microsoft Word e também arquivos JSON do Skill Verdict."
+msgid "Continue where you left off by importing an existing resume you created using another resume builder. Supported formats include PDF, Microsoft Word, and JSON Resume files."
+msgstr "Continue de onde parou importando um currículo existente criado usando outro criador de currículos. Os formatos suportados incluem arquivos de currículo PDF, Microsoft Word e JSON."
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Contractor"
@@ -878,6 +892,7 @@ msgstr "Copiar códigos de backup"
 msgid "Copy this secret key and use it in your applications to access your data."
 msgstr "Copie esta chave secreta e use-a em seus aplicativos para acessar seus dados."
 
+#: src/routes/builder/$resumeId/-components/dock.tsx
 #: src/routes/builder/$resumeId/-components/dock.tsx
 msgid "Copy URL"
 msgstr "Copiar URL"
@@ -979,7 +994,7 @@ msgstr "Criar uma nova referência"
 #: src/components/command-palette/pages/resumes.tsx
 #: src/dialogs/resume/index.tsx
 #: src/routes/dashboard/resumes/-components/cards/create-card.tsx
-#: src/routes/dashboard/resumes/-components/list-view.tsx
+#: src/routes/dashboard/resumes/-components/resume-quick-actions.tsx
 #: src/routes/dashboard/verification/index.tsx
 msgid "Create a new resume"
 msgstr "Crie um novo currículo"
@@ -1007,6 +1022,10 @@ msgstr "Create a resume first, then add your work authorization details."
 #: src/dialogs/resume/index.tsx
 msgid "Create a Sample Resume"
 msgstr "Criar currículo de exemplo"
+
+#: src/dialogs/resume/index.tsx
+msgid "Create Resume with Options"
+msgstr "Crie currículo com opções"
 
 #: src/dialogs/api-key/create.tsx
 msgid "Creating your API key..."
@@ -1139,6 +1158,7 @@ msgstr "Excluindo seu currículo..."
 msgid "Description"
 msgstr "Descrição"
 
+#: src/routes/builder/$resumeId/route.tsx
 #: src/utils/resume/section.tsx
 msgid "Design"
 msgstr "Design"
@@ -1175,6 +1195,10 @@ msgstr "Desconectar"
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Display username"
 msgstr "Display username"
+
+#: src/components/ui/sidebar.tsx
+msgid "Displays the mobile sidebar."
+msgstr "Exibe a barra lateral móvel."
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Docker"
@@ -1215,13 +1239,16 @@ msgid "Download a copy of your resume in PDF format. Use this file for printing 
 msgstr "Baixe uma cópia do seu currículo em formato PDF. Use este arquivo para impressão ou para compartilhar facilmente seu currículo com recrutadores."
 
 #: src/routes/builder/$resumeId/-components/dock.tsx
+#: src/routes/builder/$resumeId/-components/dock.tsx
 msgid "Download DOCX"
 msgstr "Baixar DOCX"
 
 #: src/routes/builder/$resumeId/-components/dock.tsx
+#: src/routes/builder/$resumeId/-components/dock.tsx
 msgid "Download JSON"
 msgstr "Baixar JSON"
 
+#: src/routes/builder/$resumeId/-components/dock.tsx
 #: src/routes/builder/$resumeId/-components/dock.tsx
 msgid "Download PDF"
 msgstr "Baixar PDF"
@@ -1287,6 +1314,10 @@ msgstr "por exemplo, empregos de desenvolvedor front-end em Berlim"
 msgid "e.g. Skilled Worker"
 msgstr "e.g. Skilled Worker"
 
+#: src/routes/dashboard/admin/ai.tsx
+msgid "e.g., gpt-4, claude-3-opus, gemini-pro"
+msgstr "por exemplo, gpt-4, claude-3-opus, gemini-pro"
+
 #: src/routes/_home/-sections/features.tsx
 msgid "Earn peer-endorsed badges from domain experts — turn claims into evidence employers can trust at a glance."
 msgstr "Earn peer-endorsed badges from domain experts — turn claims into evidence employers can trust at a glance."
@@ -1313,9 +1344,9 @@ msgstr "Email"
 msgid "Email Address"
 msgstr "Endereço de email"
 
+#: src/routes/auth/verify-email.tsx
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/users.tsx
-#: src/routes/auth/verify-email.tsx
 msgid "Email verified"
 msgstr "Email verified"
 
@@ -1476,6 +1507,10 @@ msgstr "Failed to load document."
 msgid "Failed to load user details."
 msgstr "Failed to load user details."
 
+#: src/routes/auth/verify-email.tsx
+msgid "Failed to resend verification email. Please try again."
+msgstr "Falha ao reenviar o email de verificação. Tente novamente."
+
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Failed to save work authorization."
 msgstr "Failed to save work authorization."
@@ -1516,6 +1551,10 @@ msgstr "Filtrar por"
 #: src/utils/locale.ts
 msgid "Finnish"
 msgstr "Finlandês"
+
+#: src/routes/builder/$resumeId/-components/dock.tsx
+msgid "Fit resume to screen"
+msgstr "Ajustar currículo à tela"
 
 #: src/dialogs/resume/sections/language.tsx
 msgid "Fluency"
@@ -1579,6 +1618,10 @@ msgstr "Freelancer Profile Link"
 #: src/utils/locale.ts
 msgid "French"
 msgstr "Francês"
+
+#: src/routes/_home/-sections/faq.tsx
+msgid "Frequently Asked Questions"
+msgstr "Perguntas frequentes"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/layout/pages.tsx
 msgid "Full Width"
@@ -1764,6 +1807,10 @@ msgstr "How it works"
 msgid "How long does a verification take?"
 msgstr "How long does a verification take?"
 
+#: src/routes/dashboard/verification/index.tsx
+msgid "https://www.upwork.com/freelancers/~..."
+msgstr "https://www.upwork.com/freelancers/~..."
+
 #: src/utils/locale.ts
 msgid "Hungarian"
 msgstr "Húngaro"
@@ -1824,7 +1871,7 @@ msgstr "Importar"
 
 #: src/dialogs/resume/import.tsx
 #: src/routes/dashboard/resumes/-components/cards/import-card.tsx
-#: src/routes/dashboard/resumes/-components/list-view.tsx
+#: src/routes/dashboard/resumes/-components/resume-quick-actions.tsx
 msgid "Import an existing resume"
 msgstr "Importar um currículo existente"
 
@@ -2066,6 +2113,10 @@ msgstr "Lista"
 msgid "Lithuanian"
 msgstr "Lituano"
 
+#: src/components/ui/spinner.tsx
+msgid "Loading"
+msgstr "Carregando"
+
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Loading document..."
 msgstr "Loading document..."
@@ -2189,6 +2240,10 @@ msgstr "Salário mínimo"
 msgid "Model"
 msgstr "Modelo"
 
+#: src/routes/builder/$resumeId/-components/dock.tsx
+msgid "More builder actions"
+msgstr "Mais ações do construtor"
+
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "More than 3 years"
 msgstr "Mais de 3 anos"
@@ -2204,6 +2259,10 @@ msgstr "Mover para"
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "MSc Computer Science"
 msgstr "MSc Computer Science"
+
+#: src/routes/builder/$resumeId/-sidebar/left/sections/custom-fields.tsx
+msgid "Must start with https://"
+msgstr "Deve começar com https://"
 
 #: src/dialogs/api-key/create.tsx
 #: src/dialogs/resume/index.tsx
@@ -2235,6 +2294,10 @@ msgid "New Line"
 msgstr "Nova linha"
 
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
+msgid "New page"
+msgstr "Nova página"
+
+#: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
 msgid "New Page"
 msgstr "Nova página"
 
@@ -2246,6 +2309,11 @@ msgstr "Nova senha"
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
 msgid "New Section"
 msgstr "Nova seção"
+
+#. placeholder {0}: pageIndex + 1
+#: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
+msgid "New section on page {0}"
+msgstr "Nova seção na página {0}"
 
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 msgid "New Skills Detected"
@@ -2392,6 +2460,16 @@ msgstr "Only your assigned reviewer sees the assignments you submit. On your pub
 msgid "Open"
 msgstr "Abrir"
 
+#: src/routes/builder/$resumeId/-components/header.tsx
+#: src/routes/builder/$resumeId/-components/header.tsx
+msgid "Open content editor"
+msgstr "Abra o editor de conteúdo"
+
+#: src/routes/builder/$resumeId/-components/header.tsx
+#: src/routes/builder/$resumeId/-components/header.tsx
+msgid "Open design settings"
+msgstr "Abra as configurações de design"
+
 #: src/routes/auth/forgot-password.tsx
 msgid "Open Email Client"
 msgstr "Abrir cliente de email"
@@ -2486,6 +2564,11 @@ msgstr "Página {0}"
 #: src/routes/dashboard/admin/users.tsx
 msgid "Page {0} of {totalPages} — {1} users"
 msgstr "Page {0} of {totalPages} — {1} users"
+
+#. placeholder {0}: pageIndex + 1
+#: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
+msgid "Page {0}: {sectionTitle}"
+msgstr "Página {0}: {sectionTitle}"
 
 #: src/routes/dashboard/job-search/index.tsx
 msgid "Page {currentPage}"
@@ -2789,6 +2872,7 @@ msgid "Rectangle (Full Width)"
 msgstr "Retângulo (largura total)"
 
 #: src/routes/builder/$resumeId/-components/dock.tsx
+#: src/routes/builder/$resumeId/-components/dock.tsx
 msgctxt "'Ctrl' may be replaced with the locale-specific equivalent (e.g. 'Strg' for QWERTZ layouts)."
 msgid "Redo (Ctrl+Y)"
 msgstr "Refazer (Ctrl+Y)"
@@ -2860,6 +2944,10 @@ msgstr "Reordenar"
 msgid "Request"
 msgstr "Request"
 
+#: src/routes/auth/verify-email.tsx
+msgid "Request a new link"
+msgstr "Solicitar um novo link"
+
 #: src/routes/dashboard/job-search/-components/job-detail.tsx
 msgid "Required Skills"
 msgstr "Habilidades necessárias"
@@ -2868,13 +2956,13 @@ msgstr "Habilidades necessárias"
 msgid "Required: reason for overriding this verdict..."
 msgstr "Required: reason for overriding this verdict..."
 
-#: src/routes/dashboard/settings/profile.tsx
 #: src/routes/auth/verify-email.tsx
+#: src/routes/dashboard/settings/profile.tsx
 msgid "Resend verification email"
 msgstr "Reenviar email de verificação"
 
-#: src/routes/dashboard/settings/profile.tsx
 #: src/routes/auth/verify-email.tsx
+#: src/routes/dashboard/settings/profile.tsx
 msgid "Resending verification email..."
 msgstr "Reenviando email de verificação..."
 
@@ -3058,6 +3146,10 @@ msgstr "Escola"
 msgid "Search"
 msgstr "Pesquisa"
 
+#: src/components/command-palette/index.tsx
+msgid "Search commands"
+msgstr "Comandos de pesquisa"
+
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Search countries"
 msgstr "Pesquisar países"
@@ -3071,6 +3163,7 @@ msgstr "Pesquisar um ícone"
 msgid "Search for..."
 msgstr "Pesquisar..."
 
+#: src/components/command-palette/index.tsx
 #: src/components/ui/combobox.tsx
 msgid "Search..."
 msgstr "Pesquisar..."
@@ -3227,6 +3320,7 @@ msgstr "Show or hide the verification timeline on your public CV. This is off by
 msgid "Show Timeline on Public CV"
 msgstr "Show Timeline on Public CV"
 
+#: src/components/ui/sidebar.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/layout/pages.tsx
 msgid "Sidebar"
 msgstr "Barra lateral"
@@ -3237,12 +3331,25 @@ msgstr "Largura da barra lateral"
 
 #: src/routes/auth/login.tsx
 #: src/routes/auth/verify-email.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Sign in"
 msgstr "Entrar"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to verify your email"
+msgstr "Entre para verificar seu email"
 
 #: src/routes/auth/login.tsx
 msgid "Sign in to your account"
 msgstr "Entre com sua conta"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to your account to request a new verification email."
+msgstr "Entre na sua conta para solicitar um novo email de verificação."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to your account, then request a new verification email."
+msgstr "Entre na sua conta e depois solicite um novo email de verificação."
 
 #: src/routes/auth/register.tsx
 msgid "Sign up"
@@ -3390,7 +3497,7 @@ msgid "Start building your resume by giving it a name."
 msgstr "Comece a construir seu currículo dando um nome ao arquivo."
 
 #: src/routes/dashboard/resumes/-components/cards/create-card.tsx
-#: src/routes/dashboard/resumes/-components/list-view.tsx
+#: src/routes/dashboard/resumes/-components/resume-quick-actions.tsx
 msgid "Start building your resume from scratch"
 msgstr "Comece a construir seu currículo do zero"
 
@@ -3554,6 +3661,10 @@ msgstr "O currículo que você está tentando acessar está protegido por senha"
 msgid "The URL you entered is not valid."
 msgstr "O URL que você digitou não é válido."
 
+#: src/routes/auth/verify-email.tsx
+msgid "The verification link may be invalid, expired, or already used."
+msgstr "O link de verificação pode ser inválido, expirado ou já ter sido usado."
+
 #: src/components/command-palette/pages/preferences/theme.tsx
 #: src/components/user/dropdown-menu.tsx
 #: src/routes/dashboard/settings/preferences.tsx
@@ -3621,10 +3732,6 @@ msgstr "Este currículo está bloqueado e não pode ser atualizado."
 msgid "This section is reserved for your personal notes specific to this resume. The content here remains private and is not shared with anyone else."
 msgstr "Esta seção é reservada para suas anotações pessoais neste currículo. Esse conteúdo é privado e não é compartilhado com mais ninguém."
 
-#: src/routes/auth/register.tsx
-msgid "This step is optional, but recommended."
-msgstr "Esta etapa é opcional, mas recomendada."
-
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "This week"
 msgstr "Esta semana"
@@ -3665,6 +3772,12 @@ msgstr "Para excluir sua conta, você precisa inserir o texto de confirmação e
 msgid "Today"
 msgstr "Hoje"
 
+#: src/components/ui/sidebar.tsx
+#: src/components/ui/sidebar.tsx
+#: src/components/ui/sidebar.tsx
+msgid "Toggle Sidebar"
+msgstr "Alternar barra lateral"
+
 #: src/routes/dashboard/admin/users.tsx
 msgid "Total keys"
 msgstr "Total keys"
@@ -3688,6 +3801,10 @@ msgstr "Total sessions"
 #: src/routes/builder/$resumeId/-sidebar/right/sections/statistics.tsx
 msgid "Track your resume's views and downloads"
 msgstr "Acompanhe as visualizações e downloads do seu currículo"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Try requesting a new verification link."
+msgstr "Tente solicitar um novo link de verificação."
 
 #: src/utils/locale.ts
 msgid "Turkish"
@@ -3746,6 +3863,10 @@ msgstr "A autenticação de dois fatores foi desativada com sucesso."
 msgid "Two-factor authentication has been setup successfully."
 msgstr "A autenticação de dois fatores foi configurada com sucesso."
 
+#: src/dialogs/auth/enable-two-factor.tsx
+msgid "Two-Factor Authentication QR Code"
+msgstr "Código QR de autenticação de dois fatores"
+
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/users.tsx
 msgid "Two-factor enabled"
@@ -3765,6 +3886,7 @@ msgstr "Tipo"
 msgid "Type \"{CONFIRMATION_TEXT}\" to confirm"
 msgstr "Digite \"{CONFIRMATION_TEXT}\" para confirmar"
 
+#: src/components/command-palette/index.tsx
 #: src/components/command-palette/index.tsx
 msgid "Type a command or search..."
 msgstr "Digite um comando ou pesquise..."
@@ -3789,6 +3911,7 @@ msgstr "Menos de 3 anos"
 msgid "Underline"
 msgstr "Sublinhar"
 
+#: src/routes/builder/$resumeId/-components/dock.tsx
 #: src/routes/builder/$resumeId/-components/dock.tsx
 msgctxt "'Ctrl' may be replaced with the locale-specific equivalent (e.g. 'Strg' for QWERTZ layouts)."
 msgid "Undo (Ctrl+Z)"
@@ -4034,6 +4157,10 @@ msgstr "Verify my skills"
 msgid "Verify with a Backup Code"
 msgstr "Verificar com um código de backup"
 
+#: src/routes/auth/verify-email.tsx
+msgid "Verify your email"
+msgstr "Verifique seu email"
+
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Verify your identity through a short video call. This adds trust to your resume."
 msgstr "Verify your identity through a short video call. This adds trust to your resume."
@@ -4050,10 +4177,6 @@ msgstr "Verificando código..."
 #: src/routes/auth/resume-password.tsx
 msgid "Verifying password..."
 msgstr "Verificando senha..."
-
-#: src/routes/auth/register.tsx
-msgid "Verifying your email is required when resetting your password."
-msgstr "Verificar seu email é obrigatório ao redefinir sua senha."
 
 #: src/utils/locale.ts
 msgid "Vietnamese"
@@ -4087,6 +4210,14 @@ msgstr "Visibility"
 #: src/utils/resume/section.tsx
 msgid "Volunteer"
 msgstr "Voluntariado"
+
+#: src/routes/auth/verify-email.tsx
+msgid "We couldn't verify your email"
+msgstr "Não conseguimos verificar seu email"
+
+#: src/routes/auth/verify-email.tsx
+msgid "We sent a verification link to your email address."
+msgstr "Enviamos um link de verificação para seu endereço de email."
 
 #: src/dialogs/resume/sections/award.tsx
 #: src/dialogs/resume/sections/certification.tsx
@@ -4149,22 +4280,33 @@ msgstr "Ontem"
 msgid "You can also use your username to login."
 msgstr "Você também pode usar seu nome de usuário para entrar."
 
+#: src/routes/auth/verify-email.tsx
+msgid "You can now use account recovery and other features that require a verified email address."
+msgstr "Agora você pode usar a recuperação de conta e outros recursos que exigem um endereço de email verificado."
+
 #: src/hooks/use-form-blocker.tsx
 msgid "You have unsaved changes that will be lost."
 msgstr "Você tem alterações não salvas que serão perdidas."
+
+#: src/routes/auth/verify-email.tsx
+msgid "You must verify your email address before you can access Skill Verdict."
+msgstr "Você deve verificar seu endereço de email antes de acessar o Skill Verdict."
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "You pick the skills you want to endorse and a reviewer with relevant expertise. They assign a short, practical assessment, review your submission, and share actionable feedback. If you pass, the skill is added to your profile as a verified badge."
 msgstr "You pick the skills you want to endorse and a reviewer with relevant expertise. They assign a short, practical assessment, review your submission, and share actionable feedback. If you pass, the skill is added to your profile as a verified badge."
 
 #: src/routes/auth/forgot-password.tsx
-#: src/routes/auth/register.tsx
 msgid "You've got mail!"
 msgstr "Você recebeu um email!"
 
 #: src/routes/dashboard/settings/danger-zone.tsx
 msgid "Your account has been deleted successfully."
 msgstr "Sua conta foi excluída com sucesso."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Your account is up to date."
+msgstr "Sua conta está atualizada."
 
 #: src/dialogs/api-key/create.tsx
 msgid "Your API key has been copied to the clipboard."
@@ -4173,6 +4315,10 @@ msgstr "Sua chave de API foi copiada para a área de transferência."
 #: src/routes/builder/$resumeId/index.tsx
 msgid "Your changes are saved automatically."
 msgstr "Suas alterações são salvas automaticamente."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Your email address is confirmed. You can continue using Skill Verdict."
+msgstr "Seu endereço de email foi confirmado. Você pode continuar usando o Skill Verdict."
 
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Your identity has been verified and your profile is trusted."
@@ -4226,9 +4372,11 @@ msgid "Your verification call has been scheduled. Our team will review and confi
 msgstr "Your verification call has been scheduled. Our team will review and confirm your identity shortly."
 
 #: src/routes/builder/$resumeId/-components/dock.tsx
+#: src/routes/builder/$resumeId/-components/dock.tsx
 msgid "Zoom in"
 msgstr "Aumentar zoom"
 
+#: src/routes/builder/$resumeId/-components/dock.tsx
 #: src/routes/builder/$resumeId/-components/dock.tsx
 msgid "Zoom out"
 msgstr "Diminuir zoom"
@@ -4236,67 +4384,3 @@ msgstr "Diminuir zoom"
 #: src/utils/locale.ts
 msgid "Zulu"
 msgstr "Zulu"
-
-#: src/routes/auth/verify-email.tsx
-msgid "A new verification link has been sent to your email address."
-msgstr "Um novo link de verificação foi enviado para seu endereço de email."
-
-#: src/routes/auth/verify-email.tsx
-msgid "Check your inbox"
-msgstr "Verifique sua caixa de entrada"
-
-#: src/routes/auth/verify-email.tsx
-msgid "Failed to resend verification email. Please try again."
-msgstr "Falha ao reenviar o email de verificação. Tente novamente."
-
-#: src/routes/auth/verify-email.tsx
-msgid "Request a new link"
-msgstr "Solicitar um novo link"
-
-#: src/routes/auth/verify-email.tsx
-msgid "Sign in to your account to request a new verification email."
-msgstr "Entre na sua conta para solicitar um novo email de verificação."
-
-#: src/routes/auth/verify-email.tsx
-msgid "Sign in to your account, then request a new verification email."
-msgstr "Entre na sua conta e depois solicite um novo email de verificação."
-
-#: src/routes/auth/verify-email.tsx
-msgid "Sign in to verify your email"
-msgstr "Entre para verificar seu email"
-
-#: src/routes/auth/verify-email.tsx
-msgid "The verification link may be invalid, expired, or already used."
-msgstr "O link de verificação pode ser inválido, expirado ou já ter sido usado."
-
-#: src/routes/auth/verify-email.tsx
-msgid "Try requesting a new verification link."
-msgstr "Tente solicitar um novo link de verificação."
-
-#: src/routes/auth/verify-email.tsx
-msgid "Verify your email"
-msgstr "Verifique seu email"
-
-#: src/routes/auth/verify-email.tsx
-msgid "We couldn't verify your email"
-msgstr "Não conseguimos verificar seu email"
-
-#: src/routes/auth/verify-email.tsx
-msgid "We sent a verification link to your email address."
-msgstr "Enviamos um link de verificação para seu endereço de email."
-
-#: src/routes/auth/verify-email.tsx
-msgid "You can now use account recovery and other features that require a verified email address."
-msgstr "Agora você pode usar a recuperação de conta e outros recursos que exigem um endereço de email verificado."
-
-#: src/routes/auth/verify-email.tsx
-msgid "You must verify your email address before you can access Skill Verdict."
-msgstr "Você deve verificar seu endereço de email antes de acessar o Skill Verdict."
-
-#: src/routes/auth/verify-email.tsx
-msgid "Your account is up to date."
-msgstr "Sua conta está atualizada."
-
-#: src/routes/auth/verify-email.tsx
-msgid "Your email address is confirmed. You can continue using Skill Verdict."
-msgstr "Seu endereço de email foi confirmado. Você pode continuar usando o Skill Verdict."

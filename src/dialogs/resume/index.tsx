@@ -121,7 +121,7 @@ export function CreateResumeDialog(_: DialogProps<"resume.create">) {
           <ResumeForm />
 
           <DialogFooter>
-            <ButtonGroup aria-label="Create Resume with Options" className="gap-x-px rtl:flex-row-reverse">
+            <ButtonGroup aria-label={t`Create Resume with Options`} className="gap-x-px rtl:flex-row-reverse">
               <Button type="submit" disabled={isPending}>
                 <Trans>Create</Trans>
               </Button>

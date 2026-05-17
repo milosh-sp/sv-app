@@ -36,15 +36,17 @@ function parsePoString(value: string) {
   return JSON.parse(value) as string;
 }
 
-function findCatalogEntry(catalog: string, message: string) {
-  return catalog.split(/\n{2,}/).find((entry) => {
-    const msgid = entry
-      .split("\n")
-      .find((line) => line.startsWith("msgid "))
-      ?.slice(6);
+function parseCatalogEntries(catalog: string) {
+  return new Map(
+    catalog.split(/\n{2,}/).flatMap((entry) => {
+      const msgid = entry
+        .split("\n")
+        .find((line) => line.startsWith("msgid "))
+        ?.slice(6);
 
-    return msgid ? parsePoString(msgid) === message : false;
-  });
+      return msgid ? [[parsePoString(msgid), entry]] : [];
+    }),
+  );
 }
 
 function getMsgstr(entry: string) {
@@ -60,9 +62,10 @@ describe("verify-email locale catalog", () => {
   it("keeps all page strings in every locale catalog", () => {
     for (const catalogPath of catalogPaths) {
       const catalog = readFileSync(catalogPath, "utf8");
+      const entries = parseCatalogEntries(catalog);
 
       for (const message of verifyEmailMessages) {
-        const entry = findCatalogEntry(catalog, message);
+        const entry = entries.get(message);
         const localeName = catalogPath.split("/").at(-1);
 
         expect(entry, `${localeName} should include "${message}"`).toBeDefined();

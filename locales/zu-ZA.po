@@ -16,596 +16,601 @@ msgstr ""
 #. js-lingui-explicit-id
 #: src/routes/dashboard/resumes/index.tsx
 msgid "Last Updated"
-msgstr ""
+msgstr "Igcine Ukubuyekezwa"
 
 #. js-lingui-explicit-id
 #: src/routes/dashboard/resumes/index.tsx
 msgid "Created"
-msgstr ""
+msgstr "Kwakhiwe"
 
 #. js-lingui-explicit-id
 #: src/routes/dashboard/resumes/index.tsx
 msgid "Name"
-msgstr ""
+msgstr "Igama"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "(you)"
-msgstr ""
+msgstr "(wena)"
 
 #. placeholder {0}: section.items.length
 #: src/routes/builder/$resumeId/-sidebar/left/sections/custom.tsx
 msgid "{0, plural, one {# item} other {# items}}"
-msgstr ""
+msgstr "{0, ubuningi, eyodwa {# into} enye {# izinto}}"
 
 #. placeholder {0}: item.roles.length
 #: src/routes/builder/$resumeId/-sidebar/left/sections/experience.tsx
 msgid "{0, plural, one {# role} other {# roles}}"
-msgstr ""
+msgstr "{0, ubuningi, eyodwa {# indima} enye {# izindima}}"
 
 #. placeholder {0}: quota.used
 #. placeholder {1}: quota.limit
 #: src/routes/dashboard/job-search/index.tsx
 msgid "{0} / {1} requests used"
-msgstr ""
+msgstr "{0} / {1} izicelo ezisetshenzisiwe"
 
 #. placeholder {0}: Math.floor(diffDays / 30)
 #: src/routes/dashboard/job-search/-components/job-utils.ts
 msgid "{0} months ago"
-msgstr ""
+msgstr "{0} izinyanga ezedlule"
 
 #. placeholder {0}: Math.floor(diffDays / 7)
 #: src/routes/dashboard/job-search/-components/job-utils.ts
 msgid "{0} weeks ago"
-msgstr ""
+msgstr "{0} emavikini adlule"
 
 #: src/routes/builder/$resumeId/-sidebar/left/sections/custom.tsx
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-menu.tsx
 msgid "{column, plural, one {# Column} other {# Columns}}"
-msgstr ""
+msgstr "{ikholomu, ubuningi, eyodwa {# Ikholomu} enye {# Amakholomu}}"
 
 #: src/routes/dashboard/job-search/-components/job-utils.ts
 msgid "{diffDays} days ago"
-msgstr ""
+msgstr "{diffDays} izinsuku ezedlule"
 
 #. placeholder {0}: detailsQuery.data.resumes.hiddenCount
 #: src/routes/dashboard/admin/users.tsx
 msgid "+{0} more"
-msgstr ""
+msgstr "+{0} okuningi"
 
 #. placeholder {0}: detailsQuery.data.verification.approvedExperience.hiddenCount
 #: src/routes/dashboard/admin/users.tsx
 msgid "+{0} more approved"
-msgstr ""
+msgstr "+{0} okuningi okugunyaziwe"
 
 #. placeholder {0}: detailsQuery.data.verification.uploadedDocuments.hiddenCount
 #: src/routes/dashboard/admin/users.tsx
 msgid "+{0} more uploaded"
-msgstr ""
-
-#: src/routes/_home/-sections/faq.tsx
-msgctxt "Every word needs to be wrapped in a tag"
-msgid "<0>Frequently</0><1>Asked</1><2>Questions</2>"
-msgstr ""
+msgstr "+{0} okwengeziwe okulayishiwe"
 
 #: src/routes/_home/-sections/hero.tsx
 msgid "<0>Your skills, finally,</0><1>Proven. Not just claimed.</1>"
-msgstr ""
+msgstr "<0>Amakhono akho, ekugcineni,</0><1>Afakazelwe. Hhayi nje ukufunwa.</1>"
 
 #: src/dialogs/api-key/create.tsx
 msgid "1 month"
-msgstr ""
+msgstr "Inyanga engu-1"
 
 #: src/dialogs/api-key/create.tsx
 msgid "1 year"
-msgstr ""
+msgstr "1 unyaka"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "2010 - 2014"
-msgstr ""
+msgstr "2010 - 2014"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "2014 - 2016"
-msgstr ""
+msgstr "2014 - 2016"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "2020 - Present"
-msgstr ""
+msgstr "2020 - Yamanje"
 
 #: src/dialogs/api-key/create.tsx
 msgid "3 months"
-msgstr ""
+msgstr "3 izinyanga"
 
 #: src/dialogs/api-key/create.tsx
 msgid "6 months"
-msgstr ""
+msgstr "6 izinyanga"
 
 #: src/routes/dashboard/settings/profile.tsx
 msgid "A confirmation link has been sent to your current email address. Please check your inbox to confirm the change."
-msgstr ""
+msgstr "Isixhumanisi sokuqinisekisa sithunyelwe ekhelini lakho le-imeyili lamanje. Sicela uhlole ibhokisi lakho lokungenayo ukuze uqinisekise ushintsho."
 
 #: src/routes/builder/$resumeId/-components/dock.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 msgid "A link to your resume has been copied to clipboard."
-msgstr ""
+msgstr "Isixhumanisi esiya ku-resume yakho sikopishelwe ebhodini lokunamathisela."
+
+#: src/routes/auth/verify-email.tsx
+msgid "A new verification link has been sent to your email address."
+msgstr "Isixhumanisi esisha sokuqinisekisa sithunyelwe ekhelini lakho le-imeyili."
 
 #: src/routes/dashboard/settings/profile.tsx
 msgid "A new verification link has been sent to your email address. Please check your inbox to verify your account."
-msgstr ""
+msgstr "Isixhumanisi esisha sokuqinisekisa sithunyelwe ekhelini lakho le-imeyili. Sicela uhlole ibhokisi lakho lokungenayo ukuze uqinisekise i-akhawunti yakho."
 
 #: src/routes/_home/-sections/features.tsx
 msgid "A profile that reflects what you can actually do — verified by people who know what they're looking at, and built to travel with you wherever you go."
-msgstr ""
+msgstr "Iphrofayela ebonisa lokho ongakwenza ngempela â iqinisekiswe abantu abazi ukuthi babheke ini, futhi yakhelwe ukuhamba nawe nomaphi lapho uya khona."
 
 #: src/routes/dashboard/admin/experience-queue.tsx
 msgid "A reason is required to override."
-msgstr ""
+msgstr "Kudingeka isizathu sokukhipha."
 
 #: src/dialogs/resume/index.tsx
 #: src/dialogs/resume/index.tsx
 msgid "A resume with this slug already exists."
-msgstr ""
+msgstr "Ukuqhubeka nalesi slug sekuvele kukhona."
 
 #: src/routes/_home/-sections/features.tsx
 msgid "A unique QR code and public link make your profile shareable in person, online, and in recruiter searches."
-msgstr ""
+msgstr "Ikhodi ye-QR ehlukile nesixhumanisi esisesidlangalaleni kwenza iphrofayela yakho yabiwe mathupha, ku-inthanethi, kanye nosesho lokuqasha."
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/page.tsx
 msgid "A4"
-msgstr ""
+msgstr "A4"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Account created"
-msgstr ""
+msgstr "I-akhawunti idaliwe"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Account health"
-msgstr ""
+msgstr "Impilo ye-akhawunti"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Account updated"
-msgstr ""
+msgstr "I-akhawunti ibuyekeziwe"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Action oriented"
-msgstr ""
+msgstr "Kuqondiswe esenzweni"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Active sessions"
-msgstr ""
+msgstr "Amaseshini asebenzayo"
 
 #: src/routes/builder/$resumeId/-sidebar/left/sections/custom-fields.tsx
 msgid "Add a custom field"
-msgstr ""
+msgstr "Engeza inkambu yangokwezifiso"
 
 #: src/components/input/url-input.tsx
 msgid "Add a label to the URL"
-msgstr ""
+msgstr "Engeza ilebula ku-URL"
 
 #: src/routes/builder/$resumeId/-sidebar/left/sections/awards.tsx
 msgid "Add a new award"
-msgstr ""
+msgstr "Engeza umklomelo omusha"
 
 #: src/routes/builder/$resumeId/-sidebar/left/sections/certifications.tsx
 msgid "Add a new certification"
-msgstr ""
+msgstr "Engeza isitifiketi esisha"
 
 #: src/routes/builder/$resumeId/-sidebar/left/sections/custom.tsx
 msgid "Add a new custom section"
-msgstr ""
+msgstr "Engeza ingxenye entsha yangokwezifiso"
 
 #: src/routes/builder/$resumeId/-sidebar/left/sections/education.tsx
 msgid "Add a new education"
-msgstr ""
+msgstr "Engeza imfundo entsha"
 
 #: src/routes/builder/$resumeId/-sidebar/left/sections/experience.tsx
 msgid "Add a new experience"
-msgstr ""
+msgstr "Engeza umuzwa omusha"
 
 #: src/routes/builder/$resumeId/-sidebar/left/sections/interests.tsx
 msgid "Add a new interest"
-msgstr ""
+msgstr "Engeza intshisekelo entsha"
 
 #: src/routes/builder/$resumeId/-sidebar/left/sections/custom.tsx
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-menu.tsx
 msgid "Add a new item"
-msgstr ""
+msgstr "Engeza into entsha"
 
 #: src/routes/builder/$resumeId/-sidebar/left/sections/languages.tsx
 msgid "Add a new language"
-msgstr ""
+msgstr "Engeza ulimi olusha"
 
 #: src/routes/builder/$resumeId/-sidebar/left/sections/profiles.tsx
 msgid "Add a new profile"
-msgstr ""
+msgstr "Engeza iphrofayela entsha"
 
 #: src/routes/builder/$resumeId/-sidebar/left/sections/projects.tsx
 msgid "Add a new project"
-msgstr ""
+msgstr "Engeza iphrojekthi entsha"
 
 #: src/routes/builder/$resumeId/-sidebar/left/sections/publications.tsx
 msgid "Add a new publication"
-msgstr ""
+msgstr "Engeza ukushicilelwa okusha"
 
 #: src/routes/builder/$resumeId/-sidebar/left/sections/references.tsx
 msgid "Add a new reference"
-msgstr ""
+msgstr "Engeza ireferensi entsha"
 
 #: src/routes/builder/$resumeId/-sidebar/left/sections/skills.tsx
 msgid "Add a new skill"
-msgstr ""
+msgstr "Engeza ikhono elisha"
 
 #: src/routes/builder/$resumeId/-sidebar/left/sections/volunteer.tsx
 msgid "Add a new volunteer experience"
-msgstr ""
+msgstr "Engeza umuzwa omusha wokuvolontiya"
 
 #: src/components/input/rich-input.tsx
 msgid "Add Column After"
-msgstr ""
+msgstr "Engeza Ikholomu Ngemva"
 
 #: src/components/input/rich-input.tsx
 msgid "Add Column Before"
-msgstr ""
+msgstr "Engeza Ikholomu Ngaphambili"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Add extra context for recruiters (optional)."
-msgstr ""
+msgstr "Engeza umongo owengeziwe wabaqashwayo (uyazikhethela)."
 
 #: src/dialogs/resume/sections/experience.tsx
 msgid "Add multiple roles to show career progression at the same company."
-msgstr ""
+msgstr "Engeza izindima eziningi ukuze ubonise ukuqhubeka komsebenzi enkampanini efanayo."
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/layout/pages.tsx
 msgid "Add Page"
-msgstr ""
+msgstr "Engeza Ikhasi"
 
 #: src/dialogs/resume/sections/experience.tsx
 msgid "Add Role"
-msgstr ""
+msgstr "Engeza indima"
 
 #: src/components/input/rich-input.tsx
 msgid "Add Row After"
-msgstr ""
+msgstr "Engeza Umugqa Ngemva"
 
 #: src/components/input/rich-input.tsx
 msgid "Add Row Before"
-msgstr ""
+msgstr "Engeza Umugqa Ngaphambili"
 
 #: src/components/ai/chat.tsx
 msgid "Added"
-msgstr ""
+msgstr "Kwengeziwe"
 
 #. placeholder {0}: skillsToSync.length
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 msgid "Added {0} new skills to your original resume"
-msgstr ""
+msgstr "Kwengezwe {0} amakhono amasha ku-resume yakho yasekuqaleni"
 
 #: src/components/command-palette/pages/navigation.tsx
 msgid "Admin AI"
-msgstr ""
+msgstr "Admin AI"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Admin role"
-msgstr ""
+msgstr "Iqhaza lomlawuli"
 
 #: src/components/command-palette/pages/navigation.tsx
 #: src/routes/dashboard/-components/sidebar.tsx
 msgid "Administration"
-msgstr ""
+msgstr "Ukuphatha"
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Advanced Filters"
-msgstr ""
+msgstr "Izihlungi Ezithuthukile"
 
 #: src/utils/locale.ts
 msgid "Afrikaans"
-msgstr ""
+msgstr "IsiBhunu"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "AI / ML"
-msgstr ""
+msgstr "I-AI / ML"
 
 #: src/components/ai/chat.tsx
 msgid "AI Chat"
-msgstr ""
+msgstr "Ingxoxo ye-AI"
 
 #: src/dialogs/resume/ai-review.tsx
 msgid "AI integration is not configured. Contact an administrator to enable AI features."
-msgstr ""
+msgstr "Ukuhlanganiswa kwe-AI akulungiselelwe. Xhumana nomlawuli ukuze unike amandla izici ze-AI."
 
 #: src/routes/dashboard/resumes/-components/cards/resume-card.tsx
 #: src/routes/dashboard/resumes/-components/menus/context-menu.tsx
 #: src/routes/dashboard/resumes/-components/menus/dropdown-menu.tsx
 msgid "AI review"
-msgstr ""
+msgstr "Ukubuyekezwa kwe-AI"
 
 #. placeholder {0}: data.name
 #: src/dialogs/resume/ai-review.tsx
 msgid "AI review for {0}"
-msgstr ""
+msgstr "Isibuyekezo se-AI se-{0}"
 
 #: src/utils/locale.ts
 msgid "Albanian"
-msgstr ""
+msgstr "Isi-Albania"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Alex Smith"
-msgstr ""
+msgstr "Alex Smith"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "All roles"
-msgstr ""
+msgstr "Zonke izindima"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 msgid "Allow Public Access"
-msgstr ""
+msgstr "Vumela Ukufinyelela Komphakathi"
 
 #: src/routes/auth/register.tsx
 msgid "Already have an account? <0/>"
-msgstr ""
+msgstr "Usuvele unayo i-akhawunti? <0/>"
 
 #: src/utils/locale.ts
 msgid "Amharic"
-msgstr ""
+msgstr "Isi-Amharic"
 
 #: src/components/layout/error-screen.tsx
 #: src/components/layout/not-found-screen.tsx
 msgid "An error occurred while loading the page."
-msgstr ""
+msgstr "Kwenzeke iphutha ngenkathi kulayishwa ikhasi."
 
 #: src/dialogs/resume/import.tsx
 msgid "An unknown error occurred while importing your resume."
-msgstr ""
+msgstr "Kwenzeke iphutha elingaziwa ngenkathi ungenisa ukuqhubeka kwakho."
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Analytical"
-msgstr ""
+msgstr "Okokuhlaziya"
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Anonymous, bias-free review"
-msgstr ""
+msgstr "Isibuyekezo esingaziwa, esingachemile"
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Any level"
-msgstr ""
+msgstr "Noma yiliphi izinga"
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Any time"
-msgstr ""
+msgstr "Noma nini"
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Any type"
-msgstr ""
+msgstr "Noma yiluphi uhlobo"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 msgid "Anyone visiting the resume's public URL must enter this password to access it."
-msgstr ""
+msgstr "Noma ubani ovakashela i-URL esesidlangalaleni ye-resume kumele afake le phasiwedi ukuze ayifinyelele."
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 msgid "Anyone who has the resume's public URL will be able to view and download your resume without entering a password."
-msgstr ""
+msgstr "Noma ubani one-URL esesidlangalaleni yokuqalisa kabusha uzokwazi ukubuka futhi alande ukuqhubeka kwakho ngaphandle kokufaka iphasiwedi."
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 msgid "Anyone with the link can view and download the resume."
-msgstr ""
+msgstr "Noma ubani onesixhumanisi angakwazi ukubuka futhi alande ukuqhubeka."
 
 #: src/routes/dashboard/admin/ai.tsx
 msgid "API Key"
-msgstr ""
+msgstr "Ukhiye we-API"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "API keys"
-msgstr ""
+msgstr "Okhiye be-API"
 
 #: src/components/command-palette/pages/navigation.tsx
 #: src/components/command-palette/pages/navigation.tsx
 #: src/routes/dashboard/-components/sidebar.tsx
 #: src/routes/dashboard/settings/api-keys.tsx
 msgid "API Keys"
-msgstr ""
+msgstr "Okhiye be-API"
 
 #: src/routes/dashboard/settings/api-keys.tsx
 msgid "API Reference"
-msgstr ""
+msgstr "Ireferensi ye-API"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Applicant"
-msgstr ""
+msgstr "Umfakisicelo"
 
 #: src/routes/dashboard/job-search/-components/job-detail.tsx
 msgid "Apply"
-msgstr ""
+msgstr "Faka isicelo"
 
 #: src/routes/dashboard/job-search/-components/job-detail.tsx
 msgid "Apply Link"
-msgstr ""
+msgstr "Faka Isixhumanisi"
 
 #: src/routes/dashboard/job-search/-components/job-detail.tsx
 msgid "Apply Via"
-msgstr ""
+msgstr "Faka isicelo Nge"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Approved experience"
-msgstr ""
+msgstr "Umuzwa ogunyaziwe"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Approved identity"
-msgstr ""
+msgstr "Ubunikazi obugunyaziwe"
 
 #: src/utils/locale.ts
 msgid "Arabic"
-msgstr ""
+msgstr "Isi-Arabhu"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Arc"
-msgstr ""
+msgstr "I-arc"
 
 #: src/hooks/use-form-blocker.tsx
 msgid "Are you sure you want to close this dialog?"
-msgstr ""
+msgstr "Uqinisekile ukuthi ufuna ukuvala le ngxoxo?"
 
 #: src/routes/dashboard/settings/api-keys.tsx
 msgid "Are you sure you want to delete this API key?"
-msgstr ""
+msgstr "Uqinisekile ukuthi ufuna ukususa lo khiye we-API?"
 
 #: src/routes/builder/$resumeId/-components/header.tsx
 #: src/routes/dashboard/resumes/-components/menus/context-menu.tsx
 #: src/routes/dashboard/resumes/-components/menus/dropdown-menu.tsx
 msgid "Are you sure you want to delete this resume?"
-msgstr ""
+msgstr "Uqinisekile ukuthi ufuna ukususa lokhu kuqhuba?"
 
 #: src/routes/dashboard/settings/danger-zone.tsx
 msgid "Are you sure you want to delete your account?"
-msgstr ""
+msgstr "Uqinisekile ukuthi ufuna ukususa i-akhawunti yakho?"
 
 #: src/routes/builder/$resumeId/-components/header.tsx
 #: src/routes/dashboard/resumes/-components/menus/context-menu.tsx
 #: src/routes/dashboard/resumes/-components/menus/dropdown-menu.tsx
 msgid "Are you sure you want to lock this resume?"
-msgstr ""
+msgstr "Uqinisekile ukuthi ufuna ukukhiya lokhu kuqhuba?"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 msgid "Are you sure you want to remove password protection?"
-msgstr ""
+msgstr "Ingabe uqinisekile ukuthi ufuna ukususa ukuvikelwa kwephasiwedi?"
 
 #: src/dialogs/resume/sections/education.tsx
 msgid "Area of Study"
-msgstr ""
+msgstr "Indawo Yokufunda"
 
 #: src/components/ai/chat.tsx
 msgid "Ask me to update your resume..."
-msgstr ""
+msgstr "Ngicele ukuthi ngibuyekeze i-resume yakho..."
 
 #: src/routes/builder/$resumeId/-sidebar/left/sections/picture.tsx
 msgid "Aspect Ratio"
-msgstr ""
+msgstr "I-Aspect ratio"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Auth providers"
-msgstr ""
+msgstr "Abahlinzeki bababhali"
 
 #: src/components/command-palette/pages/navigation.tsx
 #: src/components/command-palette/pages/navigation.tsx
 #: src/routes/dashboard/-components/sidebar.tsx
 #: src/routes/dashboard/settings/authentication/index.tsx
 msgid "Authentication"
-msgstr ""
+msgstr "Ukuqinisekisa"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Authorization details are stored per resume profile."
-msgstr ""
+msgstr "Imininingwane yokugunyazwa igcinwa ngephrofayela ngayinye yokuqalisa."
 
 #: src/dialogs/resume/sections/award.tsx
 msgctxt "(noun) person, organization, or entity that gives an award"
 msgid "Awarder"
-msgstr ""
+msgstr "Umklomelo"
 
 #: src/dialogs/resume/sections/custom.tsx
 #: src/utils/resume/section.tsx
 msgid "Awards"
-msgstr ""
+msgstr "Imiklomelo"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "AWS"
-msgstr ""
+msgstr "AWS"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "AWS Certified Solutions Architect"
-msgstr ""
+msgstr "I-AWS Certified Solutions Architect"
 
 #: src/utils/locale.ts
 msgid "Azerbaijani"
-msgstr ""
+msgstr "Isi-Azerbaijani"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/experience-queue.tsx
 msgid "Back"
-msgstr ""
+msgstr "Emuva"
 
 #: src/routes/auth/verify-2fa.tsx
 msgid "Back to Login"
-msgstr ""
+msgstr "Buyela Ekungeneni"
+
+#: src/routes/builder/$resumeId/-components/header.tsx
+#: src/routes/builder/$resumeId/-components/header.tsx
+#: src/routes/builder/$resumeId/-components/header.tsx
+msgid "Back to resumes"
+msgstr "Buyela ekuqhubeni kabusha"
 
 #: src/routes/dashboard/admin/resume/$resumeId.tsx
 msgid "Back to users"
-msgstr ""
+msgstr "Buyela kubasebenzisi"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/design.tsx
 msgid "Background Color"
-msgstr ""
+msgstr "Umbala Ongemuva"
 
 #: src/dialogs/auth/enable-two-factor.tsx
 msgid "Backup codes copied to clipboard."
-msgstr ""
+msgstr "Amakhodi ekhophi yasenqolobaneni akopishwe ebhodini lokunamathisela."
 
 #: src/routes/dashboard/admin/ai.tsx
 msgid "Base URL (Optional)"
-msgstr ""
+msgstr "I-URL yesisekelo (Ongakukhetha)"
 
 #: src/utils/resume/section.tsx
 msgid "Basics"
-msgstr ""
+msgstr "Okuyisisekelo"
 
 #: src/routes/_home/-sections/footer.tsx
 msgid "Become a verifier"
-msgstr ""
+msgstr "Iba isiqinisekisi"
 
 #: src/routes/dashboard/job-search/-components/job-detail.tsx
 msgid "Benefits"
-msgstr ""
+msgstr "Izinzuzo"
 
 #: src/utils/locale.ts
 msgid "Bengali"
-msgstr ""
+msgstr "Isi-Bengali"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/typography.tsx
 msgctxt "Body Text (paragraphs, lists, etc.)"
 msgid "Body"
-msgstr ""
+msgstr "Umzimba"
 
 #: src/components/input/rich-input.tsx
 msgid "Bold"
-msgstr ""
+msgstr "Okugqamile"
 
 #: src/routes/builder/$resumeId/-sidebar/left/sections/picture.tsx
 msgid "Border Radius"
-msgstr ""
+msgstr "Irediyasi yomngcele"
 
 #: src/routes/builder/$resumeId/-sidebar/left/sections/picture.tsx
 msgid "Border Width"
-msgstr ""
+msgstr "Ububanzi Bomngcele"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "BSc Software Engineering"
-msgstr ""
+msgstr "I-BSc Software Engineering"
 
 #: src/routes/_home/-sections/hero.tsx
 msgid "Build a living profile backed by real evidence. Get your skills endorsed by domain experts in short, practical reviews — and let opportunities come to you."
-msgstr ""
+msgstr "Yakha iphrofayili ephilayo esekelwa ubufakazi bangempela. Thola amakhono akho agunyazwe ochwepheshe besizinda ngamafuphi, izibuyekezo ezisebenzayo â futhi uvumele amathuba eze kuwe."
 
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Build your profile"
-msgstr ""
+msgstr "Yakha iphrofayela yakho"
 
 #: src/components/command-palette/index.tsx
 msgid "Builder Command Palette"
-msgstr ""
+msgstr "Iphalethi ye-Builder Command"
 
 #: src/utils/locale.ts
 msgid "Bulgarian"
-msgstr ""
+msgstr "IsiBulgaria"
 
 #: src/components/input/rich-input.tsx
 msgid "Bullet List"
-msgstr ""
+msgstr "Uhlu Lwezinhlamvu"
 
 #: src/routes/dashboard/admin/identity.tsx
 msgid "Call link sent"
-msgstr ""
+msgstr "Isixhumanisi sekholi sithunyelwe"
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "Can I update my profile and re-verify skills later?"
-msgstr ""
+msgstr "Ngingakwazi ukubuyekeza iphrofayela yami futhi ngiphinde ngiqinisekise amakhono ngokuhamba kwesikhathi?"
 
 #: src/dialogs/auth/enable-two-factor.tsx
 #: src/dialogs/resume/sections/award.tsx
@@ -651,133 +656,142 @@ msgstr ""
 #: src/routes/dashboard/verification/index.tsx
 #: src/routes/dashboard/verification/index.tsx
 msgid "Cancel"
-msgstr ""
+msgstr "Khansela"
 
 #: src/routes/dashboard/admin/experience-queue.tsx
 msgid "Cancel Override"
-msgstr ""
+msgstr "Khansela Ukukhipha"
 
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Cancel Verification"
-msgstr ""
+msgstr "Khansela Ukuqinisekisa"
 
 #: src/routes/_home/-sections/statistics.tsx
 msgid "Candidates"
-msgstr ""
+msgstr "Abazokhethwa"
 
 #: src/utils/locale.ts
 msgid "Catalan"
-msgstr ""
+msgstr "IsiCatalan"
 
 #: src/components/input/rich-input.tsx
 msgid "Center Align"
-msgstr ""
+msgstr "Qondanisa Maphakathi"
 
 #: src/routes/builder/$resumeId/-components/dock.tsx
 msgid "Center view"
-msgstr ""
+msgstr "Ukubuka maphakathi"
 
 #: src/dialogs/resume/sections/custom.tsx
 #: src/routes/_home/-sections/hero-visual.tsx
 #: src/utils/resume/section.tsx
 msgid "Certifications"
-msgstr ""
+msgstr "Izitifiketi"
 
 #: src/routes/_home/-sections/header.tsx
 msgid "Change language"
-msgstr ""
+msgstr "Shintsha ulimi"
 
 #: src/components/command-palette/pages/preferences/index.tsx
 msgid "Change language to..."
-msgstr ""
+msgstr "Shintsha ulimi lube..."
 
 #: src/components/command-palette/pages/preferences/index.tsx
 msgid "Change theme to..."
-msgstr ""
+msgstr "Shintsha itimu ibe..."
 
 #: src/dialogs/resume/index.tsx
 msgid "Changed your mind? Rename your resume to something more descriptive."
-msgstr ""
+msgstr "Ushintshe umqondo wakho? Qamba kabusha i-resume yakho kokuthile okuchazayo."
 
 #: src/routes/auth/forgot-password.tsx
 msgid "Check your email for a link to reset your password."
-msgstr ""
+msgstr "Hlola i-imeyili yakho ukuze uthole isixhumanisi sokusetha kabusha iphasiwedi yakho."
 
-#: src/routes/auth/register.tsx
-msgid "Check your email for a link to verify your account."
-msgstr ""
+#: src/routes/auth/verify-email.tsx
+msgid "Check your inbox"
+msgstr "Hlola ibhokisi lakho lokungenayo"
 
 #: src/utils/locale.ts
 msgid "Chinese (Simplified)"
-msgstr ""
+msgstr "IsiShayina (Esenziwe Lula)"
 
 #: src/utils/locale.ts
 msgid "Chinese (Traditional)"
-msgstr ""
+msgstr "IsiShayina (Sesiko)"
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "Choose a verification method:"
-msgstr ""
+msgstr "Khetha indlela yokuqinisekisa:"
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "Choose File"
-msgstr ""
+msgstr "Khetha Ifayela"
 
 #: src/components/level/combobox.tsx
 msgid "Circle"
-msgstr ""
+msgstr "Umbuthano"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Claimed"
-msgstr ""
+msgstr "Kufunwe"
 
 #: src/routes/dashboard/job-search/index.tsx
 msgid "Clear all"
-msgstr ""
+msgstr "Sula konke"
 
 #: src/components/ai/chat.tsx
 msgid "Clear chat history"
-msgstr ""
+msgstr "Sula umlando wengxoxo"
 
 #: src/dialogs/resume/import.tsx
 msgid "Click here to select a file to import"
-msgstr ""
+msgstr "Chofoza lapha ukuze ukhethe ifayela ozolingenisa"
 
 #: src/components/ui/dialog.tsx
 #: src/components/ui/sheet.tsx
 #: src/dialogs/resume/ai-review.tsx
 msgid "Close"
-msgstr ""
+msgstr "Vala"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Cluster"
-msgstr ""
+msgstr "Iqoqo"
 
 #: src/components/input/rich-input.tsx
 msgid "Code Block"
-msgstr ""
+msgstr "Ikhodi Block"
 
 #: src/routes/dashboard/admin/experience-queue.tsx
 #: src/routes/dashboard/admin/identity.tsx
 msgid "Collapse"
-msgstr ""
+msgstr "Goqa"
 
 #: src/routes/builder/$resumeId/-sidebar/left/sections/custom.tsx
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-menu.tsx
 msgid "Columns"
-msgstr ""
+msgstr "Amakholomu"
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Combine verified skills with research-backed personality insights so teams hire for both capability and fit."
-msgstr ""
+msgstr "Hlanganisa amakhono aqinisekisiwe nemininingwane yomuntu esekelwe ucwaningo ukuze amaqembu aqashe kukho kokubili amandla nokufaneleka."
+
+#: src/components/command-palette/index.tsx
+#: src/components/command-palette/index.tsx
+msgid "Command Palette"
+msgstr "I-Command Palette"
+
+#: src/components/command-palette/index.tsx
+msgid "Command Palette - {currentPage}"
+msgstr "Iphalethi yomyalo - {currentPage}"
 
 #: src/routes/_home/-sections/footer.tsx
 msgid "Community"
-msgstr ""
+msgstr "Umphakathi"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Compact"
-msgstr ""
+msgstr "Ihlangene"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Compact signal row for endorsements and recency — less chrome, more \"what passed\"."
@@ -785,11 +799,11 @@ msgstr ""
 
 #: src/dialogs/resume/sections/experience.tsx
 msgid "Company"
-msgstr ""
+msgstr "Inkampani"
 
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Complete the assessment"
-msgstr ""
+msgstr "Qedela ukuhlola"
 
 #: src/dialogs/api-key/create.tsx
 #: src/hooks/use-prompt.tsx
@@ -800,99 +814,100 @@ msgstr ""
 #: src/routes/dashboard/settings/danger-zone.tsx
 #: src/routes/dashboard/verification/index.tsx
 msgid "Confirm"
-msgstr ""
+msgstr "Qinisekisa"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Confirm decision: "
-msgstr ""
+msgstr "Qinisekisa isinqumo:"
 
 #: src/routes/dashboard/admin/experience-queue.tsx
 msgid "Confirming..."
-msgstr ""
+msgstr "Iyaqinisekisa..."
 
 #: src/routes/dashboard/settings/authentication/-components/social-provider.tsx
 msgid "Connect"
-msgstr ""
+msgstr "Xhuma"
 
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Connect your professional accounts and portfolio to instantly build a living, evidence-backed profile that showcases real experience."
-msgstr ""
+msgstr "Xhuma ama-akhawunti akho ochwepheshe kanye nephothifoliyo ukuze wakhe ngokushesha iphrofayela ephilayo, esekelwe ubufakazi ebonisa ukuzizwisa kwangempela."
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Consent"
-msgstr ""
+msgstr "Imvume"
 
 #: src/routes/_home/-sections/footer.tsx
 msgid "Contact us"
-msgstr ""
+msgstr "Xhumana nathi"
 
 #: src/dialogs/resume/sections/cover-letter.tsx
 #: src/dialogs/resume/sections/summary-item.tsx
+#: src/routes/builder/$resumeId/route.tsx
 msgid "Content"
-msgstr ""
+msgstr "Okuqukethwe"
 
 #: src/dialogs/auth/enable-two-factor.tsx
 #: src/dialogs/auth/enable-two-factor.tsx
 #: src/dialogs/auth/enable-two-factor.tsx
-#: src/routes/auth/register.tsx
-#: src/routes/dashboard/verification/index.tsx
 #: src/routes/auth/verify-email.tsx
+#: src/routes/dashboard/verification/index.tsx
 msgid "Continue"
 msgstr "Qhubeka"
 
 #: src/routes/dashboard/resumes/-components/cards/import-card.tsx
-#: src/routes/dashboard/resumes/-components/list-view.tsx
+#: src/routes/dashboard/resumes/-components/resume-quick-actions.tsx
 msgid "Continue where you left off"
-msgstr ""
+msgstr "Qhubeka lapho ugcine khona"
 
 #: src/dialogs/resume/import.tsx
-msgid "Continue where you left off by importing an existing resume you created using Skill Verdict or any another resume builder. Supported formats include PDF, Microsoft Word, as well as JSON files from Skill Verdict."
-msgstr ""
+msgid "Continue where you left off by importing an existing resume you created using another resume builder. Supported formats include PDF, Microsoft Word, and JSON Resume files."
+msgstr "Qhubeka lapho ugcine khona ngokungenisa i-resume ekhona oyidalile usebenzisa omunye umakhi wokuqalisa kabusha. Amafomethi asekelwayo afaka phakathi amafayela e-PDF, Microsoft Word, kanye ne-JSON Resume."
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Contractor"
-msgstr ""
+msgstr "Usonkontileka"
 
 #: src/routes/dashboard/settings/privacy.tsx
 msgid "Control which verification badges are visible on your public CV."
-msgstr ""
+msgstr "Lawula ukuthi imaphi amabheji okuqinisekisa abonakala ku-CV yakho yomphakathi."
 
 #: src/dialogs/auth/enable-two-factor.tsx
 msgid "Copy"
-msgstr ""
+msgstr "Kopisha"
 
 #: src/dialogs/auth/enable-two-factor.tsx
 msgid "Copy and store these backup codes in case you lose your device."
-msgstr ""
+msgstr "Kopisha futhi ugcine lawa makhodi ayisipele uma kwenzeka ulahlekelwa yidivayisi yakho."
 
 #: src/dialogs/auth/enable-two-factor.tsx
 msgid "Copy Backup Codes"
-msgstr ""
+msgstr "Kopisha Amakhodi Ayisipele"
 
 #: src/dialogs/api-key/create.tsx
 msgid "Copy this secret key and use it in your applications to access your data."
-msgstr ""
+msgstr "Kopisha lo khiye oyimfihlo futhi uwusebenzise ezinhlelweni zakho zokusebenza ukuze ufinyelele idatha yakho."
 
 #: src/routes/builder/$resumeId/-components/dock.tsx
+#: src/routes/builder/$resumeId/-components/dock.tsx
 msgid "Copy URL"
-msgstr ""
+msgstr "Kopisha i-URL"
 
 #: src/routes/dashboard/job-search/index.tsx
 msgid "Could not fetch jobs"
-msgstr ""
+msgstr "Ayikwazanga ukulanda imisebenzi"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Could not load the selected resume. Please choose another resume and try again."
-msgstr ""
+msgstr "Ayikwazanga ukulayisha ukuqhubeka okukhethiwe. Sicela ukhethe okunye ukuqhubeka bese uzama futhi."
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Country"
-msgstr ""
+msgstr "Izwe"
 
 #: src/dialogs/resume/sections/custom.tsx
 #: src/utils/resume/section.tsx
 msgid "Cover Letter"
-msgstr ""
+msgstr "Incwadi Yekhava"
 
 #: src/dialogs/api-key/create.tsx
 #: src/dialogs/resume/index.tsx
@@ -912,171 +927,175 @@ msgstr ""
 #: src/dialogs/resume/sections/summary-item.tsx
 #: src/dialogs/resume/sections/volunteer.tsx
 msgid "Create"
-msgstr ""
+msgstr "Dala"
 
 #: src/routes/auth/register.tsx
 msgid "Create a new account"
-msgstr ""
+msgstr "Dala i-akhawunti entsha"
 
 #: src/dialogs/api-key/create.tsx
 #: src/routes/dashboard/settings/api-keys.tsx
 msgid "Create a new API key"
-msgstr ""
+msgstr "Dala ukhiye omusha we-API"
 
 #: src/dialogs/resume/sections/award.tsx
 msgid "Create a new award"
-msgstr ""
+msgstr "Dala umklomelo omusha"
 
 #: src/dialogs/resume/sections/certification.tsx
 msgid "Create a new certification"
-msgstr ""
+msgstr "Dala isitifiketi esisha"
 
 #: src/dialogs/resume/sections/cover-letter.tsx
 msgid "Create a new cover letter"
-msgstr ""
+msgstr "Dala incwadi yekhava entsha"
 
 #: src/dialogs/resume/sections/custom.tsx
 msgid "Create a new custom section"
-msgstr ""
+msgstr "Dala isigaba esisha sangokwezifiso"
 
 #: src/dialogs/resume/sections/education.tsx
 msgid "Create a new education"
-msgstr ""
+msgstr "Dala imfundo entsha"
 
 #: src/dialogs/resume/sections/experience.tsx
 msgid "Create a new experience"
-msgstr ""
+msgstr "Dala umuzwa omusha"
 
 #: src/dialogs/resume/sections/interest.tsx
 msgid "Create a new interest"
-msgstr ""
+msgstr "Dala intshisekelo entsha"
 
 #: src/dialogs/resume/sections/language.tsx
 msgid "Create a new language"
-msgstr ""
+msgstr "Dala ulimi olusha"
 
 #: src/dialogs/resume/sections/profile.tsx
 msgid "Create a new profile"
-msgstr ""
+msgstr "Dala iphrofayela entsha"
 
 #: src/dialogs/resume/sections/project.tsx
 msgid "Create a new project"
-msgstr ""
+msgstr "Dala iphrojekthi entsha"
 
 #: src/dialogs/resume/sections/publication.tsx
 msgid "Create a new publication"
-msgstr ""
+msgstr "Dala ukushicilelwa okusha"
 
 #: src/dialogs/resume/sections/reference.tsx
 msgid "Create a new reference"
-msgstr ""
+msgstr "Dala ireferensi entsha"
 
 #: src/components/command-palette/pages/resumes.tsx
 #: src/dialogs/resume/index.tsx
 #: src/routes/dashboard/resumes/-components/cards/create-card.tsx
-#: src/routes/dashboard/resumes/-components/list-view.tsx
+#: src/routes/dashboard/resumes/-components/resume-quick-actions.tsx
 #: src/routes/dashboard/verification/index.tsx
 msgid "Create a new resume"
-msgstr ""
+msgstr "Dala i-resume entsha"
 
 #: src/dialogs/resume/sections/skill.tsx
 msgid "Create a new skill"
-msgstr ""
+msgstr "Dala ikhono elisha"
 
 #: src/dialogs/resume/sections/summary-item.tsx
 msgid "Create a new summary item"
-msgstr ""
+msgstr "Dala into entsha yesifinyezo"
 
 #: src/dialogs/resume/sections/volunteer.tsx
 msgid "Create a new volunteer experience"
-msgstr ""
+msgstr "Dala umuzwa omusha wokuvolontiya"
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "Create a resume first to start verifying your skills, projects, and experience."
-msgstr ""
+msgstr "Dala i-resume kuqala ukuze uqale ukuqinisekisa amakhono akho, amaphrojekthi, nolwazi."
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Create a resume first, then add your work authorization details."
-msgstr ""
+msgstr "Dala i-resume kuqala, bese wengeza imininingwane yakho yokugunyazwa komsebenzi."
 
 #: src/dialogs/resume/index.tsx
 msgid "Create a Sample Resume"
-msgstr ""
+msgstr "Dala i-Resume yesampula"
+
+#: src/dialogs/resume/index.tsx
+msgid "Create Resume with Options"
+msgstr "Dala i-Resume ngezinketho"
 
 #: src/dialogs/api-key/create.tsx
 msgid "Creating your API key..."
-msgstr ""
+msgstr "Idala ukhiye wakho we-API..."
 
 #: src/dialogs/resume/index.tsx
 #: src/dialogs/resume/index.tsx
 msgid "Creating your resume..."
-msgstr ""
+msgstr "Idala i-resume yakho..."
 
 #: src/routes/dashboard/admin/ai.tsx
 msgid "Credentials are stored in the database and used for all users who enable AI in their account. Only Skill Verdict administrators can change this configuration."
-msgstr ""
+msgstr "Imininingwane igcinwa kusizindalwazi futhi isetshenziselwa bonke abasebenzisi abavumela i-AI ku-akhawunti yabo. Abaphathi be-Skill Verdict kuphela abangashintsha lokhu kulungiselelwa."
 
 #: src/dialogs/auth/change-password.tsx
 msgid "Current Password"
-msgstr ""
+msgstr "Iphasiwedi yamanje"
 
 #: src/utils/resume/section.tsx
 msgid "Custom CSS"
-msgstr ""
+msgstr "I-CSS yangokwezifiso"
 
 #: src/utils/resume/section.tsx
 msgid "Custom Sections"
-msgstr ""
+msgstr "Izigaba Ngokwezifiso"
 
 #: src/routes/dashboard/admin/experience-queue.tsx
 msgid "CV / resume"
-msgstr ""
+msgstr "I-CV / qala kabusha"
 
 #: src/utils/locale.ts
 msgid "Czech"
-msgstr ""
+msgstr "IsiCzech"
 
 #: src/components/command-palette/pages/navigation.tsx
 #: src/components/command-palette/pages/navigation.tsx
 #: src/routes/dashboard/-components/sidebar.tsx
 #: src/routes/dashboard/settings/danger-zone.tsx
 msgid "Danger Zone"
-msgstr ""
+msgstr "Indawo Eyingozi"
 
 #: src/utils/locale.ts
 msgid "Danish"
-msgstr ""
+msgstr "Isi-Danish"
 
 #: src/components/user/dropdown-menu.tsx
 #: src/utils/theme.ts
 msgid "Dark"
-msgstr ""
+msgstr "Kumnyama"
 
 #: src/components/command-palette/pages/preferences/theme.tsx
 msgid "Dark theme"
-msgstr ""
+msgstr "Itimu emnyama"
 
 #: src/routes/_home/-sections/footer.tsx
 msgid "Dashboard"
-msgstr ""
+msgstr "Ideshibhodi"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Data Analytics Dashboard"
-msgstr ""
+msgstr "Ideshibhodi Yezibalo Zedatha"
 
 #: src/dialogs/resume/sections/award.tsx
 #: src/dialogs/resume/sections/certification.tsx
 #: src/dialogs/resume/sections/publication.tsx
 msgid "Date"
-msgstr ""
+msgstr "Usuku"
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Date Posted"
-msgstr ""
+msgstr "Idethi Okuthunyelwe ngayo"
 
 #: src/dialogs/resume/sections/education.tsx
 msgid "Degree"
-msgstr ""
+msgstr "Iziqu"
 
 #: src/routes/builder/$resumeId/-components/header.tsx
 #: src/routes/builder/$resumeId/-sidebar/left/sections/custom.tsx
@@ -1085,41 +1104,41 @@ msgstr ""
 #: src/routes/dashboard/resumes/-components/menus/dropdown-menu.tsx
 #: src/routes/dashboard/settings/api-keys.tsx
 msgid "Delete"
-msgstr ""
+msgstr "Susa"
 
 #: src/routes/dashboard/settings/danger-zone.tsx
 msgid "Delete Account"
-msgstr ""
+msgstr "Susa i-akhawunti"
 
 #: src/components/input/rich-input.tsx
 msgid "Delete Column"
-msgstr ""
+msgstr "Susa Ikholomu"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/layout/pages.tsx
 msgid "Delete Page"
-msgstr ""
+msgstr "Susa Ikhasi"
 
 #: src/components/input/rich-input.tsx
 msgid "Delete Row"
-msgstr ""
+msgstr "Susa Umugqa"
 
 #: src/components/input/rich-input.tsx
 msgid "Delete Table"
-msgstr ""
+msgstr "Susa Ithebula"
 
 #: src/routes/dashboard/settings/danger-zone.tsx
 msgid "Deleting your account..."
-msgstr ""
+msgstr "Isusa i-akhawunti yakho..."
 
 #: src/routes/dashboard/settings/api-keys.tsx
 msgid "Deleting your API key..."
-msgstr ""
+msgstr "Isusa ukhiye wakho we-API..."
 
 #: src/routes/builder/$resumeId/-components/header.tsx
 #: src/routes/dashboard/resumes/-components/menus/context-menu.tsx
 #: src/routes/dashboard/resumes/-components/menus/dropdown-menu.tsx
 msgid "Deleting your resume..."
-msgstr ""
+msgstr "Isusa ukuqhubeka kwakho..."
 
 #: src/dialogs/resume/sections/award.tsx
 #: src/dialogs/resume/sections/certification.tsx
@@ -1132,106 +1151,114 @@ msgstr ""
 #: src/dialogs/resume/sections/volunteer.tsx
 #: src/routes/dashboard/job-search/-components/job-detail.tsx
 msgid "Description"
-msgstr ""
+msgstr "Incazelo"
 
+#: src/routes/builder/$resumeId/route.tsx
 #: src/utils/resume/section.tsx
 msgid "Design"
-msgstr ""
+msgstr "Idizayini"
 
 #: src/routes/dashboard/job-search/-components/job-detail.tsx
 msgid "Direct"
-msgstr ""
+msgstr "Ngqo"
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Direct Apply"
-msgstr ""
+msgstr "Faka isicelo ngqo"
 
 #: src/routes/dashboard/job-search/-components/use-job-search.ts
 msgid "Direct apply only"
-msgstr ""
+msgstr "Okuqondile kusebenza kuphela"
 
 #: src/dialogs/auth/disable-two-factor.tsx
 #: src/routes/dashboard/settings/authentication/-components/two-factor.tsx
 msgid "Disable 2FA"
-msgstr ""
+msgstr "Khubaza i-2FA"
 
 #: src/dialogs/auth/disable-two-factor.tsx
 msgid "Disable Two-Factor Authentication"
-msgstr ""
+msgstr "Khubaza Ukuqinisekiswa Kwezinto Ezimbili"
 
 #: src/dialogs/auth/disable-two-factor.tsx
 msgid "Disabling two-factor authentication..."
-msgstr ""
+msgstr "Ikhubaza ukuqinisekiswa kwezinto ezimbili..."
 
 #: src/routes/dashboard/settings/authentication/-components/social-provider.tsx
 msgid "Disconnect"
-msgstr ""
+msgstr "Nqamula"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Display username"
-msgstr ""
+msgstr "Bonisa igama lomsebenzisi"
+
+#: src/components/ui/sidebar.tsx
+msgid "Displays the mobile sidebar."
+msgstr "Ibonisa ibha eseceleni yeselula."
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Docker"
-msgstr ""
+msgstr "I-Docker"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Document"
-msgstr ""
+msgstr "Idokhumenti"
 
 #: src/routes/dashboard/admin/experience-queue.tsx
 #: src/routes/dashboard/admin/identity.tsx
 msgid "Documents"
-msgstr ""
+msgstr "Amadokhumenti"
 
 #: src/routes/_home/-sections/hero.tsx
 msgid "Don't chase. Attract."
-msgstr ""
+msgstr "Ungajahi. Khanga."
 
 #: src/routes/auth/login.tsx
 msgid "Don't have an account? <0/>"
-msgstr ""
+msgstr "Awunayo i-akhawunti? <0/>"
 
 #: src/dialogs/auth/enable-two-factor.tsx
 #: src/routes/$username/$slug.tsx
 msgid "Download"
-msgstr ""
+msgstr "Landa"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/export.tsx
 msgid "Download a copy of your resume as a Word document. Use this file to further customize your resume in Microsoft Word or Google Docs."
-msgstr ""
+msgstr "Landa ikhophi ye-resume yakho njengedokhumenti ye-Word. Sebenzisa leli fayela ukuze uqhubeke wenze ngokwezifiso i-CV yakho ku-Microsoft Word noma ku-Google Amadokhumenti."
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/export.tsx
 msgid "Download a copy of your resume in JSON format. Use this file for backup or to import your resume into other applications, including AI assistants."
-msgstr ""
+msgstr "Landa ikhophi ye-resume yakho ngefomethi ye-JSON. Sebenzisa leli fayela ukwenza ikhophi yasenqolobaneni noma ukungenisa CV yakho kwezinye izinhlelo zokusebenza, okuhlanganisa nabasizi be-AI."
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/export.tsx
 msgid "Download a copy of your resume in PDF format. Use this file for printing or to easily share your resume with recruiters."
-msgstr ""
+msgstr "Landa ikhophi ye-resume yakho ngefomethi ye-PDF. Sebenzisa leli fayela ukuze uphrinte noma wabelane kalula nge-resume yakho nabaqashi."
 
+#: src/routes/builder/$resumeId/-components/dock.tsx
 #: src/routes/builder/$resumeId/-components/dock.tsx
 msgid "Download DOCX"
-msgstr ""
+msgstr "Landa i-DOCX"
 
+#: src/routes/builder/$resumeId/-components/dock.tsx
 #: src/routes/builder/$resumeId/-components/dock.tsx
 msgid "Download JSON"
-msgstr ""
+msgstr "Landa i-JSON"
 
 #: src/routes/builder/$resumeId/-components/dock.tsx
+#: src/routes/builder/$resumeId/-components/dock.tsx
 msgid "Download PDF"
-msgstr ""
+msgstr "Landa i-PDF"
 
 #: src/routes/$username/$slug.tsx
 msgid "Downloading..."
-msgstr ""
+msgstr "Iyalanda..."
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/statistics.tsx
 msgid "Downloads"
-msgstr ""
+msgstr "Okulandwayo"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/layout/pages.tsx
 msgid "Drag and drop sections here to move them between columns"
-msgstr ""
+msgstr "Hudula bese udedela izigaba lapha ukuze uzihambise phakathi kwamakholomu"
 
 #: src/dialogs/resume/index.tsx
 #: src/routes/builder/$resumeId/-components/header.tsx
@@ -1240,189 +1267,193 @@ msgstr ""
 #: src/routes/dashboard/resumes/-components/menus/context-menu.tsx
 #: src/routes/dashboard/resumes/-components/menus/dropdown-menu.tsx
 msgid "Duplicate"
-msgstr ""
+msgstr "Impinda"
 
 #: src/dialogs/resume/index.tsx
 msgid "Duplicate Resume"
-msgstr ""
+msgstr "Phinda uqalise kabusha"
 
 #: src/dialogs/resume/index.tsx
 msgid "Duplicate your resume to create a new one, just like the original."
-msgstr ""
+msgstr "Phinda i-resume yakho ukuze udale entsha, efana neyokuqala."
 
 #: src/dialogs/resume/index.tsx
 msgid "Duplicating your resume..."
-msgstr ""
+msgstr "Iphinda i-resume yakho..."
 
 #: src/utils/locale.ts
 msgid "Dutch"
-msgstr ""
+msgstr "IsiDashi"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "E-commerce Platform"
-msgstr ""
+msgstr "I-E-commerce Platform"
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "e.g. 150000"
-msgstr ""
+msgstr "isib. 150000"
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "e.g. 50000"
-msgstr ""
+msgstr "isib. 50000"
 
 #: src/components/ai/chat.tsx
 msgid "e.g. Change my name to..."
-msgstr ""
+msgstr "isib. Shintsha igama lami libe..."
 
 #: src/routes/dashboard/job-search/index.tsx
 msgid "e.g. frontend developer jobs in Berlin"
-msgstr ""
+msgstr "isib. imisebenzi yonjiniyela we-frontend eBerlin"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "e.g. Skilled Worker"
-msgstr ""
+msgstr "isib. Isisebenzi Esinekhono"
+
+#: src/routes/dashboard/admin/ai.tsx
+msgid "e.g., gpt-4, claude-3-opus, gemini-pro"
+msgstr "isb., gpt-4, claude-3-opus, gemini-pro"
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Earn peer-endorsed badges from domain experts — turn claims into evidence employers can trust at a glance."
-msgstr ""
+msgstr "Zuza amabheji agunyazwe ngontanga kochwepheshe besizinda â guqula izimangalo zibe ubufakazi abaqashi abangabuthemba ngokubuka nje."
 
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Earn your verdict"
-msgstr ""
+msgstr "Thola isinqumo sakho"
 
 #: src/dialogs/resume/sections/custom.tsx
 #: src/routes/_home/-sections/hero-visual.tsx
 #: src/utils/resume/section.tsx
 msgid "Education"
-msgstr ""
+msgstr "Imfundo"
 
 #: src/routes/builder/$resumeId/-sidebar/left/sections/basics.tsx
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Email"
-msgstr ""
+msgstr "I-imeyili"
 
 #: src/routes/auth/forgot-password.tsx
 #: src/routes/auth/login.tsx
 #: src/routes/auth/register.tsx
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Email Address"
-msgstr ""
+msgstr "Ikheli le-imeyili"
 
+#: src/routes/auth/verify-email.tsx
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/users.tsx
-#: src/routes/auth/verify-email.tsx
 msgid "Email verified"
 msgstr "I-imeyili iqinisekisiwe"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/css.tsx
 msgctxt "Turn On/Apply Custom CSS"
 msgid "Enable"
-msgstr ""
+msgstr "Nika amandla"
 
 #: src/routes/dashboard/settings/authentication/-components/two-factor.tsx
 msgid "Enable 2FA"
-msgstr ""
+msgstr "Nika amandla i-2FA"
 
 #: src/dialogs/auth/enable-two-factor.tsx
 msgid "Enable Two-Factor Authentication"
-msgstr ""
+msgstr "Nika amandla Ukuqinisekiswa Kwezinto Ezimbili"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Enabled"
-msgstr ""
+msgstr "Inikwe amandla"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 msgid "Enabling password protection..."
-msgstr ""
+msgstr "Inika amandla ukuvikelwa kwephasiwedi..."
 
 #: src/dialogs/auth/enable-two-factor.tsx
 msgid "Enabling two-factor authentication..."
-msgstr ""
+msgstr "Inika amandla ukuqinisekiswa kwezinto ezimbili..."
 
 #: src/utils/locale.ts
 msgid "English"
-msgstr ""
+msgstr "IsiNgisi"
 
 #: src/utils/locale.ts
 msgid "English (United Kingdom)"
-msgstr ""
+msgstr "IsiNgisi (United Kingdom)"
 
 #: src/routes/dashboard/admin/ai.tsx
 #: src/routes/dashboard/admin/job-search.tsx
 msgid "Enter an API key before testing."
-msgstr ""
+msgstr "Faka ukhiye we-API ngaphambi kokuhlola."
 
 #: src/routes/auth/verify-2fa-backup.tsx
 msgid "Enter one of your saved backup codes to access your account"
-msgstr ""
+msgstr "Faka eyodwa yamakhodi akho ayisipele alondoloziwe ukuze ufinyelele i-akhawunti yakho"
 
 #: src/routes/builder/$resumeId/-sidebar/left/sections/custom-fields.tsx
 msgid "Enter the URL to link to"
-msgstr ""
+msgstr "Faka i-URL ozoxhumanisa nayo"
 
 #: src/routes/auth/verify-2fa.tsx
 msgid "Enter the verification code from your authenticator app"
-msgstr ""
+msgstr "Faka ikhodi yokuqinisekisa kusukela kuhlelo lwakho lokusebenza lokufakazela ubuqiniso"
 
 #: src/dialogs/auth/change-password.tsx
 msgid "Enter your current password and a new password to update your account."
-msgstr ""
+msgstr "Faka iphasiwedi yakho yamanje kanye nephasiwedi entsha ukuze ubuyekeze i-akhawunti yakho."
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "Enter your freelancer profile URL (e.g. Upwork, Fiverr, Toptal):"
-msgstr ""
+msgstr "Faka i-URL yephrofayela yakho ye-freelancer (isb. Upwork, Fiverr, Toptal):"
 
 #: src/dialogs/auth/enable-two-factor.tsx
 msgid "Enter your password to confirm setting up two-factor authentication. When enabled, you'll need to enter a code from your authenticator app every time you log in."
-msgstr ""
+msgstr "Faka iphasiwedi yakho ukuze uqinisekise ukusetha ukuqinisekiswa kwezinto ezimbili. Uma inikwe amandla, uzodinga ukufaka ikhodi esuka kuhlelo lwakho lokusebenza lokufakazela ubuqiniso njalo uma ungena ngemvume."
 
 #: src/dialogs/auth/disable-two-factor.tsx
 msgid "Enter your password to disable two-factor authentication. Your account will be less secure without 2FA enabled."
-msgstr ""
+msgstr "Faka iphasiwedi yakho ukuze ukhubaze ukuqinisekiswa kwezinto ezimbili. I-akhawunti yakho izovikeleka kancane ngaphandle kokuthi i-2FA inikwe amandla."
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Every assessment comes with actionable feedback, so you level up even when you're already getting hired."
-msgstr ""
+msgstr "Konke ukuhlola kuza nempendulo engenzeka, ngakho uyakhuphuka ngisho noma usuqashwa kakade."
 
 #: src/routes/dashboard/job-search/-components/use-job-search.ts
 msgid "Exclude {value}"
-msgstr ""
+msgstr "Khipha {value}"
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Exclude Companies"
-msgstr ""
+msgstr "Ungafaki Izinkampani"
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Exclude Keywords"
-msgstr ""
+msgstr "Ungafaki Amagama angukhiye"
 
 #: src/components/input/rich-input.tsx
 msgid "Exit Fullscreen"
-msgstr ""
+msgstr "Phuma esikrinini esigcwele"
 
 #: src/dialogs/resume/sections/custom.tsx
 #: src/routes/_home/-sections/hero-visual.tsx
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 #: src/utils/resume/section.tsx
 msgid "Experience"
-msgstr ""
+msgstr "Isipiliyoni"
 
 #: src/routes/dashboard/-components/sidebar.tsx
 #: src/routes/dashboard/admin/experience-queue.tsx
 msgid "Experience Queue"
-msgstr ""
+msgstr "Isipiliyoni somugqa"
 
 #: src/routes/dashboard/admin/experience-queue.tsx
 msgid "Experience request flagged as issue."
-msgstr ""
+msgstr "Isicelo sesipiliyoni simakwe njengenkinga."
 
 #: src/routes/dashboard/admin/experience-queue.tsx
 msgid "Experience request rejected."
-msgstr ""
+msgstr "Isicelo sokuhlangenwe nakho sinqatshiwe."
 
 #: src/routes/dashboard/admin/experience-queue.tsx
 msgid "Experience Verification"
-msgstr ""
+msgstr "Izwa Ukuqinisekiswa"
 
 #. placeholder {0}: item.label
 #: src/routes/dashboard/verification/index.tsx
@@ -1432,504 +1463,520 @@ msgstr ""
 
 #: src/routes/dashboard/admin/experience-queue.tsx
 msgid "Experience verified successfully."
-msgstr ""
+msgstr "Okuhlangenwe nakho kuqinisekiswe ngempumelelo."
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Expiration date"
-msgstr ""
+msgstr "Usuku lokuphelelwa yisikhathi"
 
 #: src/dialogs/api-key/create.tsx
 msgid "Expires in"
-msgstr ""
+msgstr "Iphelelwa yisikhathi ngo"
 
 #. placeholder {0}: key.expiresAt != null ? formatDefaultDate(key.expiresAt) : ""
 #: src/routes/dashboard/settings/api-keys.tsx
 msgid "Expires on {0}"
-msgstr ""
+msgstr "Iphelelwa yisikhathi ngomhlaka-{0}"
 
 #: src/routes/dashboard/settings/api-keys.tsx
 msgid "Explore the API documentation to learn how to integrate Skill Verdict with your applications. Find detailed endpoints, request examples, and authentication methods."
-msgstr ""
+msgstr "Hlola imibhalo ye-API ukuze ufunde ukuthi ungahlanganisa kanjani Isinqumo Sekhono nezinhlelo zakho zokusebenza. Thola izindawo zokugcina ezinemininingwane, izibonelo zesicelo, nezindlela zokuqinisekisa."
 
 #: src/utils/resume/section.tsx
 msgid "Export"
-msgstr ""
+msgstr "Thekelisa"
 
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 msgid "Failed to duplicate resume"
-msgstr ""
+msgstr "Yehlulekile ukuphinda iqalise"
 
 #: src/dialogs/resume/ai-review.tsx
 msgid "Failed to generate AI review"
-msgstr ""
+msgstr "Yehlulekile ukukhiqiza isibuyekezo se-AI"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Failed to load document."
-msgstr ""
+msgstr "Yehlulekile ukulayisha idokhumenti."
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Failed to load user details."
-msgstr ""
+msgstr "Yehlulekile ukulayisha imininingwane yomsebenzisi."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Failed to resend verification email. Please try again."
+msgstr "Yehlulekile ukuthumela kabusha i-imeyili yokuqinisekisa. Sicela uzame futhi."
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Failed to save work authorization."
-msgstr ""
+msgstr "Yehlulekile ukulondoloza ukugunyazwa komsebenzi."
 
 #: src/dialogs/auth/enable-two-factor.tsx
 msgid "Failed to setup two-factor authentication."
-msgstr ""
+msgstr "Yehlulekile ukusetha ukuqinisekiswa kwezinto ezimbili."
 
 #: src/routes/auth/login.tsx
 msgid "Failed to sign in. Please try again."
-msgstr ""
+msgstr "Yehlulekile ukungena ngemvume. Sicela uzame futhi."
 
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 msgid "Failed to sync skills"
-msgstr ""
+msgstr "Yehlulekile ukuvumelanisa amakhono"
 
 #: src/routes/_home/-sections/footer.tsx
 msgid "FAQ"
-msgstr ""
+msgstr "FAQ"
 
 #: src/routes/_home/-sections/footer.tsx
 msgid "Features"
-msgstr ""
+msgstr "Izici"
 
 #. placeholder {0}: selectedFile.name
 #: src/routes/dashboard/verification/index.tsx
 msgid "File selected: {0}. Submit your verification request?"
-msgstr ""
+msgstr "Ifayela likhethiwe: {0}. Thumela isicelo sakho sokuqinisekisa?"
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "File size must be under 5MB."
-msgstr ""
+msgstr "Usayizi wefayela kufanele ube ngaphansi kuka-5MB."
 
 #: src/routes/dashboard/resumes/index.tsx
 msgid "Filter by"
-msgstr ""
+msgstr "Hlunga nge"
 
 #: src/utils/locale.ts
 msgid "Finnish"
-msgstr ""
+msgstr "IsiFinnish"
+
+#: src/routes/builder/$resumeId/-components/dock.tsx
+msgid "Fit resume to screen"
+msgstr "Faka kabusha esikrinini"
 
 #: src/dialogs/resume/sections/language.tsx
 msgid "Fluency"
-msgstr ""
+msgstr "Ukuqephuza"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/typography.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/typography.tsx
 msgid "Font Family"
-msgstr ""
+msgstr "Umndeni Wefonti"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/typography.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/typography.tsx
 msgid "Font Size"
-msgstr ""
+msgstr "Usayizi Wefonti"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/typography.tsx
 msgid "Font Weight"
-msgstr ""
+msgstr "Isisindo Sefonti"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/typography.tsx
 msgid "Font Weights"
-msgstr ""
+msgstr "Izisindo zefonti"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/notes.tsx
 msgid "For example, information regarding which companies you sent this resume to or the links to the job descriptions can be noted down here."
-msgstr ""
+msgstr "Isibonelo, ulwazi olumayelana nokuthi yiziphi izinkampani othumele kuzo lokhu kuqalisa kabusha noma izixhumanisi zezincazelo zomsebenzi zingabhalwa phansi lapha."
 
 #: src/dialogs/api-key/create.tsx
 msgid "For security reasons, this key will only be displayed once."
-msgstr ""
+msgstr "Ngenxa yezizathu zokuphepha, lo khiye uzoboniswa kanye kuphela."
 
 #: src/routes/auth/login.tsx
 msgid "Forgot Password?"
-msgstr ""
+msgstr "Ukhohlwe Iphasiwedi?"
 
 #: src/routes/auth/forgot-password.tsx
 msgid "Forgot your password?"
-msgstr ""
+msgstr "Ukhohlwe iphasiwedi yakho?"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/page.tsx
 msgctxt "Page Format (A4, Letter or Free-Form)"
 msgid "Format"
-msgstr ""
+msgstr "Ifomethi"
 
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Four simple steps to turn your claims into evidence. No keyword stuffing, no job-title theatre — just practical assessments reviewed by domain experts."
-msgstr ""
+msgstr "Izinyathelo ezine ezilula zokuguqula izimangalo zakho zibe ubufakazi. Akukho ukugxusha kwamagama angukhiye, akukho thiyetha yesihloko somsebenzi â ukuhlola okungokoqobo okubuyekezwe ochwepheshe besizinda."
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/page.tsx
 msgid "Free-Form"
-msgstr ""
+msgstr "Ifomu Lamahhala"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Freelancer Link"
-msgstr ""
+msgstr "Isixhumanisi se-Freelancer"
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "Freelancer Profile Link"
-msgstr ""
+msgstr "Isixhumanisi Sephrofayela Ye-Freelancer"
 
 #: src/utils/locale.ts
 msgid "French"
-msgstr ""
+msgstr "IsiFulentshi"
+
+#: src/routes/_home/-sections/faq.tsx
+msgid "Frequently Asked Questions"
+msgstr "Imibuzo Evame Ukubuzwa"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/layout/pages.tsx
 msgid "Full Width"
-msgstr ""
+msgstr "Ububanzi obugcwele"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Full-stack React/Node.js application with payment integration"
-msgstr ""
+msgstr "Uhlelo lokusebenza lwe-Full-stack React/Node.js nokuhlanganiswa kwenkokhelo"
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Full-time"
-msgstr ""
+msgstr "Isikhathi esigcwele"
 
 #: src/components/input/rich-input.tsx
 msgid "Fullscreen"
-msgstr ""
+msgstr "Isikrini esigcwele"
 
 #: src/dialogs/resume/index.tsx
 msgid "Generate a random name"
-msgstr ""
+msgstr "Dala igama elingahleliwe"
 
 #: src/utils/locale.ts
 msgid "German"
-msgstr ""
+msgstr "IsiJalimane"
 
 #: src/dialogs/resume/ai-review.tsx
 msgid "Get AI feedback on what is strong in this resume and what should be improved."
-msgstr ""
+msgstr "Thola impendulo ye-AI mayelana nokuthi yini enamandla kulokhu kuqalisa futhi yini okufanele ithuthukiswe."
 
 #: src/routes/_home/-sections/footer.tsx
 msgid "Get verified"
-msgstr ""
+msgstr "Qinisekisa"
 
 #: src/components/command-palette/pages/navigation.tsx
 #: src/components/command-palette/pages/navigation.tsx
 #: src/routes/dashboard/-components/sidebar.tsx
 #: src/routes/dashboard/admin/ai.tsx
 msgid "Global AI"
-msgstr ""
+msgstr "I-AI yomhlaba wonke"
 
 #: src/components/layout/not-found-screen.tsx
 #: src/routes/auth/verify-2fa-backup.tsx
 msgid "Go Back"
-msgstr ""
+msgstr "Buyela Emuva"
 
 #: src/routes/_home/-sections/header.tsx
 msgid "Go to dashboard"
-msgstr ""
+msgstr "Iya kudeshibhodi"
 
 #: src/components/command-palette/pages/navigation.tsx
 msgid "Go to..."
-msgstr ""
+msgstr "Iya ku..."
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Google Professional Cloud Architect"
-msgstr ""
+msgstr "I-Google Professional Cloud Architect"
 
 #: src/dialogs/resume/sections/education.tsx
 msgid "Grade"
-msgstr ""
+msgstr "Ibanga"
 
 #: src/utils/locale.ts
 msgid "Greek"
-msgstr ""
+msgstr "isiGreki"
 
 #: src/routes/dashboard/resumes/index.tsx
 msgid "Grid"
-msgstr ""
+msgstr "Igridi"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Grouped capabilities with micro-labels — shows breadth without a wall of bullet points."
-msgstr ""
+msgstr "Amandla aqoqwe anamalebula amancane â abonisa ububanzi ngaphandle kodonga lwamachashazi."
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Growth-focused feedback"
-msgstr ""
+msgstr "Impendulo egxile ekukhuleni"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Harvard University"
-msgstr ""
+msgstr "Inyuvesi yaseHarvard"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/typography.tsx
 msgctxt "Headings or Titles (H1, H2, H3, H4, H5, H6)"
 msgid "Heading"
-msgstr ""
+msgstr "Isihloko"
 
 #: src/components/input/rich-input.tsx
 msgid "Heading 1"
-msgstr ""
+msgstr "Isihloko 1"
 
 #: src/components/input/rich-input.tsx
 msgid "Heading 2"
-msgstr ""
+msgstr "Isihloko 2"
 
 #: src/components/input/rich-input.tsx
 msgid "Heading 3"
-msgstr ""
+msgstr "Isihloko 3"
 
 #: src/components/input/rich-input.tsx
 msgid "Heading 4"
-msgstr ""
+msgstr "Isihloko 4"
 
 #: src/components/input/rich-input.tsx
 msgid "Heading 5"
-msgstr ""
+msgstr "Isihloko 5"
 
 #: src/components/input/rich-input.tsx
 msgid "Heading 6"
-msgstr ""
+msgstr "Isihloko 6"
 
 #: src/routes/builder/$resumeId/-sidebar/left/sections/basics.tsx
 msgid "Headline"
-msgstr ""
+msgstr "Isihlokwana"
 
 #: src/utils/locale.ts
 msgid "Hebrew"
-msgstr ""
+msgstr "IsiHebheru"
 
 #: src/routes/dashboard/settings/preferences.tsx
 msgid "Help translate the app to your language"
-msgstr ""
+msgstr "Siza ukuhumusha uhlelo lokusebenza olimini lwakho"
 
 #: src/dialogs/resume/template/gallery.tsx
 msgid "Here's a range of resume templates for different professions and personalities. Whether you prefer modern or classic, bold or simple, there is a design to match you. Look through the options below and choose a template that fits your style."
-msgstr ""
+msgstr "Nalu uhla lwezifanekiso zokuqalisa kabusha zemisebenzi ehlukahlukene nobuntu. Kungakhathaliseki ukuthi ukhetha yesimanje noma yakudala, enesibindi noma elula, kunomklamo wokufanisa nawe. Bheka izinketho ezingezansi bese ukhetha isifanekiso esifanelana nesitayela sakho."
 
 #: src/dialogs/api-key/create.tsx
 msgid "Here's your new API key"
-msgstr ""
+msgstr "Nawu ukhiye wakho omusha we-API"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Hero statement up top, verified skills as the spine — built for reviewers who scan in seconds."
-msgstr ""
+msgstr "Isitatimende seqhawe phezulu, amakhono aqinisekisiwe njengomgogodla â akhelwe ababuyekezi abaskena ngemizuzwana."
 
 #: src/components/level/combobox.tsx
 #: src/dialogs/resume/sections/language.tsx
 #: src/dialogs/resume/sections/skill.tsx
 msgid "Hidden"
-msgstr ""
+msgstr "Kufihliwe"
 
 #: src/routes/builder/$resumeId/-sidebar/left/sections/custom.tsx
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-menu.tsx
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Hide"
-msgstr ""
+msgstr "Fihla"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/page.tsx
 msgid "Hide all icons on the resume"
-msgstr ""
+msgstr "Fihla zonke izithonjana ku-resume"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Hide details"
-msgstr ""
+msgstr "Fihla imininingwane"
 
 #: src/components/input/rich-input.tsx
 msgid "Highlight"
-msgstr ""
+msgstr "Gqamisa"
 
 #: src/utils/locale.ts
 msgid "Hindi"
-msgstr ""
+msgstr "IsiHindi"
 
 #: src/components/command-palette/pages/navigation.tsx
 #: src/components/command-palette/pages/navigation.tsx
 msgid "Home"
-msgstr ""
+msgstr "Ikhaya"
 
 #: src/routes/dashboard/settings/api-keys.tsx
 msgid "How do I use the API?"
-msgstr ""
+msgstr "Ngiyisebenzisa kanjani i-API?"
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "How does skill verification work?"
-msgstr ""
+msgstr "Ngabe kusebenza kanjani ukuqinisekiswa kwamakhono?"
 
 #: src/routes/_home/-sections/footer.tsx
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "How it works"
-msgstr ""
+msgstr "Isebenza kanjani"
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "How long does a verification take?"
-msgstr ""
+msgstr "Ukuqinisekisa kuthatha isikhathi esingakanani?"
+
+#: src/routes/dashboard/verification/index.tsx
+msgid "https://www.upwork.com/freelancers/~..."
+msgstr "https://www.upwork.com/freelancers/~..."
 
 #: src/utils/locale.ts
 msgid "Hungarian"
-msgstr ""
+msgstr "IsiHungary"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "I consent to sharing my work authorization details with employers for matching."
-msgstr ""
+msgstr "Ngiyavuma ukwabelana ngemininingwane yami yokugunyazwa komsebenzi nabaqashi ukuze ngifaniswe."
 
 #: src/components/level/combobox.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/design.tsx
 msgid "Icon"
-msgstr ""
+msgstr "Isithonjana"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Identity Call"
-msgstr ""
+msgstr "I-Identity Call"
 
 #: src/routes/dashboard/-components/sidebar.tsx
 msgid "Identity Queue"
-msgstr ""
+msgstr "Umugqa Wokuhlonza"
 
 #: src/routes/dashboard/admin/identity.tsx
 msgid "Identity request flagged as issue."
-msgstr ""
+msgstr "Isicelo sikamazisi simakwe njengenkinga."
 
 #: src/routes/dashboard/admin/identity.tsx
 msgid "Identity request rejected."
-msgstr ""
+msgstr "Isicelo sobunikazi sinqatshiwe."
 
 #: src/routes/dashboard/-components/sidebar-identity-verification-status.tsx
 msgid "Identity Unverified"
-msgstr ""
+msgstr "Ubunikazi Abuqinisekisiwe"
 
 #: src/routes/dashboard/admin/identity.tsx
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Identity Verification"
-msgstr ""
+msgstr "Ukuqinisekiswa Kobunikazi"
 
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Identity verification request cancelled."
-msgstr ""
+msgstr "Isicelo sokuqinisekisa ubunikazi sikhanseliwe."
 
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Identity verification requested. Please check your email for next steps."
-msgstr ""
+msgstr "Kucelwe ukuqinisekiswa kobunikazi. Sicela uhlole i-imeyili yakho ukuze uthole izinyathelo ezilandelayo."
 
 #: src/routes/dashboard/-components/sidebar-identity-verification-status.tsx
 msgid "Identity Verified"
-msgstr ""
+msgstr "Ubunikazi Buqinisekisiwe"
 
 #: src/routes/dashboard/admin/identity.tsx
 msgid "Identity verified successfully."
-msgstr ""
+msgstr "Ubunikazi buqinisekiswe ngempumelelo."
 
 #: src/dialogs/resume/import.tsx
 msgid "Import"
-msgstr ""
+msgstr "Ngenisa"
 
 #: src/dialogs/resume/import.tsx
 #: src/routes/dashboard/resumes/-components/cards/import-card.tsx
-#: src/routes/dashboard/resumes/-components/list-view.tsx
+#: src/routes/dashboard/resumes/-components/resume-quick-actions.tsx
 msgid "Import an existing resume"
-msgstr ""
+msgstr "Ngenisa ukuqhubeka okukhona"
 
 #: src/dialogs/resume/import.tsx
 msgid "Importing your resume..."
-msgstr ""
+msgstr "Ingenisa i-resume yakho..."
 
 #: src/dialogs/resume/import.tsx
 msgid "Importing..."
-msgstr ""
+msgstr "Iyangenisa..."
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Include Keywords"
-msgstr ""
+msgstr "Faka Amagama angukhiye"
 
 #: src/utils/locale.ts
 msgid "Indonesian"
-msgstr ""
+msgstr "Isi-Indonesian"
 
 #: src/components/input/rich-input.tsx
 msgid "Inline Code"
-msgstr ""
+msgstr "Ikhodi Esemgqeni"
 
 #: src/components/input/rich-input.tsx
 msgid "Insert Table"
-msgstr ""
+msgstr "Faka Ithebula"
 
 #: src/dialogs/resume/sections/custom.tsx
 #: src/utils/resume/section.tsx
 msgid "Interests"
-msgstr ""
+msgstr "Izithakazelo"
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Intern"
-msgstr ""
+msgstr "Ofunda umsebenzi"
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "Is the review really unbiased?"
-msgstr ""
+msgstr "Ingabe isibuyekezo asichemile ngempela?"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Issue date"
-msgstr ""
+msgstr "Idethi yokukhishwa"
 
 #: src/dialogs/resume/sections/certification.tsx
 msgid "Issuer"
-msgstr ""
+msgstr "Umkhiphi"
 
 #: src/utils/locale.ts
 msgid "Italian"
-msgstr ""
+msgstr "IsiNtaliyane"
 
 #: src/components/input/rich-input.tsx
 msgid "Italic"
-msgstr ""
+msgstr "I-ithalikhi"
 
 #: src/utils/locale.ts
 msgid "Japanese"
-msgstr ""
+msgstr "IsiJapane"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "JavaScript"
-msgstr ""
+msgstr "I-JavaScript"
 
 #: src/routes/dashboard/-components/sidebar.tsx
 #: src/routes/dashboard/job-search/index.tsx
 msgid "Job Search"
-msgstr ""
+msgstr "Ukucinga Umsebenzi"
 
 #: src/routes/dashboard/-components/sidebar.tsx
 #: src/routes/dashboard/admin/job-search.tsx
 msgid "Job Search API"
-msgstr ""
+msgstr "I-Job Search API"
 
 #: src/routes/dashboard/job-search/index.tsx
 msgid "Job search has not been configured yet. Contact an administrator to set it up."
-msgstr ""
+msgstr "Ukusesha umsebenzi akukalungiswa. Xhumana nomlawuli ukuze akusethe."
 
 #: src/routes/dashboard/job-search/index.tsx
 msgid "Job Search Not Available"
-msgstr ""
+msgstr "Ukufuna Umsebenzi Akutholakali"
 
 #: src/components/input/rich-input.tsx
 msgid "Justify Align"
-msgstr ""
+msgstr "Qondanisa Qondanisa"
 
 #: src/utils/locale.ts
 msgid "Kannada"
-msgstr ""
+msgstr "Isi-Kannada"
 
 #: src/dialogs/resume/sections/interest.tsx
 #: src/dialogs/resume/sections/skill.tsx
 msgid "Keywords"
-msgstr ""
+msgstr "Amagama angukhiye"
 
 #: src/utils/locale.ts
 msgid "Khmer"
-msgstr ""
+msgstr "I-Khmer"
 
 #: src/utils/locale.ts
 msgid "Korean"
-msgstr ""
+msgstr "IsiKorea"
 
 #: src/components/input/url-input.tsx
 msgid "Label"
-msgstr ""
+msgstr "Ilebula"
 
 #: src/routes/builder/$resumeId/-sidebar/left/sections/picture.tsx
 msgid "Landscape"
-msgstr ""
+msgstr "Ukuma kwezwe"
 
 #: src/components/command-palette/pages/preferences/language.tsx
 #: src/components/user/dropdown-menu.tsx
@@ -1937,268 +1984,280 @@ msgstr ""
 #: src/routes/builder/$resumeId/-sidebar/right/sections/page.tsx
 #: src/routes/dashboard/settings/preferences.tsx
 msgid "Language"
-msgstr ""
+msgstr "Ulimi"
 
 #: src/dialogs/resume/sections/custom.tsx
 #: src/utils/resume/section.tsx
 msgid "Languages"
-msgstr ""
+msgstr "Izilimi"
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Last 3 days"
-msgstr ""
+msgstr "Izinsuku ezi-3 zokugcina"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/users.tsx
 msgid "Last active"
-msgstr ""
+msgstr "Igcine ukusebenza"
 
 #. placeholder {0}: statistics.lastDownloadedAt.toDateString()
 #: src/routes/builder/$resumeId/-sidebar/right/sections/statistics.tsx
 msgid "Last downloaded on {0}"
-msgstr ""
+msgstr "Igcine ukulandwa ngo-{0}"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Last request"
-msgstr ""
+msgstr "Isicelo sokugcina"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Last resume update"
-msgstr ""
+msgstr "Isibuyekezo sokuqalisa kabusha sokugcina"
 
 #: src/routes/dashboard/resumes/-components/cards/resume-card.tsx
 #: src/routes/dashboard/resumes/-components/list-view.tsx
 msgid "Last updated on {updatedAt}"
-msgstr ""
+msgstr "Igcine ukubuyekezwa ngo-{updatedAt}"
 
 #. placeholder {0}: statistics.lastViewedAt.toDateString()
 #: src/routes/builder/$resumeId/-sidebar/right/sections/statistics.tsx
 msgid "Last viewed on {0}"
-msgstr ""
+msgstr "Igcine ukubukwa ngo-{0}"
 
 #: src/routes/dashboard/admin/identity.tsx
 msgid "Latest CV / resume"
-msgstr ""
+msgstr "I-CV / qala kabusha yakamuva"
 
 #: src/utils/locale.ts
 msgid "Latvian"
-msgstr ""
+msgstr "Isi-Latvian"
 
 #: src/utils/resume/section.tsx
 msgid "Layout"
-msgstr ""
+msgstr "Isakhiwo"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Layouts for evidence, not decoration"
-msgstr ""
+msgstr "Izakhiwo zobufakazi, hhayi umhlobiso"
 
 #: src/components/resume/preview.tsx
 msgid "Learn more about how to fit content on a page"
-msgstr ""
+msgstr "Funda kabanzi mayelana nendlela yokufaka okuqukethwe ekhasini"
 
 #: src/hooks/use-form-blocker.tsx
 msgid "Leave"
-msgstr ""
+msgstr "Hamba"
 
 #: src/routes/dashboard/admin/ai.tsx
 #: src/routes/dashboard/admin/job-search.tsx
 msgid "Leave blank to keep the existing key"
-msgstr ""
+msgstr "Shiya kungenalutho ukuze ugcine ukhiye okhona"
 
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-menu.tsx
 msgid "Leave empty to reset the title to the original."
-msgstr ""
+msgstr "Shiya kungenalutho ukuze usethe kabusha isihloko sibe esangempela."
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Ledger"
-msgstr ""
+msgstr "Incwadi yokubhala"
 
 #: src/components/input/rich-input.tsx
 msgid "Left Align"
-msgstr ""
+msgstr "Qondanisa kwesokunxele"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/page.tsx
 msgid "Letter"
-msgstr ""
+msgstr "Incwadi"
 
 #: src/dialogs/resume/sections/language.tsx
 #: src/dialogs/resume/sections/skill.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/design.tsx
 msgid "Level"
-msgstr ""
+msgstr "Izinga"
 
 #: src/components/level/display.tsx
 msgid "Level {level} of 5"
-msgstr ""
+msgstr "Ileveli {level} yokungu-5"
 
 #: src/components/user/dropdown-menu.tsx
 #: src/utils/theme.ts
 msgid "Light"
-msgstr ""
+msgstr "Ukukhanya"
 
 #: src/components/command-palette/pages/preferences/theme.tsx
 msgid "Light theme"
-msgstr ""
+msgstr "Itimu ekhanyayo"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/typography.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/typography.tsx
 msgid "Line Height"
-msgstr ""
+msgstr "Ukuphakama Komugqa"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Linked accounts"
-msgstr ""
+msgstr "Ama-akhawunti axhunyiwe"
 
 #: src/routes/dashboard/settings/authentication/-components/hooks.tsx
 msgid "Linking your {providerName} account..."
-msgstr ""
+msgstr "Ixhuma i-akhawunti yakho ye-{providerName}..."
 
 #: src/routes/dashboard/resumes/index.tsx
 msgid "List"
-msgstr ""
+msgstr "Uhlu"
 
 #: src/utils/locale.ts
 msgid "Lithuanian"
-msgstr ""
+msgstr "IsiLithuanian"
+
+#: src/components/ui/spinner.tsx
+msgid "Loading"
+msgstr "Iyalayisha"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Loading document..."
-msgstr ""
+msgstr "Ilayisha idokhumenti..."
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "Loading history..."
-msgstr ""
+msgstr "Ilayisha umlando..."
 
 #: src/routes/dashboard/admin/experience-queue.tsx
 msgid "Loading pending verdicts..."
-msgstr ""
+msgstr "Ilayisha izinqumo ezilindile..."
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Loading preview…"
-msgstr ""
+msgstr "Ilayisha ukubuka kuqalaâ¦"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Loading queue..."
-msgstr ""
+msgstr "Ilayisha ulayini..."
 
 #: src/components/command-palette/pages/resumes.tsx
 msgid "Loading resumes..."
-msgstr ""
+msgstr "Ilayisha ukuqhubeka..."
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Loading selected resume details..."
-msgstr ""
+msgstr "Ilayisha imininingwane ekhethiwe yokuqhuba..."
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Loading user details…"
-msgstr ""
+msgstr "Ilayisha imininingwane yomsebenzisiâ¦"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Loading users…"
-msgstr ""
+msgstr "Ilayisha abasebenzisiâ¦"
 
 #: src/components/layout/loading-screen.tsx
 msgid "Loading..."
-msgstr ""
+msgstr "Iyalayisha..."
 
 #: src/routes/dashboard/admin/ai.tsx
 #: src/routes/dashboard/admin/job-search.tsx
 msgid "Loading…"
-msgstr ""
+msgstr "Iyalayishaâ¦"
 
 #: src/dialogs/resume/sections/education.tsx
 #: src/dialogs/resume/sections/experience.tsx
 #: src/dialogs/resume/sections/volunteer.tsx
 #: src/routes/builder/$resumeId/-sidebar/left/sections/basics.tsx
 msgid "Location"
-msgstr ""
+msgstr "Indawo"
 
 #: src/routes/builder/$resumeId/-components/header.tsx
 #: src/routes/dashboard/resumes/-components/menus/context-menu.tsx
 #: src/routes/dashboard/resumes/-components/menus/dropdown-menu.tsx
 msgid "Lock"
-msgstr ""
+msgstr "Khiya"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Lock status"
-msgstr ""
+msgstr "Isimo sokukhiya"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Locked"
-msgstr ""
+msgstr "Kukhiyiwe"
 
 #: src/components/user/dropdown-menu.tsx
 msgid "Logout"
-msgstr ""
+msgstr "Phuma"
 
 #: src/routes/auth/verify-2fa.tsx
 msgid "Lost access to your authenticator?"
-msgstr ""
+msgstr "Ulahlekelwe ukufinyelela kusiqinisekisi sakho?"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/layout/pages.tsx
 msgid "Main"
-msgstr ""
+msgstr "Okuyinhloko"
 
 #: src/routes/_home/-sections/header.tsx
 msgid "Main navigation"
-msgstr ""
+msgstr "Ukuzulazula okuyinhloko"
 
 #: src/routes/dashboard/settings/privacy.tsx
 msgid "Make at least one resume public to control the timeline on your public CV."
-msgstr ""
+msgstr "Yenza okungenani i-resume eyodwa ibe sesidlangalaleni ukuze ulawule umugqa wesikhathi ku-CV yakho yomphakathi."
 
 #: src/utils/locale.ts
 msgid "Malay"
-msgstr ""
+msgstr "Isi-Malay"
 
 #: src/utils/locale.ts
 msgid "Malayalam"
-msgstr ""
+msgstr "Isi-Malayalam"
 
 #: src/utils/locale.ts
 msgid "Marathi"
-msgstr ""
+msgstr "IsiMarathi"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/page.tsx
 msgid "Margin (Horizontal)"
-msgstr ""
+msgstr "Imajini (Evundlile)"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/page.tsx
 msgid "Margin (Vertical)"
-msgstr ""
+msgstr "Imajini (Imile)"
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Maximum Salary"
-msgstr ""
+msgstr "Iholo Eliphezulu"
 
 #: src/routes/dashboard/admin/users.tsx
 #: src/routes/dashboard/admin/users.tsx
 msgid "Method"
-msgstr ""
+msgstr "Indlela"
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Minimum Salary"
-msgstr ""
+msgstr "Iholo Elincane"
 
 #: src/routes/dashboard/admin/ai.tsx
 msgid "Model"
-msgstr ""
+msgstr "Imodeli"
+
+#: src/routes/builder/$resumeId/-components/dock.tsx
+msgid "More builder actions"
+msgstr "Izenzo zomakhi ezengeziwe"
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "More than 3 years"
-msgstr ""
+msgstr "Ngaphezu kweminyaka emi-3"
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "Most verifications wrap up in 1–3 days depending on the skill and reviewer availability — no weeks of waiting around."
-msgstr ""
+msgstr "Ukuqinisekiswa okuningi kuvalwa ezinsukwini ezingu-1â3 kuye ngekhono nokutholakala kombuyekezi â awekho amaviki okulinda."
 
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
 msgid "Move to"
-msgstr ""
+msgstr "Hambisa ku"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "MSc Computer Science"
-msgstr ""
+msgstr "Isayensi Yekhompyutha ye-MSc"
+
+#: src/routes/builder/$resumeId/-sidebar/left/sections/custom-fields.tsx
+msgid "Must start with https://"
+msgstr "Kufanele kuqale ngokuthi https://"
 
 #: src/dialogs/api-key/create.tsx
 #: src/dialogs/resume/index.tsx
@@ -2211,300 +2270,324 @@ msgstr ""
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Name"
-msgstr ""
+msgstr "Igama"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Name, email, or @username…"
-msgstr ""
+msgstr "Igama, i-imeyili, noma @igama lomsebenzisiâ¦"
 
 #: src/utils/locale.ts
 msgid "Nepali"
-msgstr ""
+msgstr "IsiNepali"
 
 #: src/dialogs/resume/sections/profile.tsx
 msgid "Network"
-msgstr ""
+msgstr "Inethiwekhi"
 
 #: src/components/input/rich-input.tsx
 msgid "New Line"
-msgstr ""
+msgstr "Ulayini Omusha"
+
+#: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
+msgid "New page"
+msgstr "Ikhasi elisha"
 
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
 msgid "New Page"
-msgstr ""
+msgstr "Ikhasi Elisha"
 
 #: src/dialogs/auth/change-password.tsx
 #: src/routes/auth/reset-password.tsx
 msgid "New Password"
-msgstr ""
+msgstr "Iphasiwedi entsha"
 
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
 msgid "New Section"
-msgstr ""
+msgstr "Isigaba Esisha"
+
+#. placeholder {0}: pageIndex + 1
+#: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
+msgid "New section on page {0}"
+msgstr "Isigaba esisha ekhasini {0}"
 
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 msgid "New Skills Detected"
-msgstr ""
+msgstr "Amakhono Amasha Atholiwe"
 
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 msgid "New skills were found in your experience that match this job. Select which ones to save back to your original resume for future applications. This will permanently modify your original resume and cannot be undone."
-msgstr ""
+msgstr "Kutholwe amakhono amasha kokuhlangenwe nakho kwakho afana nalo msebenzi. Khetha ukuthi iziphi ozozilondoloza ubuyisele ku-resume yakho yangempela yezinhlelo zokusebenza zesikhathi esizayo. Lokhu kuzoshintsha unomphela ukuqhubeka kwakho kwangempela futhi akukwazi ukuhlehliswa."
 
 #: src/routes/dashboard/admin/users.tsx
 #: src/routes/dashboard/job-search/index.tsx
 msgid "Next"
-msgstr ""
+msgstr "Okulandelayo"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "No"
-msgstr ""
+msgstr "Cha"
 
 #: src/dialogs/resume/ai-review.tsx
 msgid "No analysis was generated. Try again."
-msgstr ""
+msgstr "Akukho ukuhlaziya okwenziwe. Zama futhi."
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "No approved experience information."
-msgstr ""
+msgstr "Alukho ulwazi lomuzwa olugunyaziwe."
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "No approved identity documents."
-msgstr ""
+msgstr "Awekho omazisi abagunyaziwe."
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "No approved identity information."
-msgstr ""
+msgstr "Alukho ulwazi lukamazisi olugunyaziwe."
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "No degree required"
-msgstr ""
+msgstr "Ayikho idigri edingekayo"
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "No experience"
-msgstr ""
+msgstr "Akukho okuhlangenwe nakho"
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "No experience items in your resume. Add some to get started."
-msgstr ""
+msgstr "Azikho izinto zokwenziwa ku-resume yakho. Engeza okunye ukuze uqalise."
 
 #: src/routes/dashboard/admin/experience-queue.tsx
 msgid "No experience verification requests pending."
-msgstr ""
+msgstr "Azikho izicelo zokuqinisekisa ulwazi olulindile."
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "No history available."
-msgstr ""
+msgstr "Awukho umlando otholakalayo."
 
 #: src/routes/dashboard/admin/identity.tsx
 msgid "No identity verification requests pending."
-msgstr ""
+msgstr "Azikho izicelo zokuqinisekisa umazisi ezilindile."
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "No items in this section. Add some to your resume first."
-msgstr ""
+msgstr "Azikho izinto kulesi sigaba. Engeza okunye ku-resume yakho kuqala."
 
 #: src/routes/dashboard/job-search/index.tsx
 msgid "No jobs found. Try a different search query."
-msgstr ""
+msgstr "Ayikho imisebenzi etholiwe. Zama umbuzo wosesho ohlukile."
 
 #: src/components/ui/combobox.tsx
 msgid "No results found."
-msgstr ""
+msgstr "Ayikho imiphumela etholiwe."
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "No resumes found."
-msgstr ""
+msgstr "Akukho ukuqhubeka okutholiwe."
 
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 msgid "No resumes found. Create a resume first."
-msgstr ""
+msgstr "Akukho ukuqhubeka okutholiwe. Dala i-resume kuqala."
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "No sessions found."
-msgstr ""
+msgstr "Awekho amaseshini atholiwe."
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "No uploaded documents found."
-msgstr ""
+msgstr "Awekho amadokhumenti alayishiwe atholiwe."
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "No users match your filters."
-msgstr ""
+msgstr "Abekho abasebenzisi abafana nezihlungi zakho."
 
 #: src/routes/dashboard/admin/experience-queue.tsx
 msgid "No verdicts awaiting confirmation."
-msgstr ""
+msgstr "Azikho izinqumo ezilindele ukuqinisekiswa."
 
 #: src/routes/dashboard/settings/privacy.tsx
 msgid "No verified items yet."
-msgstr ""
+msgstr "Azikho izinto eziqinisekisiwe okwamanje."
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "No visa authorization data available."
-msgstr ""
+msgstr "Ayikho idatha yokugunyazwa kwe-visa etholakalayo."
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Node.js"
-msgstr ""
+msgstr "I-Node.js"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Northline"
-msgstr ""
+msgstr "I-Northline"
 
 #: src/utils/locale.ts
 msgid "Norwegian"
-msgstr ""
+msgstr "IsiNorwegian"
 
 #: src/routes/dashboard/admin/users.tsx
 #: src/routes/dashboard/admin/users.tsx
 msgid "Note"
-msgstr ""
+msgstr "Qaphela"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 #: src/utils/resume/section.tsx
 msgid "Notes"
-msgstr ""
+msgstr "Amanothi"
 
 #: src/utils/locale.ts
 msgid "Odia"
-msgstr ""
+msgstr "Odiya"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Only employers with permission can use these fields for filtering."
-msgstr ""
+msgstr "Abaqashi abanemvume kuphela abangasebenzisa lezi zindawo ukuze bahlunge."
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "Only PDF, JPG, JPEG, and PNG files are allowed."
-msgstr ""
+msgstr "Amafayela e-PDF, JPG, JPEG, kanye ne-PNG kuphela avunyelwe."
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "Only your assigned reviewer sees the assignments you submit. On your public profile, you decide which verified skills to display — everything else stays private."
-msgstr ""
+msgstr "Umbuyekezi owabelwe kuphela obona imisebenzi ezokwenziwa oyithumelayo. Kuphrofayela yakho esesidlangalaleni, uyanquma ukuthi yimaphi amakhono aqinisekisiwe ozowabonisa â yonke enye into ihlala iyimfihlo."
 
 #: src/routes/dashboard/resumes/-components/menus/context-menu.tsx
 #: src/routes/dashboard/resumes/-components/menus/dropdown-menu.tsx
 msgid "Open"
-msgstr ""
+msgstr "Vula"
+
+#: src/routes/builder/$resumeId/-components/header.tsx
+#: src/routes/builder/$resumeId/-components/header.tsx
+msgid "Open content editor"
+msgstr "Vula umhleli wokuqukethwe"
+
+#: src/routes/builder/$resumeId/-components/header.tsx
+#: src/routes/builder/$resumeId/-components/header.tsx
+msgid "Open design settings"
+msgstr "Vula izilungiselelo zedizayini"
 
 #: src/routes/auth/forgot-password.tsx
 msgid "Open Email Client"
-msgstr ""
+msgstr "Vula iklayenti le-imeyili"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Open Profile"
-msgstr ""
+msgstr "Vula iphrofayela"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "OpenAI"
-msgstr ""
+msgstr "I-OpenAI"
 
 #: src/routes/_home/-sections/footer.tsx
 #: src/routes/_home/-sections/footer.tsx
 msgid "opens in new tab"
-msgstr ""
+msgstr "ivula kuthebhu entsha"
 
 #. placeholder {0}: job.job_title
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 msgid "Optimizing summary, experience, and skills for {0}"
-msgstr ""
+msgstr "Ukuthuthukisa isifinyezo, ulwazi, namakhono okuthi {0}"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Optional notes for the applicant..."
-msgstr ""
+msgstr "Amanothi okuzithandela omfakisicelo..."
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 msgid "Optionally, set a password so that only people with the password can view your resume through the link."
-msgstr ""
+msgstr "Ongakukhetha, setha iphasiwedi ukuze abantu abanephasiwedi kuphela bakwazi ukubuka ukuqhubeka kwakho ngesixhumanisi."
 
 #: src/routes/auth/-components/social-auth.tsx
 msgctxt "Choose to authenticate with a social provider (Google, GitHub, etc.) instead of email and password"
 msgid "or continue with"
-msgstr ""
+msgstr "noma uqhubeke"
 
 #: src/components/input/rich-input.tsx
 msgid "Ordered List"
-msgstr ""
+msgstr "Uhlu Olu-odwe"
 
 #: src/dialogs/resume/sections/volunteer.tsx
 msgid "Organization"
-msgstr ""
+msgstr "Inhlangano"
 
 #: src/routes/dashboard/admin/ai.tsx
 msgid "Organization-wide AI"
-msgstr ""
+msgstr "Inhlangano yonke i-AI"
 
 #: src/routes/dashboard/admin/job-search.tsx
 msgid "Organization-wide Job Search"
-msgstr ""
+msgstr "Ukusesha Umsebenzi Enhlangano yonke"
 
 #: src/dialogs/resume/sections/experience.tsx
 msgid "Overall Period"
-msgstr ""
+msgstr "Inkathi Ephelele"
 
 #: src/dialogs/resume/sections/experience.tsx
 msgid "Overall Title (optional)"
-msgstr ""
+msgstr "Isihloko Sisonke (ongakukhetha)"
 
 #: src/routes/dashboard/admin/experience-queue.tsx
 msgid "Override"
-msgstr ""
+msgstr "Khipha"
 
 #: src/routes/dashboard/admin/experience-queue.tsx
 msgid "Override Decision"
-msgstr ""
+msgstr "Khipha Isinqumo"
 
 #: src/routes/dashboard/admin/experience-queue.tsx
 msgid "Override to "
-msgstr ""
+msgstr "Khipha ku"
 
 #: src/routes/dashboard/admin/experience-queue.tsx
 msgid "Overriding..."
-msgstr ""
+msgstr "Iyakhipha..."
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Oxford University"
-msgstr ""
+msgstr "Oxford University"
 
 #: src/utils/resume/section.tsx
 msgid "Page"
-msgstr ""
+msgstr "Ikhasi"
 
 #. placeholder {0}: pageIndex + 1
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/layout/pages.tsx
 msgid "Page {0}"
-msgstr ""
+msgstr "Ikhasi {0}"
 
 #. placeholder {0}: search.page
 #. placeholder {1}: data.total
 #: src/routes/dashboard/admin/users.tsx
 msgid "Page {0} of {totalPages} — {1} users"
-msgstr ""
+msgstr "Ikhasi {0} kwangu-{totalPages} â {1} abasebenzisi"
+
+#. placeholder {0}: pageIndex + 1
+#: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
+msgid "Page {0}: {sectionTitle}"
+msgstr "Ikhasi {0}: {sectionTitle}"
 
 #: src/routes/dashboard/job-search/index.tsx
 msgid "Page {currentPage}"
-msgstr ""
+msgstr "Ikhasi {currentPage}"
 
 #: src/components/resume/preview.tsx
 msgid "Page {pageNumber} of {totalNumberOfPages}"
-msgstr ""
+msgstr "Ikhasi {pageNumber} kwangu-{totalNumberOfPages}"
 
 #: src/components/input/rich-input.tsx
 msgid "Paragraph"
-msgstr ""
+msgstr "Isigaba"
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Part-time"
-msgstr ""
+msgstr "Itoho"
 
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Pass the review to earn a verified skill badge, boost your profile visibility, and let opportunities come to you."
-msgstr ""
+msgstr "Dlula isibuyekezo ukuze uzuze ibheji lekhono eliqinisekisiwe, uthuthukise ukubonakala kwephrofayela yakho, futhi uvumele amathuba eze kuwe."
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Passive discovery"
-msgstr ""
+msgstr "Ukutholwa kwesikhashana"
 
 #: src/dialogs/auth/disable-two-factor.tsx
 #: src/dialogs/auth/enable-two-factor.tsx
@@ -2513,32 +2596,32 @@ msgstr ""
 #: src/routes/auth/resume-password.tsx
 #: src/routes/dashboard/settings/authentication/-components/password.tsx
 msgid "Password"
-msgstr ""
+msgstr "Iphasiwedi"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 msgid "Password cannot be empty."
-msgstr ""
+msgstr "Iphasiwedi ayikwazi ukungabi nalutho."
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 msgid "Password protection has been disabled."
-msgstr ""
+msgstr "Ukuvikelwa kwephasiwedi kukhutshaziwe."
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 msgid "Password protection has been enabled."
-msgstr ""
+msgstr "Ukuvikelwa kwephasiwedi kunikwe amandla."
 
 #: src/routes/dashboard/admin/users.tsx
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Pending"
-msgstr ""
+msgstr "Kusalindile"
 
 #: src/routes/dashboard/admin/experience-queue.tsx
 msgid "Pending Verdicts"
-msgstr ""
+msgstr "Izinqumo ezilindile"
 
 #: src/routes/dashboard/-components/sidebar-identity-verification-status.tsx
 msgid "Pending verification"
-msgstr ""
+msgstr "Kusalinde ukuqinisekiswa"
 
 #: src/dialogs/resume/sections/education.tsx
 #: src/dialogs/resume/sections/experience.tsx
@@ -2546,95 +2629,95 @@ msgstr ""
 #: src/dialogs/resume/sections/project.tsx
 #: src/dialogs/resume/sections/volunteer.tsx
 msgid "Period"
-msgstr ""
+msgstr "Isikhathi"
 
 #: src/utils/locale.ts
 msgid "Persian"
-msgstr ""
+msgstr "isiPheresiya"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Personality"
-msgstr ""
+msgstr "Ubuntu"
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Personality & culture fit"
-msgstr ""
+msgstr "Ukufaneleka kobuntu namasiko"
 
 #: src/dialogs/resume/sections/reference.tsx
 #: src/routes/builder/$resumeId/-sidebar/left/sections/basics.tsx
 msgid "Phone"
-msgstr ""
+msgstr "Ucingo"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Pick a presentation that puts verification and outcomes first. Each card shows a real export layout from the builder — same document you share, with structure tuned for how people actually skim proof."
-msgstr ""
+msgstr "Khetha isethulo esibeka ukuqinisekiswa nemiphumela kuqala. Ikhadi ngalinye libonisa ukwakheka kwangempela kokuthekelisa lisuka kumakhi â idokhumenti efanayo owabelana ngayo, nesakhiwo esilungiselelwe indlela abantu ababuhlola ngayo ubufakazi."
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Pick a region to fill in your authorization details. Statuses already filled are shown next to each region."
-msgstr ""
+msgstr "Khetha isifunda ukuze ugcwalise imininingwane yakho yokugunyazwa. Izimo esezigcwalisiwe kakade ziboniswa eduze kwesifunda ngasinye."
 
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Pick skills to verify"
-msgstr ""
+msgstr "Khetha amakhono ozowaqinisekisa"
 
 #: src/utils/resume/section.tsx
 msgid "Picture"
-msgstr ""
+msgstr "Isithombe"
 
 #: src/routes/_home/-sections/statistics.tsx
 msgid "Platform statistics"
-msgstr ""
+msgstr "Izibalo zenkundla"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Please complete the required work authorization fields before saving."
-msgstr ""
+msgstr "Sicela ugcwalise izinkambu zokugunyazwa komsebenzi ezidingekayo ngaphambi kokulondoloza."
 
 #: src/routes/auth/reset-password.tsx
 msgid "Please enter a new password for your account"
-msgstr ""
+msgstr "Sicela ufake iphasiwedi entsha ye-akhawunti yakho"
 
 #: src/routes/auth/resume-password.tsx
 msgid "Please enter the password shared with you by the owner of the resume to continue."
-msgstr ""
+msgstr "Sicela ufake iphasiwedi eyabelwe wena ngumnikazi we-resume ukuze uqhubeke."
 
 #: src/components/input/rich-input.tsx
 msgid "Please enter the URL you want to link to:"
-msgstr ""
+msgstr "Sicela ufake i-URL ofuna ukuyixhumanisa nayo:"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Please select a resume before saving."
-msgstr ""
+msgstr "Sicela ukhethe ukuqhubeka ngaphambi kokulondoloza."
 
 #: src/dialogs/resume/import.tsx
 msgid "Please wait for AI availability to finish loading, then try again."
-msgstr ""
+msgstr "Sicela ulinde ukutholakala kwe-AI ukuze kuqedele ukulayisha, bese uzama futhi."
 
 #: src/routes/builder/$resumeId/-components/dock.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/export.tsx
 msgid "Please wait while your PDF is being generated..."
-msgstr ""
+msgstr "Sicela ulinde ngenkathi kukhiqizwa i-PDF yakho..."
 
 #: src/utils/locale.ts
 msgid "Polish"
-msgstr ""
+msgstr "IsiPolish"
 
 #: src/routes/builder/$resumeId/-sidebar/left/sections/picture.tsx
 msgid "Portrait"
-msgstr ""
+msgstr "Ukuma ngobude"
 
 #: src/utils/locale.ts
 msgid "Portuguese (Brazil)"
-msgstr ""
+msgstr "Isi-Portuguese (Brazil)"
 
 #: src/utils/locale.ts
 msgid "Portuguese (Portugal)"
-msgstr ""
+msgstr "Isi-Portuguese (Portugal)"
 
 #: src/dialogs/resume/sections/experience.tsx
 #: src/dialogs/resume/sections/experience.tsx
 #: src/dialogs/resume/sections/reference.tsx
 msgid "Position"
-msgstr ""
+msgstr "Isikhundla"
 
 #: src/components/command-palette/pages/navigation.tsx
 #: src/components/command-palette/pages/navigation.tsx
@@ -2642,267 +2725,272 @@ msgstr ""
 #: src/routes/dashboard/-components/sidebar.tsx
 #: src/routes/dashboard/settings/preferences.tsx
 msgid "Preferences"
-msgstr ""
+msgstr "Okuthandwayo"
 
 #: src/components/input/chip-input.tsx
 msgid "Press <0>{RETURN_KEY}</0> or <1>{COMMA_KEY}</1> to add or save the current keyword."
-msgstr ""
+msgstr "Cindezela u-<0>{RETURN_KEY}</0> noma u-<1>{COMMA_KEY}</1> ukuze wengeze noma ulondoloze igama elingukhiye lamanje."
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Preview"
-msgstr ""
+msgstr "Buka kuqala"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Preview of a verified candidate profile"
-msgstr ""
+msgstr "Ukubuka kuqala kwephrofayela yekhandidethi eqinisekisiwe"
 
 #: src/routes/dashboard/admin/users.tsx
 #: src/routes/dashboard/job-search/index.tsx
 msgid "Previous"
-msgstr ""
+msgstr "Ngaphambilini"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/design.tsx
 msgid "Primary Color"
-msgstr ""
+msgstr "Umbala Oyinhloko"
 
 #: src/routes/dashboard/-components/sidebar.tsx
 #: src/routes/dashboard/settings/privacy.tsx
 msgid "Privacy"
-msgstr ""
+msgstr "Ubumfihlo"
 
 #: src/routes/_home/-sections/footer.tsx
 msgid "Product"
-msgstr ""
+msgstr "Umkhiqizo"
 
 #: src/dialogs/resume/sections/skill.tsx
 msgid "Proficiency"
-msgstr ""
+msgstr "Ubungoti"
 
 #: src/components/command-palette/pages/navigation.tsx
 #: src/components/command-palette/pages/navigation.tsx
 #: src/routes/dashboard/-components/sidebar.tsx
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Profile"
-msgstr ""
+msgstr "Iphrofayela"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Profile image URL"
-msgstr ""
+msgstr "I-URL yesithombe sephrofayela"
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "Profile link: {freelancerUrl}. Submit your verification request?"
-msgstr ""
+msgstr "Isixhumanisi sephrofayela: {freelancerUrl}. Thumela isicelo sakho sokuqinisekisa?"
 
 #: src/dialogs/resume/sections/custom.tsx
 #: src/utils/resume/section.tsx
 msgid "Profiles"
-msgstr ""
+msgstr "Amaphrofayili"
 
 #: src/components/level/combobox.tsx
 msgid "Progress Bar"
-msgstr ""
+msgstr "Ibha Yentuthuko"
 
 #: src/dialogs/resume/sections/custom.tsx
 #: src/routes/_home/-sections/hero-visual.tsx
 #: src/routes/dashboard/verification/index.tsx
 #: src/utils/resume/section.tsx
 msgid "Projects"
-msgstr ""
+msgstr "Amaphrojekthi"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Proof-first"
-msgstr ""
+msgstr "Ubufakazi-kuqala"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 msgid "Protect your resume from unauthorized access with a password"
-msgstr ""
+msgstr "Vikela i-resume yakho ekufinyeleleni okungagunyaziwe ngephasiwedi"
 
 #: src/routes/dashboard/admin/ai.tsx
 msgid "Provider"
-msgstr ""
+msgstr "Umhlinzeki"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Providers"
-msgstr ""
+msgstr "Abahlinzeki"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Public"
-msgstr ""
+msgstr "Esidlangalaleni"
 
 #: src/dialogs/resume/sections/custom.tsx
 #: src/utils/resume/section.tsx
 msgid "Publications"
-msgstr ""
+msgstr "Okushicilelwe"
 
 #: src/dialogs/resume/sections/publication.tsx
 msgid "Publisher"
-msgstr ""
+msgstr "Umshicileli"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Pulse"
-msgstr ""
+msgstr "I-Pulse"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Python/Django dashboard with interactive visualizations"
-msgstr ""
+msgstr "Ideshibhodi yePython/Django enokubonwa okusebenzisanayo"
 
 #. placeholder {0}: quota.remaining
 #: src/routes/dashboard/job-search/index.tsx
 msgid "Quota: {0} remaining"
-msgstr ""
+msgstr "Isabelo: {0} esisele"
 
 #: src/routes/dashboard/admin/job-search.tsx
 msgid "RapidAPI Key"
-msgstr ""
+msgstr "Ukhiye we-RapidAPI"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "React"
-msgstr ""
+msgstr "Sabele"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "React Native mobile app with real-time synchronization"
-msgstr ""
+msgstr "Uhlelo lokusebenza leselula le-React Native ngokuvumelanisa ngesikhathi sangempela"
 
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Receive a practical assignment from your reviewer, submit your work, and get actionable feedback in a real conversation."
-msgstr ""
+msgstr "Thola umsebenzi ozokwenziwa ovela kumbuyekezi wakho, hambisa umsebenzi wakho, futhi uthole impendulo engenzeka engxoxweni yangempela."
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Recent sessions"
-msgstr ""
+msgstr "Amaseshini akamuva"
 
 #: src/dialogs/resume/sections/cover-letter.tsx
 msgid "Recipient"
-msgstr ""
+msgstr "Umamukeli"
 
 #: src/components/level/combobox.tsx
 msgid "Rectangle"
-msgstr ""
+msgstr "Unxande"
 
 #: src/components/level/combobox.tsx
 msgid "Rectangle (Full Width)"
-msgstr ""
+msgstr "Unxande (Ububanzi obugcwele)"
 
+#: src/routes/builder/$resumeId/-components/dock.tsx
 #: src/routes/builder/$resumeId/-components/dock.tsx
 msgctxt "'Ctrl' may be replaced with the locale-specific equivalent (e.g. 'Strg' for QWERTZ layouts)."
 msgid "Redo (Ctrl+Y)"
-msgstr ""
+msgstr "Yenza futhi (Ctrl+Y)"
 
 #: src/dialogs/resume/sections/custom.tsx
 #: src/utils/resume/section.tsx
 msgid "References"
-msgstr ""
+msgstr "Izithenjwa"
 
 #: src/components/layout/error-screen.tsx
 msgid "Refresh"
-msgstr ""
+msgstr "Vuselela"
 
 #: src/dialogs/resume/ai-review.tsx
 msgid "Regenerate review"
-msgstr ""
+msgstr "Khiqiza kabusha isibuyekezo"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Region"
-msgstr ""
+msgstr "Isifunda"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Rejected/issue"
-msgstr ""
+msgstr "Inqatshiwe/indaba"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Relay"
-msgstr ""
+msgstr "I-Relay"
 
 #: src/routes/auth/forgot-password.tsx
 msgid "Remember your password? <0/>"
-msgstr ""
+msgstr "Khumbula iphasiwedi yakho? <0/>"
 
 #: src/routes/dashboard/job-search/-components/job-detail.tsx
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 #: src/routes/dashboard/job-search/index.tsx
 msgid "Remote"
-msgstr ""
+msgstr "Isilawuli kude"
 
 #: src/routes/dashboard/job-search/-components/use-job-search.ts
 msgid "Remote only"
-msgstr ""
+msgstr "Isilawuli kude kuphela"
 
 #: src/dialogs/resume/sections/experience.tsx
 msgid "Remove"
-msgstr ""
+msgstr "Susa"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 msgid "Remove Password"
-msgstr ""
+msgstr "Susa Iphasiwedi"
 
 #: src/components/ai/chat.tsx
 msgid "Removed"
-msgstr ""
+msgstr "Kususiwe"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 msgid "Removing password protection..."
-msgstr ""
+msgstr "Isusa ukuvikelwa kwephasiwedi..."
 
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-menu.tsx
 msgid "Rename"
-msgstr ""
+msgstr "Qamba kabusha"
 
 #: src/dialogs/resume/sections/experience.tsx
 msgid "Reorder"
-msgstr ""
+msgstr "Hlela kabusha"
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "Request"
-msgstr ""
+msgstr "Isicelo"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Request a new link"
+msgstr "Cela isixhumanisi esisha"
 
 #: src/routes/dashboard/job-search/-components/job-detail.tsx
 msgid "Required Skills"
-msgstr ""
+msgstr "Amakhono Adingekayo"
 
 #: src/routes/dashboard/admin/experience-queue.tsx
 msgid "Required: reason for overriding this verdict..."
-msgstr ""
+msgstr "Kuyadingeka: isizathu sokweqa lesi sinqumo..."
 
-#: src/routes/dashboard/settings/profile.tsx
 #: src/routes/auth/verify-email.tsx
+#: src/routes/dashboard/settings/profile.tsx
 msgid "Resend verification email"
 msgstr "Thumela kabusha i-imeyili yokuqinisekisa"
 
-#: src/routes/dashboard/settings/profile.tsx
 #: src/routes/auth/verify-email.tsx
+#: src/routes/dashboard/settings/profile.tsx
 msgid "Resending verification email..."
 msgstr "Kuthunyelwa kabusha i-imeyili yokuqinisekisa..."
 
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-menu.tsx
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Reset"
-msgstr ""
+msgstr "Setha kabusha"
 
 #: src/routes/auth/reset-password.tsx
 msgid "Reset Password"
-msgstr ""
+msgstr "Setha kabusha Iphasiwedi"
 
 #: src/routes/auth/reset-password.tsx
 msgid "Reset your password"
-msgstr ""
+msgstr "Setha kabusha iphasiwedi yakho"
 
 #: src/routes/auth/reset-password.tsx
 msgid "Resetting your password..."
-msgstr ""
+msgstr "Isetha kabusha iphasiwedi yakho..."
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Resume"
-msgstr ""
+msgstr "Qalisa kabusha"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Resume footprint"
-msgstr ""
+msgstr "Qalisa kabusha umkhondo"
 
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 msgid "Resume tailored successfully"
-msgstr ""
+msgstr "Qalisa kabusha yenziwe ngempumelelo"
 
 #: src/components/command-palette/pages/navigation.tsx
 #: src/components/command-palette/pages/navigation.tsx
@@ -2913,90 +3001,90 @@ msgstr ""
 #: src/routes/dashboard/admin/users.tsx
 #: src/routes/dashboard/resumes/index.tsx
 msgid "Resumes"
-msgstr ""
+msgstr "Iqalisa kabusha"
 
 #: src/routes/dashboard/admin/users.tsx
 #: src/routes/dashboard/job-search/index.tsx
 #: src/routes/dashboard/verification/index.tsx
 #: src/routes/dashboard/verification/index.tsx
 msgid "Retry"
-msgstr ""
+msgstr "Zama futhi"
 
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Retry Identity Verification"
-msgstr ""
+msgstr "Zama futhi ukuqinisekiswa kobunikazi"
 
 #: src/routes/dashboard/admin/experience-queue.tsx
 #: src/routes/dashboard/admin/identity.tsx
 msgid "Review"
-msgstr ""
+msgstr "Buyekeza"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Review Decision"
-msgstr ""
+msgstr "Buyekeza Isinqumo"
 
 #: src/routes/dashboard/-components/sidebar.tsx
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Reviewer Admin"
-msgstr ""
+msgstr "Umlawuli Wokubuyekeza"
 
 #: src/routes/reviewer/$adminId.tsx
 msgid "Reviewer since {memberSince}"
-msgstr ""
+msgstr "Umbuyekezi kusukela ku-{memberSince}"
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Reviewers don't see who they're assessing, so your skills are judged on their merit — not your background."
-msgstr ""
+msgstr "Ababuyekezi ababoni ukuthi bahlola bani, ngakho amakhono akho ahlulelwa ngokufaneleka kwabo â hhayi isizinda sakho."
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "Reviewers evaluate your submission without seeing your name, employer, or background. If you're ever unhappy with an outcome, you can request a second opinion from a different reviewer."
-msgstr ""
+msgstr "Ababuyekezi bahlola ukuhambisa kwakho ngaphandle kokubona igama lakho, umqashi, noma isizinda. Uma ungajabuli ngomphumela, ungacela umbono wesibili kumbuyekezi ohlukile."
 
 #: src/components/input/rich-input.tsx
 msgid "Right Align"
-msgstr ""
+msgstr "Qondanisa Kwesokudla"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Role"
-msgstr ""
+msgstr "Iqhaza"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Role assigned"
-msgstr ""
+msgstr "Indima eyabelwe"
 
 #: src/dialogs/resume/sections/experience.tsx
 msgid "Role Progression"
-msgstr ""
+msgstr "Ukuthuthuka Kwendima"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Role updated"
-msgstr ""
+msgstr "Indima ibuyekeziwe"
 
 #: src/utils/locale.ts
 msgid "Romanian"
-msgstr ""
+msgstr "IsiRomania"
 
 #: src/routes/builder/$resumeId/-sidebar/left/sections/picture.tsx
 msgid "Rotation"
-msgstr ""
+msgstr "Ukuzungezisa"
 
 #: src/utils/locale.ts
 msgid "Russian"
-msgstr ""
+msgstr "IsiRashiya"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Save"
-msgstr ""
+msgstr "Londoloza"
 
 #. placeholder {0}: selectedSkills.size
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 msgid "Save {0} Skills"
-msgstr ""
+msgstr "Londoloza {0} Amakhono"
 
 #: src/routes/dashboard/admin/ai.tsx
 #: src/routes/dashboard/admin/job-search.tsx
 msgid "Save and verify"
-msgstr ""
+msgstr "Londoloza futhi uqinisekise"
 
 #: src/dialogs/resume/index.tsx
 #: src/dialogs/resume/sections/award.tsx
@@ -3016,79 +3104,84 @@ msgstr ""
 #: src/dialogs/resume/sections/volunteer.tsx
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Save Changes"
-msgstr ""
+msgstr "Londoloza Izinguquko"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Save work authorization"
-msgstr ""
+msgstr "Londoloza ukugunyazwa komsebenzi"
 
 #: src/routes/dashboard/admin/ai.tsx
 #: src/routes/dashboard/admin/job-search.tsx
 msgid "Saved, but the connection test did not succeed"
-msgstr ""
+msgstr "Kulondoloziwe, kodwa ukuhlolwa kokuxhumeka akuphumelelanga"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Saving..."
-msgstr ""
+msgstr "Iyalondoloza..."
 
 #: src/dialogs/auth/enable-two-factor.tsx
 msgid "Scan the QR code below with your preferred authenticator app. You can also copy the secret below and paste it into your app."
-msgstr ""
+msgstr "Skena ikhodi ye-QR ngezansi ngohlelo lwakho lokusebenza oluncamelayo lokufakazela ubuqiniso. Ungaphinda ukopishe imfihlo engezansi bese uyinamathisele kuhlelo lwakho lokusebenza."
 
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Schedule Identity Verification"
-msgstr ""
+msgstr "Hlela Ukuqinisekiswa Kobunikazi"
 
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Scheduling is not currently available."
-msgstr ""
+msgstr "Ukuhlela akutholakali okwamanje."
 
 #: src/dialogs/resume/sections/education.tsx
 msgid "School"
-msgstr ""
+msgstr "Isikole"
 
 #: src/routes/dashboard/admin/users.tsx
 #: src/routes/dashboard/job-search/index.tsx
 #: src/routes/dashboard/job-search/index.tsx
 msgid "Search"
-msgstr ""
+msgstr "Sesha"
+
+#: src/components/command-palette/index.tsx
+msgid "Search commands"
+msgstr "Sesha imiyalo"
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Search countries"
-msgstr ""
+msgstr "Sesha amazwe"
 
 #: src/components/input/icon-picker.tsx
 #: src/components/input/icon-picker.tsx
 msgid "Search for an icon"
-msgstr ""
+msgstr "Sesha isithonjana"
 
 #: src/components/command-palette/pages/resumes.tsx
 msgid "Search for..."
-msgstr ""
+msgstr "Sesha..."
 
+#: src/components/command-palette/index.tsx
 #: src/components/ui/combobox.tsx
 msgid "Search..."
-msgstr ""
+msgstr "Sesha..."
 
 #: src/dialogs/auth/enable-two-factor.tsx
 msgid "Secret copied to clipboard."
-msgstr ""
+msgstr "Imfihlo ikopishelwe ebhodini lokunamathisela."
 
 #: src/dialogs/resume/sections/custom.tsx
 msgid "Section Type"
-msgstr ""
+msgstr "Uhlobo Lwesigaba"
 
 #: src/routes/_home/-sections/hero.tsx
 msgid "See how it works"
-msgstr ""
+msgstr "Bona ukuthi isebenza kanjani"
 
 #: src/routes/_home/-sections/hero.tsx
 msgid "See how verification works"
-msgstr ""
+msgstr "Bona ukuthi ukuqinisekiswa kusebenza kanjani"
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "Select a payslip, contract, or other proof of employment (PDF, JPG, PNG, max 5MB)."
-msgstr ""
+msgstr "Khetha i-payslip, inkontileka, noma obunye ubufakazi bokuqashwa (PDF, JPG, PNG, max 5MB)."
 
 #. placeholder {0}: job.job_title
 #. placeholder {1}: job.employer_name
@@ -3099,107 +3192,107 @@ msgstr ""
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Select country"
-msgstr ""
+msgstr "Khetha izwe"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Select region"
-msgstr ""
+msgstr "Khetha isifunda"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Select resume"
-msgstr ""
+msgstr "Khetha ukuqhubeka"
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "Select Resume"
-msgstr ""
+msgstr "Khetha Qalisa Kabusha"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Select sponsorship requirement"
-msgstr ""
+msgstr "Khetha imfuneko yoxhaso"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Select status"
-msgstr ""
+msgstr "Khetha isimo"
 
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Select the skills you want endorsed and choose a reviewer for a personalized, scenario-based assessment."
-msgstr ""
+msgstr "Khetha amakhono ofuna agunyazwe bese ukhetha umbuyekezi wokuhlola komuntu siqu, okusekelwe kusimo."
 
 #: src/components/ui/combobox.tsx
 msgid "Select..."
-msgstr ""
+msgstr "Khetha..."
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Self-starter"
-msgstr ""
+msgstr "Oziqalayo"
 
 #: src/routes/auth/forgot-password.tsx
 msgid "Send Password Reset Email"
-msgstr ""
+msgstr "Thumela I-imeyili Yokusetha Kabusha Iphasiwedi"
 
 #: src/routes/auth/forgot-password.tsx
 msgid "Sending password reset email..."
-msgstr ""
+msgstr "Ithumela i-imeyili yokusetha kabusha iphasiwedi..."
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Senior AI Engineer"
-msgstr ""
+msgstr "Unjiniyela Omkhulu we-AI"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Senior Full Stack Developer"
-msgstr ""
+msgstr "Unjiniyela Omkhulu Wesitaki Esigcwele"
 
 #: src/components/input/rich-input.tsx
 msgid "Separator"
-msgstr ""
+msgstr "Isihlukanisi"
 
 #: src/utils/locale.ts
 msgid "Serbian"
-msgstr ""
+msgstr "IsiSerbia"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Session summary"
-msgstr ""
+msgstr "Isifinyezo seseshini"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 #: src/routes/dashboard/settings/authentication/-components/password.tsx
 msgid "Set Password"
-msgstr ""
+msgstr "Setha Iphasiwedi"
 
 #: src/components/command-palette/pages/navigation.tsx
 #: src/components/command-palette/pages/navigation.tsx
 #: src/components/command-palette/pages/navigation.tsx
 #: src/routes/dashboard/-components/sidebar.tsx
 msgid "Settings"
-msgstr ""
+msgstr "Izilungiselelo"
 
 #: src/routes/dashboard/admin/ai.tsx
 #: src/routes/dashboard/admin/job-search.tsx
 msgid "Settings saved"
-msgstr ""
+msgstr "Izilungiselelo zilondoloziwe"
 
 #: src/dialogs/auth/enable-two-factor.tsx
 msgid "Setup Authenticator App"
-msgstr ""
+msgstr "Setha Uhlelo Lokufakazela ubuqiniso"
 
 #: src/routes/builder/$resumeId/-sidebar/left/sections/picture.tsx
 msgid "Shadow Width"
-msgstr ""
+msgstr "Ububanzi Bethunzi"
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Share anywhere, instantly"
-msgstr ""
+msgstr "Yabelana noma yikuphi, ngokushesha"
 
 #: src/utils/resume/section.tsx
 msgid "Sharing"
-msgstr ""
+msgstr "Ukwabelana"
 
 #: src/routes/builder/$resumeId/-sidebar/left/sections/custom.tsx
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-menu.tsx
 msgid "Show"
-msgstr ""
+msgstr "Bonisa"
 
 #: src/dialogs/resume/sections/award.tsx
 #: src/dialogs/resume/sections/certification.tsx
@@ -3211,604 +3304,634 @@ msgstr ""
 #: src/dialogs/resume/sections/reference.tsx
 #: src/dialogs/resume/sections/volunteer.tsx
 msgid "Show link in title"
-msgstr ""
+msgstr "Bonisa isixhumanisi esihlokweni"
 
 #: src/routes/dashboard/settings/privacy.tsx
 #: src/routes/dashboard/settings/privacy.tsx
 msgid "Show or hide the verification timeline on your public CV. This is off by default."
-msgstr ""
+msgstr "Bonisa noma fihla umugqa wesikhathi wokuqinisekisa ku-CV yakho yomphakathi. Lokhu kuvalwe ngokuzenzakalela."
 
 #: src/routes/dashboard/settings/privacy.tsx
 msgid "Show Timeline on Public CV"
-msgstr ""
+msgstr "Bonisa umugqa wesikhathi ku-CV yomphakathi"
 
+#: src/components/ui/sidebar.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/layout/pages.tsx
 msgid "Sidebar"
-msgstr ""
+msgstr "Ibha eseceleni"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/layout/index.tsx
 msgid "Sidebar Width"
-msgstr ""
+msgstr "Ububanzi bebha eseceleni"
 
 #: src/routes/auth/login.tsx
+#: src/routes/auth/verify-email.tsx
 #: src/routes/auth/verify-email.tsx
 msgid "Sign in"
 msgstr "Ngena ngemvume"
 
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to verify your email"
+msgstr "Ngena ngemvume ukuze uqinisekise i-imeyili yakho"
+
 #: src/routes/auth/login.tsx
 msgid "Sign in to your account"
-msgstr ""
+msgstr "Ngena ngemvume ku-akhawunti yakho"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to your account to request a new verification email."
+msgstr "Ngena ku-akhawunti yakho ukuze ucele i-imeyili entsha yokuqinisekisa."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to your account, then request a new verification email."
+msgstr "Ngena ku-akhawunti yakho, bese ucela i-imeyili entsha yokuqinisekisa."
 
 #: src/routes/auth/register.tsx
 msgid "Sign up"
-msgstr ""
+msgstr "Bhalisa"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Signal density"
-msgstr ""
+msgstr "Ukuminyana kwesignali"
 
 #: src/routes/auth/-components/social-auth.tsx
 #: src/routes/auth/-components/social-auth.tsx
 #: src/routes/auth/login.tsx
 msgid "Signing in..."
-msgstr ""
+msgstr "Ingena ngemvume..."
 
 #: src/components/user/dropdown-menu.tsx
 msgid "Signing out..."
-msgstr ""
+msgstr "Iyaphuma..."
 
 #: src/routes/auth/register.tsx
 msgid "Signing up..."
-msgstr ""
+msgstr "Iyabhalisa..."
 
 #: src/dialogs/resume/template/data.ts
 msgid "Single-column with a magenta left border accent; compact and efficient for entry-level or internship applications."
-msgstr ""
+msgstr "Ikholomu eyodwa enomngcele wesokunxele we-magenta; ihlangene futhi iyasebenza ezingeni lokungena noma izicelo ze-internship."
 
 #: src/dialogs/resume/template/data.ts
 msgid "Single-column with a minimal top header and lots of whitespace; clean and modern for designers or content creators."
-msgstr ""
+msgstr "Ikholomu eyodwa enesihloko esincane esiphezulu nesikhala esimhlophe esiningi; ihlanzekile futhi yesimanje kubaklami noma abadali bokuqukethwe."
 
 #: src/dialogs/resume/template/data.ts
 msgid "Single-column with a sidebar and clean grid layout; versatile for any professional or technical role."
-msgstr ""
+msgstr "Ikholomu eyodwa enebha eseceleni kanye nesakhiwo segridi ehlanzekile; eguquguqukayo kunoma iyiphi indima yobungcweti noma yobuchwepheshe."
 
 #: src/dialogs/resume/template/data.ts
 msgid "Single-column; polished and serious for senior or enterprise-level positions."
-msgstr ""
+msgstr "Ikholomu eyodwa; iphucuziwe futhi ibucayi ezikhundleni eziphezulu noma zebhizinisi."
 
 #: src/routes/builder/$resumeId/-sidebar/left/sections/picture.tsx
 msgid "Size"
-msgstr ""
+msgstr "Usayizi"
 
 #: src/routes/dashboard/-components/sidebar.tsx
 msgid "Skill Center"
-msgstr ""
+msgstr "Isikhungo Samakhono"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Skill clusters"
-msgstr ""
+msgstr "Amaqoqo amakhono"
 
 #: src/routes/_home/-sections/header.tsx
 msgid "Skill Verdict - Go to homepage"
-msgstr ""
+msgstr "I-Skill Verdict - Yiya ekhasini eliyisiqalo"
 
 #: src/routes/dashboard/-components/sidebar.tsx
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Skill Verdict Admin"
-msgstr ""
+msgstr "Skill Verdict Admin"
 
 #: src/routes/dashboard/-components/sidebar.tsx
 msgid "Skill Verdict Verification"
-msgstr ""
+msgstr "Ukuqinisekiswa Kwesinqumo Sekhono"
 
 #: src/dialogs/resume/sections/custom.tsx
 #: src/routes/dashboard/verification/index.tsx
 #: src/utils/resume/section.tsx
 msgid "Skills"
-msgstr ""
+msgstr "Amakhono"
 
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 msgid "Skip"
-msgstr ""
+msgstr "Yeqa"
 
 #: src/routes/_home/route.tsx
 msgid "Skip to main content"
-msgstr ""
+msgstr "Yeqela kokuqukethwe okuyinhloko"
 
 #: src/utils/locale.ts
 msgid "Slovak"
-msgstr ""
+msgstr "IsiSlovak"
 
 #: src/utils/locale.ts
 msgid "Slovenian"
-msgstr ""
+msgstr "IsiSlovenian"
 
 #: src/dialogs/resume/index.tsx
 msgid "Slug"
-msgstr ""
+msgstr "Slug"
 
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 msgid "Some suggestions could not be applied"
-msgstr ""
+msgstr "Ezinye iziphakamiso azikwazanga ukusetshenziswa"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 msgid "Something went wrong. Please try again."
-msgstr ""
+msgstr "Kukhona okungahambanga kahle. Sicela uzame futhi."
 
 #: src/routes/dashboard/resumes/index.tsx
 msgid "Sort by"
-msgstr ""
+msgstr "Hlunga nge"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/page.tsx
 msgid "Spacing (Horizontal)"
-msgstr ""
+msgstr "Isikhala (Esivundlile)"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/page.tsx
 msgid "Spacing (Vertical)"
-msgstr ""
+msgstr "Isikhala (Kuqondile)"
 
 #: src/utils/locale.ts
 msgid "Spanish"
-msgstr ""
+msgstr "ISpanishi"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Split identity and evidence panes; keeps personality context beside hard verification."
-msgstr ""
+msgstr "Hlukanisa ubuwena kanye namafasitelana obufakazi; igcina okuqukethwe komuntu eceleni kokuqinisekisa okunzima."
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Sponsorship"
-msgstr ""
+msgstr "Uxhaso"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Sponsorship required"
-msgstr ""
+msgstr "Kudingeka uxhaso"
 
 #: src/components/level/combobox.tsx
 #: src/routes/builder/$resumeId/-sidebar/left/sections/picture.tsx
 msgid "Square"
-msgstr ""
+msgstr "Isikwele"
 
 #: src/components/input/github-stars-button.tsx
 msgid "Star us on GitHub (opens in new tab)"
-msgstr ""
+msgstr "Sifake inkanyezi ku-GitHub (ivula kuthebhu entsha)"
 
 #. placeholder {0}: starCount.toLocaleString()
 #: src/components/input/github-stars-button.tsx
 msgid "Star us on GitHub, currently {0} stars (opens in new tab)"
-msgstr ""
+msgstr "Sifake inkanyezi ku-GitHub, okwamanje {0} izinkanyezi (kuvuleka kuthebhu entsha)"
 
 #: src/dialogs/resume/index.tsx
 msgid "Start building your resume by giving it a name."
-msgstr ""
+msgstr "Qala ukwakha i-resume yakho ngokuyiqamba."
 
 #: src/routes/dashboard/resumes/-components/cards/create-card.tsx
-#: src/routes/dashboard/resumes/-components/list-view.tsx
+#: src/routes/dashboard/resumes/-components/resume-quick-actions.tsx
 msgid "Start building your resume from scratch"
-msgstr ""
+msgstr "Qala ukwakha i-resume yakho kusukela ekuqaleni"
 
 #: src/utils/resume/section.tsx
 msgid "Statistics"
-msgstr ""
+msgstr "Izibalo"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Status"
-msgstr ""
+msgstr "Isimo"
 
 #: src/hooks/use-form-blocker.tsx
 msgid "Stay"
-msgstr ""
+msgstr "Hlala"
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Stop chasing. Companies reach out directly to candidates whose verified skills match their requirements."
-msgstr ""
+msgstr "Yeka ukujaha. Izinkampani zifinyelela ngokuqondile kumakhandidethi amakhono awo aqinisekisiwe afana nezidingo zawo."
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Story arc"
-msgstr ""
+msgstr "I-arc yendaba"
 
 #: src/components/input/rich-input.tsx
 msgid "Strike"
-msgstr ""
+msgstr "Shaya"
 
 #: src/routes/dashboard/admin/experience-queue.tsx
 msgid "Submit Override"
-msgstr ""
+msgstr "Thumela Ukukhipha"
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "Submit Request"
-msgstr ""
+msgstr "Thumela Isicelo"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Submit Review"
-msgstr ""
+msgstr "Thumela isibuyekezo"
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "Submit?"
-msgstr ""
+msgstr "Thumela?"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/verification/index.tsx
 msgid "Submitting..."
-msgstr ""
+msgstr "Iyahambisa..."
 
 #: src/dialogs/resume/sections/custom.tsx
 #: src/utils/resume/section.tsx
 msgid "Summary"
-msgstr ""
+msgstr "Isifinyezo"
 
 #: src/utils/locale.ts
 msgid "Swedish"
-msgstr ""
+msgstr "IsiSwidi"
 
 #: src/components/theme/toggle-button.tsx
 msgid "Switch to dark theme"
-msgstr ""
+msgstr "Shintshela kutimu emnyama"
 
 #: src/components/theme/toggle-button.tsx
 msgid "Switch to light theme"
-msgstr ""
+msgstr "Shintshela kutimu ekhanyayo"
 
 #: src/components/input/rich-input.tsx
 msgid "Table"
-msgstr ""
+msgstr "Ithebula"
 
 #: src/dialogs/resume/index.tsx
 msgid "Tags"
-msgstr ""
+msgstr "Omaka"
 
 #: src/dialogs/resume/index.tsx
 msgid "Tags can be used to categorize your resume by keywords."
-msgstr ""
+msgstr "Omaka bangasetshenziswa ukuze uhlukanise i-CV yakho ngamagama angukhiye."
 
 #: src/routes/dashboard/job-search/-components/job-detail.tsx
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 msgid "Tailor Resume"
-msgstr ""
+msgstr "Qalisa kabusha i-Tailor"
 
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 msgid "Tailoring failed"
-msgstr ""
+msgstr "Ukuthunga akuphumelelanga"
 
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 msgid "Tailoring your resume..."
-msgstr ""
+msgstr "Ihlanganisa i-resume yakho..."
 
 #: src/utils/locale.ts
 msgid "Tamil"
-msgstr ""
+msgstr "IsiTamil"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Task Management App"
-msgstr ""
+msgstr "Uhlelo lokusebenza lokuphatha umsebenzi"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Team player"
-msgstr ""
+msgstr "Umdlali weqembu"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Technical skills"
-msgstr ""
+msgstr "Amakhono ezobuchwepheshe"
 
 #: src/utils/locale.ts
 msgid "Telugu"
-msgstr ""
+msgstr "Isi-Telugu"
 
 #: src/utils/resume/section.tsx
 msgid "Template"
-msgstr ""
+msgstr "Isifanekiso"
 
 #: src/dialogs/resume/template/gallery.tsx
 msgid "Template Gallery"
-msgstr ""
+msgstr "Igalari Yezifanekiso"
 
 #: src/routes/dashboard/admin/ai.tsx
 #: src/routes/dashboard/admin/job-search.tsx
 msgid "Test connection"
-msgstr ""
+msgstr "Hlola uxhumano"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/design.tsx
 msgid "Text Color"
-msgstr ""
+msgstr "Umbala Wombhalo"
 
 #: src/utils/locale.ts
 msgid "Thai"
-msgstr ""
+msgstr "IsiThai"
 
 #: src/routes/dashboard/settings/api-keys.tsx
 msgid "The API key has been deleted successfully."
-msgstr ""
+msgstr "Ukhiye we-API ususwe ngempumelelo."
 
 #: src/routes/dashboard/settings/api-keys.tsx
 msgid "The API key will no longer be able to access your data after deletion. This action cannot be undone."
-msgstr ""
+msgstr "Ukhiye we-API ngeke usakwazi ukufinyelela idatha yakho ngemva kokususwa. Lesi senzo asikwazi ukuhlehliswa."
 
 #: src/components/command-palette/index.tsx
 msgid "The command you're looking for doesn't exist."
-msgstr ""
+msgstr "Umyalo owufunayo awukho."
 
 #: src/components/resume/preview.tsx
 msgid "The content is too tall for this page, this may cause undesirable results when exporting to PDF."
-msgstr ""
+msgstr "Okuqukethwe kude kakhulu kuleli khasi, lokhu kungase kubangele imiphumela engathandeki uma uthekelisa ku-PDF."
 
 #: src/routes/auth/resume-password.tsx
 msgid "The password you entered is incorrect"
-msgstr ""
+msgstr "Iphasiwedi oyifakile ayilungile"
 
 #: src/routes/dashboard/admin/job-search.tsx
 msgid "The RapidAPI key is stored in the database and used for all users. Once configured and verified, every signed-in user can search for job listings via the JSearch API. Only Skill Verdict administrators can change this configuration."
-msgstr ""
+msgstr "Ukhiye we-RapidAPI ugcinwa kusizindalwazi futhi usetshenziselwe bonke abasebenzisi. Uma sekulungisiwe futhi kwaqinisekiswa, wonke umsebenzisi ongene ngemvume angasesha uhlu lwemisebenzi esebenzisa i-JSearch API. Abaphathi be-Skill Verdict kuphela abangashintsha lokhu kulungiselelwa."
 
 #: src/routes/auth/resume-password.tsx
 msgid "The resume you are trying to access is password protected"
-msgstr ""
+msgstr "I-resume ozama ukuyifinyelela ivikelwe ngephasiwedi"
 
 #: src/components/input/rich-input.tsx
 msgid "The URL you entered is not valid."
-msgstr ""
+msgstr "I-URL oyifakile ayivumelekile."
+
+#: src/routes/auth/verify-email.tsx
+msgid "The verification link may be invalid, expired, or already used."
+msgstr "Isixhumanisi sokuqinisekisa kungenzeka singavumelekile, siphelelwe isikhathi, noma sesisetshenzisiwe."
 
 #: src/components/command-palette/pages/preferences/theme.tsx
 #: src/components/user/dropdown-menu.tsx
 #: src/routes/dashboard/settings/preferences.tsx
 msgid "Theme"
-msgstr ""
+msgstr "Itimu"
 
 #: src/dialogs/auth/enable-two-factor.tsx
 msgid "Then, enter the 6 digit code that the app provides to continue."
-msgstr ""
+msgstr "Bese, faka ikhodi enamadijithi angu-6 ehlinzekwa uhlelo lokusebenza ukuze uqhubeke."
 
 #: src/routes/builder/$resumeId/-components/dock.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/export.tsx
 msgid "There was a problem while generating the DOCX, please try again."
-msgstr ""
+msgstr "Kube nenkinga ngenkathi kukhiqizwa i-DOCX, sicela uzame futhi."
 
 #: src/routes/builder/$resumeId/-components/dock.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/export.tsx
 msgid "There was a problem while generating the PDF, please try again in some time."
-msgstr ""
+msgstr "Kube nenkinga ngenkathi kukhiqizwa i-PDF, sicela uzame futhi ngokuhamba kwesikhathi."
 
 #: src/components/ai/chat.tsx
 msgid "Thinking..."
-msgstr ""
+msgstr "Ukucabanga..."
 
 #: src/routes/builder/$resumeId/-components/header.tsx
 #: src/routes/dashboard/resumes/-components/menus/context-menu.tsx
 #: src/routes/dashboard/resumes/-components/menus/dropdown-menu.tsx
 msgid "This action cannot be undone."
-msgstr ""
+msgstr "Lesi senzo asikwazi ukuhlehliswa."
 
 #: src/routes/dashboard/settings/danger-zone.tsx
 msgid "This action cannot be undone. All your data will be permanently deleted."
-msgstr ""
+msgstr "Lesi senzo asikwazi ukuhlehliswa. Yonke idatha yakho izosuswa unaphakade."
 
 #: src/dialogs/resume/import.tsx
 msgid "This import option is not available right now. Please try another format."
-msgstr ""
+msgstr "Le nketho yokungenisa ayitholakali okwamanje. Sicela uzame enye ifomethi."
 
 #: src/dialogs/resume/index.tsx
 msgid "This is a URL-friendly name for your resume."
-msgstr ""
+msgstr "Leli igama elilungele i-URL lokuqhubeka kwakho."
 
 #: src/dialogs/resume/import.tsx
 msgid "This may take a few minutes. Please do not close the window or refresh the page."
-msgstr ""
+msgstr "Lokhu kungase kuthathe amaminithi ambalwa. Sicela ungalivali iwindi noma uqalise kabusha ikhasi."
 
 #: src/routes/builder/$resumeId/-components/dock.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/export.tsx
 msgid "This may take a while depending on the server capacity. Please do not close the window or refresh the page."
-msgstr ""
+msgstr "Lokhu kungathatha isikhashana kuye ngomthamo weseva. Sicela ungalivali iwindi noma uqalise kabusha ikhasi."
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "This month"
-msgstr ""
+msgstr "Kule nyanga"
 
 #: src/routes/reviewer/$adminId.tsx
 msgid "This page shows live profile information. Verification snapshots captured at the time of review may differ from the current details shown here."
-msgstr ""
+msgstr "Leli khasi libonisa ulwazi lwephrofayela ebukhoma. Izifinyezo zokuqinisekisa ezithwetshulwe ngesikhathi sokubuyekezwa zingase zehluke kumininingwane yamanje eboniswe lapha."
 
 #: src/components/resume/store/resume.ts
 msgid "This resume is locked and cannot be updated."
-msgstr ""
+msgstr "Lokhu kuqhuba kukhiyiwe futhi akukwazi ukubuyekezwa."
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/notes.tsx
 msgid "This section is reserved for your personal notes specific to this resume. The content here remains private and is not shared with anyone else."
-msgstr ""
-
-#: src/routes/auth/register.tsx
-msgid "This step is optional, but recommended."
-msgstr ""
+msgstr "Lesi sigaba sigcinelwe amanothi akho siqu aqondene nalokhu kuqalisa kabusha. Okuqukethwe lapha kuhlala kuyimfihlo futhi akwabiwa nanoma ubani omunye."
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "This week"
-msgstr ""
+msgstr "Kuleli sonto"
 
 #: src/dialogs/api-key/create.tsx
 msgid "This will generate a new API key to access the Skill Verdict API to allow machines to interact with your resume data."
-msgstr ""
+msgstr "Lokhu kuzokhiqiza ukhiye omusha we-API ukuze ufinyelele i-Skill Verdict API ukuze uvumele imishini ukuthi ihlanganyele nedatha yakho yokuqalisa kabusha."
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Tight vertical rhythm for mobile sharing — still readable when the viewport is narrow."
-msgstr ""
+msgstr "Isigqi esiqondile esiqinile sokwabelana ngeselula â sisafundeka uma indawo yokubuka iyingcingo."
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Timeline-forward narrative with milestones; good when your evidence has a clear before/after."
-msgstr ""
+msgstr "Ukulandisa okudluliswa komugqa wesikhathi okunezinyathelo ezibalulekile; kuhle uma ubufakazi bakho bucacile ngaphambili/ngemuva."
 
 #: src/dialogs/api-key/create.tsx
 msgid "Tip: Give your API key a name, corresponding to the purpose of the key, to help you identify it later."
-msgstr ""
+msgstr "Ithiphu: Nikeza ukhiye wakho we-API igama, elihambisana nenjongo yokhiye, ukukusiza ukuthi uwukhombe ngemuva kwesikhathi."
 
 #: src/dialogs/resume/index.tsx
 msgid "Tip: You can name the resume referring to the position you are applying for."
-msgstr ""
+msgstr "Ithiphu: Ungasho igama lomsebenzisi ubhekise esikhundleni osifakela isicelo."
 
 #: src/dialogs/resume/sections/award.tsx
 #: src/dialogs/resume/sections/certification.tsx
 #: src/dialogs/resume/sections/custom.tsx
 #: src/dialogs/resume/sections/publication.tsx
 msgid "Title"
-msgstr ""
+msgstr "Isihloko"
 
 #: src/routes/dashboard/settings/danger-zone.tsx
 msgid "To delete your account, you need to enter the confirmation text and click the button below."
-msgstr ""
+msgstr "Ukuze ususe i-akhawunti yakho, udinga ukufaka umbhalo wokuqinisekisa bese uchofoza inkinobho engezansi."
 
 #: src/routes/dashboard/job-search/-components/job-utils.ts
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Today"
-msgstr ""
+msgstr "Namuhla"
+
+#: src/components/ui/sidebar.tsx
+#: src/components/ui/sidebar.tsx
+#: src/components/ui/sidebar.tsx
+msgid "Toggle Sidebar"
+msgstr "Guqula ibha eseceleni"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Total keys"
-msgstr ""
+msgstr "Izikhiye eziphelele"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Total request count"
-msgstr ""
+msgstr "Isamba senani lesicelo"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Total requests"
-msgstr ""
+msgstr "Izicelo eziphelele"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Total resumes"
-msgstr ""
+msgstr "Isamba siqala kabusha"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Total sessions"
-msgstr ""
+msgstr "Isamba seseshini"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/statistics.tsx
 msgid "Track your resume's views and downloads"
-msgstr ""
+msgstr "Landela ngomkhondo ukubukwa kwe-resume yakho nokulandiwe"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Try requesting a new verification link."
+msgstr "Zama ukucela isixhumanisi esisha sokuqinisekisa."
 
 #: src/utils/locale.ts
 msgid "Turkish"
-msgstr ""
+msgstr "IsiTurkey"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/statistics.tsx
 msgid "Turn on public sharing to track how many times your resume has been viewed or downloaded. Only you can see your resume's statistics."
-msgstr ""
+msgstr "Vula ukwabelana komphakathi ukuze ulandele ukuthi CV yakho ibukwe noma yalandwa izikhathi ezingaki. Uwena kuphela ongabona izibalo ze-resume yakho."
 
 #: src/dialogs/resume/template/data.ts
 msgid "Two-column with a bold colored sidebar and skill bars; great for creative or tech roles where visual flair is welcome."
-msgstr ""
+msgstr "Amakholomu amabili anebha eseceleni enombala ogqamile kanye nemigoqo yamakhono; kuhle kakhulu kuzindima zokudala noma zobuchwepheshe lapho ukugqama okubonakalayo kwamukelekile."
 
 #: src/dialogs/resume/template/data.ts
 msgid "Two-column with a dark teal sidebar and skills grid; modern feel for developers, data scientists, or technical PMs."
-msgstr ""
+msgstr "Amakholomu amabili anebha eseceleni ye-teal emnyama kanye negridi yamakhono; umuzwa wesimanje konjiniyela, ososayensi bedatha, noma ama-PM wobuchwepheshe."
 
 #: src/dialogs/resume/template/data.ts
 msgid "Two-column with a left margin color; simple and approachable for creative, editorial, or junior roles."
-msgstr ""
+msgstr "Amakholomu amabili anombala womugqa wesokunxele; ilula futhi iyangeneka ezindimeni zobuciko, zokuhlela, noma ezincane."
 
 #: src/dialogs/resume/template/data.ts
 msgid "Two-column with a muted color sidebar; earthy and calm, suits sustainability, healthcare, or nonprofit sectors."
-msgstr ""
+msgstr "Amakholomu amabili anebha eseceleni yombala othulisiwe; okomhlaba nokuzolile, kufanela ukusimama, ukunakekelwa kwezempilo, noma imikhakha engenzi nzuzo."
 
 #: src/dialogs/resume/template/data.ts
 msgid "Two-column with a soft header accent and circular profile photo; ideal for marketing, HR, or client-facing roles."
-msgstr ""
+msgstr "Amakholomu amabili anesihloko esithambile nesithombe sephrofayela esiyindilinga; ilungele ukumaketha, i-HR, noma izindima ezibhekene namakhasimende."
 
 #: src/dialogs/resume/template/data.ts
 msgid "Two-column with accent colors and clean typography; balanced choice for business analysts or operations roles."
-msgstr ""
+msgstr "Amakholomu amabili anemibala egqamile kanye ne-typography ehlanzekile; ukukhetha okunokulinganisela kwabahlaziyi bebhizinisi noma izindima zokusebenza."
 
 #: src/dialogs/resume/template/data.ts
 msgid "Two-column, clean and professional with subtle section dividers; suits corporate, finance, or consulting positions."
-msgstr ""
+msgstr "Amakholomu amabili, ahlanzekile futhi aqeqeshiwe anezihlukanisi zezigaba ezicashile; ifanele izikhundla zebhizinisi, ezezimali, noma zokubonisana."
 
 #: src/dialogs/resume/template/data.ts
 msgid "Two-column, minimal and text-dense with no decorative elements; perfect for traditional industries or ATS-heavy applications."
-msgstr ""
+msgstr "Amakholomu amabili, amancane futhi aminyene ngombhalo ngaphandle kwezinto zokuhlobisa; ilungele izimboni zendabuko noma izinhlelo zokusebenza ezinzima ze-ATS."
 
 #: src/dialogs/resume/template/data.ts
 msgid "Two-column, minimal with light gray sidebar and subtle icons; professional and understated for legal, finance, or executive roles."
-msgstr ""
+msgstr "Amakholomu amabili, amancane anebha eseceleni empunga ngokukhanyayo nezithonjana ezicashile; uchwepheshe kanye nezindima ezingaphansi kwezomthetho, ezezimali, noma eziphezulu."
 
 #: src/routes/auth/verify-2fa.tsx
 #: src/routes/dashboard/settings/authentication/-components/two-factor.tsx
 msgid "Two-Factor Authentication"
-msgstr ""
+msgstr "Ukuqinisekiswa Kwezinto Ezimbili"
 
 #: src/dialogs/auth/disable-two-factor.tsx
 msgid "Two-factor authentication has been disabled successfully."
-msgstr ""
+msgstr "Ukufakazela ubuqiniso kwezinto ezimbili kukhutshazwe ngempumelelo."
 
 #: src/dialogs/auth/enable-two-factor.tsx
 msgid "Two-factor authentication has been setup successfully."
-msgstr ""
+msgstr "Ukuqinisekiswa kwezinto ezimbili kusethwe ngempumelelo."
+
+#: src/dialogs/auth/enable-two-factor.tsx
+msgid "Two-Factor Authentication QR Code"
+msgstr "Ikhodi ye-QR yokuqinisekisa okuyizici ezimbili"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/users.tsx
 msgid "Two-factor enabled"
-msgstr ""
+msgstr "Izinto ezimbili zinikwe amandla"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Two-pane"
-msgstr ""
+msgstr "Amafasitelana amabili"
 
 #: src/dialogs/resume/import.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/design.tsx
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Type"
-msgstr ""
+msgstr "Uhlobo"
 
 #: src/routes/dashboard/settings/danger-zone.tsx
 msgid "Type \"{CONFIRMATION_TEXT}\" to confirm"
 msgstr ""
 
 #: src/components/command-palette/index.tsx
+#: src/components/command-palette/index.tsx
 msgid "Type a command or search..."
-msgstr ""
+msgstr "Thayipha umyalo noma sesha..."
 
 #: src/utils/resume/section.tsx
 msgid "Typography"
-msgstr ""
+msgstr "Ukuthayipha"
 
 #: src/utils/locale.ts
 msgid "Ukrainian"
-msgstr ""
+msgstr "Isi-Ukraine"
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "Unable to load verification history right now."
-msgstr ""
+msgstr "Ayikwazi ukulayisha umlando wokuqinisekisa njengamanje."
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Under 3 years"
-msgstr ""
+msgstr "Ngaphansi kweminyaka emi-3"
 
 #: src/components/input/rich-input.tsx
 msgid "Underline"
-msgstr ""
+msgstr "Dwebela"
 
+#: src/routes/builder/$resumeId/-components/dock.tsx
 #: src/routes/builder/$resumeId/-components/dock.tsx
 msgctxt "'Ctrl' may be replaced with the locale-specific equivalent (e.g. 'Strg' for QWERTZ layouts)."
 msgid "Undo (Ctrl+Z)"
-msgstr ""
+msgstr "Hlehlisa (Ctrl+Z)"
 
 #: src/routes/dashboard/admin/experience-queue.tsx
 #: src/routes/dashboard/admin/identity.tsx
 msgid "Unknown applicant"
-msgstr ""
+msgstr "Umfakisicelo ongaziwa"
 
 #: src/routes/dashboard/settings/authentication/-components/hooks.tsx
 msgid "Unlinking your {providerName} account..."
-msgstr ""
+msgstr "Isusa ukuxhumanisa i-akhawunti yakho ye-{providerName}..."
 
 #: src/routes/auth/resume-password.tsx
 #: src/routes/builder/$resumeId/-components/header.tsx
 #: src/routes/dashboard/resumes/-components/menus/context-menu.tsx
 #: src/routes/dashboard/resumes/-components/menus/dropdown-menu.tsx
 msgid "Unlock"
-msgstr ""
+msgstr "Vula"
 
 #: src/routes/dashboard/settings/profile.tsx
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Unverified"
-msgstr ""
+msgstr "Akuqinisekisiwe"
 
 #: src/routes/builder/$resumeId/-components/header.tsx
 #: src/routes/builder/$resumeId/-sidebar/left/sections/custom.tsx
@@ -3816,170 +3939,170 @@ msgstr ""
 #: src/routes/dashboard/resumes/-components/menus/context-menu.tsx
 #: src/routes/dashboard/resumes/-components/menus/dropdown-menu.tsx
 msgid "Update"
-msgstr ""
+msgstr "Buyekeza"
 
 #: src/dialogs/resume/sections/award.tsx
 msgid "Update an existing award"
-msgstr ""
+msgstr "Buyekeza umklomelo okhona"
 
 #: src/dialogs/resume/sections/certification.tsx
 msgid "Update an existing certification"
-msgstr ""
+msgstr "Buyekeza isitifiketi esikhona"
 
 #: src/dialogs/resume/sections/cover-letter.tsx
 msgid "Update an existing cover letter"
-msgstr ""
+msgstr "Buyekeza incwadi yekhava ekhona"
 
 #: src/dialogs/resume/sections/custom.tsx
 msgid "Update an existing custom section"
-msgstr ""
+msgstr "Buyekeza isigaba sangokwezifiso esikhona"
 
 #: src/dialogs/resume/sections/education.tsx
 msgid "Update an existing education"
-msgstr ""
+msgstr "Buyekeza imfundo ekhona"
 
 #: src/dialogs/resume/sections/experience.tsx
 msgid "Update an existing experience"
-msgstr ""
+msgstr "Buyekeza okuhlangenwe nakho okukhona"
 
 #: src/dialogs/resume/sections/interest.tsx
 msgid "Update an existing interest"
-msgstr ""
+msgstr "Buyekeza intshisekelo ekhona"
 
 #: src/dialogs/resume/sections/language.tsx
 msgid "Update an existing language"
-msgstr ""
+msgstr "Buyekeza ulimi olukhona"
 
 #: src/dialogs/resume/sections/profile.tsx
 msgid "Update an existing profile"
-msgstr ""
+msgstr "Buyekeza iphrofayela ekhona"
 
 #: src/dialogs/resume/sections/project.tsx
 msgid "Update an existing project"
-msgstr ""
+msgstr "Buyekeza iphrojekthi ekhona"
 
 #: src/dialogs/resume/sections/publication.tsx
 msgid "Update an existing publication"
-msgstr ""
+msgstr "Buyekeza ukushicilelwa okukhona"
 
 #: src/dialogs/resume/sections/reference.tsx
 msgid "Update an existing reference"
-msgstr ""
+msgstr "Buyekeza isithenjwa esikhona"
 
 #: src/dialogs/resume/sections/skill.tsx
 msgid "Update an existing skill"
-msgstr ""
+msgstr "Buyekeza ikhono elikhona"
 
 #: src/dialogs/resume/sections/summary-item.tsx
 msgid "Update an existing summary item"
-msgstr ""
+msgstr "Buyekeza into ekhona yesifinyezo"
 
 #: src/dialogs/resume/sections/volunteer.tsx
 msgid "Update an existing volunteer experience"
-msgstr ""
+msgstr "Buyekeza ukuzizwisa okukhona kwamavolontiya"
 
 #: src/dialogs/auth/change-password.tsx
 #: src/routes/dashboard/settings/authentication/-components/password.tsx
 msgid "Update Password"
-msgstr ""
+msgstr "Buyekeza Iphasiwedi"
 
 #: src/dialogs/resume/index.tsx
 msgid "Update Resume"
-msgstr ""
+msgstr "Buyekeza Qalisa Kabusha"
 
 #: src/dialogs/auth/change-password.tsx
 msgid "Update your password"
-msgstr ""
+msgstr "Buyekeza iphasiwedi yakho"
 
 #: src/components/ai/chat.tsx
 #: src/routes/dashboard/admin/users.tsx
 #: src/routes/dashboard/admin/users.tsx
 msgid "Updated"
-msgstr ""
+msgstr "Kubuyekeziwe"
 
 #: src/dialogs/auth/change-password.tsx
 msgid "Updating your password..."
-msgstr ""
+msgstr "Ibuyekeza iphasiwedi yakho..."
 
 #: src/dialogs/resume/index.tsx
 msgid "Updating your resume..."
-msgstr ""
+msgstr "Ibuyekeza ukuqhubeka kwakho..."
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "Upload Document"
-msgstr ""
+msgstr "Layisha Idokhumenti"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Uploaded documents"
-msgstr ""
+msgstr "Amadokhumenti alayishiwe"
 
 #: src/routes/builder/$resumeId/-sidebar/left/sections/picture.tsx
 msgid "Uploading picture..."
-msgstr ""
+msgstr "Ilayisha isithombe..."
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "Uploading..."
-msgstr ""
+msgstr "Iyalayisha..."
 
 #: src/routes/builder/$resumeId/-sidebar/left/sections/picture.tsx
 msgid "URL"
-msgstr ""
+msgstr "I-URL"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "User ID"
-msgstr ""
+msgstr "I-ID yomsebenzisi"
 
 #: src/dialogs/resume/sections/profile.tsx
 #: src/routes/auth/register.tsx
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Username"
-msgstr ""
+msgstr "Igama lomsebenzisi"
 
 #: src/routes/dashboard/-components/sidebar.tsx
 #: src/routes/dashboard/admin/users.tsx
 msgid "Users"
-msgstr ""
+msgstr "Abasebenzisi"
 
 #: src/utils/locale.ts
 msgid "Uzbek"
-msgstr ""
+msgstr "Isi-Uzbek"
 
 #: src/components/input/rich-input.tsx
 msgid "Valid URLs must start with http:// or https://."
-msgstr ""
+msgstr "Ama-URL avumelekile kufanele aqale ngokuthi http:// noma https://."
 
 #: src/routes/dashboard/admin/experience-queue.tsx
 msgid "Verdict confirmed. Experience verified."
-msgstr ""
+msgstr "Isinqumo siqinisekisiwe. Okuhlangenwe nakho kuqinisekisiwe."
 
 #: src/routes/dashboard/admin/experience-queue.tsx
 msgid "Verdict overridden successfully."
-msgstr ""
+msgstr "Isinqumo sikhishwe ngempumelelo."
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Verdict pending"
-msgstr ""
+msgstr "Isinqumo silindile"
 
 #: src/routes/dashboard/-components/sidebar.tsx
 #: src/routes/dashboard/admin/users.tsx
 #: src/routes/dashboard/verification/index.tsx
 #: src/routes/dashboard/verification/index.tsx
 msgid "Verification"
-msgstr ""
+msgstr "Ukuqinisekisa"
 
 #: src/routes/dashboard/settings/privacy.tsx
 msgid "Verification Badges"
-msgstr ""
+msgstr "Amabheji okuqinisekisa"
 
 #: src/routes/$username/$slug.tsx
 msgid "Verification History"
-msgstr ""
+msgstr "Umlando Wokuqinisekisa"
 
 #: src/routes/dashboard/settings/privacy.tsx
 #: src/routes/dashboard/settings/privacy.tsx
 msgid "Verification History Timeline"
-msgstr ""
+msgstr "Umugqa Wesikhathi Womlando Wokuqinisekisa"
 
 #. placeholder {0}: item.label
 #: src/routes/dashboard/verification/index.tsx
@@ -3989,99 +4112,107 @@ msgstr ""
 #: src/routes/dashboard/verification/index.tsx
 #: src/routes/dashboard/verification/index.tsx
 msgid "verified"
-msgstr ""
+msgstr "kuqinisekisiwe"
 
 #: src/routes/dashboard/admin/users.tsx
 #: src/routes/dashboard/settings/profile.tsx
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Verified"
-msgstr ""
+msgstr "Kuqinisekisiwe"
 
 #. placeholder {0}: entry.verifiedBy
 #: src/routes/$username/$slug.tsx
 #: src/routes/dashboard/verification/index.tsx
 msgid "Verified by {0}"
-msgstr ""
+msgstr "Kuqinisekiswe ngu-{0}"
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Verified skill badges"
-msgstr ""
+msgstr "Amabheji ekhono aqinisekisiwe"
 
 #: src/routes/_home/-sections/statistics.tsx
 msgid "Verified skills"
-msgstr ""
+msgstr "Amakhono aqinisekisiwe"
 
 #: src/routes/_home/-sections/footer.tsx
 msgid "Verified skills, honest feedback, and passive discovery — a living profile built on evidence, not keywords."
-msgstr ""
+msgstr "Amakhono aqinisekisiwe, impendulo eqotho, nokutholwa okwenziwayo â iphrofayela ephilayo eyakhelwe phezu kobufakazi, hhayi amagama angukhiye."
 
 #: src/routes/auth/verify-2fa-backup.tsx
 #: src/routes/auth/verify-2fa.tsx
 #: src/routes/dashboard/verification/index.tsx
 msgid "Verify"
-msgstr ""
+msgstr "Qinisekisa"
 
 #: src/routes/_home/-sections/hero.tsx
 msgid "Verify my skills"
-msgstr ""
+msgstr "Qinisekisa amakhono ami"
 
 #: src/routes/auth/verify-2fa-backup.tsx
 msgid "Verify with a Backup Code"
-msgstr ""
+msgstr "Qinisekisa Ngekhodi Eyisipele"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Verify your email"
+msgstr "Qinisekisa i-imeyili yakho"
 
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Verify your identity through a short video call. This adds trust to your resume."
-msgstr ""
+msgstr "Qinisekisa ubuwena ngekholi yevidiyo emfushane. Lokhu kungeza ukwethemba ku-resume yakho."
 
 #: src/routes/auth/verify-2fa-backup.tsx
 msgid "Verifying backup code..."
-msgstr ""
+msgstr "Iqinisekisa ikhodi eyisipele..."
 
 #: src/dialogs/auth/enable-two-factor.tsx
 #: src/routes/auth/verify-2fa.tsx
 msgid "Verifying code..."
-msgstr ""
+msgstr "Iqinisekisa ikhodi..."
 
 #: src/routes/auth/resume-password.tsx
 msgid "Verifying password..."
-msgstr ""
-
-#: src/routes/auth/register.tsx
-msgid "Verifying your email is required when resetting your password."
-msgstr ""
+msgstr "Iqinisekisa iphasiwedi..."
 
 #: src/utils/locale.ts
 msgid "Vietnamese"
-msgstr ""
+msgstr "Isi-Vietnamese"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "View details"
-msgstr ""
+msgstr "Buka imininingwane"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/statistics.tsx
 msgid "Views"
-msgstr ""
+msgstr "Ukubuka"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Views / downloads"
-msgstr ""
+msgstr "Ukubukwa / okulandiwe"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Visa authorization"
-msgstr ""
+msgstr "Ukugunyazwa kwe-Visa"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Visa type (optional)"
-msgstr ""
+msgstr "Uhlobo lwe-visa (uyazikhethela)"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Visibility"
-msgstr ""
+msgstr "Ukubonakala"
 
 #: src/dialogs/resume/sections/custom.tsx
 #: src/utils/resume/section.tsx
 msgid "Volunteer"
-msgstr ""
+msgstr "Volontiya"
+
+#: src/routes/auth/verify-email.tsx
+msgid "We couldn't verify your email"
+msgstr "Asikwazanga ukuqinisekisa i-imeyili yakho"
+
+#: src/routes/auth/verify-email.tsx
+msgid "We sent a verification link to your email address."
+msgstr "Sithumele isixhumanisi sokuqinisekisa ekhelini lakho le-imeyili."
 
 #: src/dialogs/resume/sections/award.tsx
 #: src/dialogs/resume/sections/certification.tsx
@@ -4094,204 +4225,157 @@ msgstr ""
 #: src/dialogs/resume/sections/volunteer.tsx
 #: src/routes/builder/$resumeId/-sidebar/left/sections/basics.tsx
 msgid "Website"
-msgstr ""
+msgstr "Iwebhusayithi"
 
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-menu.tsx
 msgid "What do you want to rename this section to?"
-msgstr ""
+msgstr "Yini ofuna ukuyiqamba kabusha lesi sigaba?"
 
 #: src/routes/builder/$resumeId/-components/header.tsx
 #: src/routes/dashboard/resumes/-components/menus/context-menu.tsx
 #: src/routes/dashboard/resumes/-components/menus/dropdown-menu.tsx
 msgid "When locked, the resume cannot be updated or deleted."
-msgstr ""
+msgstr "Uma ikhiyiwe, i-resume ayikwazi ukubuyekezwa noma isuswe."
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "Who can see my submissions and results?"
-msgstr ""
+msgstr "Ubani ongabona engikuthumele kanye nemiphumela?"
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Why candidates choose us"
-msgstr ""
+msgstr "Kungani amakhandidethi esikhetha"
 
 #: src/routes/dashboard/-components/sidebar.tsx
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Work Authorization"
-msgstr ""
+msgstr "Ukugunyazwa komsebenzi"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Work authorization saved."
-msgstr ""
+msgstr "Isigunyazo somsebenzi silondoloziwe."
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "Work Experience"
-msgstr ""
+msgstr "Isipiliyoni somsebenzi"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Yes"
-msgstr ""
+msgstr "Yebo"
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "Yes. Add or remove skills any time, and request re-verification as you level up. Your profile is designed to evolve with your career."
-msgstr ""
+msgstr "Yebo. Engeza noma susa amakhono noma nini, futhi ucele ukuqinisekiswa kabusha njengoba ukhuphuka ileveli. Iphrofayili yakho yakhelwe ukuthi ithuthuke ngomsebenzi wakho."
 
 #: src/routes/dashboard/job-search/-components/job-utils.ts
 msgid "Yesterday"
-msgstr ""
+msgstr "Izolo"
 
 #: src/routes/auth/login.tsx
 msgid "You can also use your username to login."
-msgstr ""
-
-#: src/hooks/use-form-blocker.tsx
-msgid "You have unsaved changes that will be lost."
-msgstr ""
-
-#: src/routes/_home/-sections/faq.tsx
-msgid "You pick the skills you want to endorse and a reviewer with relevant expertise. They assign a short, practical assessment, review your submission, and share actionable feedback. If you pass, the skill is added to your profile as a verified badge."
-msgstr ""
-
-#: src/routes/auth/forgot-password.tsx
-#: src/routes/auth/register.tsx
-msgid "You've got mail!"
-msgstr ""
-
-#: src/routes/dashboard/settings/danger-zone.tsx
-msgid "Your account has been deleted successfully."
-msgstr ""
-
-#: src/dialogs/api-key/create.tsx
-msgid "Your API key has been copied to the clipboard."
-msgstr ""
-
-#: src/routes/builder/$resumeId/index.tsx
-msgid "Your changes are saved automatically."
-msgstr ""
-
-#: src/routes/dashboard/settings/profile.tsx
-msgid "Your identity has been verified and your profile is trusted."
-msgstr ""
-
-#: src/routes/auth/reset-password.tsx
-msgid "Your password has been reset successfully. You can now sign in with your new password."
-msgstr ""
-
-#: src/dialogs/auth/change-password.tsx
-msgid "Your password has been updated successfully."
-msgstr ""
-
-#: src/routes/dashboard/settings/profile.tsx
-msgid "Your previous identity verification was unsuccessful. You may try again."
-msgstr ""
-
-#: src/routes/dashboard/settings/profile.tsx
-msgid "Your profile has been updated successfully."
-msgstr ""
-
-#: src/dialogs/resume/index.tsx
-#: src/dialogs/resume/index.tsx
-msgid "Your resume has been created successfully."
-msgstr ""
-
-#: src/routes/builder/$resumeId/-components/header.tsx
-#: src/routes/dashboard/resumes/-components/menus/context-menu.tsx
-#: src/routes/dashboard/resumes/-components/menus/dropdown-menu.tsx
-msgid "Your resume has been deleted successfully."
-msgstr ""
-
-#: src/dialogs/resume/index.tsx
-msgid "Your resume has been duplicated successfully."
-msgstr ""
-
-#: src/dialogs/resume/import.tsx
-msgid "Your resume has been imported successfully."
-msgstr ""
-
-#: src/dialogs/resume/index.tsx
-msgid "Your resume has been updated successfully."
-msgstr ""
-
-#: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
-msgid "Your resume's public link is currently protected by a password. Share the password only with people you trust."
-msgstr ""
-
-#: src/routes/dashboard/settings/profile.tsx
-msgid "Your verification call has been scheduled. Our team will review and confirm your identity shortly."
-msgstr ""
-
-#: src/routes/builder/$resumeId/-components/dock.tsx
-msgid "Zoom in"
-msgstr ""
-
-#: src/routes/builder/$resumeId/-components/dock.tsx
-msgid "Zoom out"
-msgstr ""
-
-#: src/utils/locale.ts
-msgid "Zulu"
-msgstr ""
-
-#: src/routes/auth/verify-email.tsx
-msgid "A new verification link has been sent to your email address."
-msgstr "Isixhumanisi esisha sokuqinisekisa sithunyelwe ekhelini lakho le-imeyili."
-
-#: src/routes/auth/verify-email.tsx
-msgid "Check your inbox"
-msgstr "Hlola ibhokisi lakho lokungenayo"
-
-#: src/routes/auth/verify-email.tsx
-msgid "Failed to resend verification email. Please try again."
-msgstr "Yehlulekile ukuthumela kabusha i-imeyili yokuqinisekisa. Sicela uzame futhi."
-
-#: src/routes/auth/verify-email.tsx
-msgid "Request a new link"
-msgstr "Cela isixhumanisi esisha"
-
-#: src/routes/auth/verify-email.tsx
-msgid "Sign in to your account to request a new verification email."
-msgstr "Ngena ku-akhawunti yakho ukuze ucele i-imeyili entsha yokuqinisekisa."
-
-#: src/routes/auth/verify-email.tsx
-msgid "Sign in to your account, then request a new verification email."
-msgstr "Ngena ku-akhawunti yakho, bese ucela i-imeyili entsha yokuqinisekisa."
-
-#: src/routes/auth/verify-email.tsx
-msgid "Sign in to verify your email"
-msgstr "Ngena ngemvume ukuze uqinisekise i-imeyili yakho"
-
-#: src/routes/auth/verify-email.tsx
-msgid "The verification link may be invalid, expired, or already used."
-msgstr "Isixhumanisi sokuqinisekisa kungenzeka singavumelekile, siphelelwe isikhathi, noma sesisetshenzisiwe."
-
-#: src/routes/auth/verify-email.tsx
-msgid "Try requesting a new verification link."
-msgstr "Zama ukucela isixhumanisi esisha sokuqinisekisa."
-
-#: src/routes/auth/verify-email.tsx
-msgid "Verify your email"
-msgstr "Qinisekisa i-imeyili yakho"
-
-#: src/routes/auth/verify-email.tsx
-msgid "We couldn't verify your email"
-msgstr "Asikwazanga ukuqinisekisa i-imeyili yakho"
-
-#: src/routes/auth/verify-email.tsx
-msgid "We sent a verification link to your email address."
-msgstr "Sithumele isixhumanisi sokuqinisekisa ekhelini lakho le-imeyili."
+msgstr "Ungasebenzisa futhi igama lakho lomsebenzisi ukungena ngemvume."
 
 #: src/routes/auth/verify-email.tsx
 msgid "You can now use account recovery and other features that require a verified email address."
 msgstr "Manje ungasebenzisa ukubuyiselwa kwe-akhawunti nezinye izici ezidinga ikheli le-imeyili eliqinisekisiwe."
 
+#: src/hooks/use-form-blocker.tsx
+msgid "You have unsaved changes that will be lost."
+msgstr "Unezinguquko ezingalondoloziwe ezizolahleka."
+
 #: src/routes/auth/verify-email.tsx
 msgid "You must verify your email address before you can access Skill Verdict."
 msgstr "Kufanele uqinisekise ikheli lakho le-imeyili ngaphambi kokufinyelela ku-Skill Verdict."
+
+#: src/routes/_home/-sections/faq.tsx
+msgid "You pick the skills you want to endorse and a reviewer with relevant expertise. They assign a short, practical assessment, review your submission, and share actionable feedback. If you pass, the skill is added to your profile as a verified badge."
+msgstr "Ukhetha amakhono ofuna ukuwagunyaza kanye nombuyekezi onolwazi olufanele. Banikeza ukuhlola okufushane, okusebenzayo, buyekeza okuthumele, futhi babelane ngempendulo engenzeka. Uma uphasa, ikhono liyengezwa kuphrofayela yakho njengebheji eliqinisekisiwe."
+
+#: src/routes/auth/forgot-password.tsx
+msgid "You've got mail!"
+msgstr "Unayo i-imeyili!"
+
+#: src/routes/dashboard/settings/danger-zone.tsx
+msgid "Your account has been deleted successfully."
+msgstr "I-akhawunti yakho isuswe ngempumelelo."
 
 #: src/routes/auth/verify-email.tsx
 msgid "Your account is up to date."
 msgstr "I-akhawunti yakho isesikhathini."
 
+#: src/dialogs/api-key/create.tsx
+msgid "Your API key has been copied to the clipboard."
+msgstr "Ukhiye wakho we-API ukopishelwe ebhodini lokunamathisela."
+
+#: src/routes/builder/$resumeId/index.tsx
+msgid "Your changes are saved automatically."
+msgstr "Izinguquko zakho zilondolozwa ngokuzenzakalelayo."
+
 #: src/routes/auth/verify-email.tsx
 msgid "Your email address is confirmed. You can continue using Skill Verdict."
 msgstr "Ikheli lakho le-imeyili liqinisekisiwe. Ungaqhubeka nokusebenzisa i-Skill Verdict."
+
+#: src/routes/dashboard/settings/profile.tsx
+msgid "Your identity has been verified and your profile is trusted."
+msgstr "Ubuwena buqinisekisiwe futhi iphrofayela yakho iyethenjwa."
+
+#: src/routes/auth/reset-password.tsx
+msgid "Your password has been reset successfully. You can now sign in with your new password."
+msgstr "Iphasiwedi yakho isethwe kabusha ngempumelelo. Manje ungangena ngemvume ngephasiwedi yakho entsha."
+
+#: src/dialogs/auth/change-password.tsx
+msgid "Your password has been updated successfully."
+msgstr "Iphasiwedi yakho ibuyekezwe ngempumelelo."
+
+#: src/routes/dashboard/settings/profile.tsx
+msgid "Your previous identity verification was unsuccessful. You may try again."
+msgstr "Ukuqinisekisa kwakho ubuwena kwangaphambilini akuphumelelanga. Ungazama futhi."
+
+#: src/routes/dashboard/settings/profile.tsx
+msgid "Your profile has been updated successfully."
+msgstr "Iphrofayela yakho ibuyekezwe ngempumelelo."
+
+#: src/dialogs/resume/index.tsx
+#: src/dialogs/resume/index.tsx
+msgid "Your resume has been created successfully."
+msgstr "I-CV yakho idalwe ngempumelelo."
+
+#: src/routes/builder/$resumeId/-components/header.tsx
+#: src/routes/dashboard/resumes/-components/menus/context-menu.tsx
+#: src/routes/dashboard/resumes/-components/menus/dropdown-menu.tsx
+msgid "Your resume has been deleted successfully."
+msgstr "I-CV yakho isuswe ngempumelelo."
+
+#: src/dialogs/resume/index.tsx
+msgid "Your resume has been duplicated successfully."
+msgstr "I-resume yakho iphindwe ngempumelelo."
+
+#: src/dialogs/resume/import.tsx
+msgid "Your resume has been imported successfully."
+msgstr "I-CV yakho ingeniswe ngempumelelo."
+
+#: src/dialogs/resume/index.tsx
+msgid "Your resume has been updated successfully."
+msgstr "I-CV yakho ibuyekezwe ngempumelelo."
+
+#: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
+msgid "Your resume's public link is currently protected by a password. Share the password only with people you trust."
+msgstr "Isixhumanisi esisesidlangalaleni se-CV yakho sivikelwe yi-password. Yabelana ngephasiwedi kuphela nabantu obathembayo."
+
+#: src/routes/dashboard/settings/profile.tsx
+msgid "Your verification call has been scheduled. Our team will review and confirm your identity shortly."
+msgstr "Ucingo lwakho lokuqinisekisa luhleliwe. Ithimba lethu lizobuyekeza futhi liqinisekise ubuwena maduzane."
+
+#: src/routes/builder/$resumeId/-components/dock.tsx
+#: src/routes/builder/$resumeId/-components/dock.tsx
+msgid "Zoom in"
+msgstr "Sondeza isithombe"
+
+#: src/routes/builder/$resumeId/-components/dock.tsx
+#: src/routes/builder/$resumeId/-components/dock.tsx
+msgid "Zoom out"
+msgstr "Hlehlisa isithombe"
+
+#: src/utils/locale.ts
+msgid "Zulu"
+msgstr "Zulu"

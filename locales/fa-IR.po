@@ -31,7 +31,7 @@ msgstr "ایجاد شده"
 #. js-lingui-explicit-id
 #: src/routes/dashboard/resumes/index.tsx
 msgid "Name"
-msgstr ""
+msgstr "نام"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "(you)"
@@ -87,14 +87,9 @@ msgstr "+{0} more approved"
 msgid "+{0} more uploaded"
 msgstr "+{0} more uploaded"
 
-#: src/routes/_home/-sections/faq.tsx
-msgctxt "Every word needs to be wrapped in a tag"
-msgid "<0>Frequently</0><1>Asked</1><2>Questions</2>"
-msgstr "<0>سوالات</0><1>متداول</1><2>پرسیده‌شده</2>"
-
 #: src/routes/_home/-sections/hero.tsx
 msgid "<0>Your skills, finally,</0><1>Proven. Not just claimed.</1>"
-msgstr "<0>Your skills, finally,</0><1>Proven. Not just claimed.</1>"
+msgstr "<0>مهارت های شما، بالاخره،</0><1>ثابت شد. نه فقط ادعا شده است.</1>"
 
 #: src/dialogs/api-key/create.tsx
 msgid "1 month"
@@ -114,7 +109,7 @@ msgstr "2014 - 2016"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "2020 - Present"
-msgstr "2020 - Present"
+msgstr "2020 - اکنون"
 
 #: src/dialogs/api-key/create.tsx
 msgid "3 months"
@@ -133,13 +128,17 @@ msgstr "یک لینک تأیید به آدرس ایمیل فعلی شما ارس
 msgid "A link to your resume has been copied to clipboard."
 msgstr "لینکی به رزومه شما در کلیپ‌بورد کپی شد."
 
+#: src/routes/auth/verify-email.tsx
+msgid "A new verification link has been sent to your email address."
+msgstr "یک پیوند تأیید جدید به نشانی ایمیل شما ارسال شد."
+
 #: src/routes/dashboard/settings/profile.tsx
 msgid "A new verification link has been sent to your email address. Please check your inbox to verify your account."
 msgstr "یک لینک تأیید جدید به آدرس ایمیل شما ارسال شده است. لطفاً برای تأیید حساب خود، صندوق ورودی‌تان را بررسی کنید."
 
 #: src/routes/_home/-sections/features.tsx
 msgid "A profile that reflects what you can actually do — verified by people who know what they're looking at, and built to travel with you wherever you go."
-msgstr "A profile that reflects what you can actually do — verified by people who know what they're looking at, and built to travel with you wherever you go."
+msgstr "نمایه‌ای که نشان‌دهنده کارهایی است که واقعاً می‌توانید انجام دهید - تأیید شده توسط افرادی که می‌دانند به چه چیزی نگاه می‌کنند، و ساخته شده است تا هر کجا که می‌روید با شما سفر کند."
 
 #: src/routes/dashboard/admin/experience-queue.tsx
 msgid "A reason is required to override."
@@ -152,7 +151,7 @@ msgstr "یک رزومه با این نام یکتا از قبل وجود دار�
 
 #: src/routes/_home/-sections/features.tsx
 msgid "A unique QR code and public link make your profile shareable in person, online, and in recruiter searches."
-msgstr "A unique QR code and public link make your profile shareable in person, online, and in recruiter searches."
+msgstr "یک کد QR منحصر به فرد و پیوند عمومی باعث می شود نمایه شما به صورت حضوری، آنلاین و در جستجوهای استخدام کننده قابل اشتراک گذاری باشد."
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/page.tsx
 msgid "A4"
@@ -172,7 +171,7 @@ msgstr "Account updated"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Action oriented"
-msgstr "Action oriented"
+msgstr "عمل گرا"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Active sessions"
@@ -363,11 +362,11 @@ msgstr "هنگام وارد کردن رزومه شما یک خطای ناشنا�
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Analytical"
-msgstr "Analytical"
+msgstr "تحلیلی"
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Anonymous, bias-free review"
-msgstr "Anonymous, bias-free review"
+msgstr "بررسی ناشناس و بدون تعصب"
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Any level"
@@ -443,7 +442,7 @@ msgstr "عربی"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Arc"
-msgstr "Arc"
+msgstr "قوس"
 
 #: src/hooks/use-form-blocker.tsx
 msgid "Are you sure you want to close this dialog?"
@@ -531,6 +530,12 @@ msgstr "Back"
 msgid "Back to Login"
 msgstr "بازگشت به ورود"
 
+#: src/routes/builder/$resumeId/-components/header.tsx
+#: src/routes/builder/$resumeId/-components/header.tsx
+#: src/routes/builder/$resumeId/-components/header.tsx
+msgid "Back to resumes"
+msgstr "بازگشت به رزومه"
+
 #: src/routes/dashboard/admin/resume/$resumeId.tsx
 msgid "Back to users"
 msgstr "Back to users"
@@ -553,7 +558,7 @@ msgstr "مبانی"
 
 #: src/routes/_home/-sections/footer.tsx
 msgid "Become a verifier"
-msgstr "Become a verifier"
+msgstr "تایید کننده شوید"
 
 #: src/routes/dashboard/job-search/-components/job-detail.tsx
 msgid "Benefits"
@@ -586,11 +591,11 @@ msgstr "BSc Software Engineering"
 
 #: src/routes/_home/-sections/hero.tsx
 msgid "Build a living profile backed by real evidence. Get your skills endorsed by domain experts in short, practical reviews — and let opportunities come to you."
-msgstr "Build a living profile backed by real evidence. Get your skills endorsed by domain experts in short, practical reviews — and let opportunities come to you."
+msgstr "یک پروفایل زنده با پشتوانه شواهد واقعی بسازید. مهارت های خود را در بررسی های کوتاه و عملی توسط کارشناسان دامنه تأیید کنید - و اجازه دهید فرصت ها به سراغ شما بیایند."
 
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Build your profile"
-msgstr "Build your profile"
+msgstr "پروفایل خود را بسازید"
 
 #: src/components/command-palette/index.tsx
 msgid "Builder Command Palette"
@@ -610,7 +615,7 @@ msgstr "Call link sent"
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "Can I update my profile and re-verify skills later?"
-msgstr "Can I update my profile and re-verify skills later?"
+msgstr "آیا می توانم نمایه خود را به روز کنم و بعداً مهارت ها را دوباره تأیید کنم؟"
 
 #: src/dialogs/auth/enable-two-factor.tsx
 #: src/dialogs/resume/sections/award.tsx
@@ -668,7 +673,7 @@ msgstr "Cancel Verification"
 
 #: src/routes/_home/-sections/statistics.tsx
 msgid "Candidates"
-msgstr "Candidates"
+msgstr "نامزدها"
 
 #: src/utils/locale.ts
 msgid "Catalan"
@@ -708,9 +713,9 @@ msgstr "نظرتان عوض شده؟ نام رزومه خود را به چیزی
 msgid "Check your email for a link to reset your password."
 msgstr "ایمیل خود را برای لینکی جهت تنظیم مجدد گذرواژه بررسی کنید."
 
-#: src/routes/auth/register.tsx
-msgid "Check your email for a link to verify your account."
-msgstr "ایمیل خود را برای لینکی جهت تأیید حسابتان بررسی کنید."
+#: src/routes/auth/verify-email.tsx
+msgid "Check your inbox"
+msgstr "صندوق ورودی خود را بررسی کنید"
 
 #: src/utils/locale.ts
 msgid "Chinese (Simplified)"
@@ -756,7 +761,7 @@ msgstr "بستن"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Cluster"
-msgstr "Cluster"
+msgstr "خوشه"
 
 #: src/components/input/rich-input.tsx
 msgid "Code Block"
@@ -774,7 +779,16 @@ msgstr "ستون‌ها"
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Combine verified skills with research-backed personality insights so teams hire for both capability and fit."
-msgstr "Combine verified skills with research-backed personality insights so teams hire for both capability and fit."
+msgstr "مهارت های تأیید شده را با بینش های شخصیتی مبتنی بر تحقیق ترکیب کنید تا تیم ها هم برای توانایی و هم برای تناسب اندام استخدام کنند."
+
+#: src/components/command-palette/index.tsx
+#: src/components/command-palette/index.tsx
+msgid "Command Palette"
+msgstr "پالت فرمان"
+
+#: src/components/command-palette/index.tsx
+msgid "Command Palette - {currentPage}"
+msgstr "پالت فرمان - {currentPage}"
 
 #: src/routes/_home/-sections/footer.tsx
 msgid "Community"
@@ -782,7 +796,7 @@ msgstr "انجمن"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Compact"
-msgstr "Compact"
+msgstr "فشرده"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Compact signal row for endorsements and recency — less chrome, more \"what passed\"."
@@ -794,7 +808,7 @@ msgstr "شرکت"
 
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Complete the assessment"
-msgstr "Complete the assessment"
+msgstr "ارزیابی را کامل کنید"
 
 #: src/dialogs/api-key/create.tsx
 #: src/hooks/use-prompt.tsx
@@ -821,7 +835,7 @@ msgstr "اتصال"
 
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Connect your professional accounts and portfolio to instantly build a living, evidence-backed profile that showcases real experience."
-msgstr "Connect your professional accounts and portfolio to instantly build a living, evidence-backed profile that showcases real experience."
+msgstr "حساب‌ها و مجموعه‌های حرفه‌ای خود را به هم متصل کنید تا فوراً یک نمایه زنده و مبتنی بر شواهد ایجاد کنید که تجربه واقعی را به نمایش می‌گذارد."
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Consent"
@@ -829,30 +843,30 @@ msgstr "Consent"
 
 #: src/routes/_home/-sections/footer.tsx
 msgid "Contact us"
-msgstr "Contact us"
+msgstr "با ما تماس بگیرید"
 
 #: src/dialogs/resume/sections/cover-letter.tsx
 #: src/dialogs/resume/sections/summary-item.tsx
+#: src/routes/builder/$resumeId/route.tsx
 msgid "Content"
 msgstr "محتوا"
 
 #: src/dialogs/auth/enable-two-factor.tsx
 #: src/dialogs/auth/enable-two-factor.tsx
 #: src/dialogs/auth/enable-two-factor.tsx
-#: src/routes/auth/register.tsx
-#: src/routes/dashboard/verification/index.tsx
 #: src/routes/auth/verify-email.tsx
+#: src/routes/dashboard/verification/index.tsx
 msgid "Continue"
 msgstr "ادامه"
 
 #: src/routes/dashboard/resumes/-components/cards/import-card.tsx
-#: src/routes/dashboard/resumes/-components/list-view.tsx
+#: src/routes/dashboard/resumes/-components/resume-quick-actions.tsx
 msgid "Continue where you left off"
 msgstr "ادامه از جایی که رها کرده بودید"
 
 #: src/dialogs/resume/import.tsx
-msgid "Continue where you left off by importing an existing resume you created using Skill Verdict or any another resume builder. Supported formats include PDF, Microsoft Word, as well as JSON files from Skill Verdict."
-msgstr "با وارد کردن یک رزومهٔ موجود که با Skill Verdict یا هر رزومه‌ساز دیگری ایجاد کرده‌اید، از جایی که رها کرده بودید ادامه دهید. قالب‌های پشتیبانی‌شده شامل PDF، Microsoft Word و همچنین فایل‌های JSON از Skill Verdict هستند."
+msgid "Continue where you left off by importing an existing resume you created using another resume builder. Supported formats include PDF, Microsoft Word, and JSON Resume files."
+msgstr "با وارد کردن یک رزومه موجود که با استفاده از رزومه ساز دیگری ایجاد کرده اید، از جایی که متوقف کردید، ادامه دهید. فرمت های پشتیبانی شده شامل فایل های PDF، Microsoft Word و JSON Resume است."
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Contractor"
@@ -878,6 +892,7 @@ msgstr "کپی کردن کدهای پشتیبان"
 msgid "Copy this secret key and use it in your applications to access your data."
 msgstr "این کلید مخفی را کپی کنید و برای دسترسی به داده‌های خود در اپلیکیشن‌هایتان از آن استفاده کنید."
 
+#: src/routes/builder/$resumeId/-components/dock.tsx
 #: src/routes/builder/$resumeId/-components/dock.tsx
 msgid "Copy URL"
 msgstr "کپی URL"
@@ -979,7 +994,7 @@ msgstr "ایجاد معرف جدید"
 #: src/components/command-palette/pages/resumes.tsx
 #: src/dialogs/resume/index.tsx
 #: src/routes/dashboard/resumes/-components/cards/create-card.tsx
-#: src/routes/dashboard/resumes/-components/list-view.tsx
+#: src/routes/dashboard/resumes/-components/resume-quick-actions.tsx
 #: src/routes/dashboard/verification/index.tsx
 msgid "Create a new resume"
 msgstr "ایجاد رزومهٔ جدید"
@@ -1007,6 +1022,10 @@ msgstr "Create a resume first, then add your work authorization details."
 #: src/dialogs/resume/index.tsx
 msgid "Create a Sample Resume"
 msgstr "ایجاد یک رزومه نمونه"
+
+#: src/dialogs/resume/index.tsx
+msgid "Create Resume with Options"
+msgstr "ایجاد رزومه با گزینه ها"
 
 #: src/dialogs/api-key/create.tsx
 msgid "Creating your API key..."
@@ -1063,11 +1082,11 @@ msgstr "تم تیره"
 
 #: src/routes/_home/-sections/footer.tsx
 msgid "Dashboard"
-msgstr "Dashboard"
+msgstr "داشبورد"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Data Analytics Dashboard"
-msgstr "Data Analytics Dashboard"
+msgstr "داشبورد تجزیه و تحلیل داده ها"
 
 #: src/dialogs/resume/sections/award.tsx
 #: src/dialogs/resume/sections/certification.tsx
@@ -1139,6 +1158,7 @@ msgstr "در حال حذف رزومه شما..."
 msgid "Description"
 msgstr "توضیحات"
 
+#: src/routes/builder/$resumeId/route.tsx
 #: src/utils/resume/section.tsx
 msgid "Design"
 msgstr "طراحی"
@@ -1176,6 +1196,10 @@ msgstr "قطع اتصال"
 msgid "Display username"
 msgstr "Display username"
 
+#: src/components/ui/sidebar.tsx
+msgid "Displays the mobile sidebar."
+msgstr "نوار کناری موبایل را نمایش می دهد."
+
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Docker"
 msgstr "Docker"
@@ -1191,7 +1215,7 @@ msgstr "Documents"
 
 #: src/routes/_home/-sections/hero.tsx
 msgid "Don't chase. Attract."
-msgstr "Don't chase. Attract."
+msgstr "تعقیب نکن جذب کنند."
 
 #: src/routes/auth/login.tsx
 msgid "Don't have an account? <0/>"
@@ -1215,13 +1239,16 @@ msgid "Download a copy of your resume in PDF format. Use this file for printing 
 msgstr "یک کپی از رزومه خود را در قالب PDF دانلود کنید. از این فایل برای چاپ یا اشتراک‌گذاری آسان رزومه با استخدام‌کنندگان استفاده کنید."
 
 #: src/routes/builder/$resumeId/-components/dock.tsx
+#: src/routes/builder/$resumeId/-components/dock.tsx
 msgid "Download DOCX"
 msgstr "دانلود DOCX"
 
 #: src/routes/builder/$resumeId/-components/dock.tsx
+#: src/routes/builder/$resumeId/-components/dock.tsx
 msgid "Download JSON"
 msgstr "دانلود JSON"
 
+#: src/routes/builder/$resumeId/-components/dock.tsx
 #: src/routes/builder/$resumeId/-components/dock.tsx
 msgid "Download PDF"
 msgstr "دانلود PDF"
@@ -1265,7 +1292,7 @@ msgstr "هلندی"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "E-commerce Platform"
-msgstr "E-commerce Platform"
+msgstr "پلتفرم تجارت الکترونیک"
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "e.g. 150000"
@@ -1287,13 +1314,17 @@ msgstr "مثلاً مشاغل توسعه‌دهنده فرانت‌اند در �
 msgid "e.g. Skilled Worker"
 msgstr "e.g. Skilled Worker"
 
+#: src/routes/dashboard/admin/ai.tsx
+msgid "e.g., gpt-4, claude-3-opus, gemini-pro"
+msgstr "به عنوان مثال، gpt-4، claude-3-opus، gemini-pro"
+
 #: src/routes/_home/-sections/features.tsx
 msgid "Earn peer-endorsed badges from domain experts — turn claims into evidence employers can trust at a glance."
-msgstr "Earn peer-endorsed badges from domain experts — turn claims into evidence employers can trust at a glance."
+msgstr "نشان‌های تأیید شده توسط متخصصان دامنه را به دست آورید - ادعاها را به شواهدی تبدیل کنید که کارفرمایان می‌توانند در یک نگاه به آنها اعتماد کنند."
 
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Earn your verdict"
-msgstr "Earn your verdict"
+msgstr "حکم خود را به دست آورید"
 
 #: src/dialogs/resume/sections/custom.tsx
 #: src/routes/_home/-sections/hero-visual.tsx
@@ -1313,9 +1344,9 @@ msgstr "ایمیل"
 msgid "Email Address"
 msgstr "آدرس ایمیل"
 
+#: src/routes/auth/verify-email.tsx
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/users.tsx
-#: src/routes/auth/verify-email.tsx
 msgid "Email verified"
 msgstr "Email verified"
 
@@ -1387,7 +1418,7 @@ msgstr "برای غیرفعال کردن احراز هویت دو مرحله‌�
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Every assessment comes with actionable feedback, so you level up even when you're already getting hired."
-msgstr "Every assessment comes with actionable feedback, so you level up even when you're already getting hired."
+msgstr "هر ارزیابی با بازخورد عملی همراه است، بنابراین حتی زمانی که در حال استخدام هستید، سطح خود را ارتقا می دهید."
 
 #: src/routes/dashboard/job-search/-components/use-job-search.ts
 msgid "Exclude {value}"
@@ -1476,6 +1507,10 @@ msgstr "Failed to load document."
 msgid "Failed to load user details."
 msgstr "Failed to load user details."
 
+#: src/routes/auth/verify-email.tsx
+msgid "Failed to resend verification email. Please try again."
+msgstr "ارسال دوباره ایمیل تأیید ناموفق بود. لطفاً دوباره تلاش کنید."
+
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Failed to save work authorization."
 msgstr "Failed to save work authorization."
@@ -1516,6 +1551,10 @@ msgstr "فیلتر بر اساس"
 #: src/utils/locale.ts
 msgid "Finnish"
 msgstr "فنلاندی"
+
+#: src/routes/builder/$resumeId/-components/dock.tsx
+msgid "Fit resume to screen"
+msgstr "رزومه را بر روی صفحه نمایش قرار دهید"
 
 #: src/dialogs/resume/sections/language.tsx
 msgid "Fluency"
@@ -1562,7 +1601,7 @@ msgstr "فرمت"
 
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Four simple steps to turn your claims into evidence. No keyword stuffing, no job-title theatre — just practical assessments reviewed by domain experts."
-msgstr "Four simple steps to turn your claims into evidence. No keyword stuffing, no job-title theatre — just practical assessments reviewed by domain experts."
+msgstr "چهار مرحله ساده برای تبدیل ادعاهای خود به مدرک بدون پر کردن کلمات کلیدی، بدون نمایش عنوان شغلی - فقط ارزیابی های عملی که توسط کارشناسان حوزه بررسی شده است."
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/page.tsx
 msgid "Free-Form"
@@ -1580,13 +1619,17 @@ msgstr "Freelancer Profile Link"
 msgid "French"
 msgstr "فرانسوی"
 
+#: src/routes/_home/-sections/faq.tsx
+msgid "Frequently Asked Questions"
+msgstr "سوالات متداول"
+
 #: src/routes/builder/$resumeId/-sidebar/right/sections/layout/pages.tsx
 msgid "Full Width"
 msgstr "تمام‌عرض"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Full-stack React/Node.js application with payment integration"
-msgstr "Full-stack React/Node.js application with payment integration"
+msgstr "برنامه تمام پشته React/Node.js با یکپارچه سازی پرداخت"
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Full-time"
@@ -1610,7 +1653,7 @@ msgstr "Get AI feedback on what is strong in this resume and what should be impr
 
 #: src/routes/_home/-sections/footer.tsx
 msgid "Get verified"
-msgstr "Get verified"
+msgstr "تایید شود"
 
 #: src/components/command-palette/pages/navigation.tsx
 #: src/components/command-palette/pages/navigation.tsx
@@ -1650,11 +1693,11 @@ msgstr "جدول"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Grouped capabilities with micro-labels — shows breadth without a wall of bullet points."
-msgstr "Grouped capabilities with micro-labels — shows breadth without a wall of bullet points."
+msgstr "قابلیت‌های گروه‌بندی شده با برچسب‌های ریز â وسعت را بدون دیواری از نقاط گلوله نشان می‌دهد."
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Growth-focused feedback"
-msgstr "Growth-focused feedback"
+msgstr "بازخورد متمرکز بر رشد"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Harvard University"
@@ -1711,7 +1754,7 @@ msgstr "این هم کلید API جدید شما"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Hero statement up top, verified skills as the spine — built for reviewers who scan in seconds."
-msgstr "Hero statement up top, verified skills as the spine — built for reviewers who scan in seconds."
+msgstr "بیانیه قهرمان در بالا، مهارت های تأیید شده به عنوان ستون فقرات - برای بازبینانی که در چند ثانیه اسکن می کنند ساخته شده است."
 
 #: src/components/level/combobox.tsx
 #: src/dialogs/resume/sections/language.tsx
@@ -1753,16 +1796,20 @@ msgstr "چگونه از API استفاده کنم؟"
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "How does skill verification work?"
-msgstr "How does skill verification work?"
+msgstr "تأیید مهارت چگونه کار می کند؟"
 
 #: src/routes/_home/-sections/footer.tsx
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "How it works"
-msgstr "How it works"
+msgstr "چگونه کار می کند"
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "How long does a verification take?"
-msgstr "How long does a verification take?"
+msgstr "راستی‌آزمایی چقدر طول می‌کشد؟"
+
+#: src/routes/dashboard/verification/index.tsx
+msgid "https://www.upwork.com/freelancers/~..."
+msgstr "https://www.upwork.com/freelancers/~..."
 
 #: src/utils/locale.ts
 msgid "Hungarian"
@@ -1824,7 +1871,7 @@ msgstr "وارد کردن"
 
 #: src/dialogs/resume/import.tsx
 #: src/routes/dashboard/resumes/-components/cards/import-card.tsx
-#: src/routes/dashboard/resumes/-components/list-view.tsx
+#: src/routes/dashboard/resumes/-components/resume-quick-actions.tsx
 msgid "Import an existing resume"
 msgstr "وارد کردن یک رزومهٔ موجود"
 
@@ -1863,7 +1910,7 @@ msgstr "کارآموز"
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "Is the review really unbiased?"
-msgstr "Is the review really unbiased?"
+msgstr "آیا بررسی واقعا بی طرفانه است؟"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Issue date"
@@ -1995,7 +2042,7 @@ msgstr "چیدمان"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Layouts for evidence, not decoration"
-msgstr "Layouts for evidence, not decoration"
+msgstr "چیدمان برای شواهد، نه تزئین"
 
 #: src/components/resume/preview.tsx
 msgid "Learn more about how to fit content on a page"
@@ -2016,7 +2063,7 @@ msgstr "برای بازگرداندن عنوان به مقدار اصلی، آن
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Ledger"
-msgstr "Ledger"
+msgstr "دفتر کل"
 
 #: src/components/input/rich-input.tsx
 msgid "Left Align"
@@ -2065,6 +2112,10 @@ msgstr "لیست"
 #: src/utils/locale.ts
 msgid "Lithuanian"
 msgstr "لیتوانیایی"
+
+#: src/components/ui/spinner.tsx
+msgid "Loading"
+msgstr "در حال بارگذاری"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Loading document..."
@@ -2189,13 +2240,17 @@ msgstr "حداقل دستمزد"
 msgid "Model"
 msgstr "مدل"
 
+#: src/routes/builder/$resumeId/-components/dock.tsx
+msgid "More builder actions"
+msgstr "اقدامات سازنده بیشتر"
+
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "More than 3 years"
 msgstr "بیش از ۳ سال"
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "Most verifications wrap up in 1–3 days depending on the skill and reviewer availability — no weeks of waiting around."
-msgstr "Most verifications wrap up in 1–3 days depending on the skill and reviewer availability — no weeks of waiting around."
+msgstr "اکثر تأییدها در 13 روز بسته به مهارت و در دسترس بودن بازبین پایان می‌یابند - بدون هفته‌ها انتظار."
 
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
 msgid "Move to"
@@ -2204,6 +2259,10 @@ msgstr "انتقال به"
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "MSc Computer Science"
 msgstr "MSc Computer Science"
+
+#: src/routes/builder/$resumeId/-sidebar/left/sections/custom-fields.tsx
+msgid "Must start with https://"
+msgstr "باید با https:// شروع کرد"
 
 #: src/dialogs/api-key/create.tsx
 #: src/dialogs/resume/index.tsx
@@ -2235,6 +2294,10 @@ msgid "New Line"
 msgstr "خط جدید"
 
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
+msgid "New page"
+msgstr "صفحه جدید"
+
+#: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
 msgid "New Page"
 msgstr "صفحهٔ جدید"
 
@@ -2246,6 +2309,11 @@ msgstr "گذرواژهٔ جدید"
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
 msgid "New Section"
 msgstr "بخش جدید"
+
+#. placeholder {0}: pageIndex + 1
+#: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
+msgid "New section on page {0}"
+msgstr "بخش جدید در صفحه {0}"
 
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 msgid "New Skills Detected"
@@ -2355,7 +2423,7 @@ msgstr "Node.js"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Northline"
-msgstr "Northline"
+msgstr "خط شمالی"
 
 #: src/utils/locale.ts
 msgid "Norwegian"
@@ -2385,12 +2453,22 @@ msgstr "Only PDF, JPG, JPEG, and PNG files are allowed."
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "Only your assigned reviewer sees the assignments you submit. On your public profile, you decide which verified skills to display — everything else stays private."
-msgstr "Only your assigned reviewer sees the assignments you submit. On your public profile, you decide which verified skills to display — everything else stays private."
+msgstr "فقط بازبین اختصاص داده شده شما تکالیفی را که شما ارسال می کنید می بیند. در نمایه عمومی خود، شما تصمیم می‌گیرید که کدام مهارت‌های تأیید شده را نمایش دهید - بقیه چیزها خصوصی می‌مانند."
 
 #: src/routes/dashboard/resumes/-components/menus/context-menu.tsx
 #: src/routes/dashboard/resumes/-components/menus/dropdown-menu.tsx
 msgid "Open"
 msgstr "باز کردن"
+
+#: src/routes/builder/$resumeId/-components/header.tsx
+#: src/routes/builder/$resumeId/-components/header.tsx
+msgid "Open content editor"
+msgstr "ویرایشگر محتوا را باز کنید"
+
+#: src/routes/builder/$resumeId/-components/header.tsx
+#: src/routes/builder/$resumeId/-components/header.tsx
+msgid "Open design settings"
+msgstr "تنظیمات طراحی را باز کنید"
 
 #: src/routes/auth/forgot-password.tsx
 msgid "Open Email Client"
@@ -2487,6 +2565,11 @@ msgstr "صفحه {0}"
 msgid "Page {0} of {totalPages} — {1} users"
 msgstr "Page {0} of {totalPages} — {1} users"
 
+#. placeholder {0}: pageIndex + 1
+#: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
+msgid "Page {0}: {sectionTitle}"
+msgstr "صفحه {0}: {sectionTitle}"
+
 #: src/routes/dashboard/job-search/index.tsx
 msgid "Page {currentPage}"
 msgstr "صفحه {currentPage}"
@@ -2505,11 +2588,11 @@ msgstr "نیمه‌وقت"
 
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Pass the review to earn a verified skill badge, boost your profile visibility, and let opportunities come to you."
-msgstr "Pass the review to earn a verified skill badge, boost your profile visibility, and let opportunities come to you."
+msgstr "برای به دست آوردن نشان مهارت تایید شده، افزایش دید نمایه خود و اجازه دادن به فرصت‌ها، مرور را پاس کنید."
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Passive discovery"
-msgstr "Passive discovery"
+msgstr "کشف منفعل"
 
 #: src/dialogs/auth/disable-two-factor.tsx
 #: src/dialogs/auth/enable-two-factor.tsx
@@ -2559,11 +2642,11 @@ msgstr "فارسی"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Personality"
-msgstr "Personality"
+msgstr "شخصیت"
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Personality & culture fit"
-msgstr "Personality & culture fit"
+msgstr "تناسب شخصیت و فرهنگ"
 
 #: src/dialogs/resume/sections/reference.tsx
 #: src/routes/builder/$resumeId/-sidebar/left/sections/basics.tsx
@@ -2572,7 +2655,7 @@ msgstr "تلفن"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Pick a presentation that puts verification and outcomes first. Each card shows a real export layout from the builder — same document you share, with structure tuned for how people actually skim proof."
-msgstr "Pick a presentation that puts verification and outcomes first. Each card shows a real export layout from the builder — same document you share, with structure tuned for how people actually skim proof."
+msgstr "ارائه‌ای را انتخاب کنید که تأیید و نتایج را در اولویت قرار دهد. هر کارت یک طرح صادرات واقعی را از سازنده نشان می‌دهد - همان سندی که شما به اشتراک می‌گذارید، با ساختاری که برای اینکه چگونه افراد واقعاً اثبات می‌کنند تنظیم شده است."
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Pick a region to fill in your authorization details. Statuses already filled are shown next to each region."
@@ -2580,7 +2663,7 @@ msgstr "Pick a region to fill in your authorization details. Statuses already fi
 
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Pick skills to verify"
-msgstr "Pick skills to verify"
+msgstr "مهارت هایی را برای تأیید انتخاب کنید"
 
 #: src/utils/resume/section.tsx
 msgid "Picture"
@@ -2588,7 +2671,7 @@ msgstr "تصویر"
 
 #: src/routes/_home/-sections/statistics.tsx
 msgid "Platform statistics"
-msgstr "Platform statistics"
+msgstr "آمار پلتفرم"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Please complete the required work authorization fields before saving."
@@ -2659,7 +2742,7 @@ msgstr "Preview"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Preview of a verified candidate profile"
-msgstr "Preview of a verified candidate profile"
+msgstr "پیش نمایش نمایه نامزد تایید شده"
 
 #: src/routes/dashboard/admin/users.tsx
 #: src/routes/dashboard/job-search/index.tsx
@@ -2677,7 +2760,7 @@ msgstr "Privacy"
 
 #: src/routes/_home/-sections/footer.tsx
 msgid "Product"
-msgstr "Product"
+msgstr "محصول"
 
 #: src/dialogs/resume/sections/skill.tsx
 msgid "Proficiency"
@@ -2716,7 +2799,7 @@ msgstr "پروژه‌ها"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Proof-first"
-msgstr "Proof-first"
+msgstr "اثبات-اول"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 msgid "Protect your resume from unauthorized access with a password"
@@ -2745,11 +2828,11 @@ msgstr "منتشرکننده"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Pulse"
-msgstr "Pulse"
+msgstr "نبض"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Python/Django dashboard with interactive visualizations"
-msgstr "Python/Django dashboard with interactive visualizations"
+msgstr "داشبورد پایتون/جانگو با تجسم های تعاملی"
 
 #. placeholder {0}: quota.remaining
 #: src/routes/dashboard/job-search/index.tsx
@@ -2766,11 +2849,11 @@ msgstr "React"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "React Native mobile app with real-time synchronization"
-msgstr "React Native mobile app with real-time synchronization"
+msgstr "برنامه موبایل React Native با همگام سازی بلادرنگ"
 
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Receive a practical assignment from your reviewer, submit your work, and get actionable feedback in a real conversation."
-msgstr "Receive a practical assignment from your reviewer, submit your work, and get actionable feedback in a real conversation."
+msgstr "یک تکلیف عملی از داور خود دریافت کنید، کار خود را ارسال کنید و در یک مکالمه واقعی بازخورد عملی دریافت کنید."
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Recent sessions"
@@ -2788,6 +2871,7 @@ msgstr "مستطیل"
 msgid "Rectangle (Full Width)"
 msgstr "مستطیل (تمام‌عرض)"
 
+#: src/routes/builder/$resumeId/-components/dock.tsx
 #: src/routes/builder/$resumeId/-components/dock.tsx
 msgctxt "'Ctrl' may be replaced with the locale-specific equivalent (e.g. 'Strg' for QWERTZ layouts)."
 msgid "Redo (Ctrl+Y)"
@@ -2816,7 +2900,7 @@ msgstr "Rejected/issue"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Relay"
-msgstr "Relay"
+msgstr "رله"
 
 #: src/routes/auth/forgot-password.tsx
 msgid "Remember your password? <0/>"
@@ -2860,6 +2944,10 @@ msgstr "مرتب‌سازی مجدد"
 msgid "Request"
 msgstr "Request"
 
+#: src/routes/auth/verify-email.tsx
+msgid "Request a new link"
+msgstr "درخواست پیوند جدید"
+
 #: src/routes/dashboard/job-search/-components/job-detail.tsx
 msgid "Required Skills"
 msgstr "مهارت‌های مورد نیاز"
@@ -2868,13 +2956,13 @@ msgstr "مهارت‌های مورد نیاز"
 msgid "Required: reason for overriding this verdict..."
 msgstr "Required: reason for overriding this verdict..."
 
-#: src/routes/dashboard/settings/profile.tsx
 #: src/routes/auth/verify-email.tsx
+#: src/routes/dashboard/settings/profile.tsx
 msgid "Resend verification email"
 msgstr "ارسال دوباره ایمیل تأیید"
 
-#: src/routes/dashboard/settings/profile.tsx
 #: src/routes/auth/verify-email.tsx
+#: src/routes/dashboard/settings/profile.tsx
 msgid "Resending verification email..."
 msgstr "در حال ارسال دوباره ایمیل تأیید..."
 
@@ -2951,11 +3039,11 @@ msgstr "Reviewer since {memberSince}"
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Reviewers don't see who they're assessing, so your skills are judged on their merit — not your background."
-msgstr "Reviewers don't see who they're assessing, so your skills are judged on their merit — not your background."
+msgstr "بازبین‌ها نمی‌بینند چه کسی را ارزیابی می‌کنند، بنابراین مهارت‌های شما بر اساس شایستگی آنها ارزیابی می‌شود - نه پیشینه شما."
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "Reviewers evaluate your submission without seeing your name, employer, or background. If you're ever unhappy with an outcome, you can request a second opinion from a different reviewer."
-msgstr "Reviewers evaluate your submission without seeing your name, employer, or background. If you're ever unhappy with an outcome, you can request a second opinion from a different reviewer."
+msgstr "بازبینان بدون دیدن نام، کارفرما یا سابقه شما، ارسال شما را ارزیابی می کنند. اگر از یک نتیجه ناراضی هستید، می توانید نظر دوم را از یک بازبین دیگر درخواست کنید."
 
 #: src/components/input/rich-input.tsx
 msgid "Right Align"
@@ -3058,6 +3146,10 @@ msgstr "مدرسه"
 msgid "Search"
 msgstr "جستجو"
 
+#: src/components/command-palette/index.tsx
+msgid "Search commands"
+msgstr "دستورات جستجو"
+
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Search countries"
 msgstr "جستجوی کشورها"
@@ -3071,6 +3163,7 @@ msgstr "جستجو برای یک آیکون"
 msgid "Search for..."
 msgstr "جستجو برای..."
 
+#: src/components/command-palette/index.tsx
 #: src/components/ui/combobox.tsx
 msgid "Search..."
 msgstr "جستجو..."
@@ -3085,11 +3178,11 @@ msgstr "نوع بخش"
 
 #: src/routes/_home/-sections/hero.tsx
 msgid "See how it works"
-msgstr "See how it works"
+msgstr "ببینید چگونه کار می کند"
 
 #: src/routes/_home/-sections/hero.tsx
 msgid "See how verification works"
-msgstr "See how verification works"
+msgstr "ببینید راستی‌آزمایی چگونه کار می‌کند"
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "Select a payslip, contract, or other proof of employment (PDF, JPG, PNG, max 5MB)."
@@ -3128,7 +3221,7 @@ msgstr "Select status"
 
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Select the skills you want endorsed and choose a reviewer for a personalized, scenario-based assessment."
-msgstr "Select the skills you want endorsed and choose a reviewer for a personalized, scenario-based assessment."
+msgstr "مهارت‌هایی را که می‌خواهید تأیید شوند انتخاب کنید و یک بازبین را برای ارزیابی شخصی و مبتنی بر سناریو انتخاب کنید."
 
 #: src/components/ui/combobox.tsx
 msgid "Select..."
@@ -3136,7 +3229,7 @@ msgstr "انتخاب..."
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Self-starter"
-msgstr "Self-starter"
+msgstr "خود راه انداز"
 
 #: src/routes/auth/forgot-password.tsx
 msgid "Send Password Reset Email"
@@ -3148,11 +3241,11 @@ msgstr "در حال ارسال ایمیل تنظیم مجدد گذرواژه..."
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Senior AI Engineer"
-msgstr "Senior AI Engineer"
+msgstr "مهندس ارشد هوش مصنوعی"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Senior Full Stack Developer"
-msgstr "Senior Full Stack Developer"
+msgstr "توسعه دهنده ارشد Full Stack"
 
 #: src/components/input/rich-input.tsx
 msgid "Separator"
@@ -3194,7 +3287,7 @@ msgstr "عرض سایه"
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Share anywhere, instantly"
-msgstr "Share anywhere, instantly"
+msgstr "به اشتراک گذاری در هر کجا، فورا"
 
 #: src/utils/resume/section.tsx
 msgid "Sharing"
@@ -3227,6 +3320,7 @@ msgstr "Show or hide the verification timeline on your public CV. This is off by
 msgid "Show Timeline on Public CV"
 msgstr "Show Timeline on Public CV"
 
+#: src/components/ui/sidebar.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/layout/pages.tsx
 msgid "Sidebar"
 msgstr "نوار کناری"
@@ -3237,12 +3331,25 @@ msgstr "عرض نوار کناری"
 
 #: src/routes/auth/login.tsx
 #: src/routes/auth/verify-email.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Sign in"
 msgstr "ورود"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to verify your email"
+msgstr "برای تأیید ایمیل خود وارد شوید"
 
 #: src/routes/auth/login.tsx
 msgid "Sign in to your account"
 msgstr "ورود به حساب کاربری"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to your account to request a new verification email."
+msgstr "برای درخواست ایمیل تأیید جدید وارد حساب خود شوید."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to your account, then request a new verification email."
+msgstr "وارد حساب خود شوید، سپس یک ایمیل تأیید جدید درخواست کنید."
 
 #: src/routes/auth/register.tsx
 msgid "Sign up"
@@ -3250,7 +3357,7 @@ msgstr "عضویت"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Signal density"
-msgstr "Signal density"
+msgstr "تراکم سیگنال"
 
 #: src/routes/auth/-components/social-auth.tsx
 #: src/routes/auth/-components/social-auth.tsx
@@ -3292,11 +3399,11 @@ msgstr "Skill Center"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Skill clusters"
-msgstr "Skill clusters"
+msgstr "خوشه های مهارت"
 
 #: src/routes/_home/-sections/header.tsx
 msgid "Skill Verdict - Go to homepage"
-msgstr "Skill Verdict - Go to homepage"
+msgstr "حکم مهارت - به صفحه اصلی بروید"
 
 #: src/routes/dashboard/-components/sidebar.tsx
 #: src/routes/dashboard/settings/profile.tsx
@@ -3361,7 +3468,7 @@ msgstr "اسپانیایی"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Split identity and evidence panes; keeps personality context beside hard verification."
-msgstr "Split identity and evidence panes; keeps personality context beside hard verification."
+msgstr "تقسیم هویت و شواهد. زمینه شخصیت را در کنار تأیید سخت حفظ می کند."
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Sponsorship"
@@ -3390,7 +3497,7 @@ msgid "Start building your resume by giving it a name."
 msgstr "ساخت رزومه خود را با دادن یک نام به آن شروع کنید."
 
 #: src/routes/dashboard/resumes/-components/cards/create-card.tsx
-#: src/routes/dashboard/resumes/-components/list-view.tsx
+#: src/routes/dashboard/resumes/-components/resume-quick-actions.tsx
 msgid "Start building your resume from scratch"
 msgstr "ساخت رزومه خود را از صفر شروع کنید"
 
@@ -3408,11 +3515,11 @@ msgstr "ماندن"
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Stop chasing. Companies reach out directly to candidates whose verified skills match their requirements."
-msgstr "Stop chasing. Companies reach out directly to candidates whose verified skills match their requirements."
+msgstr "تعقیب را متوقف کنید شرکت ها مستقیماً با نامزدهایی که مهارت های تأیید شده آنها مطابق با نیازهای آنها است تماس می گیرند."
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Story arc"
-msgstr "Story arc"
+msgstr "قوس داستانی"
 
 #: src/components/input/rich-input.tsx
 msgid "Strike"
@@ -3487,15 +3594,15 @@ msgstr "تامیلی"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Task Management App"
-msgstr "Task Management App"
+msgstr "برنامه مدیریت وظایف"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Team player"
-msgstr "Team player"
+msgstr "بازیکن تیم"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Technical skills"
-msgstr "Technical skills"
+msgstr "مهارت های فنی"
 
 #: src/utils/locale.ts
 msgid "Telugu"
@@ -3553,6 +3660,10 @@ msgstr "رزومه‌ای که می‌خواهید به آن دسترسی پید
 #: src/components/input/rich-input.tsx
 msgid "The URL you entered is not valid."
 msgstr "URL وارد شده معتبر نیست."
+
+#: src/routes/auth/verify-email.tsx
+msgid "The verification link may be invalid, expired, or already used."
+msgstr "پیوند تأیید ممکن است نامعتبر، منقضی یا قبلاً استفاده شده باشد."
 
 #: src/components/command-palette/pages/preferences/theme.tsx
 #: src/components/user/dropdown-menu.tsx
@@ -3621,10 +3732,6 @@ msgstr "این رزومه قفل شده و قابل به‌روزرسانی نی
 msgid "This section is reserved for your personal notes specific to this resume. The content here remains private and is not shared with anyone else."
 msgstr "این بخش برای یادداشت‌های شخصی شما مخصوص این رزومه اختصاص داده شده است. محتوای اینجا خصوصی است و با هیچ‌کس دیگری به اشتراک گذاشته نمی‌شود."
 
-#: src/routes/auth/register.tsx
-msgid "This step is optional, but recommended."
-msgstr "این مرحله اختیاری است، اما توصیه می‌شود."
-
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "This week"
 msgstr "این هفته"
@@ -3635,11 +3742,11 @@ msgstr "این کار یک کلید API جدید برای دسترسی به API 
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Tight vertical rhythm for mobile sharing — still readable when the viewport is narrow."
-msgstr "Tight vertical rhythm for mobile sharing — still readable when the viewport is narrow."
+msgstr "ریتم عمودی فشرده برای اشتراک‌گذاری تلفن همراه - وقتی درگاه دید باریک است همچنان قابل خواندن است."
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Timeline-forward narrative with milestones; good when your evidence has a clear before/after."
-msgstr "Timeline-forward narrative with milestones; good when your evidence has a clear before/after."
+msgstr "خط زمانی-روایت رو به جلو با نقاط عطف. زمانی خوب است که شواهد شما قبل و بعد از آن واضح باشد."
 
 #: src/dialogs/api-key/create.tsx
 msgid "Tip: Give your API key a name, corresponding to the purpose of the key, to help you identify it later."
@@ -3665,6 +3772,12 @@ msgstr "برای حذف حساب خود، باید متن تأیید را وار
 msgid "Today"
 msgstr "امروز"
 
+#: src/components/ui/sidebar.tsx
+#: src/components/ui/sidebar.tsx
+#: src/components/ui/sidebar.tsx
+msgid "Toggle Sidebar"
+msgstr "نوار کناری را تغییر دهید"
+
 #: src/routes/dashboard/admin/users.tsx
 msgid "Total keys"
 msgstr "Total keys"
@@ -3688,6 +3801,10 @@ msgstr "Total sessions"
 #: src/routes/builder/$resumeId/-sidebar/right/sections/statistics.tsx
 msgid "Track your resume's views and downloads"
 msgstr "بازدیدها و دانلودهای رزومهٔ خود را پیگیری کنید"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Try requesting a new verification link."
+msgstr "درخواست یک پیوند تأیید جدید را امتحان کنید."
 
 #: src/utils/locale.ts
 msgid "Turkish"
@@ -3746,6 +3863,10 @@ msgstr "احراز هویت دو مرحله‌ای با موفقیت غیرفع�
 msgid "Two-factor authentication has been setup successfully."
 msgstr "احراز هویت دو مرحله‌ای با موفقیت راه‌اندازی شد."
 
+#: src/dialogs/auth/enable-two-factor.tsx
+msgid "Two-Factor Authentication QR Code"
+msgstr "کد QR احراز هویت دو مرحله ای"
+
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/users.tsx
 msgid "Two-factor enabled"
@@ -3753,7 +3874,7 @@ msgstr "Two-factor enabled"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Two-pane"
-msgstr "Two-pane"
+msgstr "دو جداره"
 
 #: src/dialogs/resume/import.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/design.tsx
@@ -3765,6 +3886,7 @@ msgstr "نوع"
 msgid "Type \"{CONFIRMATION_TEXT}\" to confirm"
 msgstr "برای تأیید، \"{CONFIRMATION_TEXT}\" را تایپ کنید"
 
+#: src/components/command-palette/index.tsx
 #: src/components/command-palette/index.tsx
 msgid "Type a command or search..."
 msgstr "یک دستور تایپ کنید یا جستجو کنید..."
@@ -3789,6 +3911,7 @@ msgstr "زیر ۳ سال"
 msgid "Underline"
 msgstr "زیرخط"
 
+#: src/routes/builder/$resumeId/-components/dock.tsx
 #: src/routes/builder/$resumeId/-components/dock.tsx
 msgctxt "'Ctrl' may be replaced with the locale-specific equivalent (e.g. 'Strg' for QWERTZ layouts)."
 msgid "Undo (Ctrl+Z)"
@@ -4010,15 +4133,15 @@ msgstr "Verified by {0}"
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Verified skill badges"
-msgstr "Verified skill badges"
+msgstr "نشان های مهارت تایید شده"
 
 #: src/routes/_home/-sections/statistics.tsx
 msgid "Verified skills"
-msgstr "Verified skills"
+msgstr "مهارت های تایید شده"
 
 #: src/routes/_home/-sections/footer.tsx
 msgid "Verified skills, honest feedback, and passive discovery — a living profile built on evidence, not keywords."
-msgstr "Verified skills, honest feedback, and passive discovery — a living profile built on evidence, not keywords."
+msgstr "مهارت‌های تأیید شده، بازخورد صادقانه، و کشف منفعلانه - نمایه‌ای زنده که بر اساس شواهد ساخته شده است، نه کلمات کلیدی."
 
 #: src/routes/auth/verify-2fa-backup.tsx
 #: src/routes/auth/verify-2fa.tsx
@@ -4028,11 +4151,15 @@ msgstr "تأیید"
 
 #: src/routes/_home/-sections/hero.tsx
 msgid "Verify my skills"
-msgstr "Verify my skills"
+msgstr "مهارت های من را تأیید کنید"
 
 #: src/routes/auth/verify-2fa-backup.tsx
 msgid "Verify with a Backup Code"
 msgstr "تأیید با کد پشتیبان"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Verify your email"
+msgstr "ایمیل خود را تأیید کنید"
 
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Verify your identity through a short video call. This adds trust to your resume."
@@ -4050,10 +4177,6 @@ msgstr "در حال تأیید کد..."
 #: src/routes/auth/resume-password.tsx
 msgid "Verifying password..."
 msgstr "در حال تأیید گذرواژه..."
-
-#: src/routes/auth/register.tsx
-msgid "Verifying your email is required when resetting your password."
-msgstr "برای تنظیم مجدد گذرواژه، تأیید ایمیل الزامی است."
 
 #: src/utils/locale.ts
 msgid "Vietnamese"
@@ -4088,6 +4211,14 @@ msgstr "Visibility"
 msgid "Volunteer"
 msgstr "داوطلبانه"
 
+#: src/routes/auth/verify-email.tsx
+msgid "We couldn't verify your email"
+msgstr "نتوانستیم ایمیل شما را تأیید کنیم"
+
+#: src/routes/auth/verify-email.tsx
+msgid "We sent a verification link to your email address."
+msgstr "یک پیوند تأیید به نشانی ایمیل شما فرستادیم."
+
 #: src/dialogs/resume/sections/award.tsx
 #: src/dialogs/resume/sections/certification.tsx
 #: src/dialogs/resume/sections/education.tsx
@@ -4113,11 +4244,11 @@ msgstr "وقتی قفل باشد، رزومه قابل به‌روزرسانی �
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "Who can see my submissions and results?"
-msgstr "Who can see my submissions and results?"
+msgstr "چه کسی می تواند ارسالی ها و نتایج من را ببیند؟"
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Why candidates choose us"
-msgstr "Why candidates choose us"
+msgstr "چرا نامزدها ما را انتخاب می کنند"
 
 #: src/routes/dashboard/-components/sidebar.tsx
 #: src/routes/dashboard/work-authorization/index.tsx
@@ -4139,7 +4270,7 @@ msgstr "Yes"
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "Yes. Add or remove skills any time, and request re-verification as you level up. Your profile is designed to evolve with your career."
-msgstr "Yes. Add or remove skills any time, and request re-verification as you level up. Your profile is designed to evolve with your career."
+msgstr "بله. هر زمان که خواستید مهارت‌ها را اضافه یا حذف کنید و با بالا رفتن سطح، درخواست تأیید مجدد کنید. نمایه شما طوری طراحی شده است که با حرفه شما تکامل یابد."
 
 #: src/routes/dashboard/job-search/-components/job-utils.ts
 msgid "Yesterday"
@@ -4149,22 +4280,33 @@ msgstr "دیروز"
 msgid "You can also use your username to login."
 msgstr "برای ورود می‌توانید از نام کاربری خود نیز استفاده کنید."
 
+#: src/routes/auth/verify-email.tsx
+msgid "You can now use account recovery and other features that require a verified email address."
+msgstr "اکنون می‌توانید از بازیابی حساب و سایر قابلیت‌هایی که به نشانی ایمیل تأییدشده نیاز دارند استفاده کنید."
+
 #: src/hooks/use-form-blocker.tsx
 msgid "You have unsaved changes that will be lost."
 msgstr "تغییرات ذخیره‌نشده‌ای دارید که از دست خواهند رفت."
 
+#: src/routes/auth/verify-email.tsx
+msgid "You must verify your email address before you can access Skill Verdict."
+msgstr "قبل از دسترسی به Skill Verdict باید نشانی ایمیل خود را تأیید کنید."
+
 #: src/routes/_home/-sections/faq.tsx
 msgid "You pick the skills you want to endorse and a reviewer with relevant expertise. They assign a short, practical assessment, review your submission, and share actionable feedback. If you pass, the skill is added to your profile as a verified badge."
-msgstr "You pick the skills you want to endorse and a reviewer with relevant expertise. They assign a short, practical assessment, review your submission, and share actionable feedback. If you pass, the skill is added to your profile as a verified badge."
+msgstr "شما مهارت هایی را که می خواهید تأیید کنید و یک داور با تخصص مرتبط انتخاب می کنید. آنها یک ارزیابی کوتاه و عملی تعیین می کنند، ارسالی شما را بررسی می کنند و بازخورد عملی را به اشتراک می گذارند. در صورت قبولی، مهارت به عنوان یک نشان تایید شده به نمایه شما اضافه می شود."
 
 #: src/routes/auth/forgot-password.tsx
-#: src/routes/auth/register.tsx
 msgid "You've got mail!"
 msgstr "یک ایمیل دریافت کردید!"
 
 #: src/routes/dashboard/settings/danger-zone.tsx
 msgid "Your account has been deleted successfully."
 msgstr "حساب کاربری شما با موفقیت حذف شد."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Your account is up to date."
+msgstr "حساب شما به‌روز است."
 
 #: src/dialogs/api-key/create.tsx
 msgid "Your API key has been copied to the clipboard."
@@ -4173,6 +4315,10 @@ msgstr "کلید API شما در کلیپ‌بورد کپی شد."
 #: src/routes/builder/$resumeId/index.tsx
 msgid "Your changes are saved automatically."
 msgstr "تغییرات شما به‌صورت خودکار ذخیره می‌شوند."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Your email address is confirmed. You can continue using Skill Verdict."
+msgstr "نشانی ایمیل شما تأیید شد. می‌توانید به استفاده از Skill Verdict ادامه دهید."
 
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Your identity has been verified and your profile is trusted."
@@ -4226,9 +4372,11 @@ msgid "Your verification call has been scheduled. Our team will review and confi
 msgstr "Your verification call has been scheduled. Our team will review and confirm your identity shortly."
 
 #: src/routes/builder/$resumeId/-components/dock.tsx
+#: src/routes/builder/$resumeId/-components/dock.tsx
 msgid "Zoom in"
 msgstr "بزرگ‌نمایی"
 
+#: src/routes/builder/$resumeId/-components/dock.tsx
 #: src/routes/builder/$resumeId/-components/dock.tsx
 msgid "Zoom out"
 msgstr "کوچک‌نمایی"
@@ -4236,67 +4384,3 @@ msgstr "کوچک‌نمایی"
 #: src/utils/locale.ts
 msgid "Zulu"
 msgstr "زولو"
-
-#: src/routes/auth/verify-email.tsx
-msgid "A new verification link has been sent to your email address."
-msgstr "یک پیوند تأیید جدید به نشانی ایمیل شما ارسال شد."
-
-#: src/routes/auth/verify-email.tsx
-msgid "Check your inbox"
-msgstr "صندوق ورودی خود را بررسی کنید"
-
-#: src/routes/auth/verify-email.tsx
-msgid "Failed to resend verification email. Please try again."
-msgstr "ارسال دوباره ایمیل تأیید ناموفق بود. لطفاً دوباره تلاش کنید."
-
-#: src/routes/auth/verify-email.tsx
-msgid "Request a new link"
-msgstr "درخواست پیوند جدید"
-
-#: src/routes/auth/verify-email.tsx
-msgid "Sign in to your account to request a new verification email."
-msgstr "برای درخواست ایمیل تأیید جدید وارد حساب خود شوید."
-
-#: src/routes/auth/verify-email.tsx
-msgid "Sign in to your account, then request a new verification email."
-msgstr "وارد حساب خود شوید، سپس یک ایمیل تأیید جدید درخواست کنید."
-
-#: src/routes/auth/verify-email.tsx
-msgid "Sign in to verify your email"
-msgstr "برای تأیید ایمیل خود وارد شوید"
-
-#: src/routes/auth/verify-email.tsx
-msgid "The verification link may be invalid, expired, or already used."
-msgstr "پیوند تأیید ممکن است نامعتبر، منقضی یا قبلاً استفاده شده باشد."
-
-#: src/routes/auth/verify-email.tsx
-msgid "Try requesting a new verification link."
-msgstr "درخواست یک پیوند تأیید جدید را امتحان کنید."
-
-#: src/routes/auth/verify-email.tsx
-msgid "Verify your email"
-msgstr "ایمیل خود را تأیید کنید"
-
-#: src/routes/auth/verify-email.tsx
-msgid "We couldn't verify your email"
-msgstr "نتوانستیم ایمیل شما را تأیید کنیم"
-
-#: src/routes/auth/verify-email.tsx
-msgid "We sent a verification link to your email address."
-msgstr "یک پیوند تأیید به نشانی ایمیل شما فرستادیم."
-
-#: src/routes/auth/verify-email.tsx
-msgid "You can now use account recovery and other features that require a verified email address."
-msgstr "اکنون می‌توانید از بازیابی حساب و سایر قابلیت‌هایی که به نشانی ایمیل تأییدشده نیاز دارند استفاده کنید."
-
-#: src/routes/auth/verify-email.tsx
-msgid "You must verify your email address before you can access Skill Verdict."
-msgstr "قبل از دسترسی به Skill Verdict باید نشانی ایمیل خود را تأیید کنید."
-
-#: src/routes/auth/verify-email.tsx
-msgid "Your account is up to date."
-msgstr "حساب شما به‌روز است."
-
-#: src/routes/auth/verify-email.tsx
-msgid "Your email address is confirmed. You can continue using Skill Verdict."
-msgstr "نشانی ایمیل شما تأیید شد. می‌توانید به استفاده از Skill Verdict ادامه دهید."
