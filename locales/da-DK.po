@@ -31,7 +31,7 @@ msgstr "Oprettet"
 #. js-lingui-explicit-id
 #: src/routes/dashboard/resumes/index.tsx
 msgid "Name"
-msgstr ""
+msgstr "Navn"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "(you)"
@@ -87,14 +87,9 @@ msgstr "+{0} more approved"
 msgid "+{0} more uploaded"
 msgstr "+{0} more uploaded"
 
-#: src/routes/_home/-sections/faq.tsx
-msgctxt "Every word needs to be wrapped in a tag"
-msgid "<0>Frequently</0><1>Asked</1><2>Questions</2>"
-msgstr "<0>Ofte</0><1>Stillede</1><2>Spørgsmål</2>"
-
 #: src/routes/_home/-sections/hero.tsx
 msgid "<0>Your skills, finally,</0><1>Proven. Not just claimed.</1>"
-msgstr "<0>Your skills, finally,</0><1>Proven. Not just claimed.</1>"
+msgstr "<0>Dine færdigheder, endelig,</0><1>Bevist. Ikke bare hævdet.</1>"
 
 #: src/dialogs/api-key/create.tsx
 msgid "1 month"
@@ -114,7 +109,7 @@ msgstr "2014 - 2016"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "2020 - Present"
-msgstr "2020 - Present"
+msgstr "2020 - Nuværende"
 
 #: src/dialogs/api-key/create.tsx
 msgid "3 months"
@@ -133,13 +128,17 @@ msgstr "Et bekræftelseslink er blevet sendt til din nuværende e-mailadresse. T
 msgid "A link to your resume has been copied to clipboard."
 msgstr "Et link til dit CV er kopieret til udklipsholderen."
 
+#: src/routes/auth/verify-email.tsx
+msgid "A new verification link has been sent to your email address."
+msgstr "Et nyt bekræftelseslink er sendt til din e-mailadresse."
+
 #: src/routes/dashboard/settings/profile.tsx
 msgid "A new verification link has been sent to your email address. Please check your inbox to verify your account."
 msgstr "Et nyt bekræftelseslink er blevet sendt til din e-mailadresse. Tjek venligst din indbakke for at verificere din konto."
 
 #: src/routes/_home/-sections/features.tsx
 msgid "A profile that reflects what you can actually do — verified by people who know what they're looking at, and built to travel with you wherever you go."
-msgstr "A profile that reflects what you can actually do — verified by people who know what they're looking at, and built to travel with you wherever you go."
+msgstr "En profil, der afspejler, hvad du faktisk kan gøre â bekræftet af folk, der ved, hvad de ser på, og bygget til at rejse med dig, uanset hvor du går."
 
 #: src/routes/dashboard/admin/experience-queue.tsx
 msgid "A reason is required to override."
@@ -152,7 +151,7 @@ msgstr "Et CV med dette URL-segment findes allerede."
 
 #: src/routes/_home/-sections/features.tsx
 msgid "A unique QR code and public link make your profile shareable in person, online, and in recruiter searches."
-msgstr "A unique QR code and public link make your profile shareable in person, online, and in recruiter searches."
+msgstr "En unik QR-kode og offentligt link gør din profil delbar personligt, online og i rekrutteringssøgninger."
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/page.tsx
 msgid "A4"
@@ -172,7 +171,7 @@ msgstr "Account updated"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Action oriented"
-msgstr "Action oriented"
+msgstr "Handlingsorienteret"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Active sessions"
@@ -363,11 +362,11 @@ msgstr "Der opstod en ukendt fejl under import af dit CV."
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Analytical"
-msgstr "Analytical"
+msgstr "Analytisk"
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Anonymous, bias-free review"
-msgstr "Anonymous, bias-free review"
+msgstr "Anonym, bias-fri anmeldelse"
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Any level"
@@ -531,6 +530,12 @@ msgstr "Back"
 msgid "Back to Login"
 msgstr "Tilbage til login"
 
+#: src/routes/builder/$resumeId/-components/header.tsx
+#: src/routes/builder/$resumeId/-components/header.tsx
+#: src/routes/builder/$resumeId/-components/header.tsx
+msgid "Back to resumes"
+msgstr "Tilbage til CV"
+
 #: src/routes/dashboard/admin/resume/$resumeId.tsx
 msgid "Back to users"
 msgstr "Back to users"
@@ -553,7 +558,7 @@ msgstr "Grundlæggende"
 
 #: src/routes/_home/-sections/footer.tsx
 msgid "Become a verifier"
-msgstr "Become a verifier"
+msgstr "Bliv verifikator"
 
 #: src/routes/dashboard/job-search/-components/job-detail.tsx
 msgid "Benefits"
@@ -586,11 +591,11 @@ msgstr "BSc Software Engineering"
 
 #: src/routes/_home/-sections/hero.tsx
 msgid "Build a living profile backed by real evidence. Get your skills endorsed by domain experts in short, practical reviews — and let opportunities come to you."
-msgstr "Build a living profile backed by real evidence. Get your skills endorsed by domain experts in short, practical reviews — and let opportunities come to you."
+msgstr "Byg en levende profil understøttet af reelle beviser. Få dine færdigheder godkendt af domæneeksperter i korte, praktiske anmeldelser â og lad mulighederne komme til dig."
 
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Build your profile"
-msgstr "Build your profile"
+msgstr "Byg din profil"
 
 #: src/components/command-palette/index.tsx
 msgid "Builder Command Palette"
@@ -610,7 +615,7 @@ msgstr "Call link sent"
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "Can I update my profile and re-verify skills later?"
-msgstr "Can I update my profile and re-verify skills later?"
+msgstr "Kan jeg opdatere min profil og genbekræfte færdigheder senere?"
 
 #: src/dialogs/auth/enable-two-factor.tsx
 #: src/dialogs/resume/sections/award.tsx
@@ -668,7 +673,7 @@ msgstr "Cancel Verification"
 
 #: src/routes/_home/-sections/statistics.tsx
 msgid "Candidates"
-msgstr "Candidates"
+msgstr "Kandidater"
 
 #: src/utils/locale.ts
 msgid "Catalan"
@@ -708,9 +713,9 @@ msgstr "Fortrudt? Omdøb dit CV til noget mere beskrivende."
 msgid "Check your email for a link to reset your password."
 msgstr "Tjek din e-mail for et link til at nulstille din adgangskode."
 
-#: src/routes/auth/register.tsx
-msgid "Check your email for a link to verify your account."
-msgstr "Tjek din e-mail for et link til at verificere din konto."
+#: src/routes/auth/verify-email.tsx
+msgid "Check your inbox"
+msgstr "Tjek din indbakke"
 
 #: src/utils/locale.ts
 msgid "Chinese (Simplified)"
@@ -756,7 +761,7 @@ msgstr "Luk"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Cluster"
-msgstr "Cluster"
+msgstr "Klynge"
 
 #: src/components/input/rich-input.tsx
 msgid "Code Block"
@@ -774,7 +779,16 @@ msgstr "Kolonner"
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Combine verified skills with research-backed personality insights so teams hire for both capability and fit."
-msgstr "Combine verified skills with research-backed personality insights so teams hire for both capability and fit."
+msgstr "Kombiner verificerede færdigheder med forskningsstøttet personlighedsindsigt, så teams ansætter for både kapacitet og pasform."
+
+#: src/components/command-palette/index.tsx
+#: src/components/command-palette/index.tsx
+msgid "Command Palette"
+msgstr "Kommandopalet"
+
+#: src/components/command-palette/index.tsx
+msgid "Command Palette - {currentPage}"
+msgstr "Kommandopalet - {currentPage}"
 
 #: src/routes/_home/-sections/footer.tsx
 msgid "Community"
@@ -782,7 +796,7 @@ msgstr "Fællesskab"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Compact"
-msgstr "Compact"
+msgstr "Kompakt"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Compact signal row for endorsements and recency — less chrome, more \"what passed\"."
@@ -794,7 +808,7 @@ msgstr "Virksomhed"
 
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Complete the assessment"
-msgstr "Complete the assessment"
+msgstr "Gennemfør vurderingen"
 
 #: src/dialogs/api-key/create.tsx
 #: src/hooks/use-prompt.tsx
@@ -821,7 +835,7 @@ msgstr "Forbind"
 
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Connect your professional accounts and portfolio to instantly build a living, evidence-backed profile that showcases real experience."
-msgstr "Connect your professional accounts and portfolio to instantly build a living, evidence-backed profile that showcases real experience."
+msgstr "Forbind dine professionelle konti og portefølje for øjeblikkeligt at opbygge en levende, evidensbaseret profil, der viser ægte oplevelse."
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Consent"
@@ -829,29 +843,30 @@ msgstr "Consent"
 
 #: src/routes/_home/-sections/footer.tsx
 msgid "Contact us"
-msgstr "Contact us"
+msgstr "Kontakt os"
 
 #: src/dialogs/resume/sections/cover-letter.tsx
 #: src/dialogs/resume/sections/summary-item.tsx
+#: src/routes/builder/$resumeId/route.tsx
 msgid "Content"
 msgstr "Indhold"
 
 #: src/dialogs/auth/enable-two-factor.tsx
 #: src/dialogs/auth/enable-two-factor.tsx
 #: src/dialogs/auth/enable-two-factor.tsx
-#: src/routes/auth/register.tsx
+#: src/routes/auth/verify-email.tsx
 #: src/routes/dashboard/verification/index.tsx
 msgid "Continue"
 msgstr "Fortsæt"
 
 #: src/routes/dashboard/resumes/-components/cards/import-card.tsx
-#: src/routes/dashboard/resumes/-components/list-view.tsx
+#: src/routes/dashboard/resumes/-components/resume-quick-actions.tsx
 msgid "Continue where you left off"
 msgstr "Fortsæt der, hvor du slap"
 
 #: src/dialogs/resume/import.tsx
-msgid "Continue where you left off by importing an existing resume you created using Skill Verdict or any another resume builder. Supported formats include PDF, Microsoft Word, as well as JSON files from Skill Verdict."
-msgstr "Fortsæt der, hvor du slap, ved at importere et eksisterende CV, du har oprettet med Skill Verdict eller en anden CV-bygger. Understøttede formater omfatter PDF, Microsoft Word samt JSON-filer fra Skill Verdict."
+msgid "Continue where you left off by importing an existing resume you created using another resume builder. Supported formats include PDF, Microsoft Word, and JSON Resume files."
+msgstr "Fortsæt, hvor du slap, ved at importere et eksisterende CV, du har oprettet ved hjælp af en anden CV-bygger. Understøttede formater inkluderer PDF, Microsoft Word og JSON CV-filer."
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Contractor"
@@ -877,6 +892,7 @@ msgstr "Kopiér backup-koder"
 msgid "Copy this secret key and use it in your applications to access your data."
 msgstr "Kopiér denne hemmelige nøgle og brug den i dine applikationer for at få adgang til dine data."
 
+#: src/routes/builder/$resumeId/-components/dock.tsx
 #: src/routes/builder/$resumeId/-components/dock.tsx
 msgid "Copy URL"
 msgstr "Kopiér URL"
@@ -978,7 +994,7 @@ msgstr "Opret en ny reference"
 #: src/components/command-palette/pages/resumes.tsx
 #: src/dialogs/resume/index.tsx
 #: src/routes/dashboard/resumes/-components/cards/create-card.tsx
-#: src/routes/dashboard/resumes/-components/list-view.tsx
+#: src/routes/dashboard/resumes/-components/resume-quick-actions.tsx
 #: src/routes/dashboard/verification/index.tsx
 msgid "Create a new resume"
 msgstr "Opret et nyt CV"
@@ -1006,6 +1022,10 @@ msgstr "Create a resume first, then add your work authorization details."
 #: src/dialogs/resume/index.tsx
 msgid "Create a Sample Resume"
 msgstr "Opret et eksempel-CV"
+
+#: src/dialogs/resume/index.tsx
+msgid "Create Resume with Options"
+msgstr "Opret CV med muligheder"
 
 #: src/dialogs/api-key/create.tsx
 msgid "Creating your API key..."
@@ -1066,7 +1086,7 @@ msgstr "Dashboard"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Data Analytics Dashboard"
-msgstr "Data Analytics Dashboard"
+msgstr "Dashboard for dataanalyse"
 
 #: src/dialogs/resume/sections/award.tsx
 #: src/dialogs/resume/sections/certification.tsx
@@ -1138,6 +1158,7 @@ msgstr "Sletter dit CV..."
 msgid "Description"
 msgstr "Beskrivelse"
 
+#: src/routes/builder/$resumeId/route.tsx
 #: src/utils/resume/section.tsx
 msgid "Design"
 msgstr "Design"
@@ -1175,6 +1196,10 @@ msgstr "Afbryd forbindelse"
 msgid "Display username"
 msgstr "Display username"
 
+#: src/components/ui/sidebar.tsx
+msgid "Displays the mobile sidebar."
+msgstr "Viser den mobile sidebjælke."
+
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Docker"
 msgstr "Docker"
@@ -1190,7 +1215,7 @@ msgstr "Documents"
 
 #: src/routes/_home/-sections/hero.tsx
 msgid "Don't chase. Attract."
-msgstr "Don't chase. Attract."
+msgstr "Lad være med at jage. Tiltrække."
 
 #: src/routes/auth/login.tsx
 msgid "Don't have an account? <0/>"
@@ -1214,13 +1239,16 @@ msgid "Download a copy of your resume in PDF format. Use this file for printing 
 msgstr "Download en kopi af dit CV i PDF-format. Brug denne fil til udskrivning eller til nemt at dele dit CV med rekrutteringskonsulenter."
 
 #: src/routes/builder/$resumeId/-components/dock.tsx
+#: src/routes/builder/$resumeId/-components/dock.tsx
 msgid "Download DOCX"
 msgstr "Download DOCX"
 
 #: src/routes/builder/$resumeId/-components/dock.tsx
+#: src/routes/builder/$resumeId/-components/dock.tsx
 msgid "Download JSON"
 msgstr "Download JSON"
 
+#: src/routes/builder/$resumeId/-components/dock.tsx
 #: src/routes/builder/$resumeId/-components/dock.tsx
 msgid "Download PDF"
 msgstr "Download PDF"
@@ -1264,7 +1292,7 @@ msgstr "Hollandsk"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "E-commerce Platform"
-msgstr "E-commerce Platform"
+msgstr "E-handelsplatform"
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "e.g. 150000"
@@ -1286,13 +1314,17 @@ msgstr "f.eks. frontend-udvikler job i Berlin"
 msgid "e.g. Skilled Worker"
 msgstr "e.g. Skilled Worker"
 
+#: src/routes/dashboard/admin/ai.tsx
+msgid "e.g., gpt-4, claude-3-opus, gemini-pro"
+msgstr "f.eks. gpt-4, claude-3-opus, gemini-pro"
+
 #: src/routes/_home/-sections/features.tsx
 msgid "Earn peer-endorsed badges from domain experts — turn claims into evidence employers can trust at a glance."
-msgstr "Earn peer-endorsed badges from domain experts — turn claims into evidence employers can trust at a glance."
+msgstr "Optjen peer-godkendte badges fra domæneeksperter â forvandl krav til beviser, som arbejdsgivere kan stole på med et øjeblik."
 
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Earn your verdict"
-msgstr "Earn your verdict"
+msgstr "Få din dom"
 
 #: src/dialogs/resume/sections/custom.tsx
 #: src/routes/_home/-sections/hero-visual.tsx
@@ -1312,6 +1344,7 @@ msgstr "E-mail"
 msgid "Email Address"
 msgstr "E-mailadresse"
 
+#: src/routes/auth/verify-email.tsx
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/users.tsx
 msgid "Email verified"
@@ -1385,7 +1418,7 @@ msgstr "Indtast din adgangskode for at deaktivere to-faktor-godkendelse. Din kon
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Every assessment comes with actionable feedback, so you level up even when you're already getting hired."
-msgstr "Every assessment comes with actionable feedback, so you level up even when you're already getting hired."
+msgstr "Hver vurdering kommer med brugbar feedback, så du stiger i niveau, selv når du allerede bliver ansat."
 
 #: src/routes/dashboard/job-search/-components/use-job-search.ts
 msgid "Exclude {value}"
@@ -1474,6 +1507,10 @@ msgstr "Failed to load document."
 msgid "Failed to load user details."
 msgstr "Failed to load user details."
 
+#: src/routes/auth/verify-email.tsx
+msgid "Failed to resend verification email. Please try again."
+msgstr "Kunne ikke gensende bekræftelsesmailen. Prøv igen."
+
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Failed to save work authorization."
 msgstr "Failed to save work authorization."
@@ -1514,6 +1551,10 @@ msgstr "Filtrér efter"
 #: src/utils/locale.ts
 msgid "Finnish"
 msgstr "Finsk"
+
+#: src/routes/builder/$resumeId/-components/dock.tsx
+msgid "Fit resume to screen"
+msgstr "Tilpas CV til skærmen"
 
 #: src/dialogs/resume/sections/language.tsx
 msgid "Fluency"
@@ -1560,7 +1601,7 @@ msgstr "Format"
 
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Four simple steps to turn your claims into evidence. No keyword stuffing, no job-title theatre — just practical assessments reviewed by domain experts."
-msgstr "Four simple steps to turn your claims into evidence. No keyword stuffing, no job-title theatre — just practical assessments reviewed by domain experts."
+msgstr "Fire enkle trin til at omdanne dine påstande til beviser. Ingen søgeordsfyld, ingen jobtitelteater – kun praktiske vurderinger gennemgået af domæneeksperter."
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/page.tsx
 msgid "Free-Form"
@@ -1578,13 +1619,17 @@ msgstr "Freelancer Profile Link"
 msgid "French"
 msgstr "Fransk"
 
+#: src/routes/_home/-sections/faq.tsx
+msgid "Frequently Asked Questions"
+msgstr "Ofte stillede spørgsmål"
+
 #: src/routes/builder/$resumeId/-sidebar/right/sections/layout/pages.tsx
 msgid "Full Width"
 msgstr "Fuld bredde"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Full-stack React/Node.js application with payment integration"
-msgstr "Full-stack React/Node.js application with payment integration"
+msgstr "Full-stack React/Node.js-applikation med betalingsintegration"
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Full-time"
@@ -1608,7 +1653,7 @@ msgstr "Get AI feedback on what is strong in this resume and what should be impr
 
 #: src/routes/_home/-sections/footer.tsx
 msgid "Get verified"
-msgstr "Get verified"
+msgstr "Bliv verificeret"
 
 #: src/components/command-palette/pages/navigation.tsx
 #: src/components/command-palette/pages/navigation.tsx
@@ -1621,10 +1666,6 @@ msgstr "Global AI"
 #: src/routes/auth/verify-2fa-backup.tsx
 msgid "Go Back"
 msgstr "Gå tilbage"
-
-#: src/routes/_home/-sections/header.tsx
-msgid "Go to dashboard"
-msgstr "Gå til dashboard"
 
 #: src/components/command-palette/pages/navigation.tsx
 msgid "Go to..."
@@ -1648,11 +1689,11 @@ msgstr "Gitter"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Grouped capabilities with micro-labels — shows breadth without a wall of bullet points."
-msgstr "Grouped capabilities with micro-labels — shows breadth without a wall of bullet points."
+msgstr "Grupperede funktioner med mikro-labels â viser bredden uden en mur af punkttegn."
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Growth-focused feedback"
-msgstr "Growth-focused feedback"
+msgstr "Vækstfokuseret feedback"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Harvard University"
@@ -1709,7 +1750,7 @@ msgstr "Her er din nye API-nøgle"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Hero statement up top, verified skills as the spine — built for reviewers who scan in seconds."
-msgstr "Hero statement up top, verified skills as the spine — built for reviewers who scan in seconds."
+msgstr "Helteudsagn i top, bekræftede færdigheder som rygraden â bygget til anmeldere, der scanner på få sekunder."
 
 #: src/components/level/combobox.tsx
 #: src/dialogs/resume/sections/language.tsx
@@ -1751,20 +1792,28 @@ msgstr "Hvordan bruger jeg API'et?"
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "How does skill verification work?"
-msgstr "How does skill verification work?"
+msgstr "Hvordan fungerer færdighedsverifikation?"
 
 #: src/routes/_home/-sections/footer.tsx
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "How it works"
-msgstr "How it works"
+msgstr "Hvordan det virker"
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "How long does a verification take?"
-msgstr "How long does a verification take?"
+msgstr "Hvor lang tid tager en verifikation?"
+
+#: src/routes/dashboard/verification/index.tsx
+msgid "https://www.upwork.com/freelancers/~..."
+msgstr "https://www.upwork.com/freelancers/~..."
 
 #: src/utils/locale.ts
 msgid "Hungarian"
 msgstr "Ungarsk"
+
+#: src/routes/_home/-sections/how-it-works.tsx
+msgid "I am ready to start"
+msgstr "Jeg er klar til at starte"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "I consent to sharing my work authorization details with employers for matching."
@@ -1822,7 +1871,7 @@ msgstr "Importér"
 
 #: src/dialogs/resume/import.tsx
 #: src/routes/dashboard/resumes/-components/cards/import-card.tsx
-#: src/routes/dashboard/resumes/-components/list-view.tsx
+#: src/routes/dashboard/resumes/-components/resume-quick-actions.tsx
 msgid "Import an existing resume"
 msgstr "Importér et eksisterende CV"
 
@@ -1861,7 +1910,7 @@ msgstr "Praktikant"
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "Is the review really unbiased?"
-msgstr "Is the review really unbiased?"
+msgstr "Er anmeldelsen virkelig upartisk?"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Issue date"
@@ -1993,7 +2042,7 @@ msgstr "Layout"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Layouts for evidence, not decoration"
-msgstr "Layouts for evidence, not decoration"
+msgstr "Layouts til bevis, ikke dekoration"
 
 #: src/components/resume/preview.tsx
 msgid "Learn more about how to fit content on a page"
@@ -2014,7 +2063,7 @@ msgstr "Lad det være tomt for at nulstille titlen til originalen."
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Ledger"
-msgstr "Ledger"
+msgstr "Hovedbog"
 
 #: src/components/input/rich-input.tsx
 msgid "Left Align"
@@ -2063,6 +2112,10 @@ msgstr "Liste"
 #: src/utils/locale.ts
 msgid "Lithuanian"
 msgstr "Litauisk"
+
+#: src/components/ui/spinner.tsx
+msgid "Loading"
+msgstr "Indlæser"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Loading document..."
@@ -2187,13 +2240,17 @@ msgstr "Minimumsløn"
 msgid "Model"
 msgstr "Model"
 
+#: src/routes/builder/$resumeId/-components/dock.tsx
+msgid "More builder actions"
+msgstr "Flere bygherrehandlinger"
+
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "More than 3 years"
 msgstr "Mere end 3 år"
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "Most verifications wrap up in 1–3 days depending on the skill and reviewer availability — no weeks of waiting around."
-msgstr "Most verifications wrap up in 1–3 days depending on the skill and reviewer availability — no weeks of waiting around."
+msgstr "De fleste verifikationer afsluttes i løbet af 1â3 dage afhængigt af færdigheder og korrekturlæserens tilgængelighed â ingen ugers ventetid."
 
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
 msgid "Move to"
@@ -2202,6 +2259,10 @@ msgstr "Flyt til"
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "MSc Computer Science"
 msgstr "MSc Computer Science"
+
+#: src/routes/builder/$resumeId/-sidebar/left/sections/custom-fields.tsx
+msgid "Must start with https://"
+msgstr "Skal starte med https://"
 
 #: src/dialogs/api-key/create.tsx
 #: src/dialogs/resume/index.tsx
@@ -2233,6 +2294,10 @@ msgid "New Line"
 msgstr "Ny linje"
 
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
+msgid "New page"
+msgstr "Ny side"
+
+#: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
 msgid "New Page"
 msgstr "Ny side"
 
@@ -2244,6 +2309,11 @@ msgstr "Ny adgangskode"
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
 msgid "New Section"
 msgstr "Nyt afsnit"
+
+#. placeholder {0}: pageIndex + 1
+#: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
+msgid "New section on page {0}"
+msgstr "Nyt afsnit på side {0}"
 
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 msgid "New Skills Detected"
@@ -2383,12 +2453,22 @@ msgstr "Only PDF, JPG, JPEG, and PNG files are allowed."
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "Only your assigned reviewer sees the assignments you submit. On your public profile, you decide which verified skills to display — everything else stays private."
-msgstr "Only your assigned reviewer sees the assignments you submit. On your public profile, you decide which verified skills to display — everything else stays private."
+msgstr "Kun din tildelte korrekturlæser kan se de opgaver, du afleverer. På din offentlige profil bestemmer du, hvilke verificerede færdigheder der skal vises â alt andet forbliver privat."
 
 #: src/routes/dashboard/resumes/-components/menus/context-menu.tsx
 #: src/routes/dashboard/resumes/-components/menus/dropdown-menu.tsx
 msgid "Open"
 msgstr "Åbn"
+
+#: src/routes/builder/$resumeId/-components/header.tsx
+#: src/routes/builder/$resumeId/-components/header.tsx
+msgid "Open content editor"
+msgstr "Åbn indholdseditor"
+
+#: src/routes/builder/$resumeId/-components/header.tsx
+#: src/routes/builder/$resumeId/-components/header.tsx
+msgid "Open design settings"
+msgstr "Åbn designindstillinger"
 
 #: src/routes/auth/forgot-password.tsx
 msgid "Open Email Client"
@@ -2485,6 +2565,11 @@ msgstr "Side {0}"
 msgid "Page {0} of {totalPages} — {1} users"
 msgstr "Page {0} of {totalPages} — {1} users"
 
+#. placeholder {0}: pageIndex + 1
+#: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
+msgid "Page {0}: {sectionTitle}"
+msgstr "Side {0}: {sectionTitle}"
+
 #: src/routes/dashboard/job-search/index.tsx
 msgid "Page {currentPage}"
 msgstr "Side {currentPage}"
@@ -2503,11 +2588,11 @@ msgstr "Deltid"
 
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Pass the review to earn a verified skill badge, boost your profile visibility, and let opportunities come to you."
-msgstr "Pass the review to earn a verified skill badge, boost your profile visibility, and let opportunities come to you."
+msgstr "Bestå anmeldelsen for at optjene et verificeret færdighedsbadge, booste din profils synlighed og lade mulighederne komme til dig."
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Passive discovery"
-msgstr "Passive discovery"
+msgstr "Passiv opdagelse"
 
 #: src/dialogs/auth/disable-two-factor.tsx
 #: src/dialogs/auth/enable-two-factor.tsx
@@ -2557,11 +2642,11 @@ msgstr "Persisk"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Personality"
-msgstr "Personality"
+msgstr "Personlighed"
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Personality & culture fit"
-msgstr "Personality & culture fit"
+msgstr "Personlighed og kultur passer"
 
 #: src/dialogs/resume/sections/reference.tsx
 #: src/routes/builder/$resumeId/-sidebar/left/sections/basics.tsx
@@ -2570,7 +2655,7 @@ msgstr "Telefon"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Pick a presentation that puts verification and outcomes first. Each card shows a real export layout from the builder — same document you share, with structure tuned for how people actually skim proof."
-msgstr "Pick a presentation that puts verification and outcomes first. Each card shows a real export layout from the builder — same document you share, with structure tuned for how people actually skim proof."
+msgstr "Vælg en præsentation, der sætter verifikation og resultater først. Hvert kort viser et ægte eksportlayout fra byggeren - det samme dokument, som du deler, med strukturen tilpasset til, hvordan folk faktisk skimmer beviser."
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Pick a region to fill in your authorization details. Statuses already filled are shown next to each region."
@@ -2578,7 +2663,7 @@ msgstr "Pick a region to fill in your authorization details. Statuses already fi
 
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Pick skills to verify"
-msgstr "Pick skills to verify"
+msgstr "Vælg færdigheder til at verificere"
 
 #: src/utils/resume/section.tsx
 msgid "Picture"
@@ -2586,7 +2671,7 @@ msgstr "Billede"
 
 #: src/routes/_home/-sections/statistics.tsx
 msgid "Platform statistics"
-msgstr "Platform statistics"
+msgstr "Platform statistik"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Please complete the required work authorization fields before saving."
@@ -2657,7 +2742,7 @@ msgstr "Preview"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Preview of a verified candidate profile"
-msgstr "Preview of a verified candidate profile"
+msgstr "Forhåndsvisning af en verificeret kandidatprofil"
 
 #: src/routes/dashboard/admin/users.tsx
 #: src/routes/dashboard/job-search/index.tsx
@@ -2675,7 +2760,7 @@ msgstr "Privacy"
 
 #: src/routes/_home/-sections/footer.tsx
 msgid "Product"
-msgstr "Product"
+msgstr "Produkt"
 
 #: src/dialogs/resume/sections/skill.tsx
 msgid "Proficiency"
@@ -2714,7 +2799,7 @@ msgstr "Projekter"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Proof-first"
-msgstr "Proof-first"
+msgstr "Bevis først"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 msgid "Protect your resume from unauthorized access with a password"
@@ -2743,11 +2828,11 @@ msgstr "Udgiver"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Pulse"
-msgstr "Pulse"
+msgstr "Puls"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Python/Django dashboard with interactive visualizations"
-msgstr "Python/Django dashboard with interactive visualizations"
+msgstr "Python/Django dashboard med interaktive visualiseringer"
 
 #. placeholder {0}: quota.remaining
 #: src/routes/dashboard/job-search/index.tsx
@@ -2764,11 +2849,11 @@ msgstr "React"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "React Native mobile app with real-time synchronization"
-msgstr "React Native mobile app with real-time synchronization"
+msgstr "React Native mobilapp med synkronisering i realtid"
 
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Receive a practical assignment from your reviewer, submit your work, and get actionable feedback in a real conversation."
-msgstr "Receive a practical assignment from your reviewer, submit your work, and get actionable feedback in a real conversation."
+msgstr "Modtag en praktisk opgave fra din korrekturlæser, indsend dit arbejde, og få brugbar feedback i en rigtig samtale."
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Recent sessions"
@@ -2786,6 +2871,7 @@ msgstr "Rektangel"
 msgid "Rectangle (Full Width)"
 msgstr "Rektangel (fuld bredde)"
 
+#: src/routes/builder/$resumeId/-components/dock.tsx
 #: src/routes/builder/$resumeId/-components/dock.tsx
 msgctxt "'Ctrl' may be replaced with the locale-specific equivalent (e.g. 'Strg' for QWERTZ layouts)."
 msgid "Redo (Ctrl+Y)"
@@ -2814,7 +2900,7 @@ msgstr "Rejected/issue"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Relay"
-msgstr "Relay"
+msgstr "Relæ"
 
 #: src/routes/auth/forgot-password.tsx
 msgid "Remember your password? <0/>"
@@ -2858,6 +2944,10 @@ msgstr "Omsortér"
 msgid "Request"
 msgstr "Request"
 
+#: src/routes/auth/verify-email.tsx
+msgid "Request a new link"
+msgstr "Anmod om et nyt link"
+
 #: src/routes/dashboard/job-search/-components/job-detail.tsx
 msgid "Required Skills"
 msgstr "Nødvendige færdigheder"
@@ -2866,10 +2956,12 @@ msgstr "Nødvendige færdigheder"
 msgid "Required: reason for overriding this verdict..."
 msgstr "Required: reason for overriding this verdict..."
 
+#: src/routes/auth/verify-email.tsx
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Resend verification email"
 msgstr "Gensend bekræftelsesmail"
 
+#: src/routes/auth/verify-email.tsx
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Resending verification email..."
 msgstr "Gensender bekræftelsesmail..."
@@ -2947,11 +3039,11 @@ msgstr "Reviewer since {memberSince}"
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Reviewers don't see who they're assessing, so your skills are judged on their merit — not your background."
-msgstr "Reviewers don't see who they're assessing, so your skills are judged on their merit — not your background."
+msgstr "Anmeldere kan ikke se, hvem de vurderer, så dine færdigheder bedømmes ud fra deres værdi – ikke din baggrund."
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "Reviewers evaluate your submission without seeing your name, employer, or background. If you're ever unhappy with an outcome, you can request a second opinion from a different reviewer."
-msgstr "Reviewers evaluate your submission without seeing your name, employer, or background. If you're ever unhappy with an outcome, you can request a second opinion from a different reviewer."
+msgstr "Anmeldere vurderer din indsendelse uden at se dit navn, arbejdsgiver eller baggrund. Hvis du nogensinde er utilfreds med et resultat, kan du anmode om en anden mening fra en anden anmelder."
 
 #: src/components/input/rich-input.tsx
 msgid "Right Align"
@@ -3054,6 +3146,10 @@ msgstr "Skole"
 msgid "Search"
 msgstr "Søg efter"
 
+#: src/components/command-palette/index.tsx
+msgid "Search commands"
+msgstr "Søg kommandoer"
+
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Search countries"
 msgstr "Søg efter lande"
@@ -3067,6 +3163,7 @@ msgstr "Søg efter et ikon"
 msgid "Search for..."
 msgstr "Søg efter..."
 
+#: src/components/command-palette/index.tsx
 #: src/components/ui/combobox.tsx
 msgid "Search..."
 msgstr "Søg..."
@@ -3081,11 +3178,11 @@ msgstr "Afsnitstype"
 
 #: src/routes/_home/-sections/hero.tsx
 msgid "See how it works"
-msgstr "See how it works"
+msgstr "Se hvordan det virker"
 
 #: src/routes/_home/-sections/hero.tsx
 msgid "See how verification works"
-msgstr "See how verification works"
+msgstr "Se, hvordan verifikation fungerer"
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "Select a payslip, contract, or other proof of employment (PDF, JPG, PNG, max 5MB)."
@@ -3124,7 +3221,7 @@ msgstr "Select status"
 
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Select the skills you want endorsed and choose a reviewer for a personalized, scenario-based assessment."
-msgstr "Select the skills you want endorsed and choose a reviewer for a personalized, scenario-based assessment."
+msgstr "Vælg de færdigheder, du ønsker godkendt, og vælg en anmelder til en personlig scenariebaseret vurdering."
 
 #: src/components/ui/combobox.tsx
 msgid "Select..."
@@ -3132,7 +3229,7 @@ msgstr "Vælg..."
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Self-starter"
-msgstr "Self-starter"
+msgstr "Selvstartende"
 
 #: src/routes/auth/forgot-password.tsx
 msgid "Send Password Reset Email"
@@ -3144,11 +3241,11 @@ msgstr "Sender e-mail til nulstilling af adgangskode..."
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Senior AI Engineer"
-msgstr "Senior AI Engineer"
+msgstr "Senior AI-ingeniør"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Senior Full Stack Developer"
-msgstr "Senior Full Stack Developer"
+msgstr "Senior Full Stack-udvikler"
 
 #: src/components/input/rich-input.tsx
 msgid "Separator"
@@ -3190,7 +3287,7 @@ msgstr "Skygbredde"
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Share anywhere, instantly"
-msgstr "Share anywhere, instantly"
+msgstr "Del hvor som helst, med det samme"
 
 #: src/utils/resume/section.tsx
 msgid "Sharing"
@@ -3223,6 +3320,7 @@ msgstr "Show or hide the verification timeline on your public CV. This is off by
 msgid "Show Timeline on Public CV"
 msgstr "Show Timeline on Public CV"
 
+#: src/components/ui/sidebar.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/layout/pages.tsx
 msgid "Sidebar"
 msgstr "Sidebjælke"
@@ -3232,12 +3330,26 @@ msgid "Sidebar Width"
 msgstr "Sidebjælkebredde"
 
 #: src/routes/auth/login.tsx
+#: src/routes/auth/verify-email.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Sign in"
 msgstr "Log ind"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to verify your email"
+msgstr "Log ind for at bekræfte din e-mail"
 
 #: src/routes/auth/login.tsx
 msgid "Sign in to your account"
 msgstr "Log ind på din konto"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to your account to request a new verification email."
+msgstr "Log ind på din konto for at anmode om en ny bekræftelsesmail."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to your account, then request a new verification email."
+msgstr "Log ind på din konto, og anmod derefter om en ny bekræftelsesmail."
 
 #: src/routes/auth/register.tsx
 msgid "Sign up"
@@ -3245,7 +3357,7 @@ msgstr "Tilmeld dig"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Signal density"
-msgstr "Signal density"
+msgstr "Signaltæthed"
 
 #: src/routes/auth/-components/social-auth.tsx
 #: src/routes/auth/-components/social-auth.tsx
@@ -3287,11 +3399,11 @@ msgstr "Skill Center"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Skill clusters"
-msgstr "Skill clusters"
+msgstr "Færdighedsklynger"
 
 #: src/routes/_home/-sections/header.tsx
 msgid "Skill Verdict - Go to homepage"
-msgstr "Skill Verdict - Go to homepage"
+msgstr "Skill Verdict - Gå til hjemmesiden"
 
 #: src/routes/dashboard/-components/sidebar.tsx
 #: src/routes/dashboard/settings/profile.tsx
@@ -3356,7 +3468,7 @@ msgstr "Spansk"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Split identity and evidence panes; keeps personality context beside hard verification."
-msgstr "Split identity and evidence panes; keeps personality context beside hard verification."
+msgstr "Opdelt identitets- og bevisruder; holder personlighedskontekst ved siden af ​​hård verifikation."
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Sponsorship"
@@ -3385,7 +3497,7 @@ msgid "Start building your resume by giving it a name."
 msgstr "Begynd at opbygge dit CV ved at give det et navn."
 
 #: src/routes/dashboard/resumes/-components/cards/create-card.tsx
-#: src/routes/dashboard/resumes/-components/list-view.tsx
+#: src/routes/dashboard/resumes/-components/resume-quick-actions.tsx
 msgid "Start building your resume from scratch"
 msgstr "Begynd at opbygge dit CV helt fra bunden"
 
@@ -3403,11 +3515,11 @@ msgstr "Bliv"
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Stop chasing. Companies reach out directly to candidates whose verified skills match their requirements."
-msgstr "Stop chasing. Companies reach out directly to candidates whose verified skills match their requirements."
+msgstr "Stop med at jagte. Virksomheder når direkte ud til kandidater, hvis verificerede færdigheder matcher deres krav."
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Story arc"
-msgstr "Story arc"
+msgstr "Historiebue"
 
 #: src/components/input/rich-input.tsx
 msgid "Strike"
@@ -3482,15 +3594,15 @@ msgstr "Tamil"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Task Management App"
-msgstr "Task Management App"
+msgstr "Opgavestyring app"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Team player"
-msgstr "Team player"
+msgstr "Holdspiller"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Technical skills"
-msgstr "Technical skills"
+msgstr "Tekniske færdigheder"
 
 #: src/utils/locale.ts
 msgid "Telugu"
@@ -3548,6 +3660,10 @@ msgstr "Det CV, du prøver at få adgang til, er beskyttet af en adgangskode"
 #: src/components/input/rich-input.tsx
 msgid "The URL you entered is not valid."
 msgstr "Den URL, du indtastede, er ikke gyldig."
+
+#: src/routes/auth/verify-email.tsx
+msgid "The verification link may be invalid, expired, or already used."
+msgstr "Bekræftelseslinket kan være ugyldigt, udløbet eller allerede brugt."
 
 #: src/components/command-palette/pages/preferences/theme.tsx
 #: src/components/user/dropdown-menu.tsx
@@ -3616,10 +3732,6 @@ msgstr "Dette CV er låst og kan ikke opdateres."
 msgid "This section is reserved for your personal notes specific to this resume. The content here remains private and is not shared with anyone else."
 msgstr "Dette afsnit er reserveret til dine personlige noter, der er specifikke for dette CV. Indholdet her forbliver privat og deles ikke med andre."
 
-#: src/routes/auth/register.tsx
-msgid "This step is optional, but recommended."
-msgstr "Dette trin er valgfrit, men anbefales."
-
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "This week"
 msgstr "Denne uge"
@@ -3630,11 +3742,11 @@ msgstr "Dette vil generere en ny API-nøgle til at få adgang til Skill Verdict 
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Tight vertical rhythm for mobile sharing — still readable when the viewport is narrow."
-msgstr "Tight vertical rhythm for mobile sharing — still readable when the viewport is narrow."
+msgstr "Stram lodret rytme til mobil deling – stadig læsbar, når visningsporten er smal."
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Timeline-forward narrative with milestones; good when your evidence has a clear before/after."
-msgstr "Timeline-forward narrative with milestones; good when your evidence has a clear before/after."
+msgstr "Tidslinje-fremad fortælling med milepæle; godt, når dine beviser har et klart før/efter."
 
 #: src/dialogs/api-key/create.tsx
 msgid "Tip: Give your API key a name, corresponding to the purpose of the key, to help you identify it later."
@@ -3660,6 +3772,12 @@ msgstr "For at slette din konto skal du indtaste bekræftelsesteksten og klikke 
 msgid "Today"
 msgstr "I dag"
 
+#: src/components/ui/sidebar.tsx
+#: src/components/ui/sidebar.tsx
+#: src/components/ui/sidebar.tsx
+msgid "Toggle Sidebar"
+msgstr "Skift sidebjælke"
+
 #: src/routes/dashboard/admin/users.tsx
 msgid "Total keys"
 msgstr "Total keys"
@@ -3683,6 +3801,10 @@ msgstr "Total sessions"
 #: src/routes/builder/$resumeId/-sidebar/right/sections/statistics.tsx
 msgid "Track your resume's views and downloads"
 msgstr "Spor dit CV's visninger og downloads"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Try requesting a new verification link."
+msgstr "Prøv at anmode om et nyt bekræftelseslink."
 
 #: src/utils/locale.ts
 msgid "Turkish"
@@ -3741,6 +3863,10 @@ msgstr "To-faktor-godkendelse er blevet deaktiveret."
 msgid "Two-factor authentication has been setup successfully."
 msgstr "To-faktor-godkendelse er blevet konfigureret."
 
+#: src/dialogs/auth/enable-two-factor.tsx
+msgid "Two-Factor Authentication QR Code"
+msgstr "To-faktor autentificering QR-kode"
+
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/users.tsx
 msgid "Two-factor enabled"
@@ -3748,7 +3874,7 @@ msgstr "Two-factor enabled"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Two-pane"
-msgstr "Two-pane"
+msgstr "To-rude"
 
 #: src/dialogs/resume/import.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/design.tsx
@@ -3760,6 +3886,7 @@ msgstr "Type"
 msgid "Type \"{CONFIRMATION_TEXT}\" to confirm"
 msgstr "Skriv \"{CONFIRMATION_TEXT}\" for at bekræfte"
 
+#: src/components/command-palette/index.tsx
 #: src/components/command-palette/index.tsx
 msgid "Type a command or search..."
 msgstr "Skriv en kommando, eller søg..."
@@ -3784,6 +3911,7 @@ msgstr "Under 3 år"
 msgid "Underline"
 msgstr "Understreg"
 
+#: src/routes/builder/$resumeId/-components/dock.tsx
 #: src/routes/builder/$resumeId/-components/dock.tsx
 msgctxt "'Ctrl' may be replaced with the locale-specific equivalent (e.g. 'Strg' for QWERTZ layouts)."
 msgid "Undo (Ctrl+Z)"
@@ -4005,15 +4133,15 @@ msgstr "Verified by {0}"
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Verified skill badges"
-msgstr "Verified skill badges"
+msgstr "Verificerede færdighedsmærker"
 
 #: src/routes/_home/-sections/statistics.tsx
 msgid "Verified skills"
-msgstr "Verified skills"
+msgstr "Verificerede færdigheder"
 
 #: src/routes/_home/-sections/footer.tsx
 msgid "Verified skills, honest feedback, and passive discovery — a living profile built on evidence, not keywords."
-msgstr "Verified skills, honest feedback, and passive discovery — a living profile built on evidence, not keywords."
+msgstr "Verificerede færdigheder, ærlig feedback og passiv opdagelse â en levende profil bygget på beviser, ikke nøgleord."
 
 #: src/routes/auth/verify-2fa-backup.tsx
 #: src/routes/auth/verify-2fa.tsx
@@ -4023,11 +4151,15 @@ msgstr "Verificér"
 
 #: src/routes/_home/-sections/hero.tsx
 msgid "Verify my skills"
-msgstr "Verify my skills"
+msgstr "Bekræft mine færdigheder"
 
 #: src/routes/auth/verify-2fa-backup.tsx
 msgid "Verify with a Backup Code"
 msgstr "Verificér med en backup-kode"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Verify your email"
+msgstr "Bekræft din e-mail"
 
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Verify your identity through a short video call. This adds trust to your resume."
@@ -4045,10 +4177,6 @@ msgstr "Verificerer kode..."
 #: src/routes/auth/resume-password.tsx
 msgid "Verifying password..."
 msgstr "Verificerer adgangskode..."
-
-#: src/routes/auth/register.tsx
-msgid "Verifying your email is required when resetting your password."
-msgstr "Verificering af din e-mail er påkrævet, når du nulstiller din adgangskode."
 
 #: src/utils/locale.ts
 msgid "Vietnamese"
@@ -4083,6 +4211,14 @@ msgstr "Visibility"
 msgid "Volunteer"
 msgstr "Frivillig"
 
+#: src/routes/auth/verify-email.tsx
+msgid "We couldn't verify your email"
+msgstr "Vi kunne ikke bekræfte din e-mail"
+
+#: src/routes/auth/verify-email.tsx
+msgid "We sent a verification link to your email address."
+msgstr "Vi har sendt et bekræftelseslink til din e-mailadresse."
+
 #: src/dialogs/resume/sections/award.tsx
 #: src/dialogs/resume/sections/certification.tsx
 #: src/dialogs/resume/sections/education.tsx
@@ -4108,11 +4244,11 @@ msgstr "Når det er låst, kan CV'et ikke opdateres eller slettes."
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "Who can see my submissions and results?"
-msgstr "Who can see my submissions and results?"
+msgstr "Hvem kan se mine indlæg og resultater?"
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Why candidates choose us"
-msgstr "Why candidates choose us"
+msgstr "Hvorfor kandidater vælger os"
 
 #: src/routes/dashboard/-components/sidebar.tsx
 #: src/routes/dashboard/work-authorization/index.tsx
@@ -4134,7 +4270,7 @@ msgstr "Yes"
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "Yes. Add or remove skills any time, and request re-verification as you level up. Your profile is designed to evolve with your career."
-msgstr "Yes. Add or remove skills any time, and request re-verification as you level up. Your profile is designed to evolve with your career."
+msgstr "Ja. Tilføj eller fjern færdigheder når som helst, og anmod om genbekræftelse, mens du stiger i niveau. Din profil er designet til at udvikle sig med din karriere."
 
 #: src/routes/dashboard/job-search/-components/job-utils.ts
 msgid "Yesterday"
@@ -4144,22 +4280,33 @@ msgstr "I går"
 msgid "You can also use your username to login."
 msgstr "Du kan også bruge dit brugernavn til at logge ind."
 
+#: src/routes/auth/verify-email.tsx
+msgid "You can now use account recovery and other features that require a verified email address."
+msgstr "Du kan nu bruge kontogendannelse og andre funktioner, der kræver en bekræftet e-mailadresse."
+
 #: src/hooks/use-form-blocker.tsx
 msgid "You have unsaved changes that will be lost."
 msgstr "Du har ikke-gemte ændringer, der vil gå tabt."
 
+#: src/routes/auth/verify-email.tsx
+msgid "You must verify your email address before you can access Skill Verdict."
+msgstr "Du skal bekræfte din e-mailadresse, før du kan få adgang til Skill Verdict."
+
 #: src/routes/_home/-sections/faq.tsx
 msgid "You pick the skills you want to endorse and a reviewer with relevant expertise. They assign a short, practical assessment, review your submission, and share actionable feedback. If you pass, the skill is added to your profile as a verified badge."
-msgstr "You pick the skills you want to endorse and a reviewer with relevant expertise. They assign a short, practical assessment, review your submission, and share actionable feedback. If you pass, the skill is added to your profile as a verified badge."
+msgstr "Du vælger de færdigheder, du vil støtte, og en anmelder med relevant ekspertise. De tildeler en kort, praktisk vurdering, gennemgår din indsendelse og deler brugbar feedback. Hvis du består, føjes færdigheden til din profil som et verificeret badge."
 
 #: src/routes/auth/forgot-password.tsx
-#: src/routes/auth/register.tsx
 msgid "You've got mail!"
 msgstr "Du har post!"
 
 #: src/routes/dashboard/settings/danger-zone.tsx
 msgid "Your account has been deleted successfully."
 msgstr "Din konto er blevet slettet."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Your account is up to date."
+msgstr "Din konto er opdateret."
 
 #: src/dialogs/api-key/create.tsx
 msgid "Your API key has been copied to the clipboard."
@@ -4168,6 +4315,10 @@ msgstr "Din API-nøgle er kopieret til udklipsholderen."
 #: src/routes/builder/$resumeId/index.tsx
 msgid "Your changes are saved automatically."
 msgstr "Dine ændringer gemmes automatisk."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Your email address is confirmed. You can continue using Skill Verdict."
+msgstr "Din e-mailadresse er bekræftet. Du kan fortsætte med at bruge Skill Verdict."
 
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Your identity has been verified and your profile is trusted."
@@ -4221,9 +4372,11 @@ msgid "Your verification call has been scheduled. Our team will review and confi
 msgstr "Your verification call has been scheduled. Our team will review and confirm your identity shortly."
 
 #: src/routes/builder/$resumeId/-components/dock.tsx
+#: src/routes/builder/$resumeId/-components/dock.tsx
 msgid "Zoom in"
 msgstr "Zoom ind"
 
+#: src/routes/builder/$resumeId/-components/dock.tsx
 #: src/routes/builder/$resumeId/-components/dock.tsx
 msgid "Zoom out"
 msgstr "Zoom ud"

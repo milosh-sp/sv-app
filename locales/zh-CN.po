@@ -18,56 +18,48 @@ msgstr ""
 "X-Crowdin-File: /main/locales/en-US.po\n"
 "X-Crowdin-File-ID: 518\n"
 
-#: src/routes/dashboard/resumes/index.tsx
 #. js-lingui-explicit-id
+#: src/routes/dashboard/resumes/index.tsx
 msgid "Last Updated"
 msgstr "最新更新"
 
-#: src/routes/dashboard/resumes/index.tsx
 #. js-lingui-explicit-id
+#: src/routes/dashboard/resumes/index.tsx
 msgid "Created"
 msgstr "创建时间"
 
-#: src/dialogs/api-key/create.tsx
-#: src/dialogs/resume/index.tsx
-#: src/dialogs/resume/sections/interest.tsx
-#: src/dialogs/resume/sections/project.tsx
-#: src/dialogs/resume/sections/reference.tsx
-#: src/dialogs/resume/sections/skill.tsx
-#: src/routes/auth/register.tsx
-#: src/routes/builder/$resumeId/-sidebar/left/sections/basics.tsx
-#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
-#: src/routes/dashboard/settings/profile.tsx
+#. js-lingui-explicit-id
+#: src/routes/dashboard/resumes/index.tsx
 msgid "Name"
-msgstr "姓名"
+msgstr "名称"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "(you)"
 msgstr "(you)"
 
-#: src/routes/builder/$resumeId/-sidebar/left/sections/custom.tsx
 #. placeholder {0}: section.items.length
+#: src/routes/builder/$resumeId/-sidebar/left/sections/custom.tsx
 msgid "{0, plural, one {# item} other {# items}}"
 msgstr "{0, plural, other {# 项}}"
 
-#: src/routes/builder/$resumeId/-sidebar/left/sections/experience.tsx
 #. placeholder {0}: item.roles.length
+#: src/routes/builder/$resumeId/-sidebar/left/sections/experience.tsx
 msgid "{0, plural, one {# role} other {# roles}}"
 msgstr "{0, plural, other {# 个职位}}"
 
-#: src/routes/dashboard/job-search/index.tsx
 #. placeholder {0}: quota.used
 #. placeholder {1}: quota.limit
+#: src/routes/dashboard/job-search/index.tsx
 msgid "{0} / {1} requests used"
 msgstr "{0} / {1} 已使用的请求"
 
-#: src/routes/dashboard/job-search/-components/job-utils.ts
 #. placeholder {0}: Math.floor(diffDays / 30)
+#: src/routes/dashboard/job-search/-components/job-utils.ts
 msgid "{0} months ago"
 msgstr "{0} 几个月前"
 
-#: src/routes/dashboard/job-search/-components/job-utils.ts
 #. placeholder {0}: Math.floor(diffDays / 7)
+#: src/routes/dashboard/job-search/-components/job-utils.ts
 msgid "{0} weeks ago"
 msgstr "{0} 几周前"
 
@@ -80,18 +72,18 @@ msgstr "{column, plural, other {# 栏}}"
 msgid "{diffDays} days ago"
 msgstr "{diffDays} 日前"
 
-#: src/routes/dashboard/admin/users.tsx
 #. placeholder {0}: detailsQuery.data.resumes.hiddenCount
+#: src/routes/dashboard/admin/users.tsx
 msgid "+{0} more"
 msgstr "+{0} more"
 
-#: src/routes/dashboard/admin/users.tsx
 #. placeholder {0}: detailsQuery.data.verification.approvedExperience.hiddenCount
+#: src/routes/dashboard/admin/users.tsx
 msgid "+{0} more approved"
 msgstr "+{0} more approved"
 
-#: src/routes/dashboard/admin/users.tsx
 #. placeholder {0}: detailsQuery.data.verification.uploadedDocuments.hiddenCount
+#: src/routes/dashboard/admin/users.tsx
 msgid "+{0} more uploaded"
 msgstr "+{0} more uploaded"
 
@@ -128,9 +120,7 @@ msgid "6 months"
 msgstr "6 个月"
 
 #: src/routes/dashboard/settings/profile.tsx
-msgid ""
-"A confirmation link has been sent to your current email address. Please "
-"check your inbox to confirm the change."
+msgid "A confirmation link has been sent to your current email address. Please check your inbox to confirm the change."
 msgstr "确认链接已发送到你当前的电子邮箱地址。请检查收件箱并按照邮件中的提示完成更改确认。"
 
 #: src/routes/builder/$resumeId/-components/dock.tsx
@@ -138,19 +128,17 @@ msgstr "确认链接已发送到你当前的电子邮箱地址。请检查收件
 msgid "A link to your resume has been copied to clipboard."
 msgstr "已将你的简历链接复制到剪贴板。"
 
+#: src/routes/auth/verify-email.tsx
+msgid "A new verification link has been sent to your email address."
+msgstr "新的验证链接已发送到你的电子邮件地址。"
+
 #: src/routes/dashboard/settings/profile.tsx
-msgid ""
-"A new verification link has been sent to your email address. Please check "
-"your inbox to verify your account."
+msgid "A new verification link has been sent to your email address. Please check your inbox to verify your account."
 msgstr "新的验证链接已发送到你的电子邮箱地址。请检查收件箱并完成账号验证。"
 
 #: src/routes/_home/-sections/features.tsx
-msgid ""
-"A profile that reflects what you can actually do — verified by people who "
-"know what they're looking at, and built to travel with you wherever you go."
-msgstr ""
-"A profile that reflects what you can actually do — verified by people who "
-"know what they're looking at, and built to travel with you wherever you go."
+msgid "A profile that reflects what you can actually do — verified by people who know what they're looking at, and built to travel with you wherever you go."
+msgstr "A profile that reflects what you can actually do — verified by people who know what they're looking at, and built to travel with you wherever you go."
 
 #: src/routes/dashboard/admin/experience-queue.tsx
 msgid "A reason is required to override."
@@ -162,12 +150,8 @@ msgid "A resume with this slug already exists."
 msgstr "已存在使用此短链接的简历。"
 
 #: src/routes/_home/-sections/features.tsx
-msgid ""
-"A unique QR code and public link make your profile shareable in person, "
-"online, and in recruiter searches."
-msgstr ""
-"A unique QR code and public link make your profile shareable in person, "
-"online, and in recruiter searches."
+msgid "A unique QR code and public link make your profile shareable in person, online, and in recruiter searches."
+msgstr "A unique QR code and public link make your profile shareable in person, online, and in recruiter searches."
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/page.tsx
 msgid "A4"
@@ -294,8 +278,8 @@ msgstr "在前面添加行"
 msgid "Added"
 msgstr "Added"
 
-#: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 #. placeholder {0}: skillsToSync.length
+#: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 msgid "Added {0} new skills to your original resume"
 msgstr "在原有简历中添加 {0} 新技能"
 
@@ -329,12 +313,8 @@ msgid "AI Chat"
 msgstr "AI Chat"
 
 #: src/dialogs/resume/ai-review.tsx
-msgid ""
-"AI integration is not configured. Contact an administrator to enable AI "
-"features."
-msgstr ""
-"AI integration is not configured. Contact an administrator to enable AI "
-"features."
+msgid "AI integration is not configured. Contact an administrator to enable AI features."
+msgstr "AI integration is not configured. Contact an administrator to enable AI features."
 
 #: src/routes/dashboard/resumes/-components/cards/resume-card.tsx
 #: src/routes/dashboard/resumes/-components/menus/context-menu.tsx
@@ -342,8 +322,8 @@ msgstr ""
 msgid "AI review"
 msgstr "AI review"
 
-#: src/dialogs/resume/ai-review.tsx
 #. placeholder {0}: data.name
+#: src/dialogs/resume/ai-review.tsx
 msgid "AI review for {0}"
 msgstr "AI review for {0}"
 
@@ -402,15 +382,11 @@ msgid "Any type"
 msgstr "任何类型"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
-msgid ""
-"Anyone visiting the resume's public URL must enter this password to access "
-"it."
+msgid "Anyone visiting the resume's public URL must enter this password to access it."
 msgstr "任何访问该简历公共 URL 的人都必须输入此密码才能查看。"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
-msgid ""
-"Anyone who has the resume's public URL will be able to view and download "
-"your resume without entering a password."
+msgid "Anyone who has the resume's public URL will be able to view and download your resume without entering a password."
 msgstr "任何获取了该简历公共 URL 的人，都可以在无需输入密码的情况下查看并下载你的简历。"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
@@ -523,6 +499,11 @@ msgstr "身份验证"
 msgid "Authorization details are stored per resume profile."
 msgstr "Authorization details are stored per resume profile."
 
+#: src/dialogs/resume/sections/award.tsx
+msgctxt "(noun) person, organization, or entity that gives an award"
+msgid "Awarder"
+msgstr "授予者"
+
 #: src/dialogs/resume/sections/custom.tsx
 #: src/utils/resume/section.tsx
 msgid "Awards"
@@ -548,6 +529,12 @@ msgstr "Back"
 #: src/routes/auth/verify-2fa.tsx
 msgid "Back to Login"
 msgstr "返回登录"
+
+#: src/routes/builder/$resumeId/-components/header.tsx
+#: src/routes/builder/$resumeId/-components/header.tsx
+#: src/routes/builder/$resumeId/-components/header.tsx
+msgid "Back to resumes"
+msgstr "返回简历"
 
 #: src/routes/dashboard/admin/resume/$resumeId.tsx
 msgid "Back to users"
@@ -581,6 +568,11 @@ msgstr "益处"
 msgid "Bengali"
 msgstr "孟加拉语"
 
+#: src/routes/builder/$resumeId/-sidebar/right/sections/typography.tsx
+msgctxt "Body Text (paragraphs, lists, etc.)"
+msgid "Body"
+msgstr "正文字体"
+
 #: src/components/input/rich-input.tsx
 msgid "Bold"
 msgstr "加粗"
@@ -598,14 +590,8 @@ msgid "BSc Software Engineering"
 msgstr "BSc Software Engineering"
 
 #: src/routes/_home/-sections/hero.tsx
-msgid ""
-"Build a living profile backed by real evidence. Get your skills endorsed by "
-"domain experts in short, practical reviews — and let opportunities come to "
-"you."
-msgstr ""
-"Build a living profile backed by real evidence. Get your skills endorsed by "
-"domain experts in short, practical reviews — and let opportunities come to "
-"you."
+msgid "Build a living profile backed by real evidence. Get your skills endorsed by domain experts in short, practical reviews — and let opportunities come to you."
+msgstr "Build a living profile backed by real evidence. Get your skills endorsed by domain experts in short, practical reviews — and let opportunities come to you."
 
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Build your profile"
@@ -727,9 +713,9 @@ msgstr "改变主意了？那就把简历重命名得更具体一些吧。"
 msgid "Check your email for a link to reset your password."
 msgstr "请检查你的电子邮件，点击邮件中的链接重置密码。"
 
-#: src/routes/auth/register.tsx
-msgid "Check your email for a link to verify your account."
-msgstr "请检查你的电子邮件，点击邮件中的链接验证账号。"
+#: src/routes/auth/verify-email.tsx
+msgid "Check your inbox"
+msgstr "检查你的收件箱"
 
 #: src/utils/locale.ts
 msgid "Chinese (Simplified)"
@@ -792,12 +778,17 @@ msgid "Columns"
 msgstr "栏"
 
 #: src/routes/_home/-sections/features.tsx
-msgid ""
-"Combine verified skills with research-backed personality insights so teams "
-"hire for both capability and fit."
-msgstr ""
-"Combine verified skills with research-backed personality insights so teams "
-"hire for both capability and fit."
+msgid "Combine verified skills with research-backed personality insights so teams hire for both capability and fit."
+msgstr "Combine verified skills with research-backed personality insights so teams hire for both capability and fit."
+
+#: src/components/command-palette/index.tsx
+#: src/components/command-palette/index.tsx
+msgid "Command Palette"
+msgstr "命令面板"
+
+#: src/components/command-palette/index.tsx
+msgid "Command Palette - {currentPage}"
+msgstr "命令面板 - {currentPage}"
 
 #: src/routes/_home/-sections/footer.tsx
 msgid "Community"
@@ -808,12 +799,8 @@ msgid "Compact"
 msgstr "Compact"
 
 #: src/routes/_home/-sections/templates.tsx
-msgid ""
-"Compact signal row for endorsements and recency — less chrome, more \"what "
-"passed\"."
-msgstr ""
-"Compact signal row for endorsements and recency — less chrome, more \"what "
-"passed\"."
+msgid "Compact signal row for endorsements and recency — less chrome, more \"what passed\"."
+msgstr "Compact signal row for endorsements and recency — less chrome, more \"what passed\"."
 
 #: src/dialogs/resume/sections/experience.tsx
 msgid "Company"
@@ -847,12 +834,8 @@ msgid "Connect"
 msgstr "连接"
 
 #: src/routes/_home/-sections/how-it-works.tsx
-msgid ""
-"Connect your professional accounts and portfolio to instantly build a "
-"living, evidence-backed profile that showcases real experience."
-msgstr ""
-"Connect your professional accounts and portfolio to instantly build a "
-"living, evidence-backed profile that showcases real experience."
+msgid "Connect your professional accounts and portfolio to instantly build a living, evidence-backed profile that showcases real experience."
+msgstr "Connect your professional accounts and portfolio to instantly build a living, evidence-backed profile that showcases real experience."
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Consent"
@@ -864,30 +847,26 @@ msgstr "Contact us"
 
 #: src/dialogs/resume/sections/cover-letter.tsx
 #: src/dialogs/resume/sections/summary-item.tsx
+#: src/routes/builder/$resumeId/route.tsx
 msgid "Content"
 msgstr "内容"
 
 #: src/dialogs/auth/enable-two-factor.tsx
 #: src/dialogs/auth/enable-two-factor.tsx
 #: src/dialogs/auth/enable-two-factor.tsx
-#: src/routes/auth/register.tsx
+#: src/routes/auth/verify-email.tsx
 #: src/routes/dashboard/verification/index.tsx
 msgid "Continue"
 msgstr "继续"
 
 #: src/routes/dashboard/resumes/-components/cards/import-card.tsx
-#: src/routes/dashboard/resumes/-components/list-view.tsx
+#: src/routes/dashboard/resumes/-components/resume-quick-actions.tsx
 msgid "Continue where you left off"
 msgstr "从上次中断的地方继续"
 
 #: src/dialogs/resume/import.tsx
-msgid ""
-"Continue where you left off by importing an existing resume you created "
-"using Skill Verdict or any another resume builder. Supported formats "
-"include PDF, Microsoft Word, as well as JSON files from Skill Verdict."
-msgstr ""
-"通过导入你使用 Skill Verdict 或其他简历生成器创建的现有简历，从上次中断的地方继续。支持的格式包括 PDF、Microsoft Word "
-"以及来自 Skill Verdict 的 JSON 文件。"
+msgid "Continue where you left off by importing an existing resume you created using another resume builder. Supported formats include PDF, Microsoft Word, and JSON Resume files."
+msgstr "通过导入您使用其他简历生成器创建的现有简历，从上次停下的地方继续。支持的格式包括 PDF、Microsoft Word 和 JSON 简历文件。"
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Contractor"
@@ -914,6 +893,7 @@ msgid "Copy this secret key and use it in your applications to access your data.
 msgstr "复制此密钥，并在你的应用程序中使用它来访问你的数据。"
 
 #: src/routes/builder/$resumeId/-components/dock.tsx
+#: src/routes/builder/$resumeId/-components/dock.tsx
 msgid "Copy URL"
 msgstr "复制 URL"
 
@@ -922,12 +902,8 @@ msgid "Could not fetch jobs"
 msgstr "无法获取工作"
 
 #: src/routes/dashboard/work-authorization/index.tsx
-msgid ""
-"Could not load the selected resume. Please choose another resume and try "
-"again."
-msgstr ""
-"Could not load the selected resume. Please choose another resume and try "
-"again."
+msgid "Could not load the selected resume. Please choose another resume and try again."
+msgstr "Could not load the selected resume. Please choose another resume and try again."
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Country"
@@ -1018,7 +994,7 @@ msgstr "创建新推荐人"
 #: src/components/command-palette/pages/resumes.tsx
 #: src/dialogs/resume/index.tsx
 #: src/routes/dashboard/resumes/-components/cards/create-card.tsx
-#: src/routes/dashboard/resumes/-components/list-view.tsx
+#: src/routes/dashboard/resumes/-components/resume-quick-actions.tsx
 #: src/routes/dashboard/verification/index.tsx
 msgid "Create a new resume"
 msgstr "创建新简历"
@@ -1036,12 +1012,8 @@ msgid "Create a new volunteer experience"
 msgstr "创建新的志愿者经历"
 
 #: src/routes/dashboard/verification/index.tsx
-msgid ""
-"Create a resume first to start verifying your skills, projects, and "
-"experience."
-msgstr ""
-"Create a resume first to start verifying your skills, projects, and "
-"experience."
+msgid "Create a resume first to start verifying your skills, projects, and experience."
+msgstr "Create a resume first to start verifying your skills, projects, and experience."
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Create a resume first, then add your work authorization details."
@@ -1050,6 +1022,10 @@ msgstr "Create a resume first, then add your work authorization details."
 #: src/dialogs/resume/index.tsx
 msgid "Create a Sample Resume"
 msgstr "创建简历样例"
+
+#: src/dialogs/resume/index.tsx
+msgid "Create Resume with Options"
+msgstr "创建带有选项的简历"
 
 #: src/dialogs/api-key/create.tsx
 msgid "Creating your API key..."
@@ -1061,14 +1037,8 @@ msgid "Creating your resume..."
 msgstr "正在创建你的简历…"
 
 #: src/routes/dashboard/admin/ai.tsx
-msgid ""
-"Credentials are stored in the database and used for all users who enable AI "
-"in their account. Only Skill Verdict administrators can change this "
-"configuration."
-msgstr ""
-"Credentials are stored in the database and used for all users who enable AI "
-"in their account. Only Skill Verdict administrators can change this "
-"configuration."
+msgid "Credentials are stored in the database and used for all users who enable AI in their account. Only Skill Verdict administrators can change this configuration."
+msgstr "Credentials are stored in the database and used for all users who enable AI in their account. Only Skill Verdict administrators can change this configuration."
 
 #: src/dialogs/auth/change-password.tsx
 msgid "Current Password"
@@ -1188,6 +1158,7 @@ msgstr "正在删除你的简历…"
 msgid "Description"
 msgstr "描述"
 
+#: src/routes/builder/$resumeId/route.tsx
 #: src/utils/resume/section.tsx
 msgid "Design"
 msgstr "设计"
@@ -1225,6 +1196,10 @@ msgstr "断开连接"
 msgid "Display username"
 msgstr "Display username"
 
+#: src/components/ui/sidebar.tsx
+msgid "Displays the mobile sidebar."
+msgstr "显示移动侧边栏。"
+
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Docker"
 msgstr "Docker"
@@ -1252,31 +1227,28 @@ msgid "Download"
 msgstr "下载"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/export.tsx
-msgid ""
-"Download a copy of your resume as a Word document. Use this file to further "
-"customize your resume in Microsoft Word or Google Docs."
+msgid "Download a copy of your resume as a Word document. Use this file to further customize your resume in Microsoft Word or Google Docs."
 msgstr "以 Word 文档形式下载简历副本。使用此文件在 Microsoft Word 或 Google Docs 中进一步定制您的简历。"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/export.tsx
-msgid ""
-"Download a copy of your resume in JSON format. Use this file for backup or "
-"to import your resume into other applications, including AI assistants."
+msgid "Download a copy of your resume in JSON format. Use this file for backup or to import your resume into other applications, including AI assistants."
 msgstr "以 JSON 格式下载一份你的简历副本。你可以将此文件用于备份，或导入到包括 AI 助手在内的其他应用程序中。"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/export.tsx
-msgid ""
-"Download a copy of your resume in PDF format. Use this file for printing or "
-"to easily share your resume with recruiters."
+msgid "Download a copy of your resume in PDF format. Use this file for printing or to easily share your resume with recruiters."
 msgstr "以 PDF 格式下载一份你的简历副本。你可以用它来打印，或轻松分享给招聘人员。"
 
+#: src/routes/builder/$resumeId/-components/dock.tsx
 #: src/routes/builder/$resumeId/-components/dock.tsx
 msgid "Download DOCX"
 msgstr "下载 DOCX"
 
 #: src/routes/builder/$resumeId/-components/dock.tsx
+#: src/routes/builder/$resumeId/-components/dock.tsx
 msgid "Download JSON"
 msgstr "下载 JSON"
 
+#: src/routes/builder/$resumeId/-components/dock.tsx
 #: src/routes/builder/$resumeId/-components/dock.tsx
 msgid "Download PDF"
 msgstr "下载为 PDF 文档"
@@ -1342,13 +1314,13 @@ msgstr "例如：柏林前端开发员职位"
 msgid "e.g. Skilled Worker"
 msgstr "e.g. Skilled Worker"
 
+#: src/routes/dashboard/admin/ai.tsx
+msgid "e.g., gpt-4, claude-3-opus, gemini-pro"
+msgstr "例如，gpt-4、claude-3-opus、gemini-pro"
+
 #: src/routes/_home/-sections/features.tsx
-msgid ""
-"Earn peer-endorsed badges from domain experts — turn claims into evidence "
-"employers can trust at a glance."
-msgstr ""
-"Earn peer-endorsed badges from domain experts — turn claims into evidence "
-"employers can trust at a glance."
+msgid "Earn peer-endorsed badges from domain experts — turn claims into evidence employers can trust at a glance."
+msgstr "Earn peer-endorsed badges from domain experts — turn claims into evidence employers can trust at a glance."
 
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Earn your verdict"
@@ -1372,10 +1344,16 @@ msgstr "电子邮件"
 msgid "Email Address"
 msgstr "电子邮箱地址"
 
+#: src/routes/auth/verify-email.tsx
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/users.tsx
 msgid "Email verified"
 msgstr "Email verified"
+
+#: src/routes/builder/$resumeId/-sidebar/right/sections/css.tsx
+msgctxt "Turn On/Apply Custom CSS"
+msgid "Enable"
+msgstr "启用"
 
 #: src/routes/dashboard/settings/authentication/-components/two-factor.tsx
 msgid "Enable 2FA"
@@ -1431,25 +1409,16 @@ msgid "Enter your freelancer profile URL (e.g. Upwork, Fiverr, Toptal):"
 msgstr "Enter your freelancer profile URL (e.g. Upwork, Fiverr, Toptal):"
 
 #: src/dialogs/auth/enable-two-factor.tsx
-msgid ""
-"Enter your password to confirm setting up two-factor authentication. When "
-"enabled, you'll need to enter a code from your authenticator app every time "
-"you log in."
+msgid "Enter your password to confirm setting up two-factor authentication. When enabled, you'll need to enter a code from your authenticator app every time you log in."
 msgstr "请输入你的密码以确认设置双重身份验证。启用后，你每次登录都需要输入验证器应用提供的验证码。"
 
 #: src/dialogs/auth/disable-two-factor.tsx
-msgid ""
-"Enter your password to disable two-factor authentication. Your account will "
-"be less secure without 2FA enabled."
+msgid "Enter your password to disable two-factor authentication. Your account will be less secure without 2FA enabled."
 msgstr "请输入你的密码以禁用双重身份验证。关闭 2FA 后，你的账号将不再那么安全。"
 
 #: src/routes/_home/-sections/features.tsx
-msgid ""
-"Every assessment comes with actionable feedback, so you level up even when "
-"you're already getting hired."
-msgstr ""
-"Every assessment comes with actionable feedback, so you level up even when "
-"you're already getting hired."
+msgid "Every assessment comes with actionable feedback, so you level up even when you're already getting hired."
+msgstr "Every assessment comes with actionable feedback, so you level up even when you're already getting hired."
 
 #: src/routes/dashboard/job-search/-components/use-job-search.ts
 msgid "Exclude {value}"
@@ -1491,9 +1460,9 @@ msgstr "Experience request rejected."
 msgid "Experience Verification"
 msgstr "Experience Verification"
 
-#: src/routes/dashboard/verification/index.tsx
-#: src/routes/dashboard/verification/index.tsx
 #. placeholder {0}: item.label
+#: src/routes/dashboard/verification/index.tsx
+#: src/routes/dashboard/verification/index.tsx
 msgid "Experience verification requested for \"{0}\"."
 msgstr "Experience verification requested for \"{0}\"."
 
@@ -1509,16 +1478,13 @@ msgstr "Expiration date"
 msgid "Expires in"
 msgstr "过期时间"
 
-#: src/routes/dashboard/settings/api-keys.tsx
 #. placeholder {0}: key.expiresAt != null ? formatDefaultDate(key.expiresAt) : ""
+#: src/routes/dashboard/settings/api-keys.tsx
 msgid "Expires on {0}"
 msgstr "将于 {0} 过期"
 
 #: src/routes/dashboard/settings/api-keys.tsx
-msgid ""
-"Explore the API documentation to learn how to integrate Skill Verdict with "
-"your applications. Find detailed endpoints, request examples, and "
-"authentication methods."
+msgid "Explore the API documentation to learn how to integrate Skill Verdict with your applications. Find detailed endpoints, request examples, and authentication methods."
 msgstr "查看 API 文档，了解如何在你的应用程序中集成 Skill Verdict。你将在其中找到详细的端点说明、请求示例以及身份验证方式。"
 
 #: src/utils/resume/section.tsx
@@ -1540,6 +1506,10 @@ msgstr "Failed to load document."
 #: src/routes/dashboard/admin/users.tsx
 msgid "Failed to load user details."
 msgstr "Failed to load user details."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Failed to resend verification email. Please try again."
+msgstr "无法重新发送验证邮件。请重试。"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Failed to save work authorization."
@@ -1565,8 +1535,8 @@ msgstr "FAQ"
 msgid "Features"
 msgstr "功能"
 
-#: src/routes/dashboard/verification/index.tsx
 #. placeholder {0}: selectedFile.name
+#: src/routes/dashboard/verification/index.tsx
 msgid "File selected: {0}. Submit your verification request?"
 msgstr "File selected: {0}. Submit your verification request?"
 
@@ -1581,6 +1551,10 @@ msgstr "筛选条件"
 #: src/utils/locale.ts
 msgid "Finnish"
 msgstr "芬兰语"
+
+#: src/routes/builder/$resumeId/-components/dock.tsx
+msgid "Fit resume to screen"
+msgstr "使简历适合屏幕"
 
 #: src/dialogs/resume/sections/language.tsx
 msgid "Fluency"
@@ -1605,9 +1579,7 @@ msgid "Font Weights"
 msgstr "字体粗细"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/notes.tsx
-msgid ""
-"For example, information regarding which companies you sent this resume to "
-"or the links to the job descriptions can be noted down here."
+msgid "For example, information regarding which companies you sent this resume to or the links to the job descriptions can be noted down here."
 msgstr "例如，你可以在此处注明你将这份简历发送给哪些公司，或者职位描述的链接。"
 
 #: src/dialogs/api-key/create.tsx
@@ -1622,15 +1594,14 @@ msgstr "忘记密码？"
 msgid "Forgot your password?"
 msgstr "你忘记密码了吗？"
 
+#: src/routes/builder/$resumeId/-sidebar/right/sections/page.tsx
+msgctxt "Page Format (A4, Letter or Free-Form)"
+msgid "Format"
+msgstr "格式"
+
 #: src/routes/_home/-sections/how-it-works.tsx
-msgid ""
-"Four simple steps to turn your claims into evidence. No keyword stuffing, "
-"no job-title theatre — just practical assessments reviewed by domain "
-"experts."
-msgstr ""
-"Four simple steps to turn your claims into evidence. No keyword stuffing, "
-"no job-title theatre — just practical assessments reviewed by domain "
-"experts."
+msgid "Four simple steps to turn your claims into evidence. No keyword stuffing, no job-title theatre — just practical assessments reviewed by domain experts."
+msgstr "Four simple steps to turn your claims into evidence. No keyword stuffing, no job-title theatre — just practical assessments reviewed by domain experts."
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/page.tsx
 msgid "Free-Form"
@@ -1647,6 +1618,10 @@ msgstr "Freelancer Profile Link"
 #: src/utils/locale.ts
 msgid "French"
 msgstr "法语"
+
+#: src/routes/_home/-sections/faq.tsx
+msgid "Frequently Asked Questions"
+msgstr "常见问题解答"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/layout/pages.tsx
 msgid "Full Width"
@@ -1673,12 +1648,8 @@ msgid "German"
 msgstr "德语"
 
 #: src/dialogs/resume/ai-review.tsx
-msgid ""
-"Get AI feedback on what is strong in this resume and what should be "
-"improved."
-msgstr ""
-"Get AI feedback on what is strong in this resume and what should be "
-"improved."
+msgid "Get AI feedback on what is strong in this resume and what should be improved."
+msgstr "Get AI feedback on what is strong in this resume and what should be improved."
 
 #: src/routes/_home/-sections/footer.tsx
 msgid "Get verified"
@@ -1695,10 +1666,6 @@ msgstr "Global AI"
 #: src/routes/auth/verify-2fa-backup.tsx
 msgid "Go Back"
 msgstr "返回"
-
-#: src/routes/_home/-sections/header.tsx
-msgid "Go to dashboard"
-msgstr "转到控制面板"
 
 #: src/components/command-palette/pages/navigation.tsx
 msgid "Go to..."
@@ -1721,12 +1688,8 @@ msgid "Grid"
 msgstr "网格"
 
 #: src/routes/_home/-sections/templates.tsx
-msgid ""
-"Grouped capabilities with micro-labels — shows breadth without a wall of "
-"bullet points."
-msgstr ""
-"Grouped capabilities with micro-labels — shows breadth without a wall of "
-"bullet points."
+msgid "Grouped capabilities with micro-labels — shows breadth without a wall of bullet points."
+msgstr "Grouped capabilities with micro-labels — shows breadth without a wall of bullet points."
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Growth-focused feedback"
@@ -1735,6 +1698,11 @@ msgstr "Growth-focused feedback"
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Harvard University"
 msgstr "Harvard University"
+
+#: src/routes/builder/$resumeId/-sidebar/right/sections/typography.tsx
+msgctxt "Headings or Titles (H1, H2, H3, H4, H5, H6)"
+msgid "Heading"
+msgstr "标题文字"
 
 #: src/components/input/rich-input.tsx
 msgid "Heading 1"
@@ -1773,11 +1741,7 @@ msgid "Help translate the app to your language"
 msgstr "帮助把应用翻译成你的语言"
 
 #: src/dialogs/resume/template/gallery.tsx
-msgid ""
-"Here's a range of resume templates for different professions and "
-"personalities. Whether you prefer modern or classic, bold or simple, there "
-"is a design to match you. Look through the options below and choose a "
-"template that fits your style."
+msgid "Here's a range of resume templates for different professions and personalities. Whether you prefer modern or classic, bold or simple, there is a design to match you. Look through the options below and choose a template that fits your style."
 msgstr "这里提供多种适用于不同职业和性格的简历模板。无论你偏爱现代或经典、张扬或简约，都能找到适合你的设计。浏览下方选项，选择一款符合你风格的模板。"
 
 #: src/dialogs/api-key/create.tsx
@@ -1785,12 +1749,8 @@ msgid "Here's your new API key"
 msgstr "这是你的新 API key"
 
 #: src/routes/_home/-sections/templates.tsx
-msgid ""
-"Hero statement up top, verified skills as the spine — built for reviewers "
-"who scan in seconds."
-msgstr ""
-"Hero statement up top, verified skills as the spine — built for reviewers "
-"who scan in seconds."
+msgid "Hero statement up top, verified skills as the spine — built for reviewers who scan in seconds."
+msgstr "Hero statement up top, verified skills as the spine — built for reviewers who scan in seconds."
 
 #: src/components/level/combobox.tsx
 #: src/dialogs/resume/sections/language.tsx
@@ -1843,17 +1803,21 @@ msgstr "How it works"
 msgid "How long does a verification take?"
 msgstr "How long does a verification take?"
 
+#: src/routes/dashboard/verification/index.tsx
+msgid "https://www.upwork.com/freelancers/~..."
+msgstr "https://www.upwork.com/freelancers/~..."
+
 #: src/utils/locale.ts
 msgid "Hungarian"
 msgstr "匈牙利语"
 
+#: src/routes/_home/-sections/how-it-works.tsx
+msgid "I am ready to start"
+msgstr "我已准备好开始"
+
 #: src/routes/dashboard/work-authorization/index.tsx
-msgid ""
-"I consent to sharing my work authorization details with employers for "
-"matching."
-msgstr ""
-"I consent to sharing my work authorization details with employers for "
-"matching."
+msgid "I consent to sharing my work authorization details with employers for matching."
+msgstr "I consent to sharing my work authorization details with employers for matching."
 
 #: src/components/level/combobox.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/design.tsx
@@ -1907,7 +1871,7 @@ msgstr "导入"
 
 #: src/dialogs/resume/import.tsx
 #: src/routes/dashboard/resumes/-components/cards/import-card.tsx
-#: src/routes/dashboard/resumes/-components/list-view.tsx
+#: src/routes/dashboard/resumes/-components/resume-quick-actions.tsx
 msgid "Import an existing resume"
 msgstr "导入现有简历"
 
@@ -1983,12 +1947,8 @@ msgid "Job Search API"
 msgstr "工作搜索 API"
 
 #: src/routes/dashboard/job-search/index.tsx
-msgid ""
-"Job search has not been configured yet. Contact an administrator to set it "
-"up."
-msgstr ""
-"Job search has not been configured yet. Contact an administrator to set it "
-"up."
+msgid "Job search has not been configured yet. Contact an administrator to set it up."
+msgstr "Job search has not been configured yet. Contact an administrator to set it up."
 
 #: src/routes/dashboard/job-search/index.tsx
 msgid "Job Search Not Available"
@@ -2045,8 +2005,8 @@ msgstr "最近 3 天"
 msgid "Last active"
 msgstr "Last active"
 
-#: src/routes/builder/$resumeId/-sidebar/right/sections/statistics.tsx
 #. placeholder {0}: statistics.lastDownloadedAt.toDateString()
+#: src/routes/builder/$resumeId/-sidebar/right/sections/statistics.tsx
 msgid "Last downloaded on {0}"
 msgstr "上次下载于 {0}"
 
@@ -2063,8 +2023,8 @@ msgstr "Last resume update"
 msgid "Last updated on {updatedAt}"
 msgstr "最后更新于 {updatedAt}"
 
-#: src/routes/builder/$resumeId/-sidebar/right/sections/statistics.tsx
 #. placeholder {0}: statistics.lastViewedAt.toDateString()
+#: src/routes/builder/$resumeId/-sidebar/right/sections/statistics.tsx
 msgid "Last viewed on {0}"
 msgstr "上次查看于 {0}"
 
@@ -2152,6 +2112,10 @@ msgstr "列表"
 #: src/utils/locale.ts
 msgid "Lithuanian"
 msgstr "立陶宛语"
+
+#: src/components/ui/spinner.tsx
+msgid "Loading"
+msgstr "加载中"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Loading document..."
@@ -2276,17 +2240,17 @@ msgstr "最低工资"
 msgid "Model"
 msgstr "模型"
 
+#: src/routes/builder/$resumeId/-components/dock.tsx
+msgid "More builder actions"
+msgstr "更多建设者行动"
+
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "More than 3 years"
 msgstr "3 年以上"
 
 #: src/routes/_home/-sections/faq.tsx
-msgid ""
-"Most verifications wrap up in 1–3 days depending on the skill and reviewer "
-"availability — no weeks of waiting around."
-msgstr ""
-"Most verifications wrap up in 1–3 days depending on the skill and reviewer "
-"availability — no weeks of waiting around."
+msgid "Most verifications wrap up in 1–3 days depending on the skill and reviewer availability — no weeks of waiting around."
+msgstr "Most verifications wrap up in 1–3 days depending on the skill and reviewer availability — no weeks of waiting around."
 
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
 msgid "Move to"
@@ -2295,6 +2259,23 @@ msgstr "移动到"
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "MSc Computer Science"
 msgstr "MSc Computer Science"
+
+#: src/routes/builder/$resumeId/-sidebar/left/sections/custom-fields.tsx
+msgid "Must start with https://"
+msgstr "必须以 https:// 开头"
+
+#: src/dialogs/api-key/create.tsx
+#: src/dialogs/resume/index.tsx
+#: src/dialogs/resume/sections/interest.tsx
+#: src/dialogs/resume/sections/project.tsx
+#: src/dialogs/resume/sections/reference.tsx
+#: src/dialogs/resume/sections/skill.tsx
+#: src/routes/auth/register.tsx
+#: src/routes/builder/$resumeId/-sidebar/left/sections/basics.tsx
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+#: src/routes/dashboard/settings/profile.tsx
+msgid "Name"
+msgstr "姓名"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Name, email, or @username…"
@@ -2313,6 +2294,10 @@ msgid "New Line"
 msgstr "新行"
 
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
+msgid "New page"
+msgstr "新页面"
+
+#: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
 msgid "New Page"
 msgstr "新页面"
 
@@ -2325,19 +2310,18 @@ msgstr "新密码"
 msgid "New Section"
 msgstr "新章节"
 
+#. placeholder {0}: pageIndex + 1
+#: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
+msgid "New section on page {0}"
+msgstr "第 {0} 页上的新部分"
+
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 msgid "New Skills Detected"
 msgstr "检测到新技能"
 
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
-msgid ""
-"New skills were found in your experience that match this job. Select which "
-"ones to save back to your original resume for future applications. This "
-"will permanently modify your original resume and cannot be undone."
-msgstr ""
-"New skills were found in your experience that match this job. Select which "
-"ones to save back to your original resume for future applications. This "
-"will permanently modify your original resume and cannot be undone."
+msgid "New skills were found in your experience that match this job. Select which ones to save back to your original resume for future applications. This will permanently modify your original resume and cannot be undone."
+msgstr "New skills were found in your experience that match this job. Select which ones to save back to your original resume for future applications. This will permanently modify your original resume and cannot be undone."
 
 #: src/routes/dashboard/admin/users.tsx
 #: src/routes/dashboard/job-search/index.tsx
@@ -2468,19 +2452,23 @@ msgid "Only PDF, JPG, JPEG, and PNG files are allowed."
 msgstr "Only PDF, JPG, JPEG, and PNG files are allowed."
 
 #: src/routes/_home/-sections/faq.tsx
-msgid ""
-"Only your assigned reviewer sees the assignments you submit. On your public "
-"profile, you decide which verified skills to display — everything else "
-"stays private."
-msgstr ""
-"Only your assigned reviewer sees the assignments you submit. On your public "
-"profile, you decide which verified skills to display — everything else "
-"stays private."
+msgid "Only your assigned reviewer sees the assignments you submit. On your public profile, you decide which verified skills to display — everything else stays private."
+msgstr "Only your assigned reviewer sees the assignments you submit. On your public profile, you decide which verified skills to display — everything else stays private."
 
 #: src/routes/dashboard/resumes/-components/menus/context-menu.tsx
 #: src/routes/dashboard/resumes/-components/menus/dropdown-menu.tsx
 msgid "Open"
 msgstr "打开"
+
+#: src/routes/builder/$resumeId/-components/header.tsx
+#: src/routes/builder/$resumeId/-components/header.tsx
+msgid "Open content editor"
+msgstr "打开内容编辑器"
+
+#: src/routes/builder/$resumeId/-components/header.tsx
+#: src/routes/builder/$resumeId/-components/header.tsx
+msgid "Open design settings"
+msgstr "打开设计设置"
 
 #: src/routes/auth/forgot-password.tsx
 msgid "Open Email Client"
@@ -2499,8 +2487,8 @@ msgstr "OpenAI"
 msgid "opens in new tab"
 msgstr "在新标签页中打开"
 
-#: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 #. placeholder {0}: job.job_title
+#: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 msgid "Optimizing summary, experience, and skills for {0}"
 msgstr "优化摘要、经验和技能， {0}"
 
@@ -2509,10 +2497,13 @@ msgid "Optional notes for the applicant..."
 msgstr "Optional notes for the applicant..."
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
-msgid ""
-"Optionally, set a password so that only people with the password can view "
-"your resume through the link."
+msgid "Optionally, set a password so that only people with the password can view your resume through the link."
 msgstr "你也可以选择设置密码，这样只有拥有密码的人才能通过链接查看你的简历。"
+
+#: src/routes/auth/-components/social-auth.tsx
+msgctxt "Choose to authenticate with a social provider (Google, GitHub, etc.) instead of email and password"
+msgid "or continue with"
+msgstr "或通过以下方式继续"
 
 #: src/components/input/rich-input.tsx
 msgid "Ordered List"
@@ -2562,17 +2553,22 @@ msgstr "Oxford University"
 msgid "Page"
 msgstr "页面"
 
+#. placeholder {0}: pageIndex + 1
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/layout/pages.tsx
-#. placeholder {0}: pageIndex + 1
 msgid "Page {0}"
 msgstr "第 {0} 页"
 
-#: src/routes/dashboard/admin/users.tsx
 #. placeholder {0}: search.page
 #. placeholder {1}: data.total
+#: src/routes/dashboard/admin/users.tsx
 msgid "Page {0} of {totalPages} — {1} users"
 msgstr "Page {0} of {totalPages} — {1} users"
+
+#. placeholder {0}: pageIndex + 1
+#: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
+msgid "Page {0}: {sectionTitle}"
+msgstr "第 {0} 页：{sectionTitle}"
 
 #: src/routes/dashboard/job-search/index.tsx
 msgid "Page {currentPage}"
@@ -2591,12 +2587,8 @@ msgid "Part-time"
 msgstr "兼职"
 
 #: src/routes/_home/-sections/how-it-works.tsx
-msgid ""
-"Pass the review to earn a verified skill badge, boost your profile "
-"visibility, and let opportunities come to you."
-msgstr ""
-"Pass the review to earn a verified skill badge, boost your profile "
-"visibility, and let opportunities come to you."
+msgid "Pass the review to earn a verified skill badge, boost your profile visibility, and let opportunities come to you."
+msgstr "Pass the review to earn a verified skill badge, boost your profile visibility, and let opportunities come to you."
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Passive discovery"
@@ -2662,22 +2654,12 @@ msgid "Phone"
 msgstr "电话"
 
 #: src/routes/_home/-sections/templates.tsx
-msgid ""
-"Pick a presentation that puts verification and outcomes first. Each card "
-"shows a real export layout from the builder — same document you share, with "
-"structure tuned for how people actually skim proof."
-msgstr ""
-"Pick a presentation that puts verification and outcomes first. Each card "
-"shows a real export layout from the builder — same document you share, with "
-"structure tuned for how people actually skim proof."
+msgid "Pick a presentation that puts verification and outcomes first. Each card shows a real export layout from the builder — same document you share, with structure tuned for how people actually skim proof."
+msgstr "Pick a presentation that puts verification and outcomes first. Each card shows a real export layout from the builder — same document you share, with structure tuned for how people actually skim proof."
 
 #: src/routes/dashboard/work-authorization/index.tsx
-msgid ""
-"Pick a region to fill in your authorization details. Statuses already "
-"filled are shown next to each region."
-msgstr ""
-"Pick a region to fill in your authorization details. Statuses already "
-"filled are shown next to each region."
+msgid "Pick a region to fill in your authorization details. Statuses already filled are shown next to each region."
+msgstr "Pick a region to fill in your authorization details. Statuses already filled are shown next to each region."
 
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Pick skills to verify"
@@ -2700,9 +2682,7 @@ msgid "Please enter a new password for your account"
 msgstr "请为你的账号输入一个新密码"
 
 #: src/routes/auth/resume-password.tsx
-msgid ""
-"Please enter the password shared with you by the owner of the resume to "
-"continue."
+msgid "Please enter the password shared with you by the owner of the resume to continue."
 msgstr "请输入简历所有者与你共享的密码以继续。"
 
 #: src/components/input/rich-input.tsx
@@ -2753,9 +2733,7 @@ msgid "Preferences"
 msgstr "偏好设置"
 
 #: src/components/input/chip-input.tsx
-msgid ""
-"Press <0>{RETURN_KEY}</0> or <1>{COMMA_KEY}</1> to add or save the current "
-"keyword."
+msgid "Press <0>{RETURN_KEY}</0> or <1>{COMMA_KEY}</1> to add or save the current keyword."
 msgstr "按下<0>{RETURN_KEY}</0>或<1>{COMMA_KEY}</1>以添加或保存当前关键词。"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
@@ -2856,8 +2834,8 @@ msgstr "Pulse"
 msgid "Python/Django dashboard with interactive visualizations"
 msgstr "Python/Django dashboard with interactive visualizations"
 
-#: src/routes/dashboard/job-search/index.tsx
 #. placeholder {0}: quota.remaining
+#: src/routes/dashboard/job-search/index.tsx
 msgid "Quota: {0} remaining"
 msgstr "配额： {0} 剩余"
 
@@ -2874,12 +2852,8 @@ msgid "React Native mobile app with real-time synchronization"
 msgstr "React Native mobile app with real-time synchronization"
 
 #: src/routes/_home/-sections/how-it-works.tsx
-msgid ""
-"Receive a practical assignment from your reviewer, submit your work, and "
-"get actionable feedback in a real conversation."
-msgstr ""
-"Receive a practical assignment from your reviewer, submit your work, and "
-"get actionable feedback in a real conversation."
+msgid "Receive a practical assignment from your reviewer, submit your work, and get actionable feedback in a real conversation."
+msgstr "Receive a practical assignment from your reviewer, submit your work, and get actionable feedback in a real conversation."
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Recent sessions"
@@ -2896,6 +2870,12 @@ msgstr "矩形"
 #: src/components/level/combobox.tsx
 msgid "Rectangle (Full Width)"
 msgstr "矩形（全宽）"
+
+#: src/routes/builder/$resumeId/-components/dock.tsx
+#: src/routes/builder/$resumeId/-components/dock.tsx
+msgctxt "'Ctrl' may be replaced with the locale-specific equivalent (e.g. 'Strg' for QWERTZ layouts)."
+msgid "Redo (Ctrl+Y)"
+msgstr "重做（Ctrl+Y）"
 
 #: src/dialogs/resume/sections/custom.tsx
 #: src/utils/resume/section.tsx
@@ -2964,6 +2944,10 @@ msgstr "重新排序"
 msgid "Request"
 msgstr "Request"
 
+#: src/routes/auth/verify-email.tsx
+msgid "Request a new link"
+msgstr "请求新链接"
+
 #: src/routes/dashboard/job-search/-components/job-detail.tsx
 msgid "Required Skills"
 msgstr "所需技能"
@@ -2972,10 +2956,12 @@ msgstr "所需技能"
 msgid "Required: reason for overriding this verdict..."
 msgstr "Required: reason for overriding this verdict..."
 
+#: src/routes/auth/verify-email.tsx
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Resend verification email"
 msgstr "重新发送验证邮件"
 
+#: src/routes/auth/verify-email.tsx
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Resending verification email..."
 msgstr "正在重新发送验证邮件…"
@@ -3052,22 +3038,12 @@ msgid "Reviewer since {memberSince}"
 msgstr "Reviewer since {memberSince}"
 
 #: src/routes/_home/-sections/features.tsx
-msgid ""
-"Reviewers don't see who they're assessing, so your skills are judged on "
-"their merit — not your background."
-msgstr ""
-"Reviewers don't see who they're assessing, so your skills are judged on "
-"their merit — not your background."
+msgid "Reviewers don't see who they're assessing, so your skills are judged on their merit — not your background."
+msgstr "Reviewers don't see who they're assessing, so your skills are judged on their merit — not your background."
 
 #: src/routes/_home/-sections/faq.tsx
-msgid ""
-"Reviewers evaluate your submission without seeing your name, employer, or "
-"background. If you're ever unhappy with an outcome, you can request a "
-"second opinion from a different reviewer."
-msgstr ""
-"Reviewers evaluate your submission without seeing your name, employer, or "
-"background. If you're ever unhappy with an outcome, you can request a "
-"second opinion from a different reviewer."
+msgid "Reviewers evaluate your submission without seeing your name, employer, or background. If you're ever unhappy with an outcome, you can request a second opinion from a different reviewer."
+msgstr "Reviewers evaluate your submission without seeing your name, employer, or background. If you're ever unhappy with an outcome, you can request a second opinion from a different reviewer."
 
 #: src/components/input/rich-input.tsx
 msgid "Right Align"
@@ -3105,8 +3081,8 @@ msgstr "俄语"
 msgid "Save"
 msgstr "Save"
 
-#: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 #. placeholder {0}: selectedSkills.size
+#: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 msgid "Save {0} Skills"
 msgstr "保存 {0} 技能"
 
@@ -3149,9 +3125,7 @@ msgid "Saving..."
 msgstr "Saving..."
 
 #: src/dialogs/auth/enable-two-factor.tsx
-msgid ""
-"Scan the QR code below with your preferred authenticator app. You can also "
-"copy the secret below and paste it into your app."
+msgid "Scan the QR code below with your preferred authenticator app. You can also copy the secret below and paste it into your app."
 msgstr "使用你偏好的验证器应用扫描下方二维码。你也可以复制下面的密钥并粘贴到应用中。"
 
 #: src/routes/dashboard/settings/profile.tsx
@@ -3172,6 +3146,10 @@ msgstr "学校"
 msgid "Search"
 msgstr "搜索"
 
+#: src/components/command-palette/index.tsx
+msgid "Search commands"
+msgstr "搜索命令"
+
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Search countries"
 msgstr "搜索国家"
@@ -3185,6 +3163,7 @@ msgstr "搜索图标"
 msgid "Search for..."
 msgstr "搜索…"
 
+#: src/components/command-palette/index.tsx
 #: src/components/ui/combobox.tsx
 msgid "Search..."
 msgstr "搜索..."
@@ -3206,17 +3185,13 @@ msgid "See how verification works"
 msgstr "See how verification works"
 
 #: src/routes/dashboard/verification/index.tsx
-msgid ""
-"Select a payslip, contract, or other proof of employment (PDF, JPG, PNG, "
-"max 5MB)."
-msgstr ""
-"Select a payslip, contract, or other proof of employment (PDF, JPG, PNG, "
-"max 5MB)."
+msgid "Select a payslip, contract, or other proof of employment (PDF, JPG, PNG, max 5MB)."
+msgstr "Select a payslip, contract, or other proof of employment (PDF, JPG, PNG, max 5MB)."
 
-#: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 #. placeholder {0}: job.job_title
 #. placeholder {1}: job.employer_name
 #. placeholder {2}: aiEnabled ? " and optimized for this position." : "."
+#: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 msgid "Select a resume to tailor for \"{0}\" at {1}. A copy will be created{2}"
 msgstr "在 {1}上选择一份简历，为 \"{0}\" 量身定制。将创建一份副本{2}"
 
@@ -3245,12 +3220,8 @@ msgid "Select status"
 msgstr "Select status"
 
 #: src/routes/_home/-sections/how-it-works.tsx
-msgid ""
-"Select the skills you want endorsed and choose a reviewer for a "
-"personalized, scenario-based assessment."
-msgstr ""
-"Select the skills you want endorsed and choose a reviewer for a "
-"personalized, scenario-based assessment."
+msgid "Select the skills you want endorsed and choose a reviewer for a personalized, scenario-based assessment."
+msgstr "Select the skills you want endorsed and choose a reviewer for a personalized, scenario-based assessment."
 
 #: src/components/ui/combobox.tsx
 msgid "Select..."
@@ -3342,17 +3313,14 @@ msgstr "在标题中显示链接"
 
 #: src/routes/dashboard/settings/privacy.tsx
 #: src/routes/dashboard/settings/privacy.tsx
-msgid ""
-"Show or hide the verification timeline on your public CV. This is off by "
-"default."
-msgstr ""
-"Show or hide the verification timeline on your public CV. This is off by "
-"default."
+msgid "Show or hide the verification timeline on your public CV. This is off by default."
+msgstr "Show or hide the verification timeline on your public CV. This is off by default."
 
 #: src/routes/dashboard/settings/privacy.tsx
 msgid "Show Timeline on Public CV"
 msgstr "Show Timeline on Public CV"
 
+#: src/components/ui/sidebar.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/layout/pages.tsx
 msgid "Sidebar"
 msgstr "侧边栏"
@@ -3362,12 +3330,26 @@ msgid "Sidebar Width"
 msgstr "侧边栏宽度"
 
 #: src/routes/auth/login.tsx
+#: src/routes/auth/verify-email.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Sign in"
 msgstr "登录"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to verify your email"
+msgstr "登录以验证你的电子邮件"
 
 #: src/routes/auth/login.tsx
 msgid "Sign in to your account"
 msgstr "登录你的账号"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to your account to request a new verification email."
+msgstr "登录你的账户以请求新的验证邮件。"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to your account, then request a new verification email."
+msgstr "登录你的账户，然后请求新的验证邮件。"
 
 #: src/routes/auth/register.tsx
 msgid "Sign up"
@@ -3392,27 +3374,19 @@ msgid "Signing up..."
 msgstr "正在注册…"
 
 #: src/dialogs/resume/template/data.ts
-msgid ""
-"Single-column with a magenta left border accent; compact and efficient for "
-"entry-level or internship applications."
+msgid "Single-column with a magenta left border accent; compact and efficient for entry-level or internship applications."
 msgstr "单栏布局，左侧为洋红色边框点缀；紧凑高效，适合入门级或实习申请。"
 
 #: src/dialogs/resume/template/data.ts
-msgid ""
-"Single-column with a minimal top header and lots of whitespace; clean and "
-"modern for designers or content creators."
+msgid "Single-column with a minimal top header and lots of whitespace; clean and modern for designers or content creators."
 msgstr "单栏布局，顶部为极简页眉并留有大量留白；风格简洁现代，适合设计师或内容创作者。"
 
 #: src/dialogs/resume/template/data.ts
-msgid ""
-"Single-column with a sidebar and clean grid layout; versatile for any "
-"professional or technical role."
+msgid "Single-column with a sidebar and clean grid layout; versatile for any professional or technical role."
 msgstr "单栏布局，带侧边栏和干净的网格排版；用途广泛，适合任何专业或技术岗位。"
 
 #: src/dialogs/resume/template/data.ts
-msgid ""
-"Single-column; polished and serious for senior or enterprise-level "
-"positions."
+msgid "Single-column; polished and serious for senior or enterprise-level positions."
 msgstr "单栏布局；风格精致严肃，适合高级或企业级职位。"
 
 #: src/routes/builder/$resumeId/-sidebar/left/sections/picture.tsx
@@ -3493,12 +3467,8 @@ msgid "Spanish"
 msgstr "西班牙语"
 
 #: src/routes/_home/-sections/templates.tsx
-msgid ""
-"Split identity and evidence panes; keeps personality context beside hard "
-"verification."
-msgstr ""
-"Split identity and evidence panes; keeps personality context beside hard "
-"verification."
+msgid "Split identity and evidence panes; keeps personality context beside hard verification."
+msgstr "Split identity and evidence panes; keeps personality context beside hard verification."
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Sponsorship"
@@ -3517,8 +3487,8 @@ msgstr "方形"
 msgid "Star us on GitHub (opens in new tab)"
 msgstr "在 GitHub 上为我们加星（在新标签页中打开）"
 
-#: src/components/input/github-stars-button.tsx
 #. placeholder {0}: starCount.toLocaleString()
+#: src/components/input/github-stars-button.tsx
 msgid "Star us on GitHub, currently {0} stars (opens in new tab)"
 msgstr "在 GitHub 上为我们加星，目前有 {0} 颗星（在新标签页中打开）"
 
@@ -3527,7 +3497,7 @@ msgid "Start building your resume by giving it a name."
 msgstr "从给简历命名开始构建你的简历。"
 
 #: src/routes/dashboard/resumes/-components/cards/create-card.tsx
-#: src/routes/dashboard/resumes/-components/list-view.tsx
+#: src/routes/dashboard/resumes/-components/resume-quick-actions.tsx
 msgid "Start building your resume from scratch"
 msgstr "从头开始构建你的简历"
 
@@ -3544,12 +3514,8 @@ msgid "Stay"
 msgstr "留下"
 
 #: src/routes/_home/-sections/features.tsx
-msgid ""
-"Stop chasing. Companies reach out directly to candidates whose verified "
-"skills match their requirements."
-msgstr ""
-"Stop chasing. Companies reach out directly to candidates whose verified "
-"skills match their requirements."
+msgid "Stop chasing. Companies reach out directly to candidates whose verified skills match their requirements."
+msgstr "Stop chasing. Companies reach out directly to candidates whose verified skills match their requirements."
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Story arc"
@@ -3668,9 +3634,7 @@ msgid "The API key has been deleted successfully."
 msgstr "API key 已成功删除。"
 
 #: src/routes/dashboard/settings/api-keys.tsx
-msgid ""
-"The API key will no longer be able to access your data after deletion. This "
-"action cannot be undone."
+msgid "The API key will no longer be able to access your data after deletion. This action cannot be undone."
 msgstr "删除后，该 API key 将无法再访问你的数据。此操作不可撤销。"
 
 #: src/components/command-palette/index.tsx
@@ -3678,9 +3642,7 @@ msgid "The command you're looking for doesn't exist."
 msgstr "你要查找的命令不存在。"
 
 #: src/components/resume/preview.tsx
-msgid ""
-"The content is too tall for this page, this may cause undesirable results "
-"when exporting to PDF."
+msgid "The content is too tall for this page, this may cause undesirable results when exporting to PDF."
 msgstr "内容过高，超出了本页面，在导出为 PDF 时可能会导致不理想的效果。"
 
 #: src/routes/auth/resume-password.tsx
@@ -3688,16 +3650,8 @@ msgid "The password you entered is incorrect"
 msgstr "你输入的密码不正确"
 
 #: src/routes/dashboard/admin/job-search.tsx
-msgid ""
-"The RapidAPI key is stored in the database and used for all users. Once "
-"configured and verified, every signed-in user can search for job listings "
-"via the JSearch API. Only Skill Verdict administrators can change this "
-"configuration."
-msgstr ""
-"The RapidAPI key is stored in the database and used for all users. Once "
-"configured and verified, every signed-in user can search for job listings "
-"via the JSearch API. Only Skill Verdict administrators can change this "
-"configuration."
+msgid "The RapidAPI key is stored in the database and used for all users. Once configured and verified, every signed-in user can search for job listings via the JSearch API. Only Skill Verdict administrators can change this configuration."
+msgstr "The RapidAPI key is stored in the database and used for all users. Once configured and verified, every signed-in user can search for job listings via the JSearch API. Only Skill Verdict administrators can change this configuration."
 
 #: src/routes/auth/resume-password.tsx
 msgid "The resume you are trying to access is password protected"
@@ -3706,6 +3660,10 @@ msgstr "你尝试访问的这份简历已启用密码保护"
 #: src/components/input/rich-input.tsx
 msgid "The URL you entered is not valid."
 msgstr "你输入的 URL 无效。"
+
+#: src/routes/auth/verify-email.tsx
+msgid "The verification link may be invalid, expired, or already used."
+msgstr "验证链接可能无效、已过期或已被使用。"
 
 #: src/components/command-palette/pages/preferences/theme.tsx
 #: src/components/user/dropdown-menu.tsx
@@ -3750,18 +3708,12 @@ msgid "This is a URL-friendly name for your resume."
 msgstr "这是一个适合放在 URL 中的简历名称。"
 
 #: src/dialogs/resume/import.tsx
-msgid ""
-"This may take a few minutes. Please do not close the window or refresh the "
-"page."
-msgstr ""
-"This may take a few minutes. Please do not close the window or refresh the "
-"page."
+msgid "This may take a few minutes. Please do not close the window or refresh the page."
+msgstr "This may take a few minutes. Please do not close the window or refresh the page."
 
 #: src/routes/builder/$resumeId/-components/dock.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/export.tsx
-msgid ""
-"This may take a while depending on the server capacity. Please do not close "
-"the window or refresh the page."
+msgid "This may take a while depending on the server capacity. Please do not close the window or refresh the page."
 msgstr "根据服务器性能，这可能需要一段时间。请不要关闭窗口或刷新页面。"
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
@@ -3769,57 +3721,35 @@ msgid "This month"
 msgstr "本月"
 
 #: src/routes/reviewer/$adminId.tsx
-msgid ""
-"This page shows live profile information. Verification snapshots captured "
-"at the time of review may differ from the current details shown here."
-msgstr ""
-"This page shows live profile information. Verification snapshots captured "
-"at the time of review may differ from the current details shown here."
+msgid "This page shows live profile information. Verification snapshots captured at the time of review may differ from the current details shown here."
+msgstr "This page shows live profile information. Verification snapshots captured at the time of review may differ from the current details shown here."
 
 #: src/components/resume/store/resume.ts
 msgid "This resume is locked and cannot be updated."
 msgstr "这份简历已被锁定，无法更新。"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/notes.tsx
-msgid ""
-"This section is reserved for your personal notes specific to this resume. "
-"The content here remains private and is not shared with anyone else."
+msgid "This section is reserved for your personal notes specific to this resume. The content here remains private and is not shared with anyone else."
 msgstr "此部分用于记录与你这份简历相关的个人注释。这里的内容保持私密，不会与其他任何人共享。"
-
-#: src/routes/auth/register.tsx
-msgid "This step is optional, but recommended."
-msgstr "此步骤可选，但推荐完成。"
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "This week"
 msgstr "本周"
 
 #: src/dialogs/api-key/create.tsx
-msgid ""
-"This will generate a new API key to access the Skill Verdict API to allow "
-"machines to interact with your resume data."
+msgid "This will generate a new API key to access the Skill Verdict API to allow machines to interact with your resume data."
 msgstr "这将生成一个新的 API key，以访问 Skill Verdict 的 API，让程序可以与你的简历数据进行交互。"
 
 #: src/routes/_home/-sections/templates.tsx
-msgid ""
-"Tight vertical rhythm for mobile sharing — still readable when the viewport "
-"is narrow."
-msgstr ""
-"Tight vertical rhythm for mobile sharing — still readable when the viewport "
-"is narrow."
+msgid "Tight vertical rhythm for mobile sharing — still readable when the viewport is narrow."
+msgstr "Tight vertical rhythm for mobile sharing — still readable when the viewport is narrow."
 
 #: src/routes/_home/-sections/templates.tsx
-msgid ""
-"Timeline-forward narrative with milestones; good when your evidence has a "
-"clear before/after."
-msgstr ""
-"Timeline-forward narrative with milestones; good when your evidence has a "
-"clear before/after."
+msgid "Timeline-forward narrative with milestones; good when your evidence has a clear before/after."
+msgstr "Timeline-forward narrative with milestones; good when your evidence has a clear before/after."
 
 #: src/dialogs/api-key/create.tsx
-msgid ""
-"Tip: Give your API key a name, corresponding to the purpose of the key, to "
-"help you identify it later."
+msgid "Tip: Give your API key a name, corresponding to the purpose of the key, to help you identify it later."
 msgstr "提示：请为你的 API key 取一个名称，与它的用途相对应，方便你以后识别。"
 
 #: src/dialogs/resume/index.tsx
@@ -3834,15 +3764,19 @@ msgid "Title"
 msgstr "标题"
 
 #: src/routes/dashboard/settings/danger-zone.tsx
-msgid ""
-"To delete your account, you need to enter the confirmation text and click "
-"the button below."
+msgid "To delete your account, you need to enter the confirmation text and click the button below."
 msgstr "要删除你的账号，你需要输入确认文本，然后点击下方按钮。"
 
 #: src/routes/dashboard/job-search/-components/job-utils.ts
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Today"
 msgstr "今天"
+
+#: src/components/ui/sidebar.tsx
+#: src/components/ui/sidebar.tsx
+#: src/components/ui/sidebar.tsx
+msgid "Toggle Sidebar"
+msgstr "切换侧边栏"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Total keys"
@@ -3868,68 +3802,52 @@ msgstr "Total sessions"
 msgid "Track your resume's views and downloads"
 msgstr "跟踪你的简历被查看和下载的次数"
 
+#: src/routes/auth/verify-email.tsx
+msgid "Try requesting a new verification link."
+msgstr "尝试请求新的验证链接。"
+
 #: src/utils/locale.ts
 msgid "Turkish"
 msgstr "土耳其语"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/statistics.tsx
-msgid ""
-"Turn on public sharing to track how many times your resume has been viewed "
-"or downloaded. Only you can see your resume's statistics."
+msgid "Turn on public sharing to track how many times your resume has been viewed or downloaded. Only you can see your resume's statistics."
 msgstr "开启公开分享后，你可以跟踪你的简历被查看或下载的次数。只有你自己可以看到简历的统计数据。"
 
 #: src/dialogs/resume/template/data.ts
-msgid ""
-"Two-column with a bold colored sidebar and skill bars; great for creative "
-"or tech roles where visual flair is welcome."
+msgid "Two-column with a bold colored sidebar and skill bars; great for creative or tech roles where visual flair is welcome."
 msgstr "双栏布局，配有醒目的彩色侧边栏和技能条；非常适合需要视觉表现力的创意或技术岗位。"
 
 #: src/dialogs/resume/template/data.ts
-msgid ""
-"Two-column with a dark teal sidebar and skills grid; modern feel for "
-"developers, data scientists, or technical PMs."
+msgid "Two-column with a dark teal sidebar and skills grid; modern feel for developers, data scientists, or technical PMs."
 msgstr "双栏布局，深青色侧边栏与技能网格；现代感十足，适合开发者、数据科学家或技术产品经理。"
 
 #: src/dialogs/resume/template/data.ts
-msgid ""
-"Two-column with a left margin color; simple and approachable for creative, "
-"editorial, or junior roles."
+msgid "Two-column with a left margin color; simple and approachable for creative, editorial, or junior roles."
 msgstr "双栏布局，左侧边距带色块；简洁亲和，适合创意、编辑或初级岗位。"
 
 #: src/dialogs/resume/template/data.ts
-msgid ""
-"Two-column with a muted color sidebar; earthy and calm, suits "
-"sustainability, healthcare, or nonprofit sectors."
+msgid "Two-column with a muted color sidebar; earthy and calm, suits sustainability, healthcare, or nonprofit sectors."
 msgstr "双栏布局，柔和配色的侧边栏；气质自然沉稳，适合可持续发展、医疗健康或非营利行业。"
 
 #: src/dialogs/resume/template/data.ts
-msgid ""
-"Two-column with a soft header accent and circular profile photo; ideal for "
-"marketing, HR, or client-facing roles."
+msgid "Two-column with a soft header accent and circular profile photo; ideal for marketing, HR, or client-facing roles."
 msgstr "双栏布局，顶部柔和色块和圆形头像；非常适合市场、HR 或需要对客沟通的岗位。"
 
 #: src/dialogs/resume/template/data.ts
-msgid ""
-"Two-column with accent colors and clean typography; balanced choice for "
-"business analysts or operations roles."
+msgid "Two-column with accent colors and clean typography; balanced choice for business analysts or operations roles."
 msgstr "双栏布局，点缀色和干净的排版；是商务分析或运营岗位的均衡之选。"
 
 #: src/dialogs/resume/template/data.ts
-msgid ""
-"Two-column, clean and professional with subtle section dividers; suits "
-"corporate, finance, or consulting positions."
+msgid "Two-column, clean and professional with subtle section dividers; suits corporate, finance, or consulting positions."
 msgstr "双栏布局，干净专业并带有细微章节分隔线；适合企业、金融或咨询岗位。"
 
 #: src/dialogs/resume/template/data.ts
-msgid ""
-"Two-column, minimal and text-dense with no decorative elements; perfect for "
-"traditional industries or ATS-heavy applications."
+msgid "Two-column, minimal and text-dense with no decorative elements; perfect for traditional industries or ATS-heavy applications."
 msgstr "双栏布局，极简且内容密集，无装饰元素；非常适合传统行业或高度依赖 ATS 的职位申请。"
 
 #: src/dialogs/resume/template/data.ts
-msgid ""
-"Two-column, minimal with light gray sidebar and subtle icons; professional "
-"and understated for legal, finance, or executive roles."
+msgid "Two-column, minimal with light gray sidebar and subtle icons; professional and understated for legal, finance, or executive roles."
 msgstr "双栏布局，极简风格，浅灰侧边栏和低调图标；专业而内敛，适合法律、金融或高管岗位。"
 
 #: src/routes/auth/verify-2fa.tsx
@@ -3944,6 +3862,10 @@ msgstr "已成功禁用双重身份验证。"
 #: src/dialogs/auth/enable-two-factor.tsx
 msgid "Two-factor authentication has been setup successfully."
 msgstr "双重身份验证已成功设置。"
+
+#: src/dialogs/auth/enable-two-factor.tsx
+msgid "Two-Factor Authentication QR Code"
+msgstr "二次验证二维码"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/users.tsx
@@ -3964,6 +3886,7 @@ msgstr "类型"
 msgid "Type \"{CONFIRMATION_TEXT}\" to confirm"
 msgstr "输入“{CONFIRMATION_TEXT}”以确认"
 
+#: src/components/command-palette/index.tsx
 #: src/components/command-palette/index.tsx
 msgid "Type a command or search..."
 msgstr "输入命令或进行搜索…"
@@ -3987,6 +3910,12 @@ msgstr "3 岁以下"
 #: src/components/input/rich-input.tsx
 msgid "Underline"
 msgstr "下划线"
+
+#: src/routes/builder/$resumeId/-components/dock.tsx
+#: src/routes/builder/$resumeId/-components/dock.tsx
+msgctxt "'Ctrl' may be replaced with the locale-specific equivalent (e.g. 'Strg' for QWERTZ layouts)."
+msgid "Undo (Ctrl+Z)"
+msgstr "撤销（Ctrl+Z）"
 
 #: src/routes/dashboard/admin/experience-queue.tsx
 #: src/routes/dashboard/admin/identity.tsx
@@ -4180,8 +4109,8 @@ msgstr "Verification History"
 msgid "Verification History Timeline"
 msgstr "Verification History Timeline"
 
-#: src/routes/dashboard/verification/index.tsx
 #. placeholder {0}: item.label
+#: src/routes/dashboard/verification/index.tsx
 msgid "Verification requested for \"{0}\"."
 msgstr "Verification requested for \"{0}\"."
 
@@ -4196,9 +4125,9 @@ msgstr "verified"
 msgid "Verified"
 msgstr "已验证"
 
+#. placeholder {0}: entry.verifiedBy
 #: src/routes/$username/$slug.tsx
 #: src/routes/dashboard/verification/index.tsx
-#. placeholder {0}: entry.verifiedBy
 msgid "Verified by {0}"
 msgstr "Verified by {0}"
 
@@ -4211,12 +4140,8 @@ msgid "Verified skills"
 msgstr "Verified skills"
 
 #: src/routes/_home/-sections/footer.tsx
-msgid ""
-"Verified skills, honest feedback, and passive discovery — a living profile "
-"built on evidence, not keywords."
-msgstr ""
-"Verified skills, honest feedback, and passive discovery — a living profile "
-"built on evidence, not keywords."
+msgid "Verified skills, honest feedback, and passive discovery — a living profile built on evidence, not keywords."
+msgstr "Verified skills, honest feedback, and passive discovery — a living profile built on evidence, not keywords."
 
 #: src/routes/auth/verify-2fa-backup.tsx
 #: src/routes/auth/verify-2fa.tsx
@@ -4232,13 +4157,13 @@ msgstr "Verify my skills"
 msgid "Verify with a Backup Code"
 msgstr "使用备份码验证"
 
+#: src/routes/auth/verify-email.tsx
+msgid "Verify your email"
+msgstr "验证你的电子邮件"
+
 #: src/routes/dashboard/settings/profile.tsx
-msgid ""
-"Verify your identity through a short video call. This adds trust to your "
-"resume."
-msgstr ""
-"Verify your identity through a short video call. This adds trust to your "
-"resume."
+msgid "Verify your identity through a short video call. This adds trust to your resume."
+msgstr "Verify your identity through a short video call. This adds trust to your resume."
 
 #: src/routes/auth/verify-2fa-backup.tsx
 msgid "Verifying backup code..."
@@ -4252,10 +4177,6 @@ msgstr "正在验证验证码…"
 #: src/routes/auth/resume-password.tsx
 msgid "Verifying password..."
 msgstr "正在验证密码…"
-
-#: src/routes/auth/register.tsx
-msgid "Verifying your email is required when resetting your password."
-msgstr "重置密码时必须先验证你的电子邮箱。"
 
 #: src/utils/locale.ts
 msgid "Vietnamese"
@@ -4289,6 +4210,14 @@ msgstr "Visibility"
 #: src/utils/resume/section.tsx
 msgid "Volunteer"
 msgstr "志愿者经历"
+
+#: src/routes/auth/verify-email.tsx
+msgid "We couldn't verify your email"
+msgstr "我们无法验证你的电子邮件"
+
+#: src/routes/auth/verify-email.tsx
+msgid "We sent a verification link to your email address."
+msgstr "我们已向你的电子邮件地址发送验证链接。"
 
 #: src/dialogs/resume/sections/award.tsx
 #: src/dialogs/resume/sections/certification.tsx
@@ -4340,12 +4269,8 @@ msgid "Yes"
 msgstr "Yes"
 
 #: src/routes/_home/-sections/faq.tsx
-msgid ""
-"Yes. Add or remove skills any time, and request re-verification as you "
-"level up. Your profile is designed to evolve with your career."
-msgstr ""
-"Yes. Add or remove skills any time, and request re-verification as you "
-"level up. Your profile is designed to evolve with your career."
+msgid "Yes. Add or remove skills any time, and request re-verification as you level up. Your profile is designed to evolve with your career."
+msgstr "Yes. Add or remove skills any time, and request re-verification as you level up. Your profile is designed to evolve with your career."
 
 #: src/routes/dashboard/job-search/-components/job-utils.ts
 msgid "Yesterday"
@@ -4355,30 +4280,33 @@ msgstr "昨天"
 msgid "You can also use your username to login."
 msgstr "你也可以使用用户名登录。"
 
+#: src/routes/auth/verify-email.tsx
+msgid "You can now use account recovery and other features that require a verified email address."
+msgstr "你现在可以使用账户恢复以及其他需要已验证电子邮件地址的功能。"
+
 #: src/hooks/use-form-blocker.tsx
 msgid "You have unsaved changes that will be lost."
 msgstr "你有未保存的更改，这些更改将会丢失。"
 
+#: src/routes/auth/verify-email.tsx
+msgid "You must verify your email address before you can access Skill Verdict."
+msgstr "你必须先验证电子邮件地址，才能访问 Skill Verdict。"
+
 #: src/routes/_home/-sections/faq.tsx
-msgid ""
-"You pick the skills you want to endorse and a reviewer with relevant "
-"expertise. They assign a short, practical assessment, review your "
-"submission, and share actionable feedback. If you pass, the skill is added "
-"to your profile as a verified badge."
-msgstr ""
-"You pick the skills you want to endorse and a reviewer with relevant "
-"expertise. They assign a short, practical assessment, review your "
-"submission, and share actionable feedback. If you pass, the skill is added "
-"to your profile as a verified badge."
+msgid "You pick the skills you want to endorse and a reviewer with relevant expertise. They assign a short, practical assessment, review your submission, and share actionable feedback. If you pass, the skill is added to your profile as a verified badge."
+msgstr "You pick the skills you want to endorse and a reviewer with relevant expertise. They assign a short, practical assessment, review your submission, and share actionable feedback. If you pass, the skill is added to your profile as a verified badge."
 
 #: src/routes/auth/forgot-password.tsx
-#: src/routes/auth/register.tsx
 msgid "You've got mail!"
 msgstr "你有新邮件！"
 
 #: src/routes/dashboard/settings/danger-zone.tsx
 msgid "Your account has been deleted successfully."
 msgstr "你的账号已成功删除。"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Your account is up to date."
+msgstr "你的账户已是最新状态。"
 
 #: src/dialogs/api-key/create.tsx
 msgid "Your API key has been copied to the clipboard."
@@ -4388,14 +4316,16 @@ msgstr "你的 API key 已复制到剪贴板。"
 msgid "Your changes are saved automatically."
 msgstr "你的更改会自动保存。"
 
+#: src/routes/auth/verify-email.tsx
+msgid "Your email address is confirmed. You can continue using Skill Verdict."
+msgstr "你的电子邮件地址已确认。你可以继续使用 Skill Verdict。"
+
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Your identity has been verified and your profile is trusted."
 msgstr "Your identity has been verified and your profile is trusted."
 
 #: src/routes/auth/reset-password.tsx
-msgid ""
-"Your password has been reset successfully. You can now sign in with your "
-"new password."
+msgid "Your password has been reset successfully. You can now sign in with your new password."
 msgstr "你的密码已成功重置。你现在可以使用新密码登录。"
 
 #: src/dialogs/auth/change-password.tsx
@@ -4434,23 +4364,19 @@ msgid "Your resume has been updated successfully."
 msgstr "你的简历已成功更新。"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
-msgid ""
-"Your resume's public link is currently protected by a password. Share the "
-"password only with people you trust."
+msgid "Your resume's public link is currently protected by a password. Share the password only with people you trust."
 msgstr "你的简历公共链接当前受密码保护。请仅与信任的人共享该密码。"
 
 #: src/routes/dashboard/settings/profile.tsx
-msgid ""
-"Your verification call has been scheduled. Our team will review and confirm "
-"your identity shortly."
-msgstr ""
-"Your verification call has been scheduled. Our team will review and confirm "
-"your identity shortly."
+msgid "Your verification call has been scheduled. Our team will review and confirm your identity shortly."
+msgstr "Your verification call has been scheduled. Our team will review and confirm your identity shortly."
 
+#: src/routes/builder/$resumeId/-components/dock.tsx
 #: src/routes/builder/$resumeId/-components/dock.tsx
 msgid "Zoom in"
 msgstr "放大"
 
+#: src/routes/builder/$resumeId/-components/dock.tsx
 #: src/routes/builder/$resumeId/-components/dock.tsx
 msgid "Zoom out"
 msgstr "缩小"
@@ -4458,54 +4384,3 @@ msgstr "缩小"
 #: src/utils/locale.ts
 msgid "Zulu"
 msgstr "祖鲁语"
-
-#: src/routes/_home/-sections/faq.tsx
-msgctxt "Every word needs to be wrapped in a tag"
-msgid "<0>Frequently</0><1>Asked</1><2>Questions</2>"
-msgstr "<0>常见</0><1>问题</1><2>解答</2>"
-
-#: src/dialogs/resume/sections/award.tsx
-msgctxt "(noun) person, organization, or entity that gives an award"
-msgid "Awarder"
-msgstr "授予者"
-
-#: src/routes/builder/$resumeId/-sidebar/right/sections/typography.tsx
-msgctxt "Body Text (paragraphs, lists, etc.)"
-msgid "Body"
-msgstr "正文字体"
-
-#: src/routes/builder/$resumeId/-sidebar/right/sections/css.tsx
-msgctxt "Turn On/Apply Custom CSS"
-msgid "Enable"
-msgstr "启用"
-
-#: src/routes/builder/$resumeId/-sidebar/right/sections/page.tsx
-msgctxt "Page Format (A4, Letter or Free-Form)"
-msgid "Format"
-msgstr "格式"
-
-#: src/routes/builder/$resumeId/-sidebar/right/sections/typography.tsx
-msgctxt "Headings or Titles (H1, H2, H3, H4, H5, H6)"
-msgid "Heading"
-msgstr "标题文字"
-
-#: src/routes/auth/-components/social-auth.tsx
-msgctxt ""
-"Choose to authenticate with a social provider (Google, GitHub, etc.) "
-"instead of email and password"
-msgid "or continue with"
-msgstr "或通过以下方式继续"
-
-#: src/routes/builder/$resumeId/-components/dock.tsx
-msgctxt ""
-"'Ctrl' may be replaced with the locale-specific equivalent (e.g. 'Strg' for "
-"QWERTZ layouts)."
-msgid "Redo (Ctrl+Y)"
-msgstr "重做（Ctrl+Y）"
-
-#: src/routes/builder/$resumeId/-components/dock.tsx
-msgctxt ""
-"'Ctrl' may be replaced with the locale-specific equivalent (e.g. 'Strg' for "
-"QWERTZ layouts)."
-msgid "Undo (Ctrl+Z)"
-msgstr "撤销（Ctrl+Z）"

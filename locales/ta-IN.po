@@ -31,7 +31,7 @@ msgstr "உருவாக்கப்பட்டது"
 #. js-lingui-explicit-id
 #: src/routes/dashboard/resumes/index.tsx
 msgid "Name"
-msgstr ""
+msgstr "பெயர்"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "(you)"
@@ -87,11 +87,6 @@ msgstr "+{0} more approved"
 msgid "+{0} more uploaded"
 msgstr "+{0} more uploaded"
 
-#: src/routes/_home/-sections/faq.tsx
-msgctxt "Every word needs to be wrapped in a tag"
-msgid "<0>Frequently</0><1>Asked</1><2>Questions</2>"
-msgstr "<0>அடிக்கடி</0><1>கேட்கப்படும்</1><2>கேள்விகள்</2>"
-
 #: src/routes/_home/-sections/hero.tsx
 msgid "<0>Your skills, finally,</0><1>Proven. Not just claimed.</1>"
 msgstr "<0>Your skills, finally,</0><1>Proven. Not just claimed.</1>"
@@ -132,6 +127,10 @@ msgstr "உங்கள் தற்போதைய மின்னஞ்சல�
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 msgid "A link to your resume has been copied to clipboard."
 msgstr "உங்கள் ரெஸ்யூமிக்கான ஒரு இணைப்பு கிளிப்போர்டுக்கு நகலெடுக்கப்பட்டுள்ளது."
+
+#: src/routes/auth/verify-email.tsx
+msgid "A new verification link has been sent to your email address."
+msgstr "உங்கள் மின்னஞ்சல் முகவரிக்கு புதிய சரிபார்ப்பு இணைப்பு அனுப்பப்பட்டுள்ளது."
 
 #: src/routes/dashboard/settings/profile.tsx
 msgid "A new verification link has been sent to your email address. Please check your inbox to verify your account."
@@ -531,6 +530,12 @@ msgstr "Back"
 msgid "Back to Login"
 msgstr "உள்நுழைவுக்கு திரும்பு"
 
+#: src/routes/builder/$resumeId/-components/header.tsx
+#: src/routes/builder/$resumeId/-components/header.tsx
+#: src/routes/builder/$resumeId/-components/header.tsx
+msgid "Back to resumes"
+msgstr "ரெஸ்யூம்களுக்குத் திரும்பு"
+
 #: src/routes/dashboard/admin/resume/$resumeId.tsx
 msgid "Back to users"
 msgstr "Back to users"
@@ -708,9 +713,9 @@ msgstr "மனசு மாறிச்சா? உங்கள் ரெஸ்�
 msgid "Check your email for a link to reset your password."
 msgstr "உங்கள் கடவுச்சொல்லை மீட்டமைக்க ஒரு இணைப்புக்காக உங்கள் மின்னஞ்சலைச் சரிபார்க்கவும்."
 
-#: src/routes/auth/register.tsx
-msgid "Check your email for a link to verify your account."
-msgstr "உங்கள் கணக்கை சரிபார்க்க ஒரு இணைப்புக்காக உங்கள் மின்னஞ்சலைச் சரிபார்க்கவும்."
+#: src/routes/auth/verify-email.tsx
+msgid "Check your inbox"
+msgstr "உங்கள் இன்பாக்ஸைச் சரிபார்க்கவும்"
 
 #: src/utils/locale.ts
 msgid "Chinese (Simplified)"
@@ -776,6 +781,15 @@ msgstr "நெடுவரிசைகள்"
 msgid "Combine verified skills with research-backed personality insights so teams hire for both capability and fit."
 msgstr "Combine verified skills with research-backed personality insights so teams hire for both capability and fit."
 
+#: src/components/command-palette/index.tsx
+#: src/components/command-palette/index.tsx
+msgid "Command Palette"
+msgstr "கட்டளை தட்டு"
+
+#: src/components/command-palette/index.tsx
+msgid "Command Palette - {currentPage}"
+msgstr "கட்டளை தட்டு - {currentPage}"
+
 #: src/routes/_home/-sections/footer.tsx
 msgid "Community"
 msgstr "சமூகம்"
@@ -833,25 +847,26 @@ msgstr "Contact us"
 
 #: src/dialogs/resume/sections/cover-letter.tsx
 #: src/dialogs/resume/sections/summary-item.tsx
+#: src/routes/builder/$resumeId/route.tsx
 msgid "Content"
 msgstr "உள்ளடக்கம்"
 
 #: src/dialogs/auth/enable-two-factor.tsx
 #: src/dialogs/auth/enable-two-factor.tsx
 #: src/dialogs/auth/enable-two-factor.tsx
-#: src/routes/auth/register.tsx
+#: src/routes/auth/verify-email.tsx
 #: src/routes/dashboard/verification/index.tsx
 msgid "Continue"
 msgstr "தொடர்க"
 
 #: src/routes/dashboard/resumes/-components/cards/import-card.tsx
-#: src/routes/dashboard/resumes/-components/list-view.tsx
+#: src/routes/dashboard/resumes/-components/resume-quick-actions.tsx
 msgid "Continue where you left off"
 msgstr "நீங்கள் நிறுத்திய இடத்தில் இருந்து தொடர்க"
 
 #: src/dialogs/resume/import.tsx
-msgid "Continue where you left off by importing an existing resume you created using Skill Verdict or any another resume builder. Supported formats include PDF, Microsoft Word, as well as JSON files from Skill Verdict."
-msgstr "Skill Verdict அல்லது வேறு எந்த ரெஸ்யூம் பில்டரையும் பயன்படுத்தி நீங்கள் உருவாக்கிய ஏற்கனவே உள்ள ரெஸ்யூமியை இறக்குமதி செய்து, நீங்கள் நிறுத்திய இடத்தில் இருந்து தொடரலாம். ஆதரிக்கப்படும் வடிவங்கள் PDF, Microsoft Word மற்றும் Skill Verdict-இல் இருந்து ஏற்றுமதி செய்யப்பட்ட JSON கோப்புகளை உள்ளடக்கியவை."
+msgid "Continue where you left off by importing an existing resume you created using another resume builder. Supported formats include PDF, Microsoft Word, and JSON Resume files."
+msgstr "மற்றொரு ரெஸ்யூம் பில்டரைப் பயன்படுத்தி நீங்கள் உருவாக்கிய ரெஸ்யூமை இறக்குமதி செய்வதன் மூலம் நீங்கள் நிறுத்திய இடத்தைத் தொடரவும். ஆதரிக்கப்படும் வடிவங்களில் PDF, Microsoft Word மற்றும் JSON ரெஸ்யூம் கோப்புகள் அடங்கும்."
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Contractor"
@@ -877,6 +892,7 @@ msgstr "காப்பு குறியீடுகளை நகலெடு"
 msgid "Copy this secret key and use it in your applications to access your data."
 msgstr "இந்த ரகசிய விசையை நகலெடுத்து, உங்கள் பயன்பாடுகளில் உங்கள் தரவினை அணுக பயன்படுத்தவும்."
 
+#: src/routes/builder/$resumeId/-components/dock.tsx
 #: src/routes/builder/$resumeId/-components/dock.tsx
 msgid "Copy URL"
 msgstr "URL-ஐ நகலெடு"
@@ -978,7 +994,7 @@ msgstr "ஒரு புதிய பரிந்துரையை உருவ
 #: src/components/command-palette/pages/resumes.tsx
 #: src/dialogs/resume/index.tsx
 #: src/routes/dashboard/resumes/-components/cards/create-card.tsx
-#: src/routes/dashboard/resumes/-components/list-view.tsx
+#: src/routes/dashboard/resumes/-components/resume-quick-actions.tsx
 #: src/routes/dashboard/verification/index.tsx
 msgid "Create a new resume"
 msgstr "ஒரு புதிய ரெஸ்யூமியை உருவாக்கவும்"
@@ -1006,6 +1022,10 @@ msgstr "Create a resume first, then add your work authorization details."
 #: src/dialogs/resume/index.tsx
 msgid "Create a Sample Resume"
 msgstr "ஒரு உதாரண ரெஸ்யூமியை உருவாக்கவும்"
+
+#: src/dialogs/resume/index.tsx
+msgid "Create Resume with Options"
+msgstr "விருப்பங்களுடன் ரெஸ்யூமை உருவாக்கவும்"
 
 #: src/dialogs/api-key/create.tsx
 msgid "Creating your API key..."
@@ -1138,6 +1158,7 @@ msgstr "உங்கள் ரெஸ்யூமியை நீக்கிக�
 msgid "Description"
 msgstr "விளக்கம்"
 
+#: src/routes/builder/$resumeId/route.tsx
 #: src/utils/resume/section.tsx
 msgid "Design"
 msgstr "வடிவமைப்பு"
@@ -1174,6 +1195,10 @@ msgstr "துண்டிக்கவும்"
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Display username"
 msgstr "Display username"
+
+#: src/components/ui/sidebar.tsx
+msgid "Displays the mobile sidebar."
+msgstr "மொபைல் பக்கப்பட்டியைக் காட்டுகிறது."
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Docker"
@@ -1214,13 +1239,16 @@ msgid "Download a copy of your resume in PDF format. Use this file for printing 
 msgstr "உங்கள் ரெஸ்யூமியின் ஒரு நகலை PDF வடிவில் பதிவிறக்கவும். இந்த கோப்பை அச்சிடுவதற்கும் அல்லது பணியமர்த்துநர்களுடன் எளிதாக பகிர்வதற்கும் பயன்படுத்தலாம்."
 
 #: src/routes/builder/$resumeId/-components/dock.tsx
+#: src/routes/builder/$resumeId/-components/dock.tsx
 msgid "Download DOCX"
 msgstr "DOCX-ஐப் பதிவிறக்கவும்"
 
 #: src/routes/builder/$resumeId/-components/dock.tsx
+#: src/routes/builder/$resumeId/-components/dock.tsx
 msgid "Download JSON"
 msgstr "JSON-ஐ பதிவிறக்கவும்"
 
+#: src/routes/builder/$resumeId/-components/dock.tsx
 #: src/routes/builder/$resumeId/-components/dock.tsx
 msgid "Download PDF"
 msgstr "PDF-ஐ பதிவிறக்கவும்"
@@ -1286,6 +1314,10 @@ msgstr "எ.கா. பெர்லினில் முன்முனை உ�
 msgid "e.g. Skilled Worker"
 msgstr "e.g. Skilled Worker"
 
+#: src/routes/dashboard/admin/ai.tsx
+msgid "e.g., gpt-4, claude-3-opus, gemini-pro"
+msgstr "எ.கா., gpt-4, claude-3-opus, gemini-pro"
+
 #: src/routes/_home/-sections/features.tsx
 msgid "Earn peer-endorsed badges from domain experts — turn claims into evidence employers can trust at a glance."
 msgstr "Earn peer-endorsed badges from domain experts — turn claims into evidence employers can trust at a glance."
@@ -1312,6 +1344,7 @@ msgstr "மின்னஞ்சல்"
 msgid "Email Address"
 msgstr "மின்னஞ்சல் முகவரி"
 
+#: src/routes/auth/verify-email.tsx
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/users.tsx
 msgid "Email verified"
@@ -1474,6 +1507,10 @@ msgstr "Failed to load document."
 msgid "Failed to load user details."
 msgstr "Failed to load user details."
 
+#: src/routes/auth/verify-email.tsx
+msgid "Failed to resend verification email. Please try again."
+msgstr "சரிபார்ப்பு மின்னஞ்சலை மீண்டும் அனுப்ப முடியவில்லை. தயவுசெய்து மீண்டும் முயற்சிக்கவும்."
+
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Failed to save work authorization."
 msgstr "Failed to save work authorization."
@@ -1514,6 +1551,10 @@ msgstr "இதன்படி வடிகட்டு"
 #: src/utils/locale.ts
 msgid "Finnish"
 msgstr "ஃபின்னிஷ்"
+
+#: src/routes/builder/$resumeId/-components/dock.tsx
+msgid "Fit resume to screen"
+msgstr "ஃபிட் ரெஸ்யூமை திரைக்கு"
 
 #: src/dialogs/resume/sections/language.tsx
 msgid "Fluency"
@@ -1578,6 +1619,10 @@ msgstr "Freelancer Profile Link"
 msgid "French"
 msgstr "ஃபிரென்ச்"
 
+#: src/routes/_home/-sections/faq.tsx
+msgid "Frequently Asked Questions"
+msgstr "அடிக்கடி கேட்கப்படும் கேள்விகள்"
+
 #: src/routes/builder/$resumeId/-sidebar/right/sections/layout/pages.tsx
 msgid "Full Width"
 msgstr "முழு அகலம்"
@@ -1621,10 +1666,6 @@ msgstr "Global AI"
 #: src/routes/auth/verify-2fa-backup.tsx
 msgid "Go Back"
 msgstr "திரும்பிச் செல்"
-
-#: src/routes/_home/-sections/header.tsx
-msgid "Go to dashboard"
-msgstr "டாஷ்போர்டுக்கு செல்லவும்"
 
 #: src/components/command-palette/pages/navigation.tsx
 msgid "Go to..."
@@ -1762,9 +1803,17 @@ msgstr "How it works"
 msgid "How long does a verification take?"
 msgstr "How long does a verification take?"
 
+#: src/routes/dashboard/verification/index.tsx
+msgid "https://www.upwork.com/freelancers/~..."
+msgstr "https://www.upwork.com/freelancers/~..."
+
 #: src/utils/locale.ts
 msgid "Hungarian"
 msgstr "ஹங்கேரியன்"
+
+#: src/routes/_home/-sections/how-it-works.tsx
+msgid "I am ready to start"
+msgstr "நான் தொடங்கத் தயாராக இருக்கிறேன்"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "I consent to sharing my work authorization details with employers for matching."
@@ -1822,7 +1871,7 @@ msgstr "இறக்குமதி செய்"
 
 #: src/dialogs/resume/import.tsx
 #: src/routes/dashboard/resumes/-components/cards/import-card.tsx
-#: src/routes/dashboard/resumes/-components/list-view.tsx
+#: src/routes/dashboard/resumes/-components/resume-quick-actions.tsx
 msgid "Import an existing resume"
 msgstr "ஏற்கனவே உள்ள ஒரு ரெஸ்யூமியை இறக்குமதி செய்"
 
@@ -2064,6 +2113,10 @@ msgstr "பட்டியல்"
 msgid "Lithuanian"
 msgstr "லிதுவேனியன்"
 
+#: src/components/ui/spinner.tsx
+msgid "Loading"
+msgstr "ஏற்றுகிறது"
+
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Loading document..."
 msgstr "Loading document..."
@@ -2187,6 +2240,10 @@ msgstr "குறைந்தபட்ச சம்பளம்"
 msgid "Model"
 msgstr "மாதிரி"
 
+#: src/routes/builder/$resumeId/-components/dock.tsx
+msgid "More builder actions"
+msgstr "மேலும் பில்டர் நடவடிக்கைகள்"
+
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "More than 3 years"
 msgstr "3 ஆண்டுகளுக்கு மேல்"
@@ -2202,6 +2259,10 @@ msgstr "இதற்கு நகர்த்தவும்"
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "MSc Computer Science"
 msgstr "MSc Computer Science"
+
+#: src/routes/builder/$resumeId/-sidebar/left/sections/custom-fields.tsx
+msgid "Must start with https://"
+msgstr "https:// உடன் தொடங்க வேண்டும்"
 
 #: src/dialogs/api-key/create.tsx
 #: src/dialogs/resume/index.tsx
@@ -2233,6 +2294,10 @@ msgid "New Line"
 msgstr "புதிய வரி"
 
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
+msgid "New page"
+msgstr "புதிய பக்கம்"
+
+#: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
 msgid "New Page"
 msgstr "புதிய பக்கம்"
 
@@ -2244,6 +2309,11 @@ msgstr "புதிய கடவுச்சொல்"
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
 msgid "New Section"
 msgstr "புதிய பகுதி"
+
+#. placeholder {0}: pageIndex + 1
+#: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
+msgid "New section on page {0}"
+msgstr "பக்கத்தில் புதிய பிரிவு {0}"
 
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 msgid "New Skills Detected"
@@ -2390,6 +2460,16 @@ msgstr "Only your assigned reviewer sees the assignments you submit. On your pub
 msgid "Open"
 msgstr "திற"
 
+#: src/routes/builder/$resumeId/-components/header.tsx
+#: src/routes/builder/$resumeId/-components/header.tsx
+msgid "Open content editor"
+msgstr "உள்ளடக்க திருத்தியைத் திறக்கவும்"
+
+#: src/routes/builder/$resumeId/-components/header.tsx
+#: src/routes/builder/$resumeId/-components/header.tsx
+msgid "Open design settings"
+msgstr "வடிவமைப்பு அமைப்புகளைத் திறக்கவும்"
+
 #: src/routes/auth/forgot-password.tsx
 msgid "Open Email Client"
 msgstr "மின்னஞ்சல் பயன்பாட்டை திறக்கவும்"
@@ -2484,6 +2564,11 @@ msgstr "பக்கம் {0}"
 #: src/routes/dashboard/admin/users.tsx
 msgid "Page {0} of {totalPages} — {1} users"
 msgstr "Page {0} of {totalPages} — {1} users"
+
+#. placeholder {0}: pageIndex + 1
+#: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
+msgid "Page {0}: {sectionTitle}"
+msgstr "பக்கம் {0}: {sectionTitle}"
 
 #: src/routes/dashboard/job-search/index.tsx
 msgid "Page {currentPage}"
@@ -2787,6 +2872,7 @@ msgid "Rectangle (Full Width)"
 msgstr "சதுரம் (முழு அகலம்)"
 
 #: src/routes/builder/$resumeId/-components/dock.tsx
+#: src/routes/builder/$resumeId/-components/dock.tsx
 msgctxt "'Ctrl' may be replaced with the locale-specific equivalent (e.g. 'Strg' for QWERTZ layouts)."
 msgid "Redo (Ctrl+Y)"
 msgstr "மீண்டும் செயல்படுத்து (Ctrl+Y)"
@@ -2858,6 +2944,10 @@ msgstr "மறுவரிசைப்படுத்து"
 msgid "Request"
 msgstr "Request"
 
+#: src/routes/auth/verify-email.tsx
+msgid "Request a new link"
+msgstr "புதிய இணைப்பை கோரவும்"
+
 #: src/routes/dashboard/job-search/-components/job-detail.tsx
 msgid "Required Skills"
 msgstr "தேவையான திறன்கள்"
@@ -2866,10 +2956,12 @@ msgstr "தேவையான திறன்கள்"
 msgid "Required: reason for overriding this verdict..."
 msgstr "Required: reason for overriding this verdict..."
 
+#: src/routes/auth/verify-email.tsx
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Resend verification email"
 msgstr "சரிபார்ப்பு மின்னஞ்சலை மீண்டும் அனுப்பவும்"
 
+#: src/routes/auth/verify-email.tsx
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Resending verification email..."
 msgstr "சரிபார்ப்பு மின்னஞ்சலை மீண்டும் அனுப்பிக் கொண்டிருக்கிறது..."
@@ -3054,6 +3146,10 @@ msgstr "பள்ளி"
 msgid "Search"
 msgstr "தேடல்"
 
+#: src/components/command-palette/index.tsx
+msgid "Search commands"
+msgstr "தேடல் கட்டளைகள்"
+
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Search countries"
 msgstr "நாடுகளைத் தேடு"
@@ -3067,6 +3163,7 @@ msgstr "ஒரு ஐகானைத் தேடுங்கள்"
 msgid "Search for..."
 msgstr "தேடுங்கள்..."
 
+#: src/components/command-palette/index.tsx
 #: src/components/ui/combobox.tsx
 msgid "Search..."
 msgstr "தேடு..."
@@ -3223,6 +3320,7 @@ msgstr "Show or hide the verification timeline on your public CV. This is off by
 msgid "Show Timeline on Public CV"
 msgstr "Show Timeline on Public CV"
 
+#: src/components/ui/sidebar.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/layout/pages.tsx
 msgid "Sidebar"
 msgstr "சைட்பார்"
@@ -3232,12 +3330,26 @@ msgid "Sidebar Width"
 msgstr "சைட்பார் அகலம்"
 
 #: src/routes/auth/login.tsx
+#: src/routes/auth/verify-email.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Sign in"
 msgstr "உள்நுழைக"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to verify your email"
+msgstr "உங்கள் மின்னஞ்சலை சரிபார்க்க உள்நுழையவும்"
 
 #: src/routes/auth/login.tsx
 msgid "Sign in to your account"
 msgstr "உங்கள் கணக்கில் உள்நுழைக"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to your account to request a new verification email."
+msgstr "புதிய சரிபார்ப்பு மின்னஞ்சலை கோர உங்கள் கணக்கில் உள்நுழையவும்."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to your account, then request a new verification email."
+msgstr "உங்கள் கணக்கில் உள்நுழைந்து, பின்னர் புதிய சரிபார்ப்பு மின்னஞ்சலை கோரவும்."
 
 #: src/routes/auth/register.tsx
 msgid "Sign up"
@@ -3385,7 +3497,7 @@ msgid "Start building your resume by giving it a name."
 msgstr "ஒரு பெயர் கொடுத்து உங்கள் ரெஸ்யூமியை உருவாக்கத் தொடங்குங்கள்."
 
 #: src/routes/dashboard/resumes/-components/cards/create-card.tsx
-#: src/routes/dashboard/resumes/-components/list-view.tsx
+#: src/routes/dashboard/resumes/-components/resume-quick-actions.tsx
 msgid "Start building your resume from scratch"
 msgstr "அடிப்படையில் இருந்து உங்கள் ரெஸ்யூமியை உருவாக்கத் தொடங்குங்கள்"
 
@@ -3549,6 +3661,10 @@ msgstr "நீங்கள் அணுக முயற்சிக்கும�
 msgid "The URL you entered is not valid."
 msgstr "நீங்கள் உள்ளிட்ட URL தவறானது."
 
+#: src/routes/auth/verify-email.tsx
+msgid "The verification link may be invalid, expired, or already used."
+msgstr "சரிபார்ப்பு இணைப்பு செல்லாதது, காலாவதியானது அல்லது ஏற்கனவே பயன்படுத்தப்பட்டது ஆக இருக்கலாம்."
+
 #: src/components/command-palette/pages/preferences/theme.tsx
 #: src/components/user/dropdown-menu.tsx
 #: src/routes/dashboard/settings/preferences.tsx
@@ -3616,10 +3732,6 @@ msgstr "இந்த ரெஸ்யூமி பூட்டப்பட்ட�
 msgid "This section is reserved for your personal notes specific to this resume. The content here remains private and is not shared with anyone else."
 msgstr "இந்த பகுதி, இந்த ரெஸ்யூமிக்கே உரிய உங்கள் தனிப்பட்ட குறிப்புகளுக்காக ஒதுக்கப்பட்டுள்ளது. இங்குள்ள உள்ளடக்கம் தனிப்பட்டதாக இருக்கும், வேறு எவருடனும் பகிரப்படாது."
 
-#: src/routes/auth/register.tsx
-msgid "This step is optional, but recommended."
-msgstr "இந்த படி கட்டாயமில்லை, ஆனால் பரிந்துரைக்கப்படுகிறது."
-
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "This week"
 msgstr "இந்த வாரம்"
@@ -3660,6 +3772,12 @@ msgstr "உங்கள் கணக்கை நீக்க, கீழே உ�
 msgid "Today"
 msgstr "இன்று"
 
+#: src/components/ui/sidebar.tsx
+#: src/components/ui/sidebar.tsx
+#: src/components/ui/sidebar.tsx
+msgid "Toggle Sidebar"
+msgstr "பக்கப்பட்டியை மாற்று"
+
 #: src/routes/dashboard/admin/users.tsx
 msgid "Total keys"
 msgstr "Total keys"
@@ -3683,6 +3801,10 @@ msgstr "Total sessions"
 #: src/routes/builder/$resumeId/-sidebar/right/sections/statistics.tsx
 msgid "Track your resume's views and downloads"
 msgstr "உங்கள் ரெஸ்யூமியின் பார்வை மற்றும் பதிவிறக்கம் எண்ணிக்கைகளை கண்காணிக்கவும்"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Try requesting a new verification link."
+msgstr "புதிய சரிபார்ப்பு இணைப்பை கோர முயற்சிக்கவும்."
 
 #: src/utils/locale.ts
 msgid "Turkish"
@@ -3741,6 +3863,10 @@ msgstr "இரண்டு நிலை அங்கீகாரம் வெற
 msgid "Two-factor authentication has been setup successfully."
 msgstr "இரண்டு நிலை அங்கீகாரம் வெற்றிகரமாக அமைக்கப்பட்டுள்ளது."
 
+#: src/dialogs/auth/enable-two-factor.tsx
+msgid "Two-Factor Authentication QR Code"
+msgstr "இரண்டு காரணி அங்கீகார QR குறியீடு"
+
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/users.tsx
 msgid "Two-factor enabled"
@@ -3760,6 +3886,7 @@ msgstr "வகை"
 msgid "Type \"{CONFIRMATION_TEXT}\" to confirm"
 msgstr "\"{CONFIRMATION_TEXT}\" என்று தட்டச்சு செய்து உறுதிப்படுத்தவும்"
 
+#: src/components/command-palette/index.tsx
 #: src/components/command-palette/index.tsx
 msgid "Type a command or search..."
 msgstr "ஒரு கட்டளையை தட்டச்சு செய்யவும் அல்லது தேடவும்..."
@@ -3784,6 +3911,7 @@ msgstr "3 வயதுக்குட்பட்டோர்"
 msgid "Underline"
 msgstr "அடைமுறை கோடு"
 
+#: src/routes/builder/$resumeId/-components/dock.tsx
 #: src/routes/builder/$resumeId/-components/dock.tsx
 msgctxt "'Ctrl' may be replaced with the locale-specific equivalent (e.g. 'Strg' for QWERTZ layouts)."
 msgid "Undo (Ctrl+Z)"
@@ -4029,6 +4157,10 @@ msgstr "Verify my skills"
 msgid "Verify with a Backup Code"
 msgstr "ஒரு காப்பு குறியீட்டால் சரிபார்க்கவும்"
 
+#: src/routes/auth/verify-email.tsx
+msgid "Verify your email"
+msgstr "உங்கள் மின்னஞ்சலை சரிபார்க்கவும்"
+
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Verify your identity through a short video call. This adds trust to your resume."
 msgstr "Verify your identity through a short video call. This adds trust to your resume."
@@ -4045,10 +4177,6 @@ msgstr "குறியீட்டை சரிபார்த்து கொ�
 #: src/routes/auth/resume-password.tsx
 msgid "Verifying password..."
 msgstr "கடவுச்சொல்லை சரிபார்த்து கொண்டிருக்கிறது..."
-
-#: src/routes/auth/register.tsx
-msgid "Verifying your email is required when resetting your password."
-msgstr "கடவுச்சொல்லை மீட்டமைக்கும் போது உங்கள் மின்னஞ்சலை சரிபார்ப்பது அவசியம்."
 
 #: src/utils/locale.ts
 msgid "Vietnamese"
@@ -4082,6 +4210,14 @@ msgstr "Visibility"
 #: src/utils/resume/section.tsx
 msgid "Volunteer"
 msgstr "தன்னார்வம்"
+
+#: src/routes/auth/verify-email.tsx
+msgid "We couldn't verify your email"
+msgstr "உங்கள் மின்னஞ்சலை எங்களால் சரிபார்க்க முடியவில்லை"
+
+#: src/routes/auth/verify-email.tsx
+msgid "We sent a verification link to your email address."
+msgstr "உங்கள் மின்னஞ்சல் முகவரிக்கு சரிபார்ப்பு இணைப்பை அனுப்பியுள்ளோம்."
 
 #: src/dialogs/resume/sections/award.tsx
 #: src/dialogs/resume/sections/certification.tsx
@@ -4144,22 +4280,33 @@ msgstr "நேற்று"
 msgid "You can also use your username to login."
 msgstr "உள்நுழைய நீங்கள் உங்கள் பயனர் பெயரையும் பயன்படுத்தலாம்."
 
+#: src/routes/auth/verify-email.tsx
+msgid "You can now use account recovery and other features that require a verified email address."
+msgstr "இப்போது சரிபார்க்கப்பட்ட மின்னஞ்சல் முகவரி தேவைப்படும் கணக்கு மீட்பு மற்றும் பிற அம்சங்களை பயன்படுத்தலாம்."
+
 #: src/hooks/use-form-blocker.tsx
 msgid "You have unsaved changes that will be lost."
 msgstr "சேமிக்கப்படாத மாற்றங்கள் இழக்கப்படும்."
+
+#: src/routes/auth/verify-email.tsx
+msgid "You must verify your email address before you can access Skill Verdict."
+msgstr "Skill Verdict ஐ அணுகுவதற்கு முன் உங்கள் மின்னஞ்சல் முகவரியை சரிபார்க்க வேண்டும்."
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "You pick the skills you want to endorse and a reviewer with relevant expertise. They assign a short, practical assessment, review your submission, and share actionable feedback. If you pass, the skill is added to your profile as a verified badge."
 msgstr "You pick the skills you want to endorse and a reviewer with relevant expertise. They assign a short, practical assessment, review your submission, and share actionable feedback. If you pass, the skill is added to your profile as a verified badge."
 
 #: src/routes/auth/forgot-password.tsx
-#: src/routes/auth/register.tsx
 msgid "You've got mail!"
 msgstr "உங்களுக்கு ஒரு மின்னஞ்சல் வந்துவிட்டது!"
 
 #: src/routes/dashboard/settings/danger-zone.tsx
 msgid "Your account has been deleted successfully."
 msgstr "உங்கள் கணக்கு வெற்றிகரமாக நீக்கப்பட்டுள்ளது."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Your account is up to date."
+msgstr "உங்கள் கணக்கு புதுப்பித்த நிலையில் உள்ளது."
 
 #: src/dialogs/api-key/create.tsx
 msgid "Your API key has been copied to the clipboard."
@@ -4168,6 +4315,10 @@ msgstr "உங்கள் API விசை கிளிப்போர்டு
 #: src/routes/builder/$resumeId/index.tsx
 msgid "Your changes are saved automatically."
 msgstr "உங்கள் மாற்றங்கள் தானாகவே சேமிக்கப்படும்."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Your email address is confirmed. You can continue using Skill Verdict."
+msgstr "உங்கள் மின்னஞ்சல் முகவரி உறுதிப்படுத்தப்பட்டது. Skill Verdict ஐ தொடர்ந்து பயன்படுத்தலாம்."
 
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Your identity has been verified and your profile is trusted."
@@ -4221,9 +4372,11 @@ msgid "Your verification call has been scheduled. Our team will review and confi
 msgstr "Your verification call has been scheduled. Our team will review and confirm your identity shortly."
 
 #: src/routes/builder/$resumeId/-components/dock.tsx
+#: src/routes/builder/$resumeId/-components/dock.tsx
 msgid "Zoom in"
 msgstr "பெரிதாக்கு"
 
+#: src/routes/builder/$resumeId/-components/dock.tsx
 #: src/routes/builder/$resumeId/-components/dock.tsx
 msgid "Zoom out"
 msgstr "சிறிதாக்கு"

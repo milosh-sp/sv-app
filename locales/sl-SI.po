@@ -31,7 +31,7 @@ msgstr "Ustvarjeno"
 #. js-lingui-explicit-id
 #: src/routes/dashboard/resumes/index.tsx
 msgid "Name"
-msgstr ""
+msgstr "Ime"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "(you)"
@@ -87,11 +87,6 @@ msgstr "+{0} more approved"
 msgid "+{0} more uploaded"
 msgstr "+{0} more uploaded"
 
-#: src/routes/_home/-sections/faq.tsx
-msgctxt "Every word needs to be wrapped in a tag"
-msgid "<0>Frequently</0><1>Asked</1><2>Questions</2>"
-msgstr "<0>Pogosto</0><1>Zastavljena</1><2>Vprašanja</2>"
-
 #: src/routes/_home/-sections/hero.tsx
 msgid "<0>Your skills, finally,</0><1>Proven. Not just claimed.</1>"
 msgstr "<0>Your skills, finally,</0><1>Proven. Not just claimed.</1>"
@@ -132,6 +127,10 @@ msgstr "Potrditvena povezava je bila poslana na vaš trenutni e-poštni naslov. 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 msgid "A link to your resume has been copied to clipboard."
 msgstr "Povezava do vašega življenjepisa je bila kopirana v odložišče."
+
+#: src/routes/auth/verify-email.tsx
+msgid "A new verification link has been sent to your email address."
+msgstr "Na vaš e-poštni naslov je bila poslana nova potrditvena povezava."
 
 #: src/routes/dashboard/settings/profile.tsx
 msgid "A new verification link has been sent to your email address. Please check your inbox to verify your account."
@@ -531,6 +530,12 @@ msgstr "Back"
 msgid "Back to Login"
 msgstr "Nazaj na prijavo"
 
+#: src/routes/builder/$resumeId/-components/header.tsx
+#: src/routes/builder/$resumeId/-components/header.tsx
+#: src/routes/builder/$resumeId/-components/header.tsx
+msgid "Back to resumes"
+msgstr "Nazaj na življenjepise"
+
 #: src/routes/dashboard/admin/resume/$resumeId.tsx
 msgid "Back to users"
 msgstr "Back to users"
@@ -708,9 +713,9 @@ msgstr "Ste si premislili? Preimenujte svoj življenjepis v nekaj bolj opisa."
 msgid "Check your email for a link to reset your password."
 msgstr "Preverite svoj e-poštni naslov za povezavo za ponastavitev gesla."
 
-#: src/routes/auth/register.tsx
-msgid "Check your email for a link to verify your account."
-msgstr "Preverite svoj e-poštni naslov za povezavo za potrditev računa."
+#: src/routes/auth/verify-email.tsx
+msgid "Check your inbox"
+msgstr "Preverite svoj nabiralnik"
 
 #: src/utils/locale.ts
 msgid "Chinese (Simplified)"
@@ -776,6 +781,15 @@ msgstr "Stolpci"
 msgid "Combine verified skills with research-backed personality insights so teams hire for both capability and fit."
 msgstr "Combine verified skills with research-backed personality insights so teams hire for both capability and fit."
 
+#: src/components/command-palette/index.tsx
+#: src/components/command-palette/index.tsx
+msgid "Command Palette"
+msgstr "Paleta ukazov"
+
+#: src/components/command-palette/index.tsx
+msgid "Command Palette - {currentPage}"
+msgstr "Paleta ukazov - {currentPage}"
+
 #: src/routes/_home/-sections/footer.tsx
 msgid "Community"
 msgstr "Skupnost"
@@ -833,25 +847,26 @@ msgstr "Contact us"
 
 #: src/dialogs/resume/sections/cover-letter.tsx
 #: src/dialogs/resume/sections/summary-item.tsx
+#: src/routes/builder/$resumeId/route.tsx
 msgid "Content"
 msgstr "Vsebina"
 
 #: src/dialogs/auth/enable-two-factor.tsx
 #: src/dialogs/auth/enable-two-factor.tsx
 #: src/dialogs/auth/enable-two-factor.tsx
-#: src/routes/auth/register.tsx
+#: src/routes/auth/verify-email.tsx
 #: src/routes/dashboard/verification/index.tsx
 msgid "Continue"
 msgstr "Nadaljuj"
 
 #: src/routes/dashboard/resumes/-components/cards/import-card.tsx
-#: src/routes/dashboard/resumes/-components/list-view.tsx
+#: src/routes/dashboard/resumes/-components/resume-quick-actions.tsx
 msgid "Continue where you left off"
 msgstr "Nadaljujte tam, kjer ste ostali"
 
 #: src/dialogs/resume/import.tsx
-msgid "Continue where you left off by importing an existing resume you created using Skill Verdict or any another resume builder. Supported formats include PDF, Microsoft Word, as well as JSON files from Skill Verdict."
-msgstr "Nadaljujte tam, kjer ste ostali, tako da uvozite že obstoječi življenjepis, ki ste ga ustvarili z aplikacijo Skill Verdict ali katerim koli drugim graditeljem življenjepisa. Podprte oblike vključujejo PDF, Microsoft Word, kot tudi JSON datoteke iz Skill Verdict."
+msgid "Continue where you left off by importing an existing resume you created using another resume builder. Supported formats include PDF, Microsoft Word, and JSON Resume files."
+msgstr "Nadaljujte tam, kjer ste končali, tako da uvozite obstoječi življenjepis, ki ste ga ustvarili z drugim ustvarjalcem življenjepisov. Podprti formati vključujejo datoteke PDF, Microsoft Word in JSON Resume."
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Contractor"
@@ -877,6 +892,7 @@ msgstr "Kopiraj rezervne kode"
 msgid "Copy this secret key and use it in your applications to access your data."
 msgstr "Kopirajte to skrivno kodo in jo uporabite v svojih aplikacijah za dostop do svojih podatkov."
 
+#: src/routes/builder/$resumeId/-components/dock.tsx
 #: src/routes/builder/$resumeId/-components/dock.tsx
 msgid "Copy URL"
 msgstr "Kopiraj URL"
@@ -978,7 +994,7 @@ msgstr "Ustvari novo referenco"
 #: src/components/command-palette/pages/resumes.tsx
 #: src/dialogs/resume/index.tsx
 #: src/routes/dashboard/resumes/-components/cards/create-card.tsx
-#: src/routes/dashboard/resumes/-components/list-view.tsx
+#: src/routes/dashboard/resumes/-components/resume-quick-actions.tsx
 #: src/routes/dashboard/verification/index.tsx
 msgid "Create a new resume"
 msgstr "Ustvari nov življenjepis"
@@ -1006,6 +1022,10 @@ msgstr "Create a resume first, then add your work authorization details."
 #: src/dialogs/resume/index.tsx
 msgid "Create a Sample Resume"
 msgstr "Ustvari vzorčni življenjepis"
+
+#: src/dialogs/resume/index.tsx
+msgid "Create Resume with Options"
+msgstr "Ustvari življenjepis z možnostmi"
 
 #: src/dialogs/api-key/create.tsx
 msgid "Creating your API key..."
@@ -1138,6 +1158,7 @@ msgstr "Brišem vaš življenjepis..."
 msgid "Description"
 msgstr "Opis"
 
+#: src/routes/builder/$resumeId/route.tsx
 #: src/utils/resume/section.tsx
 msgid "Design"
 msgstr "Oblikovanje"
@@ -1174,6 +1195,10 @@ msgstr "Prekini povezavo"
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Display username"
 msgstr "Display username"
+
+#: src/components/ui/sidebar.tsx
+msgid "Displays the mobile sidebar."
+msgstr "Prikaže mobilno stransko vrstico."
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Docker"
@@ -1214,13 +1239,16 @@ msgid "Download a copy of your resume in PDF format. Use this file for printing 
 msgstr "Prenesite kopijo svojega življenjepisa v formatu PDF. To datoteko uporabite za tiskanje ali preprosto deljenje življenjepisa z delodajalci."
 
 #: src/routes/builder/$resumeId/-components/dock.tsx
+#: src/routes/builder/$resumeId/-components/dock.tsx
 msgid "Download DOCX"
 msgstr "Prenos DOCX"
 
 #: src/routes/builder/$resumeId/-components/dock.tsx
+#: src/routes/builder/$resumeId/-components/dock.tsx
 msgid "Download JSON"
 msgstr "Prenesi JSON"
 
+#: src/routes/builder/$resumeId/-components/dock.tsx
 #: src/routes/builder/$resumeId/-components/dock.tsx
 msgid "Download PDF"
 msgstr "Prenesi PDF"
@@ -1286,6 +1314,10 @@ msgstr "npr. delovna mesta frontend razvijalca v Berlinu"
 msgid "e.g. Skilled Worker"
 msgstr "e.g. Skilled Worker"
 
+#: src/routes/dashboard/admin/ai.tsx
+msgid "e.g., gpt-4, claude-3-opus, gemini-pro"
+msgstr "npr. gpt-4, claude-3-opus, gemini-pro"
+
 #: src/routes/_home/-sections/features.tsx
 msgid "Earn peer-endorsed badges from domain experts — turn claims into evidence employers can trust at a glance."
 msgstr "Earn peer-endorsed badges from domain experts — turn claims into evidence employers can trust at a glance."
@@ -1312,6 +1344,7 @@ msgstr "E-pošta"
 msgid "Email Address"
 msgstr "E-poštni naslov"
 
+#: src/routes/auth/verify-email.tsx
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/users.tsx
 msgid "Email verified"
@@ -1474,6 +1507,10 @@ msgstr "Failed to load document."
 msgid "Failed to load user details."
 msgstr "Failed to load user details."
 
+#: src/routes/auth/verify-email.tsx
+msgid "Failed to resend verification email. Please try again."
+msgstr "Potrditvenega e-poštnega sporočila ni bilo mogoče ponovno poslati. Poskusite znova."
+
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Failed to save work authorization."
 msgstr "Failed to save work authorization."
@@ -1514,6 +1551,10 @@ msgstr "Filtriraj po"
 #: src/utils/locale.ts
 msgid "Finnish"
 msgstr "Finščina"
+
+#: src/routes/builder/$resumeId/-components/dock.tsx
+msgid "Fit resume to screen"
+msgstr "Prilagodi življenjepis zaslonu"
 
 #: src/dialogs/resume/sections/language.tsx
 msgid "Fluency"
@@ -1578,6 +1619,10 @@ msgstr "Freelancer Profile Link"
 msgid "French"
 msgstr "Francoščina"
 
+#: src/routes/_home/-sections/faq.tsx
+msgid "Frequently Asked Questions"
+msgstr "Pogosto zastavljena vprašanja"
+
 #: src/routes/builder/$resumeId/-sidebar/right/sections/layout/pages.tsx
 msgid "Full Width"
 msgstr "Polna širina"
@@ -1621,10 +1666,6 @@ msgstr "Global AI"
 #: src/routes/auth/verify-2fa-backup.tsx
 msgid "Go Back"
 msgstr "Nazaj"
-
-#: src/routes/_home/-sections/header.tsx
-msgid "Go to dashboard"
-msgstr "Pojdi na nadzorno ploščo"
 
 #: src/components/command-palette/pages/navigation.tsx
 msgid "Go to..."
@@ -1762,9 +1803,17 @@ msgstr "How it works"
 msgid "How long does a verification take?"
 msgstr "How long does a verification take?"
 
+#: src/routes/dashboard/verification/index.tsx
+msgid "https://www.upwork.com/freelancers/~..."
+msgstr "https://www.upwork.com/freelancers/~..."
+
 #: src/utils/locale.ts
 msgid "Hungarian"
 msgstr "Madžarščina"
+
+#: src/routes/_home/-sections/how-it-works.tsx
+msgid "I am ready to start"
+msgstr "Pripravljen sem začeti"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "I consent to sharing my work authorization details with employers for matching."
@@ -1822,7 +1871,7 @@ msgstr "Uvozi"
 
 #: src/dialogs/resume/import.tsx
 #: src/routes/dashboard/resumes/-components/cards/import-card.tsx
-#: src/routes/dashboard/resumes/-components/list-view.tsx
+#: src/routes/dashboard/resumes/-components/resume-quick-actions.tsx
 msgid "Import an existing resume"
 msgstr "Uvozi obstoječi življenjepis"
 
@@ -2064,6 +2113,10 @@ msgstr "Seznam"
 msgid "Lithuanian"
 msgstr "Litovščina"
 
+#: src/components/ui/spinner.tsx
+msgid "Loading"
+msgstr "Nalaganje"
+
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Loading document..."
 msgstr "Loading document..."
@@ -2187,6 +2240,10 @@ msgstr "Najnižja plača"
 msgid "Model"
 msgstr "Model"
 
+#: src/routes/builder/$resumeId/-components/dock.tsx
+msgid "More builder actions"
+msgstr "Več gradbenih dejanj"
+
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "More than 3 years"
 msgstr "Več kot 3 leta"
@@ -2202,6 +2259,10 @@ msgstr "Premakni na"
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "MSc Computer Science"
 msgstr "MSc Computer Science"
+
+#: src/routes/builder/$resumeId/-sidebar/left/sections/custom-fields.tsx
+msgid "Must start with https://"
+msgstr "Začeti se mora s https://"
 
 #: src/dialogs/api-key/create.tsx
 #: src/dialogs/resume/index.tsx
@@ -2233,6 +2294,10 @@ msgid "New Line"
 msgstr "Nova vrstica"
 
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
+msgid "New page"
+msgstr "Nova stran"
+
+#: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
 msgid "New Page"
 msgstr "Nova stran"
 
@@ -2244,6 +2309,11 @@ msgstr "Novo geslo"
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
 msgid "New Section"
 msgstr "Nov razdelek"
+
+#. placeholder {0}: pageIndex + 1
+#: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
+msgid "New section on page {0}"
+msgstr "Nov razdelek na strani {0}"
 
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 msgid "New Skills Detected"
@@ -2390,6 +2460,16 @@ msgstr "Only your assigned reviewer sees the assignments you submit. On your pub
 msgid "Open"
 msgstr "Odpri"
 
+#: src/routes/builder/$resumeId/-components/header.tsx
+#: src/routes/builder/$resumeId/-components/header.tsx
+msgid "Open content editor"
+msgstr "Odpri urejevalnik vsebine"
+
+#: src/routes/builder/$resumeId/-components/header.tsx
+#: src/routes/builder/$resumeId/-components/header.tsx
+msgid "Open design settings"
+msgstr "Odprite nastavitve oblikovanja"
+
 #: src/routes/auth/forgot-password.tsx
 msgid "Open Email Client"
 msgstr "Odpri e-poštni odjemalec"
@@ -2484,6 +2564,11 @@ msgstr "Stran {0}"
 #: src/routes/dashboard/admin/users.tsx
 msgid "Page {0} of {totalPages} — {1} users"
 msgstr "Page {0} of {totalPages} — {1} users"
+
+#. placeholder {0}: pageIndex + 1
+#: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
+msgid "Page {0}: {sectionTitle}"
+msgstr "Stran {0}: {sectionTitle}"
 
 #: src/routes/dashboard/job-search/index.tsx
 msgid "Page {currentPage}"
@@ -2787,6 +2872,7 @@ msgid "Rectangle (Full Width)"
 msgstr "Pravokotnik (polna širina)"
 
 #: src/routes/builder/$resumeId/-components/dock.tsx
+#: src/routes/builder/$resumeId/-components/dock.tsx
 msgctxt "'Ctrl' may be replaced with the locale-specific equivalent (e.g. 'Strg' for QWERTZ layouts)."
 msgid "Redo (Ctrl+Y)"
 msgstr "Ponovi (Ctrl+Y)"
@@ -2858,6 +2944,10 @@ msgstr "Preuredi"
 msgid "Request"
 msgstr "Request"
 
+#: src/routes/auth/verify-email.tsx
+msgid "Request a new link"
+msgstr "Zahtevaj novo povezavo"
+
 #: src/routes/dashboard/job-search/-components/job-detail.tsx
 msgid "Required Skills"
 msgstr "Zahtevana znanja in spretnosti"
@@ -2866,10 +2956,12 @@ msgstr "Zahtevana znanja in spretnosti"
 msgid "Required: reason for overriding this verdict..."
 msgstr "Required: reason for overriding this verdict..."
 
+#: src/routes/auth/verify-email.tsx
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Resend verification email"
 msgstr "Ponovno pošlji potrditveni e-mail"
 
+#: src/routes/auth/verify-email.tsx
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Resending verification email..."
 msgstr "Pošiljanje potrditvenega e-maila ..."
@@ -3054,6 +3146,10 @@ msgstr "Šola"
 msgid "Search"
 msgstr "Iskanje"
 
+#: src/components/command-palette/index.tsx
+msgid "Search commands"
+msgstr "Iskalni ukazi"
+
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Search countries"
 msgstr "Iskanje držav"
@@ -3067,6 +3163,7 @@ msgstr "Poišči ikono"
 msgid "Search for..."
 msgstr "Iskanje ..."
 
+#: src/components/command-palette/index.tsx
 #: src/components/ui/combobox.tsx
 msgid "Search..."
 msgstr "Iskanje ..."
@@ -3223,6 +3320,7 @@ msgstr "Show or hide the verification timeline on your public CV. This is off by
 msgid "Show Timeline on Public CV"
 msgstr "Show Timeline on Public CV"
 
+#: src/components/ui/sidebar.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/layout/pages.tsx
 msgid "Sidebar"
 msgstr "Stranska vrstica"
@@ -3232,12 +3330,26 @@ msgid "Sidebar Width"
 msgstr "Širina stranske vrstice"
 
 #: src/routes/auth/login.tsx
+#: src/routes/auth/verify-email.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Sign in"
 msgstr "Prijava"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to verify your email"
+msgstr "Prijavite se za potrditev e-pošte"
 
 #: src/routes/auth/login.tsx
 msgid "Sign in to your account"
 msgstr "Prijavite se v svoj račun"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to your account to request a new verification email."
+msgstr "Prijavite se v svoj račun, da zahtevate novo potrditveno e-poštno sporočilo."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to your account, then request a new verification email."
+msgstr "Prijavite se v svoj račun in nato zahtevajte novo potrditveno e-poštno sporočilo."
 
 #: src/routes/auth/register.tsx
 msgid "Sign up"
@@ -3385,7 +3497,7 @@ msgid "Start building your resume by giving it a name."
 msgstr "Začnite graditi svoj življenjepis tako, da mu dodelite ime."
 
 #: src/routes/dashboard/resumes/-components/cards/create-card.tsx
-#: src/routes/dashboard/resumes/-components/list-view.tsx
+#: src/routes/dashboard/resumes/-components/resume-quick-actions.tsx
 msgid "Start building your resume from scratch"
 msgstr "Začnite graditi svoj življenjepis iz nič"
 
@@ -3549,6 +3661,10 @@ msgstr "Življenjepis, do katerega želite dostopati, je zaščiten z geslom"
 msgid "The URL you entered is not valid."
 msgstr "Vneseni URL ni veljaven."
 
+#: src/routes/auth/verify-email.tsx
+msgid "The verification link may be invalid, expired, or already used."
+msgstr "Potrditvena povezava je morda neveljavna, potekla ali že uporabljena."
+
 #: src/components/command-palette/pages/preferences/theme.tsx
 #: src/components/user/dropdown-menu.tsx
 #: src/routes/dashboard/settings/preferences.tsx
@@ -3616,10 +3732,6 @@ msgstr "Ta življenjepis je zaklenjen in ga ni mogoče posodobiti."
 msgid "This section is reserved for your personal notes specific to this resume. The content here remains private and is not shared with anyone else."
 msgstr "Ta razdelek je namenjen vašim osebnim opombam, ki se nanašajo na ta življenjepis. Vsebina tukaj ostane zasebna in ni deljena z nikomer."
 
-#: src/routes/auth/register.tsx
-msgid "This step is optional, but recommended."
-msgstr "Ta korak je neobvezen, vendar priporočen."
-
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "This week"
 msgstr "Ta teden"
@@ -3660,6 +3772,12 @@ msgstr "Za izbris računa morate vnesti potrditveno besedilo in klikniti spodnji
 msgid "Today"
 msgstr "Danes"
 
+#: src/components/ui/sidebar.tsx
+#: src/components/ui/sidebar.tsx
+#: src/components/ui/sidebar.tsx
+msgid "Toggle Sidebar"
+msgstr "Preklopi stransko vrstico"
+
 #: src/routes/dashboard/admin/users.tsx
 msgid "Total keys"
 msgstr "Total keys"
@@ -3683,6 +3801,10 @@ msgstr "Total sessions"
 #: src/routes/builder/$resumeId/-sidebar/right/sections/statistics.tsx
 msgid "Track your resume's views and downloads"
 msgstr "Spremljajte oglede in prenose vašega življenjepisa"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Try requesting a new verification link."
+msgstr "Poskusite zahtevati novo potrditveno povezavo."
 
 #: src/utils/locale.ts
 msgid "Turkish"
@@ -3741,6 +3863,10 @@ msgstr "Dvostopenjska avtentikacija je bila uspešno onemogočena."
 msgid "Two-factor authentication has been setup successfully."
 msgstr "Dvostopenjska avtentikacija je bila uspešno nastavljena."
 
+#: src/dialogs/auth/enable-two-factor.tsx
+msgid "Two-Factor Authentication QR Code"
+msgstr "Koda QR za preverjanje pristnosti z dvema faktorjema"
+
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/users.tsx
 msgid "Two-factor enabled"
@@ -3760,6 +3886,7 @@ msgstr "Vrsta"
 msgid "Type \"{CONFIRMATION_TEXT}\" to confirm"
 msgstr "Vnesite \"{CONFIRMATION_TEXT}\" za potrditev"
 
+#: src/components/command-palette/index.tsx
 #: src/components/command-palette/index.tsx
 msgid "Type a command or search..."
 msgstr "Vnesite ukaz ali iskanje..."
@@ -3784,6 +3911,7 @@ msgstr "Mlajši od 3 let"
 msgid "Underline"
 msgstr "Podčrtano"
 
+#: src/routes/builder/$resumeId/-components/dock.tsx
 #: src/routes/builder/$resumeId/-components/dock.tsx
 msgctxt "'Ctrl' may be replaced with the locale-specific equivalent (e.g. 'Strg' for QWERTZ layouts)."
 msgid "Undo (Ctrl+Z)"
@@ -4029,6 +4157,10 @@ msgstr "Verify my skills"
 msgid "Verify with a Backup Code"
 msgstr "Preveri z rezervno kodo"
 
+#: src/routes/auth/verify-email.tsx
+msgid "Verify your email"
+msgstr "Potrdite svojo e-pošto"
+
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Verify your identity through a short video call. This adds trust to your resume."
 msgstr "Verify your identity through a short video call. This adds trust to your resume."
@@ -4045,10 +4177,6 @@ msgstr "Preverjanje kode..."
 #: src/routes/auth/resume-password.tsx
 msgid "Verifying password..."
 msgstr "Preverjanje gesla..."
-
-#: src/routes/auth/register.tsx
-msgid "Verifying your email is required when resetting your password."
-msgstr "Preverjanje vašega e-poštnega naslova je zahtevano pri ponastavitvi gesla."
 
 #: src/utils/locale.ts
 msgid "Vietnamese"
@@ -4082,6 +4210,14 @@ msgstr "Visibility"
 #: src/utils/resume/section.tsx
 msgid "Volunteer"
 msgstr "Prostovoljec"
+
+#: src/routes/auth/verify-email.tsx
+msgid "We couldn't verify your email"
+msgstr "Vaše e-pošte nismo mogli potrditi"
+
+#: src/routes/auth/verify-email.tsx
+msgid "We sent a verification link to your email address."
+msgstr "Na vaš e-poštni naslov smo poslali potrditveno povezavo."
 
 #: src/dialogs/resume/sections/award.tsx
 #: src/dialogs/resume/sections/certification.tsx
@@ -4144,22 +4280,33 @@ msgstr "Včeraj"
 msgid "You can also use your username to login."
 msgstr "Za prijavo lahko uporabite tudi svoje uporabniško ime."
 
+#: src/routes/auth/verify-email.tsx
+msgid "You can now use account recovery and other features that require a verified email address."
+msgstr "Zdaj lahko uporabljate obnovitev računa in druge funkcije, ki zahtevajo potrjen e-poštni naslov."
+
 #: src/hooks/use-form-blocker.tsx
 msgid "You have unsaved changes that will be lost."
 msgstr "Imate neshranjene spremembe, ki bodo izgubljene."
+
+#: src/routes/auth/verify-email.tsx
+msgid "You must verify your email address before you can access Skill Verdict."
+msgstr "Pred dostopom do Skill Verdict morate potrditi svoj e-poštni naslov."
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "You pick the skills you want to endorse and a reviewer with relevant expertise. They assign a short, practical assessment, review your submission, and share actionable feedback. If you pass, the skill is added to your profile as a verified badge."
 msgstr "You pick the skills you want to endorse and a reviewer with relevant expertise. They assign a short, practical assessment, review your submission, and share actionable feedback. If you pass, the skill is added to your profile as a verified badge."
 
 #: src/routes/auth/forgot-password.tsx
-#: src/routes/auth/register.tsx
 msgid "You've got mail!"
 msgstr "Dobili ste pošto!"
 
 #: src/routes/dashboard/settings/danger-zone.tsx
 msgid "Your account has been deleted successfully."
 msgstr "Vaš račun je bil uspešno izbrisan."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Your account is up to date."
+msgstr "Vaš račun je posodobljen."
 
 #: src/dialogs/api-key/create.tsx
 msgid "Your API key has been copied to the clipboard."
@@ -4168,6 +4315,10 @@ msgstr "Vaš API ključ je bil kopiran v odložišče."
 #: src/routes/builder/$resumeId/index.tsx
 msgid "Your changes are saved automatically."
 msgstr "Vaše spremembe se samodejno shranijo."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Your email address is confirmed. You can continue using Skill Verdict."
+msgstr "Vaš e-poštni naslov je potrjen. Lahko nadaljujete z uporabo Skill Verdict."
 
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Your identity has been verified and your profile is trusted."
@@ -4221,9 +4372,11 @@ msgid "Your verification call has been scheduled. Our team will review and confi
 msgstr "Your verification call has been scheduled. Our team will review and confirm your identity shortly."
 
 #: src/routes/builder/$resumeId/-components/dock.tsx
+#: src/routes/builder/$resumeId/-components/dock.tsx
 msgid "Zoom in"
 msgstr "Približaj"
 
+#: src/routes/builder/$resumeId/-components/dock.tsx
 #: src/routes/builder/$resumeId/-components/dock.tsx
 msgid "Zoom out"
 msgstr "Oddalji"

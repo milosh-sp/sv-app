@@ -31,7 +31,7 @@ msgstr "תאריך יצירה"
 #. js-lingui-explicit-id
 #: src/routes/dashboard/resumes/index.tsx
 msgid "Name"
-msgstr ""
+msgstr "שם"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "(you)"
@@ -87,14 +87,9 @@ msgstr "+{0} more approved"
 msgid "+{0} more uploaded"
 msgstr "+{0} more uploaded"
 
-#: src/routes/_home/-sections/faq.tsx
-msgctxt "Every word needs to be wrapped in a tag"
-msgid "<0>Frequently</0><1>Asked</1><2>Questions</2>"
-msgstr "<0>שאלות</0><1>שנשאלות</1><2>לעיתים קרובות</2>"
-
 #: src/routes/_home/-sections/hero.tsx
 msgid "<0>Your skills, finally,</0><1>Proven. Not just claimed.</1>"
-msgstr "<0>Your skills, finally,</0><1>Proven. Not just claimed.</1>"
+msgstr "<0>הכישורים שלך, סוף סוף,</0><1>הוכחו. לא רק נטען.</1>"
 
 #: src/dialogs/api-key/create.tsx
 msgid "1 month"
@@ -114,7 +109,7 @@ msgstr "2014 - 2016"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "2020 - Present"
-msgstr "2020 - Present"
+msgstr "2020 - הווה"
 
 #: src/dialogs/api-key/create.tsx
 msgid "3 months"
@@ -133,13 +128,17 @@ msgstr "קישור לאישור נשלח לכתובת הדוא״ל הנוכחי�
 msgid "A link to your resume has been copied to clipboard."
 msgstr "קישור לקורות החיים שלך הועתק ללוח הגזירים."
 
+#: src/routes/auth/verify-email.tsx
+msgid "A new verification link has been sent to your email address."
+msgstr "קישור אימות חדש נשלח לכתובת הדוא״ל שלך."
+
 #: src/routes/dashboard/settings/profile.tsx
 msgid "A new verification link has been sent to your email address. Please check your inbox to verify your account."
 msgstr "קישור אימות חדש נשלח לכתובת הדוא״ל שלך. נא לבדוק את תיבת הדואר כדי לאמת את החשבון."
 
 #: src/routes/_home/-sections/features.tsx
 msgid "A profile that reflects what you can actually do — verified by people who know what they're looking at, and built to travel with you wherever you go."
-msgstr "A profile that reflects what you can actually do — verified by people who know what they're looking at, and built to travel with you wherever you go."
+msgstr "פרופיל שמשקף את מה שאתה באמת יכול לעשות â מאומת על ידי אנשים שיודעים על מה הם מסתכלים, ובנוי לטייל איתך לכל מקום שאתה הולך."
 
 #: src/routes/dashboard/admin/experience-queue.tsx
 msgid "A reason is required to override."
@@ -152,7 +151,7 @@ msgstr "קיימים כבר קורות חיים עם שם ייצוגי זה."
 
 #: src/routes/_home/-sections/features.tsx
 msgid "A unique QR code and public link make your profile shareable in person, online, and in recruiter searches."
-msgstr "A unique QR code and public link make your profile shareable in person, online, and in recruiter searches."
+msgstr "קוד QR ייחודי וקישור ציבורי הופכים את הפרופיל שלך לשיתוף באופן אישי, מקוון ובחיפושים של מגייסים."
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/page.tsx
 msgid "A4"
@@ -172,7 +171,7 @@ msgstr "Account updated"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Action oriented"
-msgstr "Action oriented"
+msgstr "מכוון לפעולה"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Active sessions"
@@ -363,11 +362,11 @@ msgstr "אירעה שגיאה לא ידועה בעת ייבוא קורות הח�
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Analytical"
-msgstr "Analytical"
+msgstr "אנליטי"
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Anonymous, bias-free review"
-msgstr "Anonymous, bias-free review"
+msgstr "סקירה אנונימית, נטולת הטיות"
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Any level"
@@ -443,7 +442,7 @@ msgstr "ערבית"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Arc"
-msgstr "Arc"
+msgstr "קשת"
 
 #: src/hooks/use-form-blocker.tsx
 msgid "Are you sure you want to close this dialog?"
@@ -531,6 +530,12 @@ msgstr "Back"
 msgid "Back to Login"
 msgstr "חזרה להתחברות"
 
+#: src/routes/builder/$resumeId/-components/header.tsx
+#: src/routes/builder/$resumeId/-components/header.tsx
+#: src/routes/builder/$resumeId/-components/header.tsx
+msgid "Back to resumes"
+msgstr "חזרה לקורות חיים"
+
 #: src/routes/dashboard/admin/resume/$resumeId.tsx
 msgid "Back to users"
 msgstr "Back to users"
@@ -553,7 +558,7 @@ msgstr "פרטים בסיסיים"
 
 #: src/routes/_home/-sections/footer.tsx
 msgid "Become a verifier"
-msgstr "Become a verifier"
+msgstr "הפוך למוודא"
 
 #: src/routes/dashboard/job-search/-components/job-detail.tsx
 msgid "Benefits"
@@ -586,11 +591,11 @@ msgstr "BSc Software Engineering"
 
 #: src/routes/_home/-sections/hero.tsx
 msgid "Build a living profile backed by real evidence. Get your skills endorsed by domain experts in short, practical reviews — and let opportunities come to you."
-msgstr "Build a living profile backed by real evidence. Get your skills endorsed by domain experts in short, practical reviews — and let opportunities come to you."
+msgstr "בנה פרופיל חי המגובה בראיות אמיתיות. קבל את הכישורים שלך לאימוץ על ידי מומחי תחום בסקירות קצרות ומעשיות â ואפשר להזדמנויות להגיע אליך."
 
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Build your profile"
-msgstr "Build your profile"
+msgstr "בנה את הפרופיל שלך"
 
 #: src/components/command-palette/index.tsx
 msgid "Builder Command Palette"
@@ -610,7 +615,7 @@ msgstr "Call link sent"
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "Can I update my profile and re-verify skills later?"
-msgstr "Can I update my profile and re-verify skills later?"
+msgstr "האם אוכל לעדכן את הפרופיל שלי ולאמת מחדש כישורים מאוחר יותר?"
 
 #: src/dialogs/auth/enable-two-factor.tsx
 #: src/dialogs/resume/sections/award.tsx
@@ -668,7 +673,7 @@ msgstr "Cancel Verification"
 
 #: src/routes/_home/-sections/statistics.tsx
 msgid "Candidates"
-msgstr "Candidates"
+msgstr "מועמדים"
 
 #: src/utils/locale.ts
 msgid "Catalan"
@@ -708,9 +713,9 @@ msgstr "התחרטת? אפשר לשנות את שם קורות החיים שלך
 msgid "Check your email for a link to reset your password."
 msgstr "נא לבדוק את הדוא״ל שלך לקישור לאיפוס הסיסמה."
 
-#: src/routes/auth/register.tsx
-msgid "Check your email for a link to verify your account."
-msgstr "נא לבדוק את הדוא״ל שלך לקישור לאימות החשבון."
+#: src/routes/auth/verify-email.tsx
+msgid "Check your inbox"
+msgstr "בדוק את תיבת הדואר הנכנס"
 
 #: src/utils/locale.ts
 msgid "Chinese (Simplified)"
@@ -756,7 +761,7 @@ msgstr "סגור"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Cluster"
-msgstr "Cluster"
+msgstr "אשכול"
 
 #: src/components/input/rich-input.tsx
 msgid "Code Block"
@@ -774,7 +779,16 @@ msgstr "עמודות"
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Combine verified skills with research-backed personality insights so teams hire for both capability and fit."
-msgstr "Combine verified skills with research-backed personality insights so teams hire for both capability and fit."
+msgstr "שלב מיומנויות מאומתות עם תובנות אישיות מגובות מחקר, כך שצוותים שוכרים עבור יכולת והתאמה."
+
+#: src/components/command-palette/index.tsx
+#: src/components/command-palette/index.tsx
+msgid "Command Palette"
+msgstr "לוח פקודות"
+
+#: src/components/command-palette/index.tsx
+msgid "Command Palette - {currentPage}"
+msgstr "לוח פקודות - {currentPage}"
 
 #: src/routes/_home/-sections/footer.tsx
 msgid "Community"
@@ -782,7 +796,7 @@ msgstr "קהילה"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Compact"
-msgstr "Compact"
+msgstr "קומפקטי"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Compact signal row for endorsements and recency — less chrome, more \"what passed\"."
@@ -794,7 +808,7 @@ msgstr "חברה"
 
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Complete the assessment"
-msgstr "Complete the assessment"
+msgstr "השלם את ההערכה"
 
 #: src/dialogs/api-key/create.tsx
 #: src/hooks/use-prompt.tsx
@@ -821,7 +835,7 @@ msgstr "חיבור"
 
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Connect your professional accounts and portfolio to instantly build a living, evidence-backed profile that showcases real experience."
-msgstr "Connect your professional accounts and portfolio to instantly build a living, evidence-backed profile that showcases real experience."
+msgstr "חבר את החשבונות המקצועיים ואת תיק ההשקעות שלך כדי לבנות באופן מיידי פרופיל חי, מגובה ראיות, המציג ניסיון אמיתי."
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Consent"
@@ -829,29 +843,30 @@ msgstr "Consent"
 
 #: src/routes/_home/-sections/footer.tsx
 msgid "Contact us"
-msgstr "Contact us"
+msgstr "צור איתנו קשר"
 
 #: src/dialogs/resume/sections/cover-letter.tsx
 #: src/dialogs/resume/sections/summary-item.tsx
+#: src/routes/builder/$resumeId/route.tsx
 msgid "Content"
 msgstr "תוכן"
 
 #: src/dialogs/auth/enable-two-factor.tsx
 #: src/dialogs/auth/enable-two-factor.tsx
 #: src/dialogs/auth/enable-two-factor.tsx
-#: src/routes/auth/register.tsx
+#: src/routes/auth/verify-email.tsx
 #: src/routes/dashboard/verification/index.tsx
 msgid "Continue"
 msgstr "המשך"
 
 #: src/routes/dashboard/resumes/-components/cards/import-card.tsx
-#: src/routes/dashboard/resumes/-components/list-view.tsx
+#: src/routes/dashboard/resumes/-components/resume-quick-actions.tsx
 msgid "Continue where you left off"
 msgstr "להמשיך מאיפה שהפסקת"
 
 #: src/dialogs/resume/import.tsx
-msgid "Continue where you left off by importing an existing resume you created using Skill Verdict or any another resume builder. Supported formats include PDF, Microsoft Word, as well as JSON files from Skill Verdict."
-msgstr "המשיכי מאיפה שהפסקת על ידי ייבוא קורות חיים קיימים שיצרת באמצעות Skill Verdict או כל בונה קורות חיים אחר. התבניות הנתמכות כוללות PDF, Microsoft Word וכן קובצי JSON מ־Skill Verdict."
+msgid "Continue where you left off by importing an existing resume you created using another resume builder. Supported formats include PDF, Microsoft Word, and JSON Resume files."
+msgstr "המשך מאיפה שהפסקת על ידי ייבוא קורות חיים קיים שיצרת באמצעות בונה קורות חיים אחר. הפורמטים הנתמכים כוללים קובצי PDF, Microsoft Word ו-JSON Resume."
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Contractor"
@@ -877,6 +892,7 @@ msgstr "העתקת קודי גיבוי"
 msgid "Copy this secret key and use it in your applications to access your data."
 msgstr "העתק את המפתח הסודי הזה והשתמש בו ביישומים שלך כדי לגשת לנתונים שלך."
 
+#: src/routes/builder/$resumeId/-components/dock.tsx
 #: src/routes/builder/$resumeId/-components/dock.tsx
 msgid "Copy URL"
 msgstr "העתקת כתובת"
@@ -978,7 +994,7 @@ msgstr "יצירת ממליץ חדש"
 #: src/components/command-palette/pages/resumes.tsx
 #: src/dialogs/resume/index.tsx
 #: src/routes/dashboard/resumes/-components/cards/create-card.tsx
-#: src/routes/dashboard/resumes/-components/list-view.tsx
+#: src/routes/dashboard/resumes/-components/resume-quick-actions.tsx
 #: src/routes/dashboard/verification/index.tsx
 msgid "Create a new resume"
 msgstr "יצירת קורות חיים חדשים"
@@ -1006,6 +1022,10 @@ msgstr "Create a resume first, then add your work authorization details."
 #: src/dialogs/resume/index.tsx
 msgid "Create a Sample Resume"
 msgstr "יצירת קורות חיים לדוגמה"
+
+#: src/dialogs/resume/index.tsx
+msgid "Create Resume with Options"
+msgstr "צור קורות חיים עם אפשרויות"
 
 #: src/dialogs/api-key/create.tsx
 msgid "Creating your API key..."
@@ -1062,11 +1082,11 @@ msgstr "ערכת עיצוב כהה"
 
 #: src/routes/_home/-sections/footer.tsx
 msgid "Dashboard"
-msgstr "Dashboard"
+msgstr "לוח מחוונים"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Data Analytics Dashboard"
-msgstr "Data Analytics Dashboard"
+msgstr "לוח המחוונים של ניתוח נתונים"
 
 #: src/dialogs/resume/sections/award.tsx
 #: src/dialogs/resume/sections/certification.tsx
@@ -1138,6 +1158,7 @@ msgstr "מוחק את קורות החיים שלך..."
 msgid "Description"
 msgstr "תיאור"
 
+#: src/routes/builder/$resumeId/route.tsx
 #: src/utils/resume/section.tsx
 msgid "Design"
 msgstr "עיצוב"
@@ -1175,6 +1196,10 @@ msgstr "ניתוק"
 msgid "Display username"
 msgstr "Display username"
 
+#: src/components/ui/sidebar.tsx
+msgid "Displays the mobile sidebar."
+msgstr "מציג את סרגל הצד לנייד."
+
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Docker"
 msgstr "Docker"
@@ -1190,7 +1215,7 @@ msgstr "Documents"
 
 #: src/routes/_home/-sections/hero.tsx
 msgid "Don't chase. Attract."
-msgstr "Don't chase. Attract."
+msgstr "אל תרדוף. לִמְשׁוֹך."
 
 #: src/routes/auth/login.tsx
 msgid "Don't have an account? <0/>"
@@ -1214,13 +1239,16 @@ msgid "Download a copy of your resume in PDF format. Use this file for printing 
 msgstr "הורד עותק של קורות החיים שלך בפורמט PDF. השתמש בקובץ זה להדפסה או לשיתוף קל של קורות החיים עם מגייסים."
 
 #: src/routes/builder/$resumeId/-components/dock.tsx
+#: src/routes/builder/$resumeId/-components/dock.tsx
 msgid "Download DOCX"
 msgstr "הורד קובץ DOCX"
 
 #: src/routes/builder/$resumeId/-components/dock.tsx
+#: src/routes/builder/$resumeId/-components/dock.tsx
 msgid "Download JSON"
 msgstr "הורדת JSON"
 
+#: src/routes/builder/$resumeId/-components/dock.tsx
 #: src/routes/builder/$resumeId/-components/dock.tsx
 msgid "Download PDF"
 msgstr "הורדת PDF"
@@ -1264,7 +1292,7 @@ msgstr "הולנדית"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "E-commerce Platform"
-msgstr "E-commerce Platform"
+msgstr "פלטפורמת מסחר אלקטרוני"
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "e.g. 150000"
@@ -1286,13 +1314,17 @@ msgstr "למשל, משרות למפתחי frontend בברלין"
 msgid "e.g. Skilled Worker"
 msgstr "e.g. Skilled Worker"
 
+#: src/routes/dashboard/admin/ai.tsx
+msgid "e.g., gpt-4, claude-3-opus, gemini-pro"
+msgstr "למשל, gpt-4, claude-3-opus, gemini-pro"
+
 #: src/routes/_home/-sections/features.tsx
 msgid "Earn peer-endorsed badges from domain experts — turn claims into evidence employers can trust at a glance."
-msgstr "Earn peer-endorsed badges from domain experts — turn claims into evidence employers can trust at a glance."
+msgstr "קבל תגים שאושרו על ידי עמיתים ממומחי דומיינים â הפכו תביעות לראיות שמעסיקים יכולים לסמוך עליהם במבט חטוף."
 
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Earn your verdict"
-msgstr "Earn your verdict"
+msgstr "תרוויח את פסק הדין שלך"
 
 #: src/dialogs/resume/sections/custom.tsx
 #: src/routes/_home/-sections/hero-visual.tsx
@@ -1312,6 +1344,7 @@ msgstr "דוא״ל"
 msgid "Email Address"
 msgstr "כתובת דוא\"ל"
 
+#: src/routes/auth/verify-email.tsx
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/users.tsx
 msgid "Email verified"
@@ -1385,7 +1418,7 @@ msgstr "הזן את הסיסמה שלך כדי להשבית אימות דו־ש�
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Every assessment comes with actionable feedback, so you level up even when you're already getting hired."
-msgstr "Every assessment comes with actionable feedback, so you level up even when you're already getting hired."
+msgstr "כל הערכה מגיעה עם משוב מעשי, כך שתעלה רמה גם כשאתה כבר מתקבל לעבודה."
 
 #: src/routes/dashboard/job-search/-components/use-job-search.ts
 msgid "Exclude {value}"
@@ -1474,6 +1507,10 @@ msgstr "Failed to load document."
 msgid "Failed to load user details."
 msgstr "Failed to load user details."
 
+#: src/routes/auth/verify-email.tsx
+msgid "Failed to resend verification email. Please try again."
+msgstr "שליחת דוא״ל האימות מחדש נכשלה. נסה שוב."
+
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Failed to save work authorization."
 msgstr "Failed to save work authorization."
@@ -1514,6 +1551,10 @@ msgstr "סינון לפי"
 #: src/utils/locale.ts
 msgid "Finnish"
 msgstr "פינית"
+
+#: src/routes/builder/$resumeId/-components/dock.tsx
+msgid "Fit resume to screen"
+msgstr "התאם קורות חיים למסך"
 
 #: src/dialogs/resume/sections/language.tsx
 msgid "Fluency"
@@ -1560,7 +1601,7 @@ msgstr "תבנית"
 
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Four simple steps to turn your claims into evidence. No keyword stuffing, no job-title theatre — just practical assessments reviewed by domain experts."
-msgstr "Four simple steps to turn your claims into evidence. No keyword stuffing, no job-title theatre — just practical assessments reviewed by domain experts."
+msgstr "ארבעה שלבים פשוטים להפוך את הטענות שלך לראיות. ללא מילוי מילות מפתח, ללא תיאטרון כותרת עבודה - רק הערכות מעשיות שנבדקו על ידי מומחי תחום."
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/page.tsx
 msgid "Free-Form"
@@ -1578,13 +1619,17 @@ msgstr "Freelancer Profile Link"
 msgid "French"
 msgstr "צרפתית"
 
+#: src/routes/_home/-sections/faq.tsx
+msgid "Frequently Asked Questions"
+msgstr "שאלות נפוצות"
+
 #: src/routes/builder/$resumeId/-sidebar/right/sections/layout/pages.tsx
 msgid "Full Width"
 msgstr "רוחב מלא"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Full-stack React/Node.js application with payment integration"
-msgstr "Full-stack React/Node.js application with payment integration"
+msgstr "אפליקציית React/Node.js עם ערימה מלאה עם שילוב תשלום"
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Full-time"
@@ -1608,7 +1653,7 @@ msgstr "Get AI feedback on what is strong in this resume and what should be impr
 
 #: src/routes/_home/-sections/footer.tsx
 msgid "Get verified"
-msgstr "Get verified"
+msgstr "קבל אימות"
 
 #: src/components/command-palette/pages/navigation.tsx
 #: src/components/command-palette/pages/navigation.tsx
@@ -1621,10 +1666,6 @@ msgstr "Global AI"
 #: src/routes/auth/verify-2fa-backup.tsx
 msgid "Go Back"
 msgstr "חזרה"
-
-#: src/routes/_home/-sections/header.tsx
-msgid "Go to dashboard"
-msgstr "מעבר ללוח בקרה"
 
 #: src/components/command-palette/pages/navigation.tsx
 msgid "Go to..."
@@ -1648,11 +1689,11 @@ msgstr "רשת"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Grouped capabilities with micro-labels — shows breadth without a wall of bullet points."
-msgstr "Grouped capabilities with micro-labels — shows breadth without a wall of bullet points."
+msgstr "יכולות מקובצות עם מיקרו תוויות â מציגות רוחב ללא קיר של נקודות כדור."
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Growth-focused feedback"
-msgstr "Growth-focused feedback"
+msgstr "משוב ממוקד צמיחה"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Harvard University"
@@ -1709,7 +1750,7 @@ msgstr "הנה מפתח ה־API החדש שלך"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Hero statement up top, verified skills as the spine — built for reviewers who scan in seconds."
-msgstr "Hero statement up top, verified skills as the spine — built for reviewers who scan in seconds."
+msgstr "הצהרת גיבור למעלה, כישורים מאומתים כעמוד השדרה â שנבנה עבור סוקרים שסורקים בשניות."
 
 #: src/components/level/combobox.tsx
 #: src/dialogs/resume/sections/language.tsx
@@ -1751,20 +1792,28 @@ msgstr "איך משתמשים ב־API?"
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "How does skill verification work?"
-msgstr "How does skill verification work?"
+msgstr "איך עובד אימות מיומנות?"
 
 #: src/routes/_home/-sections/footer.tsx
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "How it works"
-msgstr "How it works"
+msgstr "איך זה עובד"
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "How long does a verification take?"
-msgstr "How long does a verification take?"
+msgstr "כמה זמן לוקח אימות?"
+
+#: src/routes/dashboard/verification/index.tsx
+msgid "https://www.upwork.com/freelancers/~..."
+msgstr "https://www.upwork.com/freelancers/~..."
 
 #: src/utils/locale.ts
 msgid "Hungarian"
 msgstr "הונגרית"
+
+#: src/routes/_home/-sections/how-it-works.tsx
+msgid "I am ready to start"
+msgstr "אני מוכן להתחיל"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "I consent to sharing my work authorization details with employers for matching."
@@ -1822,7 +1871,7 @@ msgstr "ייבוא"
 
 #: src/dialogs/resume/import.tsx
 #: src/routes/dashboard/resumes/-components/cards/import-card.tsx
-#: src/routes/dashboard/resumes/-components/list-view.tsx
+#: src/routes/dashboard/resumes/-components/resume-quick-actions.tsx
 msgid "Import an existing resume"
 msgstr "ייבוא קורות חיים קיימים"
 
@@ -1861,7 +1910,7 @@ msgstr "מתמחה"
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "Is the review really unbiased?"
-msgstr "Is the review really unbiased?"
+msgstr "האם הביקורת באמת חסרת פניות?"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Issue date"
@@ -1993,7 +2042,7 @@ msgstr "פריסה"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Layouts for evidence, not decoration"
-msgstr "Layouts for evidence, not decoration"
+msgstr "פריסות להוכחות, לא לקישוט"
 
 #: src/components/resume/preview.tsx
 msgid "Learn more about how to fit content on a page"
@@ -2014,7 +2063,7 @@ msgstr "השאר ריק כדי לאפס את הכותרת למקורית."
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Ledger"
-msgstr "Ledger"
+msgstr "ספר חשבונות"
 
 #: src/components/input/rich-input.tsx
 msgid "Left Align"
@@ -2063,6 +2112,10 @@ msgstr "רשימה"
 #: src/utils/locale.ts
 msgid "Lithuanian"
 msgstr "ליטאית"
+
+#: src/components/ui/spinner.tsx
+msgid "Loading"
+msgstr "טוען"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Loading document..."
@@ -2187,13 +2240,17 @@ msgstr "שכר מינימום"
 msgid "Model"
 msgstr "מודל"
 
+#: src/routes/builder/$resumeId/-components/dock.tsx
+msgid "More builder actions"
+msgstr "עוד פעולות בונה"
+
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "More than 3 years"
 msgstr "יותר משלוש שנים"
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "Most verifications wrap up in 1–3 days depending on the skill and reviewer availability — no weeks of waiting around."
-msgstr "Most verifications wrap up in 1–3 days depending on the skill and reviewer availability — no weeks of waiting around."
+msgstr "רוב האימותים מסתיימים תוך 1â3 ימים, בהתאם למיומנות ולזמינות הבודקים â ללא שבועות של המתנה."
 
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
 msgid "Move to"
@@ -2202,6 +2259,10 @@ msgstr "העברה אל"
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "MSc Computer Science"
 msgstr "MSc Computer Science"
+
+#: src/routes/builder/$resumeId/-sidebar/left/sections/custom-fields.tsx
+msgid "Must start with https://"
+msgstr "חייב להתחיל עם https://"
 
 #: src/dialogs/api-key/create.tsx
 #: src/dialogs/resume/index.tsx
@@ -2233,6 +2294,10 @@ msgid "New Line"
 msgstr "שורה חדשה"
 
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
+msgid "New page"
+msgstr "עמוד חדש"
+
+#: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
 msgid "New Page"
 msgstr "עמוד חדש"
 
@@ -2244,6 +2309,11 @@ msgstr "סיסמה חדשה"
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
 msgid "New Section"
 msgstr "סעיף חדש"
+
+#. placeholder {0}: pageIndex + 1
+#: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
+msgid "New section on page {0}"
+msgstr "קטע חדש בעמוד {0}"
 
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 msgid "New Skills Detected"
@@ -2353,7 +2423,7 @@ msgstr "Node.js"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Northline"
-msgstr "Northline"
+msgstr "קו צפון"
 
 #: src/utils/locale.ts
 msgid "Norwegian"
@@ -2383,12 +2453,22 @@ msgstr "Only PDF, JPG, JPEG, and PNG files are allowed."
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "Only your assigned reviewer sees the assignments you submit. On your public profile, you decide which verified skills to display — everything else stays private."
-msgstr "Only your assigned reviewer sees the assignments you submit. On your public profile, you decide which verified skills to display — everything else stays private."
+msgstr "רק הסוקר שהוקצה לך רואה את המטלות שאתה מגיש. בפרופיל הציבורי שלך, אתה מחליט אילו כישורים מאומתים להציג â כל השאר נשאר פרטי."
 
 #: src/routes/dashboard/resumes/-components/menus/context-menu.tsx
 #: src/routes/dashboard/resumes/-components/menus/dropdown-menu.tsx
 msgid "Open"
 msgstr "פתיחה"
+
+#: src/routes/builder/$resumeId/-components/header.tsx
+#: src/routes/builder/$resumeId/-components/header.tsx
+msgid "Open content editor"
+msgstr "פתח את עורך התוכן"
+
+#: src/routes/builder/$resumeId/-components/header.tsx
+#: src/routes/builder/$resumeId/-components/header.tsx
+msgid "Open design settings"
+msgstr "פתח את הגדרות העיצוב"
 
 #: src/routes/auth/forgot-password.tsx
 msgid "Open Email Client"
@@ -2485,6 +2565,11 @@ msgstr "עמוד {0}"
 msgid "Page {0} of {totalPages} — {1} users"
 msgstr "Page {0} of {totalPages} — {1} users"
 
+#. placeholder {0}: pageIndex + 1
+#: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
+msgid "Page {0}: {sectionTitle}"
+msgstr "עמוד {0}: {sectionTitle}"
+
 #: src/routes/dashboard/job-search/index.tsx
 msgid "Page {currentPage}"
 msgstr "דף {currentPage}"
@@ -2503,11 +2588,11 @@ msgstr "משרה חלקית"
 
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Pass the review to earn a verified skill badge, boost your profile visibility, and let opportunities come to you."
-msgstr "Pass the review to earn a verified skill badge, boost your profile visibility, and let opportunities come to you."
+msgstr "העבר את הביקורת כדי לזכות בתג מיומנות מאומת, לשפר את נראות הפרופיל שלך ולתת להזדמנויות להגיע אליך."
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Passive discovery"
-msgstr "Passive discovery"
+msgstr "גילוי פסיבי"
 
 #: src/dialogs/auth/disable-two-factor.tsx
 #: src/dialogs/auth/enable-two-factor.tsx
@@ -2557,11 +2642,11 @@ msgstr "פרסית"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Personality"
-msgstr "Personality"
+msgstr "אישיות"
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Personality & culture fit"
-msgstr "Personality & culture fit"
+msgstr "אישיות ותרבות התאמה"
 
 #: src/dialogs/resume/sections/reference.tsx
 #: src/routes/builder/$resumeId/-sidebar/left/sections/basics.tsx
@@ -2570,7 +2655,7 @@ msgstr "טלפון"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Pick a presentation that puts verification and outcomes first. Each card shows a real export layout from the builder — same document you share, with structure tuned for how people actually skim proof."
-msgstr "Pick a presentation that puts verification and outcomes first. Each card shows a real export layout from the builder — same document you share, with structure tuned for how people actually skim proof."
+msgstr "בחר מצגת ששמה את האימות והתוצאות במקום הראשון. כל כרטיס מציג פריסת ייצוא אמיתית מהיוצר - אותו מסמך שאתה משתף, עם מבנה מכוון לאופן שבו אנשים גולשים בפועל הוכחות."
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Pick a region to fill in your authorization details. Statuses already filled are shown next to each region."
@@ -2578,7 +2663,7 @@ msgstr "Pick a region to fill in your authorization details. Statuses already fi
 
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Pick skills to verify"
-msgstr "Pick skills to verify"
+msgstr "בחר מיומנויות לאימות"
 
 #: src/utils/resume/section.tsx
 msgid "Picture"
@@ -2586,7 +2671,7 @@ msgstr "תמונה"
 
 #: src/routes/_home/-sections/statistics.tsx
 msgid "Platform statistics"
-msgstr "Platform statistics"
+msgstr "סטטיסטיקות פלטפורמה"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Please complete the required work authorization fields before saving."
@@ -2657,7 +2742,7 @@ msgstr "Preview"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Preview of a verified candidate profile"
-msgstr "Preview of a verified candidate profile"
+msgstr "תצוגה מקדימה של פרופיל מועמד מאומת"
 
 #: src/routes/dashboard/admin/users.tsx
 #: src/routes/dashboard/job-search/index.tsx
@@ -2675,7 +2760,7 @@ msgstr "Privacy"
 
 #: src/routes/_home/-sections/footer.tsx
 msgid "Product"
-msgstr "Product"
+msgstr "מוצר"
 
 #: src/dialogs/resume/sections/skill.tsx
 msgid "Proficiency"
@@ -2714,7 +2799,7 @@ msgstr "פרויקטים"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Proof-first"
-msgstr "Proof-first"
+msgstr "הוכחה ראשונה"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 msgid "Protect your resume from unauthorized access with a password"
@@ -2743,11 +2828,11 @@ msgstr "מוציא לאור"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Pulse"
-msgstr "Pulse"
+msgstr "דופק"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Python/Django dashboard with interactive visualizations"
-msgstr "Python/Django dashboard with interactive visualizations"
+msgstr "לוח מחוונים של Python/Django עם הדמיות אינטראקטיביות"
 
 #. placeholder {0}: quota.remaining
 #: src/routes/dashboard/job-search/index.tsx
@@ -2764,11 +2849,11 @@ msgstr "React"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "React Native mobile app with real-time synchronization"
-msgstr "React Native mobile app with real-time synchronization"
+msgstr "אפליקציית React Native לנייד עם סנכרון בזמן אמת"
 
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Receive a practical assignment from your reviewer, submit your work, and get actionable feedback in a real conversation."
-msgstr "Receive a practical assignment from your reviewer, submit your work, and get actionable feedback in a real conversation."
+msgstr "קבל מטלה מעשית מהמבקר שלך, שלח את עבודתך וקבל משוב מעשי בשיחה אמיתית."
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Recent sessions"
@@ -2786,6 +2871,7 @@ msgstr "מלבן"
 msgid "Rectangle (Full Width)"
 msgstr "מלבן (רוחב מלא)"
 
+#: src/routes/builder/$resumeId/-components/dock.tsx
 #: src/routes/builder/$resumeId/-components/dock.tsx
 msgctxt "'Ctrl' may be replaced with the locale-specific equivalent (e.g. 'Strg' for QWERTZ layouts)."
 msgid "Redo (Ctrl+Y)"
@@ -2814,7 +2900,7 @@ msgstr "Rejected/issue"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Relay"
-msgstr "Relay"
+msgstr "ממסר"
 
 #: src/routes/auth/forgot-password.tsx
 msgid "Remember your password? <0/>"
@@ -2858,6 +2944,10 @@ msgstr "סידור מחדש"
 msgid "Request"
 msgstr "Request"
 
+#: src/routes/auth/verify-email.tsx
+msgid "Request a new link"
+msgstr "בקש קישור חדש"
+
 #: src/routes/dashboard/job-search/-components/job-detail.tsx
 msgid "Required Skills"
 msgstr "כישורים נדרשים"
@@ -2866,10 +2956,12 @@ msgstr "כישורים נדרשים"
 msgid "Required: reason for overriding this verdict..."
 msgstr "Required: reason for overriding this verdict..."
 
+#: src/routes/auth/verify-email.tsx
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Resend verification email"
 msgstr "שליחת דוא\"ל אימות מחדש"
 
+#: src/routes/auth/verify-email.tsx
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Resending verification email..."
 msgstr "שולח מחדש דוא\"ל אימות..."
@@ -2947,11 +3039,11 @@ msgstr "Reviewer since {memberSince}"
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Reviewers don't see who they're assessing, so your skills are judged on their merit — not your background."
-msgstr "Reviewers don't see who they're assessing, so your skills are judged on their merit — not your background."
+msgstr "הסוקרים לא רואים את מי הם מעריכים, אז הכישורים שלך נשפטים לפי הכשרון שלהם - לא הרקע שלך."
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "Reviewers evaluate your submission without seeing your name, employer, or background. If you're ever unhappy with an outcome, you can request a second opinion from a different reviewer."
-msgstr "Reviewers evaluate your submission without seeing your name, employer, or background. If you're ever unhappy with an outcome, you can request a second opinion from a different reviewer."
+msgstr "סוקרים מעריכים את ההגשה שלך מבלי לראות את שמך, המעסיק או הרקע שלך. אם אי פעם אינך מרוצה מהתוצאה, תוכל לבקש חוות דעת נוספת מסוקר אחר."
 
 #: src/components/input/rich-input.tsx
 msgid "Right Align"
@@ -3054,6 +3146,10 @@ msgstr "בית ספר"
 msgid "Search"
 msgstr "חיפוש"
 
+#: src/components/command-palette/index.tsx
+msgid "Search commands"
+msgstr "חיפוש פקודות"
+
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Search countries"
 msgstr "חפש מדינות"
@@ -3067,6 +3163,7 @@ msgstr "חיפוש סמל"
 msgid "Search for..."
 msgstr "חיפוש..."
 
+#: src/components/command-palette/index.tsx
 #: src/components/ui/combobox.tsx
 msgid "Search..."
 msgstr "חיפוש..."
@@ -3081,11 +3178,11 @@ msgstr "סוג סעיף"
 
 #: src/routes/_home/-sections/hero.tsx
 msgid "See how it works"
-msgstr "See how it works"
+msgstr "תראה איך זה עובד"
 
 #: src/routes/_home/-sections/hero.tsx
 msgid "See how verification works"
-msgstr "See how verification works"
+msgstr "ראה כיצד פועל האימות"
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "Select a payslip, contract, or other proof of employment (PDF, JPG, PNG, max 5MB)."
@@ -3124,7 +3221,7 @@ msgstr "Select status"
 
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Select the skills you want endorsed and choose a reviewer for a personalized, scenario-based assessment."
-msgstr "Select the skills you want endorsed and choose a reviewer for a personalized, scenario-based assessment."
+msgstr "בחר את הכישורים שאתה רוצה לקבל אישור ובחר סוקר להערכה אישית ומבוססת תרחישים."
 
 #: src/components/ui/combobox.tsx
 msgid "Select..."
@@ -3132,7 +3229,7 @@ msgstr "בחר..."
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Self-starter"
-msgstr "Self-starter"
+msgstr "מתנע עצמי"
 
 #: src/routes/auth/forgot-password.tsx
 msgid "Send Password Reset Email"
@@ -3144,11 +3241,11 @@ msgstr "שולח דוא\"ל לאיפוס סיסמה..."
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Senior AI Engineer"
-msgstr "Senior AI Engineer"
+msgstr "מהנדס AI בכיר"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Senior Full Stack Developer"
-msgstr "Senior Full Stack Developer"
+msgstr "מפתח בכיר ב-Full Stack"
 
 #: src/components/input/rich-input.tsx
 msgid "Separator"
@@ -3190,7 +3287,7 @@ msgstr "רוחב צל"
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Share anywhere, instantly"
-msgstr "Share anywhere, instantly"
+msgstr "שתף בכל מקום, באופן מיידי"
 
 #: src/utils/resume/section.tsx
 msgid "Sharing"
@@ -3223,6 +3320,7 @@ msgstr "Show or hide the verification timeline on your public CV. This is off by
 msgid "Show Timeline on Public CV"
 msgstr "Show Timeline on Public CV"
 
+#: src/components/ui/sidebar.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/layout/pages.tsx
 msgid "Sidebar"
 msgstr "סרגל צד"
@@ -3232,12 +3330,26 @@ msgid "Sidebar Width"
 msgstr "רוחב סרגל צד"
 
 #: src/routes/auth/login.tsx
+#: src/routes/auth/verify-email.tsx
+#: src/routes/auth/verify-email.tsx
 msgid "Sign in"
 msgstr "כניסה"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to verify your email"
+msgstr "התחבר כדי לאמת את הדוא״ל שלך"
 
 #: src/routes/auth/login.tsx
 msgid "Sign in to your account"
 msgstr "כניסה לחשבון שלך"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to your account to request a new verification email."
+msgstr "התחבר לחשבונך כדי לבקש דוא״ל אימות חדש."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Sign in to your account, then request a new verification email."
+msgstr "התחבר לחשבונך ואז בקש דוא״ל אימות חדש."
 
 #: src/routes/auth/register.tsx
 msgid "Sign up"
@@ -3245,7 +3357,7 @@ msgstr "הרשמה"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Signal density"
-msgstr "Signal density"
+msgstr "צפיפות אות"
 
 #: src/routes/auth/-components/social-auth.tsx
 #: src/routes/auth/-components/social-auth.tsx
@@ -3287,11 +3399,11 @@ msgstr "Skill Center"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Skill clusters"
-msgstr "Skill clusters"
+msgstr "אשכולות מיומנויות"
 
 #: src/routes/_home/-sections/header.tsx
 msgid "Skill Verdict - Go to homepage"
-msgstr "Skill Verdict - Go to homepage"
+msgstr "פסק דין מיומנות - עבור לדף הבית"
 
 #: src/routes/dashboard/-components/sidebar.tsx
 #: src/routes/dashboard/settings/profile.tsx
@@ -3356,7 +3468,7 @@ msgstr "ספרדית"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Split identity and evidence panes; keeps personality context beside hard verification."
-msgstr "Split identity and evidence panes; keeps personality context beside hard verification."
+msgstr "פיצול חלוניות זהות וראיות; שומר על הקשר אישיותי לצד אימות קשיח."
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Sponsorship"
@@ -3385,7 +3497,7 @@ msgid "Start building your resume by giving it a name."
 msgstr "אפשר להתחיל לבנות את קורות החיים שלך על ידי ציון שם."
 
 #: src/routes/dashboard/resumes/-components/cards/create-card.tsx
-#: src/routes/dashboard/resumes/-components/list-view.tsx
+#: src/routes/dashboard/resumes/-components/resume-quick-actions.tsx
 msgid "Start building your resume from scratch"
 msgstr "התחלת בנייה מאפס של קורות החיים שלך"
 
@@ -3403,11 +3515,11 @@ msgstr "הישאר"
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Stop chasing. Companies reach out directly to candidates whose verified skills match their requirements."
-msgstr "Stop chasing. Companies reach out directly to candidates whose verified skills match their requirements."
+msgstr "תפסיק לרדוף. חברות מגיעות ישירות למועמדים שהכישורים המאומתים שלהם תואמים את הדרישות שלהם."
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Story arc"
-msgstr "Story arc"
+msgstr "קשת סיפור"
 
 #: src/components/input/rich-input.tsx
 msgid "Strike"
@@ -3482,15 +3594,15 @@ msgstr "טמילית"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Task Management App"
-msgstr "Task Management App"
+msgstr "אפליקציית ניהול משימות"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Team player"
-msgstr "Team player"
+msgstr "שחקן צוות"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Technical skills"
-msgstr "Technical skills"
+msgstr "כישורים טכניים"
 
 #: src/utils/locale.ts
 msgid "Telugu"
@@ -3548,6 +3660,10 @@ msgstr "קורות החיים שאליהם ניסית לגשת מוגנים בס
 #: src/components/input/rich-input.tsx
 msgid "The URL you entered is not valid."
 msgstr "כתובת ה־URL שהוזנה אינה חוקית."
+
+#: src/routes/auth/verify-email.tsx
+msgid "The verification link may be invalid, expired, or already used."
+msgstr "קישור האימות עשוי להיות לא תקין, פג תוקף או שכבר נעשה בו שימוש."
 
 #: src/components/command-palette/pages/preferences/theme.tsx
 #: src/components/user/dropdown-menu.tsx
@@ -3616,10 +3732,6 @@ msgstr "קורות חיים אלה נעולים ולא ניתן לעדכן או�
 msgid "This section is reserved for your personal notes specific to this resume. The content here remains private and is not shared with anyone else."
 msgstr "סעיף זה שמור להערות האישיות שלך שנוגעות לקורות חיים אלה. התוכן כאן נשאר פרטי ואינו משותף עם אף אחד אחר."
 
-#: src/routes/auth/register.tsx
-msgid "This step is optional, but recommended."
-msgstr "שלב זה הוא רשות בלבד, אך מומלץ."
-
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "This week"
 msgstr "השבוע"
@@ -3630,11 +3742,11 @@ msgstr "פעולה זו תיצור מפתח API חדש לגישה ל־Skill Verd
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Tight vertical rhythm for mobile sharing — still readable when the viewport is narrow."
-msgstr "Tight vertical rhythm for mobile sharing — still readable when the viewport is narrow."
+msgstr "קצב אנכי הדוק לשיתוף בנייד â עדיין קריא כאשר שדה התצוגה צר."
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Timeline-forward narrative with milestones; good when your evidence has a clear before/after."
-msgstr "Timeline-forward narrative with milestones; good when your evidence has a clear before/after."
+msgstr "נרטיב ציר זמן קדימה עם אבני דרך; טוב כאשר לראיות שלך יש לפני/אחרי ברור."
 
 #: src/dialogs/api-key/create.tsx
 msgid "Tip: Give your API key a name, corresponding to the purpose of the key, to help you identify it later."
@@ -3660,6 +3772,12 @@ msgstr "כדי למחוק את החשבון שלך, עליך להזין את ט�
 msgid "Today"
 msgstr "היום"
 
+#: src/components/ui/sidebar.tsx
+#: src/components/ui/sidebar.tsx
+#: src/components/ui/sidebar.tsx
+msgid "Toggle Sidebar"
+msgstr "החלף את הסרגל הצידי"
+
 #: src/routes/dashboard/admin/users.tsx
 msgid "Total keys"
 msgstr "Total keys"
@@ -3683,6 +3801,10 @@ msgstr "Total sessions"
 #: src/routes/builder/$resumeId/-sidebar/right/sections/statistics.tsx
 msgid "Track your resume's views and downloads"
 msgstr "עקוב אחר צפיות והורדות של קורות החיים שלך"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Try requesting a new verification link."
+msgstr "נסה לבקש קישור אימות חדש."
 
 #: src/utils/locale.ts
 msgid "Turkish"
@@ -3741,6 +3863,10 @@ msgstr "אימות דו־שלבי הושבת בהצלחה."
 msgid "Two-factor authentication has been setup successfully."
 msgstr "אימות דו־שלבי הוגדר בהצלחה."
 
+#: src/dialogs/auth/enable-two-factor.tsx
+msgid "Two-Factor Authentication QR Code"
+msgstr "קוד QR לאימות דו-גורמי"
+
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/users.tsx
 msgid "Two-factor enabled"
@@ -3748,7 +3874,7 @@ msgstr "Two-factor enabled"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Two-pane"
-msgstr "Two-pane"
+msgstr "שני חלונות"
 
 #: src/dialogs/resume/import.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/design.tsx
@@ -3760,6 +3886,7 @@ msgstr "סוג"
 msgid "Type \"{CONFIRMATION_TEXT}\" to confirm"
 msgstr "הקלד \"{CONFIRMATION_TEXT}\" כדי לאשר"
 
+#: src/components/command-palette/index.tsx
 #: src/components/command-palette/index.tsx
 msgid "Type a command or search..."
 msgstr "הקלד פקודה או חפש..."
@@ -3784,6 +3911,7 @@ msgstr "מתחת לגיל 3"
 msgid "Underline"
 msgstr "קו תחתון"
 
+#: src/routes/builder/$resumeId/-components/dock.tsx
 #: src/routes/builder/$resumeId/-components/dock.tsx
 msgctxt "'Ctrl' may be replaced with the locale-specific equivalent (e.g. 'Strg' for QWERTZ layouts)."
 msgid "Undo (Ctrl+Z)"
@@ -4005,15 +4133,15 @@ msgstr "Verified by {0}"
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Verified skill badges"
-msgstr "Verified skill badges"
+msgstr "תגי מיומנות מאומתים"
 
 #: src/routes/_home/-sections/statistics.tsx
 msgid "Verified skills"
-msgstr "Verified skills"
+msgstr "כישורים מאומתים"
 
 #: src/routes/_home/-sections/footer.tsx
 msgid "Verified skills, honest feedback, and passive discovery — a living profile built on evidence, not keywords."
-msgstr "Verified skills, honest feedback, and passive discovery — a living profile built on evidence, not keywords."
+msgstr "מיומנויות מאומתות, משוב כנה וגילוי פסיבי â פרופיל חי בנוי על ראיות, לא על מילות מפתח."
 
 #: src/routes/auth/verify-2fa-backup.tsx
 #: src/routes/auth/verify-2fa.tsx
@@ -4023,11 +4151,15 @@ msgstr "אימות"
 
 #: src/routes/_home/-sections/hero.tsx
 msgid "Verify my skills"
-msgstr "Verify my skills"
+msgstr "אמת את הכישורים שלי"
 
 #: src/routes/auth/verify-2fa-backup.tsx
 msgid "Verify with a Backup Code"
 msgstr "אימות עם קוד גיבוי"
+
+#: src/routes/auth/verify-email.tsx
+msgid "Verify your email"
+msgstr "אמת את הדוא״ל שלך"
 
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Verify your identity through a short video call. This adds trust to your resume."
@@ -4045,10 +4177,6 @@ msgstr "מאמת את הקוד..."
 #: src/routes/auth/resume-password.tsx
 msgid "Verifying password..."
 msgstr "מאמת סיסמה..."
-
-#: src/routes/auth/register.tsx
-msgid "Verifying your email is required when resetting your password."
-msgstr "אימות הדוא\"ל שלך נדרש בעת איפוס הסיסמה."
 
 #: src/utils/locale.ts
 msgid "Vietnamese"
@@ -4083,6 +4211,14 @@ msgstr "Visibility"
 msgid "Volunteer"
 msgstr "התנדבות"
 
+#: src/routes/auth/verify-email.tsx
+msgid "We couldn't verify your email"
+msgstr "לא הצלחנו לאמת את הדוא״ל שלך"
+
+#: src/routes/auth/verify-email.tsx
+msgid "We sent a verification link to your email address."
+msgstr "שלחנו קישור אימות לכתובת הדוא״ל שלך."
+
 #: src/dialogs/resume/sections/award.tsx
 #: src/dialogs/resume/sections/certification.tsx
 #: src/dialogs/resume/sections/education.tsx
@@ -4108,11 +4244,11 @@ msgstr "כאשר קורות החיים נעולים, אי אפשר לעדכן א
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "Who can see my submissions and results?"
-msgstr "Who can see my submissions and results?"
+msgstr "מי יכול לראות את ההגשות והתוצאות שלי?"
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Why candidates choose us"
-msgstr "Why candidates choose us"
+msgstr "מדוע מועמדים בוחרים בנו"
 
 #: src/routes/dashboard/-components/sidebar.tsx
 #: src/routes/dashboard/work-authorization/index.tsx
@@ -4134,7 +4270,7 @@ msgstr "Yes"
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "Yes. Add or remove skills any time, and request re-verification as you level up. Your profile is designed to evolve with your career."
-msgstr "Yes. Add or remove skills any time, and request re-verification as you level up. Your profile is designed to evolve with your career."
+msgstr "כן. הוסף או הסר מיומנויות בכל עת, ובקש אימות מחדש ככל שתעלה רמה. הפרופיל שלך נועד להתפתח עם הקריירה שלך."
 
 #: src/routes/dashboard/job-search/-components/job-utils.ts
 msgid "Yesterday"
@@ -4144,22 +4280,33 @@ msgstr "אתמול"
 msgid "You can also use your username to login."
 msgstr "אפשר גם להשתמש בשם המשתמש שלך כדי להתחבר."
 
+#: src/routes/auth/verify-email.tsx
+msgid "You can now use account recovery and other features that require a verified email address."
+msgstr "כעת ניתן להשתמש בשחזור חשבון ובתכונות אחרות הדורשות כתובת דוא״ל מאומתת."
+
 #: src/hooks/use-form-blocker.tsx
 msgid "You have unsaved changes that will be lost."
 msgstr "יש לך שינויים שלא נשמרו ויאבדו."
 
+#: src/routes/auth/verify-email.tsx
+msgid "You must verify your email address before you can access Skill Verdict."
+msgstr "עליך לאמת את כתובת הדוא״ל שלך לפני שתוכל לגשת ל-Skill Verdict."
+
 #: src/routes/_home/-sections/faq.tsx
 msgid "You pick the skills you want to endorse and a reviewer with relevant expertise. They assign a short, practical assessment, review your submission, and share actionable feedback. If you pass, the skill is added to your profile as a verified badge."
-msgstr "You pick the skills you want to endorse and a reviewer with relevant expertise. They assign a short, practical assessment, review your submission, and share actionable feedback. If you pass, the skill is added to your profile as a verified badge."
+msgstr "אתה בוחר את הכישורים שאתה רוצה לאמץ ומבקר עם מומחיות רלוונטית. הם מחלקים הערכה קצרה ומעשית, בודקים את ההגשה שלך ומשתפים משוב בר-פעולה. אם תעבור, המיומנות תתווסף לפרופיל שלך כתג מאומת."
 
 #: src/routes/auth/forgot-password.tsx
-#: src/routes/auth/register.tsx
 msgid "You've got mail!"
 msgstr "קיבלת הודעה!"
 
 #: src/routes/dashboard/settings/danger-zone.tsx
 msgid "Your account has been deleted successfully."
 msgstr "החשבון שלך נמחק בהצלחה."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Your account is up to date."
+msgstr "החשבון שלך מעודכן."
 
 #: src/dialogs/api-key/create.tsx
 msgid "Your API key has been copied to the clipboard."
@@ -4168,6 +4315,10 @@ msgstr "מפתח ה־API שלך הועתק ללוח הגזירים."
 #: src/routes/builder/$resumeId/index.tsx
 msgid "Your changes are saved automatically."
 msgstr "השינויים שלך נשמרים אוטומטית."
+
+#: src/routes/auth/verify-email.tsx
+msgid "Your email address is confirmed. You can continue using Skill Verdict."
+msgstr "כתובת הדוא״ל שלך אושרה. ניתן להמשיך להשתמש ב-Skill Verdict."
 
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Your identity has been verified and your profile is trusted."
@@ -4221,9 +4372,11 @@ msgid "Your verification call has been scheduled. Our team will review and confi
 msgstr "Your verification call has been scheduled. Our team will review and confirm your identity shortly."
 
 #: src/routes/builder/$resumeId/-components/dock.tsx
+#: src/routes/builder/$resumeId/-components/dock.tsx
 msgid "Zoom in"
 msgstr "התקרבות"
 
+#: src/routes/builder/$resumeId/-components/dock.tsx
 #: src/routes/builder/$resumeId/-components/dock.tsx
 msgid "Zoom out"
 msgstr "התרחקות"

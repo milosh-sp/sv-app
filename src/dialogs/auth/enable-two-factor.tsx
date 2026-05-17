@@ -328,7 +328,7 @@ function TwoFactorQRCode({ totpUri }: { totpUri: string }) {
       size={256}
       marginSize={2}
       className="rounded-md"
-      title="Two-Factor Authentication QR Code"
+      title={t`Two-Factor Authentication QR Code`}
     />
   );
 }
