@@ -21,7 +21,7 @@ export function Hero() {
 
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-12">
         <div className="grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-12">
-          <div className="xs:px-0 flex max-w-2xl flex-col items-start gap-y-6 text-start">
+          <div className="xs:px-0 mx-auto flex max-w-2xl flex-col items-center gap-y-6 text-center lg:mx-0 lg:items-start lg:text-start">
             {/* Badge */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -73,7 +73,7 @@ export function Hero() {
 
             {/* CTA Buttons */}
             <motion.div
-              className="flex w-full flex-col items-center gap-3 sm:w-auto sm:flex-row sm:items-start sm:gap-4"
+              className="flex w-full flex-col items-center gap-3 sm:w-auto sm:flex-row sm:justify-center sm:gap-4 lg:justify-start"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.45, delay: 0.95 }}
