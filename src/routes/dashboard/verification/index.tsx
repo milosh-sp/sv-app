@@ -49,8 +49,8 @@ type ResumeItem = {
   label: string;
 };
 
-//TODO: This hides skills and projects for now
-const showSectionFeature = false;
+//TODO: Projects verification UI is not enabled yet
+const showProjectsFeature = false;
 
 function RouteComponent() {
   const queryClient = useQueryClient();
@@ -134,6 +134,13 @@ function RouteComponent() {
     <div className="space-y-4">
       <DashboardHeader icon={SealCheckIcon} title={t`Verification`} />
 
+      <p className="text-sm text-muted-foreground">
+        <Trans>
+          Request verification for the items on your resume. Skills are reviewed by domain-expert reviewers, while work
+          experience is confirmed from documents or a freelancer profile link.
+        </Trans>
+      </p>
+
       <Separator />
 
       <motion.div
@@ -163,20 +170,18 @@ function RouteComponent() {
 
         {activeResumeId && resumeData && (
           <>
-            {showSectionFeature && (
-              <VerificationSection
-                title={t`Skills`}
-                sectionType="skill"
-                resumeId={activeResumeId}
-                items={skills}
-                getStatusForItem={getStatusForItem}
-                verifiedCount={countVerified(skills)}
-                totalCount={skills.length}
-                onMutationSuccess={invalidateStatuses}
-              />
-            )}
+            <VerificationSection
+              title={t`Skills`}
+              sectionType="skill"
+              resumeId={activeResumeId}
+              items={skills}
+              getStatusForItem={getStatusForItem}
+              verifiedCount={countVerified(skills)}
+              totalCount={skills.length}
+              onMutationSuccess={invalidateStatuses}
+            />
 
-            {showSectionFeature && (
+            {showProjectsFeature && (
               <VerificationSection
                 title={t`Projects`}
                 sectionType="project"
