@@ -3,15 +3,37 @@ import { beforeEach, describe, expect, it, vi } from "vite-plus/test";
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const mockReturning = vi.fn();
 const mockLimit = vi.fn((): any => []);
-const mockWhere = vi.fn((): any => ({ returning: mockReturning, limit: mockLimit }));
+
+function createThenableRows(rows: unknown[] = []) {
+  return Object.assign(Promise.resolve(rows), {
+    limit: mockLimit,
+    orderBy: mockOrderBy,
+  });
+}
+
+const mockOrderBy = vi.fn((): any => createThenableRows([]));
+const mockWhere = vi.fn((): any =>
+  Object.assign(Promise.resolve([]), {
+    returning: mockReturning,
+    limit: mockLimit,
+    orderBy: mockOrderBy,
+  }),
+);
 const mockSet = vi.fn((): any => ({ where: mockWhere, returning: mockReturning }));
 const mockValues = vi.fn((): any => ({ returning: mockReturning }));
-const mockOrderBy = vi.fn((): any => []);
 const mockFrom = vi.fn((): any => ({ where: mockWhere, limit: mockLimit, orderBy: mockOrderBy }));
 const mockSelect = vi.fn((): any => ({ from: mockFrom }));
 
 const mockDeleteWhere = vi.fn((): any => undefined);
 const mockDelete = vi.fn((): any => ({ where: mockDeleteWhere }));
+
+const mockTransaction = vi.fn(async (callback: (tx: any) => Promise<unknown>) => {
+  const tx = {
+    insert: vi.fn((): any => ({ values: vi.fn().mockResolvedValue(undefined) })),
+    select: mockSelect,
+  };
+  return callback(tx);
+});
 
 vi.mock("@/integrations/drizzle/client", () => ({
   db: {
@@ -19,18 +41,32 @@ vi.mock("@/integrations/drizzle/client", () => ({
     insert: vi.fn((): any => ({ values: mockValues })),
     update: vi.fn((): any => ({ set: mockSet })),
     delete: mockDelete,
+    transaction: mockTransaction,
   },
 }));
 
 const mockStorageRead = vi.fn();
+const mockStorageDelete = vi.fn();
 
 const mockUploadFile = vi.fn();
 
 vi.mock("./storage", () => ({
   getStorageService: () => ({
     read: mockStorageRead,
+    delete: mockStorageDelete,
   }),
   uploadFile: mockUploadFile,
+  toStorageKey: (stored: string) => {
+    if (stored.startsWith("uploads/")) {
+      return stored;
+    }
+    if (stored.startsWith("http://") || stored.startsWith("https://")) {
+      const pathname = new URL(stored).pathname;
+      return pathname.startsWith("/") ? pathname.slice(1) : pathname;
+    }
+    return stored;
+  },
+  toPublicFileUrl: (key: string) => `https://app.test/${key}`,
 }));
 
 vi.mock("@/integrations/drizzle/schema", () => ({
@@ -104,8 +140,40 @@ vi.mock("@/integrations/drizzle/schema", () => ({
 const { verificationService } = await import("./verification");
 
 beforeEach(() => {
-  vi.clearAllMocks();
+  mockLimit.mockReset();
+  mockReturning.mockReset();
+  mockOrderBy.mockReset();
+  mockWhere.mockReset();
+  mockFrom.mockReset();
+  mockSelect.mockReset();
+  mockSet.mockReset();
+  mockValues.mockReset();
+  mockTransaction.mockReset();
+  mockUploadFile.mockReset();
+  mockStorageRead.mockReset();
+  mockStorageDelete.mockReset();
+
   mockLimit.mockReturnValue([]);
+  mockReturning.mockResolvedValue([]);
+  mockFrom.mockImplementation(() => ({ where: mockWhere, limit: mockLimit, orderBy: mockOrderBy }));
+  mockSelect.mockImplementation(() => ({ from: mockFrom }));
+  mockSet.mockImplementation(() => ({ where: mockWhere, returning: mockReturning }));
+  mockValues.mockImplementation(() => ({ returning: mockReturning }));
+  mockOrderBy.mockImplementation(() => createThenableRows([]));
+  mockWhere.mockImplementation(() =>
+    Object.assign(Promise.resolve([]), {
+      returning: mockReturning,
+      limit: mockLimit,
+      orderBy: mockOrderBy,
+    }),
+  );
+  mockTransaction.mockImplementation(async (callback: (tx: any) => Promise<unknown>) => {
+    const tx = {
+      insert: vi.fn((): any => ({ values: vi.fn().mockResolvedValue(undefined) })),
+      select: mockSelect,
+    };
+    return callback(tx);
+  });
 });
 
 describe("verificationService.requestSkill", () => {
@@ -225,6 +293,7 @@ describe("verificationService.requestExperience", () => {
 
     const { db } = await import("@/integrations/drizzle/client");
     const insertSpy = vi.spyOn(db, "insert");
+    insertSpy.mockClear();
 
     const result = await verificationService.requestExperience({
       userId: "user-1",
@@ -377,6 +446,40 @@ describe("verificationService.getBadgeDetail", () => {
       type: "reviewer",
       label: "John Doe \u2014 Staff Engineer",
       profileUrl: "/reviewer/admin-2",
+    });
+  });
+
+  it("should fall back to verdict_submitted snapshot when verified metadata lacks reviewer name", async () => {
+    mockLimit
+      .mockReturnValueOnce([{ id: "req-1", status: "verified", sectionType: "skill" }])
+      .mockReturnValueOnce([
+        {
+          reviewerSnapshotFirstName: null,
+          reviewerSnapshotLastName: null,
+          reviewerSnapshotTitle: null,
+          reviewerPublicProfileUrl: null,
+        },
+      ]);
+
+    mockOrderBy
+      .mockReturnValueOnce(createThenableRows())
+      .mockReturnValueOnce(
+        createThenableRows([
+          {
+            reviewerSnapshotFirstName: "Jane",
+            reviewerSnapshotLastName: "Smith",
+            reviewerSnapshotTitle: "Senior Engineer",
+            reviewerPublicProfileUrl: "/reviewer/admin-1",
+          },
+        ]),
+      );
+
+    const result = await verificationService.getBadgeDetail("req-1");
+
+    expect(result).toEqual({
+      type: "reviewer",
+      label: "Jane Smith \u2014 Senior Engineer",
+      profileUrl: "/reviewer/admin-1",
     });
   });
 });
@@ -651,26 +754,45 @@ describe("verificationService.getHistory", () => {
         resolvedAt: new Date(),
       },
     ];
-    mockFrom.mockReturnValueOnce({
-      where: vi.fn(() => ({ orderBy: vi.fn(() => history) })),
-      limit: mockLimit,
-      orderBy: mockOrderBy,
-    });
-    mockFrom.mockReturnValueOnce({
-      where: vi.fn(() => ({
-        orderBy: vi.fn(() => [
-          {
-            verificationRequestId: "req-1",
-            adminRole: "reviewer_admin",
-            reviewerSnapshotFirstName: "Jane",
-            reviewerSnapshotLastName: "Reviewer",
-            actedAt: new Date(),
-          },
-        ]),
-      })),
-      limit: mockLimit,
-      orderBy: mockOrderBy,
-    });
+    mockFrom
+      .mockReturnValueOnce({
+        where: vi.fn(() => ({ orderBy: vi.fn(() => history) })),
+        limit: mockLimit,
+        orderBy: mockOrderBy,
+      })
+      .mockReturnValueOnce({
+        where: vi.fn(() => [{ id: "req-1", sectionType: "skill" }]),
+        limit: mockLimit,
+        orderBy: mockOrderBy,
+      })
+      .mockReturnValueOnce({
+        where: vi.fn(() => ({
+          orderBy: vi.fn(() => [
+            {
+              verificationRequestId: "req-1",
+              reviewerSnapshotFirstName: "Jane",
+              reviewerSnapshotLastName: "Reviewer",
+            },
+          ]),
+        })),
+        limit: mockLimit,
+        orderBy: mockOrderBy,
+      })
+      .mockReturnValueOnce({
+        where: vi.fn(() => ({
+          orderBy: vi.fn(() => [
+            {
+              verificationRequestId: "req-1",
+              adminRole: "reviewer_admin",
+              reviewerSnapshotFirstName: "Jane",
+              reviewerSnapshotLastName: "Reviewer",
+              actedAt: new Date(),
+            },
+          ]),
+        })),
+        limit: mockLimit,
+        orderBy: mockOrderBy,
+      });
 
     const result = await verificationService.getHistory({ userId: "user-1", resumeId: "resume-1", itemId: "item-1" });
 
@@ -713,6 +835,23 @@ describe("verificationService.getPublicTimeline", () => {
         where: vi.fn(() => ({ orderBy: vi.fn(() => entries) })),
       })
       .mockReturnValueOnce({
+        where: vi.fn(() => [
+          { id: "req-1", sectionType: "skill" },
+          { id: "req-2", sectionType: "project" },
+        ]),
+      })
+      .mockReturnValueOnce({
+        where: vi.fn(() => ({
+          orderBy: vi.fn(() => [
+            {
+              verificationRequestId: "req-1",
+              reviewerSnapshotFirstName: "Jane",
+              reviewerSnapshotLastName: "Reviewer",
+            },
+          ]),
+        })),
+      })
+      .mockReturnValueOnce({
         where: vi.fn(() => ({
           orderBy: vi.fn(() => [
             {
@@ -739,47 +878,38 @@ describe("verificationService.getPublicTimeline", () => {
 
 describe("verificationService.acceptCase", () => {
   const file = new File(["instructions"], "instructions.pdf", { type: "application/pdf" });
+  const reviewerProfile = {
+    firstName: "Jane",
+    lastName: "Smith",
+    title: "Engineer",
+    publicProfileUrl: "/reviewer/admin-1",
+  };
 
   it("should error if already claimed", async () => {
-    mockLimit.mockReturnValueOnce([
-      {
-        id: "req-1",
-        status: "pending",
-        claimedByAdminId: "admin-2",
-        userId: "user-1",
-        resumeId: "resume-1",
-        itemId: "item-1",
-        itemLabel: "TypeScript",
-        sectionType: "skill",
-      },
-    ]);
+    mockLimit
+      .mockReturnValueOnce([reviewerProfile])
+      .mockReturnValueOnce([{ id: "req-1" }]);
+    mockReturning.mockResolvedValueOnce([]);
 
     await expect(verificationService.acceptCase({ requestId: "req-1", adminId: "admin-1", file })).rejects.toThrow(
-      "already claimed",
+      "not available to accept",
     );
   });
 
   it("should error if not pending", async () => {
-    mockLimit.mockReturnValueOnce([
-      {
-        id: "req-1",
-        status: "claimed",
-        claimedByAdminId: null,
-        userId: "user-1",
-        resumeId: "resume-1",
-        itemId: "item-1",
-        itemLabel: "TypeScript",
-        sectionType: "skill",
-      },
-    ]);
+    mockLimit
+      .mockReturnValueOnce([reviewerProfile])
+      .mockReturnValueOnce([{ id: "req-1" }]);
+    mockReturning.mockResolvedValueOnce([]);
 
     await expect(verificationService.acceptCase({ requestId: "req-1", adminId: "admin-1", file })).rejects.toThrow(
-      "not pending",
+      "not available to accept",
     );
   });
 
   it("should error if not found", async () => {
-    mockLimit.mockReturnValueOnce([]);
+    mockLimit.mockReturnValueOnce([reviewerProfile]).mockReturnValueOnce([]);
+    mockReturning.mockResolvedValueOnce([]);
 
     await expect(verificationService.acceptCase({ requestId: "req-1", adminId: "admin-1", file })).rejects.toThrow(
       "not found",
@@ -787,32 +917,84 @@ describe("verificationService.acceptCase", () => {
   });
 
   it("should error if reviewer profile not found", async () => {
-    mockLimit
-      .mockReturnValueOnce([
-        {
-          id: "req-1",
-          status: "pending",
-          claimedByAdminId: null,
-          userId: "user-1",
-          resumeId: "resume-1",
-          itemId: "item-1",
-          itemLabel: "TypeScript",
-          sectionType: "skill",
-        },
-      ])
-      .mockReturnValueOnce([]);
+    mockLimit.mockReturnValueOnce([]);
 
     await expect(verificationService.acceptCase({ requestId: "req-1", adminId: "admin-1", file })).rejects.toThrow(
       "Reviewer profile not found",
     );
   });
+
+  it("should reject experience section requests", async () => {
+    mockLimit
+      .mockReturnValueOnce([reviewerProfile])
+      .mockReturnValueOnce([{ id: "req-1" }]);
+    mockReturning.mockResolvedValueOnce([]);
+
+    await expect(verificationService.acceptCase({ requestId: "req-1", adminId: "admin-1", file })).rejects.toThrow(
+      "not available to accept",
+    );
+  });
+
+  it("should accept case, upload instructions key, and record metadata", async () => {
+    const claimed = {
+      id: "req-1",
+      userId: "user-1",
+      resumeId: "resume-1",
+      itemId: "item-1",
+      itemLabel: "TypeScript",
+      sectionType: "skill",
+      status: "claimed",
+    };
+
+    mockLimit.mockReturnValueOnce([reviewerProfile]).mockReturnValueOnce([]);
+
+    mockReturning.mockResolvedValueOnce([
+      {
+        id: "req-1",
+        userId: "user-1",
+        resumeId: "resume-1",
+        itemId: "item-1",
+        itemLabel: "TypeScript",
+        sectionType: "skill",
+      },
+    ]);
+
+    mockUploadFile.mockResolvedValueOnce({
+      key: "uploads/user-1/documents/resume-1/item-1/123",
+      url: "https://app.test/uploads/user-1/documents/resume-1/item-1/123",
+    });
+
+    mockTransaction.mockImplementationOnce(async (callback) =>
+      callback({
+        insert: vi.fn(() => ({ values: vi.fn().mockResolvedValue(undefined) })),
+        select: vi.fn(() => ({
+          from: vi.fn(() => ({
+            where: vi.fn(() => ({
+              limit: vi.fn().mockReturnValue([claimed]),
+            })),
+          })),
+        })),
+      }),
+    );
+
+    const result = await verificationService.acceptCase({ requestId: "req-1", adminId: "admin-1", file });
+
+    expect(result.status).toBe("claimed");
+    expect(mockUploadFile).toHaveBeenCalled();
+  });
 });
 
 describe("verificationService.submitVerdict", () => {
+  const reviewerProfile = {
+    consentGiven: true,
+    firstName: "Jane",
+    lastName: "Smith",
+    title: "Engineer",
+    publicProfileUrl: "/reviewer/admin-1",
+  };
+
   it("should error if consent not given", async () => {
-    mockLimit
-      .mockReturnValueOnce([{ id: "req-1", status: "claimed", claimedByAdminId: "admin-1" }])
-      .mockReturnValueOnce([{ consentGiven: false }]);
+    mockLimit.mockReturnValueOnce([{ ...reviewerProfile, consentGiven: false }]);
 
     await expect(
       verificationService.submitVerdict({
@@ -824,7 +1006,12 @@ describe("verificationService.submitVerdict", () => {
   });
 
   it("should error if not the claiming reviewer", async () => {
-    mockLimit.mockReturnValueOnce([{ id: "req-1", status: "claimed", claimedByAdminId: "admin-2" }]);
+    mockLimit
+      .mockReturnValueOnce([reviewerProfile])
+      .mockReturnValueOnce([
+        { id: "req-1", status: "claimed", claimedByAdminId: "admin-2", sectionType: "skill" },
+      ]);
+    mockReturning.mockResolvedValueOnce([]);
 
     await expect(
       verificationService.submitVerdict({
@@ -836,7 +1023,12 @@ describe("verificationService.submitVerdict", () => {
   });
 
   it("should error if not in claimed status", async () => {
-    mockLimit.mockReturnValueOnce([{ id: "req-1", status: "pending", claimedByAdminId: "admin-1" }]);
+    mockLimit
+      .mockReturnValueOnce([reviewerProfile])
+      .mockReturnValueOnce([
+        { id: "req-1", status: "pending", claimedByAdminId: "admin-1", sectionType: "skill" },
+      ]);
+    mockReturning.mockResolvedValueOnce([]);
 
     await expect(
       verificationService.submitVerdict({
@@ -848,9 +1040,7 @@ describe("verificationService.submitVerdict", () => {
   });
 
   it("should error if profile not found", async () => {
-    mockLimit
-      .mockReturnValueOnce([{ id: "req-1", status: "claimed", claimedByAdminId: "admin-1" }])
-      .mockReturnValueOnce([]);
+    mockLimit.mockReturnValueOnce([]);
 
     await expect(
       verificationService.submitVerdict({
@@ -859,6 +1049,20 @@ describe("verificationService.submitVerdict", () => {
         verdict: "verified",
       }),
     ).rejects.toThrow("Reviewer profile not found");
+  });
+
+  it("should submit verdict when claimed by reviewer", async () => {
+    mockLimit.mockReturnValueOnce([reviewerProfile]);
+    mockReturning.mockResolvedValueOnce([{ id: "req-1", status: "verdict_pending", proposedVerdict: "verified" }]);
+
+    const result = await verificationService.submitVerdict({
+      requestId: "req-1",
+      adminId: "admin-1",
+      verdict: "verified",
+    });
+
+    expect(result.status).toBe("verdict_pending");
+    expect(result.proposedVerdict).toBe("verified");
   });
 });
 
@@ -921,10 +1125,69 @@ describe("verificationService.confirmVerdict", () => {
       "missing a proposed verdict",
     );
   });
+
+  it("should confirm verdict and copy reviewer attribution for verified status", async () => {
+    mockLimit.mockReturnValueOnce([
+      {
+        id: "req-1",
+        status: "verdict_pending",
+        userId: "user-1",
+        itemLabel: "TypeScript",
+        sectionType: "skill",
+        proposedVerdict: "verified",
+      },
+    ]);
+
+    mockReturning.mockResolvedValueOnce([
+      {
+        id: "req-1",
+        userId: "user-1",
+        itemLabel: "TypeScript",
+        sectionType: "skill",
+        proposedVerdict: "verified",
+      },
+    ]);
+
+    mockOrderBy.mockReturnValueOnce(
+      createThenableRows([
+        {
+          reviewerSnapshotFirstName: "Jane",
+          reviewerSnapshotLastName: "Smith",
+          reviewerSnapshotTitle: "Engineer",
+          reviewerPublicProfileUrl: "/reviewer/admin-1",
+        },
+      ]),
+    );
+
+    mockLimit.mockReturnValueOnce([]);
+
+    const result = await verificationService.confirmVerdict({ requestId: "req-1", adminId: "sva-1" });
+
+    expect(result.proposedVerdict).toBe("verified");
+  });
+
+  it("should error with conflict when verdict already finalized", async () => {
+    mockLimit.mockReturnValueOnce([
+      {
+        id: "req-1",
+        status: "verdict_pending",
+        userId: "user-1",
+        itemLabel: "TypeScript",
+        sectionType: "skill",
+        proposedVerdict: "verified",
+      },
+    ]);
+    mockReturning.mockResolvedValueOnce([]);
+
+    await expect(verificationService.confirmVerdict({ requestId: "req-1", adminId: "sva-1" })).rejects.toThrow(
+      "already finalized",
+    );
+  });
 });
 
 describe("verificationService.overrideVerdict", () => {
   it("should error if not verdict_pending", async () => {
+    mockReturning.mockResolvedValueOnce([]);
     mockLimit.mockReturnValueOnce([{ id: "req-1", status: "verified" }]);
 
     await expect(
@@ -938,6 +1201,7 @@ describe("verificationService.overrideVerdict", () => {
   });
 
   it("should error if not found", async () => {
+    mockReturning.mockResolvedValueOnce([]);
     mockLimit.mockReturnValueOnce([]);
 
     await expect(
@@ -952,7 +1216,7 @@ describe("verificationService.overrideVerdict", () => {
 });
 
 describe("verificationService.getDocuments", () => {
-  it("should return documents for a valid request", async () => {
+  it("should return documents with public URLs for a valid request", async () => {
     const docs = [
       { id: "doc-1", fileUrl: "uploads/user-1/item-1/file.pdf", documentType: "contract", uploadedAt: new Date() },
     ];
@@ -965,7 +1229,12 @@ describe("verificationService.getDocuments", () => {
 
     const result = await verificationService.getDocuments("req-1");
 
-    expect(result).toEqual(docs);
+    expect(result).toEqual([
+      {
+        ...docs[0],
+        fileUrl: "https://app.test/uploads/user-1/item-1/file.pdf",
+      },
+    ]);
   });
 
   it("should error if request not found", async () => {
@@ -1017,6 +1286,76 @@ describe("verificationService.downloadDocument", () => {
     mockStorageRead.mockResolvedValueOnce(null);
 
     await expect(verificationService.downloadDocument("doc-1")).rejects.toThrow("not found in storage");
+  });
+
+  it("should normalize legacy full URL file references before reading storage", async () => {
+    const doc = {
+      id: "doc-1",
+      fileUrl: "https://app.test/uploads/user-1/legacy.pdf",
+      documentType: "contract",
+    };
+    mockFrom.mockReturnValueOnce({ where: vi.fn().mockReturnValue({ limit: vi.fn().mockReturnValue([doc]) }) });
+    mockStorageRead.mockResolvedValueOnce({
+      data: new Uint8Array([9]),
+      size: 1,
+      contentType: "application/pdf",
+    });
+
+    await verificationService.downloadDocument("doc-1");
+
+    expect(mockStorageRead).toHaveBeenCalledWith("uploads/user-1/legacy.pdf");
+  });
+});
+
+describe("verificationService.uploadDocument", () => {
+  const file = new File(["payslip"], "payslip.pdf", { type: "application/pdf" });
+
+  it("should attach document only to pending experience requests", async () => {
+    mockOrderBy.mockReturnValueOnce(
+      Object.assign(Promise.resolve([]), {
+        limit: vi.fn().mockReturnValue([{ id: "req-exp-1" }]),
+      }),
+    );
+    mockReturning.mockResolvedValueOnce([
+      {
+        id: "doc-1",
+        fileUrl: "uploads/user-1/documents/resume-1/item-1/1",
+        documentType: "payslip",
+        uploadedAt: new Date(),
+      },
+    ]);
+    mockUploadFile.mockResolvedValueOnce({
+      key: "uploads/user-1/documents/resume-1/item-1/1",
+      url: "https://app.test/uploads/user-1/documents/resume-1/item-1/1",
+    });
+
+    const result = await verificationService.uploadDocument({
+      userId: "user-1",
+      resumeId: "resume-1",
+      itemId: "item-1",
+      file,
+      documentType: "payslip",
+    });
+
+    expect(result.fileUrl).toBe("https://app.test/uploads/user-1/documents/resume-1/item-1/1");
+  });
+
+  it("should error when no pending experience request exists", async () => {
+    mockOrderBy.mockReturnValueOnce(
+      Object.assign(Promise.resolve([]), {
+        limit: vi.fn().mockReturnValue([]),
+      }),
+    );
+
+    await expect(
+      verificationService.uploadDocument({
+        userId: "user-1",
+        resumeId: "resume-1",
+        itemId: "item-1",
+        file,
+        documentType: "payslip",
+      }),
+    ).rejects.toThrow("No verification request found");
   });
 });
 

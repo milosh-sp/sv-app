@@ -37,6 +37,7 @@ import {
   ApplicantDetails,
   DocumentPreview,
   QueueEmptyState,
+  QueueErrorState,
   QueueLoadingState,
   QueueResumePreview,
   ReviewDecisionPanel,
@@ -83,7 +84,9 @@ function RouteComponent() {
     retry: false,
   });
 
-  if (queueError || casesError) return null;
+  if (queueError || casesError) {
+    return <QueueErrorState />;
+  }
 
   const hasProfile = !profileError && Boolean(profile);
   const hasConsent = Boolean(profile?.consentGiven);

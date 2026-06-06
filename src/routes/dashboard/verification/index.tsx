@@ -692,7 +692,7 @@ function StatusIcon({ status }: { status: string | undefined }) {
 function StatusBadge({ status }: { status: string }) {
   const displayStatus = (s: string) => {
     if (s === "claimed") return "assessment in progress";
-    if (s === "verdict_pending") return "pending";
+    if (s === "verdict_pending") return "awaiting final review";
     return s;
   };
 

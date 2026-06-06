@@ -75,6 +75,17 @@ export function QueueEmptyState({ message }: { message: string }) {
   );
 }
 
+export function QueueErrorState({ message }: { message?: string }) {
+  return (
+    <div className="rounded-lg border border-destructive/40 bg-destructive/5 p-6 text-center">
+      <WarningCircleIcon className="mx-auto mb-2 size-8 text-destructive" weight="fill" />
+      <p className="text-sm text-destructive">
+        {message ?? <Trans>Failed to load queue. Please refresh and try again.</Trans>}
+      </p>
+    </div>
+  );
+}
+
 // ---------------------------------------------------------------------------
 // Applicant details
 // ---------------------------------------------------------------------------

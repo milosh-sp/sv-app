@@ -29,6 +29,7 @@ import {
   DocumentPreview,
   MethodBadge,
   QueueEmptyState,
+  QueueErrorState,
   QueueLoadingState,
   QueueResumePreview,
   ReviewDecisionPanel,
@@ -54,7 +55,7 @@ function RouteComponent() {
     retry: false,
   });
 
-  if (queueError) return null;
+  if (queueError) return <QueueErrorState />;
 
   return (
     <div className="space-y-4">
@@ -298,21 +299,25 @@ function PendingVerdictRow({ verdict }: { verdict: PendingVerdictItem }) {
     });
   };
 
-  const proposedVerdict = verdict.proposedVerdict ?? "verified";
+  const proposedVerdict = verdict.proposedVerdict;
 
   const confirmLabel =
     proposedVerdict === "verified"
       ? t`Confirm Pass`
       : proposedVerdict === "rejected"
         ? t`Confirm Fail`
-        : t`Confirm Issue`;
+        : proposedVerdict === "issue"
+          ? t`Confirm Issue`
+          : t`Confirm`;
 
   const confirmSuccessMessage =
     proposedVerdict === "verified"
       ? t`Verdict confirmed. Skill verified.`
       : proposedVerdict === "rejected"
         ? t`Verdict confirmed. Request rejected.`
-        : t`Verdict confirmed. Request flagged as issue.`;
+        : proposedVerdict === "issue"
+          ? t`Verdict confirmed. Request flagged as issue.`
+          : t`Verdict confirmed.`;
 
   const handleConfirm = () => {
     confirmVerdict.mutate(
@@ -357,7 +362,11 @@ function PendingVerdictRow({ verdict }: { verdict: PendingVerdictItem }) {
           <p className="text-sm font-medium">{verdict.itemLabel}</p>
           <div className="flex flex-wrap items-center gap-x-2">
             <StatusBadge status={verdict.status} />
-            {verdict.proposedVerdict && <ProposedVerdictBadge verdict={verdict.proposedVerdict} />}
+            {verdict.proposedVerdict ? (
+              <ProposedVerdictBadge verdict={verdict.proposedVerdict} />
+            ) : (
+              <MissingProposedVerdictBadge />
+            )}
             <span className="text-xs text-muted-foreground capitalize">{verdict.sectionType}</span>
             <span className="flex items-center gap-x-1 text-xs text-muted-foreground">
               <CalendarBlankIcon className="size-3" />
@@ -382,7 +391,7 @@ function PendingVerdictRow({ verdict }: { verdict: PendingVerdictItem }) {
             size="sm"
             variant="default"
             className="h-7 text-xs"
-            disabled={confirmVerdict.isPending}
+            disabled={!proposedVerdict || confirmVerdict.isPending}
             onClick={handleConfirm}
           >
             <CheckCircleIcon className="mr-1 size-3.5" weight="fill" />
@@ -501,4 +510,12 @@ function ProposedVerdictBadge({ verdict }: { verdict: "verified" | "rejected" | 
     verdict === "verified" ? t`Proposed: Pass` : verdict === "rejected" ? t`Proposed: Fail` : t`Proposed: Issue`;
 
   return <span className={`rounded-full px-2 py-0.5 text-xs ${colorClass}`}>{label}</span>;
+}
+
+function MissingProposedVerdictBadge() {
+  return (
+    <span className="rounded-full bg-amber-100 px-2 py-0.5 text-xs text-amber-800 dark:bg-amber-900/30 dark:text-amber-400">
+      <Trans>Missing proposed verdict</Trans>
+    </span>
+  );
 }

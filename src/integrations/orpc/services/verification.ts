@@ -1,5 +1,5 @@
 import { ORPCError } from "@orpc/server";
-import { and, desc, eq, inArray } from "drizzle-orm";
+import { and, desc, eq, inArray, isNull } from "drizzle-orm";
 
 import { db } from "@/integrations/drizzle/client";
 import {
@@ -17,8 +17,11 @@ import {
   sendVerificationStatusEmail,
 } from "@/integrations/email/verification";
 import { env } from "@/utils/env";
+import { validateVerificationDocumentFile } from "@/utils/verification-documents";
 
-import { getStorageService, uploadFile } from "./storage";
+import { getStorageService, toPublicFileUrl, toStorageKey, uploadFile } from "./storage";
+
+const REVIEWER_WORKFLOW_SECTION_TYPES = ["skill", "project"] as const;
 
 const ACTIVE_STATUSES = ["pending", "claimed", "verdict_pending", "verified"] as const;
 const FINAL_STATUSES = ["verified", "rejected", "issue"] as const;
@@ -28,6 +31,76 @@ const PENDING_LIKE_STATUSES = new Set<string>(["pending", "claimed", "verdict_pe
 
 function stripPendingLikeStatuses<T extends { status: string }>(rows: T[]): T[] {
   return rows.filter((r) => !PENDING_LIKE_STATUSES.has(r.status));
+}
+
+function assertReviewerWorkflowRequest(request: { sectionType: string }) {
+  if (!(REVIEWER_WORKFLOW_SECTION_TYPES as readonly string[]).includes(request.sectionType)) {
+    throw new ORPCError("BAD_REQUEST", {
+      message: "Request must be a skill or project verification request",
+    });
+  }
+}
+
+function mapDocumentToPublicUrl(doc: { fileUrl: string; documentType: string }) {
+  if (doc.documentType === "freelancer_link") {
+    return doc.fileUrl;
+  }
+
+  return toPublicFileUrl(toStorageKey(doc.fileUrl));
+}
+
+type ReviewerAttributionSnapshot = {
+  reviewerSnapshotFirstName: string;
+  reviewerSnapshotLastName: string | null;
+  reviewerSnapshotTitle: string | null;
+  reviewerPublicProfileUrl: string | null;
+};
+
+async function getReviewerAttributionSnapshot(requestId: string): Promise<ReviewerAttributionSnapshot | null> {
+  const metadataRows = await db
+    .select({
+      reviewerSnapshotFirstName: verificationMetadata.reviewerSnapshotFirstName,
+      reviewerSnapshotLastName: verificationMetadata.reviewerSnapshotLastName,
+      reviewerSnapshotTitle: verificationMetadata.reviewerSnapshotTitle,
+      reviewerPublicProfileUrl: verificationMetadata.reviewerPublicProfileUrl,
+    })
+    .from(verificationMetadata)
+    .where(
+      and(
+        eq(verificationMetadata.verificationRequestId, requestId),
+        inArray(verificationMetadata.action, ["verdict_submitted", "claimed"]),
+      ),
+    )
+    .orderBy(desc(verificationMetadata.actedAt));
+
+  for (const metadata of metadataRows) {
+    if (metadata.reviewerSnapshotFirstName) {
+      return {
+        reviewerSnapshotFirstName: metadata.reviewerSnapshotFirstName,
+        reviewerSnapshotLastName: metadata.reviewerSnapshotLastName,
+        reviewerSnapshotTitle: metadata.reviewerSnapshotTitle,
+        reviewerPublicProfileUrl: metadata.reviewerPublicProfileUrl,
+      };
+    }
+  }
+
+  return null;
+}
+
+function buildReviewerBadgeFromSnapshot(snapshot: ReviewerAttributionSnapshot) {
+  const displayName = [snapshot.reviewerSnapshotFirstName, snapshot.reviewerSnapshotLastName]
+    .filter(Boolean)
+    .join(" ");
+
+  const label = snapshot.reviewerSnapshotTitle
+    ? `${displayName} \u2014 ${snapshot.reviewerSnapshotTitle}`
+    : displayName;
+
+  return {
+    type: "reviewer" as const,
+    label,
+    profileUrl: snapshot.reviewerPublicProfileUrl,
+  };
 }
 
 async function sendFinalStatusEmail(
@@ -136,12 +209,12 @@ async function enrichSkillProjectRequests(requests: SkillProjectRequestRow[]) {
       proposedVerdict: r.proposedVerdict ?? null,
       reviewerNote: r.reviewerNote ?? null,
       assessmentAcceptedAt: r.assessmentAcceptedAt ?? null,
-      assessmentInstructionsUrl: instructionsDoc?.fileUrl ?? null,
+      assessmentInstructionsUrl: instructionsDoc ? mapDocumentToPublicUrl(instructionsDoc) : null,
       user: applicantUser,
       resume: applicantResume,
       documents: requestDocs.map((d) => ({
         id: d.id,
-        fileUrl: d.fileUrl,
+        fileUrl: mapDocumentToPublicUrl(d),
         documentType: d.documentType,
         uploadedAt: d.uploadedAt,
       })),
@@ -177,7 +250,9 @@ async function attachAssessmentFields<
       ),
     );
 
-  const instructionsByRequestId = new Map(docs.map((d) => [d.verificationRequestId, d.fileUrl]));
+  const instructionsByRequestId = new Map(
+    docs.map((d) => [d.verificationRequestId, mapDocumentToPublicUrl({ fileUrl: d.fileUrl, documentType: "assessment_instructions" })]),
+  );
 
   return rows.map((r) => ({
     ...r,
@@ -210,10 +285,58 @@ function getVerificationActorLabel(metadata: {
   return "Admin Reviewer";
 }
 
+async function buildReviewerAttributionLabelMap(requestIds: string[]) {
+  if (requestIds.length === 0) {
+    return new Map<string, string>();
+  }
+
+  const metadataRows = await db
+    .select({
+      verificationRequestId: verificationMetadata.verificationRequestId,
+      reviewerSnapshotFirstName: verificationMetadata.reviewerSnapshotFirstName,
+      reviewerSnapshotLastName: verificationMetadata.reviewerSnapshotLastName,
+    })
+    .from(verificationMetadata)
+    .where(
+      and(
+        inArray(verificationMetadata.verificationRequestId, requestIds),
+        inArray(verificationMetadata.action, ["verdict_submitted", "claimed"]),
+      ),
+    )
+    .orderBy(desc(verificationMetadata.actedAt));
+
+  const labelByRequestId = new Map<string, string>();
+  for (const metadata of metadataRows) {
+    if (labelByRequestId.has(metadata.verificationRequestId) || !metadata.reviewerSnapshotFirstName) {
+      continue;
+    }
+    labelByRequestId.set(
+      metadata.verificationRequestId,
+      [metadata.reviewerSnapshotFirstName, metadata.reviewerSnapshotLastName].filter(Boolean).join(" "),
+    );
+  }
+
+  return labelByRequestId;
+}
+
 async function buildVerifierLabelMap(verificationRequestIds: string[]) {
   if (verificationRequestIds.length === 0) {
     return new Map<string, string>();
   }
+
+  const requestRows = await db
+    .select({
+      id: verificationRequests.id,
+      sectionType: verificationRequests.sectionType,
+    })
+    .from(verificationRequests)
+    .where(inArray(verificationRequests.id, verificationRequestIds));
+
+  const skillProjectIds = requestRows
+    .filter((r) => (REVIEWER_WORKFLOW_SECTION_TYPES as readonly string[]).includes(r.sectionType))
+    .map((r) => r.id);
+
+  const reviewerAttributionLabels = await buildReviewerAttributionLabelMap(skillProjectIds);
 
   const metadataRows = await db
     .select({
@@ -237,6 +360,13 @@ async function buildVerifierLabelMap(verificationRequestIds: string[]) {
     if (verifierByRequestId.has(metadata.verificationRequestId)) {
       continue;
     }
+
+    const reviewerLabel = reviewerAttributionLabels.get(metadata.verificationRequestId);
+    if (reviewerLabel) {
+      verifierByRequestId.set(metadata.verificationRequestId, reviewerLabel);
+      continue;
+    }
+
     verifierByRequestId.set(metadata.verificationRequestId, getVerificationActorLabel(metadata));
   }
 
@@ -315,6 +445,8 @@ export const verificationService = {
           eq(verificationRequests.resumeId, input.resumeId),
           eq(verificationRequests.itemId, input.itemId),
           eq(verificationRequests.userId, input.userId),
+          eq(verificationRequests.sectionType, "experience"),
+          eq(verificationRequests.status, "pending"),
         ),
       )
       .orderBy(desc(verificationRequests.submittedAt))
@@ -342,12 +474,15 @@ export const verificationService = {
       .insert(verificationDocuments)
       .values({
         verificationRequestId: req.id,
-        fileUrl: result.url,
+        fileUrl: result.key,
         documentType: input.documentType,
       })
       .returning();
 
-    return doc!;
+    return {
+      ...doc!,
+      fileUrl: mapDocumentToPublicUrl({ fileUrl: doc!.fileUrl, documentType: doc!.documentType }),
+    };
   },
 
   requestExperience: async (input: {
@@ -820,25 +955,24 @@ export const verificationService = {
           inArray(verificationMetadata.action, ["verified", "overridden"]),
         ),
       )
+      .orderBy(desc(verificationMetadata.actedAt))
       .limit(1);
 
-    if (!metadata?.reviewerSnapshotFirstName) {
-      return { type: "reviewer" as const, label: "Verified", profileUrl: null };
+    if (metadata?.reviewerSnapshotFirstName) {
+      return buildReviewerBadgeFromSnapshot({
+        reviewerSnapshotFirstName: metadata.reviewerSnapshotFirstName,
+        reviewerSnapshotLastName: metadata.reviewerSnapshotLastName,
+        reviewerSnapshotTitle: metadata.reviewerSnapshotTitle,
+        reviewerPublicProfileUrl: metadata.reviewerPublicProfileUrl,
+      });
     }
 
-    const displayName = [metadata.reviewerSnapshotFirstName, metadata.reviewerSnapshotLastName]
-      .filter(Boolean)
-      .join(" ");
+    const attributionSnapshot = await getReviewerAttributionSnapshot(requestId);
+    if (attributionSnapshot) {
+      return buildReviewerBadgeFromSnapshot(attributionSnapshot);
+    }
 
-    const label = metadata.reviewerSnapshotTitle
-      ? `${displayName} \u2014 ${metadata.reviewerSnapshotTitle}`
-      : displayName;
-
-    return {
-      type: "reviewer" as const,
-      label,
-      profileUrl: metadata.reviewerPublicProfileUrl,
-    };
+    return { type: "reviewer" as const, label: "Verified", profileUrl: null };
   },
 
   // --- Admin: Reviewer procedures ---
@@ -868,35 +1002,12 @@ export const verificationService = {
   },
 
   acceptCase: async (input: { requestId: string; adminId: string; file: File; message?: string }) => {
-    const [request] = await db
-      .select({
-        id: verificationRequests.id,
-        status: verificationRequests.status,
-        claimedByAdminId: verificationRequests.claimedByAdminId,
-        userId: verificationRequests.userId,
-        resumeId: verificationRequests.resumeId,
-        itemId: verificationRequests.itemId,
-        itemLabel: verificationRequests.itemLabel,
-        sectionType: verificationRequests.sectionType,
-      })
-      .from(verificationRequests)
-      .where(eq(verificationRequests.id, input.requestId))
-      .limit(1);
-
-    if (!request) {
-      throw new ORPCError("NOT_FOUND", { message: "Verification request not found" });
-    }
-
-    if (request.status !== "pending") {
-      throw new ORPCError("CONFLICT", { message: "Request is not pending" });
-    }
-
-    if (request.claimedByAdminId) {
-      throw new ORPCError("CONFLICT", { message: "Request is already claimed" });
-    }
-
-    if (!request.resumeId) {
-      throw new ORPCError("BAD_REQUEST", { message: "Request is missing a resume" });
+    try {
+      validateVerificationDocumentFile(input.file);
+    } catch (error) {
+      throw new ORPCError("BAD_REQUEST", {
+        message: error instanceof Error ? error.message : "Invalid document file",
+      });
     }
 
     const [profile] = await db
@@ -909,21 +1020,9 @@ export const verificationService = {
       throw new ORPCError("NOT_FOUND", { message: "Reviewer profile not found" });
     }
 
-    const fileBuffer = await input.file.arrayBuffer();
-    const data = new Uint8Array(fileBuffer);
-
-    const uploadResult = await uploadFile({
-      userId: request.userId,
-      resumeId: request.resumeId,
-      itemId: request.itemId,
-      data,
-      contentType: input.file.type || "application/octet-stream",
-      type: "document",
-    });
-
     const acceptedAt = new Date();
 
-    const [updated] = await db
+    const [claimed] = await db
       .update(verificationRequests)
       .set({
         status: "claimed",
@@ -931,38 +1030,126 @@ export const verificationService = {
         claimedByAdminId: input.adminId,
         assessmentAcceptedAt: acceptedAt,
       })
-      .where(eq(verificationRequests.id, input.requestId))
-      .returning();
+      .where(
+        and(
+          eq(verificationRequests.id, input.requestId),
+          eq(verificationRequests.status, "pending"),
+          isNull(verificationRequests.claimedByAdminId),
+          inArray(verificationRequests.sectionType, [...REVIEWER_WORKFLOW_SECTION_TYPES]),
+        ),
+      )
+      .returning({
+        id: verificationRequests.id,
+        userId: verificationRequests.userId,
+        resumeId: verificationRequests.resumeId,
+        itemId: verificationRequests.itemId,
+        itemLabel: verificationRequests.itemLabel,
+        sectionType: verificationRequests.sectionType,
+      });
 
-    await db.insert(verificationDocuments).values({
-      verificationRequestId: input.requestId,
-      fileUrl: uploadResult.url,
-      documentType: "assessment_instructions",
-    });
+    if (!claimed) {
+      const [exists] = await db
+        .select({ id: verificationRequests.id })
+        .from(verificationRequests)
+        .where(eq(verificationRequests.id, input.requestId))
+        .limit(1);
 
-    await db.insert(verificationMetadata).values({
-      verificationRequestId: input.requestId,
-      adminId: input.adminId,
-      adminRole: "reviewer_admin",
-      action: "claimed",
-      notes: input.message ?? null,
-      reviewerSnapshotFirstName: profile.firstName,
-      reviewerSnapshotLastName: profile.lastName,
-      reviewerSnapshotTitle: profile.title,
-      reviewerPublicProfileUrl: profile.publicProfileUrl,
-    });
+      if (!exists) {
+        throw new ORPCError("NOT_FOUND", { message: "Verification request not found" });
+      }
+
+      throw new ORPCError("CONFLICT", { message: "Request is not available to accept" });
+    }
+
+    if (!claimed.resumeId) {
+      throw new ORPCError("BAD_REQUEST", { message: "Request is missing a resume" });
+    }
+
+    assertReviewerWorkflowRequest(claimed);
+
+    const fileBuffer = await input.file.arrayBuffer();
+    const data = new Uint8Array(fileBuffer);
+    const storageService = getStorageService();
+
+    let uploadResult: Awaited<ReturnType<typeof uploadFile>>;
+    try {
+      uploadResult = await uploadFile({
+        userId: claimed.userId,
+        resumeId: claimed.resumeId,
+        itemId: claimed.itemId,
+        data,
+        contentType: input.file.type || "application/octet-stream",
+        type: "document",
+      });
+    } catch {
+      await db
+        .update(verificationRequests)
+        .set({
+          status: "pending",
+          claimedAt: null,
+          claimedByAdminId: null,
+          assessmentAcceptedAt: null,
+        })
+        .where(eq(verificationRequests.id, input.requestId));
+
+      throw new ORPCError("INTERNAL_SERVER_ERROR", { message: "Failed to upload assessment instructions" });
+    }
+
+    let updated: (typeof claimed & { status: string }) | undefined;
+    try {
+      updated = await db.transaction(async (tx) => {
+        await tx.insert(verificationDocuments).values({
+          verificationRequestId: input.requestId,
+          fileUrl: uploadResult.key,
+          documentType: "assessment_instructions",
+        });
+
+        await tx.insert(verificationMetadata).values({
+          verificationRequestId: input.requestId,
+          adminId: input.adminId,
+          adminRole: "reviewer_admin",
+          action: "claimed",
+          notes: input.message ?? null,
+          reviewerSnapshotFirstName: profile.firstName,
+          reviewerSnapshotLastName: profile.lastName,
+          reviewerSnapshotTitle: profile.title,
+          reviewerPublicProfileUrl: profile.publicProfileUrl,
+        });
+
+        const [row] = await tx
+          .select()
+          .from(verificationRequests)
+          .where(eq(verificationRequests.id, input.requestId))
+          .limit(1);
+
+        return row;
+      });
+    } catch {
+      await db
+        .update(verificationRequests)
+        .set({
+          status: "pending",
+          claimedAt: null,
+          claimedByAdminId: null,
+          assessmentAcceptedAt: null,
+        })
+        .where(eq(verificationRequests.id, input.requestId));
+
+      await storageService.delete(uploadResult.key);
+
+      throw new ORPCError("INTERNAL_SERVER_ERROR", { message: "Failed to record assessment acceptance" });
+    }
 
     try {
-      const [userData] = await db.select({ email: user.email }).from(user).where(eq(user.id, request.userId)).limit(1);
+      const [userData] = await db.select({ email: user.email }).from(user).where(eq(user.id, claimed.userId)).limit(1);
 
       if (userData?.email) {
         const reviewerName = [profile.firstName, profile.lastName].filter(Boolean).join(" ");
         await sendSkillAssessmentAcceptedEmail({
           to: userData.email,
-          itemLabel: request.itemLabel,
+          itemLabel: claimed.itemLabel,
           reviewerName,
           message: input.message,
-          instructionsUrl: uploadResult.url,
           verificationDashboardUrl: `${env.APP_URL}/dashboard/verification`,
         });
       }
@@ -1007,28 +1194,6 @@ export const verificationService = {
     verdict: "verified" | "rejected" | "issue";
     notes?: string;
   }) => {
-    const [request] = await db
-      .select({
-        id: verificationRequests.id,
-        status: verificationRequests.status,
-        claimedByAdminId: verificationRequests.claimedByAdminId,
-      })
-      .from(verificationRequests)
-      .where(eq(verificationRequests.id, input.requestId))
-      .limit(1);
-
-    if (!request) {
-      throw new ORPCError("NOT_FOUND", { message: "Verification request not found" });
-    }
-
-    if (request.status !== "claimed") {
-      throw new ORPCError("BAD_REQUEST", { message: "Request must be in claimed status" });
-    }
-
-    if (request.claimedByAdminId !== input.adminId) {
-      throw new ORPCError("FORBIDDEN", { message: "Only the claiming reviewer can submit a verdict" });
-    }
-
     const [profile] = await db
       .select()
       .from(reviewerProfiles)
@@ -1050,8 +1215,40 @@ export const verificationService = {
         reviewerNote: input.notes ?? null,
         proposedVerdict: input.verdict,
       })
-      .where(eq(verificationRequests.id, input.requestId))
+      .where(
+        and(
+          eq(verificationRequests.id, input.requestId),
+          eq(verificationRequests.status, "claimed"),
+          eq(verificationRequests.claimedByAdminId, input.adminId),
+          inArray(verificationRequests.sectionType, [...REVIEWER_WORKFLOW_SECTION_TYPES]),
+        ),
+      )
       .returning();
+
+    if (!updated) {
+      const [existing] = await db
+        .select({
+          id: verificationRequests.id,
+          status: verificationRequests.status,
+          claimedByAdminId: verificationRequests.claimedByAdminId,
+          sectionType: verificationRequests.sectionType,
+        })
+        .from(verificationRequests)
+        .where(eq(verificationRequests.id, input.requestId))
+        .limit(1);
+
+      if (!existing) {
+        throw new ORPCError("NOT_FOUND", { message: "Verification request not found" });
+      }
+
+      assertReviewerWorkflowRequest(existing);
+
+      if (existing.claimedByAdminId !== input.adminId) {
+        throw new ORPCError("FORBIDDEN", { message: "Only the claiming reviewer can submit a verdict" });
+      }
+
+      throw new ORPCError("BAD_REQUEST", { message: "Request must be in claimed status" });
+    }
 
     await db.insert(verificationMetadata).values({
       verificationRequestId: input.requestId,
@@ -1065,7 +1262,7 @@ export const verificationService = {
       reviewerPublicProfileUrl: profile.publicProfileUrl,
     });
 
-    return updated!;
+    return updated;
   },
 
   // --- Admin: Skill Verdict Admin procedures ---
@@ -1155,7 +1352,7 @@ export const verificationService = {
         resume: applicantResume,
         documents: (docsByRequestId.get(r.id) ?? []).map((d) => ({
           id: d.id,
-          fileUrl: d.fileUrl,
+          fileUrl: mapDocumentToPublicUrl(d),
           documentType: d.documentType,
           uploadedAt: d.uploadedAt,
         })),
@@ -1319,22 +1516,44 @@ export const verificationService = {
         status: finalStatus,
         resolvedAt: new Date(),
       })
-      .where(eq(verificationRequests.id, input.requestId))
-      .returning();
+      .where(
+        and(
+          eq(verificationRequests.id, input.requestId),
+          eq(verificationRequests.status, "verdict_pending"),
+        ),
+      )
+      .returning({
+        id: verificationRequests.id,
+        userId: verificationRequests.userId,
+        itemLabel: verificationRequests.itemLabel,
+        sectionType: verificationRequests.sectionType,
+        proposedVerdict: verificationRequests.proposedVerdict,
+      });
+
+    if (!updated) {
+      throw new ORPCError("CONFLICT", { message: "Verdict was already finalized" });
+    }
+
+    const attributionSnapshot =
+      finalStatus === "verified" ? await getReviewerAttributionSnapshot(input.requestId) : null;
 
     await db.insert(verificationMetadata).values({
       verificationRequestId: input.requestId,
       adminId: input.adminId,
       adminRole: "skill_verdict_admin",
       action: verdictToMetadataAction(finalStatus),
+      reviewerSnapshotFirstName: attributionSnapshot?.reviewerSnapshotFirstName ?? null,
+      reviewerSnapshotLastName: attributionSnapshot?.reviewerSnapshotLastName ?? null,
+      reviewerSnapshotTitle: attributionSnapshot?.reviewerSnapshotTitle ?? null,
+      reviewerPublicProfileUrl: attributionSnapshot?.reviewerPublicProfileUrl ?? null,
     });
 
     await sendFinalStatusEmail(
-      { userId: request.userId, itemLabel: request.itemLabel, sectionType: request.sectionType },
+      { userId: updated.userId, itemLabel: updated.itemLabel, sectionType: updated.sectionType },
       finalStatus,
     );
 
-    return updated!;
+    return updated;
   },
 
   overrideVerdict: async (input: {
@@ -1343,34 +1562,42 @@ export const verificationService = {
     action: "verified" | "rejected" | "issue";
     reason: string;
   }) => {
-    const [request] = await db
-      .select({
-        id: verificationRequests.id,
-        status: verificationRequests.status,
-        userId: verificationRequests.userId,
-        itemLabel: verificationRequests.itemLabel,
-        sectionType: verificationRequests.sectionType,
-      })
-      .from(verificationRequests)
-      .where(eq(verificationRequests.id, input.requestId))
-      .limit(1);
-
-    if (!request) {
-      throw new ORPCError("NOT_FOUND", { message: "Verification request not found" });
-    }
-
-    if (request.status !== "verdict_pending") {
-      throw new ORPCError("BAD_REQUEST", { message: "Request must be in verdict_pending status" });
-    }
-
     const [updated] = await db
       .update(verificationRequests)
       .set({
         status: input.action,
         resolvedAt: new Date(),
       })
-      .where(eq(verificationRequests.id, input.requestId))
-      .returning();
+      .where(
+        and(
+          eq(verificationRequests.id, input.requestId),
+          eq(verificationRequests.status, "verdict_pending"),
+        ),
+      )
+      .returning({
+        id: verificationRequests.id,
+        userId: verificationRequests.userId,
+        itemLabel: verificationRequests.itemLabel,
+        sectionType: verificationRequests.sectionType,
+      });
+
+    if (!updated) {
+      const [existing] = await db
+        .select({ id: verificationRequests.id, status: verificationRequests.status })
+        .from(verificationRequests)
+        .where(eq(verificationRequests.id, input.requestId))
+        .limit(1);
+
+      if (!existing) {
+        throw new ORPCError("NOT_FOUND", { message: "Verification request not found" });
+      }
+
+      if (existing.status !== "verdict_pending") {
+        throw new ORPCError("BAD_REQUEST", { message: "Request must be in verdict_pending status" });
+      }
+
+      throw new ORPCError("CONFLICT", { message: "Verdict was already finalized" });
+    }
 
     await db.insert(verificationMetadata).values({
       verificationRequestId: input.requestId,
@@ -1382,12 +1609,12 @@ export const verificationService = {
 
     if (isFinalStatus(input.action)) {
       await sendFinalStatusEmail(
-        { userId: request.userId, itemLabel: request.itemLabel, sectionType: request.sectionType },
+        { userId: updated.userId, itemLabel: updated.itemLabel, sectionType: updated.sectionType },
         input.action,
       );
     }
 
-    return updated!;
+    return updated;
   },
 
   cancelIdentity: async (userId: string) => {
@@ -1498,7 +1725,7 @@ export const verificationService = {
       resume: latestResumeByUserId.get(r.userId) ?? null,
       documents: (docsByRequestId.get(r.id) ?? []).map((d) => ({
         id: d.id,
-        fileUrl: d.fileUrl,
+        fileUrl: mapDocumentToPublicUrl(d),
         documentType: d.documentType,
         uploadedAt: d.uploadedAt,
       })),
@@ -1574,7 +1801,7 @@ export const verificationService = {
       throw new ORPCError("NOT_FOUND", { message: "Verification request not found" });
     }
 
-    return await db
+    const docs = await db
       .select({
         id: verificationDocuments.id,
         fileUrl: verificationDocuments.fileUrl,
@@ -1583,6 +1810,11 @@ export const verificationService = {
       })
       .from(verificationDocuments)
       .where(eq(verificationDocuments.verificationRequestId, requestId));
+
+    return docs.map((doc) => ({
+      ...doc,
+      fileUrl: mapDocumentToPublicUrl(doc),
+    }));
   },
 
   downloadDocument: async (documentId: string) => {
@@ -1600,8 +1832,13 @@ export const verificationService = {
       throw new ORPCError("NOT_FOUND", { message: "Document not found" });
     }
 
+    if (doc.documentType === "freelancer_link") {
+      throw new ORPCError("BAD_REQUEST", { message: "Freelancer links cannot be downloaded" });
+    }
+
     const storageService = getStorageService();
-    const result = await storageService.read(doc.fileUrl);
+    const storageKey = toStorageKey(doc.fileUrl);
+    const result = await storageService.read(storageKey);
 
     if (!result) {
       throw new ORPCError("NOT_FOUND", { message: "Document file not found in storage" });
@@ -1609,7 +1846,7 @@ export const verificationService = {
 
     return {
       id: doc.id,
-      fileUrl: doc.fileUrl,
+      fileUrl: mapDocumentToPublicUrl(doc),
       documentType: doc.documentType,
       contentType: result.contentType ?? "application/octet-stream",
       size: result.size,

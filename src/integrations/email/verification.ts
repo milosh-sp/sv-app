@@ -93,7 +93,6 @@ interface SkillAssessmentAcceptedEmailInput {
   itemLabel: string;
   reviewerName: string;
   message?: string;
-  instructionsUrl: string;
   verificationDashboardUrl: string;
 }
 
@@ -106,10 +105,7 @@ export const sendSkillAssessmentAcceptedEmail = async (input: SkillAssessmentAcc
       "",
       input.message ? `Message from your reviewer:\n${input.message}` : "",
       input.message ? "" : "",
-      "Download your assessment instructions:",
-      input.instructionsUrl,
-      "",
-      "You can also view and download the instructions from your Verification dashboard:",
+      "Sign in to view and download your assessment instructions:",
       input.verificationDashboardUrl,
       "",
       "Complete the assessment as described, then wait for the reviewer to evaluate your results.",
