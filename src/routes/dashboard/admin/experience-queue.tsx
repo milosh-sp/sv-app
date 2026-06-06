@@ -298,12 +298,28 @@ function PendingVerdictRow({ verdict }: { verdict: PendingVerdictItem }) {
     });
   };
 
+  const proposedVerdict = verdict.proposedVerdict ?? "verified";
+
+  const confirmLabel =
+    proposedVerdict === "verified"
+      ? t`Confirm Pass`
+      : proposedVerdict === "rejected"
+        ? t`Confirm Fail`
+        : t`Confirm Issue`;
+
+  const confirmSuccessMessage =
+    proposedVerdict === "verified"
+      ? t`Verdict confirmed. Skill verified.`
+      : proposedVerdict === "rejected"
+        ? t`Verdict confirmed. Request rejected.`
+        : t`Verdict confirmed. Request flagged as issue.`;
+
   const handleConfirm = () => {
     confirmVerdict.mutate(
       { requestId: verdict.id },
       {
         onSuccess: () => {
-          toast.success(t`Verdict confirmed. Experience verified.`);
+          toast.success(confirmSuccessMessage);
           invalidate();
         },
         onError: (error) => toast.error(error.message),
@@ -341,12 +357,24 @@ function PendingVerdictRow({ verdict }: { verdict: PendingVerdictItem }) {
           <p className="text-sm font-medium">{verdict.itemLabel}</p>
           <div className="flex flex-wrap items-center gap-x-2">
             <StatusBadge status={verdict.status} />
+            {verdict.proposedVerdict && <ProposedVerdictBadge verdict={verdict.proposedVerdict} />}
             <span className="text-xs text-muted-foreground capitalize">{verdict.sectionType}</span>
             <span className="flex items-center gap-x-1 text-xs text-muted-foreground">
               <CalendarBlankIcon className="size-3" />
               {formatDefaultDate(verdict.submittedAt)}
             </span>
           </div>
+          {verdict.reviewerName && (
+            <p className="text-xs text-muted-foreground">
+              <Trans>Reviewer:</Trans> {verdict.reviewerName}
+              {verdict.reviewerTitle ? ` · ${verdict.reviewerTitle}` : ""}
+            </p>
+          )}
+          {verdict.verdictNotes && (
+            <p className="text-xs text-muted-foreground">
+              <Trans>Notes:</Trans> {verdict.verdictNotes}
+            </p>
+          )}
         </div>
 
         <div className="flex shrink-0 items-center gap-x-2">
@@ -358,13 +386,29 @@ function PendingVerdictRow({ verdict }: { verdict: PendingVerdictItem }) {
             onClick={handleConfirm}
           >
             <CheckCircleIcon className="mr-1 size-3.5" weight="fill" />
-            {confirmVerdict.isPending ? <Trans>Confirming...</Trans> : <Trans>Confirm</Trans>}
+            {confirmVerdict.isPending ? <Trans>Confirming...</Trans> : confirmLabel}
           </Button>
           <Button size="sm" variant="outline" className="h-7 text-xs" onClick={() => setOverrideOpen(!overrideOpen)}>
             {overrideOpen ? <Trans>Cancel Override</Trans> : <Trans>Override</Trans>}
           </Button>
         </div>
       </div>
+
+      {verdict.assessmentInstructionsUrl && (
+        <div className="space-y-2">
+          <p className="text-xs font-medium text-muted-foreground">
+            <Trans>Assessment instructions</Trans>
+          </p>
+          <a
+            href={verdict.assessmentInstructionsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-xs text-primary hover:underline"
+          >
+            <Trans>View instructions sent to applicant</Trans>
+          </a>
+        </div>
+      )}
 
       {overrideOpen && (
         <div className="space-y-3 border-t pt-3">
@@ -443,4 +487,18 @@ function PendingVerdictRow({ verdict }: { verdict: PendingVerdictItem }) {
       )}
     </div>
   );
+}
+
+function ProposedVerdictBadge({ verdict }: { verdict: "verified" | "rejected" | "issue" }) {
+  const colorClass =
+    verdict === "verified"
+      ? "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400"
+      : verdict === "rejected"
+        ? "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400"
+        : "bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-400";
+
+  const label =
+    verdict === "verified" ? t`Proposed: Pass` : verdict === "rejected" ? t`Proposed: Fail` : t`Proposed: Issue`;
+
+  return <span className={`rounded-full px-2 py-0.5 text-xs ${colorClass}`}>{label}</span>;
 }

@@ -11,7 +11,11 @@ import {
   verificationMetadata,
   verificationRequests,
 } from "@/integrations/drizzle/schema";
-import { sendIdentityVerificationRequestedEmail, sendVerificationStatusEmail } from "@/integrations/email/verification";
+import {
+  sendIdentityVerificationRequestedEmail,
+  sendSkillAssessmentAcceptedEmail,
+  sendVerificationStatusEmail,
+} from "@/integrations/email/verification";
 import { env } from "@/utils/env";
 
 import { getStorageService, uploadFile } from "./storage";
@@ -43,6 +47,150 @@ async function sendFinalStatusEmail(
   } catch {
     // Email failures should not block the main flow
   }
+}
+
+type SkillProjectRequestRow = {
+  id: string;
+  userId: string;
+  resumeId: string | null;
+  sectionType: string;
+  itemId: string;
+  itemLabel: string;
+  status: string;
+  submittedAt: Date;
+  claimedAt?: Date | null;
+  claimedByAdminId?: string | null;
+  proposedVerdict?: "verified" | "rejected" | "issue" | null;
+  reviewerNote?: string | null;
+  assessmentAcceptedAt?: Date | null;
+};
+
+async function enrichSkillProjectRequests(requests: SkillProjectRequestRow[]) {
+  if (requests.length === 0) return [];
+
+  const requestIds = requests.map((r) => r.id);
+  const userIds = [...new Set(requests.map((r) => r.userId))];
+  const resumeIds = [...new Set(requests.map((r) => r.resumeId).filter((id): id is string => id != null))];
+
+  const users = userIds.length > 0 ? await db.select().from(user).where(inArray(user.id, userIds)) : [];
+
+  const resumeRows =
+    resumeIds.length > 0
+      ? await db
+          .select({
+            id: resume.id,
+            name: resume.name,
+            slug: resume.slug,
+            tags: resume.tags,
+            isPublic: resume.isPublic,
+            isLocked: resume.isLocked,
+            data: resume.data,
+            userId: resume.userId,
+            createdAt: resume.createdAt,
+            updatedAt: resume.updatedAt,
+          })
+          .from(resume)
+          .where(inArray(resume.id, resumeIds))
+      : [];
+
+  const docs = await db
+    .select({
+      id: verificationDocuments.id,
+      verificationRequestId: verificationDocuments.verificationRequestId,
+      fileUrl: verificationDocuments.fileUrl,
+      documentType: verificationDocuments.documentType,
+      uploadedAt: verificationDocuments.uploadedAt,
+    })
+    .from(verificationDocuments)
+    .where(inArray(verificationDocuments.verificationRequestId, requestIds));
+
+  const userById = new Map(users.map((u) => [u.id, u]));
+  const resumeById = new Map(resumeRows.map((row) => [row.id, row]));
+  const docsByRequestId = new Map<string, typeof docs>();
+
+  for (const doc of docs) {
+    const existing = docsByRequestId.get(doc.verificationRequestId) ?? [];
+    existing.push(doc);
+    docsByRequestId.set(doc.verificationRequestId, existing);
+  }
+
+  return requests.map((r) => {
+    const applicantUser = userById.get(r.userId) ?? null;
+    let applicantResume: (typeof resumeRows)[number] | null = null;
+    if (r.resumeId) {
+      const row = resumeById.get(r.resumeId);
+      if (row && row.userId === r.userId) applicantResume = row;
+    }
+
+    const requestDocs = docsByRequestId.get(r.id) ?? [];
+    const instructionsDoc = requestDocs.find((d) => d.documentType === "assessment_instructions");
+
+    return {
+      id: r.id,
+      sectionType: r.sectionType,
+      itemId: r.itemId,
+      itemLabel: r.itemLabel,
+      status: r.status,
+      submittedAt: r.submittedAt,
+      claimedAt: r.claimedAt ?? null,
+      proposedVerdict: r.proposedVerdict ?? null,
+      reviewerNote: r.reviewerNote ?? null,
+      assessmentAcceptedAt: r.assessmentAcceptedAt ?? null,
+      assessmentInstructionsUrl: instructionsDoc?.fileUrl ?? null,
+      user: applicantUser,
+      resume: applicantResume,
+      documents: requestDocs.map((d) => ({
+        id: d.id,
+        fileUrl: d.fileUrl,
+        documentType: d.documentType,
+        uploadedAt: d.uploadedAt,
+      })),
+    };
+  });
+}
+
+async function attachAssessmentFields<
+  T extends { id: string; status: string; sectionType: string; assessmentAcceptedAt?: Date | null },
+>(rows: T[]) {
+  const inAssessmentIds = rows
+    .filter((r) => r.status === "claimed" && (r.sectionType === "skill" || r.sectionType === "project"))
+    .map((r) => r.id);
+
+  if (inAssessmentIds.length === 0) {
+    return rows.map((r) => ({
+      ...r,
+      assessmentInstructionsUrl: null as string | null,
+      assessmentAcceptedAt: r.assessmentAcceptedAt ?? null,
+    }));
+  }
+
+  const docs = await db
+    .select({
+      verificationRequestId: verificationDocuments.verificationRequestId,
+      fileUrl: verificationDocuments.fileUrl,
+    })
+    .from(verificationDocuments)
+    .where(
+      and(
+        inArray(verificationDocuments.verificationRequestId, inAssessmentIds),
+        eq(verificationDocuments.documentType, "assessment_instructions"),
+      ),
+    );
+
+  const instructionsByRequestId = new Map(docs.map((d) => [d.verificationRequestId, d.fileUrl]));
+
+  return rows.map((r) => ({
+    ...r,
+    assessmentInstructionsUrl:
+      r.status === "claimed" && (r.sectionType === "skill" || r.sectionType === "project")
+        ? (instructionsByRequestId.get(r.id) ?? null)
+        : null,
+    assessmentAcceptedAt: r.assessmentAcceptedAt ?? null,
+  }));
+}
+
+function verdictToMetadataAction(verdict: "verified" | "rejected" | "issue") {
+  return verdict === "issue" ? ("flagged" as const) : verdict;
 }
 
 function isFinalStatus(status: string): status is (typeof FINAL_STATUSES)[number] {
@@ -273,7 +421,7 @@ export const verificationService = {
   },
 
   getAllStatuses: async (userId: string) => {
-    return await db
+    const rows = await db
       .select({
         id: verificationRequests.id,
         sectionType: verificationRequests.sectionType,
@@ -283,10 +431,13 @@ export const verificationService = {
         badgeVisible: verificationRequests.badgeVisible,
         submittedAt: verificationRequests.submittedAt,
         resumeId: verificationRequests.resumeId,
+        assessmentAcceptedAt: verificationRequests.assessmentAcceptedAt,
       })
       .from(verificationRequests)
       .where(eq(verificationRequests.userId, userId))
       .orderBy(desc(verificationRequests.submittedAt));
+
+    return await attachAssessmentFields(rows);
   },
 
   getIdentityStatus: async (userId: string) => {
@@ -313,9 +464,12 @@ export const verificationService = {
         status: verificationRequests.status,
         badgeVisible: verificationRequests.badgeVisible,
         submittedAt: verificationRequests.submittedAt,
+        assessmentAcceptedAt: verificationRequests.assessmentAcceptedAt,
       })
       .from(verificationRequests)
       .where(and(eq(verificationRequests.userId, input.userId), eq(verificationRequests.resumeId, input.resumeId)));
+
+    const enrichedSectionStatuses = await attachAssessmentFields(sectionStatuses);
 
     const [identityStatus] = await db
       .select({
@@ -326,6 +480,7 @@ export const verificationService = {
         status: verificationRequests.status,
         badgeVisible: verificationRequests.badgeVisible,
         submittedAt: verificationRequests.submittedAt,
+        assessmentAcceptedAt: verificationRequests.assessmentAcceptedAt,
       })
       .from(verificationRequests)
       .where(and(eq(verificationRequests.userId, input.userId), eq(verificationRequests.sectionType, "identity")))
@@ -333,10 +488,11 @@ export const verificationService = {
       .limit(1);
 
     if (!identityStatus) {
-      return sectionStatuses;
+      return enrichedSectionStatuses;
     }
 
-    return [...sectionStatuses, identityStatus];
+    const [enrichedIdentityStatus] = await attachAssessmentFields([identityStatus]);
+    return [...enrichedSectionStatuses, enrichedIdentityStatus!];
   },
 
   getStatusByResumeId: async (resumeId: string) => {
@@ -688,9 +844,11 @@ export const verificationService = {
   // --- Admin: Reviewer procedures ---
 
   listQueue: async () => {
-    return await db
+    const requests = await db
       .select({
         id: verificationRequests.id,
+        userId: verificationRequests.userId,
+        resumeId: verificationRequests.resumeId,
         sectionType: verificationRequests.sectionType,
         itemId: verificationRequests.itemId,
         itemLabel: verificationRequests.itemLabel,
@@ -703,15 +861,23 @@ export const verificationService = {
           eq(verificationRequests.status, "pending"),
           inArray(verificationRequests.sectionType, ["skill", "project"]),
         ),
-      );
+      )
+      .orderBy(desc(verificationRequests.submittedAt));
+
+    return await enrichSkillProjectRequests(requests);
   },
 
-  claimCase: async (input: { requestId: string; adminId: string }) => {
+  acceptCase: async (input: { requestId: string; adminId: string; file: File; message?: string }) => {
     const [request] = await db
       .select({
         id: verificationRequests.id,
         status: verificationRequests.status,
         claimedByAdminId: verificationRequests.claimedByAdminId,
+        userId: verificationRequests.userId,
+        resumeId: verificationRequests.resumeId,
+        itemId: verificationRequests.itemId,
+        itemLabel: verificationRequests.itemLabel,
+        sectionType: verificationRequests.sectionType,
       })
       .from(verificationRequests)
       .where(eq(verificationRequests.id, input.requestId))
@@ -729,36 +895,99 @@ export const verificationService = {
       throw new ORPCError("CONFLICT", { message: "Request is already claimed" });
     }
 
+    if (!request.resumeId) {
+      throw new ORPCError("BAD_REQUEST", { message: "Request is missing a resume" });
+    }
+
+    const [profile] = await db
+      .select()
+      .from(reviewerProfiles)
+      .where(eq(reviewerProfiles.adminId, input.adminId))
+      .limit(1);
+
+    if (!profile) {
+      throw new ORPCError("NOT_FOUND", { message: "Reviewer profile not found" });
+    }
+
+    const fileBuffer = await input.file.arrayBuffer();
+    const data = new Uint8Array(fileBuffer);
+
+    const uploadResult = await uploadFile({
+      userId: request.userId,
+      resumeId: request.resumeId,
+      itemId: request.itemId,
+      data,
+      contentType: input.file.type || "application/octet-stream",
+      type: "document",
+    });
+
+    const acceptedAt = new Date();
+
     const [updated] = await db
       .update(verificationRequests)
       .set({
         status: "claimed",
-        claimedAt: new Date(),
+        claimedAt: acceptedAt,
         claimedByAdminId: input.adminId,
+        assessmentAcceptedAt: acceptedAt,
       })
       .where(eq(verificationRequests.id, input.requestId))
       .returning();
+
+    await db.insert(verificationDocuments).values({
+      verificationRequestId: input.requestId,
+      fileUrl: uploadResult.url,
+      documentType: "assessment_instructions",
+    });
 
     await db.insert(verificationMetadata).values({
       verificationRequestId: input.requestId,
       adminId: input.adminId,
       adminRole: "reviewer_admin",
       action: "claimed",
+      notes: input.message ?? null,
+      reviewerSnapshotFirstName: profile.firstName,
+      reviewerSnapshotLastName: profile.lastName,
+      reviewerSnapshotTitle: profile.title,
+      reviewerPublicProfileUrl: profile.publicProfileUrl,
     });
+
+    try {
+      const [userData] = await db.select({ email: user.email }).from(user).where(eq(user.id, request.userId)).limit(1);
+
+      if (userData?.email) {
+        const reviewerName = [profile.firstName, profile.lastName].filter(Boolean).join(" ");
+        await sendSkillAssessmentAcceptedEmail({
+          to: userData.email,
+          itemLabel: request.itemLabel,
+          reviewerName,
+          message: input.message,
+          instructionsUrl: uploadResult.url,
+          verificationDashboardUrl: `${env.APP_URL}/dashboard/verification`,
+        });
+      }
+    } catch {
+      // Email failures should not block the main flow
+    }
 
     return updated!;
   },
 
   listMyCases: async (adminId: string) => {
-    return await db
+    const requests = await db
       .select({
         id: verificationRequests.id,
+        userId: verificationRequests.userId,
+        resumeId: verificationRequests.resumeId,
         sectionType: verificationRequests.sectionType,
         itemId: verificationRequests.itemId,
         itemLabel: verificationRequests.itemLabel,
         status: verificationRequests.status,
         claimedAt: verificationRequests.claimedAt,
         submittedAt: verificationRequests.submittedAt,
+        proposedVerdict: verificationRequests.proposedVerdict,
+        reviewerNote: verificationRequests.reviewerNote,
+        assessmentAcceptedAt: verificationRequests.assessmentAcceptedAt,
       })
       .from(verificationRequests)
       .where(
@@ -766,7 +995,10 @@ export const verificationService = {
           eq(verificationRequests.claimedByAdminId, adminId),
           inArray(verificationRequests.status, ["claimed", "verdict_pending"]),
         ),
-      );
+      )
+      .orderBy(desc(verificationRequests.claimedAt));
+
+    return await enrichSkillProjectRequests(requests);
   },
 
   submitVerdict: async (input: {
@@ -816,6 +1048,7 @@ export const verificationService = {
       .set({
         status: "verdict_pending",
         reviewerNote: input.notes ?? null,
+        proposedVerdict: input.verdict,
       })
       .where(eq(verificationRequests.id, input.requestId))
       .returning();
@@ -987,17 +1220,69 @@ export const verificationService = {
   },
 
   listPendingVerdicts: async () => {
-    return await db
+    const requests = await db
       .select({
         id: verificationRequests.id,
+        userId: verificationRequests.userId,
+        resumeId: verificationRequests.resumeId,
         sectionType: verificationRequests.sectionType,
         itemId: verificationRequests.itemId,
         itemLabel: verificationRequests.itemLabel,
         status: verificationRequests.status,
         submittedAt: verificationRequests.submittedAt,
+        proposedVerdict: verificationRequests.proposedVerdict,
+        reviewerNote: verificationRequests.reviewerNote,
+        assessmentAcceptedAt: verificationRequests.assessmentAcceptedAt,
       })
       .from(verificationRequests)
-      .where(eq(verificationRequests.status, "verdict_pending"));
+      .where(eq(verificationRequests.status, "verdict_pending"))
+      .orderBy(desc(verificationRequests.submittedAt));
+
+    if (requests.length === 0) return [];
+
+    const requestIds = requests.map((r) => r.id);
+    const metadataRows = await db
+      .select({
+        verificationRequestId: verificationMetadata.verificationRequestId,
+        reviewerSnapshotFirstName: verificationMetadata.reviewerSnapshotFirstName,
+        reviewerSnapshotLastName: verificationMetadata.reviewerSnapshotLastName,
+        reviewerSnapshotTitle: verificationMetadata.reviewerSnapshotTitle,
+        reviewerPublicProfileUrl: verificationMetadata.reviewerPublicProfileUrl,
+        notes: verificationMetadata.notes,
+        actedAt: verificationMetadata.actedAt,
+      })
+      .from(verificationMetadata)
+      .where(
+        and(
+          inArray(verificationMetadata.verificationRequestId, requestIds),
+          eq(verificationMetadata.action, "verdict_submitted"),
+        ),
+      )
+      .orderBy(desc(verificationMetadata.actedAt));
+
+    const verdictMetadataByRequestId = new Map<string, (typeof metadataRows)[number]>();
+    for (const metadata of metadataRows) {
+      if (!verdictMetadataByRequestId.has(metadata.verificationRequestId)) {
+        verdictMetadataByRequestId.set(metadata.verificationRequestId, metadata);
+      }
+    }
+
+    const enriched = await enrichSkillProjectRequests(requests);
+
+    return enriched.map((item) => {
+      const metadata = verdictMetadataByRequestId.get(item.id);
+      const reviewerName = metadata
+        ? [metadata.reviewerSnapshotFirstName, metadata.reviewerSnapshotLastName].filter(Boolean).join(" ")
+        : null;
+
+      return {
+        ...item,
+        reviewerName,
+        reviewerTitle: metadata?.reviewerSnapshotTitle ?? null,
+        reviewerPublicProfileUrl: metadata?.reviewerPublicProfileUrl ?? null,
+        verdictNotes: metadata?.notes ?? item.reviewerNote,
+      };
+    });
   },
 
   confirmVerdict: async (input: { requestId: string; adminId: string }) => {
@@ -1008,6 +1293,7 @@ export const verificationService = {
         userId: verificationRequests.userId,
         itemLabel: verificationRequests.itemLabel,
         sectionType: verificationRequests.sectionType,
+        proposedVerdict: verificationRequests.proposedVerdict,
       })
       .from(verificationRequests)
       .where(eq(verificationRequests.id, input.requestId))
@@ -1021,10 +1307,16 @@ export const verificationService = {
       throw new ORPCError("BAD_REQUEST", { message: "Request must be in verdict_pending status" });
     }
 
+    if (!request.proposedVerdict) {
+      throw new ORPCError("BAD_REQUEST", { message: "Request is missing a proposed verdict" });
+    }
+
+    const finalStatus = request.proposedVerdict;
+
     const [updated] = await db
       .update(verificationRequests)
       .set({
-        status: "verified",
+        status: finalStatus,
         resolvedAt: new Date(),
       })
       .where(eq(verificationRequests.id, input.requestId))
@@ -1034,12 +1326,12 @@ export const verificationService = {
       verificationRequestId: input.requestId,
       adminId: input.adminId,
       adminRole: "skill_verdict_admin",
-      action: "verified",
+      action: verdictToMetadataAction(finalStatus),
     });
 
     await sendFinalStatusEmail(
       { userId: request.userId, itemLabel: request.itemLabel, sectionType: request.sectionType },
-      "verified",
+      finalStatus,
     );
 
     return updated!;

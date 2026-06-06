@@ -87,3 +87,34 @@ export const sendVerificationStatusEmail = async (
     }
   }
 };
+
+interface SkillAssessmentAcceptedEmailInput {
+  to: string;
+  itemLabel: string;
+  reviewerName: string;
+  message?: string;
+  instructionsUrl: string;
+  verificationDashboardUrl: string;
+}
+
+export const sendSkillAssessmentAcceptedEmail = async (input: SkillAssessmentAcceptedEmailInput) => {
+  await sendEmail({
+    to: input.to,
+    subject: `Skill Assessment Accepted: ${input.itemLabel}`,
+    text: [
+      `Your skill verification request for "${input.itemLabel}" has been accepted by ${input.reviewerName}.`,
+      "",
+      input.message ? `Message from your reviewer:\n${input.message}` : "",
+      input.message ? "" : "",
+      "Download your assessment instructions:",
+      input.instructionsUrl,
+      "",
+      "You can also view and download the instructions from your Verification dashboard:",
+      input.verificationDashboardUrl,
+      "",
+      "Complete the assessment as described, then wait for the reviewer to evaluate your results.",
+    ]
+      .filter((line, index, arr) => !(line === "" && arr[index - 1] === ""))
+      .join("\n"),
+  });
+};

@@ -42,6 +42,8 @@ type VerificationItem = {
   badgeVisible: boolean;
   submittedAt: Date;
   resumeId: string | null;
+  assessmentInstructionsUrl?: string | null;
+  assessmentAcceptedAt?: Date | null;
 };
 
 type ResumeItem = {
@@ -349,6 +351,29 @@ function SkillProjectItemRow({
           )}
         </div>
       </div>
+
+      {existingStatus?.status === "claimed" && existingStatus.assessmentInstructionsUrl && (
+        <div className="mt-3 space-y-2 rounded-md border border-purple-500/30 bg-purple-50/40 p-3 dark:bg-purple-900/10">
+          <p className="text-xs font-medium text-purple-900 dark:text-purple-200">
+            <Trans>Assessment in progress</Trans>
+          </p>
+          <p className="text-xs text-muted-foreground">
+            <Trans>
+              Your reviewer has accepted your request. Assessment instructions were sent to your email and are available
+              below.
+            </Trans>
+          </p>
+          <a
+            href={existingStatus.assessmentInstructionsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-x-1.5 text-xs font-medium text-primary hover:underline"
+          >
+            <FileTextIcon className="size-3.5" />
+            <Trans>Download assessment instructions</Trans>
+          </a>
+        </div>
+      )}
 
       {historyOpen && existingStatus && <VerificationHistory resumeId={resumeId} itemId={item.id} />}
     </div>
@@ -666,7 +691,8 @@ function StatusIcon({ status }: { status: string | undefined }) {
 
 function StatusBadge({ status }: { status: string }) {
   const displayStatus = (s: string) => {
-    if (s === "claimed" || s === "verdict_pending") return "pending";
+    if (s === "claimed") return "assessment in progress";
+    if (s === "verdict_pending") return "pending";
     return s;
   };
 

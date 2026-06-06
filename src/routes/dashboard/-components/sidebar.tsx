@@ -112,6 +112,14 @@ const settingsSidebarBaseItems = [
 
 const settingsSidebarItems = [...settingsSidebarBaseItems] as const satisfies SidebarItem[];
 
+const reviewerSidebarItems = [
+  {
+    icon: <SealCheckIcon />,
+    label: msg`Skill Review Queue`,
+    href: "/dashboard/reviewer/queue",
+  },
+] as const satisfies SidebarItem[];
+
 const skillVerdictVerificationSidebarItems = [
   {
     icon: <ShieldStarIcon />,
@@ -200,6 +208,7 @@ export function DashboardSidebar() {
 
   const identityVerificationState = deriveIdentitySidebarVerificationState(user);
   const isSkillVerdictAdmin = adminRole?.role === "skill_verdict_admin";
+  const isReviewerAdmin = adminRole?.role === "reviewer_admin";
   const roleLabel = (() => {
     if (adminRole?.role === "skill_verdict_admin") return msg`Skill Verdict Admin`;
     if (adminRole?.role === "reviewer_admin") return msg`Reviewer Admin`;
@@ -267,6 +276,20 @@ export function DashboardSidebar() {
               <SidebarItemList items={appSidebarItems} />
             </SidebarGroupContent>
           </SidebarGroup>
+        )}
+
+        {isReviewerAdmin && (
+          <>
+            <SidebarGroup className="pt-1">
+              <SidebarGroupLabel>
+                <Trans>Reviewer</Trans>
+              </SidebarGroupLabel>
+              <SidebarGroupContent>
+                <SidebarItemList items={reviewerSidebarItems} />
+              </SidebarGroupContent>
+            </SidebarGroup>
+            <SidebarSeparator className="mx-3" />
+          </>
         )}
 
         {!isSkillVerdictAdmin && <SidebarSeparator className="mx-3" />}

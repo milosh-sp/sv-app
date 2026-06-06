@@ -454,7 +454,14 @@ export const metadataActionEnum = pg.pgEnum("metadata_action", [
   "overridden",
 ]);
 
-export const documentTypeEnum = pg.pgEnum("document_type", ["payslip", "contract", "freelancer_link"]);
+export const documentTypeEnum = pg.pgEnum("document_type", [
+  "payslip",
+  "contract",
+  "freelancer_link",
+  "assessment_instructions",
+]);
+
+export const proposedVerdictEnum = pg.pgEnum("proposed_verdict", ["verified", "rejected", "issue"]);
 
 // --- Verification Feature Tables ---
 
@@ -581,8 +588,10 @@ export const verificationRequests = pg.pgTable(
     claimedByAdminId: pg.uuid("claimed_by_admin_id"),
     resolvedAt: pg.timestamp("resolved_at", { withTimezone: true }),
     reviewerNote: pg.text("reviewer_note"),
+    proposedVerdict: proposedVerdictEnum("proposed_verdict"),
     badgeVisible: pg.boolean("badge_visible").notNull().default(true),
     calendarLinkSentAt: pg.timestamp("calendar_link_sent_at", { withTimezone: true }),
+    assessmentAcceptedAt: pg.timestamp("assessment_accepted_at", { withTimezone: true }),
   },
   (t) => [pg.index().on(t.userId), pg.index().on(t.resumeId), pg.index().on(t.status)],
 );

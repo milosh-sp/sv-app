@@ -8,12 +8,20 @@ export const adminVerificationRouter = {
     return await verificationService.listQueue();
   }),
 
-  claimCase: reviewerAdminProcedure
-    .input(z.object({ requestId: z.string().uuid() }))
+  acceptCase: reviewerAdminProcedure
+    .input(
+      z.object({
+        requestId: z.string().uuid(),
+        file: z.instanceof(File),
+        message: z.string().optional(),
+      }),
+    )
     .handler(async ({ context, input }) => {
-      return await verificationService.claimCase({
+      return await verificationService.acceptCase({
         requestId: input.requestId,
         adminId: context.user.id,
+        file: input.file,
+        message: input.message,
       });
     }),
 

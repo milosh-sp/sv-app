@@ -59,7 +59,7 @@ describe("verification enums", () => {
   });
 
   it("documentTypeEnum has correct types", () => {
-    expect(documentTypeEnum.enumValues).toEqual(["payslip", "contract", "freelancer_link"]);
+    expect(documentTypeEnum.enumValues).toEqual(["payslip", "contract", "freelancer_link", "assessment_instructions"]);
   });
 });
 

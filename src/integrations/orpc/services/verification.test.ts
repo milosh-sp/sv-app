@@ -24,10 +24,13 @@ vi.mock("@/integrations/drizzle/client", () => ({
 
 const mockStorageRead = vi.fn();
 
+const mockUploadFile = vi.fn();
+
 vi.mock("./storage", () => ({
   getStorageService: () => ({
     read: mockStorageRead,
   }),
+  uploadFile: mockUploadFile,
 }));
 
 vi.mock("@/integrations/drizzle/schema", () => ({
@@ -45,8 +48,10 @@ vi.mock("@/integrations/drizzle/schema", () => ({
     claimedByAdminId: "claimed_by_admin_id",
     resolvedAt: "resolved_at",
     reviewerNote: "reviewer_note",
+    proposedVerdict: "proposed_verdict",
     badgeVisible: "badge_visible",
     calendarLinkSentAt: "calendar_link_sent_at",
+    assessmentAcceptedAt: "assessment_accepted_at",
   },
   verificationMetadata: {
     id: "id",
@@ -379,7 +384,15 @@ describe("verificationService.getBadgeDetail", () => {
 describe("verificationService.getStatus", () => {
   it("should return verification statuses for a resume", async () => {
     const statuses = [
-      { id: "req-1", sectionType: "skill", itemId: "item-1", itemLabel: "TS", status: "verified", badgeVisible: true },
+      {
+        id: "req-1",
+        sectionType: "skill",
+        itemId: "item-1",
+        itemLabel: "TS",
+        status: "verified",
+        badgeVisible: true,
+        assessmentAcceptedAt: null,
+      },
     ];
     const identityStatus = {
       id: "req-id",
@@ -389,6 +402,7 @@ describe("verificationService.getStatus", () => {
       status: "verified",
       badgeVisible: true,
       submittedAt: new Date(),
+      assessmentAcceptedAt: null,
     };
     mockFrom
       .mockReturnValueOnce({ where: vi.fn(() => statuses), limit: mockLimit, orderBy: mockOrderBy })
@@ -400,12 +414,31 @@ describe("verificationService.getStatus", () => {
 
     const result = await verificationService.getStatus({ userId: "user-1", resumeId: "resume-1" });
 
-    expect(result).toEqual([...statuses, identityStatus]);
+    expect(result).toEqual([
+      {
+        ...statuses[0],
+        assessmentInstructionsUrl: null,
+        assessmentAcceptedAt: null,
+      },
+      {
+        ...identityStatus,
+        assessmentInstructionsUrl: null,
+        assessmentAcceptedAt: null,
+      },
+    ]);
   });
 
   it("should not include internal fields", async () => {
     const statuses = [
-      { id: "req-1", sectionType: "skill", itemId: "item-1", itemLabel: "TS", status: "verified", badgeVisible: true },
+      {
+        id: "req-1",
+        sectionType: "skill",
+        itemId: "item-1",
+        itemLabel: "TS",
+        status: "verified",
+        badgeVisible: true,
+        assessmentAcceptedAt: null,
+      },
     ];
     mockFrom
       .mockReturnValueOnce({ where: vi.fn(() => statuses), limit: mockLimit, orderBy: mockOrderBy })
@@ -704,19 +737,43 @@ describe("verificationService.getPublicTimeline", () => {
 
 // --- Admin procedures ---
 
-describe("verificationService.claimCase", () => {
-  it("should error if already claimed", async () => {
-    mockLimit.mockReturnValueOnce([{ id: "req-1", status: "pending", claimedByAdminId: "admin-2" }]);
+describe("verificationService.acceptCase", () => {
+  const file = new File(["instructions"], "instructions.pdf", { type: "application/pdf" });
 
-    await expect(verificationService.claimCase({ requestId: "req-1", adminId: "admin-1" })).rejects.toThrow(
+  it("should error if already claimed", async () => {
+    mockLimit.mockReturnValueOnce([
+      {
+        id: "req-1",
+        status: "pending",
+        claimedByAdminId: "admin-2",
+        userId: "user-1",
+        resumeId: "resume-1",
+        itemId: "item-1",
+        itemLabel: "TypeScript",
+        sectionType: "skill",
+      },
+    ]);
+
+    await expect(verificationService.acceptCase({ requestId: "req-1", adminId: "admin-1", file })).rejects.toThrow(
       "already claimed",
     );
   });
 
   it("should error if not pending", async () => {
-    mockLimit.mockReturnValueOnce([{ id: "req-1", status: "claimed", claimedByAdminId: null }]);
+    mockLimit.mockReturnValueOnce([
+      {
+        id: "req-1",
+        status: "claimed",
+        claimedByAdminId: null,
+        userId: "user-1",
+        resumeId: "resume-1",
+        itemId: "item-1",
+        itemLabel: "TypeScript",
+        sectionType: "skill",
+      },
+    ]);
 
-    await expect(verificationService.claimCase({ requestId: "req-1", adminId: "admin-1" })).rejects.toThrow(
+    await expect(verificationService.acceptCase({ requestId: "req-1", adminId: "admin-1", file })).rejects.toThrow(
       "not pending",
     );
   });
@@ -724,8 +781,29 @@ describe("verificationService.claimCase", () => {
   it("should error if not found", async () => {
     mockLimit.mockReturnValueOnce([]);
 
-    await expect(verificationService.claimCase({ requestId: "req-1", adminId: "admin-1" })).rejects.toThrow(
+    await expect(verificationService.acceptCase({ requestId: "req-1", adminId: "admin-1", file })).rejects.toThrow(
       "not found",
+    );
+  });
+
+  it("should error if reviewer profile not found", async () => {
+    mockLimit
+      .mockReturnValueOnce([
+        {
+          id: "req-1",
+          status: "pending",
+          claimedByAdminId: null,
+          userId: "user-1",
+          resumeId: "resume-1",
+          itemId: "item-1",
+          itemLabel: "TypeScript",
+          sectionType: "skill",
+        },
+      ])
+      .mockReturnValueOnce([]);
+
+    await expect(verificationService.acceptCase({ requestId: "req-1", adminId: "admin-1", file })).rejects.toThrow(
+      "Reviewer profile not found",
     );
   });
 });
@@ -824,6 +902,23 @@ describe("verificationService.confirmVerdict", () => {
 
     await expect(verificationService.confirmVerdict({ requestId: "non-existent", adminId: "sva-1" })).rejects.toThrow(
       "not found",
+    );
+  });
+
+  it("should error if proposed verdict is missing", async () => {
+    mockLimit.mockReturnValueOnce([
+      {
+        id: "req-1",
+        status: "verdict_pending",
+        userId: "user-1",
+        itemLabel: "TypeScript",
+        sectionType: "skill",
+        proposedVerdict: null,
+      },
+    ]);
+
+    await expect(verificationService.confirmVerdict({ requestId: "req-1", adminId: "sva-1" })).rejects.toThrow(
+      "missing a proposed verdict",
     );
   });
 });
@@ -929,7 +1024,7 @@ describe("verificationService.downloadDocument", () => {
 
 describe("verificationService.listQueue", () => {
   it("returns empty array when no pending skill/project requests exist", async () => {
-    mockFrom.mockReturnValueOnce({ where: vi.fn().mockReturnValue([]) });
+    mockFrom.mockReturnValueOnce({ where: vi.fn(() => ({ orderBy: vi.fn(() => []) })) });
     const result = await verificationService.listQueue();
     expect(result).toEqual([]);
   });
@@ -938,6 +1033,8 @@ describe("verificationService.listQueue", () => {
     const rows = [
       {
         id: "req-1",
+        userId: "user-1",
+        resumeId: "resume-1",
         sectionType: "skill",
         itemId: "item-1",
         itemLabel: "TypeScript",
@@ -946,6 +1043,8 @@ describe("verificationService.listQueue", () => {
       },
       {
         id: "req-2",
+        userId: "user-2",
+        resumeId: "resume-2",
         sectionType: "project",
         itemId: "item-2",
         itemLabel: "App",
@@ -953,7 +1052,11 @@ describe("verificationService.listQueue", () => {
         submittedAt: new Date(),
       },
     ];
-    mockFrom.mockReturnValueOnce({ where: vi.fn().mockReturnValue(rows) });
+    mockFrom
+      .mockReturnValueOnce({ where: vi.fn(() => ({ orderBy: vi.fn(() => rows) })) })
+      .mockReturnValueOnce({ where: vi.fn(() => []) })
+      .mockReturnValueOnce({ where: vi.fn(() => []) })
+      .mockReturnValueOnce({ where: vi.fn(() => []) });
     const result = await verificationService.listQueue();
     expect(result).toHaveLength(2);
     expect(result[0].id).toBe("req-1");
@@ -963,7 +1066,7 @@ describe("verificationService.listQueue", () => {
 
 describe("verificationService.listMyCases", () => {
   it("returns empty array when admin has no claimed cases", async () => {
-    mockFrom.mockReturnValueOnce({ where: vi.fn().mockReturnValue([]) });
+    mockFrom.mockReturnValueOnce({ where: vi.fn(() => ({ orderBy: vi.fn(() => []) })) });
     const result = await verificationService.listMyCases("admin-1");
     expect(result).toEqual([]);
   });
@@ -971,14 +1074,23 @@ describe("verificationService.listMyCases", () => {
   it("returns cases claimed by the given admin", async () => {
     const row = {
       id: "req-1",
+      userId: "user-1",
+      resumeId: "resume-1",
       sectionType: "skill",
       itemId: "item-1",
       itemLabel: "React",
       status: "claimed",
       claimedAt: new Date(),
       submittedAt: new Date(),
+      proposedVerdict: null,
+      reviewerNote: null,
+      assessmentAcceptedAt: new Date(),
     };
-    mockFrom.mockReturnValueOnce({ where: vi.fn().mockReturnValue([row]) });
+    mockFrom
+      .mockReturnValueOnce({ where: vi.fn(() => ({ orderBy: vi.fn(() => [row]) })) })
+      .mockReturnValueOnce({ where: vi.fn(() => []) })
+      .mockReturnValueOnce({ where: vi.fn(() => []) })
+      .mockReturnValueOnce({ where: vi.fn(() => []) });
     const result = await verificationService.listMyCases("admin-1");
     expect(result).toHaveLength(1);
     expect(result[0].status).toBe("claimed");
@@ -987,7 +1099,7 @@ describe("verificationService.listMyCases", () => {
 
 describe("verificationService.listPendingVerdicts", () => {
   it("returns empty array when no verdict_pending requests exist", async () => {
-    mockFrom.mockReturnValueOnce({ where: vi.fn().mockReturnValue([]) });
+    mockFrom.mockReturnValueOnce({ where: vi.fn(() => ({ orderBy: vi.fn(() => []) })) });
     const result = await verificationService.listPendingVerdicts();
     expect(result).toEqual([]);
   });
@@ -996,16 +1108,27 @@ describe("verificationService.listPendingVerdicts", () => {
     const rows = [
       {
         id: "req-1",
+        userId: "user-1",
+        resumeId: "resume-1",
         sectionType: "skill",
         itemId: "item-1",
         itemLabel: "Go",
         status: "verdict_pending",
         submittedAt: new Date(),
+        proposedVerdict: "verified",
+        reviewerNote: "Strong performance",
+        assessmentAcceptedAt: new Date(),
       },
     ];
-    mockFrom.mockReturnValueOnce({ where: vi.fn().mockReturnValue(rows) });
+    mockFrom
+      .mockReturnValueOnce({ where: vi.fn(() => ({ orderBy: vi.fn(() => rows) })) })
+      .mockReturnValueOnce({ where: vi.fn(() => ({ orderBy: vi.fn(() => []) })) })
+      .mockReturnValueOnce({ where: vi.fn(() => []) })
+      .mockReturnValueOnce({ where: vi.fn(() => []) })
+      .mockReturnValueOnce({ where: vi.fn(() => []) });
     const result = await verificationService.listPendingVerdicts();
     expect(result).toHaveLength(1);
     expect(result[0].status).toBe("verdict_pending");
+    expect(result[0].proposedVerdict).toBe("verified");
   });
 });

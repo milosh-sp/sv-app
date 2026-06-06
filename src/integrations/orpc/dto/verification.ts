@@ -5,17 +5,19 @@ export const resumeItemIdSchema = z
   .string()
   .regex(/^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/, "Invalid item id");
 
-const verificationStatusOutputSchema = z.array(
-  z.object({
-    id: z.string().uuid(),
-    sectionType: z.enum(["skill", "project", "experience", "identity"]),
-    itemId: z.string(),
-    itemLabel: z.string(),
-    status: z.enum(["pending", "claimed", "verdict_pending", "verified", "rejected", "issue"]),
-    badgeVisible: z.boolean(),
-    submittedAt: z.date(),
-  }),
-);
+const verificationStatusItemSchema = z.object({
+  id: z.string().uuid(),
+  sectionType: z.enum(["skill", "project", "experience", "identity"]),
+  itemId: z.string(),
+  itemLabel: z.string(),
+  status: z.enum(["pending", "claimed", "verdict_pending", "verified", "rejected", "issue"]),
+  badgeVisible: z.boolean(),
+  submittedAt: z.date(),
+  assessmentInstructionsUrl: z.string().nullable().optional(),
+  assessmentAcceptedAt: z.date().nullable().optional(),
+});
+
+const verificationStatusOutputSchema = z.array(verificationStatusItemSchema);
 
 export const verificationDto = {
   statusOutput: verificationStatusOutputSchema,
