@@ -120,7 +120,9 @@ export function ReviewerProfileDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-lg" showClose>
         <DialogHeader>
-          <DialogTitle>{hasProfile ? <Trans>Edit reviewer profile</Trans> : <Trans>Reviewer profile</Trans>}</DialogTitle>
+          <DialogTitle>
+            {hasProfile ? <Trans>Edit reviewer profile</Trans> : <Trans>Reviewer profile</Trans>}
+          </DialogTitle>
           <DialogDescription>
             {userEmail ? (
               <Trans>
@@ -345,12 +347,7 @@ export function ReviewerSetupStatusBadge({ status }: { status: ReviewerSetupStat
         ? "bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-400"
         : "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400";
 
-  const label =
-    status === "ready"
-      ? t`Ready`
-      : status === "no_skills"
-        ? t`No skills`
-        : t`No profile`;
+  const label = status === "ready" ? t`Ready` : status === "no_skills" ? t`No skills` : t`No profile`;
 
   return <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${colorClass}`}>{label}</span>;
 }

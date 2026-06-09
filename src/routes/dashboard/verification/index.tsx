@@ -1,3 +1,5 @@
+import type z from "zod";
+
 import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
 import {
@@ -20,14 +22,13 @@ import { useCallback, useMemo, useRef, useState } from "react";
 import { toast } from "sonner";
 
 import type { skillItemSchema } from "@/schema/resume/data";
-import type z from "zod";
 
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { orpc } from "@/integrations/orpc/client";
-import { expandSkillItemsForVerification } from "@/utils/verification/skills";
 import { formatDefaultDate } from "@/utils/format-date";
+import { expandSkillItemsForVerification } from "@/utils/verification/skills";
 
 import { DashboardHeader } from "../-components/header";
 
@@ -416,8 +417,8 @@ function SkillProjectItemRow({
   const canRetry = existingStatus && ["rejected", "issue"].includes(existingStatus.status);
   const hasSubmittedSolution = Boolean(
     existingStatus?.assessmentSolutionSubmittedAt ||
-      existingStatus?.assessmentSolutionFileUrl ||
-      existingStatus?.assessmentSolutionLinkUrl,
+    existingStatus?.assessmentSolutionFileUrl ||
+    existingStatus?.assessmentSolutionLinkUrl,
   );
   const showSolutionForm = existingStatus?.status === "claimed" && !hasSubmittedSolution;
 
@@ -571,7 +572,9 @@ function SkillProjectItemRow({
                 <Trans>Submit your solution</Trans>
               </p>
               <p className="text-xs text-muted-foreground">
-                <Trans>Upload a file or share a link (for example, a GitHub repository). At least one is required.</Trans>
+                <Trans>
+                  Upload a file or share a link (for example, a GitHub repository). At least one is required.
+                </Trans>
               </p>
               <div className="space-y-2">
                 <input

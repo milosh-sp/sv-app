@@ -65,9 +65,7 @@ describe("filterQueueItemsBySkills", () => {
 
   it("shows projects only when Projects filter is selected", () => {
     expect(filterQueueItemsBySkills(items, ["TypeScript"]).map((item) => item.id)).toEqual(["skill-ts"]);
-    expect(filterQueueItemsBySkills(items, [PROJECT_QUEUE_FILTER_VALUE]).map((item) => item.id)).toEqual([
-      "project-1",
-    ]);
+    expect(filterQueueItemsBySkills(items, [PROJECT_QUEUE_FILTER_VALUE]).map((item) => item.id)).toEqual(["project-1"]);
   });
 
   it("uses OR logic for combined skill and project filters", () => {

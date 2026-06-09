@@ -114,10 +114,7 @@ function RouteComponent() {
     [urlSkills, allowedFilterValues],
   );
   const hasActiveFilter = selectedSkills.length > 0;
-  const filteredQueue = useMemo(
-    () => filterQueueItemsBySkills(queue ?? [], selectedSkills),
-    [queue, selectedSkills],
-  );
+  const filteredQueue = useMemo(() => filterQueueItemsBySkills(queue ?? [], selectedSkills), [queue, selectedSkills]);
   const showSkillFilter = filterOptions.length >= 2;
 
   if (queueError || casesError) {
@@ -288,9 +285,7 @@ function QueueTab({
     return (
       <div className="rounded-lg border border-amber-500/40 bg-amber-50/50 p-4 dark:bg-amber-900/10">
         <p className="text-sm text-muted-foreground">
-          <Trans>
-            Ask a Skill Verdict Admin to assign your reviewable skills before cases appear in the queue.
-          </Trans>
+          <Trans>Ask a Skill Verdict Admin to assign your reviewable skills before cases appear in the queue.</Trans>
         </p>
       </div>
     );

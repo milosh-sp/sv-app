@@ -28,10 +28,7 @@ export function buildReviewerQueueFilterOptions(
   return options;
 }
 
-export function sanitizeQueueSkillFilter(
-  selectedSkills: string[],
-  allowedValues: string[],
-): string[] {
+export function sanitizeQueueSkillFilter(selectedSkills: string[], allowedValues: string[]): string[] {
   const allowed = new Set(allowedValues);
   return selectedSkills.filter((skill) => allowed.has(skill));
 }

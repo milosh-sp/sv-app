@@ -2,93 +2,52 @@
   "version": "8",
   "dialect": "postgres",
   "id": "9d215c40-3863-4f60-abd4-b40f63cb2c10",
-  "prevIds": [
-    "d87a027d-5e75-4cdb-9e18-99e51b8b4d98"
-  ],
+  "prevIds": ["d87a027d-5e75-4cdb-9e18-99e51b8b4d98"],
   "ddl": [
     {
-      "values": [
-        "skill_verdict_admin",
-        "reviewer_admin"
-      ],
+      "values": ["skill_verdict_admin", "reviewer_admin"],
       "name": "admin_role",
       "entityType": "enums",
       "schema": "public"
     },
     {
-      "values": [
-        "pending",
-        "approved",
-        "rejected"
-      ],
+      "values": ["pending", "approved", "rejected"],
       "name": "change_request_status",
       "entityType": "enums",
       "schema": "public"
     },
     {
-      "values": [
-        "payslip",
-        "contract",
-        "freelancer_link",
-        "assessment_instructions"
-      ],
+      "values": ["payslip", "contract", "freelancer_link", "assessment_instructions"],
       "name": "document_type",
       "entityType": "enums",
       "schema": "public"
     },
     {
-      "values": [
-        "claimed",
-        "verdict_submitted",
-        "verified",
-        "rejected",
-        "flagged",
-        "overridden"
-      ],
+      "values": ["claimed", "verdict_submitted", "verified", "rejected", "flagged", "overridden"],
       "name": "metadata_action",
       "entityType": "enums",
       "schema": "public"
     },
     {
-      "values": [
-        "verified",
-        "rejected",
-        "issue"
-      ],
+      "values": ["verified", "rejected", "issue"],
       "name": "proposed_verdict",
       "entityType": "enums",
       "schema": "public"
     },
     {
-      "values": [
-        "document_upload",
-        "freelancer_link",
-        "identity_call"
-      ],
+      "values": ["document_upload", "freelancer_link", "identity_call"],
       "name": "verification_method",
       "entityType": "enums",
       "schema": "public"
     },
     {
-      "values": [
-        "skill",
-        "experience",
-        "project",
-        "identity"
-      ],
+      "values": ["skill", "experience", "project", "identity"],
       "name": "verification_section_type",
       "entityType": "enums",
       "schema": "public"
     },
     {
-      "values": [
-        "pending",
-        "claimed",
-        "verdict_pending",
-        "verified",
-        "rejected",
-        "issue"
-      ],
+      "values": ["pending", "claimed", "verdict_pending", "verified", "rejected", "issue"],
       "name": "verification_status",
       "entityType": "enums",
       "schema": "public"
@@ -4236,14 +4195,10 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "user_id"
-      ],
+      "columns": ["user_id"],
       "schemaTo": "public",
       "tableTo": "user",
-      "columnsTo": [
-        "id"
-      ],
+      "columnsTo": ["id"],
       "onUpdate": "NO ACTION",
       "onDelete": "CASCADE",
       "name": "account_user_id_user_id_fkey",
@@ -4253,14 +4208,10 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "user_id"
-      ],
+      "columns": ["user_id"],
       "schemaTo": "public",
       "tableTo": "user",
-      "columnsTo": [
-        "id"
-      ],
+      "columnsTo": ["id"],
       "onUpdate": "NO ACTION",
       "onDelete": "CASCADE",
       "name": "admin_roles_user_id_user_id_fkey",
@@ -4270,14 +4221,10 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "reference_id"
-      ],
+      "columns": ["reference_id"],
       "schemaTo": "public",
       "tableTo": "user",
-      "columnsTo": [
-        "id"
-      ],
+      "columnsTo": ["id"],
       "onUpdate": "NO ACTION",
       "onDelete": "CASCADE",
       "name": "apikey_user_id_user_id_fkey",
@@ -4287,14 +4234,10 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "updated_by_user_id"
-      ],
+      "columns": ["updated_by_user_id"],
       "schemaTo": "public",
       "tableTo": "user",
-      "columnsTo": [
-        "id"
-      ],
+      "columnsTo": ["id"],
       "onUpdate": "NO ACTION",
       "onDelete": "SET NULL",
       "name": "global_ai_settings_updated_by_user_id_user_id_fkey",
@@ -4304,14 +4247,10 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "updated_by_user_id"
-      ],
+      "columns": ["updated_by_user_id"],
       "schemaTo": "public",
       "tableTo": "user",
-      "columnsTo": [
-        "id"
-      ],
+      "columnsTo": ["id"],
       "onUpdate": "NO ACTION",
       "onDelete": "SET NULL",
       "name": "global_job_search_settings_updated_by_user_id_user_id_fkey",
@@ -4321,14 +4260,10 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "client_id"
-      ],
+      "columns": ["client_id"],
       "schemaTo": "public",
       "tableTo": "oauth_client",
-      "columnsTo": [
-        "client_id"
-      ],
+      "columnsTo": ["client_id"],
       "onUpdate": "NO ACTION",
       "onDelete": "CASCADE",
       "name": "oauth_access_token_client_id_oauth_client_client_id_fkey",
@@ -4338,14 +4273,10 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "session_id"
-      ],
+      "columns": ["session_id"],
       "schemaTo": "public",
       "tableTo": "session",
-      "columnsTo": [
-        "id"
-      ],
+      "columnsTo": ["id"],
       "onUpdate": "NO ACTION",
       "onDelete": "SET NULL",
       "name": "oauth_access_token_session_id_session_id_fkey",
@@ -4355,14 +4286,10 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "user_id"
-      ],
+      "columns": ["user_id"],
       "schemaTo": "public",
       "tableTo": "user",
-      "columnsTo": [
-        "id"
-      ],
+      "columnsTo": ["id"],
       "onUpdate": "NO ACTION",
       "onDelete": "CASCADE",
       "name": "oauth_access_token_user_id_user_id_fkey",
@@ -4372,14 +4299,10 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "refresh_id"
-      ],
+      "columns": ["refresh_id"],
       "schemaTo": "public",
       "tableTo": "oauth_refresh_token",
-      "columnsTo": [
-        "id"
-      ],
+      "columnsTo": ["id"],
       "onUpdate": "NO ACTION",
       "onDelete": "CASCADE",
       "name": "oauth_access_token_refresh_id_oauth_refresh_token_id_fkey",
@@ -4389,14 +4312,10 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "user_id"
-      ],
+      "columns": ["user_id"],
       "schemaTo": "public",
       "tableTo": "user",
-      "columnsTo": [
-        "id"
-      ],
+      "columnsTo": ["id"],
       "onUpdate": "NO ACTION",
       "onDelete": "CASCADE",
       "name": "oauth_client_user_id_user_id_fkey",
@@ -4406,14 +4325,10 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "client_id"
-      ],
+      "columns": ["client_id"],
       "schemaTo": "public",
       "tableTo": "oauth_client",
-      "columnsTo": [
-        "client_id"
-      ],
+      "columnsTo": ["client_id"],
       "onUpdate": "NO ACTION",
       "onDelete": "CASCADE",
       "name": "oauth_consent_client_id_oauth_client_client_id_fkey",
@@ -4423,14 +4338,10 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "user_id"
-      ],
+      "columns": ["user_id"],
       "schemaTo": "public",
       "tableTo": "user",
-      "columnsTo": [
-        "id"
-      ],
+      "columnsTo": ["id"],
       "onUpdate": "NO ACTION",
       "onDelete": "CASCADE",
       "name": "oauth_consent_user_id_user_id_fkey",
@@ -4440,14 +4351,10 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "client_id"
-      ],
+      "columns": ["client_id"],
       "schemaTo": "public",
       "tableTo": "oauth_client",
-      "columnsTo": [
-        "client_id"
-      ],
+      "columnsTo": ["client_id"],
       "onUpdate": "NO ACTION",
       "onDelete": "CASCADE",
       "name": "oauth_refresh_token_client_id_oauth_client_client_id_fkey",
@@ -4457,14 +4364,10 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "session_id"
-      ],
+      "columns": ["session_id"],
       "schemaTo": "public",
       "tableTo": "session",
-      "columnsTo": [
-        "id"
-      ],
+      "columnsTo": ["id"],
       "onUpdate": "NO ACTION",
       "onDelete": "SET NULL",
       "name": "oauth_refresh_token_session_id_session_id_fkey",
@@ -4474,14 +4377,10 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "user_id"
-      ],
+      "columns": ["user_id"],
       "schemaTo": "public",
       "tableTo": "user",
-      "columnsTo": [
-        "id"
-      ],
+      "columnsTo": ["id"],
       "onUpdate": "NO ACTION",
       "onDelete": "CASCADE",
       "name": "oauth_refresh_token_user_id_user_id_fkey",
@@ -4491,14 +4390,10 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "user_id"
-      ],
+      "columns": ["user_id"],
       "schemaTo": "public",
       "tableTo": "user",
-      "columnsTo": [
-        "id"
-      ],
+      "columnsTo": ["id"],
       "onUpdate": "NO ACTION",
       "onDelete": "CASCADE",
       "name": "passkey_user_id_user_id_fkey",
@@ -4508,14 +4403,10 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "user_id"
-      ],
+      "columns": ["user_id"],
       "schemaTo": "public",
       "tableTo": "user",
-      "columnsTo": [
-        "id"
-      ],
+      "columnsTo": ["id"],
       "onUpdate": "NO ACTION",
       "onDelete": "CASCADE",
       "name": "resume_user_id_user_id_fkey",
@@ -4525,14 +4416,10 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "resume_id"
-      ],
+      "columns": ["resume_id"],
       "schemaTo": "public",
       "tableTo": "resume",
-      "columnsTo": [
-        "id"
-      ],
+      "columnsTo": ["id"],
       "onUpdate": "NO ACTION",
       "onDelete": "CASCADE",
       "name": "resume_statistics_resume_id_resume_id_fkey",
@@ -4542,14 +4429,10 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "resume_id"
-      ],
+      "columns": ["resume_id"],
       "schemaTo": "public",
       "tableTo": "resume",
-      "columnsTo": [
-        "id"
-      ],
+      "columnsTo": ["id"],
       "onUpdate": "NO ACTION",
       "onDelete": "CASCADE",
       "name": "resume_verification_settings_resume_id_resume_id_fkey",
@@ -4559,14 +4442,10 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "admin_id"
-      ],
+      "columns": ["admin_id"],
       "schemaTo": "public",
       "tableTo": "reviewer_profiles",
-      "columnsTo": [
-        "admin_id"
-      ],
+      "columnsTo": ["admin_id"],
       "onUpdate": "NO ACTION",
       "onDelete": "CASCADE",
       "name": "reviewer_profile_change_requests_psq72m0MG070_fkey",
@@ -4576,14 +4455,10 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "admin_id"
-      ],
+      "columns": ["admin_id"],
       "schemaTo": "public",
       "tableTo": "user",
-      "columnsTo": [
-        "id"
-      ],
+      "columnsTo": ["id"],
       "onUpdate": "NO ACTION",
       "onDelete": "CASCADE",
       "name": "reviewer_profiles_admin_id_user_id_fkey",
@@ -4593,14 +4468,10 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "user_id"
-      ],
+      "columns": ["user_id"],
       "schemaTo": "public",
       "tableTo": "user",
-      "columnsTo": [
-        "id"
-      ],
+      "columnsTo": ["id"],
       "onUpdate": "NO ACTION",
       "onDelete": "CASCADE",
       "name": "session_user_id_user_id_fkey",
@@ -4610,14 +4481,10 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "user_id"
-      ],
+      "columns": ["user_id"],
       "schemaTo": "public",
       "tableTo": "user",
-      "columnsTo": [
-        "id"
-      ],
+      "columnsTo": ["id"],
       "onUpdate": "NO ACTION",
       "onDelete": "CASCADE",
       "name": "two_factor_user_id_user_id_fkey",
@@ -4627,14 +4494,10 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "verification_request_id"
-      ],
+      "columns": ["verification_request_id"],
       "schemaTo": "public",
       "tableTo": "verification_requests",
-      "columnsTo": [
-        "id"
-      ],
+      "columnsTo": ["id"],
       "onUpdate": "NO ACTION",
       "onDelete": "CASCADE",
       "name": "verification_documents_FfL5PfMcY6MN_fkey",
@@ -4644,14 +4507,10 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "verification_request_id"
-      ],
+      "columns": ["verification_request_id"],
       "schemaTo": "public",
       "tableTo": "verification_requests",
-      "columnsTo": [
-        "id"
-      ],
+      "columnsTo": ["id"],
       "onUpdate": "NO ACTION",
       "onDelete": "CASCADE",
       "name": "verification_metadata_noOYdMdSYxZ2_fkey",
@@ -4661,14 +4520,10 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "user_id"
-      ],
+      "columns": ["user_id"],
       "schemaTo": "public",
       "tableTo": "user",
-      "columnsTo": [
-        "id"
-      ],
+      "columnsTo": ["id"],
       "onUpdate": "NO ACTION",
       "onDelete": "CASCADE",
       "name": "verification_requests_user_id_user_id_fkey",
@@ -4678,14 +4533,10 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "resume_id"
-      ],
+      "columns": ["resume_id"],
       "schemaTo": "public",
       "tableTo": "resume",
-      "columnsTo": [
-        "id"
-      ],
+      "columnsTo": ["id"],
       "onUpdate": "NO ACTION",
       "onDelete": "SET NULL",
       "name": "verification_requests_resume_id_resume_id_fkey",
@@ -4694,9 +4545,7 @@
       "table": "verification_requests"
     },
     {
-      "columns": [
-        "id"
-      ],
+      "columns": ["id"],
       "nameExplicit": false,
       "name": "account_pkey",
       "schema": "public",
@@ -4704,9 +4553,7 @@
       "entityType": "pks"
     },
     {
-      "columns": [
-        "id"
-      ],
+      "columns": ["id"],
       "nameExplicit": false,
       "name": "admin_roles_pkey",
       "schema": "public",
@@ -4714,9 +4561,7 @@
       "entityType": "pks"
     },
     {
-      "columns": [
-        "id"
-      ],
+      "columns": ["id"],
       "nameExplicit": false,
       "name": "apikey_pkey",
       "schema": "public",
@@ -4724,9 +4569,7 @@
       "entityType": "pks"
     },
     {
-      "columns": [
-        "id"
-      ],
+      "columns": ["id"],
       "nameExplicit": false,
       "name": "global_ai_settings_pkey",
       "schema": "public",
@@ -4734,9 +4577,7 @@
       "entityType": "pks"
     },
     {
-      "columns": [
-        "id"
-      ],
+      "columns": ["id"],
       "nameExplicit": false,
       "name": "global_job_search_settings_pkey",
       "schema": "public",
@@ -4744,9 +4585,7 @@
       "entityType": "pks"
     },
     {
-      "columns": [
-        "id"
-      ],
+      "columns": ["id"],
       "nameExplicit": false,
       "name": "jwks_pkey",
       "schema": "public",
@@ -4754,9 +4593,7 @@
       "entityType": "pks"
     },
     {
-      "columns": [
-        "id"
-      ],
+      "columns": ["id"],
       "nameExplicit": false,
       "name": "oauth_access_token_pkey",
       "schema": "public",
@@ -4764,9 +4601,7 @@
       "entityType": "pks"
     },
     {
-      "columns": [
-        "id"
-      ],
+      "columns": ["id"],
       "nameExplicit": false,
       "name": "oauth_client_pkey",
       "schema": "public",
@@ -4774,9 +4609,7 @@
       "entityType": "pks"
     },
     {
-      "columns": [
-        "id"
-      ],
+      "columns": ["id"],
       "nameExplicit": false,
       "name": "oauth_consent_pkey",
       "schema": "public",
@@ -4784,9 +4617,7 @@
       "entityType": "pks"
     },
     {
-      "columns": [
-        "id"
-      ],
+      "columns": ["id"],
       "nameExplicit": false,
       "name": "oauth_refresh_token_pkey",
       "schema": "public",
@@ -4794,9 +4625,7 @@
       "entityType": "pks"
     },
     {
-      "columns": [
-        "id"
-      ],
+      "columns": ["id"],
       "nameExplicit": false,
       "name": "passkey_pkey",
       "schema": "public",
@@ -4804,9 +4633,7 @@
       "entityType": "pks"
     },
     {
-      "columns": [
-        "id"
-      ],
+      "columns": ["id"],
       "nameExplicit": false,
       "name": "resume_pkey",
       "schema": "public",
@@ -4814,9 +4641,7 @@
       "entityType": "pks"
     },
     {
-      "columns": [
-        "id"
-      ],
+      "columns": ["id"],
       "nameExplicit": false,
       "name": "resume_statistics_pkey",
       "schema": "public",
@@ -4824,9 +4649,7 @@
       "entityType": "pks"
     },
     {
-      "columns": [
-        "id"
-      ],
+      "columns": ["id"],
       "nameExplicit": false,
       "name": "resume_verification_settings_pkey",
       "schema": "public",
@@ -4834,9 +4657,7 @@
       "entityType": "pks"
     },
     {
-      "columns": [
-        "id"
-      ],
+      "columns": ["id"],
       "nameExplicit": false,
       "name": "reviewer_profile_change_requests_pkey",
       "schema": "public",
@@ -4844,9 +4665,7 @@
       "entityType": "pks"
     },
     {
-      "columns": [
-        "id"
-      ],
+      "columns": ["id"],
       "nameExplicit": false,
       "name": "reviewer_profiles_pkey",
       "schema": "public",
@@ -4854,9 +4673,7 @@
       "entityType": "pks"
     },
     {
-      "columns": [
-        "id"
-      ],
+      "columns": ["id"],
       "nameExplicit": false,
       "name": "session_pkey",
       "schema": "public",
@@ -4864,9 +4681,7 @@
       "entityType": "pks"
     },
     {
-      "columns": [
-        "id"
-      ],
+      "columns": ["id"],
       "nameExplicit": false,
       "name": "two_factor_pkey",
       "schema": "public",
@@ -4874,9 +4689,7 @@
       "entityType": "pks"
     },
     {
-      "columns": [
-        "id"
-      ],
+      "columns": ["id"],
       "nameExplicit": false,
       "name": "user_pkey",
       "schema": "public",
@@ -4884,9 +4697,7 @@
       "entityType": "pks"
     },
     {
-      "columns": [
-        "id"
-      ],
+      "columns": ["id"],
       "nameExplicit": false,
       "name": "verification_pkey",
       "schema": "public",
@@ -4894,9 +4705,7 @@
       "entityType": "pks"
     },
     {
-      "columns": [
-        "id"
-      ],
+      "columns": ["id"],
       "nameExplicit": false,
       "name": "verification_documents_pkey",
       "schema": "public",
@@ -4904,9 +4713,7 @@
       "entityType": "pks"
     },
     {
-      "columns": [
-        "id"
-      ],
+      "columns": ["id"],
       "nameExplicit": false,
       "name": "verification_metadata_pkey",
       "schema": "public",
@@ -4914,9 +4721,7 @@
       "entityType": "pks"
     },
     {
-      "columns": [
-        "id"
-      ],
+      "columns": ["id"],
       "nameExplicit": false,
       "name": "verification_requests_pkey",
       "schema": "public",
@@ -4925,10 +4730,7 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "slug",
-        "user_id"
-      ],
+      "columns": ["slug", "user_id"],
       "nullsNotDistinct": false,
       "name": "resume_slug_user_id_unique",
       "entityType": "uniques",
@@ -4937,9 +4739,7 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "user_id"
-      ],
+      "columns": ["user_id"],
       "nullsNotDistinct": false,
       "name": "admin_roles_user_id_key",
       "schema": "public",
@@ -4948,9 +4748,7 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "token"
-      ],
+      "columns": ["token"],
       "nullsNotDistinct": false,
       "name": "oauth_access_token_token_key",
       "schema": "public",
@@ -4959,9 +4757,7 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "client_id"
-      ],
+      "columns": ["client_id"],
       "nullsNotDistinct": false,
       "name": "oauth_client_client_id_key",
       "schema": "public",
@@ -4970,9 +4766,7 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "resume_id"
-      ],
+      "columns": ["resume_id"],
       "nullsNotDistinct": false,
       "name": "resume_statistics_resume_id_key",
       "schema": "public",
@@ -4981,9 +4775,7 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "resume_id"
-      ],
+      "columns": ["resume_id"],
       "nullsNotDistinct": false,
       "name": "resume_verification_settings_resume_id_key",
       "schema": "public",
@@ -4992,9 +4784,7 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "admin_id"
-      ],
+      "columns": ["admin_id"],
       "nullsNotDistinct": false,
       "name": "reviewer_profiles_admin_id_key",
       "schema": "public",
@@ -5003,9 +4793,7 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "public_profile_url"
-      ],
+      "columns": ["public_profile_url"],
       "nullsNotDistinct": false,
       "name": "reviewer_profiles_public_profile_url_key",
       "schema": "public",
@@ -5014,9 +4802,7 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "token"
-      ],
+      "columns": ["token"],
       "nullsNotDistinct": false,
       "name": "session_token_key",
       "schema": "public",
@@ -5025,9 +4811,7 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "email"
-      ],
+      "columns": ["email"],
       "nullsNotDistinct": false,
       "name": "user_email_key",
       "schema": "public",
@@ -5036,9 +4820,7 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "username"
-      ],
+      "columns": ["username"],
       "nullsNotDistinct": false,
       "name": "user_username_key",
       "schema": "public",
@@ -5047,9 +4829,7 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "display_username"
-      ],
+      "columns": ["display_username"],
       "nullsNotDistinct": false,
       "name": "user_display_username_key",
       "schema": "public",
@@ -5058,9 +4838,7 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "identifier"
-      ],
+      "columns": ["identifier"],
       "nullsNotDistinct": false,
       "name": "verification_identifier_key",
       "schema": "public",

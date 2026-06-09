@@ -1,6 +1,8 @@
 import { ORPCError } from "@orpc/server";
 import { and, desc, eq, inArray, isNull } from "drizzle-orm";
 
+import type { ResumeData } from "@/schema/resume/data";
+
 import { db } from "@/integrations/drizzle/client";
 import {
   resume,
@@ -17,9 +19,9 @@ import {
   sendSkillAssessmentAcceptedEmail,
   sendVerificationStatusEmail,
 } from "@/integrations/email/verification";
-import type { ResumeData } from "@/schema/resume/data";
-
 import { env } from "@/utils/env";
+import { validateAssessmentSolutionFile } from "@/utils/verification-assessment-solution";
+import { validateVerificationDocumentFile } from "@/utils/verification-documents";
 import { resolveCanonicalSkillLabel } from "@/utils/verification/common-reviewer-skills";
 import {
   findSkillCategoryForVerificationId,
@@ -27,8 +29,6 @@ import {
   normalizeSkillLabel,
   reviewerCanReviewSkill,
 } from "@/utils/verification/skills";
-import { validateAssessmentSolutionFile } from "@/utils/verification-assessment-solution";
-import { validateVerificationDocumentFile } from "@/utils/verification-documents";
 
 import { getStorageService, toPublicFileUrl, toStorageKey, uploadFile } from "./storage";
 
@@ -268,10 +268,7 @@ async function attachAssessmentFields<
     .where(
       and(
         inArray(verificationDocuments.verificationRequestId, skillProjectIds),
-        inArray(verificationDocuments.documentType, [
-          "assessment_instructions",
-          ...ASSESSMENT_SOLUTION_DOCUMENT_TYPES,
-        ]),
+        inArray(verificationDocuments.documentType, ["assessment_instructions", ...ASSESSMENT_SOLUTION_DOCUMENT_TYPES]),
       ),
     );
 

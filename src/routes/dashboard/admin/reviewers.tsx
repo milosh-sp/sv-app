@@ -10,12 +10,12 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { orpc } from "@/integrations/orpc/client";
 
+import { DashboardHeader } from "../-components/header";
 import {
   getReviewerSetupStatus,
   ReviewerProfileDialogTrigger,
   ReviewerSetupStatusBadge,
 } from "./-components/reviewer-profile-panel";
-import { DashboardHeader } from "../-components/header";
 
 export const Route = createFileRoute("/dashboard/admin/reviewers")({
   component: RouteComponent,

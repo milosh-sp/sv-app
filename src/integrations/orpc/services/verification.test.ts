@@ -223,9 +223,9 @@ describe("verificationService.requestSkill", () => {
   });
 
   it("should error if active request exists", async () => {
-    mockLimit.mockReturnValueOnce([createResumeWithSkillKeyword()]).mockReturnValueOnce([
-      { id: "existing", status: "pending" },
-    ]);
+    mockLimit
+      .mockReturnValueOnce([createResumeWithSkillKeyword()])
+      .mockReturnValueOnce([{ id: "existing", status: "pending" }]);
 
     await expect(
       verificationService.requestSkill({
@@ -238,9 +238,9 @@ describe("verificationService.requestSkill", () => {
   });
 
   it("should error when status is claimed", async () => {
-    mockLimit.mockReturnValueOnce([createResumeWithSkillKeyword()]).mockReturnValueOnce([
-      { id: "existing", status: "claimed" },
-    ]);
+    mockLimit
+      .mockReturnValueOnce([createResumeWithSkillKeyword()])
+      .mockReturnValueOnce([{ id: "existing", status: "claimed" }]);
 
     await expect(
       verificationService.requestSkill({
@@ -253,9 +253,9 @@ describe("verificationService.requestSkill", () => {
   });
 
   it("should error when status is verdict_pending", async () => {
-    mockLimit.mockReturnValueOnce([createResumeWithSkillKeyword()]).mockReturnValueOnce([
-      { id: "existing", status: "verdict_pending" },
-    ]);
+    mockLimit
+      .mockReturnValueOnce([createResumeWithSkillKeyword()])
+      .mockReturnValueOnce([{ id: "existing", status: "verdict_pending" }]);
 
     await expect(
       verificationService.requestSkill({

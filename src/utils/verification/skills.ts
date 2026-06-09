@@ -1,6 +1,8 @@
-import type { skillItemSchema } from "@/schema/resume/data";
 import type z from "zod";
+
 import { v5 as uuidv5 } from "uuid";
+
+import type { skillItemSchema } from "@/schema/resume/data";
 
 import { getSkillMatchKey, resolveCanonicalSkillLabel } from "./common-reviewer-skills";
 
@@ -72,10 +74,7 @@ export function expandSkillItemsForVerification(items: SkillItem[]): VerifiableS
   return units;
 }
 
-export function findVerifiableSkillUnit(
-  items: SkillItem[],
-  itemId: string,
-): VerifiableSkillUnit | undefined {
+export function findVerifiableSkillUnit(items: SkillItem[], itemId: string): VerifiableSkillUnit | undefined {
   return expandSkillItemsForVerification(items).find((unit) => unit.itemId === itemId);
 }
 
