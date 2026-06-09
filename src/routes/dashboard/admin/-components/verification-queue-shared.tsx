@@ -224,10 +224,10 @@ export function DocumentPreview({
   const [renderType, setRenderType] = useState<DocRenderType>("loading");
   const blobUrlRef = useRef<string | null>(null);
 
-  const isFreelancerLink = documentType === "freelancer_link";
+  const isExternalLink = documentType === "freelancer_link" || documentType === "assessment_solution_link";
 
   useEffect(() => {
-    if (!expanded || isFreelancerLink) return;
+    if (!expanded || isExternalLink) return;
 
     let cancelled = false;
     setRenderType("loading");
@@ -275,13 +275,13 @@ export function DocumentPreview({
       }
       setObjectUrl(null);
     };
-  }, [expanded, fileUrl, isFreelancerLink]);
+  }, [expanded, fileUrl, isExternalLink]);
 
   return (
     <div className="overflow-hidden rounded border">
       <div className="flex items-center justify-between p-2">
         <div className="flex items-center gap-x-2">
-          {isFreelancerLink ? (
+          {isExternalLink ? (
             <LinkIcon className="size-3.5 text-muted-foreground" />
           ) : (
             <FileTextIcon className="size-3.5 text-muted-foreground" />
@@ -290,14 +290,14 @@ export function DocumentPreview({
           <span className="text-xs text-muted-foreground">{formatDefaultDate(uploadedAt)}</span>
         </div>
 
-        {isFreelancerLink ? (
+        {isExternalLink ? (
           <a
             href={fileUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="text-xs text-blue-600 hover:underline dark:text-blue-400"
           >
-            <Trans>Open Profile</Trans>
+            {documentType === "freelancer_link" ? <Trans>Open Profile</Trans> : <Trans>Open Link</Trans>}
           </a>
         ) : (
           <Button size="sm" variant="ghost" className="h-6 px-2 text-xs" onClick={() => setExpanded(!expanded)}>
@@ -306,7 +306,7 @@ export function DocumentPreview({
         )}
       </div>
 
-      {expanded && !isFreelancerLink && (
+      {expanded && !isExternalLink && (
         <div className="border-t bg-muted/30 p-2">
           {renderType === "loading" && (
             <div className="flex items-center justify-center gap-x-2 py-4 text-xs text-muted-foreground">

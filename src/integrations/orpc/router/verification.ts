@@ -47,6 +47,15 @@ export const verificationRouter = {
     });
   }),
 
+  submitAssessmentSolution: protectedProcedure
+    .input(verificationDto.submitAssessmentSolution.input)
+    .handler(async ({ context, input }) => {
+      return await verificationService.submitAssessmentSolution({
+        userId: context.user.id,
+        ...input,
+      });
+    }),
+
   requestExperience: protectedProcedure
     .input(verificationDto.requestExperience.input)
     .handler(async ({ context, input }) => {

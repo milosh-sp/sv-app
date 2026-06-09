@@ -15,6 +15,9 @@ const verificationStatusItemSchema = z.object({
   submittedAt: z.date(),
   assessmentInstructionsUrl: z.string().nullable().optional(),
   assessmentAcceptedAt: z.date().nullable().optional(),
+  assessmentSolutionSubmittedAt: z.date().nullable().optional(),
+  assessmentSolutionFileUrl: z.string().nullable().optional(),
+  assessmentSolutionLinkUrl: z.string().nullable().optional(),
 });
 
 const verificationStatusOutputSchema = z.array(verificationStatusItemSchema);
@@ -42,6 +45,18 @@ export const verificationDto = {
       file: z.instanceof(File),
       documentType: z.enum(["payslip", "contract", "freelancer_link"]),
     }),
+  },
+  submitAssessmentSolution: {
+    input: z
+      .object({
+        resumeId: z.string().uuid(),
+        itemId: resumeItemIdSchema,
+        file: z.instanceof(File).optional(),
+        solutionUrl: z.string().url().optional(),
+      })
+      .refine((value) => Boolean(value.file || value.solutionUrl), {
+        message: "Provide a file or solution URL",
+      }),
   },
   requestExperience: {
     input: z.object({

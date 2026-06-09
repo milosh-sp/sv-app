@@ -108,9 +108,34 @@ export const sendSkillAssessmentAcceptedEmail = async (input: SkillAssessmentAcc
       "Sign in to view and download your assessment instructions:",
       input.verificationDashboardUrl,
       "",
-      "Complete the assessment as described, then wait for the reviewer to evaluate your results.",
+      "Complete the assessment as described, then submit your solution on the Verification dashboard:",
+      input.verificationDashboardUrl,
+      "",
+      "Your reviewer will evaluate your submission after you upload a file or share a link (for example, a GitHub repository).",
     ]
       .filter((line, index, arr) => !(line === "" && arr[index - 1] === ""))
       .join("\n"),
+  });
+};
+
+interface AssessmentSolutionSubmittedEmailInput {
+  to: string;
+  itemLabel: string;
+  applicantName?: string | null;
+  reviewerQueueUrl: string;
+}
+
+export const sendAssessmentSolutionSubmittedEmail = async (input: AssessmentSolutionSubmittedEmailInput) => {
+  const applicantLabel = input.applicantName?.trim() || "An applicant";
+
+  await sendEmail({
+    to: input.to,
+    subject: `Assessment Solution Submitted: ${input.itemLabel}`,
+    text: [
+      `${applicantLabel} submitted a solution for "${input.itemLabel}".`,
+      "",
+      "Review the submission in your reviewer queue:",
+      input.reviewerQueueUrl,
+    ].join("\n"),
   });
 };

@@ -12,6 +12,7 @@ import {
   verificationRequests,
 } from "@/integrations/drizzle/schema";
 import {
+  sendAssessmentSolutionSubmittedEmail,
   sendIdentityVerificationRequestedEmail,
   sendSkillAssessmentAcceptedEmail,
   sendVerificationStatusEmail,
@@ -26,11 +27,13 @@ import {
   normalizeSkillLabel,
   reviewerCanReviewSkill,
 } from "@/utils/verification/skills";
+import { validateAssessmentSolutionFile } from "@/utils/verification-assessment-solution";
 import { validateVerificationDocumentFile } from "@/utils/verification-documents";
 
 import { getStorageService, toPublicFileUrl, toStorageKey, uploadFile } from "./storage";
 
 const REVIEWER_WORKFLOW_SECTION_TYPES = ["skill", "project"] as const;
+const ASSESSMENT_SOLUTION_DOCUMENT_TYPES = ["assessment_solution", "assessment_solution_link"] as const;
 
 const ACTIVE_STATUSES = ["pending", "claimed", "verdict_pending", "verified"] as const;
 const FINAL_STATUSES = ["verified", "rejected", "issue"] as const;
@@ -51,11 +54,15 @@ function assertReviewerWorkflowRequest(request: { sectionType: string }) {
 }
 
 function mapDocumentToPublicUrl(doc: { fileUrl: string; documentType: string }) {
-  if (doc.documentType === "freelancer_link") {
+  if (doc.documentType === "freelancer_link" || doc.documentType === "assessment_solution_link") {
     return doc.fileUrl;
   }
 
   return toPublicFileUrl(toStorageKey(doc.fileUrl));
+}
+
+function isExternalVerificationLink(documentType: string) {
+  return documentType === "freelancer_link" || documentType === "assessment_solution_link";
 }
 
 type ReviewerAttributionSnapshot = {
@@ -235,14 +242,17 @@ async function enrichSkillProjectRequests(requests: SkillProjectRequestRow[]) {
 async function attachAssessmentFields<
   T extends { id: string; status: string; sectionType: string; assessmentAcceptedAt?: Date | null },
 >(rows: T[]) {
-  const inAssessmentIds = rows
-    .filter((r) => r.status === "claimed" && (r.sectionType === "skill" || r.sectionType === "project"))
-    .map((r) => r.id);
+  const skillProjectRows = rows.filter((r) => r.sectionType === "skill" || r.sectionType === "project");
+  const skillProjectIds = skillProjectRows.map((r) => r.id);
+  const inAssessmentIds = skillProjectRows.filter((r) => r.status === "claimed").map((r) => r.id);
 
-  if (inAssessmentIds.length === 0) {
+  if (skillProjectIds.length === 0) {
     return rows.map((r) => ({
       ...r,
       assessmentInstructionsUrl: null as string | null,
+      assessmentSolutionSubmittedAt: null as Date | null,
+      assessmentSolutionFileUrl: null as string | null,
+      assessmentSolutionLinkUrl: null as string | null,
       assessmentAcceptedAt: r.assessmentAcceptedAt ?? null,
     }));
   }
@@ -251,28 +261,61 @@ async function attachAssessmentFields<
     .select({
       verificationRequestId: verificationDocuments.verificationRequestId,
       fileUrl: verificationDocuments.fileUrl,
+      documentType: verificationDocuments.documentType,
+      uploadedAt: verificationDocuments.uploadedAt,
     })
     .from(verificationDocuments)
     .where(
       and(
-        inArray(verificationDocuments.verificationRequestId, inAssessmentIds),
-        eq(verificationDocuments.documentType, "assessment_instructions"),
+        inArray(verificationDocuments.verificationRequestId, skillProjectIds),
+        inArray(verificationDocuments.documentType, [
+          "assessment_instructions",
+          ...ASSESSMENT_SOLUTION_DOCUMENT_TYPES,
+        ]),
       ),
     );
 
-  const instructionsByRequestId = new Map(
-    docs.map((d) => [
-      d.verificationRequestId,
-      mapDocumentToPublicUrl({ fileUrl: d.fileUrl, documentType: "assessment_instructions" }),
-    ]),
-  );
+  const instructionsByRequestId = new Map<string, string>();
+  const solutionFileByRequestId = new Map<string, string>();
+  const solutionLinkByRequestId = new Map<string, string>();
+  const solutionSubmittedAtByRequestId = new Map<string, Date>();
+
+  for (const doc of docs) {
+    if (doc.documentType === "assessment_instructions") {
+      instructionsByRequestId.set(
+        doc.verificationRequestId,
+        mapDocumentToPublicUrl({ fileUrl: doc.fileUrl, documentType: doc.documentType }),
+      );
+      continue;
+    }
+
+    if (doc.documentType === "assessment_solution") {
+      solutionFileByRequestId.set(
+        doc.verificationRequestId,
+        mapDocumentToPublicUrl({ fileUrl: doc.fileUrl, documentType: doc.documentType }),
+      );
+    }
+
+    if (doc.documentType === "assessment_solution_link") {
+      solutionLinkByRequestId.set(
+        doc.verificationRequestId,
+        mapDocumentToPublicUrl({ fileUrl: doc.fileUrl, documentType: doc.documentType }),
+      );
+    }
+
+    const existingSubmittedAt = solutionSubmittedAtByRequestId.get(doc.verificationRequestId);
+    if (!existingSubmittedAt || doc.uploadedAt > existingSubmittedAt) {
+      solutionSubmittedAtByRequestId.set(doc.verificationRequestId, doc.uploadedAt);
+    }
+  }
 
   return rows.map((r) => ({
     ...r,
     assessmentInstructionsUrl:
-      r.status === "claimed" && (r.sectionType === "skill" || r.sectionType === "project")
-        ? (instructionsByRequestId.get(r.id) ?? null)
-        : null,
+      r.status === "claimed" && inAssessmentIds.includes(r.id) ? (instructionsByRequestId.get(r.id) ?? null) : null,
+    assessmentSolutionSubmittedAt: solutionSubmittedAtByRequestId.get(r.id) ?? null,
+    assessmentSolutionFileUrl: solutionFileByRequestId.get(r.id) ?? null,
+    assessmentSolutionLinkUrl: solutionLinkByRequestId.get(r.id) ?? null,
     assessmentAcceptedAt: r.assessmentAcceptedAt ?? null,
   }));
 }
@@ -536,6 +579,171 @@ export const verificationService = {
     return {
       ...doc!,
       fileUrl: mapDocumentToPublicUrl({ fileUrl: doc!.fileUrl, documentType: doc!.documentType }),
+    };
+  },
+
+  submitAssessmentSolution: async (input: {
+    userId: string;
+    resumeId: string;
+    itemId: string;
+    file?: File;
+    solutionUrl?: string;
+  }) => {
+    if (!input.file && !input.solutionUrl?.trim()) {
+      throw new ORPCError("BAD_REQUEST", { message: "Provide a file or solution URL" });
+    }
+
+    if (input.file) {
+      try {
+        validateAssessmentSolutionFile(input.file);
+      } catch (error) {
+        throw new ORPCError("BAD_REQUEST", {
+          message: error instanceof Error ? error.message : "Invalid solution file",
+        });
+      }
+    }
+
+    const [request] = await db
+      .select({
+        id: verificationRequests.id,
+        userId: verificationRequests.userId,
+        resumeId: verificationRequests.resumeId,
+        itemId: verificationRequests.itemId,
+        itemLabel: verificationRequests.itemLabel,
+        sectionType: verificationRequests.sectionType,
+        status: verificationRequests.status,
+        claimedByAdminId: verificationRequests.claimedByAdminId,
+      })
+      .from(verificationRequests)
+      .where(
+        and(
+          eq(verificationRequests.userId, input.userId),
+          eq(verificationRequests.resumeId, input.resumeId),
+          eq(verificationRequests.itemId, input.itemId),
+          inArray(verificationRequests.sectionType, [...REVIEWER_WORKFLOW_SECTION_TYPES]),
+          eq(verificationRequests.status, "claimed"),
+        ),
+      )
+      .orderBy(desc(verificationRequests.submittedAt))
+      .limit(1);
+
+    if (!request) {
+      throw new ORPCError("NOT_FOUND", {
+        message: "No active assessment found for this item. Assessment instructions must be accepted first.",
+      });
+    }
+
+    if (!request.claimedByAdminId) {
+      throw new ORPCError("BAD_REQUEST", { message: "Assessment has no assigned reviewer" });
+    }
+
+    assertReviewerWorkflowRequest(request);
+
+    const existingSolutionDocs = await db
+      .select({ id: verificationDocuments.id })
+      .from(verificationDocuments)
+      .where(
+        and(
+          eq(verificationDocuments.verificationRequestId, request.id),
+          inArray(verificationDocuments.documentType, [...ASSESSMENT_SOLUTION_DOCUMENT_TYPES]),
+        ),
+      )
+      .limit(1);
+
+    if (existingSolutionDocs.length > 0) {
+      throw new ORPCError("CONFLICT", { message: "A solution has already been submitted for this assessment" });
+    }
+
+    const insertedDocs: Array<{ fileUrl: string; documentType: string; uploadedAt: Date }> = [];
+
+    if (input.file) {
+      const fileBuffer = await input.file.arrayBuffer();
+      const data = new Uint8Array(fileBuffer);
+      const uploadResult = await uploadFile({
+        userId: input.userId,
+        resumeId: input.resumeId,
+        itemId: input.itemId,
+        data,
+        contentType: input.file.type || "application/octet-stream",
+        type: "document",
+      });
+
+      const [fileDoc] = await db
+        .insert(verificationDocuments)
+        .values({
+          verificationRequestId: request.id,
+          fileUrl: uploadResult.key,
+          documentType: "assessment_solution",
+        })
+        .returning({
+          fileUrl: verificationDocuments.fileUrl,
+          documentType: verificationDocuments.documentType,
+          uploadedAt: verificationDocuments.uploadedAt,
+        });
+
+      insertedDocs.push(fileDoc!);
+    }
+
+    if (input.solutionUrl?.trim()) {
+      const [linkDoc] = await db
+        .insert(verificationDocuments)
+        .values({
+          verificationRequestId: request.id,
+          fileUrl: input.solutionUrl.trim(),
+          documentType: "assessment_solution_link",
+        })
+        .returning({
+          fileUrl: verificationDocuments.fileUrl,
+          documentType: verificationDocuments.documentType,
+          uploadedAt: verificationDocuments.uploadedAt,
+        });
+
+      insertedDocs.push(linkDoc!);
+    }
+
+    await db.insert(verificationMetadata).values({
+      verificationRequestId: request.id,
+      adminId: request.claimedByAdminId,
+      adminRole: "reviewer_admin",
+      action: "solution_submitted",
+      notes: null,
+    });
+
+    const latestSubmittedAt = insertedDocs.reduce<Date | null>((latest, doc) => {
+      if (!latest || doc.uploadedAt > latest) return doc.uploadedAt;
+      return latest;
+    }, null);
+
+    const solutionFileDoc = insertedDocs.find((doc) => doc.documentType === "assessment_solution");
+    const solutionLinkDoc = insertedDocs.find((doc) => doc.documentType === "assessment_solution_link");
+
+    try {
+      const [[reviewerUser], [applicantUser]] = await Promise.all([
+        db.select({ email: user.email }).from(user).where(eq(user.id, request.claimedByAdminId!)).limit(1),
+        db.select({ name: user.name }).from(user).where(eq(user.id, input.userId)).limit(1),
+      ]);
+
+      if (reviewerUser?.email) {
+        await sendAssessmentSolutionSubmittedEmail({
+          to: reviewerUser.email,
+          itemLabel: request.itemLabel,
+          applicantName: applicantUser?.name,
+          reviewerQueueUrl: `${env.APP_URL}/dashboard/reviewer/queue`,
+        });
+      }
+    } catch {
+      // Email failures should not block the main flow
+    }
+
+    return {
+      requestId: request.id,
+      assessmentSolutionSubmittedAt: latestSubmittedAt,
+      assessmentSolutionFileUrl: solutionFileDoc
+        ? mapDocumentToPublicUrl({ fileUrl: solutionFileDoc.fileUrl, documentType: solutionFileDoc.documentType })
+        : null,
+      assessmentSolutionLinkUrl: solutionLinkDoc
+        ? mapDocumentToPublicUrl({ fileUrl: solutionLinkDoc.fileUrl, documentType: solutionLinkDoc.documentType })
+        : null,
     };
   },
 
@@ -1916,8 +2124,8 @@ export const verificationService = {
       throw new ORPCError("NOT_FOUND", { message: "Document not found" });
     }
 
-    if (doc.documentType === "freelancer_link") {
-      throw new ORPCError("BAD_REQUEST", { message: "Freelancer links cannot be downloaded" });
+    if (isExternalVerificationLink(doc.documentType)) {
+      throw new ORPCError("BAD_REQUEST", { message: "External links cannot be downloaded" });
     }
 
     const storageService = getStorageService();

@@ -696,6 +696,30 @@ function MyCaseRow({
             </div>
           )}
 
+          <div className="space-y-2">
+            <p className="text-xs font-medium text-muted-foreground">
+              <Trans>Assessment solution</Trans>
+            </p>
+            {item.documents.some((doc) =>
+              ["assessment_solution", "assessment_solution_link"].includes(doc.documentType),
+            ) ? (
+              item.documents
+                .filter((doc) => ["assessment_solution", "assessment_solution_link"].includes(doc.documentType))
+                .map((doc) => (
+                  <DocumentPreview
+                    key={doc.id}
+                    fileUrl={doc.fileUrl}
+                    documentType={doc.documentType}
+                    uploadedAt={doc.uploadedAt}
+                  />
+                ))
+            ) : (
+              <p className="text-xs text-muted-foreground">
+                <Trans>No solution submitted yet</Trans>
+              </p>
+            )}
+          </div>
+
           {item.status === "claimed" && canSubmitVerdict && (
             <ReviewDecisionPanel
               action={action}

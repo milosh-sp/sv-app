@@ -51,6 +51,7 @@ describe("verification enums", () => {
     expect(metadataActionEnum.enumValues).toEqual([
       "claimed",
       "verdict_submitted",
+      "solution_submitted",
       "verified",
       "rejected",
       "flagged",
@@ -59,7 +60,14 @@ describe("verification enums", () => {
   });
 
   it("documentTypeEnum has correct types", () => {
-    expect(documentTypeEnum.enumValues).toEqual(["payslip", "contract", "freelancer_link", "assessment_instructions"]);
+    expect(documentTypeEnum.enumValues).toEqual([
+      "payslip",
+      "contract",
+      "freelancer_link",
+      "assessment_instructions",
+      "assessment_solution",
+      "assessment_solution_link",
+    ]);
   });
 });
 

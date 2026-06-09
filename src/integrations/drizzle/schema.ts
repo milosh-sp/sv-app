@@ -448,6 +448,7 @@ export const changeRequestStatusEnum = pg.pgEnum("change_request_status", ["pend
 export const metadataActionEnum = pg.pgEnum("metadata_action", [
   "claimed",
   "verdict_submitted",
+  "solution_submitted",
   "verified",
   "rejected",
   "flagged",
@@ -459,6 +460,8 @@ export const documentTypeEnum = pg.pgEnum("document_type", [
   "contract",
   "freelancer_link",
   "assessment_instructions",
+  "assessment_solution",
+  "assessment_solution_link",
 ]);
 
 export const proposedVerdictEnum = pg.pgEnum("proposed_verdict", ["verified", "rejected", "issue"]);

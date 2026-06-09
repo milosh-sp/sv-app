@@ -553,6 +553,7 @@ describe("verificationService.getStatus", () => {
     };
     mockFrom
       .mockReturnValueOnce({ where: vi.fn(() => statuses), limit: mockLimit, orderBy: mockOrderBy })
+      .mockReturnValueOnce({ where: vi.fn(() => Promise.resolve([])), limit: mockLimit, orderBy: mockOrderBy })
       .mockReturnValueOnce({
         where: vi.fn(() => ({ orderBy: vi.fn(() => ({ limit: vi.fn(() => [identityStatus]) })) })),
         limit: mockLimit,
@@ -565,11 +566,17 @@ describe("verificationService.getStatus", () => {
       {
         ...statuses[0],
         assessmentInstructionsUrl: null,
+        assessmentSolutionSubmittedAt: null,
+        assessmentSolutionFileUrl: null,
+        assessmentSolutionLinkUrl: null,
         assessmentAcceptedAt: null,
       },
       {
         ...identityStatus,
         assessmentInstructionsUrl: null,
+        assessmentSolutionSubmittedAt: null,
+        assessmentSolutionFileUrl: null,
+        assessmentSolutionLinkUrl: null,
         assessmentAcceptedAt: null,
       },
     ]);
@@ -589,6 +596,7 @@ describe("verificationService.getStatus", () => {
     ];
     mockFrom
       .mockReturnValueOnce({ where: vi.fn(() => statuses), limit: mockLimit, orderBy: mockOrderBy })
+      .mockReturnValueOnce({ where: vi.fn(() => Promise.resolve([])), limit: mockLimit, orderBy: mockOrderBy })
       .mockReturnValueOnce({
         where: vi.fn(() => ({ orderBy: vi.fn(() => ({ limit: vi.fn(() => []) })) })),
         limit: mockLimit,
@@ -1038,6 +1046,134 @@ describe("verificationService.acceptCase", () => {
 
     expect(result.status).toBe("claimed");
     expect(mockUploadFile).toHaveBeenCalled();
+  });
+});
+
+describe("verificationService.submitAssessmentSolution", () => {
+  const claimedRequest = {
+    id: "req-1",
+    userId: "user-1",
+    resumeId: "resume-1",
+    itemId: skillKeywordId,
+    itemLabel: "TypeScript",
+    sectionType: "skill",
+    status: "claimed",
+    claimedByAdminId: "reviewer-1",
+  };
+
+  const createPdfFile = () => new File(["pdf"], "solution.pdf", { type: "application/pdf" });
+
+  it("should error when neither file nor URL is provided", async () => {
+    await expect(
+      verificationService.submitAssessmentSolution({
+        userId: "user-1",
+        resumeId: "resume-1",
+        itemId: skillKeywordId,
+      }),
+    ).rejects.toThrow("Provide a file or solution URL");
+  });
+
+  it("should error when no claimed assessment exists", async () => {
+    mockOrderBy.mockReturnValueOnce(
+      Object.assign(Promise.resolve([]), {
+        limit: vi.fn().mockReturnValue([]),
+      }),
+    );
+
+    await expect(
+      verificationService.submitAssessmentSolution({
+        userId: "user-1",
+        resumeId: "resume-1",
+        itemId: skillKeywordId,
+        solutionUrl: "https://github.com/you/repo",
+      }),
+    ).rejects.toThrow("No active assessment found");
+  });
+
+  it("should submit a URL-only solution", async () => {
+    const submittedAt = new Date("2026-06-09T12:00:00.000Z");
+
+    mockOrderBy.mockReturnValueOnce(
+      Object.assign(Promise.resolve([]), {
+        limit: vi.fn().mockReturnValue([claimedRequest]),
+      }),
+    );
+    mockReturning.mockResolvedValueOnce([
+      {
+        fileUrl: "https://github.com/you/repo",
+        documentType: "assessment_solution_link",
+        uploadedAt: submittedAt,
+      },
+    ]);
+    mockLimit
+      .mockReturnValueOnce([])
+      .mockReturnValueOnce([{ email: "reviewer@example.com" }])
+      .mockReturnValueOnce([{ name: "Applicant One" }]);
+
+    const result = await verificationService.submitAssessmentSolution({
+      userId: "user-1",
+      resumeId: "resume-1",
+      itemId: skillKeywordId,
+      solutionUrl: "https://github.com/you/repo",
+    });
+
+    expect(result).toEqual({
+      requestId: "req-1",
+      assessmentSolutionSubmittedAt: submittedAt,
+      assessmentSolutionFileUrl: null,
+      assessmentSolutionLinkUrl: "https://github.com/you/repo",
+    });
+  });
+
+  it("should submit a file-only solution", async () => {
+    const submittedAt = new Date("2026-06-09T12:00:00.000Z");
+
+    mockOrderBy.mockReturnValueOnce(
+      Object.assign(Promise.resolve([]), {
+        limit: vi.fn().mockReturnValue([claimedRequest]),
+      }),
+    );
+    mockUploadFile.mockResolvedValueOnce({ key: "uploads/user-1/solution.pdf" });
+    mockReturning.mockResolvedValueOnce([
+      {
+        fileUrl: "uploads/user-1/solution.pdf",
+        documentType: "assessment_solution",
+        uploadedAt: submittedAt,
+      },
+    ]);
+    mockLimit
+      .mockReturnValueOnce([])
+      .mockReturnValueOnce([{ email: "reviewer@example.com" }])
+      .mockReturnValueOnce([{ name: "Applicant One" }]);
+
+    const result = await verificationService.submitAssessmentSolution({
+      userId: "user-1",
+      resumeId: "resume-1",
+      itemId: skillKeywordId,
+      file: createPdfFile(),
+    });
+
+    expect(mockUploadFile).toHaveBeenCalled();
+    expect(result.assessmentSolutionFileUrl).toBe("https://app.test/uploads/user-1/solution.pdf");
+    expect(result.assessmentSolutionLinkUrl).toBeNull();
+  });
+
+  it("should error when a solution was already submitted", async () => {
+    mockOrderBy.mockReturnValueOnce(
+      Object.assign(Promise.resolve([]), {
+        limit: vi.fn().mockReturnValue([claimedRequest]),
+      }),
+    );
+    mockLimit.mockReturnValueOnce([{ id: "existing-solution-doc" }]);
+
+    await expect(
+      verificationService.submitAssessmentSolution({
+        userId: "user-1",
+        resumeId: "resume-1",
+        itemId: skillKeywordId,
+        solutionUrl: "https://github.com/you/repo",
+      }),
+    ).rejects.toThrow("A solution has already been submitted");
   });
 });
 

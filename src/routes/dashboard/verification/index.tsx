@@ -37,6 +37,15 @@ export const Route = createFileRoute("/dashboard/verification/")({
 
 const ALLOWED_TYPES = ["application/pdf", "image/jpeg", "image/jpg", "image/png"];
 const MAX_FILE_SIZE = 5 * 1024 * 1024;
+const ALLOWED_SOLUTION_TYPES = [
+  "application/pdf",
+  "image/jpeg",
+  "image/jpg",
+  "image/png",
+  "application/zip",
+  "application/x-zip-compressed",
+];
+const MAX_SOLUTION_FILE_SIZE = 25 * 1024 * 1024;
 
 type VerificationItem = {
   id: string;
@@ -49,6 +58,9 @@ type VerificationItem = {
   resumeId: string | null;
   assessmentInstructionsUrl?: string | null;
   assessmentAcceptedAt?: Date | null;
+  assessmentSolutionSubmittedAt?: Date | null;
+  assessmentSolutionFileUrl?: string | null;
+  assessmentSolutionLinkUrl?: string | null;
 };
 
 type ResumeItem = {
@@ -390,14 +402,81 @@ function SkillProjectItemRow({
   existingStatus: VerificationItem | undefined;
   onMutationSuccess: () => void;
 }) {
+  const solutionFileInputRef = useRef<HTMLInputElement>(null);
   const [historyOpen, setHistoryOpen] = useState(false);
   const [confirming, setConfirming] = useState(false);
+  const [solutionFile, setSolutionFile] = useState<File | null>(null);
+  const [solutionUrl, setSolutionUrl] = useState("");
 
   const requestSkill = useMutation(orpc.verification.requestSkill.mutationOptions());
   const requestProject = useMutation(orpc.verification.requestProject.mutationOptions());
-  const isPending = requestSkill.isPending || requestProject.isPending;
+  const submitAssessmentSolution = useMutation(orpc.verification.submitAssessmentSolution.mutationOptions());
+  const isPending = requestSkill.isPending || requestProject.isPending || submitAssessmentSolution.isPending;
 
   const canRetry = existingStatus && ["rejected", "issue"].includes(existingStatus.status);
+  const hasSubmittedSolution = Boolean(
+    existingStatus?.assessmentSolutionSubmittedAt ||
+      existingStatus?.assessmentSolutionFileUrl ||
+      existingStatus?.assessmentSolutionLinkUrl,
+  );
+  const showSolutionForm = existingStatus?.status === "claimed" && !hasSubmittedSolution;
+
+  const resetSolutionForm = () => {
+    setSolutionFile(null);
+    setSolutionUrl("");
+    if (solutionFileInputRef.current) solutionFileInputRef.current.value = "";
+  };
+
+  const handleSolutionFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) {
+      setSolutionFile(null);
+      return;
+    }
+
+    if (!ALLOWED_SOLUTION_TYPES.includes(file.type)) {
+      toast.error(t`Only PDF, JPG, JPEG, PNG, and ZIP files are allowed.`);
+      event.target.value = "";
+      setSolutionFile(null);
+      return;
+    }
+
+    if (file.size > MAX_SOLUTION_FILE_SIZE) {
+      toast.error(t`File size must be under 25MB.`);
+      event.target.value = "";
+      setSolutionFile(null);
+      return;
+    }
+
+    setSolutionFile(file);
+  };
+
+  const handleSubmitSolution = () => {
+    const trimmedUrl = solutionUrl.trim();
+    if (!solutionFile && !trimmedUrl) {
+      toast.error(t`Provide a file or solution URL.`);
+      return;
+    }
+
+    submitAssessmentSolution.mutate(
+      {
+        resumeId,
+        itemId: item.id,
+        ...(solutionFile ? { file: solutionFile } : {}),
+        ...(trimmedUrl ? { solutionUrl: trimmedUrl } : {}),
+      },
+      {
+        onSuccess: () => {
+          toast.success(t`Assessment solution submitted for "${item.label}".`);
+          resetSolutionForm();
+          onMutationSuccess();
+        },
+        onError: (error) => {
+          toast.error(error.message);
+        },
+      },
+    );
+  };
 
   const handleRequest = () => {
     const mutate = sectionType === "skill" ? requestSkill.mutate : requestProject.mutate;
@@ -464,25 +543,107 @@ function SkillProjectItemRow({
       </div>
 
       {existingStatus?.status === "claimed" && existingStatus.assessmentInstructionsUrl && (
-        <div className="mt-3 space-y-2 rounded-md border border-purple-500/30 bg-purple-50/40 p-3 dark:bg-purple-900/10">
-          <p className="text-xs font-medium text-purple-900 dark:text-purple-200">
-            <Trans>Assessment in progress</Trans>
-          </p>
-          <p className="text-xs text-muted-foreground">
-            <Trans>
-              Your reviewer has accepted your request. Assessment instructions were sent to your email and are available
-              below.
-            </Trans>
-          </p>
-          <a
-            href={existingStatus.assessmentInstructionsUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-x-1.5 text-xs font-medium text-primary hover:underline"
-          >
-            <FileTextIcon className="size-3.5" />
-            <Trans>Download assessment instructions</Trans>
-          </a>
+        <div className="mt-3 space-y-3 rounded-md border border-purple-500/30 bg-purple-50/40 p-3 dark:bg-purple-900/10">
+          <div className="space-y-2">
+            <p className="text-xs font-medium text-purple-900 dark:text-purple-200">
+              <Trans>Assessment in progress</Trans>
+            </p>
+            <p className="text-xs text-muted-foreground">
+              <Trans>
+                Your reviewer has accepted your request. Download the instructions, complete the assessment, then submit
+                your solution below.
+              </Trans>
+            </p>
+            <a
+              href={existingStatus.assessmentInstructionsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-x-1.5 text-xs font-medium text-primary hover:underline"
+            >
+              <FileTextIcon className="size-3.5" />
+              <Trans>Download assessment instructions</Trans>
+            </a>
+          </div>
+
+          {showSolutionForm ? (
+            <div className="space-y-2 border-t border-purple-500/20 pt-3">
+              <p className="text-xs font-medium text-purple-900 dark:text-purple-200">
+                <Trans>Submit your solution</Trans>
+              </p>
+              <p className="text-xs text-muted-foreground">
+                <Trans>Upload a file or share a link (for example, a GitHub repository). At least one is required.</Trans>
+              </p>
+              <div className="space-y-2">
+                <input
+                  ref={solutionFileInputRef}
+                  type="file"
+                  accept={ALLOWED_SOLUTION_TYPES.join(",")}
+                  className="block w-full text-xs file:me-2 file:rounded file:border-0 file:bg-primary file:px-2 file:py-1 file:text-xs file:font-medium file:text-primary-foreground"
+                  onChange={handleSolutionFileChange}
+                />
+                {solutionFile ? (
+                  <p className="text-xs text-muted-foreground">
+                    <Trans>Selected file:</Trans> {solutionFile.name}
+                  </p>
+                ) : null}
+                <div className="flex items-center gap-x-2">
+                  <LinkIcon className="size-3.5 shrink-0 text-muted-foreground" />
+                  <input
+                    type="url"
+                    value={solutionUrl}
+                    onChange={(event) => setSolutionUrl(event.target.value)}
+                    placeholder={t`https://github.com/you/your-solution`}
+                    className="h-8 w-full rounded border bg-background px-2 text-xs"
+                  />
+                </div>
+              </div>
+              <Button
+                size="sm"
+                variant="default"
+                className="h-7 text-xs"
+                disabled={isPending}
+                onClick={handleSubmitSolution}
+              >
+                <UploadIcon className="mr-1.5 size-3" />
+                <Trans>Submit solution</Trans>
+              </Button>
+            </div>
+          ) : hasSubmittedSolution ? (
+            <div className="space-y-2 border-t border-purple-500/20 pt-3">
+              <p className="text-xs font-medium text-purple-900 dark:text-purple-200">
+                <Trans>Solution submitted</Trans>
+              </p>
+              {existingStatus.assessmentSolutionSubmittedAt ? (
+                <p className="text-xs text-muted-foreground">
+                  <Trans>Submitted on</Trans> {formatDefaultDate(existingStatus.assessmentSolutionSubmittedAt)}
+                </p>
+              ) : null}
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+                {existingStatus.assessmentSolutionFileUrl ? (
+                  <a
+                    href={existingStatus.assessmentSolutionFileUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-x-1.5 text-xs font-medium text-primary hover:underline"
+                  >
+                    <FileTextIcon className="size-3.5" />
+                    <Trans>View submitted file</Trans>
+                  </a>
+                ) : null}
+                {existingStatus.assessmentSolutionLinkUrl ? (
+                  <a
+                    href={existingStatus.assessmentSolutionLinkUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-x-1.5 text-xs font-medium text-primary hover:underline"
+                  >
+                    <LinkIcon className="size-3.5" />
+                    <Trans>Open submitted link</Trans>
+                  </a>
+                ) : null}
+              </div>
+            </div>
+          ) : null}
         </div>
       )}
 

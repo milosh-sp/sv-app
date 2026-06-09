@@ -86,6 +86,18 @@ describe("Verification Dashboard", () => {
     });
   });
 
+  describe("assessment solution submission validation", () => {
+    const hasSubmissionInput = (input: { file?: File | null; solutionUrl?: string }) =>
+      Boolean(input.file || input.solutionUrl?.trim());
+
+    it("requires at least one of file or solution URL", () => {
+      expect(hasSubmissionInput({})).toBe(false);
+      expect(hasSubmissionInput({ solutionUrl: "   " })).toBe(false);
+      expect(hasSubmissionInput({ file: new File(["a"], "solution.zip", { type: "application/zip" }) })).toBe(true);
+      expect(hasSubmissionInput({ solutionUrl: "https://github.com/you/repo" })).toBe(true);
+    });
+  });
+
   describe("retry eligibility", () => {
     const RETRYABLE_STATUSES = ["rejected", "issue"];
 

@@ -375,7 +375,13 @@ export const adminUsersRouter = {
         string,
         Array<{
           fileUrl: string;
-          documentType: "payslip" | "contract" | "freelancer_link" | "assessment_instructions";
+          documentType:
+            | "payslip"
+            | "contract"
+            | "freelancer_link"
+            | "assessment_instructions"
+            | "assessment_solution"
+            | "assessment_solution_link";
           uploadedAt: Date;
         }>
       >(),
