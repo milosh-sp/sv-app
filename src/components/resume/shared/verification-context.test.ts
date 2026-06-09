@@ -15,7 +15,7 @@ describe("Badge display rules", () => {
   const shouldShowBadge = (status: VerificationStatus): string | null => {
     if (!status.badgeVisible) return null;
     if (status.status === "verified") return "checkmark";
-    if (["pending", "claimed", "verdict_pending"].includes(status.status)) return "clock";
+    if (["pending", "claimed", "verdict_pending"].includes(status.status)) return null;
     return null;
   };
 
@@ -23,8 +23,8 @@ describe("Badge display rules", () => {
     expect(shouldShowBadge(statuses[0]!)).toBe("checkmark");
   });
 
-  it("pending + visible = clock", () => {
-    expect(shouldShowBadge(statuses[1]!)).toBe("clock");
+  it("pending + visible = nothing", () => {
+    expect(shouldShowBadge(statuses[1]!)).toBeNull();
   });
 
   it("approved + invisible = nothing", () => {
@@ -35,12 +35,12 @@ describe("Badge display rules", () => {
     expect(shouldShowBadge(statuses[3]!)).toBeNull();
   });
 
-  it("claimed displays as clock", () => {
-    expect(shouldShowBadge(statuses[4]!)).toBe("clock");
+  it("claimed displays as nothing", () => {
+    expect(shouldShowBadge(statuses[4]!)).toBeNull();
   });
 
-  it("verdict_pending displays as clock", () => {
-    expect(shouldShowBadge(statuses[5]!)).toBe("clock");
+  it("verdict_pending displays as nothing", () => {
+    expect(shouldShowBadge(statuses[5]!)).toBeNull();
   });
 
   it("should find correct status by itemId", () => {

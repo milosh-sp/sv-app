@@ -5,7 +5,7 @@ describe("VerificationBadge display rules", () => {
     if (!badgeVisible) return null;
     if (status === "rejected" || status === "issue") return null;
     if (status === "verified") return "checkmark";
-    if (status === "pending" || status === "claimed" || status === "verdict_pending") return "clock";
+    if (status === "pending" || status === "claimed" || status === "verdict_pending") return null;
     return null;
   };
 
@@ -13,16 +13,16 @@ describe("VerificationBadge display rules", () => {
     expect(shouldRender("verified", true)).toBe("checkmark");
   });
 
-  it("should show clock for pending with visible badge", () => {
-    expect(shouldRender("pending", true)).toBe("clock");
+  it("should show nothing for pending with visible badge", () => {
+    expect(shouldRender("pending", true)).toBeNull();
   });
 
-  it("should show clock for claimed (displayed as pending to user)", () => {
-    expect(shouldRender("claimed", true)).toBe("clock");
+  it("should show nothing for claimed (displayed as pending to user)", () => {
+    expect(shouldRender("claimed", true)).toBeNull();
   });
 
-  it("should show clock for verdict_pending (displayed as pending to user)", () => {
-    expect(shouldRender("verdict_pending", true)).toBe("clock");
+  it("should show nothing for verdict_pending (displayed as pending to user)", () => {
+    expect(shouldRender("verdict_pending", true)).toBeNull();
   });
 
   it("should show nothing for rejected", () => {
