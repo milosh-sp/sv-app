@@ -69,9 +69,10 @@ const MAX_FILE_SIZE = 5 * 1024 * 1024;
 
 type QueueItem = RouterOutput["admin"]["verification"]["listQueue"][number];
 type MyCaseItem = RouterOutput["admin"]["verification"]["listMyCases"][number];
+type HistoryItem = RouterOutput["admin"]["verification"]["listMyCaseHistory"][number];
 
 function RouteComponent() {
-  const [activeTab, setActiveTab] = useState<"queue" | "cases">("queue");
+  const [activeTab, setActiveTab] = useState<"queue" | "cases" | "history">("queue");
   const { skills: urlSkills } = Route.useSearch();
   const navigate = useNavigate({ from: Route.fullPath });
 
@@ -102,11 +103,26 @@ function RouteComponent() {
     retry: false,
   });
 
+  const {
+    data: history,
+    isLoading: historyLoading,
+    isError: historyError,
+  } = useQuery({
+    ...orpc.admin.verification.listMyCaseHistory.queryOptions(),
+    enabled: activeTab === "history",
+    retry: false,
+  });
+
   const assignedSkills = profile?.reviewerSkills;
   const hasProjectsInQueue = (queue ?? []).some((item) => item.sectionType === "project");
+  const hasProjectsInHistory = (history ?? []).some((item) => item.sectionType === "project");
   const filterOptions = useMemo(
-    () => buildReviewerQueueFilterOptions(assignedSkills ?? [], hasProjectsInQueue),
-    [assignedSkills, hasProjectsInQueue],
+    () =>
+      buildReviewerQueueFilterOptions(
+        assignedSkills ?? [],
+        activeTab === "history" ? hasProjectsInHistory : hasProjectsInQueue,
+      ),
+    [assignedSkills, activeTab, hasProjectsInHistory, hasProjectsInQueue],
   );
   const allowedFilterValues = useMemo(() => filterOptions.map((option) => option.value), [filterOptions]);
   const selectedSkills = useMemo(
@@ -115,6 +131,10 @@ function RouteComponent() {
   );
   const hasActiveFilter = selectedSkills.length > 0;
   const filteredQueue = useMemo(() => filterQueueItemsBySkills(queue ?? [], selectedSkills), [queue, selectedSkills]);
+  const filteredHistory = useMemo(
+    () => filterQueueItemsBySkills(history ?? [], selectedSkills),
+    [history, selectedSkills],
+  );
   const showSkillFilter = filterOptions.length >= 2;
 
   if (queueError || casesError) {
@@ -163,9 +183,17 @@ function RouteComponent() {
             </span>
           )}
         </Button>
+        <Button
+          size="sm"
+          variant={activeTab === "history" ? "default" : "ghost"}
+          className="h-7 text-xs"
+          onClick={() => setActiveTab("history")}
+        >
+          <Trans>History</Trans>
+        </Button>
       </div>
 
-      {activeTab === "queue" && showSkillFilter && (
+      {(activeTab === "queue" || activeTab === "history") && showSkillFilter && (
         <div className="rounded-lg border p-4">
           <div className="space-y-1.5">
             <p className="text-xs font-medium text-muted-foreground">
@@ -204,6 +232,15 @@ function RouteComponent() {
 
       {activeTab === "cases" && (
         <MyCasesTab items={myCases ?? []} isLoading={casesLoading} canSubmitVerdict={hasProfile && hasConsent} />
+      )}
+
+      {activeTab === "history" && (
+        <HistoryTab
+          items={filteredHistory}
+          isLoading={historyLoading}
+          isError={historyError}
+          hasActiveFilter={hasActiveFilter}
+        />
       )}
     </div>
   );
@@ -753,5 +790,166 @@ function ProposedVerdictBadge({ verdict }: { verdict: "verified" | "rejected" | 
       {verdict === "issue" && <WarningCircleIcon className="size-3" weight="fill" />}
       {label}
     </span>
+  );
+}
+
+function HistoryTab({
+  items,
+  isLoading,
+  isError,
+  hasActiveFilter,
+}: {
+  items: HistoryItem[];
+  isLoading: boolean;
+  isError: boolean;
+  hasActiveFilter: boolean;
+}) {
+  const [expandedId, setExpandedId] = useState<string | null>(null);
+
+  if (isLoading) return <QueueLoadingState />;
+  if (isError) return <QueueErrorState />;
+
+  if (items.length === 0) {
+    return (
+      <QueueEmptyState
+        message={hasActiveFilter ? t`No completed reviews match the selected filters.` : t`No completed reviews yet.`}
+      />
+    );
+  }
+
+  return (
+    <div className="w-full space-y-3">
+      {items.map((item) => (
+        <HistoryCaseRow
+          key={item.id}
+          item={item}
+          expanded={expandedId === item.id}
+          onExpandedChange={(open) => setExpandedId(open ? item.id : null)}
+        />
+      ))}
+    </div>
+  );
+}
+
+function HistoryCaseRow({
+  item,
+  expanded,
+  onExpandedChange,
+}: {
+  item: HistoryItem;
+  expanded: boolean;
+  onExpandedChange: (open: boolean) => void;
+}) {
+  const verdictDiffers = item.proposedVerdict != null && item.proposedVerdict !== item.status;
+
+  return (
+    <div className="space-y-3 rounded-lg border p-4">
+      <div className="flex items-start justify-between gap-x-3">
+        <div className="min-w-0 space-y-1">
+          <p className="text-sm font-medium">{item.itemLabel}</p>
+          {"parentItemLabel" in item && item.parentItemLabel ? (
+            <p className="text-xs text-muted-foreground">{item.parentItemLabel}</p>
+          ) : null}
+          {item.user && (
+            <p className="truncate text-xs text-muted-foreground">
+              {item.user.name}
+              <span className="mx-1.5 opacity-60">·</span>
+              {item.user.email}
+            </p>
+          )}
+          <div className="flex flex-wrap items-center gap-x-2">
+            <StatusBadge status={item.status} />
+            <span className="text-xs text-muted-foreground capitalize">{item.sectionType}</span>
+            {item.resolvedAt && (
+              <span className="flex items-center gap-x-1 text-xs text-muted-foreground">
+                <CalendarBlankIcon className="size-3" />
+                {formatDefaultDate(item.resolvedAt)}
+              </span>
+            )}
+          </div>
+        </div>
+
+        <Button
+          size="sm"
+          variant="outline"
+          className="h-7 shrink-0 text-xs"
+          onClick={() => onExpandedChange(!expanded)}
+        >
+          {expanded ? <Trans>Collapse</Trans> : <Trans>Details</Trans>}
+        </Button>
+      </div>
+
+      {verdictDiffers && (
+        <p className="text-xs text-muted-foreground">
+          <Trans>Final verdict differed from your proposal.</Trans>
+        </p>
+      )}
+
+      {expanded && (
+        <div className="space-y-3 border-t pt-3">
+          {item.user && <ApplicantDetails user={item.user} />}
+
+          {item.resume && (
+            <div className="space-y-2">
+              <p className="text-xs font-medium text-muted-foreground">
+                <Trans>CV / resume</Trans>
+              </p>
+              <QueueResumePreview resume={item.resume} />
+            </div>
+          )}
+
+          {item.reviewerNote && (
+            <div className="space-y-1">
+              <p className="text-xs font-medium text-muted-foreground">
+                <Trans>Your review notes</Trans>
+              </p>
+              <p className="text-xs text-muted-foreground">{item.reviewerNote}</p>
+            </div>
+          )}
+
+          {item.assessmentInstructionsUrl && item.documents.length > 0 && (
+            <div className="space-y-2">
+              <p className="text-xs font-medium text-muted-foreground">
+                <Trans>Assessment instructions</Trans>
+              </p>
+              {item.documents
+                .filter((doc) => doc.documentType === "assessment_instructions")
+                .map((doc) => (
+                  <DocumentPreview
+                    key={doc.id}
+                    fileUrl={doc.fileUrl}
+                    documentType={doc.documentType}
+                    uploadedAt={doc.uploadedAt}
+                  />
+                ))}
+            </div>
+          )}
+
+          <div className="space-y-2">
+            <p className="text-xs font-medium text-muted-foreground">
+              <Trans>Assessment solution</Trans>
+            </p>
+            {item.documents.some((doc) =>
+              ["assessment_solution", "assessment_solution_link"].includes(doc.documentType),
+            ) ? (
+              item.documents
+                .filter((doc) => ["assessment_solution", "assessment_solution_link"].includes(doc.documentType))
+                .map((doc) => (
+                  <DocumentPreview
+                    key={doc.id}
+                    fileUrl={doc.fileUrl}
+                    documentType={doc.documentType}
+                    uploadedAt={doc.uploadedAt}
+                  />
+                ))
+            ) : (
+              <p className="text-xs text-muted-foreground">
+                <Trans>No solution submitted</Trans>
+              </p>
+            )}
+          </div>
+        </div>
+      )}
+    </div>
   );
 }

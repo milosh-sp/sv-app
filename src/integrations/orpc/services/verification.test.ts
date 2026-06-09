@@ -1721,6 +1721,62 @@ describe("verificationService.listMyCases", () => {
   });
 });
 
+describe("verificationService.listMyCaseHistory", () => {
+  it("returns empty array when admin has no completed cases", async () => {
+    mockFrom.mockReturnValueOnce({ where: vi.fn(() => ({ orderBy: vi.fn(() => []) })) });
+    const result = await verificationService.listMyCaseHistory("admin-1");
+    expect(result).toEqual([]);
+  });
+
+  it("returns finalized cases claimed by the given admin with resolvedAt", async () => {
+    const older = new Date("2026-01-01T00:00:00.000Z");
+    const newer = new Date("2026-06-01T00:00:00.000Z");
+    const rows = [
+      {
+        id: "req-2",
+        userId: "user-1",
+        resumeId: "resume-1",
+        sectionType: "skill",
+        itemId: "item-2",
+        itemLabel: "TypeScript",
+        status: "verified",
+        claimedAt: older,
+        resolvedAt: newer,
+        submittedAt: older,
+        proposedVerdict: "verified",
+        reviewerNote: "Strong performance",
+        assessmentAcceptedAt: older,
+      },
+      {
+        id: "req-1",
+        userId: "user-1",
+        resumeId: "resume-1",
+        sectionType: "skill",
+        itemId: "item-1",
+        itemLabel: "React",
+        status: "rejected",
+        claimedAt: older,
+        resolvedAt: older,
+        submittedAt: older,
+        proposedVerdict: "rejected",
+        reviewerNote: null,
+        assessmentAcceptedAt: older,
+      },
+    ];
+    mockFrom
+      .mockReturnValueOnce({ where: vi.fn(() => ({ orderBy: vi.fn(() => rows) })) })
+      .mockReturnValueOnce({ where: vi.fn(() => []) })
+      .mockReturnValueOnce({ where: vi.fn(() => []) })
+      .mockReturnValueOnce({ where: vi.fn(() => []) });
+    const result = await verificationService.listMyCaseHistory("admin-1");
+    expect(result).toHaveLength(2);
+    expect(result[0]?.status).toBe("verified");
+    expect(result[0]?.resolvedAt).toEqual(newer);
+    expect(result[1]?.status).toBe("rejected");
+    expect(result[1]?.resolvedAt).toEqual(older);
+  });
+});
+
 describe("verificationService.listPendingVerdicts", () => {
   it("returns empty array when no verdict_pending requests exist", async () => {
     mockFrom.mockReturnValueOnce({ where: vi.fn(() => ({ orderBy: vi.fn(() => []) })) });

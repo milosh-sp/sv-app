@@ -29,6 +29,10 @@ export const adminVerificationRouter = {
     return await verificationService.listMyCases(context.user.id);
   }),
 
+  listMyCaseHistory: reviewerAdminProcedure.handler(async ({ context }) => {
+    return await verificationService.listMyCaseHistory(context.user.id);
+  }),
+
   submitVerdict: reviewerAdminProcedure
     .input(
       z.object({

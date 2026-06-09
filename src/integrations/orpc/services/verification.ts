@@ -147,6 +147,7 @@ type SkillProjectRequestRow = {
   status: string;
   submittedAt: Date;
   claimedAt?: Date | null;
+  resolvedAt?: Date | null;
   claimedByAdminId?: string | null;
   proposedVerdict?: "verified" | "rejected" | "issue" | null;
   reviewerNote?: string | null;
@@ -224,6 +225,7 @@ async function enrichSkillProjectRequests(requests: SkillProjectRequestRow[]) {
       status: r.status,
       submittedAt: r.submittedAt,
       claimedAt: r.claimedAt ?? null,
+      resolvedAt: r.resolvedAt ?? null,
       proposedVerdict: r.proposedVerdict ?? null,
       reviewerNote: r.reviewerNote ?? null,
       assessmentAcceptedAt: r.assessmentAcceptedAt ?? null,
@@ -1484,6 +1486,36 @@ export const verificationService = {
         ),
       )
       .orderBy(desc(verificationRequests.claimedAt));
+
+    return await enrichSkillProjectRequests(requests);
+  },
+
+  listMyCaseHistory: async (adminId: string) => {
+    const requests = await db
+      .select({
+        id: verificationRequests.id,
+        userId: verificationRequests.userId,
+        resumeId: verificationRequests.resumeId,
+        sectionType: verificationRequests.sectionType,
+        itemId: verificationRequests.itemId,
+        itemLabel: verificationRequests.itemLabel,
+        status: verificationRequests.status,
+        claimedAt: verificationRequests.claimedAt,
+        resolvedAt: verificationRequests.resolvedAt,
+        submittedAt: verificationRequests.submittedAt,
+        proposedVerdict: verificationRequests.proposedVerdict,
+        reviewerNote: verificationRequests.reviewerNote,
+        assessmentAcceptedAt: verificationRequests.assessmentAcceptedAt,
+      })
+      .from(verificationRequests)
+      .where(
+        and(
+          eq(verificationRequests.claimedByAdminId, adminId),
+          inArray(verificationRequests.status, [...FINAL_STATUSES]),
+          inArray(verificationRequests.sectionType, [...REVIEWER_WORKFLOW_SECTION_TYPES]),
+        ),
+      )
+      .orderBy(desc(verificationRequests.resolvedAt));
 
     return await enrichSkillProjectRequests(requests);
   },
