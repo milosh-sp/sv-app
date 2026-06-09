@@ -450,29 +450,25 @@ describe("verificationService.getBadgeDetail", () => {
   });
 
   it("should fall back to verdict_submitted snapshot when verified metadata lacks reviewer name", async () => {
-    mockLimit
-      .mockReturnValueOnce([{ id: "req-1", status: "verified", sectionType: "skill" }])
-      .mockReturnValueOnce([
-        {
-          reviewerSnapshotFirstName: null,
-          reviewerSnapshotLastName: null,
-          reviewerSnapshotTitle: null,
-          reviewerPublicProfileUrl: null,
-        },
-      ]);
+    mockLimit.mockReturnValueOnce([{ id: "req-1", status: "verified", sectionType: "skill" }]).mockReturnValueOnce([
+      {
+        reviewerSnapshotFirstName: null,
+        reviewerSnapshotLastName: null,
+        reviewerSnapshotTitle: null,
+        reviewerPublicProfileUrl: null,
+      },
+    ]);
 
-    mockOrderBy
-      .mockReturnValueOnce(createThenableRows())
-      .mockReturnValueOnce(
-        createThenableRows([
-          {
-            reviewerSnapshotFirstName: "Jane",
-            reviewerSnapshotLastName: "Smith",
-            reviewerSnapshotTitle: "Senior Engineer",
-            reviewerPublicProfileUrl: "/reviewer/admin-1",
-          },
-        ]),
-      );
+    mockOrderBy.mockReturnValueOnce(createThenableRows()).mockReturnValueOnce(
+      createThenableRows([
+        {
+          reviewerSnapshotFirstName: "Jane",
+          reviewerSnapshotLastName: "Smith",
+          reviewerSnapshotTitle: "Senior Engineer",
+          reviewerPublicProfileUrl: "/reviewer/admin-1",
+        },
+      ]),
+    );
 
     const result = await verificationService.getBadgeDetail("req-1");
 
@@ -886,9 +882,7 @@ describe("verificationService.acceptCase", () => {
   };
 
   it("should error if already claimed", async () => {
-    mockLimit
-      .mockReturnValueOnce([reviewerProfile])
-      .mockReturnValueOnce([{ id: "req-1" }]);
+    mockLimit.mockReturnValueOnce([reviewerProfile]).mockReturnValueOnce([{ id: "req-1" }]);
     mockReturning.mockResolvedValueOnce([]);
 
     await expect(verificationService.acceptCase({ requestId: "req-1", adminId: "admin-1", file })).rejects.toThrow(
@@ -897,9 +891,7 @@ describe("verificationService.acceptCase", () => {
   });
 
   it("should error if not pending", async () => {
-    mockLimit
-      .mockReturnValueOnce([reviewerProfile])
-      .mockReturnValueOnce([{ id: "req-1" }]);
+    mockLimit.mockReturnValueOnce([reviewerProfile]).mockReturnValueOnce([{ id: "req-1" }]);
     mockReturning.mockResolvedValueOnce([]);
 
     await expect(verificationService.acceptCase({ requestId: "req-1", adminId: "admin-1", file })).rejects.toThrow(
@@ -925,9 +917,7 @@ describe("verificationService.acceptCase", () => {
   });
 
   it("should reject experience section requests", async () => {
-    mockLimit
-      .mockReturnValueOnce([reviewerProfile])
-      .mockReturnValueOnce([{ id: "req-1" }]);
+    mockLimit.mockReturnValueOnce([reviewerProfile]).mockReturnValueOnce([{ id: "req-1" }]);
     mockReturning.mockResolvedValueOnce([]);
 
     await expect(verificationService.acceptCase({ requestId: "req-1", adminId: "admin-1", file })).rejects.toThrow(
@@ -1008,9 +998,7 @@ describe("verificationService.submitVerdict", () => {
   it("should error if not the claiming reviewer", async () => {
     mockLimit
       .mockReturnValueOnce([reviewerProfile])
-      .mockReturnValueOnce([
-        { id: "req-1", status: "claimed", claimedByAdminId: "admin-2", sectionType: "skill" },
-      ]);
+      .mockReturnValueOnce([{ id: "req-1", status: "claimed", claimedByAdminId: "admin-2", sectionType: "skill" }]);
     mockReturning.mockResolvedValueOnce([]);
 
     await expect(
@@ -1025,9 +1013,7 @@ describe("verificationService.submitVerdict", () => {
   it("should error if not in claimed status", async () => {
     mockLimit
       .mockReturnValueOnce([reviewerProfile])
-      .mockReturnValueOnce([
-        { id: "req-1", status: "pending", claimedByAdminId: "admin-1", sectionType: "skill" },
-      ]);
+      .mockReturnValueOnce([{ id: "req-1", status: "pending", claimedByAdminId: "admin-1", sectionType: "skill" }]);
     mockReturning.mockResolvedValueOnce([]);
 
     await expect(

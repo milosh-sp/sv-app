@@ -88,9 +88,7 @@ async function getReviewerAttributionSnapshot(requestId: string): Promise<Review
 }
 
 function buildReviewerBadgeFromSnapshot(snapshot: ReviewerAttributionSnapshot) {
-  const displayName = [snapshot.reviewerSnapshotFirstName, snapshot.reviewerSnapshotLastName]
-    .filter(Boolean)
-    .join(" ");
+  const displayName = [snapshot.reviewerSnapshotFirstName, snapshot.reviewerSnapshotLastName].filter(Boolean).join(" ");
 
   const label = snapshot.reviewerSnapshotTitle
     ? `${displayName} \u2014 ${snapshot.reviewerSnapshotTitle}`
@@ -251,7 +249,10 @@ async function attachAssessmentFields<
     );
 
   const instructionsByRequestId = new Map(
-    docs.map((d) => [d.verificationRequestId, mapDocumentToPublicUrl({ fileUrl: d.fileUrl, documentType: "assessment_instructions" })]),
+    docs.map((d) => [
+      d.verificationRequestId,
+      mapDocumentToPublicUrl({ fileUrl: d.fileUrl, documentType: "assessment_instructions" }),
+    ]),
   );
 
   return rows.map((r) => ({
@@ -1516,12 +1517,7 @@ export const verificationService = {
         status: finalStatus,
         resolvedAt: new Date(),
       })
-      .where(
-        and(
-          eq(verificationRequests.id, input.requestId),
-          eq(verificationRequests.status, "verdict_pending"),
-        ),
-      )
+      .where(and(eq(verificationRequests.id, input.requestId), eq(verificationRequests.status, "verdict_pending")))
       .returning({
         id: verificationRequests.id,
         userId: verificationRequests.userId,
@@ -1568,12 +1564,7 @@ export const verificationService = {
         status: input.action,
         resolvedAt: new Date(),
       })
-      .where(
-        and(
-          eq(verificationRequests.id, input.requestId),
-          eq(verificationRequests.status, "verdict_pending"),
-        ),
-      )
+      .where(and(eq(verificationRequests.id, input.requestId), eq(verificationRequests.status, "verdict_pending")))
       .returning({
         id: verificationRequests.id,
         userId: verificationRequests.userId,
