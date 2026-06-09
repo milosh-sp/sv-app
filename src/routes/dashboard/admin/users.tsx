@@ -9,13 +9,13 @@ import { toast } from "sonner";
 import { useDebounceCallback } from "usehooks-ts";
 import z from "zod";
 
-import { ChipInput } from "@/components/input/chip-input";
 import { Button } from "@/components/ui/button";
 import { Combobox, type ComboboxOption } from "@/components/ui/combobox";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { orpc } from "@/integrations/orpc/client";
 
+import { ReviewerProfileDialogTrigger } from "./-components/reviewer-profile-panel";
 import { DashboardHeader } from "../-components/header";
 
 const PAGE_SIZE = 20;
@@ -342,6 +342,15 @@ function UserRoleRow({
           </p>
         </div>
         <div className="flex shrink-0 flex-wrap items-center gap-2">
+          {user.adminRole === "reviewer_admin" ? (
+            <ReviewerProfileDialogTrigger
+              adminId={user.id}
+              userName={user.name}
+              userEmail={user.email}
+              hasProfile={undefined}
+              currentUserId={currentUserId}
+            />
+          ) : null}
           <Button type="button" size="sm" variant="outline" onClick={() => onExpandedChange(!expanded)}>
             {expanded ? <Trans>Hide details</Trans> : <Trans>View details</Trans>}
           </Button>
@@ -708,150 +717,10 @@ function UserRoleRow({
                 </p>
               </div>
             </div>
-
-            {user.adminRole === "reviewer_admin" ? <ReviewerProfilePanel adminId={user.id} userName={user.name} /> : null}
             </div>
           ) : null}
         </div>
       ) : null}
     </li>
-  );
-}
-
-function ReviewerProfilePanel({ adminId, userName }: { adminId: string; userName: string }) {
-  const queryClient = useQueryClient();
-  const profileQuery = useQuery({
-    ...orpc.admin.reviewerProfiles.getByAdminId.queryOptions({ input: { adminId } }),
-    retry: false,
-  });
-
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [title, setTitle] = useState("");
-  const [reviewerSkills, setReviewerSkills] = useState<string[]>([]);
-  const [initialized, setInitialized] = useState(false);
-
-  const createProfile = useMutation(orpc.admin.reviewerProfiles.create.mutationOptions());
-  const updateProfile = useMutation(orpc.admin.reviewerProfiles.updateDirect.mutationOptions());
-
-  useEffect(() => {
-    if (!profileQuery.data || initialized) return;
-
-    setFirstName(profileQuery.data.firstName);
-    setLastName(profileQuery.data.lastName);
-    setTitle(profileQuery.data.title);
-    setReviewerSkills(profileQuery.data.reviewerSkills ?? []);
-    setInitialized(true);
-  }, [profileQuery.data, initialized]);
-
-  useEffect(() => {
-    setInitialized(false);
-  }, [adminId]);
-
-  const invalidateProfile = () => {
-    void queryClient.invalidateQueries({
-      queryKey: orpc.admin.reviewerProfiles.getByAdminId.queryOptions({ input: { adminId } }).queryKey,
-    });
-  };
-
-  const handleCreate = () => {
-    const nameParts = userName.trim().split(/\s+/);
-    const defaultFirst = firstName.trim() || nameParts[0] || "Reviewer";
-    const defaultLast = lastName.trim() || nameParts.slice(1).join(" ") || "Admin";
-
-    createProfile.mutate(
-      {
-        adminId,
-        firstName: defaultFirst,
-        lastName: defaultLast,
-        title: title.trim() || t`Reviewer`,
-        reviewerSkills,
-      },
-      {
-        onSuccess: () => {
-          toast.success(t`Reviewer profile created.`);
-          invalidateProfile();
-        },
-        onError: (error) => toast.error(error.message),
-      },
-    );
-  };
-
-  const handleSave = () => {
-    updateProfile.mutate(
-      {
-        adminId,
-        ...(firstName.trim() ? { firstName: firstName.trim() } : {}),
-        ...(lastName.trim() ? { lastName: lastName.trim() } : {}),
-        ...(title.trim() ? { title: title.trim() } : {}),
-        reviewerSkills,
-      },
-      {
-        onSuccess: () => {
-          toast.success(t`Reviewer profile updated.`);
-          invalidateProfile();
-        },
-        onError: (error) => toast.error(error.message),
-      },
-    );
-  };
-
-  if (profileQuery.isLoading) {
-    return (
-      <p className="text-sm text-muted-foreground">
-        <Trans>Loading reviewer profile…</Trans>
-      </p>
-    );
-  }
-
-  const hasProfile = Boolean(profileQuery.data);
-
-  return (
-    <div className="space-y-3 rounded-md border p-4">
-      <div>
-        <p className="text-sm font-medium">
-          <Trans>Reviewer profile</Trans>
-        </p>
-        <p className="text-xs text-muted-foreground">
-          <Trans>Assign the individual skills this reviewer can accept from the queue.</Trans>
-        </p>
-      </div>
-
-      {!hasProfile ? (
-        <div className="space-y-3">
-          <div className="grid gap-3 sm:grid-cols-3">
-            <Input value={firstName} onChange={(e) => setFirstName(e.target.value)} placeholder={t`First name`} />
-            <Input value={lastName} onChange={(e) => setLastName(e.target.value)} placeholder={t`Last name`} />
-            <Input value={title} onChange={(e) => setTitle(e.target.value)} placeholder={t`Title`} />
-          </div>
-          <div className="space-y-1.5">
-            <p className="text-xs font-medium text-muted-foreground">
-              <Trans>Reviewable skills</Trans>
-            </p>
-            <ChipInput value={reviewerSkills} onChange={setReviewerSkills} />
-          </div>
-          <Button size="sm" disabled={createProfile.isPending} onClick={handleCreate}>
-            {createProfile.isPending ? <Trans>Creating…</Trans> : <Trans>Create reviewer profile</Trans>}
-          </Button>
-        </div>
-      ) : (
-        <div className="space-y-3">
-          <div className="grid gap-3 sm:grid-cols-3">
-            <Input value={firstName} onChange={(e) => setFirstName(e.target.value)} placeholder={t`First name`} />
-            <Input value={lastName} onChange={(e) => setLastName(e.target.value)} placeholder={t`Last name`} />
-            <Input value={title} onChange={(e) => setTitle(e.target.value)} placeholder={t`Title`} />
-          </div>
-          <div className="space-y-1.5">
-            <p className="text-xs font-medium text-muted-foreground">
-              <Trans>Reviewable skills</Trans>
-            </p>
-            <ChipInput value={reviewerSkills} onChange={setReviewerSkills} />
-          </div>
-          <Button size="sm" disabled={updateProfile.isPending} onClick={handleSave}>
-            {updateProfile.isPending ? <Trans>Saving…</Trans> : <Trans>Save reviewer profile</Trans>}
-          </Button>
-        </div>
-      )}
-    </div>
   );
 }

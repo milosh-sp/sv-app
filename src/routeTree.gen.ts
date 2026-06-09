@@ -52,6 +52,7 @@ import { Route as DashboardSettingsApiKeysRouteImport } from "./routes/dashboard
 import { Route as DashboardSettingsAiRouteImport } from "./routes/dashboard/settings/ai";
 import { Route as DashboardReviewerQueueRouteImport } from "./routes/dashboard/reviewer/queue";
 import { Route as DashboardAdminUsersRouteImport } from "./routes/dashboard/admin/users";
+import { Route as DashboardAdminReviewersRouteImport } from "./routes/dashboard/admin/reviewers";
 import { Route as DashboardAdminJobSearchRouteImport } from "./routes/dashboard/admin/job-search";
 import { Route as DashboardAdminIdentityRouteImport } from "./routes/dashboard/admin/identity";
 import { Route as DashboardAdminExperienceQueueRouteImport } from "./routes/dashboard/admin/experience-queue";
@@ -289,6 +290,11 @@ const DashboardAdminUsersRoute = DashboardAdminUsersRouteImport.update({
   path: "/users",
   getParentRoute: () => DashboardAdminRouteRoute,
 } as any);
+const DashboardAdminReviewersRoute = DashboardAdminReviewersRouteImport.update({
+  id: "/reviewers",
+  path: "/reviewers",
+  getParentRoute: () => DashboardAdminRouteRoute,
+} as any);
 const DashboardAdminJobSearchRoute = DashboardAdminJobSearchRouteImport.update({
   id: "/job-search",
   path: "/job-search",
@@ -387,6 +393,7 @@ export interface FileRoutesByFullPath {
   "/dashboard/admin/experience-queue": typeof DashboardAdminExperienceQueueRoute;
   "/dashboard/admin/identity": typeof DashboardAdminIdentityRoute;
   "/dashboard/admin/job-search": typeof DashboardAdminJobSearchRoute;
+  "/dashboard/admin/reviewers": typeof DashboardAdminReviewersRoute;
   "/dashboard/admin/users": typeof DashboardAdminUsersRoute;
   "/dashboard/reviewer/queue": typeof DashboardReviewerQueueRoute;
   "/dashboard/settings/ai": typeof DashboardSettingsAiRoute;
@@ -439,6 +446,7 @@ export interface FileRoutesByTo {
   "/dashboard/admin/experience-queue": typeof DashboardAdminExperienceQueueRoute;
   "/dashboard/admin/identity": typeof DashboardAdminIdentityRoute;
   "/dashboard/admin/job-search": typeof DashboardAdminJobSearchRoute;
+  "/dashboard/admin/reviewers": typeof DashboardAdminReviewersRoute;
   "/dashboard/admin/users": typeof DashboardAdminUsersRoute;
   "/dashboard/reviewer/queue": typeof DashboardReviewerQueueRoute;
   "/dashboard/settings/ai": typeof DashboardSettingsAiRoute;
@@ -496,6 +504,7 @@ export interface FileRoutesById {
   "/dashboard/admin/experience-queue": typeof DashboardAdminExperienceQueueRoute;
   "/dashboard/admin/identity": typeof DashboardAdminIdentityRoute;
   "/dashboard/admin/job-search": typeof DashboardAdminJobSearchRoute;
+  "/dashboard/admin/reviewers": typeof DashboardAdminReviewersRoute;
   "/dashboard/admin/users": typeof DashboardAdminUsersRoute;
   "/dashboard/reviewer/queue": typeof DashboardReviewerQueueRoute;
   "/dashboard/settings/ai": typeof DashboardSettingsAiRoute;
@@ -553,6 +562,7 @@ export interface FileRouteTypes {
     | "/dashboard/admin/experience-queue"
     | "/dashboard/admin/identity"
     | "/dashboard/admin/job-search"
+    | "/dashboard/admin/reviewers"
     | "/dashboard/admin/users"
     | "/dashboard/reviewer/queue"
     | "/dashboard/settings/ai"
@@ -605,6 +615,7 @@ export interface FileRouteTypes {
     | "/dashboard/admin/experience-queue"
     | "/dashboard/admin/identity"
     | "/dashboard/admin/job-search"
+    | "/dashboard/admin/reviewers"
     | "/dashboard/admin/users"
     | "/dashboard/reviewer/queue"
     | "/dashboard/settings/ai"
@@ -661,6 +672,7 @@ export interface FileRouteTypes {
     | "/dashboard/admin/experience-queue"
     | "/dashboard/admin/identity"
     | "/dashboard/admin/job-search"
+    | "/dashboard/admin/reviewers"
     | "/dashboard/admin/users"
     | "/dashboard/reviewer/queue"
     | "/dashboard/settings/ai"
@@ -1003,6 +1015,13 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof DashboardAdminUsersRouteImport;
       parentRoute: typeof DashboardAdminRouteRoute;
     };
+    "/dashboard/admin/reviewers": {
+      id: "/dashboard/admin/reviewers";
+      path: "/reviewers";
+      fullPath: "/dashboard/admin/reviewers";
+      preLoaderRoute: typeof DashboardAdminReviewersRouteImport;
+      parentRoute: typeof DashboardAdminRouteRoute;
+    };
     "/dashboard/admin/job-search": {
       id: "/dashboard/admin/job-search";
       path: "/job-search";
@@ -1130,6 +1149,7 @@ interface DashboardAdminRouteRouteChildren {
   DashboardAdminExperienceQueueRoute: typeof DashboardAdminExperienceQueueRoute;
   DashboardAdminIdentityRoute: typeof DashboardAdminIdentityRoute;
   DashboardAdminJobSearchRoute: typeof DashboardAdminJobSearchRoute;
+  DashboardAdminReviewersRoute: typeof DashboardAdminReviewersRoute;
   DashboardAdminUsersRoute: typeof DashboardAdminUsersRoute;
   DashboardAdminResumeResumeIdRoute: typeof DashboardAdminResumeResumeIdRoute;
 }
@@ -1139,6 +1159,7 @@ const DashboardAdminRouteRouteChildren: DashboardAdminRouteRouteChildren = {
   DashboardAdminExperienceQueueRoute: DashboardAdminExperienceQueueRoute,
   DashboardAdminIdentityRoute: DashboardAdminIdentityRoute,
   DashboardAdminJobSearchRoute: DashboardAdminJobSearchRoute,
+  DashboardAdminReviewersRoute: DashboardAdminReviewersRoute,
   DashboardAdminUsersRoute: DashboardAdminUsersRoute,
   DashboardAdminResumeResumeIdRoute: DashboardAdminResumeResumeIdRoute,
 };

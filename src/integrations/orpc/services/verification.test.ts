@@ -1473,6 +1473,62 @@ describe("verificationService.listQueue", () => {
     expect(result[0].id).toBe("req-1");
     expect(result[1].sectionType).toBe("project");
   });
+
+  it("includes skill requests when labels differ only by spelling or casing", async () => {
+    const rows = [
+      {
+        id: "req-js",
+        userId: "user-1",
+        resumeId: "resume-1",
+        sectionType: "skill",
+        itemId: "item-1",
+        itemLabel: "Javascript",
+        status: "pending",
+        submittedAt: new Date(),
+      },
+    ];
+    mockFrom
+      .mockReturnValueOnce({
+        where: vi.fn(() => ({
+          limit: vi.fn(() => [{ reviewerSkills: ["JavaScript"] }]),
+        })),
+      })
+      .mockReturnValueOnce({ where: vi.fn(() => ({ orderBy: vi.fn(() => rows) })) })
+      .mockReturnValueOnce({ where: vi.fn(() => []) })
+      .mockReturnValueOnce({ where: vi.fn(() => []) })
+      .mockReturnValueOnce({ where: vi.fn(() => []) });
+    const result = await verificationService.listQueue("admin-1");
+    expect(result).toHaveLength(1);
+    expect(result[0]?.id).toBe("req-js");
+  });
+
+  it("includes skill requests with compound qualified labels", async () => {
+    const rows = [
+      {
+        id: "req-js-es6",
+        userId: "user-1",
+        resumeId: "resume-1",
+        sectionType: "skill",
+        itemId: "item-1",
+        itemLabel: "JavaScript ES6/ES7",
+        status: "pending",
+        submittedAt: new Date(),
+      },
+    ];
+    mockFrom
+      .mockReturnValueOnce({
+        where: vi.fn(() => ({
+          limit: vi.fn(() => [{ reviewerSkills: ["JavaScript"] }]),
+        })),
+      })
+      .mockReturnValueOnce({ where: vi.fn(() => ({ orderBy: vi.fn(() => rows) })) })
+      .mockReturnValueOnce({ where: vi.fn(() => []) })
+      .mockReturnValueOnce({ where: vi.fn(() => []) })
+      .mockReturnValueOnce({ where: vi.fn(() => []) });
+    const result = await verificationService.listQueue("admin-1");
+    expect(result).toHaveLength(1);
+    expect(result[0]?.id).toBe("req-js-es6");
+  });
 });
 
 describe("verificationService.listMyCases", () => {

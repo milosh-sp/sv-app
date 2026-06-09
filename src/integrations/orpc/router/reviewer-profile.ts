@@ -38,6 +38,10 @@ export const adminReviewerProfilesRouter = {
       return await reviewerProfileService.getByAdminIdOrNull(input.adminId);
     }),
 
+  list: skillVerdictAdminProcedure.handler(async () => {
+    return await reviewerProfileService.list();
+  }),
+
   listChangeRequests: skillVerdictAdminProcedure.handler(async () => {
     return await reviewerProfileService.listChangeRequests();
   }),

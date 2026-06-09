@@ -2,6 +2,8 @@ import type { skillItemSchema } from "@/schema/resume/data";
 import type z from "zod";
 import { v5 as uuidv5 } from "uuid";
 
+import { getSkillMatchKey, resolveCanonicalSkillLabel } from "./common-reviewer-skills";
+
 /** Fixed namespace for deterministic per-keyword verification IDs. */
 export const SKILL_KEYWORD_NAMESPACE = "6ba7b810-9dad-11d1-80b4-00c04fd430c8";
 
@@ -98,17 +100,18 @@ export function normalizeReviewerSkills(skills: string[]): string[] {
     const trimmed = skill.trim();
     if (!trimmed) continue;
 
-    const key = normalizeSkillLabel(trimmed);
+    const canonical = resolveCanonicalSkillLabel(trimmed);
+    const key = getSkillMatchKey(canonical);
     if (seen.has(key)) continue;
 
     seen.add(key);
-    result.push(trimmed);
+    result.push(canonical);
   }
 
   return result;
 }
 
 export function reviewerCanReviewSkill(reviewerSkills: string[], itemLabel: string): boolean {
-  const normalized = normalizeSkillLabel(itemLabel);
-  return reviewerSkills.some((skill) => normalizeSkillLabel(skill) === normalized);
+  const targetKey = getSkillMatchKey(itemLabel);
+  return reviewerSkills.some((skill) => getSkillMatchKey(skill) === targetKey);
 }

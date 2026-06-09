@@ -140,6 +140,11 @@ const adminSidebarItems = [
     href: "/dashboard/admin/users",
   },
   {
+    icon: <SealCheckIcon />,
+    label: msg`Reviewers`,
+    href: "/dashboard/admin/reviewers",
+  },
+  {
     icon: <BrainIcon />,
     label: msg`Global AI`,
     href: "/dashboard/admin/ai",

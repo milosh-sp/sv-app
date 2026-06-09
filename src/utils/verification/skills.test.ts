@@ -136,11 +136,39 @@ describe("normalizeReviewerSkills", () => {
   it("trims, dedupes case-insensitively, and drops empty values", () => {
     expect(normalizeReviewerSkills([" C# ", "c#", "", "Python"])).toEqual(["C#", "Python"]);
   });
+
+  it("canonicalizes aliases and dedupes equivalent skills", () => {
+    expect(normalizeReviewerSkills(["js", "JavaScript", "Javascript"])).toEqual(["JavaScript"]);
+  });
 });
 
 describe("reviewerCanReviewSkill", () => {
   it("matches assigned skills case-insensitively", () => {
     expect(reviewerCanReviewSkill(["C#", "Python"], "c#")).toBe(true);
     expect(reviewerCanReviewSkill(["C#"], "JavaScript")).toBe(false);
+  });
+
+  it("matches alias and spelling variants", () => {
+    expect(reviewerCanReviewSkill(["JavaScript"], "Javascript")).toBe(true);
+    expect(reviewerCanReviewSkill(["JavaScript"], "JS")).toBe(true);
+    expect(reviewerCanReviewSkill(["Node.js"], "Nodejs")).toBe(true);
+    expect(reviewerCanReviewSkill(["TypeScript"], "TS")).toBe(true);
+  });
+
+  it("matches legacy custom skills by normalized key", () => {
+    expect(reviewerCanReviewSkill(["LegacySkill"], "legacyskill")).toBe(true);
+  });
+
+  it("matches compound JavaScript labels", () => {
+    expect(reviewerCanReviewSkill(["JavaScript"], "JavaScript ES6/ES7")).toBe(true);
+    expect(reviewerCanReviewSkill(["JavaScript"], "JS (ES6+)")).toBe(true);
+  });
+
+  it("does not match React Native to React-only assignment", () => {
+    expect(reviewerCanReviewSkill(["React"], "React Native")).toBe(false);
+  });
+
+  it("does not match Java to JavaScript assignment", () => {
+    expect(reviewerCanReviewSkill(["JavaScript"], "Java")).toBe(false);
   });
 });

@@ -19,6 +19,7 @@ import {
 import type { ResumeData } from "@/schema/resume/data";
 
 import { env } from "@/utils/env";
+import { resolveCanonicalSkillLabel } from "@/utils/verification/common-reviewer-skills";
 import {
   findSkillCategoryForVerificationId,
   findVerifiableSkillUnit,
@@ -457,7 +458,7 @@ export const verificationService = {
         resumeId: input.resumeId,
         sectionType: "skill",
         itemId: unit.itemId,
-        itemLabel: unit.itemLabel,
+        itemLabel: resolveCanonicalSkillLabel(unit.itemLabel),
         status: "pending",
       })
       .returning();

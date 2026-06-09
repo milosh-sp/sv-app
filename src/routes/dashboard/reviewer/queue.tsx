@@ -10,13 +10,16 @@ import {
   WarningCircleIcon,
 } from "@phosphor-icons/react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { createFileRoute } from "@tanstack/react-router";
-import { useRef, useState } from "react";
+import { createFileRoute, stripSearchParams, useNavigate } from "@tanstack/react-router";
+import { zodValidator } from "@tanstack/zod-adapter";
+import { useMemo, useRef, useState } from "react";
 import { toast } from "sonner";
+import z from "zod";
 
 import type { RouterOutput } from "@/integrations/orpc/client";
 
 import { Button } from "@/components/ui/button";
+import { Combobox } from "@/components/ui/combobox";
 import {
   Dialog,
   DialogContent,
@@ -29,6 +32,11 @@ import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
 import { orpc } from "@/integrations/orpc/client";
 import { formatDefaultDate } from "@/utils/format-date";
+import {
+  buildReviewerQueueFilterOptions,
+  filterQueueItemsBySkills,
+  sanitizeQueueSkillFilter,
+} from "@/utils/verification/queue-skill-filter";
 
 import type { ReviewAction } from "../admin/-components/verification-queue-shared";
 
@@ -44,8 +52,16 @@ import {
   StatusBadge,
 } from "../admin/-components/verification-queue-shared";
 
+const searchSchema = z.object({
+  skills: z.array(z.string()).default([]),
+});
+
 export const Route = createFileRoute("/dashboard/reviewer/queue")({
   component: RouteComponent,
+  validateSearch: zodValidator(searchSchema),
+  search: {
+    middlewares: [stripSearchParams({ skills: [] })],
+  },
 });
 
 const ALLOWED_TYPES = ["application/pdf", "image/jpeg", "image/jpg", "image/png"];
@@ -56,6 +72,8 @@ type MyCaseItem = RouterOutput["admin"]["verification"]["listMyCases"][number];
 
 function RouteComponent() {
   const [activeTab, setActiveTab] = useState<"queue" | "cases">("queue");
+  const { skills: urlSkills } = Route.useSearch();
+  const navigate = useNavigate({ from: Route.fullPath });
 
   const {
     data: profile,
@@ -83,6 +101,24 @@ function RouteComponent() {
     ...orpc.admin.verification.listMyCases.queryOptions(),
     retry: false,
   });
+
+  const assignedSkills = profile?.reviewerSkills;
+  const hasProjectsInQueue = (queue ?? []).some((item) => item.sectionType === "project");
+  const filterOptions = useMemo(
+    () => buildReviewerQueueFilterOptions(assignedSkills ?? [], hasProjectsInQueue),
+    [assignedSkills, hasProjectsInQueue],
+  );
+  const allowedFilterValues = useMemo(() => filterOptions.map((option) => option.value), [filterOptions]);
+  const selectedSkills = useMemo(
+    () => sanitizeQueueSkillFilter(urlSkills, allowedFilterValues),
+    [urlSkills, allowedFilterValues],
+  );
+  const hasActiveFilter = selectedSkills.length > 0;
+  const filteredQueue = useMemo(
+    () => filterQueueItemsBySkills(queue ?? [], selectedSkills),
+    [queue, selectedSkills],
+  );
+  const showSkillFilter = filterOptions.length >= 2;
 
   if (queueError || casesError) {
     return <QueueErrorState />;
@@ -132,12 +168,40 @@ function RouteComponent() {
         </Button>
       </div>
 
+      {activeTab === "queue" && showSkillFilter && (
+        <div className="rounded-lg border p-4">
+          <div className="space-y-1.5">
+            <p className="text-xs font-medium text-muted-foreground">
+              <Trans>Skills</Trans>
+            </p>
+            <Combobox
+              multiple
+              value={selectedSkills}
+              options={filterOptions}
+              placeholder={t`Filter by skill`}
+              searchPlaceholder={t`Search skills…`}
+              emptyMessage={t`No matching skills.`}
+              className="w-full md:max-w-md"
+              onValueChange={(value) => {
+                void navigate({
+                  search: (prev) => ({
+                    ...prev,
+                    skills: value ?? [],
+                  }),
+                });
+              }}
+            />
+          </div>
+        </div>
+      )}
+
       {activeTab === "queue" && (
         <QueueTab
-          items={queue ?? []}
+          items={filteredQueue}
           isLoading={queueLoading}
           canAccept={hasProfile}
           hasAssignedSkills={hasAssignedSkills}
+          hasActiveFilter={hasActiveFilter}
         />
       )}
 
@@ -207,11 +271,13 @@ function QueueTab({
   isLoading,
   canAccept,
   hasAssignedSkills,
+  hasActiveFilter,
 }: {
   items: QueueItem[];
   isLoading: boolean;
   canAccept: boolean;
   hasAssignedSkills: boolean;
+  hasActiveFilter: boolean;
 }) {
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [acceptTarget, setAcceptTarget] = useState<QueueItem | null>(null);
@@ -231,7 +297,15 @@ function QueueTab({
   }
 
   if (items.length === 0) {
-    return <QueueEmptyState message={t`No matching requests for your assigned skills.`} />;
+    return (
+      <QueueEmptyState
+        message={
+          hasActiveFilter
+            ? t`No requests match the selected filters.`
+            : t`No matching requests for your assigned skills.`
+        }
+      />
+    );
   }
 
   return (

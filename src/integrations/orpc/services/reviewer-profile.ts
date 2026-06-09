@@ -2,7 +2,7 @@ import { ORPCError } from "@orpc/server";
 import { and, eq } from "drizzle-orm";
 
 import { db } from "@/integrations/drizzle/client";
-import { reviewerProfileChangeRequests, reviewerProfiles } from "@/integrations/drizzle/schema";
+import { adminRoles, reviewerProfileChangeRequests, reviewerProfiles, user } from "@/integrations/drizzle/schema";
 import { normalizeReviewerSkills } from "@/utils/verification/skills";
 
 export const reviewerProfileService = {
@@ -43,6 +43,39 @@ export const reviewerProfileService = {
   getByAdminIdOrNull: async (adminId: string) => {
     const [profile] = await db.select().from(reviewerProfiles).where(eq(reviewerProfiles.adminId, adminId)).limit(1);
     return profile ?? null;
+  },
+
+  list: async () => {
+    const rows = await db
+      .select({
+        userId: user.id,
+        name: user.name,
+        email: user.email,
+        profile: {
+          id: reviewerProfiles.id,
+          adminId: reviewerProfiles.adminId,
+          firstName: reviewerProfiles.firstName,
+          lastName: reviewerProfiles.lastName,
+          title: reviewerProfiles.title,
+          publicProfileUrl: reviewerProfiles.publicProfileUrl,
+          consentGiven: reviewerProfiles.consentGiven,
+          consentGivenAt: reviewerProfiles.consentGivenAt,
+          reviewerSkills: reviewerProfiles.reviewerSkills,
+          createdAt: reviewerProfiles.createdAt,
+          updatedAt: reviewerProfiles.updatedAt,
+        },
+      })
+      .from(adminRoles)
+      .innerJoin(user, eq(adminRoles.userId, user.id))
+      .leftJoin(reviewerProfiles, eq(reviewerProfiles.adminId, user.id))
+      .where(eq(adminRoles.role, "reviewer_admin"));
+
+    return rows.map((row) => ({
+      userId: row.userId,
+      name: row.name,
+      email: row.email,
+      profile: row.profile?.id ? row.profile : null,
+    }));
   },
 
   updateDirect: async (input: {
