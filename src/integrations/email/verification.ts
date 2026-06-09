@@ -139,3 +139,26 @@ export const sendAssessmentSolutionSubmittedEmail = async (input: AssessmentSolu
     ].join("\n"),
   });
 };
+
+interface VerdictAwaitingFinalApprovalEmailInput {
+  to: string;
+  itemLabel: string;
+  sectionType: string;
+  reviewerName: string;
+  verificationDashboardUrl: string;
+}
+
+export const sendVerdictAwaitingFinalApprovalEmail = async (input: VerdictAwaitingFinalApprovalEmailInput) => {
+  await sendEmail({
+    to: input.to,
+    subject: `Assessment Reviewed — Awaiting Final Approval: ${input.itemLabel}`,
+    text: [
+      `${input.reviewerName} has completed their review of your ${input.sectionType} verification for "${input.itemLabel}".`,
+      "",
+      "Your submission is now in the final approval stage with Skill Verdict Admin. You will receive another email once a final decision has been made.",
+      "",
+      "Track your verification status:",
+      input.verificationDashboardUrl,
+    ].join("\n"),
+  });
+};

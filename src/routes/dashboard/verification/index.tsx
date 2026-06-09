@@ -650,6 +650,59 @@ function SkillProjectItemRow({
         </div>
       )}
 
+      {existingStatus?.status === "verdict_pending" && (
+        <div className="mt-3 space-y-3 rounded-md border border-blue-500/30 bg-blue-50/40 p-3 dark:bg-blue-900/10">
+          <div className="space-y-2">
+            <p className="text-xs font-medium text-blue-900 dark:text-blue-200">
+              <Trans>Awaiting final approval</Trans>
+            </p>
+            <p className="text-xs text-muted-foreground">
+              <Trans>
+                Your reviewer has completed their assessment. Your submission is now awaiting final approval from Skill
+                Verdict Admin. You will be notified by email once a final decision is made.
+              </Trans>
+            </p>
+          </div>
+
+          {hasSubmittedSolution ? (
+            <div className="space-y-2 border-t border-blue-500/20 pt-3">
+              <p className="text-xs font-medium text-blue-900 dark:text-blue-200">
+                <Trans>Submitted solution</Trans>
+              </p>
+              {existingStatus.assessmentSolutionSubmittedAt ? (
+                <p className="text-xs text-muted-foreground">
+                  <Trans>Submitted on</Trans> {formatDefaultDate(existingStatus.assessmentSolutionSubmittedAt)}
+                </p>
+              ) : null}
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+                {existingStatus.assessmentSolutionFileUrl ? (
+                  <a
+                    href={existingStatus.assessmentSolutionFileUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-x-1.5 text-xs font-medium text-primary hover:underline"
+                  >
+                    <FileTextIcon className="size-3.5" />
+                    <Trans>View submitted file</Trans>
+                  </a>
+                ) : null}
+                {existingStatus.assessmentSolutionLinkUrl ? (
+                  <a
+                    href={existingStatus.assessmentSolutionLinkUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-x-1.5 text-xs font-medium text-primary hover:underline"
+                  >
+                    <LinkIcon className="size-3.5" />
+                    <Trans>Open submitted link</Trans>
+                  </a>
+                ) : null}
+              </div>
+            </div>
+          ) : null}
+        </div>
+      )}
+
       {historyOpen && existingStatus && <VerificationHistory resumeId={resumeId} itemId={item.id} />}
     </div>
   );

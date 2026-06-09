@@ -71,6 +71,14 @@ vi.mock("./storage", () => ({
   toPublicFileUrl: (key: string) => `https://app.test/${key}`,
 }));
 
+vi.mock("@/integrations/email/verification", () => ({
+  sendAssessmentSolutionSubmittedEmail: vi.fn(),
+  sendIdentityVerificationRequestedEmail: vi.fn(),
+  sendSkillAssessmentAcceptedEmail: vi.fn(),
+  sendVerdictAwaitingFinalApprovalEmail: vi.fn(),
+  sendVerificationStatusEmail: vi.fn(),
+}));
+
 vi.mock("@/integrations/drizzle/schema", () => ({
   verificationRequests: {
     id: "id",
@@ -1241,8 +1249,21 @@ describe("verificationService.submitVerdict", () => {
   });
 
   it("should submit verdict when claimed by reviewer", async () => {
-    mockLimit.mockReturnValueOnce([reviewerProfile]);
-    mockReturning.mockResolvedValueOnce([{ id: "req-1", status: "verdict_pending", proposedVerdict: "verified" }]);
+    mockLimit.mockImplementation(() => {
+      if (mockLimit.mock.calls.length === 1) return [reviewerProfile];
+      if (mockLimit.mock.calls.length === 2) return [{ email: "applicant@test.com" }];
+      return [];
+    });
+    mockReturning.mockResolvedValueOnce([
+      {
+        id: "req-1",
+        userId: "user-1",
+        itemLabel: "Go",
+        sectionType: "skill",
+        status: "verdict_pending",
+        proposedVerdict: "verified",
+      },
+    ]);
 
     const result = await verificationService.submitVerdict({
       requestId: "req-1",
@@ -1721,10 +1742,12 @@ describe("verificationService.listPendingVerdicts", () => {
         proposedVerdict: "verified",
         reviewerNote: "Strong performance",
         assessmentAcceptedAt: new Date(),
+        claimedByAdminId: "admin-1",
       },
     ];
     mockFrom
       .mockReturnValueOnce({ where: vi.fn(() => ({ orderBy: vi.fn(() => rows) })) })
+      .mockReturnValueOnce({ where: vi.fn(() => [{ adminId: "admin-1", reviewerSkills: ["Go"] }]) })
       .mockReturnValueOnce({ where: vi.fn(() => ({ orderBy: vi.fn(() => []) })) })
       .mockReturnValueOnce({ where: vi.fn(() => []) })
       .mockReturnValueOnce({ where: vi.fn(() => []) })
@@ -1733,5 +1756,7 @@ describe("verificationService.listPendingVerdicts", () => {
     expect(result).toHaveLength(1);
     expect(result[0].status).toBe("verdict_pending");
     expect(result[0].proposedVerdict).toBe("verified");
+    expect(result[0].reviewerAdminId).toBe("admin-1");
+    expect(result[0].reviewerSkills).toEqual(["Go"]);
   });
 });

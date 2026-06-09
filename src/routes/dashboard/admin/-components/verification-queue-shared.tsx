@@ -161,6 +161,104 @@ export function ApplicantDetails({ user }: { user: QueueUser }) {
 }
 
 // ---------------------------------------------------------------------------
+// Reviewer details
+// ---------------------------------------------------------------------------
+
+export function ReviewerDetails({
+  name,
+  title,
+  skills,
+  publicProfileUrl,
+  proposedVerdict,
+  verdictNotes,
+  verdictSubmittedAt,
+}: {
+  name: string | null;
+  title: string | null;
+  skills: string[];
+  publicProfileUrl: string | null;
+  proposedVerdict: "verified" | "rejected" | "issue" | null;
+  verdictNotes: string | null;
+  verdictSubmittedAt: Date | null;
+}) {
+  const fmtDate = (d: Date | null) => (d ? new Date(d).toLocaleString() : "—");
+
+  return (
+    <div className="space-y-2">
+      <p className="text-xs font-medium text-muted-foreground">
+        <Trans>Reviewer</Trans>
+      </p>
+      <div className="rounded-md border bg-muted/20 px-3 py-2 text-xs">
+        <dl className="grid gap-x-4 gap-y-2 sm:grid-cols-[minmax(7rem,auto)_1fr]">
+          <dt className="text-muted-foreground">
+            <Trans>Name</Trans>
+          </dt>
+          <dd className="wrap-break-word">{name ?? "—"}</dd>
+
+          <dt className="text-muted-foreground">
+            <Trans>Title</Trans>
+          </dt>
+          <dd className="wrap-break-word">{title ?? "—"}</dd>
+
+          <dt className="text-muted-foreground">
+            <Trans>Reviewable skills</Trans>
+          </dt>
+          <dd>{skills.length > 0 ? skills.join(", ") : "—"}</dd>
+
+          <dt className="text-muted-foreground">
+            <Trans>Public profile</Trans>
+          </dt>
+          <dd>
+            {publicProfileUrl ? (
+              <a href={publicProfileUrl} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+                {publicProfileUrl}
+              </a>
+            ) : (
+              "—"
+            )}
+          </dd>
+
+          <dt className="text-muted-foreground">
+            <Trans>Proposed verdict</Trans>
+          </dt>
+          <dd>
+            {proposedVerdict ? (
+              <ProposedVerdictLabel verdict={proposedVerdict} />
+            ) : (
+              "—"
+            )}
+          </dd>
+
+          <dt className="text-muted-foreground">
+            <Trans>Verdict notes</Trans>
+          </dt>
+          <dd className="wrap-break-word">{verdictNotes ?? "—"}</dd>
+
+          <dt className="text-muted-foreground">
+            <Trans>Verdict submitted</Trans>
+          </dt>
+          <dd>{fmtDate(verdictSubmittedAt)}</dd>
+        </dl>
+      </div>
+    </div>
+  );
+}
+
+function ProposedVerdictLabel({ verdict }: { verdict: "verified" | "rejected" | "issue" }) {
+  const colorClass =
+    verdict === "verified"
+      ? "text-green-700 dark:text-green-400"
+      : verdict === "rejected"
+        ? "text-red-700 dark:text-red-400"
+        : "text-orange-700 dark:text-orange-400";
+
+  const label =
+    verdict === "verified" ? t`Pass` : verdict === "rejected" ? t`Fail` : t`Issue`;
+
+  return <span className={`font-medium capitalize ${colorClass}`}>{label}</span>;
+}
+
+// ---------------------------------------------------------------------------
 // Resume preview
 // ---------------------------------------------------------------------------
 

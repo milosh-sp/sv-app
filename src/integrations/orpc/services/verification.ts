@@ -17,6 +17,7 @@ import {
   sendAssessmentSolutionSubmittedEmail,
   sendIdentityVerificationRequestedEmail,
   sendSkillAssessmentAcceptedEmail,
+  sendVerdictAwaitingFinalApprovalEmail,
   sendVerificationStatusEmail,
 } from "@/integrations/email/verification";
 import { env } from "@/utils/env";
@@ -1561,6 +1562,23 @@ export const verificationService = {
       reviewerPublicProfileUrl: profile.publicProfileUrl,
     });
 
+    try {
+      const [userData] = await db.select({ email: user.email }).from(user).where(eq(user.id, updated.userId)).limit(1);
+
+      if (userData?.email) {
+        const reviewerName = [profile.firstName, profile.lastName].filter(Boolean).join(" ");
+        await sendVerdictAwaitingFinalApprovalEmail({
+          to: userData.email,
+          itemLabel: updated.itemLabel,
+          sectionType: updated.sectionType,
+          reviewerName,
+          verificationDashboardUrl: `${env.APP_URL}/dashboard/verification`,
+        });
+      }
+    } catch {
+      // Email failures should not block the main flow
+    }
+
     return updated;
   },
 
@@ -1729,6 +1747,7 @@ export const verificationService = {
         proposedVerdict: verificationRequests.proposedVerdict,
         reviewerNote: verificationRequests.reviewerNote,
         assessmentAcceptedAt: verificationRequests.assessmentAcceptedAt,
+        claimedByAdminId: verificationRequests.claimedByAdminId,
       })
       .from(verificationRequests)
       .where(eq(verificationRequests.status, "verdict_pending"))
@@ -1737,6 +1756,23 @@ export const verificationService = {
     if (requests.length === 0) return [];
 
     const requestIds = requests.map((r) => r.id);
+    const reviewerAdminIds = [
+      ...new Set(requests.map((r) => r.claimedByAdminId).filter((id): id is string => id != null)),
+    ];
+
+    const reviewerProfileRows =
+      reviewerAdminIds.length > 0
+        ? await db
+            .select({
+              adminId: reviewerProfiles.adminId,
+              reviewerSkills: reviewerProfiles.reviewerSkills,
+            })
+            .from(reviewerProfiles)
+            .where(inArray(reviewerProfiles.adminId, reviewerAdminIds))
+        : [];
+
+    const reviewerSkillsByAdminId = new Map(reviewerProfileRows.map((row) => [row.adminId, row.reviewerSkills]));
+
     const metadataRows = await db
       .select({
         verificationRequestId: verificationMetadata.verificationRequestId,
@@ -1765,18 +1801,24 @@ export const verificationService = {
 
     const enriched = await enrichSkillProjectRequests(requests);
 
+    const claimedByAdminIdByRequestId = new Map(requests.map((r) => [r.id, r.claimedByAdminId ?? null]));
+
     return enriched.map((item) => {
       const metadata = verdictMetadataByRequestId.get(item.id);
       const reviewerName = metadata
         ? [metadata.reviewerSnapshotFirstName, metadata.reviewerSnapshotLastName].filter(Boolean).join(" ")
         : null;
+      const reviewerAdminId = claimedByAdminIdByRequestId.get(item.id) ?? null;
 
       return {
         ...item,
         reviewerName,
         reviewerTitle: metadata?.reviewerSnapshotTitle ?? null,
         reviewerPublicProfileUrl: metadata?.reviewerPublicProfileUrl ?? null,
+        reviewerAdminId,
+        reviewerSkills: reviewerAdminId ? (reviewerSkillsByAdminId.get(reviewerAdminId) ?? []) : [],
         verdictNotes: metadata?.notes ?? item.reviewerNote,
+        verdictSubmittedAt: metadata?.actedAt ?? null,
       };
     });
   },

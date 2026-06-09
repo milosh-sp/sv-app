@@ -33,6 +33,7 @@ import {
   QueueLoadingState,
   QueueResumePreview,
   ReviewDecisionPanel,
+  ReviewerDetails,
   StatusBadge,
 } from "./-components/verification-queue-shared";
 
@@ -84,6 +85,7 @@ function RouteComponent() {
           onClick={() => setActiveTab("verdicts")}
         >
           <Trans>Pending Verdicts</Trans>
+          <PendingVerdictsCount />
         </Button>
       </div>
 
@@ -283,8 +285,21 @@ function PendingVerdictsTab() {
   );
 }
 
+function PendingVerdictsCount() {
+  const { data: verdicts } = useQuery(orpc.admin.verification.listPendingVerdicts.queryOptions());
+
+  if (!verdicts || verdicts.length === 0) return null;
+
+  return (
+    <span className="ml-1.5 rounded-full bg-primary-foreground/20 px-1.5 py-0.5 text-[10px] leading-none">
+      {verdicts.length}
+    </span>
+  );
+}
+
 function PendingVerdictRow({ verdict }: { verdict: PendingVerdictItem }) {
   const queryClient = useQueryClient();
+  const [expanded, setExpanded] = useState(false);
   const [overrideOpen, setOverrideOpen] = useState(false);
   const [overrideAction, setOverrideAction] = useState<ReviewAction>("verified");
   const [overrideReason, setOverrideReason] = useState("");
@@ -325,6 +340,7 @@ function PendingVerdictRow({ verdict }: { verdict: PendingVerdictItem }) {
       {
         onSuccess: () => {
           toast.success(confirmSuccessMessage);
+          setExpanded(false);
           invalidate();
         },
         onError: (error) => toast.error(error.message),
@@ -345,6 +361,7 @@ function PendingVerdictRow({ verdict }: { verdict: PendingVerdictItem }) {
           setOverrideOpen(false);
           setConfirmingOverride(false);
           setOverrideReason("");
+          setExpanded(false);
           invalidate();
         },
         onError: (error) => {
@@ -358,8 +375,23 @@ function PendingVerdictRow({ verdict }: { verdict: PendingVerdictItem }) {
   return (
     <div className="space-y-3 rounded-lg border p-4">
       <div className="flex items-start justify-between gap-x-3">
-        <div className="space-y-1">
+        <div className="min-w-0 space-y-1">
           <p className="text-sm font-medium">{verdict.itemLabel}</p>
+          {"parentItemLabel" in verdict && verdict.parentItemLabel ? (
+            <p className="text-xs text-muted-foreground">{verdict.parentItemLabel}</p>
+          ) : null}
+          {verdict.user ? (
+            <p className="truncate text-xs text-muted-foreground">
+              {verdict.user.name}
+              <span className="mx-1.5 opacity-60">·</span>
+              {verdict.user.email}
+              <span className="mx-1.5 opacity-60">·</span>@{verdict.user.username}
+            </p>
+          ) : (
+            <p className="text-xs text-muted-foreground">
+              <Trans>Unknown applicant</Trans>
+            </p>
+          )}
           <div className="flex flex-wrap items-center gap-x-2">
             <StatusBadge status={verdict.status} />
             {verdict.proposedVerdict ? (
@@ -379,117 +411,177 @@ function PendingVerdictRow({ verdict }: { verdict: PendingVerdictItem }) {
               {verdict.reviewerTitle ? ` · ${verdict.reviewerTitle}` : ""}
             </p>
           )}
-          {verdict.verdictNotes && (
-            <p className="text-xs text-muted-foreground">
-              <Trans>Notes:</Trans> {verdict.verdictNotes}
-            </p>
-          )}
         </div>
 
-        <div className="flex shrink-0 items-center gap-x-2">
-          <Button
-            size="sm"
-            variant="default"
-            className="h-7 text-xs"
-            disabled={!proposedVerdict || confirmVerdict.isPending}
-            onClick={handleConfirm}
-          >
-            <CheckCircleIcon className="mr-1 size-3.5" weight="fill" />
-            {confirmVerdict.isPending ? <Trans>Confirming...</Trans> : confirmLabel}
-          </Button>
-          <Button size="sm" variant="outline" className="h-7 text-xs" onClick={() => setOverrideOpen(!overrideOpen)}>
-            {overrideOpen ? <Trans>Cancel Override</Trans> : <Trans>Override</Trans>}
-          </Button>
-        </div>
+        <Button
+          size="sm"
+          variant="outline"
+          className="h-7 shrink-0 text-xs"
+          onClick={() => setExpanded(!expanded)}
+        >
+          {expanded ? <Trans>Collapse</Trans> : <Trans>Review</Trans>}
+        </Button>
       </div>
 
-      {verdict.assessmentInstructionsUrl && (
-        <div className="space-y-2">
-          <p className="text-xs font-medium text-muted-foreground">
-            <Trans>Assessment instructions</Trans>
-          </p>
-          <a
-            href={verdict.assessmentInstructionsUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-xs text-primary hover:underline"
-          >
-            <Trans>View instructions sent to applicant</Trans>
-          </a>
-        </div>
-      )}
-
-      {overrideOpen && (
+      {expanded && (
         <div className="space-y-3 border-t pt-3">
-          <p className="text-xs font-medium text-muted-foreground">
-            <Trans>Override Decision</Trans>
-          </p>
+          {verdict.user && <ApplicantDetails user={verdict.user} />}
 
-          <div className="flex gap-x-2">
-            {(["verified", "rejected", "issue"] as const).map((a) => (
-              <button
-                key={a}
-                type="button"
-                onClick={() => setOverrideAction(a)}
-                className={`flex items-center gap-x-1.5 rounded-md border px-2.5 py-1 text-xs transition-colors ${
-                  overrideAction === a
-                    ? a === "verified"
-                      ? "border-green-500 bg-green-50 text-green-700 dark:bg-green-900/20 dark:text-green-400"
-                      : a === "rejected"
-                        ? "border-red-500 bg-red-50 text-red-700 dark:bg-red-900/20 dark:text-red-400"
-                        : "border-orange-500 bg-orange-50 text-orange-700 dark:bg-orange-900/20 dark:text-orange-400"
-                    : "border-border text-muted-foreground hover:border-foreground/30"
-                }`}
-              >
-                {a === "verified" && <CheckCircleIcon className="size-3.5" weight="fill" />}
-                {a === "rejected" && <XCircleIcon className="size-3.5" weight="fill" />}
-                {a === "issue" && <WarningCircleIcon className="size-3.5" weight="fill" />}
-                <span className="capitalize">{a}</span>
-              </button>
-            ))}
-          </div>
-
-          <Textarea
-            value={overrideReason}
-            onChange={(e) => setOverrideReason(e.target.value)}
-            placeholder={t`Required: reason for overriding this verdict...`}
-            className="min-h-[60px] resize-none text-xs"
+          <ReviewerDetails
+            name={verdict.reviewerName}
+            title={verdict.reviewerTitle}
+            skills={verdict.reviewerSkills ?? []}
+            publicProfileUrl={verdict.reviewerPublicProfileUrl}
+            proposedVerdict={verdict.proposedVerdict}
+            verdictNotes={verdict.verdictNotes}
+            verdictSubmittedAt={verdict.verdictSubmittedAt}
           />
 
-          {!confirmingOverride ? (
-            <Button
-              size="sm"
-              variant="default"
-              className="h-7 text-xs"
-              disabled={!overrideReason.trim()}
-              onClick={() => setConfirmingOverride(true)}
-            >
-              <Trans>Submit Override</Trans>
-            </Button>
-          ) : (
-            <div className="flex items-center gap-x-2">
-              <span className="text-xs text-muted-foreground">
-                <Trans>Override to </Trans>
-                <span className="font-medium capitalize">{overrideAction}</span>?
-              </span>
+          {verdict.resume && (
+            <div className="space-y-2">
+              <p className="text-xs font-medium text-muted-foreground">
+                <Trans>CV / resume</Trans>
+              </p>
+              <QueueResumePreview resume={verdict.resume} />
+            </div>
+          )}
+
+          {verdict.assessmentInstructionsUrl && verdict.documents.length > 0 && (
+            <div className="space-y-2">
+              <p className="text-xs font-medium text-muted-foreground">
+                <Trans>Assessment instructions</Trans>
+              </p>
+              {verdict.documents
+                .filter((doc) => doc.documentType === "assessment_instructions")
+                .map((doc) => (
+                  <DocumentPreview
+                    key={doc.id}
+                    fileUrl={doc.fileUrl}
+                    documentType={doc.documentType}
+                    uploadedAt={doc.uploadedAt}
+                  />
+                ))}
+            </div>
+          )}
+
+          <div className="space-y-2">
+            <p className="text-xs font-medium text-muted-foreground">
+              <Trans>Assessment solution</Trans>
+            </p>
+            {verdict.documents.some((doc) =>
+              ["assessment_solution", "assessment_solution_link"].includes(doc.documentType),
+            ) ? (
+              verdict.documents
+                .filter((doc) => ["assessment_solution", "assessment_solution_link"].includes(doc.documentType))
+                .map((doc) => (
+                  <DocumentPreview
+                    key={doc.id}
+                    fileUrl={doc.fileUrl}
+                    documentType={doc.documentType}
+                    uploadedAt={doc.uploadedAt}
+                  />
+                ))
+            ) : (
+              <p className="text-xs text-muted-foreground">
+                <Trans>No solution submitted</Trans>
+              </p>
+            )}
+          </div>
+
+          <div className="space-y-2 border-t pt-3">
+            <p className="text-xs font-medium text-muted-foreground">
+              <Trans>Final Decision</Trans>
+            </p>
+            <div className="flex flex-wrap items-center gap-x-2">
               <Button
                 size="sm"
                 variant="default"
                 className="h-7 text-xs"
-                disabled={overrideVerdict.isPending}
-                onClick={handleOverride}
+                disabled={!proposedVerdict || confirmVerdict.isPending}
+                onClick={handleConfirm}
               >
-                {overrideVerdict.isPending ? <Trans>Overriding...</Trans> : <Trans>Confirm</Trans>}
+                <CheckCircleIcon className="mr-1 size-3.5" weight="fill" />
+                {confirmVerdict.isPending ? <Trans>Confirming...</Trans> : confirmLabel}
               </Button>
-              <Button
-                size="sm"
-                variant="ghost"
-                className="h-7 text-xs"
-                disabled={overrideVerdict.isPending}
-                onClick={() => setConfirmingOverride(false)}
-              >
-                <Trans>Back</Trans>
+              <Button size="sm" variant="outline" className="h-7 text-xs" onClick={() => setOverrideOpen(!overrideOpen)}>
+                {overrideOpen ? <Trans>Cancel Override</Trans> : <Trans>Override</Trans>}
               </Button>
+            </div>
+          </div>
+
+          {overrideOpen && (
+            <div className="space-y-3 border-t pt-3">
+              <p className="text-xs font-medium text-muted-foreground">
+                <Trans>Override Decision</Trans>
+              </p>
+
+              <div className="flex gap-x-2">
+                {(["verified", "rejected", "issue"] as const).map((a) => (
+                  <button
+                    key={a}
+                    type="button"
+                    onClick={() => setOverrideAction(a)}
+                    className={`flex items-center gap-x-1.5 rounded-md border px-2.5 py-1 text-xs transition-colors ${
+                      overrideAction === a
+                        ? a === "verified"
+                          ? "border-green-500 bg-green-50 text-green-700 dark:bg-green-900/20 dark:text-green-400"
+                          : a === "rejected"
+                            ? "border-red-500 bg-red-50 text-red-700 dark:bg-red-900/20 dark:text-red-400"
+                            : "border-orange-500 bg-orange-50 text-orange-700 dark:bg-orange-900/20 dark:text-orange-400"
+                        : "border-border text-muted-foreground hover:border-foreground/30"
+                    }`}
+                  >
+                    {a === "verified" && <CheckCircleIcon className="size-3.5" weight="fill" />}
+                    {a === "rejected" && <XCircleIcon className="size-3.5" weight="fill" />}
+                    {a === "issue" && <WarningCircleIcon className="size-3.5" weight="fill" />}
+                    <span className="capitalize">{a}</span>
+                  </button>
+                ))}
+              </div>
+
+              <Textarea
+                value={overrideReason}
+                onChange={(e) => setOverrideReason(e.target.value)}
+                placeholder={t`Required: reason for overriding this verdict...`}
+                className="min-h-[60px] resize-none text-xs"
+              />
+
+              {!confirmingOverride ? (
+                <Button
+                  size="sm"
+                  variant="default"
+                  className="h-7 text-xs"
+                  disabled={!overrideReason.trim()}
+                  onClick={() => setConfirmingOverride(true)}
+                >
+                  <Trans>Submit Override</Trans>
+                </Button>
+              ) : (
+                <div className="flex items-center gap-x-2">
+                  <span className="text-xs text-muted-foreground">
+                    <Trans>Override to </Trans>
+                    <span className="font-medium capitalize">{overrideAction}</span>?
+                  </span>
+                  <Button
+                    size="sm"
+                    variant="default"
+                    className="h-7 text-xs"
+                    disabled={overrideVerdict.isPending}
+                    onClick={handleOverride}
+                  >
+                    {overrideVerdict.isPending ? <Trans>Overriding...</Trans> : <Trans>Confirm</Trans>}
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="ghost"
+                    className="h-7 text-xs"
+                    disabled={overrideVerdict.isPending}
+                    onClick={() => setConfirmingOverride(false)}
+                  >
+                    <Trans>Back</Trans>
+                  </Button>
+                </div>
+              )}
             </div>
           )}
         </div>
