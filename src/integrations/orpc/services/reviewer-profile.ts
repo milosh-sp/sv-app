@@ -3,9 +3,16 @@ import { and, eq } from "drizzle-orm";
 
 import { db } from "@/integrations/drizzle/client";
 import { reviewerProfileChangeRequests, reviewerProfiles } from "@/integrations/drizzle/schema";
+import { normalizeReviewerSkills } from "@/utils/verification/skills";
 
 export const reviewerProfileService = {
-  create: async (input: { adminId: string; firstName: string; lastName: string; title: string }) => {
+  create: async (input: {
+    adminId: string;
+    firstName: string;
+    lastName: string;
+    title: string;
+    reviewerSkills?: string[];
+  }) => {
     const publicProfileUrl = `/reviewer/${input.adminId}`;
 
     const [existing] = await db
@@ -26,17 +33,30 @@ export const reviewerProfileService = {
         lastName: input.lastName,
         title: input.title,
         publicProfileUrl,
+        reviewerSkills: normalizeReviewerSkills(input.reviewerSkills ?? []),
       })
       .returning();
 
     return profile!;
   },
 
-  updateDirect: async (input: { adminId: string; firstName?: string; lastName?: string; title?: string }) => {
+  getByAdminIdOrNull: async (adminId: string) => {
+    const [profile] = await db.select().from(reviewerProfiles).where(eq(reviewerProfiles.adminId, adminId)).limit(1);
+    return profile ?? null;
+  },
+
+  updateDirect: async (input: {
+    adminId: string;
+    firstName?: string;
+    lastName?: string;
+    title?: string;
+    reviewerSkills?: string[];
+  }) => {
     const updates: Record<string, unknown> = {};
     if (input.firstName !== undefined) updates.firstName = input.firstName;
     if (input.lastName !== undefined) updates.lastName = input.lastName;
     if (input.title !== undefined) updates.title = input.title;
+    if (input.reviewerSkills !== undefined) updates.reviewerSkills = normalizeReviewerSkills(input.reviewerSkills);
 
     if (Object.keys(updates).length === 0) {
       throw new ORPCError("BAD_REQUEST", { message: "No fields to update" });

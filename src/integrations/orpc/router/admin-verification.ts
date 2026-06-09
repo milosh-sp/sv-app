@@ -4,8 +4,8 @@ import { reviewerAdminProcedure, skillVerdictAdminProcedure } from "../context";
 import { verificationService } from "../services/verification";
 
 export const adminVerificationRouter = {
-  listQueue: reviewerAdminProcedure.handler(async () => {
-    return await verificationService.listQueue();
+  listQueue: reviewerAdminProcedure.handler(async ({ context }) => {
+    return await verificationService.listQueue(context.user.id);
   }),
 
   acceptCase: reviewerAdminProcedure

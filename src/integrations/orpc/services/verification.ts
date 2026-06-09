@@ -16,7 +16,15 @@ import {
   sendSkillAssessmentAcceptedEmail,
   sendVerificationStatusEmail,
 } from "@/integrations/email/verification";
+import type { ResumeData } from "@/schema/resume/data";
+
 import { env } from "@/utils/env";
+import {
+  findSkillCategoryForVerificationId,
+  findVerifiableSkillUnit,
+  normalizeSkillLabel,
+  reviewerCanReviewSkill,
+} from "@/utils/verification/skills";
 import { validateVerificationDocumentFile } from "@/utils/verification-documents";
 
 import { getStorageService, toPublicFileUrl, toStorageKey, uploadFile } from "./storage";
@@ -196,11 +204,14 @@ async function enrichSkillProjectRequests(requests: SkillProjectRequestRow[]) {
     const requestDocs = docsByRequestId.get(r.id) ?? [];
     const instructionsDoc = requestDocs.find((d) => d.documentType === "assessment_instructions");
 
+    const resumeData = applicantResume?.data as ResumeData | undefined;
+
     return {
       id: r.id,
       sectionType: r.sectionType,
       itemId: r.itemId,
       itemLabel: r.itemLabel,
+      parentItemLabel: resolveParentItemLabel(resumeData, r.sectionType, r.itemId),
       status: r.status,
       submittedAt: r.submittedAt,
       claimedAt: r.claimedAt ?? null,
@@ -374,6 +385,34 @@ async function buildVerifierLabelMap(verificationRequestIds: string[]) {
   return verifierByRequestId;
 }
 
+async function loadResumeSkillItems(userId: string, resumeId: string) {
+  const [resumeRow] = await db
+    .select({ data: resume.data })
+    .from(resume)
+    .where(and(eq(resume.id, resumeId), eq(resume.userId, userId)))
+    .limit(1);
+
+  if (!resumeRow) {
+    throw new ORPCError("NOT_FOUND", { message: "Resume not found" });
+  }
+
+  const data = resumeRow.data as ResumeData;
+  return data.sections.skills.items;
+}
+
+function resolveParentItemLabel(
+  resumeData: ResumeData | null | undefined,
+  sectionType: string,
+  itemId: string,
+): string | null {
+  if (sectionType !== "skill" || !resumeData) return null;
+
+  const category = findSkillCategoryForVerificationId(resumeData.sections.skills.items, itemId);
+  if (!category) return null;
+
+  return category.parentItemLabel === category.itemLabel ? null : category.parentItemLabel;
+}
+
 async function guardActiveRequest(userId: string, resumeId: string | null, itemId: string) {
   const baseConditions = [eq(verificationRequests.userId, userId), eq(verificationRequests.itemId, itemId)];
 
@@ -396,7 +435,20 @@ async function guardActiveRequest(userId: string, resumeId: string | null, itemI
 
 export const verificationService = {
   requestSkill: async (input: { userId: string; resumeId: string; itemId: string; itemLabel: string }) => {
-    await guardActiveRequest(input.userId, input.resumeId, input.itemId);
+    const skillItems = await loadResumeSkillItems(input.userId, input.resumeId);
+    const unit = findVerifiableSkillUnit(skillItems, input.itemId);
+
+    if (!unit) {
+      throw new ORPCError("BAD_REQUEST", {
+        message: "Invalid skill item. Request verification for an individual skill, not a skill category.",
+      });
+    }
+
+    if (normalizeSkillLabel(unit.itemLabel) !== normalizeSkillLabel(input.itemLabel)) {
+      throw new ORPCError("BAD_REQUEST", { message: "Skill label does not match the resume item" });
+    }
+
+    await guardActiveRequest(input.userId, input.resumeId, unit.itemId);
 
     const [request] = await db
       .insert(verificationRequests)
@@ -404,8 +456,8 @@ export const verificationService = {
         userId: input.userId,
         resumeId: input.resumeId,
         sectionType: "skill",
-        itemId: input.itemId,
-        itemLabel: input.itemLabel,
+        itemId: unit.itemId,
+        itemLabel: unit.itemLabel,
         status: "pending",
       })
       .returning();
@@ -978,7 +1030,17 @@ export const verificationService = {
 
   // --- Admin: Reviewer procedures ---
 
-  listQueue: async () => {
+  listQueue: async (adminId: string) => {
+    const [profile] = await db
+      .select({ reviewerSkills: reviewerProfiles.reviewerSkills })
+      .from(reviewerProfiles)
+      .where(eq(reviewerProfiles.adminId, adminId))
+      .limit(1);
+
+    if (!profile || profile.reviewerSkills.length === 0) {
+      return [];
+    }
+
     const requests = await db
       .select({
         id: verificationRequests.id,
@@ -999,7 +1061,12 @@ export const verificationService = {
       )
       .orderBy(desc(verificationRequests.submittedAt));
 
-    return await enrichSkillProjectRequests(requests);
+    const filtered = requests.filter((request) => {
+      if (request.sectionType === "project") return true;
+      return reviewerCanReviewSkill(profile.reviewerSkills, request.itemLabel);
+    });
+
+    return await enrichSkillProjectRequests(filtered);
   },
 
   acceptCase: async (input: { requestId: string; adminId: string; file: File; message?: string }) => {
@@ -1019,6 +1086,31 @@ export const verificationService = {
 
     if (!profile) {
       throw new ORPCError("NOT_FOUND", { message: "Reviewer profile not found" });
+    }
+
+    const [pendingRequest] = await db
+      .select({
+        id: verificationRequests.id,
+        sectionType: verificationRequests.sectionType,
+        itemLabel: verificationRequests.itemLabel,
+        status: verificationRequests.status,
+        claimedByAdminId: verificationRequests.claimedByAdminId,
+      })
+      .from(verificationRequests)
+      .where(eq(verificationRequests.id, input.requestId))
+      .limit(1);
+
+    if (!pendingRequest) {
+      throw new ORPCError("NOT_FOUND", { message: "Verification request not found" });
+    }
+
+    if (
+      pendingRequest.sectionType === "skill" &&
+      !reviewerCanReviewSkill(profile.reviewerSkills, pendingRequest.itemLabel)
+    ) {
+      throw new ORPCError("FORBIDDEN", {
+        message: "This skill is not in your assigned reviewable skills",
+      });
     }
 
     const acceptedAt = new Date();

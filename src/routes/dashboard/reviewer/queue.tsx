@@ -90,6 +90,7 @@ function RouteComponent() {
 
   const hasProfile = !profileError && Boolean(profile);
   const hasConsent = Boolean(profile?.consentGiven);
+  const hasAssignedSkills = (profile?.reviewerSkills?.length ?? 0) > 0;
   const claimedCount = myCases?.filter((c) => c.status === "claimed").length ?? 0;
 
   return (
@@ -131,7 +132,14 @@ function RouteComponent() {
         </Button>
       </div>
 
-      {activeTab === "queue" && <QueueTab items={queue ?? []} isLoading={queueLoading} canAccept={hasProfile} />}
+      {activeTab === "queue" && (
+        <QueueTab
+          items={queue ?? []}
+          isLoading={queueLoading}
+          canAccept={hasProfile}
+          hasAssignedSkills={hasAssignedSkills}
+        />
+      )}
 
       {activeTab === "cases" && (
         <MyCasesTab items={myCases ?? []} isLoading={casesLoading} canSubmitVerdict={hasProfile && hasConsent} />
@@ -194,14 +202,36 @@ function ReviewerSetupBanner({ hasProfile, hasConsent }: { hasProfile: boolean; 
   );
 }
 
-function QueueTab({ items, isLoading, canAccept }: { items: QueueItem[]; isLoading: boolean; canAccept: boolean }) {
+function QueueTab({
+  items,
+  isLoading,
+  canAccept,
+  hasAssignedSkills,
+}: {
+  items: QueueItem[];
+  isLoading: boolean;
+  canAccept: boolean;
+  hasAssignedSkills: boolean;
+}) {
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [acceptTarget, setAcceptTarget] = useState<QueueItem | null>(null);
 
   if (isLoading) return <QueueLoadingState />;
 
+  if (!hasAssignedSkills) {
+    return (
+      <div className="rounded-lg border border-amber-500/40 bg-amber-50/50 p-4 dark:bg-amber-900/10">
+        <p className="text-sm text-muted-foreground">
+          <Trans>
+            Ask a Skill Verdict Admin to assign your reviewable skills before cases appear in the queue.
+          </Trans>
+        </p>
+      </div>
+    );
+  }
+
   if (items.length === 0) {
-    return <QueueEmptyState message={t`No skill verification requests in the queue.`} />;
+    return <QueueEmptyState message={t`No matching requests for your assigned skills.`} />;
   }
 
   return (
@@ -250,6 +280,9 @@ function QueueRow({
       <div className="flex items-start justify-between gap-x-3">
         <div className="min-w-0 space-y-1">
           <p className="text-sm font-medium">{item.itemLabel}</p>
+          {"parentItemLabel" in item && item.parentItemLabel ? (
+            <p className="text-xs text-muted-foreground">{item.parentItemLabel}</p>
+          ) : null}
           {item.user ? (
             <p className="truncate text-xs text-muted-foreground">
               {item.user.name}
@@ -518,6 +551,9 @@ function MyCaseRow({
       <div className="flex items-start justify-between gap-x-3">
         <div className="min-w-0 space-y-1">
           <p className="text-sm font-medium">{item.itemLabel}</p>
+          {"parentItemLabel" in item && item.parentItemLabel ? (
+            <p className="text-xs text-muted-foreground">{item.parentItemLabel}</p>
+          ) : null}
           {item.user && (
             <p className="truncate text-xs text-muted-foreground">
               {item.user.name}

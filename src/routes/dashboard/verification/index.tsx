@@ -19,9 +19,14 @@ import { motion } from "motion/react";
 import { useCallback, useMemo, useRef, useState } from "react";
 import { toast } from "sonner";
 
+import type { skillItemSchema } from "@/schema/resume/data";
+import type z from "zod";
+
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { orpc } from "@/integrations/orpc/client";
+import { expandSkillItemsForVerification } from "@/utils/verification/skills";
 import { formatDefaultDate } from "@/utils/format-date";
 
 import { DashboardHeader } from "../-components/header";
@@ -49,6 +54,13 @@ type VerificationItem = {
 type ResumeItem = {
   id: string;
   label: string;
+};
+
+type SkillItem = z.infer<typeof skillItemSchema>;
+
+type SkillGroup = {
+  item: SkillItem;
+  units: ReturnType<typeof expandSkillItemsForVerification>;
 };
 
 //TODO: Projects verification UI is not enabled yet
@@ -83,12 +95,19 @@ function RouteComponent() {
     [resumeStatuses],
   );
 
-  const skills: ResumeItem[] = useMemo(() => {
+  const skillGroups: SkillGroup[] = useMemo(() => {
     if (!resumeData?.data?.sections?.skills?.items) return [];
+
     return resumeData.data.sections.skills.items
       .filter((item) => !item.hidden)
-      .map((item) => ({ id: item.id, label: item.name }));
+      .map((item) => ({
+        item,
+        units: expandSkillItemsForVerification([item]),
+      }))
+      .filter((group) => group.units.length > 0);
   }, [resumeData]);
+
+  const verifiableSkills = useMemo(() => skillGroups.flatMap((group) => group.units), [skillGroups]);
 
   const projects: ResumeItem[] = useMemo(() => {
     if (!resumeData?.data?.sections?.projects?.items) return [];
@@ -172,14 +191,15 @@ function RouteComponent() {
 
         {activeResumeId && resumeData && (
           <>
-            <VerificationSection
+            <SkillVerificationSection
               title={t`Skills`}
-              sectionType="skill"
               resumeId={activeResumeId}
-              items={skills}
+              groups={skillGroups}
               getStatusForItem={getStatusForItem}
-              verifiedCount={countVerified(skills)}
-              totalCount={skills.length}
+              verifiedCount={countVerified(
+                verifiableSkills.map((unit) => ({ id: unit.itemId, label: unit.itemLabel })),
+              )}
+              totalCount={verifiableSkills.length}
               onMutationSuccess={invalidateStatuses}
             />
 
@@ -212,7 +232,98 @@ function RouteComponent() {
   );
 }
 
-// --- Skills & Projects Section ---
+// --- Skills Section (collapsible groups) ---
+
+type SkillVerificationSectionProps = {
+  title: string;
+  resumeId: string;
+  groups: SkillGroup[];
+  getStatusForItem: (itemId: string) => VerificationItem | undefined;
+  verifiedCount: number;
+  totalCount: number;
+  onMutationSuccess: () => void;
+};
+
+function SkillVerificationSection({
+  title,
+  resumeId,
+  groups,
+  getStatusForItem,
+  verifiedCount,
+  totalCount,
+  onMutationSuccess,
+}: SkillVerificationSectionProps) {
+  return (
+    <div className="rounded-lg border p-4">
+      <div className="mb-3 flex items-center justify-between">
+        <h3 className="text-sm font-medium">{title}</h3>
+        <span className="text-xs text-muted-foreground">
+          {verifiedCount}/{totalCount} <Trans>verified</Trans>
+        </span>
+      </div>
+
+      {groups.length === 0 ? (
+        <p className="text-xs text-muted-foreground">
+          <Trans>No items in this section. Add some to your resume first.</Trans>
+        </p>
+      ) : (
+        <Accordion className="space-y-2">
+          {groups.map((group) => {
+            const groupVerifiedCount = group.units.filter(
+              (unit) => getStatusForItem(unit.itemId)?.status === "verified",
+            ).length;
+            const legacyParentStatus = getStatusForItem(group.item.id);
+
+            return (
+              <AccordionItem key={group.item.id} value={group.item.id} className="rounded border px-3">
+                <AccordionTrigger className="py-3 hover:no-underline">
+                  <div className="flex w-full items-center justify-between gap-x-3 pe-2">
+                    <div className="flex items-center gap-x-2">
+                      {legacyParentStatus && <StatusIcon status={legacyParentStatus.status} />}
+                      <span className="text-sm font-medium">{group.item.name}</span>
+                    </div>
+                    <span className="text-xs text-muted-foreground">
+                      {groupVerifiedCount}/{group.units.length} <Trans>verified</Trans>
+                    </span>
+                  </div>
+                </AccordionTrigger>
+                <AccordionContent className="pb-3">
+                  {legacyParentStatus && group.units.every((unit) => unit.itemId !== group.item.id) && (
+                    <div className="mb-2 rounded border border-dashed p-3">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-x-2">
+                          <StatusIcon status={legacyParentStatus.status} />
+                          <span className="text-sm text-muted-foreground">
+                            <Trans>Legacy category request</Trans>
+                          </span>
+                        </div>
+                        <StatusBadge status={legacyParentStatus.status} />
+                      </div>
+                    </div>
+                  )}
+                  <div className="space-y-2">
+                    {group.units.map((unit) => (
+                      <SkillProjectItemRow
+                        key={unit.itemId}
+                        item={{ id: unit.itemId, label: unit.itemLabel }}
+                        sectionType="skill"
+                        resumeId={resumeId}
+                        existingStatus={getStatusForItem(unit.itemId)}
+                        onMutationSuccess={onMutationSuccess}
+                      />
+                    ))}
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
+            );
+          })}
+        </Accordion>
+      )}
+    </div>
+  );
+}
+
+// --- Projects Section ---
 
 type VerificationSectionProps = {
   title: string;

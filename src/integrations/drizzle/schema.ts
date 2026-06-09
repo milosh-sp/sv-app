@@ -532,6 +532,7 @@ export const reviewerProfiles = pg.pgTable(
     publicProfileUrl: pg.text("public_profile_url").notNull().unique(),
     consentGiven: pg.boolean("consent_given").notNull().default(false),
     consentGivenAt: pg.timestamp("consent_given_at", { withTimezone: true }),
+    reviewerSkills: pg.text("reviewer_skills").array().notNull().default([]),
     createdAt: pg.timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
     updatedAt: pg
       .timestamp("updated_at", { withTimezone: true })

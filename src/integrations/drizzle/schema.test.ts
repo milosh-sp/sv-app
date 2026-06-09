@@ -97,6 +97,7 @@ describe("reviewerProfiles table", () => {
     expect(reviewerProfiles.publicProfileUrl).toBeDefined();
     expect(reviewerProfiles.consentGiven).toBeDefined();
     expect(reviewerProfiles.consentGivenAt).toBeDefined();
+    expect(reviewerProfiles.reviewerSkills).toBeDefined();
     expect(reviewerProfiles.createdAt).toBeDefined();
     expect(reviewerProfiles.updatedAt).toBeDefined();
   });

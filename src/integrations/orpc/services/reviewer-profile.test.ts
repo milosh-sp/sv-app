@@ -29,6 +29,7 @@ vi.mock("@/integrations/drizzle/schema", () => ({
     publicProfileUrl: "public_profile_url",
     consentGiven: "consent_given",
     consentGivenAt: "consent_given_at",
+    reviewerSkills: "reviewer_skills",
     createdAt: "created_at",
     updatedAt: "updated_at",
   },
@@ -122,6 +123,22 @@ describe("reviewerProfileService.updateDirect", () => {
 
   it("should error with no fields to update", async () => {
     await expect(reviewerProfileService.updateDirect({ adminId: "admin-1" })).rejects.toThrow("No fields to update");
+  });
+
+  it("should update reviewer skills", async () => {
+    const updated = {
+      id: "profile-1",
+      adminId: "admin-1",
+      reviewerSkills: ["C#", "Python"],
+    };
+    mockReturning.mockResolvedValueOnce([updated]);
+
+    const result = await reviewerProfileService.updateDirect({
+      adminId: "admin-1",
+      reviewerSkills: [" C# ", "c#", "Python"],
+    });
+
+    expect(result.reviewerSkills).toEqual(["C#", "Python"]);
   });
 });
 

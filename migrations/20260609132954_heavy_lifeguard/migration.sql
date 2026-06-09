@@ -1,0 +1,1 @@
+ALTER TABLE "reviewer_profiles" ADD COLUMN "reviewer_skills" text[] DEFAULT '{}'::text[] NOT NULL;

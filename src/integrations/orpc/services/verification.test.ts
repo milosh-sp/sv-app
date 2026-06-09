@@ -1,5 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from "vite-plus/test";
 
+import { deriveSkillKeywordId } from "@/utils/verification/skills";
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const mockReturning = vi.fn();
 const mockLimit = vi.fn((): any => []);
@@ -125,11 +127,13 @@ vi.mock("@/integrations/drizzle/schema", () => ({
     publicProfileUrl: "public_profile_url",
     consentGiven: "consent_given",
     consentGivenAt: "consent_given_at",
+    reviewerSkills: "reviewer_skills",
   },
   resume: {
     id: "id",
     userId: "user_id",
     isPublic: "is_public",
+    data: "data",
   },
   user: {
     id: "id",
@@ -138,6 +142,31 @@ vi.mock("@/integrations/drizzle/schema", () => ({
 }));
 
 const { verificationService } = await import("./verification");
+
+const skillParentId = "019bef5a-93e4-7746-ad39-622f9d41da55";
+const skillKeywordId = deriveSkillKeywordId(skillParentId, "TypeScript");
+
+function createResumeWithSkillKeyword() {
+  return {
+    data: {
+      sections: {
+        skills: {
+          items: [
+            {
+              id: skillParentId,
+              hidden: false,
+              icon: "code",
+              name: "Programming Languages",
+              proficiency: "Expert",
+              level: 5,
+              keywords: ["TypeScript"],
+            },
+          ],
+        },
+      },
+    },
+  };
+}
 
 beforeEach(() => {
   mockLimit.mockReset();
@@ -178,14 +207,14 @@ beforeEach(() => {
 
 describe("verificationService.requestSkill", () => {
   it("should create a skill verification request", async () => {
-    mockLimit.mockReturnValueOnce([]);
+    mockLimit.mockReturnValueOnce([createResumeWithSkillKeyword()]).mockReturnValueOnce([]);
     const request = { id: "req-1", sectionType: "skill", status: "pending" };
     mockReturning.mockResolvedValueOnce([request]);
 
     const result = await verificationService.requestSkill({
       userId: "user-1",
       resumeId: "resume-1",
-      itemId: "item-1",
+      itemId: skillKeywordId,
       itemLabel: "TypeScript",
     });
 
@@ -194,42 +223,61 @@ describe("verificationService.requestSkill", () => {
   });
 
   it("should error if active request exists", async () => {
-    mockLimit.mockReturnValueOnce([{ id: "existing", status: "pending" }]);
+    mockLimit.mockReturnValueOnce([createResumeWithSkillKeyword()]).mockReturnValueOnce([
+      { id: "existing", status: "pending" },
+    ]);
 
     await expect(
       verificationService.requestSkill({
         userId: "user-1",
         resumeId: "resume-1",
-        itemId: "item-1",
+        itemId: skillKeywordId,
         itemLabel: "TypeScript",
       }),
     ).rejects.toThrow("An active verification request already exists");
   });
 
   it("should error when status is claimed", async () => {
-    mockLimit.mockReturnValueOnce([{ id: "existing", status: "claimed" }]);
+    mockLimit.mockReturnValueOnce([createResumeWithSkillKeyword()]).mockReturnValueOnce([
+      { id: "existing", status: "claimed" },
+    ]);
 
     await expect(
       verificationService.requestSkill({
         userId: "user-1",
         resumeId: "resume-1",
-        itemId: "item-1",
+        itemId: skillKeywordId,
         itemLabel: "TypeScript",
       }),
     ).rejects.toThrow("An active verification request already exists");
   });
 
   it("should error when status is verdict_pending", async () => {
-    mockLimit.mockReturnValueOnce([{ id: "existing", status: "verdict_pending" }]);
+    mockLimit.mockReturnValueOnce([createResumeWithSkillKeyword()]).mockReturnValueOnce([
+      { id: "existing", status: "verdict_pending" },
+    ]);
 
     await expect(
       verificationService.requestSkill({
         userId: "user-1",
         resumeId: "resume-1",
-        itemId: "item-1",
+        itemId: skillKeywordId,
         itemLabel: "TypeScript",
       }),
     ).rejects.toThrow("An active verification request already exists");
+  });
+
+  it("should reject parent category ids when keywords exist", async () => {
+    mockLimit.mockReturnValueOnce([createResumeWithSkillKeyword()]);
+
+    await expect(
+      verificationService.requestSkill({
+        userId: "user-1",
+        resumeId: "resume-1",
+        itemId: skillParentId,
+        itemLabel: "Programming Languages",
+      }),
+    ).rejects.toThrow("Invalid skill item");
   });
 });
 
@@ -879,10 +927,21 @@ describe("verificationService.acceptCase", () => {
     lastName: "Smith",
     title: "Engineer",
     publicProfileUrl: "/reviewer/admin-1",
+    reviewerSkills: ["TypeScript"],
+  };
+  const pendingSkillRequest = {
+    id: "req-1",
+    sectionType: "skill",
+    itemLabel: "TypeScript",
+    status: "pending",
+    claimedByAdminId: null,
   };
 
   it("should error if already claimed", async () => {
-    mockLimit.mockReturnValueOnce([reviewerProfile]).mockReturnValueOnce([{ id: "req-1" }]);
+    mockLimit
+      .mockReturnValueOnce([reviewerProfile])
+      .mockReturnValueOnce([pendingSkillRequest])
+      .mockReturnValueOnce([{ id: "req-1" }]);
     mockReturning.mockResolvedValueOnce([]);
 
     await expect(verificationService.acceptCase({ requestId: "req-1", adminId: "admin-1", file })).rejects.toThrow(
@@ -891,7 +950,10 @@ describe("verificationService.acceptCase", () => {
   });
 
   it("should error if not pending", async () => {
-    mockLimit.mockReturnValueOnce([reviewerProfile]).mockReturnValueOnce([{ id: "req-1" }]);
+    mockLimit
+      .mockReturnValueOnce([reviewerProfile])
+      .mockReturnValueOnce([pendingSkillRequest])
+      .mockReturnValueOnce([{ id: "req-1" }]);
     mockReturning.mockResolvedValueOnce([]);
 
     await expect(verificationService.acceptCase({ requestId: "req-1", adminId: "admin-1", file })).rejects.toThrow(
@@ -917,7 +979,12 @@ describe("verificationService.acceptCase", () => {
   });
 
   it("should reject experience section requests", async () => {
-    mockLimit.mockReturnValueOnce([reviewerProfile]).mockReturnValueOnce([{ id: "req-1" }]);
+    mockLimit
+      .mockReturnValueOnce([reviewerProfile])
+      .mockReturnValueOnce([
+        { id: "req-1", sectionType: "experience", itemLabel: "Acme Corp", status: "pending", claimedByAdminId: null },
+      ])
+      .mockReturnValueOnce([{ id: "req-1" }]);
     mockReturning.mockResolvedValueOnce([]);
 
     await expect(verificationService.acceptCase({ requestId: "req-1", adminId: "admin-1", file })).rejects.toThrow(
@@ -936,7 +1003,7 @@ describe("verificationService.acceptCase", () => {
       status: "claimed",
     };
 
-    mockLimit.mockReturnValueOnce([reviewerProfile]).mockReturnValueOnce([]);
+    mockLimit.mockReturnValueOnce([reviewerProfile]).mockReturnValueOnce([pendingSkillRequest]);
 
     mockReturning.mockResolvedValueOnce([
       {
@@ -1348,13 +1415,17 @@ describe("verificationService.uploadDocument", () => {
 // --- Admin queue list methods ---
 
 describe("verificationService.listQueue", () => {
-  it("returns empty array when no pending skill/project requests exist", async () => {
-    mockFrom.mockReturnValueOnce({ where: vi.fn(() => ({ orderBy: vi.fn(() => []) })) });
-    const result = await verificationService.listQueue();
+  it("returns empty array when reviewer has no assigned skills", async () => {
+    mockFrom.mockReturnValueOnce({
+      where: vi.fn(() => ({
+        limit: vi.fn(() => [{ reviewerSkills: [] }]),
+      })),
+    });
+    const result = await verificationService.listQueue("admin-1");
     expect(result).toEqual([]);
   });
 
-  it("returns pending skill and project requests", async () => {
+  it("returns only matching skill requests and all project requests", async () => {
     const rows = [
       {
         id: "req-1",
@@ -1370,19 +1441,34 @@ describe("verificationService.listQueue", () => {
         id: "req-2",
         userId: "user-2",
         resumeId: "resume-2",
-        sectionType: "project",
+        sectionType: "skill",
         itemId: "item-2",
+        itemLabel: "Rust",
+        status: "pending",
+        submittedAt: new Date(),
+      },
+      {
+        id: "req-3",
+        userId: "user-3",
+        resumeId: "resume-3",
+        sectionType: "project",
+        itemId: "item-3",
         itemLabel: "App",
         status: "pending",
         submittedAt: new Date(),
       },
     ];
     mockFrom
+      .mockReturnValueOnce({
+        where: vi.fn(() => ({
+          limit: vi.fn(() => [{ reviewerSkills: ["TypeScript"] }]),
+        })),
+      })
       .mockReturnValueOnce({ where: vi.fn(() => ({ orderBy: vi.fn(() => rows) })) })
       .mockReturnValueOnce({ where: vi.fn(() => []) })
       .mockReturnValueOnce({ where: vi.fn(() => []) })
       .mockReturnValueOnce({ where: vi.fn(() => []) });
-    const result = await verificationService.listQueue();
+    const result = await verificationService.listQueue("admin-1");
     expect(result).toHaveLength(2);
     expect(result[0].id).toBe("req-1");
     expect(result[1].sectionType).toBe("project");

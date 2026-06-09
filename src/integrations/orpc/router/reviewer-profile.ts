@@ -11,6 +11,7 @@ export const adminReviewerProfilesRouter = {
         firstName: z.string().min(1),
         lastName: z.string().min(1),
         title: z.string().min(1),
+        reviewerSkills: z.array(z.string()).optional(),
       }),
     )
     .handler(async ({ input }) => {
@@ -24,10 +25,17 @@ export const adminReviewerProfilesRouter = {
         firstName: z.string().min(1).optional(),
         lastName: z.string().min(1).optional(),
         title: z.string().min(1).optional(),
+        reviewerSkills: z.array(z.string()).optional(),
       }),
     )
     .handler(async ({ input }) => {
       return await reviewerProfileService.updateDirect(input);
+    }),
+
+  getByAdminId: skillVerdictAdminProcedure
+    .input(z.object({ adminId: z.string().uuid() }))
+    .handler(async ({ input }) => {
+      return await reviewerProfileService.getByAdminIdOrNull(input.adminId);
     }),
 
   listChangeRequests: skillVerdictAdminProcedure.handler(async () => {
