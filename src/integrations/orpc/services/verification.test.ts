@@ -1777,11 +1777,245 @@ describe("verificationService.listMyCaseHistory", () => {
   });
 });
 
+describe("verificationService.listExperienceHistory", () => {
+  const defaultListInput = { page: 1, pageSize: 20 };
+
+  function mockPaginatedCount(total: number, unfilteredTotal = total) {
+    mockFrom
+      .mockReturnValueOnce({ where: vi.fn(() => [{ total: unfilteredTotal }]) })
+      .mockReturnValueOnce({ where: vi.fn(() => [{ total }]) });
+  }
+
+  function mockPaginatedSelect(rows: unknown[]) {
+    mockFrom.mockReturnValueOnce({
+      where: vi.fn(() => ({
+        orderBy: vi.fn(() => ({
+          limit: vi.fn(() => ({
+            offset: vi.fn(() => rows),
+          })),
+        })),
+      })),
+    });
+  }
+
+  it("returns empty paginated result when no finalized experience requests exist", async () => {
+    mockPaginatedCount(0);
+    const result = await verificationService.listExperienceHistory(defaultListInput);
+    expect(result).toEqual({
+      items: [],
+      total: 0,
+      totalUnfiltered: 0,
+      page: 1,
+      pageSize: 20,
+    });
+  });
+
+  it("returns finalized experience requests ordered by resolvedAt with admin attribution", async () => {
+    const older = new Date("2026-01-01T00:00:00.000Z");
+    const newer = new Date("2026-06-01T00:00:00.000Z");
+    const rows = [
+      {
+        id: "req-2",
+        userId: "user-1",
+        resumeId: "resume-1",
+        sectionType: "experience",
+        itemId: "item-2",
+        itemLabel: "Acme Corp — Engineer",
+        status: "verified",
+        method: "document_upload",
+        submittedAt: older,
+        resolvedAt: newer,
+        reviewerNote: "Documents look good",
+      },
+      {
+        id: "req-1",
+        userId: "user-1",
+        resumeId: "resume-1",
+        sectionType: "experience",
+        itemId: "item-1",
+        itemLabel: "Beta Inc — Developer",
+        status: "rejected",
+        method: "freelancer_link",
+        submittedAt: older,
+        resolvedAt: older,
+        reviewerNote: null,
+      },
+    ];
+    mockPaginatedCount(2);
+    mockPaginatedSelect(rows);
+    mockFrom
+      .mockReturnValueOnce({ where: vi.fn(() => []) })
+      .mockReturnValueOnce({ where: vi.fn(() => []) })
+      .mockReturnValueOnce({ where: vi.fn(() => []) })
+      .mockReturnValueOnce({
+        where: vi.fn(() => ({
+          orderBy: vi.fn(() => [
+            {
+              verificationRequestId: "req-2",
+              adminId: "admin-1",
+              actedAt: newer,
+            },
+          ]),
+        })),
+      })
+      .mockReturnValueOnce({
+        where: vi.fn(() => [{ id: "admin-1", name: "Admin User", email: "admin@example.com" }]),
+      });
+
+    const result = await verificationService.listExperienceHistory(defaultListInput);
+    expect(result.items).toHaveLength(2);
+    expect(result.total).toBe(2);
+    expect(result.totalUnfiltered).toBe(2);
+    expect(result.items[0]?.status).toBe("verified");
+    expect(result.items[0]?.resolvedAt).toEqual(newer);
+    expect(result.items[0]?.reviewerNote).toBe("Documents look good");
+    expect(result.items[0]?.reviewedBy).toEqual({
+      id: "admin-1",
+      name: "Admin User",
+      email: "admin@example.com",
+    });
+    expect(result.items[0]?.reviewedAt).toEqual(newer);
+    expect(result.items[1]?.status).toBe("rejected");
+    expect(result.items[1]?.resolvedAt).toEqual(older);
+    expect(result.items[1]?.reviewedBy).toBeNull();
+  });
+
+  it("filters history by status and paginates results", async () => {
+    const resolvedAt = new Date("2026-06-01T00:00:00.000Z");
+    const rows = [
+      {
+        id: "req-1",
+        userId: "user-1",
+        resumeId: "resume-1",
+        sectionType: "experience",
+        itemId: "item-1",
+        itemLabel: "Acme Corp",
+        status: "rejected",
+        method: "document_upload",
+        submittedAt: resolvedAt,
+        resolvedAt,
+        reviewerNote: null,
+      },
+    ];
+    mockPaginatedCount(1, 3);
+    mockPaginatedSelect(rows);
+    mockFrom
+      .mockReturnValueOnce({ where: vi.fn(() => []) })
+      .mockReturnValueOnce({ where: vi.fn(() => []) })
+      .mockReturnValueOnce({ where: vi.fn(() => []) })
+      .mockReturnValueOnce({ where: vi.fn(() => ({ orderBy: vi.fn(() => []) })) });
+
+    const result = await verificationService.listExperienceHistory({
+      page: 1,
+      pageSize: 1,
+      statuses: ["rejected"],
+    });
+    expect(result.items).toHaveLength(1);
+    expect(result.total).toBe(1);
+    expect(result.totalUnfiltered).toBe(3);
+    expect(result.items[0]?.status).toBe("rejected");
+  });
+});
+
+describe("verificationService.listIdentityHistory", () => {
+  const defaultListInput = { page: 1, pageSize: 20 };
+
+  function mockPaginatedCount(total: number, unfilteredTotal = total) {
+    mockFrom
+      .mockReturnValueOnce({ where: vi.fn(() => [{ total: unfilteredTotal }]) })
+      .mockReturnValueOnce({ where: vi.fn(() => [{ total }]) });
+  }
+
+  function mockPaginatedSelect(rows: unknown[]) {
+    mockFrom.mockReturnValueOnce({
+      where: vi.fn(() => ({
+        orderBy: vi.fn(() => ({
+          limit: vi.fn(() => ({
+            offset: vi.fn(() => rows),
+          })),
+        })),
+      })),
+    });
+  }
+
+  it("returns empty paginated result when no finalized identity requests exist", async () => {
+    mockPaginatedCount(0);
+    const result = await verificationService.listIdentityHistory(defaultListInput);
+    expect(result).toEqual({
+      items: [],
+      total: 0,
+      totalUnfiltered: 0,
+      page: 1,
+      pageSize: 20,
+    });
+  });
+
+  it("returns finalized identity requests ordered by resolvedAt", async () => {
+    const resolvedAt = new Date("2026-03-15T00:00:00.000Z");
+    const rows = [
+      {
+        id: "req-1",
+        userId: "user-1",
+        resumeId: null,
+        sectionType: "identity",
+        itemId: "item-1",
+        itemLabel: "Identity Verification",
+        status: "issue",
+        method: "identity_call",
+        submittedAt: resolvedAt,
+        calendarLinkSentAt: resolvedAt,
+        resolvedAt,
+        reviewerNote: "Could not verify on call",
+      },
+    ];
+    mockPaginatedCount(1);
+    mockPaginatedSelect(rows);
+    mockFrom
+      .mockReturnValueOnce({ where: vi.fn(() => []) })
+      .mockReturnValueOnce({ where: vi.fn(() => ({ orderBy: vi.fn(() => []) })) })
+      .mockReturnValueOnce({ where: vi.fn(() => []) })
+      .mockReturnValueOnce({ where: vi.fn(() => ({ orderBy: vi.fn(() => []) })) });
+
+    const result = await verificationService.listIdentityHistory(defaultListInput);
+    expect(result.items).toHaveLength(1);
+    expect(result.items[0]?.status).toBe("issue");
+    expect(result.items[0]?.calendarLinkSentAt).toEqual(resolvedAt);
+    expect(result.items[0]?.reviewerNote).toBe("Could not verify on call");
+    expect(result.items[0]?.reviewedBy).toBeNull();
+  });
+});
+
 describe("verificationService.listPendingVerdicts", () => {
-  it("returns empty array when no verdict_pending requests exist", async () => {
-    mockFrom.mockReturnValueOnce({ where: vi.fn(() => ({ orderBy: vi.fn(() => []) })) });
-    const result = await verificationService.listPendingVerdicts();
-    expect(result).toEqual([]);
+  const defaultListInput = { page: 1, pageSize: 20 };
+
+  function mockPaginatedCount(total: number, unfilteredTotal = total) {
+    mockFrom
+      .mockReturnValueOnce({ where: vi.fn(() => [{ total: unfilteredTotal }]) })
+      .mockReturnValueOnce({ where: vi.fn(() => [{ total }]) });
+  }
+
+  function mockPaginatedSelect(rows: unknown[]) {
+    mockFrom.mockReturnValueOnce({
+      where: vi.fn(() => ({
+        orderBy: vi.fn(() => ({
+          limit: vi.fn(() => ({
+            offset: vi.fn(() => rows),
+          })),
+        })),
+      })),
+    });
+  }
+
+  it("returns empty paginated result when no verdict_pending requests exist", async () => {
+    mockPaginatedCount(0);
+    const result = await verificationService.listPendingVerdicts(defaultListInput);
+    expect(result).toEqual({
+      items: [],
+      total: 0,
+      totalUnfiltered: 0,
+      page: 1,
+      pageSize: 20,
+    });
   });
 
   it("returns verdict_pending requests", async () => {
@@ -1801,18 +2035,56 @@ describe("verificationService.listPendingVerdicts", () => {
         claimedByAdminId: "admin-1",
       },
     ];
+    mockPaginatedCount(1);
+    mockPaginatedSelect(rows);
     mockFrom
-      .mockReturnValueOnce({ where: vi.fn(() => ({ orderBy: vi.fn(() => rows) })) })
       .mockReturnValueOnce({ where: vi.fn(() => [{ adminId: "admin-1", reviewerSkills: ["Go"] }]) })
       .mockReturnValueOnce({ where: vi.fn(() => ({ orderBy: vi.fn(() => []) })) })
       .mockReturnValueOnce({ where: vi.fn(() => []) })
       .mockReturnValueOnce({ where: vi.fn(() => []) })
       .mockReturnValueOnce({ where: vi.fn(() => []) });
-    const result = await verificationService.listPendingVerdicts();
-    expect(result).toHaveLength(1);
-    expect(result[0].status).toBe("verdict_pending");
-    expect(result[0].proposedVerdict).toBe("verified");
-    expect(result[0].reviewerAdminId).toBe("admin-1");
-    expect(result[0].reviewerSkills).toEqual(["Go"]);
+    const result = await verificationService.listPendingVerdicts(defaultListInput);
+    expect(result.items).toHaveLength(1);
+    expect(result.items[0]?.status).toBe("verdict_pending");
+    expect(result.items[0]?.proposedVerdict).toBe("verified");
+    expect(result.items[0]?.reviewerAdminId).toBe("admin-1");
+    expect(result.items[0]?.reviewerSkills).toEqual(["Go"]);
+  });
+
+  it("filters pending verdicts by proposed outcome and type", async () => {
+    const rows = [
+      {
+        id: "req-1",
+        userId: "user-1",
+        resumeId: "resume-1",
+        sectionType: "project",
+        itemId: "item-1",
+        itemLabel: "Portfolio",
+        status: "verdict_pending",
+        submittedAt: new Date(),
+        proposedVerdict: "rejected",
+        reviewerNote: null,
+        assessmentAcceptedAt: null,
+        claimedByAdminId: null,
+      },
+    ];
+    mockPaginatedCount(1, 5);
+    mockPaginatedSelect(rows);
+    mockFrom
+      .mockReturnValueOnce({ where: vi.fn(() => ({ orderBy: vi.fn(() => []) })) })
+      .mockReturnValueOnce({ where: vi.fn(() => []) })
+      .mockReturnValueOnce({ where: vi.fn(() => []) })
+      .mockReturnValueOnce({ where: vi.fn(() => []) });
+    const result = await verificationService.listPendingVerdicts({
+      page: 1,
+      pageSize: 20,
+      proposed: ["rejected"],
+      types: ["project"],
+    });
+    expect(result.items).toHaveLength(1);
+    expect(result.total).toBe(1);
+    expect(result.totalUnfiltered).toBe(5);
+    expect(result.items[0]?.sectionType).toBe("project");
+    expect(result.items[0]?.proposedVerdict).toBe("rejected");
   });
 });

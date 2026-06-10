@@ -9,9 +9,12 @@ import {
   XCircleIcon,
 } from "@phosphor-icons/react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { zodValidator } from "@tanstack/zod-adapter";
+import { useCallback, useMemo, useState } from "react";
 import { toast } from "sonner";
+import { useDebounceCallback } from "usehooks-ts";
+import z from "zod";
 
 import type { RouterOutput } from "@/integrations/orpc/client";
 
@@ -19,13 +22,26 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
 import { orpc } from "@/integrations/orpc/client";
+import {
+  ADMIN_VERIFICATION_PAGE_SIZE,
+  buildPendingVerdictsListInput,
+  buildVerificationListInput,
+  defaultAdminExperienceSearch,
+  hasActiveAdminExperienceFilters,
+} from "@/utils/verification/admin-verification-search";
 import { formatDefaultDate } from "@/utils/format-date";
 
 import type { ReviewAction } from "./-components/verification-queue-shared";
 
 import { DashboardHeader } from "../-components/header";
+import { AdminListPagination } from "./-components/admin-list-pagination";
+import {
+  AdminExperienceFilterBar,
+  defaultAdminExperienceSearch as filterDefaults,
+} from "./-components/admin-verification-filters";
 import {
   ApplicantDetails,
+  DirectAdminReviewHistoryTab,
   DocumentPreview,
   MethodBadge,
   QueueEmptyState,
@@ -37,26 +53,91 @@ import {
   StatusBadge,
 } from "./-components/verification-queue-shared";
 
+const experienceSearchSchema = z.object({
+  q: z.string().optional().default(""),
+  method: z.enum(["all", "document_upload", "freelancer_link", "identity_call"]).default("all"),
+  statuses: z.array(z.enum(["verified", "rejected", "issue"])).optional().default([]),
+  proposed: z.array(z.enum(["verified", "rejected", "issue"])).optional().default([]),
+  types: z.array(z.enum(["skill", "project"])).optional().default([]),
+  page: z.coerce.number().int().min(1).default(1),
+});
+
 export const Route = createFileRoute("/dashboard/admin/experience-queue")({
+  validateSearch: zodValidator(experienceSearchSchema),
   component: RouteComponent,
 });
 
-type ExperienceQueueItem = RouterOutput["admin"]["verification"]["listExperienceQueue"][number];
-type PendingVerdictItem = RouterOutput["admin"]["verification"]["listPendingVerdicts"][number];
+type ExperienceQueueItem = RouterOutput["admin"]["verification"]["listExperienceQueue"]["items"][number];
+type PendingVerdictItem = RouterOutput["admin"]["verification"]["listPendingVerdicts"]["items"][number];
 
 function RouteComponent() {
-  const [activeTab, setActiveTab] = useState<"queue" | "verdicts">("queue");
+  const navigate = useNavigate({ from: Route.fullPath });
+  const [activeTab, setActiveTab] = useState<"queue" | "verdicts" | "history">("queue");
+  const search = Route.useSearch();
+  const mergedSearch = { ...defaultAdminExperienceSearch, ...search };
 
-  const {
-    data: queue,
-    isLoading: queueLoading,
-    isError: queueError,
-  } = useQuery({
-    ...orpc.admin.verification.listExperienceQueue.queryOptions(),
+  const queueListInput = useMemo(
+    () => buildVerificationListInput(mergedSearch, activeTab === "history" ? "history" : "queue"),
+    [mergedSearch, activeTab],
+  );
+  const verdictsListInput = useMemo(() => buildPendingVerdictsListInput(mergedSearch), [mergedSearch]);
+
+  const commitSearchToUrl = useCallback(
+    (next: Partial<typeof search>) => {
+      void navigate({
+        search: (prev) => ({ ...prev, ...next }),
+      });
+    },
+    [navigate],
+  );
+
+  const debouncedCommitSearch = useDebounceCallback((q: string) => {
+    commitSearchToUrl({ q, page: 1 });
+  }, 400);
+
+  const queueQuery = useQuery({
+    ...orpc.admin.verification.listExperienceQueue.queryOptions({ input: queueListInput }),
+    enabled: activeTab === "queue",
+    retry: false,
+    placeholderData: (prev) => prev,
+  });
+
+  const historyQuery = useQuery({
+    ...orpc.admin.verification.listExperienceHistory.queryOptions({ input: queueListInput }),
+    enabled: activeTab === "history",
+    retry: false,
+    placeholderData: (prev) => prev,
+  });
+
+  const verdictsQuery = useQuery({
+    ...orpc.admin.verification.listPendingVerdicts.queryOptions({ input: verdictsListInput }),
+    enabled: activeTab === "verdicts",
+    retry: false,
+    placeholderData: (prev) => prev,
+  });
+
+  const badgeQuery = useQuery({
+    ...orpc.admin.verification.listExperienceQueue.queryOptions({
+      input: { page: 1, pageSize: 1 },
+    }),
     retry: false,
   });
 
-  if (queueError) return <QueueErrorState />;
+  const verdictsBadgeQuery = useQuery({
+    ...orpc.admin.verification.listPendingVerdicts.queryOptions({
+      input: { page: 1, pageSize: 1 },
+    }),
+    retry: false,
+  });
+
+  const activeQuery =
+    activeTab === "queue" ? queueQuery : activeTab === "history" ? historyQuery : verdictsQuery;
+  const totalPages = activeQuery.data
+    ? Math.max(1, Math.ceil(activeQuery.data.total / activeQuery.data.pageSize))
+    : 1;
+  const hasActiveFilter = hasActiveAdminExperienceFilters(mergedSearch, activeTab);
+
+  if (queueQuery.isError && activeTab === "queue") return <QueueErrorState />;
 
   return (
     <div className="space-y-4">
@@ -69,12 +150,15 @@ function RouteComponent() {
           size="sm"
           variant={activeTab === "queue" ? "default" : "ghost"}
           className="h-7 text-xs"
-          onClick={() => setActiveTab("queue")}
+          onClick={() => {
+            setActiveTab("queue");
+            commitSearchToUrl({ page: 1 });
+          }}
         >
           <Trans>Experience Queue</Trans>
-          {queue && queue.length > 0 && (
+          {(badgeQuery.data?.totalUnfiltered ?? 0) > 0 && (
             <span className="ml-1.5 rounded-full bg-primary-foreground/20 px-1.5 py-0.5 text-[10px] leading-none">
-              {queue.length}
+              {badgeQuery.data?.totalUnfiltered}
             </span>
           )}
         </Button>
@@ -82,16 +166,87 @@ function RouteComponent() {
           size="sm"
           variant={activeTab === "verdicts" ? "default" : "ghost"}
           className="h-7 text-xs"
-          onClick={() => setActiveTab("verdicts")}
+          onClick={() => {
+            setActiveTab("verdicts");
+            commitSearchToUrl({ page: 1 });
+          }}
         >
           <Trans>Pending Verdicts</Trans>
-          <PendingVerdictsCount />
+          {(verdictsBadgeQuery.data?.totalUnfiltered ?? 0) > 0 && (
+            <span className="ml-1.5 rounded-full bg-primary-foreground/20 px-1.5 py-0.5 text-[10px] leading-none">
+              {verdictsBadgeQuery.data?.totalUnfiltered}
+            </span>
+          )}
+        </Button>
+        <Button
+          size="sm"
+          variant={activeTab === "history" ? "default" : "ghost"}
+          className="h-7 text-xs"
+          onClick={() => {
+            setActiveTab("history");
+            commitSearchToUrl({ page: 1 });
+          }}
+        >
+          <Trans>History</Trans>
         </Button>
       </div>
 
-      {activeTab === "queue" && <ExperienceQueueTab items={queue ?? []} isLoading={queueLoading} />}
+      <AdminExperienceFilterBar
+        tab={activeTab}
+        search={mergedSearch}
+        onSearchChange={(next) => {
+          if ("q" in next && next.q !== undefined) {
+            debouncedCommitSearch(next.q);
+            return;
+          }
+          commitSearchToUrl(next);
+        }}
+        onReset={() => {
+          void navigate({ search: filterDefaults });
+        }}
+      />
 
-      {activeTab === "verdicts" && <PendingVerdictsTab />}
+      {activeTab === "queue" && (
+        <ExperienceQueueTab
+          items={queueQuery.data?.items ?? []}
+          isLoading={queueQuery.isLoading && !queueQuery.data}
+          total={queueQuery.data?.total ?? 0}
+          hasActiveFilter={hasActiveFilter}
+        />
+      )}
+
+      {activeTab === "verdicts" && (
+        <PendingVerdictsTab
+          items={verdictsQuery.data?.items ?? []}
+          isLoading={verdictsQuery.isLoading && !verdictsQuery.data}
+          total={verdictsQuery.data?.total ?? 0}
+          hasActiveFilter={hasActiveFilter}
+        />
+      )}
+
+      {activeTab === "history" && (
+        <DirectAdminReviewHistoryTab
+          items={historyQuery.data?.items ?? []}
+          isLoading={historyQuery.isLoading && !historyQuery.data}
+          isError={historyQuery.isError}
+          emptyMessage={t`No completed experience reviews yet.`}
+          filteredEmptyMessage={t`No completed reviews match the selected filters.`}
+          hasActiveFilter={hasActiveFilter}
+        />
+      )}
+
+      <AdminListPagination
+        page={search.page}
+        totalPages={totalPages}
+        total={activeQuery.data?.total ?? 0}
+        disabled={activeQuery.isFetching}
+        onPrevious={() => {
+          commitSearchToUrl({ page: Math.max(1, search.page - 1) });
+        }}
+        onNext={() => {
+          commitSearchToUrl({ page: Math.min(totalPages, search.page + 1) });
+        }}
+      />
     </div>
   );
 }
@@ -100,17 +255,40 @@ function RouteComponent() {
 // Experience Queue Tab
 // ---------------------------------------------------------------------------
 
-function ExperienceQueueTab({ items, isLoading }: { items: ExperienceQueueItem[]; isLoading: boolean }) {
+function ExperienceQueueTab({
+  items,
+  isLoading,
+  total,
+  hasActiveFilter,
+}: {
+  items: ExperienceQueueItem[];
+  isLoading: boolean;
+  total: number;
+  hasActiveFilter: boolean;
+}) {
   const [expandedId, setExpandedId] = useState<string | null>(null);
 
   if (isLoading) return <QueueLoadingState />;
 
   if (items.length === 0) {
-    return <QueueEmptyState message={t`No experience verification requests pending.`} />;
+    return (
+      <QueueEmptyState
+        message={
+          hasActiveFilter
+            ? t`No experience verification requests match the selected filters.`
+            : t`No experience verification requests pending.`
+        }
+      />
+    );
   }
 
   return (
     <div className="w-full space-y-3">
+      {total > ADMIN_VERIFICATION_PAGE_SIZE && (
+        <p className="text-xs text-muted-foreground">
+          <Trans>Showing {items.length} of {total} pending requests</Trans>
+        </p>
+      )}
       {items.map((item) => (
         <ExperienceQueueRow
           key={item.id}
@@ -154,7 +332,10 @@ function ExperienceQueueRow({
           setConfirming(false);
           setNotes("");
           void queryClient.invalidateQueries({
-            queryKey: orpc.admin.verification.listExperienceQueue.queryOptions().queryKey,
+            queryKey: orpc.admin.verification.listExperienceQueue.key(),
+          });
+          void queryClient.invalidateQueries({
+            queryKey: orpc.admin.verification.listExperienceHistory.key(),
           });
         },
         onError: (error) => {
@@ -253,9 +434,17 @@ function ExperienceQueueRow({
 // Pending Verdicts Tab
 // ---------------------------------------------------------------------------
 
-function PendingVerdictsTab() {
-  const { data: verdicts, isLoading } = useQuery(orpc.admin.verification.listPendingVerdicts.queryOptions());
-
+function PendingVerdictsTab({
+  items,
+  isLoading,
+  total,
+  hasActiveFilter,
+}: {
+  items: PendingVerdictItem[];
+  isLoading: boolean;
+  total: number;
+  hasActiveFilter: boolean;
+}) {
   if (isLoading) {
     return (
       <div className="flex items-center gap-x-2 text-sm text-muted-foreground">
@@ -265,12 +454,16 @@ function PendingVerdictsTab() {
     );
   }
 
-  if (!verdicts || verdicts.length === 0) {
+  if (items.length === 0) {
     return (
       <div className="rounded-lg border p-6 text-center">
         <CheckCircleIcon className="mx-auto mb-2 size-8 text-muted-foreground" />
         <p className="text-sm text-muted-foreground">
-          <Trans>No verdicts awaiting confirmation.</Trans>
+          {hasActiveFilter ? (
+            <Trans>No verdicts match the selected filters.</Trans>
+          ) : (
+            <Trans>No verdicts awaiting confirmation.</Trans>
+          )}
         </p>
       </div>
     );
@@ -278,22 +471,15 @@ function PendingVerdictsTab() {
 
   return (
     <div className="w-full space-y-3">
-      {verdicts.map((verdict) => (
+      {total > ADMIN_VERIFICATION_PAGE_SIZE && (
+        <p className="text-xs text-muted-foreground">
+          <Trans>Showing {items.length} of {total} pending verdicts</Trans>
+        </p>
+      )}
+      {items.map((verdict) => (
         <PendingVerdictRow key={verdict.id} verdict={verdict} />
       ))}
     </div>
-  );
-}
-
-function PendingVerdictsCount() {
-  const { data: verdicts } = useQuery(orpc.admin.verification.listPendingVerdicts.queryOptions());
-
-  if (!verdicts || verdicts.length === 0) return null;
-
-  return (
-    <span className="ml-1.5 rounded-full bg-primary-foreground/20 px-1.5 py-0.5 text-[10px] leading-none">
-      {verdicts.length}
-    </span>
   );
 }
 
@@ -310,7 +496,7 @@ function PendingVerdictRow({ verdict }: { verdict: PendingVerdictItem }) {
 
   const invalidate = () => {
     void queryClient.invalidateQueries({
-      queryKey: orpc.admin.verification.listPendingVerdicts.queryOptions().queryKey,
+      queryKey: orpc.admin.verification.listPendingVerdicts.key(),
     });
   };
 

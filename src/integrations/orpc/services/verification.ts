@@ -1,5 +1,5 @@
 import { ORPCError } from "@orpc/server";
-import { and, desc, eq, inArray, isNull } from "drizzle-orm";
+import { and, count, desc, eq, ilike, inArray, isNull, or, type SQL } from "drizzle-orm";
 
 import type { ResumeData } from "@/schema/resume/data";
 
@@ -154,6 +154,173 @@ type SkillProjectRequestRow = {
   assessmentAcceptedAt?: Date | null;
 };
 
+type ExperienceRequestRow = {
+  id: string;
+  userId: string;
+  resumeId: string | null;
+  sectionType: string;
+  itemId: string;
+  itemLabel: string;
+  status: string;
+  method: string | null;
+  submittedAt: Date;
+  resolvedAt?: Date | null;
+  reviewerNote?: string | null;
+};
+
+type IdentityRequestRow = {
+  id: string;
+  userId: string;
+  resumeId: string | null;
+  sectionType: string;
+  itemId: string;
+  itemLabel: string;
+  status: string;
+  method: string | null;
+  submittedAt: Date;
+  calendarLinkSentAt?: Date | null;
+  resolvedAt?: Date | null;
+  reviewerNote?: string | null;
+};
+
+type DirectAdminReviewAttribution = {
+  reviewedBy: { id: string; name: string; email: string } | null;
+  reviewedAt: Date | null;
+};
+
+export type AdminVerificationListInput = {
+  page: number;
+  pageSize: number;
+  query?: string;
+  statuses?: ("verified" | "rejected" | "issue")[];
+  method?: "document_upload" | "freelancer_link" | "identity_call";
+};
+
+export type AdminPendingVerdictsListInput = AdminVerificationListInput & {
+  proposed?: ("verified" | "rejected" | "issue")[];
+  types?: ("skill" | "project")[];
+};
+
+export type PaginatedListResult<T> = {
+  items: T[];
+  total: number;
+  totalUnfiltered: number;
+  page: number;
+  pageSize: number;
+};
+
+function buildVerificationSearchCondition(query: string) {
+  const pattern = `%${query.slice(0, 200)}%`;
+  return or(
+    ilike(user.name, pattern),
+    ilike(user.email, pattern),
+    ilike(user.username, pattern),
+    ilike(user.displayUsername, pattern),
+    ilike(verificationRequests.itemLabel, pattern),
+  )!;
+}
+
+function buildAdminVerificationListFilters(input: AdminVerificationListInput, includeStatuses: boolean) {
+  const filters: SQL[] = [];
+  if (input.query) filters.push(buildVerificationSearchCondition(input.query));
+  if (includeStatuses && input.statuses && input.statuses.length > 0) {
+    filters.push(inArray(verificationRequests.status, input.statuses));
+  }
+  if (input.method) filters.push(eq(verificationRequests.method, input.method));
+  return filters;
+}
+
+function buildPendingVerdictsListFilters(input: AdminPendingVerdictsListInput) {
+  const filters = buildAdminVerificationListFilters(input, false);
+  if (input.proposed && input.proposed.length > 0) {
+    filters.push(inArray(verificationRequests.proposedVerdict, input.proposed));
+  }
+  if (input.types && input.types.length > 0) {
+    filters.push(inArray(verificationRequests.sectionType, input.types));
+  }
+  return filters;
+}
+
+async function countVerificationRequests(baseWhere: SQL | undefined, filteredWhere: SQL | undefined, needsUserJoin: boolean) {
+  const [unfilteredRow] = await db.select({ total: count() }).from(verificationRequests).where(baseWhere);
+  const totalUnfiltered = unfilteredRow?.total ?? 0;
+
+  if (!filteredWhere) {
+    return { total: totalUnfiltered, totalUnfiltered };
+  }
+
+  if (needsUserJoin) {
+    const [filteredRow] = await db
+      .select({ total: count() })
+      .from(verificationRequests)
+      .innerJoin(user, eq(verificationRequests.userId, user.id))
+      .where(filteredWhere);
+    return { total: filteredRow?.total ?? 0, totalUnfiltered };
+  }
+
+  const [filteredRow] = await db.select({ total: count() }).from(verificationRequests).where(filteredWhere);
+  return { total: filteredRow?.total ?? 0, totalUnfiltered };
+}
+
+function selectVerificationRequestRows(
+  select: Parameters<typeof db.select>[0],
+  filteredWhere: SQL | undefined,
+  orderBy: SQL,
+  limit: number,
+  offset: number,
+  needsUserJoin: boolean,
+) {
+  const baseQuery = db.select(select).from(verificationRequests);
+  return (needsUserJoin
+    ? baseQuery.innerJoin(user, eq(verificationRequests.userId, user.id))
+    : baseQuery
+  )
+    .where(filteredWhere)
+    .orderBy(orderBy)
+    .limit(limit)
+    .offset(offset);
+}
+
+async function fetchPaginatedVerificationRequestRows<TRow>(
+  input: AdminVerificationListInput,
+  config: {
+    baseConditions: SQL[];
+    includeStatuses: boolean;
+    fetchRows: (filteredWhere: SQL | undefined, limit: number, offset: number) => Promise<TRow[]>;
+  },
+): Promise<{ rows: TRow[]; total: number; totalUnfiltered: number }> {
+  const { page, pageSize } = input;
+  const offset = (page - 1) * pageSize;
+  const baseWhere = and(...config.baseConditions);
+  const optionalFilters = buildAdminVerificationListFilters(input, config.includeStatuses);
+  const filteredWhere = optionalFilters.length > 0 ? and(baseWhere, ...optionalFilters) : baseWhere;
+  const needsUserJoin = Boolean(input.query);
+
+  const { total, totalUnfiltered } = await countVerificationRequests(baseWhere, filteredWhere, needsUserJoin);
+
+  if (total === 0) {
+    return { rows: [], total: 0, totalUnfiltered };
+  }
+
+  const rows = await config.fetchRows(filteredWhere, pageSize, offset);
+  return { rows, total, totalUnfiltered };
+}
+
+function toPaginatedResult<T>(
+  items: T[],
+  total: number,
+  totalUnfiltered: number,
+  input: { page: number; pageSize: number },
+): PaginatedListResult<T> {
+  return {
+    items,
+    total,
+    totalUnfiltered,
+    page: input.page,
+    pageSize: input.pageSize,
+  };
+}
+
 async function enrichSkillProjectRequests(requests: SkillProjectRequestRow[]) {
   if (requests.length === 0) return [];
 
@@ -238,6 +405,227 @@ async function enrichSkillProjectRequests(requests: SkillProjectRequestRow[]) {
         documentType: d.documentType,
         uploadedAt: d.uploadedAt,
       })),
+    };
+  });
+}
+
+async function enrichExperienceRequests(requests: ExperienceRequestRow[]) {
+  if (requests.length === 0) return [];
+
+  const requestIds = requests.map((r) => r.id);
+  const userIds = [...new Set(requests.map((r) => r.userId))];
+  const resumeIds = [...new Set(requests.map((r) => r.resumeId).filter((id): id is string => id != null))];
+
+  const users = userIds.length > 0 ? await db.select().from(user).where(inArray(user.id, userIds)) : [];
+
+  const resumeRows =
+    resumeIds.length > 0
+      ? await db
+          .select({
+            id: resume.id,
+            name: resume.name,
+            slug: resume.slug,
+            tags: resume.tags,
+            isPublic: resume.isPublic,
+            isLocked: resume.isLocked,
+            data: resume.data,
+            userId: resume.userId,
+            createdAt: resume.createdAt,
+            updatedAt: resume.updatedAt,
+          })
+          .from(resume)
+          .where(inArray(resume.id, resumeIds))
+      : [];
+
+  const userById = new Map(users.map((u) => [u.id, u]));
+  const resumeById = new Map(resumeRows.map((row) => [row.id, row]));
+
+  const docs = await db
+    .select({
+      id: verificationDocuments.id,
+      verificationRequestId: verificationDocuments.verificationRequestId,
+      fileUrl: verificationDocuments.fileUrl,
+      documentType: verificationDocuments.documentType,
+      uploadedAt: verificationDocuments.uploadedAt,
+    })
+    .from(verificationDocuments)
+    .where(inArray(verificationDocuments.verificationRequestId, requestIds));
+
+  const docsByRequestId = new Map<string, typeof docs>();
+  for (const doc of docs) {
+    const existing = docsByRequestId.get(doc.verificationRequestId) ?? [];
+    existing.push(doc);
+    docsByRequestId.set(doc.verificationRequestId, existing);
+  }
+
+  return requests.map((r) => {
+    const applicantUser = userById.get(r.userId) ?? null;
+    let applicantResume: (typeof resumeRows)[number] | null = null;
+    if (r.resumeId) {
+      const row = resumeById.get(r.resumeId);
+      if (row && row.userId === r.userId) applicantResume = row;
+    }
+
+    return {
+      id: r.id,
+      sectionType: r.sectionType,
+      itemId: r.itemId,
+      itemLabel: r.itemLabel,
+      status: r.status,
+      method: r.method,
+      submittedAt: r.submittedAt,
+      resolvedAt: r.resolvedAt ?? null,
+      reviewerNote: r.reviewerNote ?? null,
+      user: applicantUser,
+      resume: applicantResume,
+      documents: (docsByRequestId.get(r.id) ?? []).map((d) => ({
+        id: d.id,
+        fileUrl: mapDocumentToPublicUrl(d),
+        documentType: d.documentType,
+        uploadedAt: d.uploadedAt,
+      })),
+    };
+  });
+}
+
+async function enrichIdentityRequests(requests: IdentityRequestRow[]) {
+  if (requests.length === 0) return [];
+
+  const requestIds = requests.map((r) => r.id);
+  const userIds = [...new Set(requests.map((r) => r.userId))];
+
+  const users = userIds.length > 0 ? await db.select().from(user).where(inArray(user.id, userIds)) : [];
+
+  const allResumeRows =
+    userIds.length > 0
+      ? await db
+          .select({
+            id: resume.id,
+            name: resume.name,
+            slug: resume.slug,
+            tags: resume.tags,
+            isPublic: resume.isPublic,
+            isLocked: resume.isLocked,
+            data: resume.data,
+            userId: resume.userId,
+            createdAt: resume.createdAt,
+            updatedAt: resume.updatedAt,
+          })
+          .from(resume)
+          .where(inArray(resume.userId, userIds))
+          .orderBy(desc(resume.updatedAt))
+      : [];
+
+  const latestResumeByUserId = new Map<string, (typeof allResumeRows)[number]>();
+  for (const row of allResumeRows) {
+    if (!latestResumeByUserId.has(row.userId)) {
+      latestResumeByUserId.set(row.userId, row);
+    }
+  }
+
+  const docs = await db
+    .select({
+      id: verificationDocuments.id,
+      verificationRequestId: verificationDocuments.verificationRequestId,
+      fileUrl: verificationDocuments.fileUrl,
+      documentType: verificationDocuments.documentType,
+      uploadedAt: verificationDocuments.uploadedAt,
+    })
+    .from(verificationDocuments)
+    .where(inArray(verificationDocuments.verificationRequestId, requestIds));
+
+  const docsByRequestId = new Map<string, typeof docs>();
+  for (const doc of docs) {
+    const existing = docsByRequestId.get(doc.verificationRequestId) ?? [];
+    existing.push(doc);
+    docsByRequestId.set(doc.verificationRequestId, existing);
+  }
+
+  const userById = new Map(users.map((u) => [u.id, u]));
+
+  return requests.map((r) => ({
+    id: r.id,
+    sectionType: r.sectionType,
+    itemId: r.itemId,
+    itemLabel: r.itemLabel,
+    status: r.status,
+    method: r.method,
+    submittedAt: r.submittedAt,
+    calendarLinkSentAt: r.calendarLinkSentAt ?? null,
+    resolvedAt: r.resolvedAt ?? null,
+    reviewerNote: r.reviewerNote ?? null,
+    user: userById.get(r.userId) ?? null,
+    resume: latestResumeByUserId.get(r.userId) ?? null,
+    documents: (docsByRequestId.get(r.id) ?? []).map((d) => ({
+      id: d.id,
+      fileUrl: mapDocumentToPublicUrl(d),
+      documentType: d.documentType,
+      uploadedAt: d.uploadedAt,
+    })),
+  }));
+}
+
+async function buildDirectAdminReviewAttributionMap(verificationRequestIds: string[]) {
+  if (verificationRequestIds.length === 0) {
+    return new Map<string, DirectAdminReviewAttribution>();
+  }
+
+  const metadataRows = await db
+    .select({
+      verificationRequestId: verificationMetadata.verificationRequestId,
+      adminId: verificationMetadata.adminId,
+      actedAt: verificationMetadata.actedAt,
+    })
+    .from(verificationMetadata)
+    .where(
+      and(
+        inArray(verificationMetadata.verificationRequestId, verificationRequestIds),
+        eq(verificationMetadata.adminRole, "skill_verdict_admin"),
+        inArray(verificationMetadata.action, ["verified", "rejected", "flagged"]),
+      ),
+    )
+    .orderBy(desc(verificationMetadata.actedAt));
+
+  const latestMetadataByRequestId = new Map<string, (typeof metadataRows)[number]>();
+  for (const metadata of metadataRows) {
+    if (!latestMetadataByRequestId.has(metadata.verificationRequestId)) {
+      latestMetadataByRequestId.set(metadata.verificationRequestId, metadata);
+    }
+  }
+
+  const adminIds = [...new Set(metadataRows.map((m) => m.adminId))];
+  const adminUsers =
+    adminIds.length > 0
+      ? await db
+          .select({ id: user.id, name: user.name, email: user.email })
+          .from(user)
+          .where(inArray(user.id, adminIds))
+      : [];
+
+  const adminById = new Map(adminUsers.map((admin) => [admin.id, admin]));
+
+  const attributionByRequestId = new Map<string, DirectAdminReviewAttribution>();
+  for (const [requestId, metadata] of latestMetadataByRequestId) {
+    const admin = adminById.get(metadata.adminId);
+    attributionByRequestId.set(requestId, {
+      reviewedBy: admin ? { id: admin.id, name: admin.name, email: admin.email } : null,
+      reviewedAt: metadata.actedAt,
+    });
+  }
+
+  return attributionByRequestId;
+}
+
+function attachDirectAdminReviewAttribution<T extends { id: string }>(
+  items: T[],
+  attributionByRequestId: Map<string, DirectAdminReviewAttribution>,
+) {
+  return items.map((item) => {
+    const attribution = attributionByRequestId.get(item.id);
+    return {
+      ...item,
+      reviewedBy: attribution?.reviewedBy ?? null,
+      reviewedAt: attribution?.reviewedAt ?? null,
     };
   });
 }
@@ -1616,97 +2004,81 @@ export const verificationService = {
 
   // --- Admin: Skill Verdict Admin procedures ---
 
-  listExperienceQueue: async () => {
-    const requests = await db
-      .select({
-        id: verificationRequests.id,
-        userId: verificationRequests.userId,
-        resumeId: verificationRequests.resumeId,
-        sectionType: verificationRequests.sectionType,
-        itemId: verificationRequests.itemId,
-        itemLabel: verificationRequests.itemLabel,
-        status: verificationRequests.status,
-        method: verificationRequests.method,
-        submittedAt: verificationRequests.submittedAt,
-      })
-      .from(verificationRequests)
-      .where(and(eq(verificationRequests.status, "pending"), eq(verificationRequests.sectionType, "experience")))
-      .orderBy(desc(verificationRequests.submittedAt));
+  listExperienceQueue: async (input: AdminVerificationListInput) => {
+    const needsUserJoin = Boolean(input.query);
+    const { rows, total, totalUnfiltered } = await fetchPaginatedVerificationRequestRows(input, {
+      baseConditions: [eq(verificationRequests.status, "pending"), eq(verificationRequests.sectionType, "experience")],
+      includeStatuses: false,
+      fetchRows: async (filteredWhere, limit, offset) => {
+        const rows = await selectVerificationRequestRows(
+          {
+            id: verificationRequests.id,
+            userId: verificationRequests.userId,
+            resumeId: verificationRequests.resumeId,
+            sectionType: verificationRequests.sectionType,
+            itemId: verificationRequests.itemId,
+            itemLabel: verificationRequests.itemLabel,
+            status: verificationRequests.status,
+            method: verificationRequests.method,
+            submittedAt: verificationRequests.submittedAt,
+          },
+          filteredWhere,
+          desc(verificationRequests.submittedAt),
+          limit,
+          offset,
+          needsUserJoin,
+        );
+        return rows as ExperienceRequestRow[];
+      },
+    });
 
-    if (requests.length === 0) return [];
+    const items = await enrichExperienceRequests(rows);
+    return toPaginatedResult(items, total, totalUnfiltered, input);
+  },
 
-    const requestIds = requests.map((r) => r.id);
-    const userIds = [...new Set(requests.map((r) => r.userId))];
-    const resumeIds = [...new Set(requests.map((r) => r.resumeId).filter((id): id is string => id != null))];
+  listExperienceHistory: async (input: AdminVerificationListInput) => {
+    const needsUserJoin = Boolean(input.query);
+    const statusCondition =
+      input.statuses && input.statuses.length > 0
+        ? inArray(verificationRequests.status, input.statuses)
+        : inArray(verificationRequests.status, [...FINAL_STATUSES]);
 
-    const users = userIds.length > 0 ? await db.select().from(user).where(inArray(user.id, userIds)) : [];
+    const { rows, total, totalUnfiltered } = await fetchPaginatedVerificationRequestRows(input, {
+      baseConditions: [eq(verificationRequests.sectionType, "experience"), statusCondition],
+      includeStatuses: false,
+      fetchRows: async (filteredWhere, limit, offset) => {
+        const rows = await selectVerificationRequestRows(
+          {
+            id: verificationRequests.id,
+            userId: verificationRequests.userId,
+            resumeId: verificationRequests.resumeId,
+            sectionType: verificationRequests.sectionType,
+            itemId: verificationRequests.itemId,
+            itemLabel: verificationRequests.itemLabel,
+            status: verificationRequests.status,
+            method: verificationRequests.method,
+            submittedAt: verificationRequests.submittedAt,
+            resolvedAt: verificationRequests.resolvedAt,
+            reviewerNote: verificationRequests.reviewerNote,
+          },
+          filteredWhere,
+          desc(verificationRequests.resolvedAt),
+          limit,
+          offset,
+          needsUserJoin,
+        );
+        return rows as ExperienceRequestRow[];
+      },
+    });
 
-    const resumeRows =
-      resumeIds.length > 0
-        ? await db
-            .select({
-              id: resume.id,
-              name: resume.name,
-              slug: resume.slug,
-              tags: resume.tags,
-              isPublic: resume.isPublic,
-              isLocked: resume.isLocked,
-              data: resume.data,
-              userId: resume.userId,
-              createdAt: resume.createdAt,
-              updatedAt: resume.updatedAt,
-            })
-            .from(resume)
-            .where(inArray(resume.id, resumeIds))
-        : [];
-
-    const userById = new Map(users.map((u) => [u.id, u]));
-    const resumeById = new Map(resumeRows.map((row) => [row.id, row]));
-
-    const docs = await db
-      .select({
-        id: verificationDocuments.id,
-        verificationRequestId: verificationDocuments.verificationRequestId,
-        fileUrl: verificationDocuments.fileUrl,
-        documentType: verificationDocuments.documentType,
-        uploadedAt: verificationDocuments.uploadedAt,
-      })
-      .from(verificationDocuments)
-      .where(inArray(verificationDocuments.verificationRequestId, requestIds));
-
-    const docsByRequestId = new Map<string, typeof docs>();
-    for (const doc of docs) {
-      const existing = docsByRequestId.get(doc.verificationRequestId) ?? [];
-      existing.push(doc);
-      docsByRequestId.set(doc.verificationRequestId, existing);
+    if (rows.length === 0) {
+      return toPaginatedResult([], total, totalUnfiltered, input);
     }
 
-    return requests.map((r) => {
-      const applicantUser = userById.get(r.userId) ?? null;
-      let applicantResume: (typeof resumeRows)[number] | null = null;
-      if (r.resumeId) {
-        const row = resumeById.get(r.resumeId);
-        if (row && row.userId === r.userId) applicantResume = row;
-      }
-
-      return {
-        id: r.id,
-        sectionType: r.sectionType,
-        itemId: r.itemId,
-        itemLabel: r.itemLabel,
-        status: r.status,
-        method: r.method,
-        submittedAt: r.submittedAt,
-        user: applicantUser,
-        resume: applicantResume,
-        documents: (docsByRequestId.get(r.id) ?? []).map((d) => ({
-          id: d.id,
-          fileUrl: mapDocumentToPublicUrl(d),
-          documentType: d.documentType,
-          uploadedAt: d.uploadedAt,
-        })),
-      };
-    });
+    const enriched = await enrichExperienceRequests(rows);
+    const attribution = await buildDirectAdminReviewAttributionMap(rows.map((r) => r.id));
+    const items = attachDirectAdminReviewAttribution(enriched, attribution);
+    return toPaginatedResult(items, total, totalUnfiltered, input);
   },
 
   reviewExperience: async (input: {
@@ -1765,8 +2137,21 @@ export const verificationService = {
     return updated!;
   },
 
-  listPendingVerdicts: async () => {
-    const requests = await db
+  listPendingVerdicts: async (input: AdminPendingVerdictsListInput) => {
+    const { page, pageSize } = input;
+    const offset = (page - 1) * pageSize;
+    const baseWhere = eq(verificationRequests.status, "verdict_pending");
+    const optionalFilters = buildPendingVerdictsListFilters(input);
+    const filteredWhere = optionalFilters.length > 0 ? and(baseWhere, ...optionalFilters) : baseWhere;
+    const needsUserJoin = Boolean(input.query);
+
+    const { total, totalUnfiltered } = await countVerificationRequests(baseWhere, filteredWhere, needsUserJoin);
+
+    if (total === 0) {
+      return toPaginatedResult([], 0, totalUnfiltered, input);
+    }
+
+    const baseQuery = db
       .select({
         id: verificationRequests.id,
         userId: verificationRequests.userId,
@@ -1781,11 +2166,20 @@ export const verificationService = {
         assessmentAcceptedAt: verificationRequests.assessmentAcceptedAt,
         claimedByAdminId: verificationRequests.claimedByAdminId,
       })
-      .from(verificationRequests)
-      .where(eq(verificationRequests.status, "verdict_pending"))
-      .orderBy(desc(verificationRequests.submittedAt));
+      .from(verificationRequests);
 
-    if (requests.length === 0) return [];
+    const requests = await (needsUserJoin
+      ? baseQuery.innerJoin(user, eq(verificationRequests.userId, user.id))
+      : baseQuery
+    )
+      .where(filteredWhere)
+      .orderBy(desc(verificationRequests.submittedAt))
+      .limit(pageSize)
+      .offset(offset);
+
+    if (requests.length === 0) {
+      return toPaginatedResult([], total, totalUnfiltered, input);
+    }
 
     const requestIds = requests.map((r) => r.id);
     const reviewerAdminIds = [
@@ -1835,24 +2229,29 @@ export const verificationService = {
 
     const claimedByAdminIdByRequestId = new Map(requests.map((r) => [r.id, r.claimedByAdminId ?? null]));
 
-    return enriched.map((item) => {
-      const metadata = verdictMetadataByRequestId.get(item.id);
-      const reviewerName = metadata
-        ? [metadata.reviewerSnapshotFirstName, metadata.reviewerSnapshotLastName].filter(Boolean).join(" ")
-        : null;
-      const reviewerAdminId = claimedByAdminIdByRequestId.get(item.id) ?? null;
+    return toPaginatedResult(
+      enriched.map((item) => {
+        const metadata = verdictMetadataByRequestId.get(item.id);
+        const reviewerName = metadata
+          ? [metadata.reviewerSnapshotFirstName, metadata.reviewerSnapshotLastName].filter(Boolean).join(" ")
+          : null;
+        const reviewerAdminId = claimedByAdminIdByRequestId.get(item.id) ?? null;
 
-      return {
-        ...item,
-        reviewerName,
-        reviewerTitle: metadata?.reviewerSnapshotTitle ?? null,
-        reviewerPublicProfileUrl: metadata?.reviewerPublicProfileUrl ?? null,
-        reviewerAdminId,
-        reviewerSkills: reviewerAdminId ? (reviewerSkillsByAdminId.get(reviewerAdminId) ?? []) : [],
-        verdictNotes: metadata?.notes ?? item.reviewerNote,
-        verdictSubmittedAt: metadata?.actedAt ?? null,
-      };
-    });
+        return {
+          ...item,
+          reviewerName,
+          reviewerTitle: metadata?.reviewerSnapshotTitle ?? null,
+          reviewerPublicProfileUrl: metadata?.reviewerPublicProfileUrl ?? null,
+          reviewerAdminId,
+          reviewerSkills: reviewerAdminId ? (reviewerSkillsByAdminId.get(reviewerAdminId) ?? []) : [],
+          verdictNotes: metadata?.notes ?? item.reviewerNote,
+          verdictSubmittedAt: metadata?.actedAt ?? null,
+        };
+      }),
+      total,
+      totalUnfiltered,
+      input,
+    );
   },
 
   confirmVerdict: async (input: { requestId: string; adminId: string }) => {
@@ -2002,97 +2401,83 @@ export const verificationService = {
     await db.delete(verificationRequests).where(eq(verificationRequests.id, request.id));
   },
 
-  listIdentityQueue: async () => {
-    const requests = await db
-      .select({
-        id: verificationRequests.id,
-        userId: verificationRequests.userId,
-        resumeId: verificationRequests.resumeId,
-        sectionType: verificationRequests.sectionType,
-        itemId: verificationRequests.itemId,
-        itemLabel: verificationRequests.itemLabel,
-        status: verificationRequests.status,
-        method: verificationRequests.method,
-        submittedAt: verificationRequests.submittedAt,
-        calendarLinkSentAt: verificationRequests.calendarLinkSentAt,
-      })
-      .from(verificationRequests)
-      .where(and(eq(verificationRequests.status, "pending"), eq(verificationRequests.sectionType, "identity")))
-      .orderBy(desc(verificationRequests.submittedAt));
+  listIdentityQueue: async (input: AdminVerificationListInput) => {
+    const needsUserJoin = Boolean(input.query);
+    const { rows, total, totalUnfiltered } = await fetchPaginatedVerificationRequestRows(input, {
+      baseConditions: [eq(verificationRequests.status, "pending"), eq(verificationRequests.sectionType, "identity")],
+      includeStatuses: false,
+      fetchRows: async (filteredWhere, limit, offset) => {
+        const rows = await selectVerificationRequestRows(
+          {
+            id: verificationRequests.id,
+            userId: verificationRequests.userId,
+            resumeId: verificationRequests.resumeId,
+            sectionType: verificationRequests.sectionType,
+            itemId: verificationRequests.itemId,
+            itemLabel: verificationRequests.itemLabel,
+            status: verificationRequests.status,
+            method: verificationRequests.method,
+            submittedAt: verificationRequests.submittedAt,
+            calendarLinkSentAt: verificationRequests.calendarLinkSentAt,
+          },
+          filteredWhere,
+          desc(verificationRequests.submittedAt),
+          limit,
+          offset,
+          needsUserJoin,
+        );
+        return rows as IdentityRequestRow[];
+      },
+    });
 
-    if (requests.length === 0) return [];
+    const items = await enrichIdentityRequests(rows);
+    return toPaginatedResult(items, total, totalUnfiltered, input);
+  },
 
-    const requestIds = requests.map((r) => r.id);
-    const userIds = [...new Set(requests.map((r) => r.userId))];
+  listIdentityHistory: async (input: AdminVerificationListInput) => {
+    const needsUserJoin = Boolean(input.query);
+    const statusCondition =
+      input.statuses && input.statuses.length > 0
+        ? inArray(verificationRequests.status, input.statuses)
+        : inArray(verificationRequests.status, [...FINAL_STATUSES]);
 
-    const users = userIds.length > 0 ? await db.select().from(user).where(inArray(user.id, userIds)) : [];
+    const { rows, total, totalUnfiltered } = await fetchPaginatedVerificationRequestRows(input, {
+      baseConditions: [eq(verificationRequests.sectionType, "identity"), statusCondition],
+      includeStatuses: false,
+      fetchRows: async (filteredWhere, limit, offset) => {
+        const rows = await selectVerificationRequestRows(
+          {
+            id: verificationRequests.id,
+            userId: verificationRequests.userId,
+            resumeId: verificationRequests.resumeId,
+            sectionType: verificationRequests.sectionType,
+            itemId: verificationRequests.itemId,
+            itemLabel: verificationRequests.itemLabel,
+            status: verificationRequests.status,
+            method: verificationRequests.method,
+            submittedAt: verificationRequests.submittedAt,
+            calendarLinkSentAt: verificationRequests.calendarLinkSentAt,
+            resolvedAt: verificationRequests.resolvedAt,
+            reviewerNote: verificationRequests.reviewerNote,
+          },
+          filteredWhere,
+          desc(verificationRequests.resolvedAt),
+          limit,
+          offset,
+          needsUserJoin,
+        );
+        return rows as IdentityRequestRow[];
+      },
+    });
 
-    // Identity requests have resumeId: null — fetch latest resume per user for context
-    const allResumeRows =
-      userIds.length > 0
-        ? await db
-            .select({
-              id: resume.id,
-              name: resume.name,
-              slug: resume.slug,
-              tags: resume.tags,
-              isPublic: resume.isPublic,
-              isLocked: resume.isLocked,
-              data: resume.data,
-              userId: resume.userId,
-              createdAt: resume.createdAt,
-              updatedAt: resume.updatedAt,
-            })
-            .from(resume)
-            .where(inArray(resume.userId, userIds))
-            .orderBy(desc(resume.updatedAt))
-        : [];
-
-    const latestResumeByUserId = new Map<string, (typeof allResumeRows)[number]>();
-    for (const row of allResumeRows) {
-      if (!latestResumeByUserId.has(row.userId)) {
-        latestResumeByUserId.set(row.userId, row);
-      }
+    if (rows.length === 0) {
+      return toPaginatedResult([], total, totalUnfiltered, input);
     }
 
-    const docs = await db
-      .select({
-        id: verificationDocuments.id,
-        verificationRequestId: verificationDocuments.verificationRequestId,
-        fileUrl: verificationDocuments.fileUrl,
-        documentType: verificationDocuments.documentType,
-        uploadedAt: verificationDocuments.uploadedAt,
-      })
-      .from(verificationDocuments)
-      .where(inArray(verificationDocuments.verificationRequestId, requestIds));
-
-    const docsByRequestId = new Map<string, typeof docs>();
-    for (const doc of docs) {
-      const existing = docsByRequestId.get(doc.verificationRequestId) ?? [];
-      existing.push(doc);
-      docsByRequestId.set(doc.verificationRequestId, existing);
-    }
-
-    const userById = new Map(users.map((u) => [u.id, u]));
-
-    return requests.map((r) => ({
-      id: r.id,
-      sectionType: r.sectionType,
-      itemId: r.itemId,
-      itemLabel: r.itemLabel,
-      status: r.status,
-      method: r.method,
-      submittedAt: r.submittedAt,
-      calendarLinkSentAt: r.calendarLinkSentAt,
-      user: userById.get(r.userId) ?? null,
-      resume: latestResumeByUserId.get(r.userId) ?? null,
-      documents: (docsByRequestId.get(r.id) ?? []).map((d) => ({
-        id: d.id,
-        fileUrl: mapDocumentToPublicUrl(d),
-        documentType: d.documentType,
-        uploadedAt: d.uploadedAt,
-      })),
-    }));
+    const enriched = await enrichIdentityRequests(rows);
+    const attribution = await buildDirectAdminReviewAttributionMap(rows.map((r) => r.id));
+    const items = attachDirectAdminReviewAttribution(enriched, attribution);
+    return toPaginatedResult(items, total, totalUnfiltered, input);
   },
 
   reviewIdentity: async (input: {

@@ -1,6 +1,7 @@
 import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
 import {
+  CalendarBlankIcon,
   CheckCircleIcon,
   ClockIcon,
   FileTextIcon,
@@ -51,6 +52,24 @@ export type QueueDocument = {
   fileUrl: string;
   documentType: string;
   uploadedAt: Date;
+};
+
+export type DirectAdminReviewHistoryItem = {
+  id: string;
+  sectionType: string;
+  itemId: string;
+  itemLabel: string;
+  status: string;
+  method: string | null;
+  submittedAt: Date;
+  resolvedAt: Date | null;
+  reviewerNote: string | null;
+  calendarLinkSentAt?: Date | null;
+  user: QueueUser | null;
+  resume: QueueResume | null;
+  documents: QueueDocument[];
+  reviewedBy: { id: string; name: string; email: string } | null;
+  reviewedAt: Date | null;
 };
 
 // ---------------------------------------------------------------------------
@@ -575,4 +594,181 @@ export function MethodBadge({ method }: { method: string | null }) {
   }
 
   return null;
+}
+
+// ---------------------------------------------------------------------------
+// Direct admin review history (experience / identity)
+// ---------------------------------------------------------------------------
+
+export function DirectAdminReviewHistoryTab({
+  items,
+  isLoading,
+  isError,
+  emptyMessage,
+  filteredEmptyMessage,
+  hasActiveFilter = false,
+  resumeLabel,
+}: {
+  items: DirectAdminReviewHistoryItem[];
+  isLoading: boolean;
+  isError: boolean;
+  emptyMessage: string;
+  filteredEmptyMessage?: string;
+  hasActiveFilter?: boolean;
+  resumeLabel?: string;
+}) {
+  const [expandedId, setExpandedId] = useState<string | null>(null);
+
+  if (isLoading) return <QueueLoadingState />;
+  if (isError) return <QueueErrorState message={t`Failed to load history. Please refresh and try again.`} />;
+
+  if (items.length === 0) {
+    return (
+      <QueueEmptyState
+        message={
+          hasActiveFilter ? (filteredEmptyMessage ?? t`No completed reviews match the selected filters.`) : emptyMessage
+        }
+      />
+    );
+  }
+
+  return (
+    <div className="w-full space-y-3">
+      {items.map((item) => (
+        <DirectAdminReviewHistoryRow
+          key={item.id}
+          item={item}
+          expanded={expandedId === item.id}
+          onExpandedChange={(open) => setExpandedId(open ? item.id : null)}
+          resumeLabel={resumeLabel}
+        />
+      ))}
+    </div>
+  );
+}
+
+function DirectAdminReviewHistoryRow({
+  item,
+  expanded,
+  onExpandedChange,
+  resumeLabel,
+}: {
+  item: DirectAdminReviewHistoryItem;
+  expanded: boolean;
+  onExpandedChange: (open: boolean) => void;
+  resumeLabel?: string;
+}) {
+  return (
+    <div className="space-y-3 rounded-lg border p-4">
+      <div className="flex items-start justify-between gap-x-3">
+        <div className="min-w-0 space-y-1">
+          <p className="text-sm font-medium">{item.itemLabel}</p>
+          {item.user ? (
+            <p className="truncate text-xs text-muted-foreground">
+              {item.user.name}
+              <span className="mx-1.5 opacity-60">·</span>
+              {item.user.email}
+              <span className="mx-1.5 opacity-60">·</span>@{item.user.username}
+            </p>
+          ) : (
+            <p className="text-xs text-muted-foreground">
+              <Trans>Unknown applicant</Trans>
+            </p>
+          )}
+          <div className="flex flex-wrap items-center gap-x-2">
+            <StatusBadge status={item.status} />
+            <MethodBadge method={item.method} />
+            <span className="flex items-center gap-x-1 text-xs text-muted-foreground">
+              <CalendarBlankIcon className="size-3" />
+              <Trans>Submitted</Trans>
+              {" · "}
+              {formatDefaultDate(item.submittedAt)}
+            </span>
+            {item.resolvedAt && (
+              <span className="flex items-center gap-x-1 text-xs text-muted-foreground">
+                <CalendarBlankIcon className="size-3" />
+                <Trans>Resolved</Trans>
+                {" · "}
+                {formatDefaultDate(item.resolvedAt)}
+              </span>
+            )}
+            {item.calendarLinkSentAt && (
+              <span className="flex items-center gap-x-1 rounded-full bg-muted px-2 py-0.5 text-xs text-muted-foreground">
+                <Trans>Call link sent</Trans>
+                {" · "}
+                {formatDefaultDate(item.calendarLinkSentAt)}
+              </span>
+            )}
+          </div>
+        </div>
+
+        <Button
+          size="sm"
+          variant="outline"
+          className="h-7 shrink-0 text-xs"
+          onClick={() => onExpandedChange(!expanded)}
+        >
+          {expanded ? <Trans>Collapse</Trans> : <Trans>Details</Trans>}
+        </Button>
+      </div>
+
+      {expanded && (
+        <div className="space-y-3 border-t pt-3">
+          {item.user && <ApplicantDetails user={item.user} />}
+
+          {item.resume && (
+            <div className="space-y-2">
+              <p className="text-xs font-medium text-muted-foreground">
+                {resumeLabel ?? <Trans>CV / resume</Trans>}
+              </p>
+              <QueueResumePreview resume={item.resume} />
+            </div>
+          )}
+
+          {item.documents.length > 0 && (
+            <div className="space-y-2">
+              <p className="text-xs font-medium text-muted-foreground">
+                <Trans>Documents</Trans>
+              </p>
+              {item.documents.map((doc) => (
+                <DocumentPreview
+                  key={doc.id}
+                  fileUrl={doc.fileUrl}
+                  documentType={doc.documentType}
+                  uploadedAt={doc.uploadedAt}
+                />
+              ))}
+            </div>
+          )}
+
+          {item.reviewerNote && (
+            <div className="space-y-1">
+              <p className="text-xs font-medium text-muted-foreground">
+                <Trans>Review notes</Trans>
+              </p>
+              <p className="text-xs text-muted-foreground">{item.reviewerNote}</p>
+            </div>
+          )}
+
+          {(item.reviewedBy || item.reviewedAt) && (
+            <p className="text-xs text-muted-foreground">
+              {item.reviewedBy ? (
+                <Trans>
+                  Reviewed by {item.reviewedBy.name} ({item.reviewedBy.email})
+                </Trans>
+              ) : (
+                <Trans>Reviewed by Skill Verdict Admin</Trans>
+              )}
+              {item.reviewedAt && (
+                <>
+                  {" "}
+                  <Trans>on {formatDefaultDate(item.reviewedAt)}</Trans>
+                </>
+              )}
+            </p>
+          )}
+        </div>
+      )}
+    </div>
+  );
 }

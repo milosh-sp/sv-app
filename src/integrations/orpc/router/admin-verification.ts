@@ -3,6 +3,28 @@ import z from "zod";
 import { reviewerAdminProcedure, skillVerdictAdminProcedure } from "../context";
 import { verificationService } from "../services/verification";
 
+const verificationListQuerySchema = z
+  .string()
+  .max(200)
+  .optional()
+  .transform((s) => {
+    const trimmed = s?.trim() ?? "";
+    return trimmed.length > 0 ? trimmed : undefined;
+  });
+
+const verificationListBaseInputSchema = z.object({
+  page: z.number().int().min(1).default(1),
+  pageSize: z.number().int().min(1).max(100).default(20),
+  query: verificationListQuerySchema,
+  statuses: z.array(z.enum(["verified", "rejected", "issue"])).optional(),
+  method: z.enum(["document_upload", "freelancer_link", "identity_call"]).optional(),
+});
+
+const pendingVerdictsListInputSchema = verificationListBaseInputSchema.extend({
+  proposed: z.array(z.enum(["verified", "rejected", "issue"])).optional(),
+  types: z.array(z.enum(["skill", "project"])).optional(),
+});
+
 export const adminVerificationRouter = {
   listQueue: reviewerAdminProcedure.handler(async ({ context }) => {
     return await verificationService.listQueue(context.user.id);
@@ -69,9 +91,17 @@ export const adminVerificationRouter = {
       };
     }),
 
-  listExperienceQueue: skillVerdictAdminProcedure.handler(async () => {
-    return await verificationService.listExperienceQueue();
-  }),
+  listExperienceQueue: skillVerdictAdminProcedure
+    .input(verificationListBaseInputSchema)
+    .handler(async ({ input }) => {
+      return await verificationService.listExperienceQueue(input);
+    }),
+
+  listExperienceHistory: skillVerdictAdminProcedure
+    .input(verificationListBaseInputSchema)
+    .handler(async ({ input }) => {
+      return await verificationService.listExperienceHistory(input);
+    }),
 
   reviewExperience: skillVerdictAdminProcedure
     .input(
@@ -90,9 +120,11 @@ export const adminVerificationRouter = {
       });
     }),
 
-  listPendingVerdicts: skillVerdictAdminProcedure.handler(async () => {
-    return await verificationService.listPendingVerdicts();
-  }),
+  listPendingVerdicts: skillVerdictAdminProcedure
+    .input(pendingVerdictsListInputSchema)
+    .handler(async ({ input }) => {
+      return await verificationService.listPendingVerdicts(input);
+    }),
 
   confirmVerdict: skillVerdictAdminProcedure
     .input(z.object({ requestId: z.string().uuid() }))
@@ -120,9 +152,17 @@ export const adminVerificationRouter = {
       });
     }),
 
-  listIdentityQueue: skillVerdictAdminProcedure.handler(async () => {
-    return await verificationService.listIdentityQueue();
-  }),
+  listIdentityQueue: skillVerdictAdminProcedure
+    .input(verificationListBaseInputSchema)
+    .handler(async ({ input }) => {
+      return await verificationService.listIdentityQueue(input);
+    }),
+
+  listIdentityHistory: skillVerdictAdminProcedure
+    .input(verificationListBaseInputSchema)
+    .handler(async ({ input }) => {
+      return await verificationService.listIdentityHistory(input);
+    }),
 
   reviewIdentity: skillVerdictAdminProcedure
     .input(
