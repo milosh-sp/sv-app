@@ -64,6 +64,7 @@ import { Route as DotwellKnownOauthProtectedResourceSplatRouteImport } from "./r
 import { Route as DotwellKnownOauthAuthorizationServerSplatRouteImport } from "./routes/[.]well-known/oauth-authorization-server.$";
 import { Route as DashboardSettingsAuthenticationIndexRouteImport } from "./routes/dashboard/settings/authentication/index";
 import { Route as DashboardAdminResumeResumeIdRouteImport } from "./routes/dashboard/admin/resume/$resumeId";
+import { Route as ApiReviewerDocumentsRequestIdDocumentIdRouteImport } from "./routes/api/reviewer/documents/$requestId.$documentId";
 
 const SchemaDotjsonRoute = SchemaDotjsonRouteImport.update({
   id: "/schema.json",
@@ -355,6 +356,12 @@ const DashboardAdminResumeResumeIdRoute =
     path: "/resume/$resumeId",
     getParentRoute: () => DashboardAdminRouteRoute,
   } as any);
+const ApiReviewerDocumentsRequestIdDocumentIdRoute =
+  ApiReviewerDocumentsRequestIdDocumentIdRouteImport.update({
+    id: "/api/reviewer/documents/$requestId/$documentId",
+    path: "/api/reviewer/documents/$requestId/$documentId",
+    getParentRoute: () => rootRouteImport,
+  } as any);
 
 export interface FileRoutesByFullPath {
   "/": typeof HomeIndexRoute;
@@ -411,6 +418,7 @@ export interface FileRoutesByFullPath {
   "/dashboard/work-authorization/": typeof DashboardWorkAuthorizationIndexRoute;
   "/dashboard/admin/resume/$resumeId": typeof DashboardAdminResumeResumeIdRoute;
   "/dashboard/settings/authentication/": typeof DashboardSettingsAuthenticationIndexRoute;
+  "/api/reviewer/documents/$requestId/$documentId": typeof ApiReviewerDocumentsRequestIdDocumentIdRoute;
 }
 export interface FileRoutesByTo {
   "/schema.json": typeof SchemaDotjsonRoute;
@@ -464,6 +472,7 @@ export interface FileRoutesByTo {
   "/dashboard/work-authorization": typeof DashboardWorkAuthorizationIndexRoute;
   "/dashboard/admin/resume/$resumeId": typeof DashboardAdminResumeResumeIdRoute;
   "/dashboard/settings/authentication": typeof DashboardSettingsAuthenticationIndexRoute;
+  "/api/reviewer/documents/$requestId/$documentId": typeof ApiReviewerDocumentsRequestIdDocumentIdRoute;
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport;
@@ -522,6 +531,7 @@ export interface FileRoutesById {
   "/dashboard/work-authorization/": typeof DashboardWorkAuthorizationIndexRoute;
   "/dashboard/admin/resume/$resumeId": typeof DashboardAdminResumeResumeIdRoute;
   "/dashboard/settings/authentication/": typeof DashboardSettingsAuthenticationIndexRoute;
+  "/api/reviewer/documents/$requestId/$documentId": typeof ApiReviewerDocumentsRequestIdDocumentIdRoute;
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath;
@@ -579,7 +589,8 @@ export interface FileRouteTypes {
     | "/dashboard/verification/"
     | "/dashboard/work-authorization/"
     | "/dashboard/admin/resume/$resumeId"
-    | "/dashboard/settings/authentication/";
+    | "/dashboard/settings/authentication/"
+    | "/api/reviewer/documents/$requestId/$documentId";
   fileRoutesByTo: FileRoutesByTo;
   to:
     | "/schema.json"
@@ -632,7 +643,8 @@ export interface FileRouteTypes {
     | "/dashboard/verification"
     | "/dashboard/work-authorization"
     | "/dashboard/admin/resume/$resumeId"
-    | "/dashboard/settings/authentication";
+    | "/dashboard/settings/authentication"
+    | "/api/reviewer/documents/$requestId/$documentId";
   id:
     | "__root__"
     | "/_home"
@@ -689,7 +701,8 @@ export interface FileRouteTypes {
     | "/dashboard/verification/"
     | "/dashboard/work-authorization/"
     | "/dashboard/admin/resume/$resumeId"
-    | "/dashboard/settings/authentication/";
+    | "/dashboard/settings/authentication/"
+    | "/api/reviewer/documents/$requestId/$documentId";
   fileRoutesById: FileRoutesById;
 }
 export interface RootRouteChildren {
@@ -710,6 +723,7 @@ export interface RootRouteChildren {
   ApiOpenapiSplatRoute: typeof ApiOpenapiSplatRoute;
   ApiRpcSplatRoute: typeof ApiRpcSplatRoute;
   UploadsUserIdSplatRoute: typeof UploadsUserIdSplatRoute;
+  ApiReviewerDocumentsRequestIdDocumentIdRoute: typeof ApiReviewerDocumentsRequestIdDocumentIdRoute;
 }
 
 declare module "@tanstack/react-router" {
@@ -1099,6 +1113,13 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof DashboardAdminResumeResumeIdRouteImport;
       parentRoute: typeof DashboardAdminRouteRoute;
     };
+    "/api/reviewer/documents/$requestId/$documentId": {
+      id: "/api/reviewer/documents/$requestId/$documentId";
+      path: "/api/reviewer/documents/$requestId/$documentId";
+      fullPath: "/api/reviewer/documents/$requestId/$documentId";
+      preLoaderRoute: typeof ApiReviewerDocumentsRequestIdDocumentIdRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
   }
 }
 
@@ -1297,6 +1318,8 @@ const rootRouteChildren: RootRouteChildren = {
   ApiOpenapiSplatRoute: ApiOpenapiSplatRoute,
   ApiRpcSplatRoute: ApiRpcSplatRoute,
   UploadsUserIdSplatRoute: UploadsUserIdSplatRoute,
+  ApiReviewerDocumentsRequestIdDocumentIdRoute:
+    ApiReviewerDocumentsRequestIdDocumentIdRoute,
 };
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

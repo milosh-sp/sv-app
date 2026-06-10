@@ -25,6 +25,12 @@ import { validateAssessmentSolutionFile } from "@/utils/verification-assessment-
 import { validateVerificationDocumentFile } from "@/utils/verification-documents";
 import { resolveCanonicalSkillLabel } from "@/utils/verification/common-reviewer-skills";
 import {
+  buildRedactedRelatedExperience,
+  buildReviewerSkillContext,
+  formatReviewerCaseId,
+  mapReviewerDocumentUrl,
+} from "@/utils/verification/reviewer-context";
+import {
   findSkillCategoryForVerificationId,
   findVerifiableSkillUnit,
   normalizeSkillLabel,
@@ -408,6 +414,134 @@ async function enrichSkillProjectRequests(requests: SkillProjectRequestRow[]) {
       })),
     };
   });
+}
+
+async function enrichSkillProjectRequestsForReviewer(requests: SkillProjectRequestRow[]) {
+  if (requests.length === 0) return [];
+
+  const requestIds = requests.map((r) => r.id);
+  const resumeIds = [...new Set(requests.map((r) => r.resumeId).filter((id): id is string => id != null))];
+
+  const resumeRows =
+    resumeIds.length > 0
+      ? await db
+          .select({
+            id: resume.id,
+            data: resume.data,
+            userId: resume.userId,
+          })
+          .from(resume)
+          .where(inArray(resume.id, resumeIds))
+      : [];
+
+  const docs = await db
+    .select({
+      id: verificationDocuments.id,
+      verificationRequestId: verificationDocuments.verificationRequestId,
+      fileUrl: verificationDocuments.fileUrl,
+      documentType: verificationDocuments.documentType,
+      uploadedAt: verificationDocuments.uploadedAt,
+    })
+    .from(verificationDocuments)
+    .where(inArray(verificationDocuments.verificationRequestId, requestIds));
+
+  const resumeById = new Map(resumeRows.map((row) => [row.id, row]));
+  const docsByRequestId = new Map<string, typeof docs>();
+
+  for (const doc of docs) {
+    const existing = docsByRequestId.get(doc.verificationRequestId) ?? [];
+    existing.push(doc);
+    docsByRequestId.set(doc.verificationRequestId, existing);
+  }
+
+  return requests.map((r) => {
+    let applicantResume: (typeof resumeRows)[number] | null = null;
+    if (r.resumeId) {
+      const row = resumeById.get(r.resumeId);
+      if (row && row.userId === r.userId) applicantResume = row;
+    }
+
+    const requestDocs = docsByRequestId.get(r.id) ?? [];
+    const instructionsDoc = requestDocs.find((d) => d.documentType === "assessment_instructions");
+    const resumeData = applicantResume?.data as ResumeData | undefined;
+    const parentItemLabel = resolveParentItemLabel(resumeData, r.sectionType, r.itemId);
+    const skillContext = buildReviewerSkillContext(resumeData, r.sectionType, r.itemId, r.itemLabel);
+    const relatedExperience =
+      r.sectionType === "skill"
+        ? buildRedactedRelatedExperience(resumeData, r.itemLabel, parentItemLabel)
+        : [];
+
+    return {
+      id: r.id,
+      caseLabel: formatReviewerCaseId(r.id),
+      sectionType: r.sectionType,
+      itemId: r.itemId,
+      itemLabel: r.itemLabel,
+      parentItemLabel,
+      status: r.status,
+      submittedAt: r.submittedAt,
+      claimedAt: r.claimedAt ?? null,
+      resolvedAt: r.resolvedAt ?? null,
+      proposedVerdict: r.proposedVerdict ?? null,
+      reviewerNote: r.reviewerNote ?? null,
+      assessmentAcceptedAt: r.assessmentAcceptedAt ?? null,
+      assessmentInstructionsUrl: instructionsDoc
+        ? mapReviewerDocumentUrl(r.id, instructionsDoc.id, instructionsDoc.documentType, instructionsDoc.fileUrl)
+        : null,
+      skillContext,
+      relatedExperience,
+      documents: requestDocs.map((d) => ({
+        id: d.id,
+        fileUrl: mapReviewerDocumentUrl(r.id, d.id, d.documentType, d.fileUrl),
+        documentType: d.documentType,
+        uploadedAt: d.uploadedAt,
+      })),
+    };
+  });
+}
+
+async function assertReviewerDocumentAccess(requestId: string, adminId: string) {
+  const [request] = await db
+    .select({
+      id: verificationRequests.id,
+      sectionType: verificationRequests.sectionType,
+      itemLabel: verificationRequests.itemLabel,
+      status: verificationRequests.status,
+      claimedByAdminId: verificationRequests.claimedByAdminId,
+    })
+    .from(verificationRequests)
+    .where(eq(verificationRequests.id, requestId))
+    .limit(1);
+
+  if (!request) {
+    throw new ORPCError("NOT_FOUND", { message: "Verification request not found" });
+  }
+
+  if (!(REVIEWER_WORKFLOW_SECTION_TYPES as readonly string[]).includes(request.sectionType)) {
+    throw new ORPCError("FORBIDDEN", { message: "Document access is limited to skill and project requests" });
+  }
+
+  if (request.claimedByAdminId === adminId) {
+    return request;
+  }
+
+  if (request.status === "pending") {
+    const [profile] = await db
+      .select({ reviewerSkills: reviewerProfiles.reviewerSkills })
+      .from(reviewerProfiles)
+      .where(eq(reviewerProfiles.adminId, adminId))
+      .limit(1);
+
+    if (!profile) {
+      throw new ORPCError("FORBIDDEN", { message: "Reviewer profile not found" });
+    }
+
+    if (request.sectionType === "project" || reviewerCanReviewSkill(profile.reviewerSkills, request.itemLabel)) {
+      return request;
+    }
+  }
+
+  throw new ORPCError("FORBIDDEN", { message: "You do not have access to this document" });
 }
 
 async function enrichExperienceRequests(requests: ExperienceRequestRow[]) {
@@ -1664,7 +1798,7 @@ export const verificationService = {
       return reviewerCanReviewSkill(profile.reviewerSkills, request.itemLabel);
     });
 
-    return await enrichSkillProjectRequests(filtered);
+    return await enrichSkillProjectRequestsForReviewer(filtered);
   },
 
   acceptCase: async (input: { requestId: string; adminId: string; file: File; message?: string }) => {
@@ -1876,7 +2010,7 @@ export const verificationService = {
       )
       .orderBy(desc(verificationRequests.claimedAt));
 
-    return await enrichSkillProjectRequests(requests);
+    return await enrichSkillProjectRequestsForReviewer(requests);
   },
 
   listMyCaseHistory: async (adminId: string) => {
@@ -1906,7 +2040,7 @@ export const verificationService = {
       )
       .orderBy(desc(verificationRequests.resolvedAt));
 
-    return await enrichSkillProjectRequests(requests);
+    return await enrichSkillProjectRequestsForReviewer(requests);
   },
 
   submitVerdict: async (input: {
@@ -2595,6 +2729,50 @@ export const verificationService = {
     return {
       id: doc.id,
       fileUrl: mapDocumentToPublicUrl(doc),
+      documentType: doc.documentType,
+      contentType: result.contentType ?? "application/octet-stream",
+      size: result.size,
+      data: result.data,
+    };
+  },
+
+  downloadReviewerDocument: async (input: { requestId: string; documentId: string; adminId: string }) => {
+    await assertReviewerDocumentAccess(input.requestId, input.adminId);
+
+    const [doc] = await db
+      .select({
+        id: verificationDocuments.id,
+        verificationRequestId: verificationDocuments.verificationRequestId,
+        fileUrl: verificationDocuments.fileUrl,
+        documentType: verificationDocuments.documentType,
+      })
+      .from(verificationDocuments)
+      .where(
+        and(
+          eq(verificationDocuments.id, input.documentId),
+          eq(verificationDocuments.verificationRequestId, input.requestId),
+        ),
+      )
+      .limit(1);
+
+    if (!doc) {
+      throw new ORPCError("NOT_FOUND", { message: "Document not found" });
+    }
+
+    if (isExternalVerificationLink(doc.documentType)) {
+      throw new ORPCError("BAD_REQUEST", { message: "External links cannot be downloaded" });
+    }
+
+    const storageService = getStorageService();
+    const storageKey = toStorageKey(doc.fileUrl);
+    const result = await storageService.read(storageKey);
+
+    if (!result) {
+      throw new ORPCError("NOT_FOUND", { message: "Document file not found in storage" });
+    }
+
+    return {
+      id: doc.id,
       documentType: doc.documentType,
       contentType: result.contentType ?? "application/octet-stream",
       size: result.size,

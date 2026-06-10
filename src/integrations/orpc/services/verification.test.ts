@@ -1659,6 +1659,63 @@ describe("verificationService.listQueue", () => {
     expect(result[0]?.id).toBe("req-js");
   });
 
+  it("does not expose applicant identity or full resume data", async () => {
+    const rows = [
+      {
+        id: "019bef5a-93e4-7746-ad39-622f9d41da55",
+        userId: "user-1",
+        resumeId: "resume-1",
+        sectionType: "skill",
+        itemId: "item-1",
+        itemLabel: "TypeScript",
+        status: "pending",
+        submittedAt: new Date(),
+      },
+    ];
+    mockFrom
+      .mockReturnValueOnce({
+        where: vi.fn(() => ({
+          limit: vi.fn(() => [{ reviewerSkills: ["TypeScript"] }]),
+        })),
+      })
+      .mockReturnValueOnce({ where: vi.fn(() => ({ orderBy: vi.fn(() => rows) })) })
+      .mockReturnValueOnce({
+        where: vi.fn(() => [
+          {
+            id: "resume-1",
+            userId: "user-1",
+            data: {
+              sections: {
+                skills: {
+                  items: [
+                    {
+                      id: "skill-1",
+                      hidden: false,
+                      icon: "",
+                      name: "TypeScript",
+                      proficiency: "Advanced",
+                      level: 4,
+                      keywords: [],
+                    },
+                  ],
+                },
+              },
+            },
+          },
+        ]),
+      })
+      .mockReturnValueOnce({ where: vi.fn(() => []) });
+
+    const result = await verificationService.listQueue("admin-1");
+
+    expect(result).toHaveLength(1);
+    expect(result[0]).not.toHaveProperty("user");
+    expect(result[0]).not.toHaveProperty("resume");
+    expect(result[0]?.caseLabel).toBe("9D41DA55");
+    expect(result[0]?.skillContext.sectionType).toBe("skill");
+    expect(result[0]?.documents).toEqual([]);
+  });
+
   it("includes skill requests with compound qualified labels", async () => {
     const rows = [
       {

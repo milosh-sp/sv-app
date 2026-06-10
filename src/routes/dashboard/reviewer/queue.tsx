@@ -50,15 +50,19 @@ import type { ReviewAction } from "../admin/-components/verification-queue-share
 
 import { DashboardHeader } from "../-components/header";
 import {
-  ApplicantDetails,
   DocumentPreview,
   QueueEmptyState,
   QueueErrorState,
   QueueLoadingState,
-  QueueResumePreview,
   ReviewDecisionPanel,
   StatusBadge,
 } from "../admin/-components/verification-queue-shared";
+
+import {
+  ExternalLinkWarning,
+  ReviewerCaseLabel,
+  ReviewerSubmissionContext,
+} from "./-components/reviewer-context-panels";
 
 const searchSchema = z.object({
   skills: z.array(z.string()).default([]),
@@ -551,17 +555,7 @@ function QueueRow({
           {"parentItemLabel" in item && item.parentItemLabel ? (
             <p className="text-xs text-muted-foreground">{item.parentItemLabel}</p>
           ) : null}
-          {item.user ? (
-            <p className="truncate text-xs text-muted-foreground">
-              {item.user.name}
-              <span className="mx-1.5 opacity-60">·</span>
-              {item.user.email}
-            </p>
-          ) : (
-            <p className="text-xs text-muted-foreground">
-              <Trans>Unknown applicant</Trans>
-            </p>
-          )}
+          <ReviewerCaseLabel caseLabel={item.caseLabel} />
           <div className="flex flex-wrap items-center gap-x-2">
             <StatusBadge status={item.status} />
             <span className="text-xs text-muted-foreground capitalize">{item.sectionType}</span>
@@ -584,15 +578,7 @@ function QueueRow({
 
       {expanded && (
         <div className="space-y-3 border-t pt-3">
-          {item.user && <ApplicantDetails user={item.user} />}
-          {item.resume && (
-            <div className="space-y-2">
-              <p className="text-xs font-medium text-muted-foreground">
-                <Trans>CV / resume</Trans>
-              </p>
-              <QueueResumePreview resume={item.resume} />
-            </div>
-          )}
+          <ReviewerSubmissionContext item={item} />
         </div>
       )}
     </div>
@@ -828,13 +814,7 @@ function MyCaseRow({
           {"parentItemLabel" in item && item.parentItemLabel ? (
             <p className="text-xs text-muted-foreground">{item.parentItemLabel}</p>
           ) : null}
-          {item.user && (
-            <p className="truncate text-xs text-muted-foreground">
-              {item.user.name}
-              <span className="mx-1.5 opacity-60">·</span>
-              {item.user.email}
-            </p>
-          )}
+          <ReviewerCaseLabel caseLabel={item.caseLabel} />
           <div className="flex flex-wrap items-center gap-x-2">
             <StatusBadge status={item.status} />
             {isAwaitingAdmin && item.proposedVerdict && <ProposedVerdictBadge verdict={item.proposedVerdict} />}
@@ -867,16 +847,7 @@ function MyCaseRow({
 
       {expanded && (
         <div className="space-y-3 border-t pt-3">
-          {item.user && <ApplicantDetails user={item.user} />}
-
-          {item.resume && (
-            <div className="space-y-2">
-              <p className="text-xs font-medium text-muted-foreground">
-                <Trans>CV / resume</Trans>
-              </p>
-              <QueueResumePreview resume={item.resume} />
-            </div>
-          )}
+          <ReviewerSubmissionContext item={item} />
 
           {item.assessmentInstructionsUrl && item.documents.length > 0 && (
             <div className="space-y-2">
@@ -903,16 +874,21 @@ function MyCaseRow({
             {item.documents.some((doc) =>
               ["assessment_solution", "assessment_solution_link"].includes(doc.documentType),
             ) ? (
-              item.documents
-                .filter((doc) => ["assessment_solution", "assessment_solution_link"].includes(doc.documentType))
-                .map((doc) => (
-                  <DocumentPreview
-                    key={doc.id}
-                    fileUrl={doc.fileUrl}
-                    documentType={doc.documentType}
-                    uploadedAt={doc.uploadedAt}
-                  />
-                ))
+              <>
+                {item.documents.some((doc) => doc.documentType === "assessment_solution_link") ? (
+                  <ExternalLinkWarning />
+                ) : null}
+                {item.documents
+                  .filter((doc) => ["assessment_solution", "assessment_solution_link"].includes(doc.documentType))
+                  .map((doc) => (
+                    <DocumentPreview
+                      key={doc.id}
+                      fileUrl={doc.fileUrl}
+                      documentType={doc.documentType}
+                      uploadedAt={doc.uploadedAt}
+                    />
+                  ))}
+              </>
             ) : (
               <p className="text-xs text-muted-foreground">
                 <Trans>No solution submitted yet</Trans>
@@ -1018,13 +994,7 @@ function HistoryCaseRow({
           {"parentItemLabel" in item && item.parentItemLabel ? (
             <p className="text-xs text-muted-foreground">{item.parentItemLabel}</p>
           ) : null}
-          {item.user && (
-            <p className="truncate text-xs text-muted-foreground">
-              {item.user.name}
-              <span className="mx-1.5 opacity-60">·</span>
-              {item.user.email}
-            </p>
-          )}
+          <ReviewerCaseLabel caseLabel={item.caseLabel} />
           <div className="flex flex-wrap items-center gap-x-2">
             <StatusBadge status={item.status} />
             <span className="text-xs text-muted-foreground capitalize">{item.sectionType}</span>
@@ -1055,16 +1025,7 @@ function HistoryCaseRow({
 
       {expanded && (
         <div className="space-y-3 border-t pt-3">
-          {item.user && <ApplicantDetails user={item.user} />}
-
-          {item.resume && (
-            <div className="space-y-2">
-              <p className="text-xs font-medium text-muted-foreground">
-                <Trans>CV / resume</Trans>
-              </p>
-              <QueueResumePreview resume={item.resume} />
-            </div>
-          )}
+          <ReviewerSubmissionContext item={item} />
 
           {item.reviewerNote && (
             <div className="space-y-1">
@@ -1100,16 +1061,21 @@ function HistoryCaseRow({
             {item.documents.some((doc) =>
               ["assessment_solution", "assessment_solution_link"].includes(doc.documentType),
             ) ? (
-              item.documents
-                .filter((doc) => ["assessment_solution", "assessment_solution_link"].includes(doc.documentType))
-                .map((doc) => (
-                  <DocumentPreview
-                    key={doc.id}
-                    fileUrl={doc.fileUrl}
-                    documentType={doc.documentType}
-                    uploadedAt={doc.uploadedAt}
-                  />
-                ))
+              <>
+                {item.documents.some((doc) => doc.documentType === "assessment_solution_link") ? (
+                  <ExternalLinkWarning />
+                ) : null}
+                {item.documents
+                  .filter((doc) => ["assessment_solution", "assessment_solution_link"].includes(doc.documentType))
+                  .map((doc) => (
+                    <DocumentPreview
+                      key={doc.id}
+                      fileUrl={doc.fileUrl}
+                      documentType={doc.documentType}
+                      uploadedAt={doc.uploadedAt}
+                    />
+                  ))}
+              </>
             ) : (
               <p className="text-xs text-muted-foreground">
                 <Trans>No solution submitted</Trans>

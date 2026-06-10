@@ -72,6 +72,28 @@ export const adminVerificationRouter = {
       });
     }),
 
+  downloadReviewerDocument: reviewerAdminProcedure
+    .input(
+      z.object({
+        requestId: z.string().uuid(),
+        documentId: z.string().uuid(),
+      }),
+    )
+    .handler(async ({ context, input }) => {
+      const doc = await verificationService.downloadReviewerDocument({
+        requestId: input.requestId,
+        documentId: input.documentId,
+        adminId: context.user.id,
+      });
+
+      return {
+        id: doc.id,
+        documentType: doc.documentType,
+        contentType: doc.contentType,
+        size: doc.size,
+      };
+    }),
+
   getDocuments: skillVerdictAdminProcedure
     .input(z.object({ requestId: z.string().uuid() }))
     .handler(async ({ input }) => {
