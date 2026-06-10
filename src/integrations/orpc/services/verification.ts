@@ -1619,9 +1619,7 @@ export const verificationService = {
         resolvedAt: verificationRequests.resolvedAt,
       })
       .from(verificationRequests)
-      .where(
-        and(eq(verificationRequests.resumeId, input.resumeId), eq(verificationRequests.status, "verified")),
-      )
+      .where(and(eq(verificationRequests.resumeId, input.resumeId), eq(verificationRequests.status, "verified")))
       .orderBy(desc(verificationRequests.submittedAt));
 
     if (entries.length === 0) {

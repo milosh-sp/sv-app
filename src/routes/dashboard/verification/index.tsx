@@ -1083,12 +1083,7 @@ function VerificationHistory({ resumeId, itemId }: { resumeId: string; itemId: s
                 {entry.reviewerProfileUrl && (
                   <>
                     {" — "}
-                    <Link
-                      to={entry.reviewerProfileUrl}
-                      className="underline"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
+                    <Link to={entry.reviewerProfileUrl} className="underline" target="_blank" rel="noopener noreferrer">
                       <Trans>View profile</Trans>
                     </Link>
                   </>
