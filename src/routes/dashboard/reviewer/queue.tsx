@@ -33,10 +33,18 @@ import { Textarea } from "@/components/ui/textarea";
 import { orpc } from "@/integrations/orpc/client";
 import { formatDefaultDate } from "@/utils/format-date";
 import {
-  buildReviewerQueueFilterOptions,
-  filterQueueItemsBySkills,
-  sanitizeQueueSkillFilter,
-} from "@/utils/verification/queue-skill-filter";
+  buildAllowedFilterValues,
+  buildFilterOptionsFromItems,
+  filterQueueItems,
+  hasActiveQueueFilters,
+  sanitizeQueueFilters,
+  shouldShowMultiSelectFilter,
+  type ProposedVerdict,
+  type QueueFilterOptions,
+  type QueueFilterParams,
+  type QueueFilterTab,
+  type SectionType,
+} from "@/utils/verification/queue-filters";
 
 import type { ReviewAction } from "../admin/-components/verification-queue-shared";
 
@@ -54,13 +62,25 @@ import {
 
 const searchSchema = z.object({
   skills: z.array(z.string()).default([]),
+  categories: z.array(z.string()).default([]),
+  statuses: z.array(z.string()).default([]),
+  proposed: z.array(z.enum(["verified", "rejected", "issue"])).default([]),
+  types: z.array(z.enum(["skill", "project"])).default([]),
 });
+
+const defaultSearchParams = {
+  skills: [],
+  categories: [],
+  statuses: [],
+  proposed: [],
+  types: [],
+} satisfies z.infer<typeof searchSchema>;
 
 export const Route = createFileRoute("/dashboard/reviewer/queue")({
   component: RouteComponent,
   validateSearch: zodValidator(searchSchema),
   search: {
-    middlewares: [stripSearchParams({ skills: [] })],
+    middlewares: [stripSearchParams(defaultSearchParams)],
   },
 });
 
@@ -72,8 +92,8 @@ type MyCaseItem = RouterOutput["admin"]["verification"]["listMyCases"][number];
 type HistoryItem = RouterOutput["admin"]["verification"]["listMyCaseHistory"][number];
 
 function RouteComponent() {
-  const [activeTab, setActiveTab] = useState<"queue" | "cases" | "history">("queue");
-  const { skills: urlSkills } = Route.useSearch();
+  const [activeTab, setActiveTab] = useState<QueueFilterTab>("queue");
+  const urlFilters = Route.useSearch();
   const navigate = useNavigate({ from: Route.fullPath });
 
   const {
@@ -113,29 +133,33 @@ function RouteComponent() {
     retry: false,
   });
 
-  const assignedSkills = profile?.reviewerSkills;
-  const hasProjectsInQueue = (queue ?? []).some((item) => item.sectionType === "project");
-  const hasProjectsInHistory = (history ?? []).some((item) => item.sectionType === "project");
+  const assignedSkills = profile?.reviewerSkills ?? [];
+  const activeTabItems =
+    activeTab === "queue" ? (queue ?? []) : activeTab === "cases" ? (myCases ?? []) : (history ?? []);
   const filterOptions = useMemo(
+    () => buildFilterOptionsFromItems(activeTabItems, assignedSkills, activeTab),
+    [activeTabItems, assignedSkills, activeTab],
+  );
+  const allowedFilterValues = useMemo(() => buildAllowedFilterValues(filterOptions), [filterOptions]);
+  const selectedFilters = useMemo(
     () =>
-      buildReviewerQueueFilterOptions(
-        assignedSkills ?? [],
-        activeTab === "history" ? hasProjectsInHistory : hasProjectsInQueue,
+      sanitizeQueueFilters(
+        {
+          skills: urlFilters.skills,
+          categories: urlFilters.categories,
+          statuses: urlFilters.statuses,
+          proposed: urlFilters.proposed,
+          types: urlFilters.types,
+        },
+        allowedFilterValues,
       ),
-    [assignedSkills, activeTab, hasProjectsInHistory, hasProjectsInQueue],
+    [urlFilters, allowedFilterValues],
   );
-  const allowedFilterValues = useMemo(() => filterOptions.map((option) => option.value), [filterOptions]);
-  const selectedSkills = useMemo(
-    () => sanitizeQueueSkillFilter(urlSkills, allowedFilterValues),
-    [urlSkills, allowedFilterValues],
-  );
-  const hasActiveFilter = selectedSkills.length > 0;
-  const filteredQueue = useMemo(() => filterQueueItemsBySkills(queue ?? [], selectedSkills), [queue, selectedSkills]);
-  const filteredHistory = useMemo(
-    () => filterQueueItemsBySkills(history ?? [], selectedSkills),
-    [history, selectedSkills],
-  );
-  const showSkillFilter = filterOptions.length >= 2;
+  const hasActiveFilter = hasActiveQueueFilters(selectedFilters);
+  const filteredQueue = useMemo(() => filterQueueItems(queue ?? [], selectedFilters), [queue, selectedFilters]);
+  const filteredMyCases = useMemo(() => filterQueueItems(myCases ?? [], selectedFilters), [myCases, selectedFilters]);
+  const filteredHistory = useMemo(() => filterQueueItems(history ?? [], selectedFilters), [history, selectedFilters]);
+  const showFilterPanel = activeTabItems.length > 0 || hasActiveFilter;
 
   if (queueError || casesError) {
     return <QueueErrorState />;
@@ -193,31 +217,24 @@ function RouteComponent() {
         </Button>
       </div>
 
-      {(activeTab === "queue" || activeTab === "history") && showSkillFilter && (
-        <div className="rounded-lg border p-4">
-          <div className="space-y-1.5">
-            <p className="text-xs font-medium text-muted-foreground">
-              <Trans>Skills</Trans>
-            </p>
-            <Combobox
-              multiple
-              value={selectedSkills}
-              options={filterOptions}
-              placeholder={t`Filter by skill`}
-              searchPlaceholder={t`Search skills…`}
-              emptyMessage={t`No matching skills.`}
-              className="w-full md:max-w-md"
-              onValueChange={(value) => {
-                void navigate({
-                  search: (prev) => ({
-                    ...prev,
-                    skills: value ?? [],
-                  }),
-                });
-              }}
-            />
-          </div>
-        </div>
+      {showFilterPanel && (
+        <QueueFilters
+          options={filterOptions}
+          selected={selectedFilters}
+          tab={activeTab}
+          hasActiveFilter={hasActiveFilter}
+          onChange={(next) => {
+            void navigate({
+              search: (prev) => ({
+                ...prev,
+                ...next,
+              }),
+            });
+          }}
+          onReset={() => {
+            void navigate({ search: defaultSearchParams });
+          }}
+        />
       )}
 
       {activeTab === "queue" && (
@@ -231,7 +248,12 @@ function RouteComponent() {
       )}
 
       {activeTab === "cases" && (
-        <MyCasesTab items={myCases ?? []} isLoading={casesLoading} canSubmitVerdict={hasProfile && hasConsent} />
+        <MyCasesTab
+          items={filteredMyCases}
+          isLoading={casesLoading}
+          canSubmitVerdict={hasProfile && hasConsent}
+          hasActiveFilter={hasActiveFilter}
+        />
       )}
 
       {activeTab === "history" && (
@@ -242,6 +264,146 @@ function RouteComponent() {
           hasActiveFilter={hasActiveFilter}
         />
       )}
+    </div>
+  );
+}
+
+function QueueFilters({
+  options,
+  selected,
+  tab,
+  hasActiveFilter,
+  onChange,
+  onReset,
+}: {
+  options: QueueFilterOptions;
+  selected: QueueFilterParams;
+  tab: QueueFilterTab;
+  hasActiveFilter: boolean;
+  onChange: (next: Partial<QueueFilterParams>) => void;
+  onReset: () => void;
+}) {
+  const showSkills = shouldShowMultiSelectFilter(options.skills);
+  const showCategories = shouldShowMultiSelectFilter(options.categories);
+  const showStatuses = tab === "cases" ? options.statuses.length > 0 : shouldShowMultiSelectFilter(options.statuses);
+  const showProposed = options.proposed.length > 0;
+  const showTypes = shouldShowMultiSelectFilter(options.types);
+
+  if (!showSkills && !showCategories && !showStatuses && !showProposed && !showTypes) {
+    return null;
+  }
+
+  return (
+    <div className="space-y-4 rounded-lg border p-4">
+      {hasActiveFilter && (
+        <div className="flex justify-end">
+          <Button size="sm" variant="ghost" className="h-7 text-xs" onClick={onReset}>
+            <Trans>Reset filters</Trans>
+          </Button>
+        </div>
+      )}
+
+      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+        {showSkills && (
+          <div className="space-y-1.5">
+            <p className="text-xs font-medium text-muted-foreground">
+              <Trans>Skills</Trans>
+            </p>
+            <Combobox
+              multiple
+              value={selected.skills}
+              options={options.skills}
+              placeholder={t`Filter by skill`}
+              searchPlaceholder={t`Search skills…`}
+              emptyMessage={t`No matching skills.`}
+              className="w-full"
+              onValueChange={(value) => {
+                onChange({ skills: value ?? [] });
+              }}
+            />
+          </div>
+        )}
+
+        {showCategories && (
+          <div className="space-y-1.5">
+            <p className="text-xs font-medium text-muted-foreground">
+              <Trans>Category</Trans>
+            </p>
+            <Combobox
+              multiple
+              value={selected.categories}
+              options={options.categories}
+              placeholder={t`Filter by category`}
+              searchPlaceholder={t`Search categories…`}
+              emptyMessage={t`No matching categories.`}
+              className="w-full"
+              onValueChange={(value) => {
+                onChange({ categories: value ?? [] });
+              }}
+            />
+          </div>
+        )}
+
+        {showStatuses && (
+          <div className="space-y-1.5">
+            <p className="text-xs font-medium text-muted-foreground">
+              <Trans>Status</Trans>
+            </p>
+            <Combobox
+              multiple
+              value={selected.statuses}
+              options={options.statuses}
+              placeholder={t`Filter by status`}
+              searchPlaceholder={t`Search statuses…`}
+              emptyMessage={t`No matching statuses.`}
+              className="w-full"
+              onValueChange={(value) => {
+                onChange({ statuses: value ?? [] });
+              }}
+            />
+          </div>
+        )}
+
+        {showProposed && (
+          <div className="space-y-1.5">
+            <p className="text-xs font-medium text-muted-foreground">
+              <Trans>Proposed outcome</Trans>
+            </p>
+            <Combobox
+              multiple
+              value={selected.proposed}
+              options={options.proposed}
+              placeholder={t`Filter by proposed outcome`}
+              searchPlaceholder={t`Search outcomes…`}
+              emptyMessage={t`No matching outcomes.`}
+              className="w-full"
+              onValueChange={(value) => {
+                onChange({ proposed: (value ?? []) as ProposedVerdict[] });
+              }}
+            />
+          </div>
+        )}
+
+        {showTypes && (
+          <div className="space-y-1.5">
+            <p className="text-xs font-medium text-muted-foreground">
+              <Trans>Type</Trans>
+            </p>
+            <Combobox
+              multiple
+              value={selected.types}
+              options={options.types}
+              placeholder={t`Filter by type`}
+              searchPlaceholder={t`Search types…`}
+              emptyMessage={t`No matching types.`}
+              className="w-full"
+              onValueChange={(value) => {
+                onChange({ types: (value ?? []) as SectionType[] });
+              }}
+            />
+          </div>
+        )}
+      </div>
     </div>
   );
 }
@@ -584,17 +746,23 @@ function MyCasesTab({
   items,
   isLoading,
   canSubmitVerdict,
+  hasActiveFilter,
 }: {
   items: MyCaseItem[];
   isLoading: boolean;
   canSubmitVerdict: boolean;
+  hasActiveFilter: boolean;
 }) {
   const [expandedId, setExpandedId] = useState<string | null>(null);
 
   if (isLoading) return <QueueLoadingState />;
 
   if (items.length === 0) {
-    return <QueueEmptyState message={t`You have no active cases.`} />;
+    return (
+      <QueueEmptyState
+        message={hasActiveFilter ? t`No cases match the selected filters.` : t`You have no active cases.`}
+      />
+    );
   }
 
   return (

@@ -214,6 +214,7 @@ export function DashboardSidebar() {
   const identityVerificationState = deriveIdentitySidebarVerificationState(user);
   const isSkillVerdictAdmin = adminRole?.role === "skill_verdict_admin";
   const isReviewerAdmin = adminRole?.role === "reviewer_admin";
+  const showSkillCenter = !isSkillVerdictAdmin && !isReviewerAdmin;
   const roleLabel = (() => {
     if (adminRole?.role === "skill_verdict_admin") return msg`Skill Verdict Admin`;
     if (adminRole?.role === "reviewer_admin") return msg`Reviewer Admin`;
@@ -272,7 +273,7 @@ export function DashboardSidebar() {
       <SidebarSeparator className="mx-3" />
 
       <SidebarContent className="gap-0">
-        {!isSkillVerdictAdmin && (
+        {showSkillCenter && (
           <SidebarGroup className="pt-1">
             <SidebarGroupLabel>
               <Trans>Skill Center</Trans>
@@ -297,7 +298,7 @@ export function DashboardSidebar() {
           </>
         )}
 
-        {!isSkillVerdictAdmin && <SidebarSeparator className="mx-3" />}
+        {showSkillCenter && <SidebarSeparator className="mx-3" />}
         {isSkillVerdictAdmin && (
           <>
             <SidebarGroup className="pt-1">

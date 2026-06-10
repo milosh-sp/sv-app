@@ -413,12 +413,7 @@ function PendingVerdictRow({ verdict }: { verdict: PendingVerdictItem }) {
           )}
         </div>
 
-        <Button
-          size="sm"
-          variant="outline"
-          className="h-7 shrink-0 text-xs"
-          onClick={() => setExpanded(!expanded)}
-        >
+        <Button size="sm" variant="outline" className="h-7 shrink-0 text-xs" onClick={() => setExpanded(!expanded)}>
           {expanded ? <Trans>Collapse</Trans> : <Trans>Review</Trans>}
         </Button>
       </div>
@@ -503,7 +498,12 @@ function PendingVerdictRow({ verdict }: { verdict: PendingVerdictItem }) {
                 <CheckCircleIcon className="mr-1 size-3.5" weight="fill" />
                 {confirmVerdict.isPending ? <Trans>Confirming...</Trans> : confirmLabel}
               </Button>
-              <Button size="sm" variant="outline" className="h-7 text-xs" onClick={() => setOverrideOpen(!overrideOpen)}>
+              <Button
+                size="sm"
+                variant="outline"
+                className="h-7 text-xs"
+                onClick={() => setOverrideOpen(!overrideOpen)}
+              >
                 {overrideOpen ? <Trans>Cancel Override</Trans> : <Trans>Override</Trans>}
               </Button>
             </div>

@@ -210,7 +210,12 @@ export function ReviewerDetails({
           </dt>
           <dd>
             {publicProfileUrl ? (
-              <a href={publicProfileUrl} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+              <a
+                href={publicProfileUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary hover:underline"
+              >
                 {publicProfileUrl}
               </a>
             ) : (
@@ -221,13 +226,7 @@ export function ReviewerDetails({
           <dt className="text-muted-foreground">
             <Trans>Proposed verdict</Trans>
           </dt>
-          <dd>
-            {proposedVerdict ? (
-              <ProposedVerdictLabel verdict={proposedVerdict} />
-            ) : (
-              "—"
-            )}
-          </dd>
+          <dd>{proposedVerdict ? <ProposedVerdictLabel verdict={proposedVerdict} /> : "—"}</dd>
 
           <dt className="text-muted-foreground">
             <Trans>Verdict notes</Trans>
@@ -252,8 +251,7 @@ function ProposedVerdictLabel({ verdict }: { verdict: "verified" | "rejected" | 
         ? "text-red-700 dark:text-red-400"
         : "text-orange-700 dark:text-orange-400";
 
-  const label =
-    verdict === "verified" ? t`Pass` : verdict === "rejected" ? t`Fail` : t`Issue`;
+  const label = verdict === "verified" ? t`Pass` : verdict === "rejected" ? t`Fail` : t`Issue`;
 
   return <span className={`font-medium capitalize ${colorClass}`}>{label}</span>;
 }
