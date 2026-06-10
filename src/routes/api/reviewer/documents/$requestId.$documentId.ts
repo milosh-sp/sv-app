@@ -40,8 +40,7 @@ async function handler({ request, params }: { request: Request; params: { reques
       adminId: viewerId,
     });
 
-    const filename =
-      doc.contentType === "application/pdf" ? `${doc.documentType}.pdf` : doc.documentType;
+    const filename = doc.contentType === "application/pdf" ? `${doc.documentType}.pdf` : doc.documentType;
 
     const headers = new Headers();
     headers.set("Content-Type", doc.contentType);

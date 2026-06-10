@@ -467,9 +467,7 @@ async function enrichSkillProjectRequestsForReviewer(requests: SkillProjectReque
     const parentItemLabel = resolveParentItemLabel(resumeData, r.sectionType, r.itemId);
     const skillContext = buildReviewerSkillContext(resumeData, r.sectionType, r.itemId, r.itemLabel);
     const relatedExperience =
-      r.sectionType === "skill"
-        ? buildRedactedRelatedExperience(resumeData, r.itemLabel, parentItemLabel)
-        : [];
+      r.sectionType === "skill" ? buildRedactedRelatedExperience(resumeData, r.itemLabel, parentItemLabel) : [];
 
     return {
       id: r.id,

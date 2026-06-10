@@ -86,7 +86,9 @@ export function buildReviewerSkillContext(
 
 function textMentionsSkill(text: string, skillLabel: string, parentLabel: string | null): boolean {
   const haystack = text.toLowerCase();
-  const needles = [skillLabel, parentLabel].filter((value): value is string => Boolean(value)).map((value) => value.toLowerCase());
+  const needles = [skillLabel, parentLabel]
+    .filter((value): value is string => Boolean(value))
+    .map((value) => value.toLowerCase());
 
   return needles.some((needle) => haystack.includes(needle));
 }
@@ -126,7 +128,12 @@ export function buildRedactedRelatedExperience(
   return matched;
 }
 
-export function mapReviewerDocumentUrl(requestId: string, documentId: string, documentType: string, externalUrl: string) {
+export function mapReviewerDocumentUrl(
+  requestId: string,
+  documentId: string,
+  documentType: string,
+  externalUrl: string,
+) {
   if (documentType === "freelancer_link" || documentType === "assessment_solution_link") {
     return externalUrl;
   }

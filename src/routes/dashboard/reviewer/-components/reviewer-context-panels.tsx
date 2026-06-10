@@ -138,7 +138,10 @@ export function RedactedExperiencePanel({
       ) : (
         <div className="space-y-2">
           {relatedExperience.map((experience, index) => (
-            <div key={`${experience.position}-${experience.period}-${index}`} className="rounded-md border bg-muted/20 px-3 py-2 text-xs">
+            <div
+              key={`${experience.position}-${experience.period}-${index}`}
+              className="rounded-md border bg-muted/20 px-3 py-2 text-xs"
+            >
               <p className="font-medium">{experience.position || t`Role`}</p>
               {experience.period ? <p className="text-muted-foreground">{experience.period}</p> : null}
               {experience.description ? (

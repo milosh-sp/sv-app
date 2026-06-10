@@ -4,7 +4,6 @@ import type { ResumeData } from "@/schema/resume/data";
 
 import { defaultResumeData } from "@/schema/resume/data";
 
-import { deriveSkillKeywordId } from "./skills";
 import {
   buildRedactedRelatedExperience,
   buildReviewerSkillContext,
@@ -12,6 +11,7 @@ import {
   mapReviewerDocumentUrl,
   stripIdentifyingHtml,
 } from "./reviewer-context";
+import { deriveSkillKeywordId } from "./skills";
 
 const parentId = "019bef5a-93e4-7746-ad39-622f9d41da55";
 const csharpItemId = deriveSkillKeywordId(parentId, "C#");
