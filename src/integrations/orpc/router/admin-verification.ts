@@ -91,11 +91,9 @@ export const adminVerificationRouter = {
       };
     }),
 
-  listExperienceQueue: skillVerdictAdminProcedure
-    .input(verificationListBaseInputSchema)
-    .handler(async ({ input }) => {
-      return await verificationService.listExperienceQueue(input);
-    }),
+  listExperienceQueue: skillVerdictAdminProcedure.input(verificationListBaseInputSchema).handler(async ({ input }) => {
+    return await verificationService.listExperienceQueue(input);
+  }),
 
   listExperienceHistory: skillVerdictAdminProcedure
     .input(verificationListBaseInputSchema)
@@ -120,11 +118,9 @@ export const adminVerificationRouter = {
       });
     }),
 
-  listPendingVerdicts: skillVerdictAdminProcedure
-    .input(pendingVerdictsListInputSchema)
-    .handler(async ({ input }) => {
-      return await verificationService.listPendingVerdicts(input);
-    }),
+  listPendingVerdicts: skillVerdictAdminProcedure.input(pendingVerdictsListInputSchema).handler(async ({ input }) => {
+    return await verificationService.listPendingVerdicts(input);
+  }),
 
   confirmVerdict: skillVerdictAdminProcedure
     .input(z.object({ requestId: z.string().uuid() }))
@@ -152,17 +148,13 @@ export const adminVerificationRouter = {
       });
     }),
 
-  listIdentityQueue: skillVerdictAdminProcedure
-    .input(verificationListBaseInputSchema)
-    .handler(async ({ input }) => {
-      return await verificationService.listIdentityQueue(input);
-    }),
+  listIdentityQueue: skillVerdictAdminProcedure.input(verificationListBaseInputSchema).handler(async ({ input }) => {
+    return await verificationService.listIdentityQueue(input);
+  }),
 
-  listIdentityHistory: skillVerdictAdminProcedure
-    .input(verificationListBaseInputSchema)
-    .handler(async ({ input }) => {
-      return await verificationService.listIdentityHistory(input);
-    }),
+  listIdentityHistory: skillVerdictAdminProcedure.input(verificationListBaseInputSchema).handler(async ({ input }) => {
+    return await verificationService.listIdentityHistory(input);
+  }),
 
   reviewIdentity: skillVerdictAdminProcedure
     .input(

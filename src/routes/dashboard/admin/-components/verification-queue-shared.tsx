@@ -718,9 +718,7 @@ function DirectAdminReviewHistoryRow({
 
           {item.resume && (
             <div className="space-y-2">
-              <p className="text-xs font-medium text-muted-foreground">
-                {resumeLabel ?? <Trans>CV / resume</Trans>}
-              </p>
+              <p className="text-xs font-medium text-muted-foreground">{resumeLabel ?? <Trans>CV / resume</Trans>}</p>
               <QueueResumePreview resume={item.resume} />
             </div>
           )}

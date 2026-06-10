@@ -241,7 +241,11 @@ function buildPendingVerdictsListFilters(input: AdminPendingVerdictsListInput) {
   return filters;
 }
 
-async function countVerificationRequests(baseWhere: SQL | undefined, filteredWhere: SQL | undefined, needsUserJoin: boolean) {
+async function countVerificationRequests(
+  baseWhere: SQL | undefined,
+  filteredWhere: SQL | undefined,
+  needsUserJoin: boolean,
+) {
   const [unfilteredRow] = await db.select({ total: count() }).from(verificationRequests).where(baseWhere);
   const totalUnfiltered = unfilteredRow?.total ?? 0;
 
@@ -271,10 +275,7 @@ function selectVerificationRequestRows(
   needsUserJoin: boolean,
 ) {
   const baseQuery = db.select(select).from(verificationRequests);
-  return (needsUserJoin
-    ? baseQuery.innerJoin(user, eq(verificationRequests.userId, user.id))
-    : baseQuery
-  )
+  return (needsUserJoin ? baseQuery.innerJoin(user, eq(verificationRequests.userId, user.id)) : baseQuery)
     .where(filteredWhere)
     .orderBy(orderBy)
     .limit(limit)
@@ -2168,9 +2169,8 @@ export const verificationService = {
       })
       .from(verificationRequests);
 
-    const requests = await (needsUserJoin
-      ? baseQuery.innerJoin(user, eq(verificationRequests.userId, user.id))
-      : baseQuery
+    const requests = await (
+      needsUserJoin ? baseQuery.innerJoin(user, eq(verificationRequests.userId, user.id)) : baseQuery
     )
       .where(filteredWhere)
       .orderBy(desc(verificationRequests.submittedAt))

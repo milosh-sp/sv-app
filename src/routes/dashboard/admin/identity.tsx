@@ -14,12 +14,12 @@ import type { RouterOutput } from "@/integrations/orpc/client";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { orpc } from "@/integrations/orpc/client";
+import { formatDefaultDate } from "@/utils/format-date";
 import {
   ADMIN_VERIFICATION_PAGE_SIZE,
   buildVerificationListInput,
   defaultAdminVerificationSearch,
 } from "@/utils/verification/admin-verification-search";
-import { formatDefaultDate } from "@/utils/format-date";
 
 import type { ReviewAction } from "./-components/verification-queue-shared";
 
@@ -44,7 +44,10 @@ import {
 
 const identitySearchSchema = z.object({
   q: z.string().optional().default(""),
-  statuses: z.array(z.enum(["verified", "rejected", "issue"])).optional().default([]),
+  statuses: z
+    .array(z.enum(["verified", "rejected", "issue"]))
+    .optional()
+    .default([]),
   page: z.coerce.number().int().min(1).default(1),
 });
 
@@ -100,9 +103,7 @@ function RouteComponent() {
   });
 
   const activeQuery = activeTab === "queue" ? queueQuery : historyQuery;
-  const totalPages = activeQuery.data
-    ? Math.max(1, Math.ceil(activeQuery.data.total / activeQuery.data.pageSize))
-    : 1;
+  const totalPages = activeQuery.data ? Math.max(1, Math.ceil(activeQuery.data.total / activeQuery.data.pageSize)) : 1;
 
   if (queueQuery.isError && activeTab === "queue") return <QueueErrorState />;
   if (historyQuery.isError && activeTab === "history") return <QueueErrorState />;
@@ -231,7 +232,9 @@ function IdentityQueueTab({
     <div className="w-full space-y-3">
       {total > ADMIN_VERIFICATION_PAGE_SIZE && (
         <p className="text-xs text-muted-foreground">
-          <Trans>Showing {items.length} of {total} pending requests</Trans>
+          <Trans>
+            Showing {items.length} of {total} pending requests
+          </Trans>
         </p>
       )}
       {items.map((item) => (

@@ -30,13 +30,7 @@ export function AdminListPagination({
         <Button type="button" variant="outline" size="sm" disabled={disabled || page <= 1} onClick={onPrevious}>
           <Trans>Previous</Trans>
         </Button>
-        <Button
-          type="button"
-          variant="outline"
-          size="sm"
-          disabled={disabled || page >= totalPages}
-          onClick={onNext}
-        >
+        <Button type="button" variant="outline" size="sm" disabled={disabled || page >= totalPages} onClick={onNext}>
           <Trans>Next</Trans>
         </Button>
       </div>

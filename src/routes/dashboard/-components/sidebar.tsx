@@ -179,8 +179,10 @@ function SidebarItemList({ items }: SidebarItemListProps) {
             render={
               <Link
                 to={item.href}
-                activeProps={{ className: "bg-sidebar-accent text-sidebar-accent-foreground" }}
-                activeOptions={{ exact: item.exact ?? true }}
+                activeProps={{
+                  className: "bg-sidebar-accent font-medium text-sidebar-accent-foreground",
+                }}
+                activeOptions={{ exact: item.exact ?? true, includeSearch: false }}
               >
                 {item.icon}
                 <span className="shrink-0 transition-[margin,opacity] duration-200 ease-in-out group-data-[collapsible=icon]:-ms-8 group-data-[collapsible=icon]:opacity-0">
