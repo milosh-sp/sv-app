@@ -107,6 +107,7 @@ export const verificationDto = {
           submittedAt: z.date(),
           resolvedAt: z.date().nullable(),
           verifiedBy: z.string().nullable(),
+          reviewerProfileUrl: z.string().nullable(),
         }),
       ),
     }),

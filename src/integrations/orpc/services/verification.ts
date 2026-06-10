@@ -110,16 +110,24 @@ async function getReviewerAttributionSnapshot(requestId: string): Promise<Review
   return null;
 }
 
-function buildReviewerBadgeFromSnapshot(snapshot: ReviewerAttributionSnapshot) {
+function buildReviewerVerifiedByLabel(snapshot: {
+  reviewerSnapshotFirstName: string | null;
+  reviewerSnapshotLastName: string | null;
+  reviewerSnapshotTitle?: string | null;
+}) {
+  if (!snapshot.reviewerSnapshotFirstName) return null;
+
   const displayName = [snapshot.reviewerSnapshotFirstName, snapshot.reviewerSnapshotLastName].filter(Boolean).join(" ");
 
-  const label = snapshot.reviewerSnapshotTitle
-    ? `${displayName} \u2014 ${snapshot.reviewerSnapshotTitle}`
-    : displayName;
+  return snapshot.reviewerSnapshotTitle ? `${displayName} \u2014 ${snapshot.reviewerSnapshotTitle}` : displayName;
+}
+
+function buildReviewerBadgeFromSnapshot(snapshot: ReviewerAttributionSnapshot) {
+  const label = buildReviewerVerifiedByLabel(snapshot);
 
   return {
     type: "reviewer" as const,
-    label,
+    label: label ?? "Verified",
     profileUrl: snapshot.reviewerPublicProfileUrl,
   };
 }
@@ -862,9 +870,14 @@ function getVerificationActorLabel(metadata: {
   return "Admin Reviewer";
 }
 
-async function buildReviewerAttributionLabelMap(requestIds: string[]) {
+type VerifierAttribution = {
+  verifiedBy: string;
+  reviewerProfileUrl: string | null;
+};
+
+async function buildReviewerAttributionDetailsMap(requestIds: string[]) {
   if (requestIds.length === 0) {
-    return new Map<string, string>();
+    return new Map<string, VerifierAttribution>();
   }
 
   const metadataRows = await db
@@ -872,6 +885,8 @@ async function buildReviewerAttributionLabelMap(requestIds: string[]) {
       verificationRequestId: verificationMetadata.verificationRequestId,
       reviewerSnapshotFirstName: verificationMetadata.reviewerSnapshotFirstName,
       reviewerSnapshotLastName: verificationMetadata.reviewerSnapshotLastName,
+      reviewerSnapshotTitle: verificationMetadata.reviewerSnapshotTitle,
+      reviewerPublicProfileUrl: verificationMetadata.reviewerPublicProfileUrl,
     })
     .from(verificationMetadata)
     .where(
@@ -882,23 +897,23 @@ async function buildReviewerAttributionLabelMap(requestIds: string[]) {
     )
     .orderBy(desc(verificationMetadata.actedAt));
 
-  const labelByRequestId = new Map<string, string>();
+  const detailsByRequestId = new Map<string, VerifierAttribution>();
   for (const metadata of metadataRows) {
-    if (labelByRequestId.has(metadata.verificationRequestId) || !metadata.reviewerSnapshotFirstName) {
+    if (detailsByRequestId.has(metadata.verificationRequestId) || !metadata.reviewerSnapshotFirstName) {
       continue;
     }
-    labelByRequestId.set(
-      metadata.verificationRequestId,
-      [metadata.reviewerSnapshotFirstName, metadata.reviewerSnapshotLastName].filter(Boolean).join(" "),
-    );
+    detailsByRequestId.set(metadata.verificationRequestId, {
+      verifiedBy: buildReviewerVerifiedByLabel(metadata) ?? "",
+      reviewerProfileUrl: metadata.reviewerPublicProfileUrl,
+    });
   }
 
-  return labelByRequestId;
+  return detailsByRequestId;
 }
 
-async function buildVerifierLabelMap(verificationRequestIds: string[]) {
+async function buildVerifierAttributionMap(verificationRequestIds: string[]) {
   if (verificationRequestIds.length === 0) {
-    return new Map<string, string>();
+    return new Map<string, VerifierAttribution>();
   }
 
   const requestRows = await db
@@ -913,7 +928,7 @@ async function buildVerifierLabelMap(verificationRequestIds: string[]) {
     .filter((r) => (REVIEWER_WORKFLOW_SECTION_TYPES as readonly string[]).includes(r.sectionType))
     .map((r) => r.id);
 
-  const reviewerAttributionLabels = await buildReviewerAttributionLabelMap(skillProjectIds);
+  const reviewerAttributionDetails = await buildReviewerAttributionDetailsMap(skillProjectIds);
 
   const metadataRows = await db
     .select({
@@ -921,6 +936,8 @@ async function buildVerifierLabelMap(verificationRequestIds: string[]) {
       adminRole: verificationMetadata.adminRole,
       reviewerSnapshotFirstName: verificationMetadata.reviewerSnapshotFirstName,
       reviewerSnapshotLastName: verificationMetadata.reviewerSnapshotLastName,
+      reviewerSnapshotTitle: verificationMetadata.reviewerSnapshotTitle,
+      reviewerPublicProfileUrl: verificationMetadata.reviewerPublicProfileUrl,
       actedAt: verificationMetadata.actedAt,
     })
     .from(verificationMetadata)
@@ -932,22 +949,25 @@ async function buildVerifierLabelMap(verificationRequestIds: string[]) {
     )
     .orderBy(desc(verificationMetadata.actedAt));
 
-  const verifierByRequestId = new Map<string, string>();
+  const attributionByRequestId = new Map<string, VerifierAttribution>();
   for (const metadata of metadataRows) {
-    if (verifierByRequestId.has(metadata.verificationRequestId)) {
+    if (attributionByRequestId.has(metadata.verificationRequestId)) {
       continue;
     }
 
-    const reviewerLabel = reviewerAttributionLabels.get(metadata.verificationRequestId);
-    if (reviewerLabel) {
-      verifierByRequestId.set(metadata.verificationRequestId, reviewerLabel);
+    const reviewerAttribution = reviewerAttributionDetails.get(metadata.verificationRequestId);
+    if (reviewerAttribution) {
+      attributionByRequestId.set(metadata.verificationRequestId, reviewerAttribution);
       continue;
     }
 
-    verifierByRequestId.set(metadata.verificationRequestId, getVerificationActorLabel(metadata));
+    attributionByRequestId.set(metadata.verificationRequestId, {
+      verifiedBy: buildReviewerVerifiedByLabel(metadata) ?? getVerificationActorLabel(metadata),
+      reviewerProfileUrl: metadata.reviewerSnapshotFirstName ? metadata.reviewerPublicProfileUrl : null,
+    });
   }
 
-  return verifierByRequestId;
+  return attributionByRequestId;
 }
 
 async function loadResumeSkillItems(userId: string, resumeId: string) {
@@ -1550,12 +1570,17 @@ export const verificationService = {
       return [];
     }
 
-    const verifierByRequestId = await buildVerifierLabelMap(requests.map((request) => request.id));
+    const attributionByRequestId = await buildVerifierAttributionMap(requests.map((request) => request.id));
 
-    return requests.map((request) => ({
-      ...request,
-      verifiedBy: request.status === "verified" ? (verifierByRequestId.get(request.id) ?? null) : null,
-    }));
+    return requests.map((request) => {
+      const attribution = attributionByRequestId.get(request.id);
+
+      return {
+        ...request,
+        verifiedBy: request.status === "verified" ? (attribution?.verifiedBy ?? null) : null,
+        reviewerProfileUrl: request.status === "verified" ? (attribution?.reviewerProfileUrl ?? null) : null,
+      };
+    });
   },
 
   getPublicTimeline: async (input: { resumeId: string }) => {
@@ -1594,20 +1619,27 @@ export const verificationService = {
         resolvedAt: verificationRequests.resolvedAt,
       })
       .from(verificationRequests)
-      .where(eq(verificationRequests.resumeId, input.resumeId))
+      .where(
+        and(eq(verificationRequests.resumeId, input.resumeId), eq(verificationRequests.status, "verified")),
+      )
       .orderBy(desc(verificationRequests.submittedAt));
 
     if (entries.length === 0) {
       return { enabled: true, entries: [] };
     }
 
-    const verifierByRequestId = await buildVerifierLabelMap(entries.map((entry) => entry.id));
-    const entriesWithVerifier = entries.map((entry) => ({
-      ...entry,
-      verifiedBy: entry.status === "verified" ? (verifierByRequestId.get(entry.id) ?? null) : null,
-    }));
+    const attributionByRequestId = await buildVerifierAttributionMap(entries.map((entry) => entry.id));
+    const entriesWithVerifier = entries.map((entry) => {
+      const attribution = attributionByRequestId.get(entry.id);
 
-    return { enabled: true, entries: stripPendingLikeStatuses(entriesWithVerifier) };
+      return {
+        ...entry,
+        verifiedBy: entry.status === "verified" ? (attribution?.verifiedBy ?? null) : null,
+        reviewerProfileUrl: entry.status === "verified" ? (attribution?.reviewerProfileUrl ?? null) : null,
+      };
+    });
+
+    return { enabled: true, entries: entriesWithVerifier };
   },
 
   toggleBadge: async (input: { userId: string; requestId: string; visible: boolean }) => {

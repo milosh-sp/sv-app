@@ -832,6 +832,8 @@ describe("verificationService.getHistory", () => {
               verificationRequestId: "req-1",
               reviewerSnapshotFirstName: "Jane",
               reviewerSnapshotLastName: "Reviewer",
+              reviewerSnapshotTitle: "Senior Engineer at Meta",
+              reviewerPublicProfileUrl: "/reviewer/admin-1",
             },
           ]),
         })),
@@ -857,14 +859,15 @@ describe("verificationService.getHistory", () => {
     const result = await verificationService.getHistory({ userId: "user-1", resumeId: "resume-1", itemId: "item-1" });
 
     expect(result).toHaveLength(1);
-    expect(result[0]?.verifiedBy).toBe("Jane Reviewer");
+    expect(result[0]?.verifiedBy).toBe("Jane Reviewer \u2014 Senior Engineer at Meta");
+    expect(result[0]?.reviewerProfileUrl).toBe("/reviewer/admin-1");
     expect(result[0]).not.toHaveProperty("reviewerNote");
     expect(result[0]).not.toHaveProperty("claimedByAdminId");
   });
 });
 
 describe("verificationService.getPublicTimeline", () => {
-  it("should include verifiedBy for verified entries", async () => {
+  it("should return only verified entries with verifiedBy", async () => {
     const entries = [
       {
         id: "req-1",
@@ -876,6 +879,14 @@ describe("verificationService.getPublicTimeline", () => {
       },
       {
         id: "req-2",
+        sectionType: "skill",
+        itemLabel: "React",
+        status: "rejected",
+        submittedAt: new Date(),
+        resolvedAt: new Date(),
+      },
+      {
+        id: "req-3",
         sectionType: "project",
         itemLabel: "Portfolio",
         status: "pending",
@@ -883,6 +894,7 @@ describe("verificationService.getPublicTimeline", () => {
         resolvedAt: null,
       },
     ];
+    const verifiedEntries = entries.filter((entry) => entry.status === "verified");
 
     mockFrom
       .mockReturnValueOnce({
@@ -892,7 +904,7 @@ describe("verificationService.getPublicTimeline", () => {
         where: vi.fn(() => ({ limit: vi.fn(() => [{ showTimeline: true }]) })),
       })
       .mockReturnValueOnce({
-        where: vi.fn(() => ({ orderBy: vi.fn(() => entries) })),
+        where: vi.fn(() => ({ orderBy: vi.fn(() => verifiedEntries) })),
       })
       .mockReturnValueOnce({
         where: vi.fn(() => [
@@ -907,6 +919,8 @@ describe("verificationService.getPublicTimeline", () => {
               verificationRequestId: "req-1",
               reviewerSnapshotFirstName: "Jane",
               reviewerSnapshotLastName: "Reviewer",
+              reviewerSnapshotTitle: "Senior Engineer at Meta",
+              reviewerPublicProfileUrl: "/reviewer/admin-1",
             },
           ]),
         })),
@@ -930,7 +944,8 @@ describe("verificationService.getPublicTimeline", () => {
     expect(result.enabled).toBe(true);
     expect(result.entries).toHaveLength(1);
     expect(result.entries[0]?.id).toBe("req-1");
-    expect(result.entries[0]?.verifiedBy).toBe("Jane Reviewer");
+    expect(result.entries[0]?.verifiedBy).toBe("Jane Reviewer \u2014 Senior Engineer at Meta");
+    expect(result.entries[0]?.reviewerProfileUrl).toBe("/reviewer/admin-1");
   });
 });
 

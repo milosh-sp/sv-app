@@ -16,7 +16,7 @@ import {
   XCircleIcon,
 } from "@phosphor-icons/react";
 import { useMutation, useQuery, useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { motion } from "motion/react";
 import { useCallback, useMemo, useRef, useState } from "react";
 import { toast } from "sonner";
@@ -1080,6 +1080,19 @@ function VerificationHistory({ resumeId, itemId }: { resumeId: string; itemId: s
             {entry.verifiedBy && (
               <p className="truncate text-[11px] text-muted-foreground/80">
                 <Trans>Verified by {entry.verifiedBy}</Trans>
+                {entry.reviewerProfileUrl && (
+                  <>
+                    {" — "}
+                    <Link
+                      to={entry.reviewerProfileUrl}
+                      className="underline"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <Trans>View profile</Trans>
+                    </Link>
+                  </>
+                )}
               </p>
             )}
           </div>

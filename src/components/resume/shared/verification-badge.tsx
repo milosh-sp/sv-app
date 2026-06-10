@@ -55,7 +55,12 @@ function VerifiedBadge({ requestId, className }: { requestId: string; className?
           </span>
         }
       />
-      <TooltipContent>
+      <TooltipContent
+        className={cn(
+          "max-w-sm border border-border bg-popover text-popover-foreground shadow-lg ring-1 ring-foreground/10",
+          "*:data-[slot=tooltip-arrow]:bg-popover *:data-[slot=tooltip-arrow]:fill-popover",
+        )}
+      >
         <BadgeTooltipContent detail={detail} />
       </TooltipContent>
     </Tooltip>
