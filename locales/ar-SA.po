@@ -3613,6 +3613,10 @@ msgstr ""
 msgid "Reviewer Admin"
 msgstr "Reviewer Admin"
 
+#: src/routes/reviewer/$adminId.tsx
+msgid "Reviewer ID"
+msgstr ""
+
 #: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
 #: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
 msgid "Reviewer profile"
@@ -4442,8 +4446,8 @@ msgid "This month"
 msgstr "هذا الشهر"
 
 #: src/routes/reviewer/$adminId.tsx
-msgid "This page shows live profile information. Verification snapshots captured at the time of review may differ from the current details shown here."
-msgstr "This page shows live profile information. Verification snapshots captured at the time of review may differ from the current details shown here."
+msgid "This page shows live profile information of a reviewer. Verification snapshots captured at the time of review may differ from the current details shown here."
+msgstr ""
 
 #: src/components/resume/store/resume.ts
 msgid "This resume is locked and cannot be updated."
