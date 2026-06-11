@@ -10,8 +10,10 @@ import {
   WarningCircleIcon,
   XCircleIcon,
 } from "@phosphor-icons/react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
 import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
+import { toast } from "sonner";
 
 import type { ResumeData } from "@/schema/resume/data";
 
@@ -20,6 +22,7 @@ import { VerificationProvider } from "@/components/resume/shared/verification-co
 import { useResumeStore } from "@/components/resume/store/resume";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
+import { orpc } from "@/integrations/orpc/client";
 import { formatDefaultDate } from "@/utils/format-date";
 
 export type ReviewAction = "verified" | "rejected" | "issue";
@@ -68,6 +71,31 @@ export type DirectAdminReviewHistoryItem = {
   user: QueueUser | null;
   resume: QueueResume | null;
   documents: QueueDocument[];
+  reviewedBy: { id: string; name: string; email: string } | null;
+  reviewedAt: Date | null;
+};
+
+export type VerdictReviewHistoryItem = {
+  id: string;
+  sectionType: string;
+  itemId: string;
+  itemLabel: string;
+  status: string;
+  submittedAt: Date;
+  resolvedAt: Date | null;
+  proposedVerdict: string | null;
+  reviewerNote: string | null;
+  parentItemLabel?: string | null;
+  user: QueueUser | null;
+  resume: QueueResume | null;
+  documents: QueueDocument[];
+  assessmentInstructionsUrl?: string | null;
+  reviewerName: string | null;
+  reviewerTitle: string | null;
+  reviewerPublicProfileUrl: string | null;
+  reviewerSkills: string[];
+  verdictNotes: string | null;
+  verdictSubmittedAt: Date | null;
   reviewedBy: { id: string; name: string; email: string } | null;
   reviewedAt: Date | null;
 };
@@ -764,6 +792,347 @@ function DirectAdminReviewHistoryRow({
                 </>
               )}
             </p>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Verdict review history (skill / project)
+// ---------------------------------------------------------------------------
+
+function ProposedVerdictBadge({ verdict }: { verdict: "verified" | "rejected" | "issue" }) {
+  const colorClass =
+    verdict === "verified"
+      ? "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400"
+      : verdict === "rejected"
+        ? "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400"
+        : "bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-400";
+
+  const label =
+    verdict === "verified" ? t`Proposed: Pass` : verdict === "rejected" ? t`Proposed: Fail` : t`Proposed: Issue`;
+
+  return <span className={`rounded-full px-2 py-0.5 text-xs ${colorClass}`}>{label}</span>;
+}
+
+export function VerdictReviewHistoryTab({
+  items,
+  isLoading,
+  isError,
+  emptyMessage,
+  filteredEmptyMessage,
+  hasActiveFilter = false,
+}: {
+  items: VerdictReviewHistoryItem[];
+  isLoading: boolean;
+  isError: boolean;
+  emptyMessage: string;
+  filteredEmptyMessage?: string;
+  hasActiveFilter?: boolean;
+}) {
+  const [expandedId, setExpandedId] = useState<string | null>(null);
+
+  if (isLoading) return <QueueLoadingState />;
+  if (isError) return <QueueErrorState message={t`Failed to load history. Please refresh and try again.`} />;
+
+  if (items.length === 0) {
+    return (
+      <QueueEmptyState
+        message={
+          hasActiveFilter ? (filteredEmptyMessage ?? t`No completed reviews match the selected filters.`) : emptyMessage
+        }
+      />
+    );
+  }
+
+  return (
+    <div className="w-full space-y-3">
+      {items.map((item) => (
+        <VerdictReviewHistoryRow
+          key={item.id}
+          item={item}
+          expanded={expandedId === item.id}
+          onExpandedChange={(open) => setExpandedId(open ? item.id : null)}
+        />
+      ))}
+    </div>
+  );
+}
+
+function VerdictReviewHistoryRow({
+  item,
+  expanded,
+  onExpandedChange,
+}: {
+  item: VerdictReviewHistoryItem;
+  expanded: boolean;
+  onExpandedChange: (open: boolean) => void;
+}) {
+  const queryClient = useQueryClient();
+  const [overrideOpen, setOverrideOpen] = useState(false);
+  const [overrideAction, setOverrideAction] = useState<ReviewAction>("verified");
+  const [overrideReason, setOverrideReason] = useState("");
+  const [confirmingOverride, setConfirmingOverride] = useState(false);
+
+  const overrideConcludedVerdict = useMutation(orpc.admin.verification.overrideConcludedVerdict.mutationOptions());
+
+  const invalidate = () => {
+    void queryClient.invalidateQueries({
+      queryKey: orpc.admin.verification.listVerdictHistory.key(),
+    });
+    void queryClient.invalidateQueries({
+      queryKey: orpc.admin.verification.listPendingVerdicts.key(),
+    });
+  };
+
+  const handleOverride = () => {
+    if (!overrideReason.trim()) {
+      toast.error(t`A reason is required to override.`);
+      return;
+    }
+    overrideConcludedVerdict.mutate(
+      { requestId: item.id, action: overrideAction, reason: overrideReason.trim() },
+      {
+        onSuccess: () => {
+          toast.success(t`Verdict overridden successfully.`);
+          setOverrideOpen(false);
+          setConfirmingOverride(false);
+          setOverrideReason("");
+          onExpandedChange(false);
+          invalidate();
+        },
+        onError: (error) => {
+          toast.error(error.message);
+          setConfirmingOverride(false);
+        },
+      },
+    );
+  };
+
+  const proposedVerdict =
+    item.proposedVerdict === "verified" || item.proposedVerdict === "rejected" || item.proposedVerdict === "issue"
+      ? item.proposedVerdict
+      : null;
+
+  return (
+    <div className="space-y-3 rounded-lg border p-4">
+      <div className="flex items-start justify-between gap-x-3">
+        <div className="min-w-0 space-y-1">
+          <p className="text-sm font-medium">{item.itemLabel}</p>
+          {item.parentItemLabel ? <p className="text-xs text-muted-foreground">{item.parentItemLabel}</p> : null}
+          {item.user ? (
+            <p className="truncate text-xs text-muted-foreground">
+              {item.user.name}
+              <span className="mx-1.5 opacity-60">·</span>
+              {item.user.email}
+              <span className="mx-1.5 opacity-60">·</span>@{item.user.username}
+            </p>
+          ) : (
+            <p className="text-xs text-muted-foreground">
+              <Trans>Unknown applicant</Trans>
+            </p>
+          )}
+          <div className="flex flex-wrap items-center gap-x-2">
+            <StatusBadge status={item.status} />
+            {proposedVerdict ? <ProposedVerdictBadge verdict={proposedVerdict} /> : null}
+            <span className="text-xs text-muted-foreground capitalize">{item.sectionType}</span>
+            <span className="flex items-center gap-x-1 text-xs text-muted-foreground">
+              <CalendarBlankIcon className="size-3" />
+              <Trans>Submitted</Trans>
+              {" · "}
+              {formatDefaultDate(item.submittedAt)}
+            </span>
+            {item.resolvedAt && (
+              <span className="flex items-center gap-x-1 text-xs text-muted-foreground">
+                <CalendarBlankIcon className="size-3" />
+                <Trans>Resolved</Trans>
+                {" · "}
+                {formatDefaultDate(item.resolvedAt)}
+              </span>
+            )}
+          </div>
+          {item.reviewerName && (
+            <p className="text-xs text-muted-foreground">
+              <Trans>Reviewer:</Trans> {item.reviewerName}
+              {item.reviewerTitle ? ` · ${item.reviewerTitle}` : ""}
+            </p>
+          )}
+        </div>
+
+        <Button
+          size="sm"
+          variant="outline"
+          className="h-7 shrink-0 text-xs"
+          onClick={() => onExpandedChange(!expanded)}
+        >
+          {expanded ? <Trans>Collapse</Trans> : <Trans>Details</Trans>}
+        </Button>
+      </div>
+
+      {expanded && (
+        <div className="space-y-3 border-t pt-3">
+          {item.user && <ApplicantDetails user={item.user} />}
+
+          <ReviewerDetails
+            name={item.reviewerName}
+            title={item.reviewerTitle}
+            skills={item.reviewerSkills}
+            publicProfileUrl={item.reviewerPublicProfileUrl}
+            proposedVerdict={proposedVerdict}
+            verdictNotes={item.verdictNotes}
+            verdictSubmittedAt={item.verdictSubmittedAt}
+          />
+
+          {item.resume && (
+            <div className="space-y-2">
+              <p className="text-xs font-medium text-muted-foreground">
+                <Trans>CV / resume</Trans>
+              </p>
+              <QueueResumePreview resume={item.resume} />
+            </div>
+          )}
+
+          {item.assessmentInstructionsUrl && item.documents.length > 0 && (
+            <div className="space-y-2">
+              <p className="text-xs font-medium text-muted-foreground">
+                <Trans>Assessment instructions</Trans>
+              </p>
+              {item.documents
+                .filter((doc) => doc.documentType === "assessment_instructions")
+                .map((doc) => (
+                  <DocumentPreview
+                    key={doc.id}
+                    fileUrl={doc.fileUrl}
+                    documentType={doc.documentType}
+                    uploadedAt={doc.uploadedAt}
+                  />
+                ))}
+            </div>
+          )}
+
+          <div className="space-y-2">
+            <p className="text-xs font-medium text-muted-foreground">
+              <Trans>Assessment solution</Trans>
+            </p>
+            {item.documents.some((doc) =>
+              ["assessment_solution", "assessment_solution_link"].includes(doc.documentType),
+            ) ? (
+              item.documents
+                .filter((doc) => ["assessment_solution", "assessment_solution_link"].includes(doc.documentType))
+                .map((doc) => (
+                  <DocumentPreview
+                    key={doc.id}
+                    fileUrl={doc.fileUrl}
+                    documentType={doc.documentType}
+                    uploadedAt={doc.uploadedAt}
+                  />
+                ))
+            ) : (
+              <p className="text-xs text-muted-foreground">
+                <Trans>No solution submitted</Trans>
+              </p>
+            )}
+          </div>
+
+          {(item.reviewedBy || item.reviewedAt) && (
+            <p className="text-xs text-muted-foreground">
+              {item.reviewedBy ? (
+                <Trans>
+                  Concluded by {item.reviewedBy.name} ({item.reviewedBy.email})
+                </Trans>
+              ) : (
+                <Trans>Concluded by Skill Verdict Admin</Trans>
+              )}
+              {item.reviewedAt && (
+                <>
+                  {" "}
+                  <Trans>on {formatDefaultDate(item.reviewedAt)}</Trans>
+                </>
+              )}
+            </p>
+          )}
+
+          <div className="space-y-2 border-t pt-3">
+            <p className="text-xs font-medium text-muted-foreground">
+              <Trans>Override Conclusion</Trans>
+            </p>
+            <Button size="sm" variant="outline" className="h-7 text-xs" onClick={() => setOverrideOpen(!overrideOpen)}>
+              {overrideOpen ? <Trans>Cancel Override</Trans> : <Trans>Override</Trans>}
+            </Button>
+          </div>
+
+          {overrideOpen && (
+            <div className="space-y-3 border-t pt-3">
+              <div className="flex gap-x-2">
+                {(["verified", "rejected", "issue"] as const).map((a) => (
+                  <button
+                    key={a}
+                    type="button"
+                    onClick={() => setOverrideAction(a)}
+                    className={`flex items-center gap-x-1.5 rounded-md border px-2.5 py-1 text-xs transition-colors ${
+                      overrideAction === a
+                        ? a === "verified"
+                          ? "border-green-500 bg-green-50 text-green-700 dark:bg-green-900/20 dark:text-green-400"
+                          : a === "rejected"
+                            ? "border-red-500 bg-red-50 text-red-700 dark:bg-red-900/20 dark:text-red-400"
+                            : "border-orange-500 bg-orange-50 text-orange-700 dark:bg-orange-900/20 dark:text-orange-400"
+                        : "border-border text-muted-foreground hover:border-foreground/30"
+                    }`}
+                  >
+                    {a === "verified" && <CheckCircleIcon className="size-3.5" weight="fill" />}
+                    {a === "rejected" && <XCircleIcon className="size-3.5" weight="fill" />}
+                    {a === "issue" && <WarningCircleIcon className="size-3.5" weight="fill" />}
+                    <span className="capitalize">{a}</span>
+                  </button>
+                ))}
+              </div>
+
+              <Textarea
+                value={overrideReason}
+                onChange={(e) => setOverrideReason(e.target.value)}
+                placeholder={t`Required: reason for overriding this verdict...`}
+                className="min-h-[60px] resize-none text-xs"
+              />
+
+              {!confirmingOverride ? (
+                <Button
+                  size="sm"
+                  variant="default"
+                  className="h-7 text-xs"
+                  disabled={!overrideReason.trim() || overrideAction === item.status}
+                  onClick={() => setConfirmingOverride(true)}
+                >
+                  <Trans>Submit Override</Trans>
+                </Button>
+              ) : (
+                <div className="flex items-center gap-x-2">
+                  <span className="text-xs text-muted-foreground">
+                    <Trans>Override to </Trans>
+                    <span className="font-medium capitalize">{overrideAction}</span>?
+                  </span>
+                  <Button
+                    size="sm"
+                    variant="default"
+                    className="h-7 text-xs"
+                    disabled={overrideConcludedVerdict.isPending}
+                    onClick={handleOverride}
+                  >
+                    {overrideConcludedVerdict.isPending ? <Trans>Overriding...</Trans> : <Trans>Confirm</Trans>}
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="ghost"
+                    className="h-7 text-xs"
+                    disabled={overrideConcludedVerdict.isPending}
+                    onClick={() => setConfirmingOverride(false)}
+                  >
+                    <Trans>Back</Trans>
+                  </Button>
+                </div>
+              )}
+            </div>
           )}
         </div>
       )}

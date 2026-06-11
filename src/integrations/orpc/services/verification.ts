@@ -255,6 +255,14 @@ function buildPendingVerdictsListFilters(input: AdminPendingVerdictsListInput) {
   return filters;
 }
 
+function buildVerdictHistoryListFilters(input: AdminPendingVerdictsListInput) {
+  const filters = buildAdminVerificationListFilters(input, true);
+  if (input.types && input.types.length > 0) {
+    filters.push(inArray(verificationRequests.sectionType, input.types));
+  }
+  return filters;
+}
+
 async function countVerificationRequests(
   baseWhere: SQL | undefined,
   filteredWhere: SQL | undefined,
@@ -722,7 +730,7 @@ async function buildDirectAdminReviewAttributionMap(verificationRequestIds: stri
       and(
         inArray(verificationMetadata.verificationRequestId, verificationRequestIds),
         eq(verificationMetadata.adminRole, "skill_verdict_admin"),
-        inArray(verificationMetadata.action, ["verified", "rejected", "flagged"]),
+        inArray(verificationMetadata.action, ["verified", "rejected", "flagged", "overridden"]),
       ),
     )
     .orderBy(desc(verificationMetadata.actedAt));
@@ -2537,6 +2545,214 @@ export const verificationService = {
         input.action,
       );
     }
+
+    return updated;
+  },
+
+  listVerdictHistory: async (input: AdminPendingVerdictsListInput) => {
+    const { page, pageSize } = input;
+    const offset = (page - 1) * pageSize;
+    const statusCondition =
+      input.statuses && input.statuses.length > 0
+        ? null
+        : inArray(verificationRequests.status, [...FINAL_STATUSES]);
+    const baseWhere = and(
+      inArray(verificationRequests.sectionType, [...REVIEWER_WORKFLOW_SECTION_TYPES]),
+      ...(statusCondition ? [statusCondition] : []),
+    );
+    const optionalFilters = buildVerdictHistoryListFilters(input);
+    const filteredWhere = optionalFilters.length > 0 ? and(baseWhere, ...optionalFilters) : baseWhere;
+    const needsUserJoin = Boolean(input.query);
+
+    const { total, totalUnfiltered } = await countVerificationRequests(baseWhere, filteredWhere, needsUserJoin);
+
+    if (total === 0) {
+      return toPaginatedResult([], 0, totalUnfiltered, input);
+    }
+
+    const baseQuery = db
+      .select({
+        id: verificationRequests.id,
+        userId: verificationRequests.userId,
+        resumeId: verificationRequests.resumeId,
+        sectionType: verificationRequests.sectionType,
+        itemId: verificationRequests.itemId,
+        itemLabel: verificationRequests.itemLabel,
+        status: verificationRequests.status,
+        submittedAt: verificationRequests.submittedAt,
+        resolvedAt: verificationRequests.resolvedAt,
+        proposedVerdict: verificationRequests.proposedVerdict,
+        reviewerNote: verificationRequests.reviewerNote,
+        assessmentAcceptedAt: verificationRequests.assessmentAcceptedAt,
+        claimedByAdminId: verificationRequests.claimedByAdminId,
+      })
+      .from(verificationRequests);
+
+    const requests = await (
+      needsUserJoin ? baseQuery.innerJoin(user, eq(verificationRequests.userId, user.id)) : baseQuery
+    )
+      .where(filteredWhere)
+      .orderBy(desc(verificationRequests.resolvedAt))
+      .limit(pageSize)
+      .offset(offset);
+
+    if (requests.length === 0) {
+      return toPaginatedResult([], total, totalUnfiltered, input);
+    }
+
+    const requestIds = requests.map((r) => r.id);
+    const reviewerAdminIds = [
+      ...new Set(requests.map((r) => r.claimedByAdminId).filter((id): id is string => id != null)),
+    ];
+
+    const reviewerProfileRows =
+      reviewerAdminIds.length > 0
+        ? await db
+            .select({
+              adminId: reviewerProfiles.adminId,
+              reviewerSkills: reviewerProfiles.reviewerSkills,
+            })
+            .from(reviewerProfiles)
+            .where(inArray(reviewerProfiles.adminId, reviewerAdminIds))
+        : [];
+
+    const reviewerSkillsByAdminId = new Map(reviewerProfileRows.map((row) => [row.adminId, row.reviewerSkills]));
+
+    const metadataRows = await db
+      .select({
+        verificationRequestId: verificationMetadata.verificationRequestId,
+        reviewerSnapshotFirstName: verificationMetadata.reviewerSnapshotFirstName,
+        reviewerSnapshotLastName: verificationMetadata.reviewerSnapshotLastName,
+        reviewerSnapshotTitle: verificationMetadata.reviewerSnapshotTitle,
+        reviewerPublicProfileUrl: verificationMetadata.reviewerPublicProfileUrl,
+        notes: verificationMetadata.notes,
+        actedAt: verificationMetadata.actedAt,
+      })
+      .from(verificationMetadata)
+      .where(
+        and(
+          inArray(verificationMetadata.verificationRequestId, requestIds),
+          eq(verificationMetadata.action, "verdict_submitted"),
+        ),
+      )
+      .orderBy(desc(verificationMetadata.actedAt));
+
+    const verdictMetadataByRequestId = new Map<string, (typeof metadataRows)[number]>();
+    for (const metadata of metadataRows) {
+      if (!verdictMetadataByRequestId.has(metadata.verificationRequestId)) {
+        verdictMetadataByRequestId.set(metadata.verificationRequestId, metadata);
+      }
+    }
+
+    const enriched = await enrichSkillProjectRequests(requests);
+    const attribution = await buildDirectAdminReviewAttributionMap(requestIds);
+    const claimedByAdminIdByRequestId = new Map(requests.map((r) => [r.id, r.claimedByAdminId ?? null]));
+
+    return toPaginatedResult(
+      enriched.map((item) => {
+        const metadata = verdictMetadataByRequestId.get(item.id);
+        const reviewerName = metadata
+          ? [metadata.reviewerSnapshotFirstName, metadata.reviewerSnapshotLastName].filter(Boolean).join(" ")
+          : null;
+        const reviewerAdminId = claimedByAdminIdByRequestId.get(item.id) ?? null;
+        const svaAttribution = attribution.get(item.id);
+
+        return {
+          ...item,
+          resolvedAt: requests.find((r) => r.id === item.id)?.resolvedAt ?? null,
+          reviewerName,
+          reviewerTitle: metadata?.reviewerSnapshotTitle ?? null,
+          reviewerPublicProfileUrl: metadata?.reviewerPublicProfileUrl ?? null,
+          reviewerAdminId,
+          reviewerSkills: reviewerAdminId ? (reviewerSkillsByAdminId.get(reviewerAdminId) ?? []) : [],
+          verdictNotes: metadata?.notes ?? item.reviewerNote,
+          verdictSubmittedAt: metadata?.actedAt ?? null,
+          reviewedBy: svaAttribution?.reviewedBy ?? null,
+          reviewedAt: svaAttribution?.reviewedAt ?? null,
+        };
+      }),
+      total,
+      totalUnfiltered,
+      input,
+    );
+  },
+
+  overrideConcludedVerdict: async (input: {
+    requestId: string;
+    adminId: string;
+    action: "verified" | "rejected" | "issue";
+    reason: string;
+  }) => {
+    const [request] = await db
+      .select({
+        id: verificationRequests.id,
+        status: verificationRequests.status,
+        sectionType: verificationRequests.sectionType,
+        userId: verificationRequests.userId,
+        itemLabel: verificationRequests.itemLabel,
+      })
+      .from(verificationRequests)
+      .where(eq(verificationRequests.id, input.requestId))
+      .limit(1);
+
+    if (!request) {
+      throw new ORPCError("NOT_FOUND", { message: "Verification request not found" });
+    }
+
+    if (!(REVIEWER_WORKFLOW_SECTION_TYPES as readonly string[]).includes(request.sectionType)) {
+      throw new ORPCError("BAD_REQUEST", { message: "Request must be a skill or project verification" });
+    }
+
+    if (!isFinalStatus(request.status)) {
+      throw new ORPCError("BAD_REQUEST", { message: "Request must be in a concluded status" });
+    }
+
+    if (request.status === input.action) {
+      throw new ORPCError("BAD_REQUEST", { message: "New status must differ from the current status" });
+    }
+
+    const [updated] = await db
+      .update(verificationRequests)
+      .set({
+        status: input.action,
+        resolvedAt: new Date(),
+      })
+      .where(
+        and(
+          eq(verificationRequests.id, input.requestId),
+          inArray(verificationRequests.status, [...FINAL_STATUSES]),
+        ),
+      )
+      .returning({
+        id: verificationRequests.id,
+        userId: verificationRequests.userId,
+        itemLabel: verificationRequests.itemLabel,
+        sectionType: verificationRequests.sectionType,
+      });
+
+    if (!updated) {
+      throw new ORPCError("CONFLICT", { message: "Verdict status changed before override could be applied" });
+    }
+
+    const attributionSnapshot =
+      input.action === "verified" ? await getReviewerAttributionSnapshot(input.requestId) : null;
+
+    await db.insert(verificationMetadata).values({
+      verificationRequestId: input.requestId,
+      adminId: input.adminId,
+      adminRole: "skill_verdict_admin",
+      action: "overridden",
+      notes: input.reason,
+      reviewerSnapshotFirstName: attributionSnapshot?.reviewerSnapshotFirstName ?? null,
+      reviewerSnapshotLastName: attributionSnapshot?.reviewerSnapshotLastName ?? null,
+      reviewerSnapshotTitle: attributionSnapshot?.reviewerSnapshotTitle ?? null,
+      reviewerPublicProfileUrl: attributionSnapshot?.reviewerPublicProfileUrl ?? null,
+    });
+
+    await sendFinalStatusEmail(
+      { userId: updated.userId, itemLabel: updated.itemLabel, sectionType: updated.sectionType },
+      input.action,
+    );
 
     return updated;
   },
