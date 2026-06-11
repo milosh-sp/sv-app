@@ -1,3 +1,5 @@
+import type z from "zod";
+
 import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
 import {
@@ -14,15 +16,19 @@ import {
   XCircleIcon,
 } from "@phosphor-icons/react";
 import { useMutation, useQuery, useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { motion } from "motion/react";
 import { useCallback, useMemo, useRef, useState } from "react";
 import { toast } from "sonner";
 
+import type { skillItemSchema } from "@/schema/resume/data";
+
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { orpc } from "@/integrations/orpc/client";
 import { formatDefaultDate } from "@/utils/format-date";
+import { expandSkillItemsForVerification } from "@/utils/verification/skills";
 
 import { DashboardHeader } from "../-components/header";
 
@@ -32,6 +38,15 @@ export const Route = createFileRoute("/dashboard/verification/")({
 
 const ALLOWED_TYPES = ["application/pdf", "image/jpeg", "image/jpg", "image/png"];
 const MAX_FILE_SIZE = 5 * 1024 * 1024;
+const ALLOWED_SOLUTION_TYPES = [
+  "application/pdf",
+  "image/jpeg",
+  "image/jpg",
+  "image/png",
+  "application/zip",
+  "application/x-zip-compressed",
+];
+const MAX_SOLUTION_FILE_SIZE = 25 * 1024 * 1024;
 
 type VerificationItem = {
   id: string;
@@ -42,6 +57,11 @@ type VerificationItem = {
   badgeVisible: boolean;
   submittedAt: Date;
   resumeId: string | null;
+  assessmentInstructionsUrl?: string | null;
+  assessmentAcceptedAt?: Date | null;
+  assessmentSolutionSubmittedAt?: Date | null;
+  assessmentSolutionFileUrl?: string | null;
+  assessmentSolutionLinkUrl?: string | null;
 };
 
 type ResumeItem = {
@@ -49,8 +69,15 @@ type ResumeItem = {
   label: string;
 };
 
-//TODO: This hides skills and projects for now
-const showSectionFeature = false;
+type SkillItem = z.infer<typeof skillItemSchema>;
+
+type SkillGroup = {
+  item: SkillItem;
+  units: ReturnType<typeof expandSkillItemsForVerification>;
+};
+
+//TODO: Projects verification UI is not enabled yet
+const showProjectsFeature = false;
 
 function RouteComponent() {
   const queryClient = useQueryClient();
@@ -81,12 +108,19 @@ function RouteComponent() {
     [resumeStatuses],
   );
 
-  const skills: ResumeItem[] = useMemo(() => {
+  const skillGroups: SkillGroup[] = useMemo(() => {
     if (!resumeData?.data?.sections?.skills?.items) return [];
+
     return resumeData.data.sections.skills.items
       .filter((item) => !item.hidden)
-      .map((item) => ({ id: item.id, label: item.name }));
+      .map((item) => ({
+        item,
+        units: expandSkillItemsForVerification([item]),
+      }))
+      .filter((group) => group.units.length > 0);
   }, [resumeData]);
+
+  const verifiableSkills = useMemo(() => skillGroups.flatMap((group) => group.units), [skillGroups]);
 
   const projects: ResumeItem[] = useMemo(() => {
     if (!resumeData?.data?.sections?.projects?.items) return [];
@@ -134,6 +168,13 @@ function RouteComponent() {
     <div className="space-y-4">
       <DashboardHeader icon={SealCheckIcon} title={t`Verification`} />
 
+      <p className="text-sm text-muted-foreground">
+        <Trans>
+          Request verification for the items on your resume. Skills are reviewed by domain-expert reviewers, while work
+          experience is confirmed from documents or a freelancer profile link.
+        </Trans>
+      </p>
+
       <Separator />
 
       <motion.div
@@ -163,20 +204,19 @@ function RouteComponent() {
 
         {activeResumeId && resumeData && (
           <>
-            {showSectionFeature && (
-              <VerificationSection
-                title={t`Skills`}
-                sectionType="skill"
-                resumeId={activeResumeId}
-                items={skills}
-                getStatusForItem={getStatusForItem}
-                verifiedCount={countVerified(skills)}
-                totalCount={skills.length}
-                onMutationSuccess={invalidateStatuses}
-              />
-            )}
+            <SkillVerificationSection
+              title={t`Skills`}
+              resumeId={activeResumeId}
+              groups={skillGroups}
+              getStatusForItem={getStatusForItem}
+              verifiedCount={countVerified(
+                verifiableSkills.map((unit) => ({ id: unit.itemId, label: unit.itemLabel })),
+              )}
+              totalCount={verifiableSkills.length}
+              onMutationSuccess={invalidateStatuses}
+            />
 
-            {showSectionFeature && (
+            {showProjectsFeature && (
               <VerificationSection
                 title={t`Projects`}
                 sectionType="project"
@@ -205,7 +245,98 @@ function RouteComponent() {
   );
 }
 
-// --- Skills & Projects Section ---
+// --- Skills Section (collapsible groups) ---
+
+type SkillVerificationSectionProps = {
+  title: string;
+  resumeId: string;
+  groups: SkillGroup[];
+  getStatusForItem: (itemId: string) => VerificationItem | undefined;
+  verifiedCount: number;
+  totalCount: number;
+  onMutationSuccess: () => void;
+};
+
+function SkillVerificationSection({
+  title,
+  resumeId,
+  groups,
+  getStatusForItem,
+  verifiedCount,
+  totalCount,
+  onMutationSuccess,
+}: SkillVerificationSectionProps) {
+  return (
+    <div className="rounded-lg border p-4">
+      <div className="mb-3 flex items-center justify-between">
+        <h3 className="text-sm font-medium">{title}</h3>
+        <span className="text-xs text-muted-foreground">
+          {verifiedCount}/{totalCount} <Trans>verified</Trans>
+        </span>
+      </div>
+
+      {groups.length === 0 ? (
+        <p className="text-xs text-muted-foreground">
+          <Trans>No items in this section. Add some to your resume first.</Trans>
+        </p>
+      ) : (
+        <Accordion className="space-y-2">
+          {groups.map((group) => {
+            const groupVerifiedCount = group.units.filter(
+              (unit) => getStatusForItem(unit.itemId)?.status === "verified",
+            ).length;
+            const legacyParentStatus = getStatusForItem(group.item.id);
+
+            return (
+              <AccordionItem key={group.item.id} value={group.item.id} className="rounded border px-3">
+                <AccordionTrigger className="py-3 hover:no-underline">
+                  <div className="flex w-full items-center justify-between gap-x-3 pe-2">
+                    <div className="flex items-center gap-x-2">
+                      {legacyParentStatus && <StatusIcon status={legacyParentStatus.status} />}
+                      <span className="text-sm font-medium">{group.item.name}</span>
+                    </div>
+                    <span className="text-xs text-muted-foreground">
+                      {groupVerifiedCount}/{group.units.length} <Trans>verified</Trans>
+                    </span>
+                  </div>
+                </AccordionTrigger>
+                <AccordionContent className="pb-3">
+                  {legacyParentStatus && group.units.every((unit) => unit.itemId !== group.item.id) && (
+                    <div className="mb-2 rounded border border-dashed p-3">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-x-2">
+                          <StatusIcon status={legacyParentStatus.status} />
+                          <span className="text-sm text-muted-foreground">
+                            <Trans>Legacy category request</Trans>
+                          </span>
+                        </div>
+                        <StatusBadge status={legacyParentStatus.status} />
+                      </div>
+                    </div>
+                  )}
+                  <div className="space-y-2">
+                    {group.units.map((unit) => (
+                      <SkillProjectItemRow
+                        key={unit.itemId}
+                        item={{ id: unit.itemId, label: unit.itemLabel }}
+                        sectionType="skill"
+                        resumeId={resumeId}
+                        existingStatus={getStatusForItem(unit.itemId)}
+                        onMutationSuccess={onMutationSuccess}
+                      />
+                    ))}
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
+            );
+          })}
+        </Accordion>
+      )}
+    </div>
+  );
+}
+
+// --- Projects Section ---
 
 type VerificationSectionProps = {
   title: string;
@@ -272,14 +403,81 @@ function SkillProjectItemRow({
   existingStatus: VerificationItem | undefined;
   onMutationSuccess: () => void;
 }) {
+  const solutionFileInputRef = useRef<HTMLInputElement>(null);
   const [historyOpen, setHistoryOpen] = useState(false);
   const [confirming, setConfirming] = useState(false);
+  const [solutionFile, setSolutionFile] = useState<File | null>(null);
+  const [solutionUrl, setSolutionUrl] = useState("");
 
   const requestSkill = useMutation(orpc.verification.requestSkill.mutationOptions());
   const requestProject = useMutation(orpc.verification.requestProject.mutationOptions());
-  const isPending = requestSkill.isPending || requestProject.isPending;
+  const submitAssessmentSolution = useMutation(orpc.verification.submitAssessmentSolution.mutationOptions());
+  const isPending = requestSkill.isPending || requestProject.isPending || submitAssessmentSolution.isPending;
 
   const canRetry = existingStatus && ["rejected", "issue"].includes(existingStatus.status);
+  const hasSubmittedSolution = Boolean(
+    existingStatus?.assessmentSolutionSubmittedAt ||
+    existingStatus?.assessmentSolutionFileUrl ||
+    existingStatus?.assessmentSolutionLinkUrl,
+  );
+  const showSolutionForm = existingStatus?.status === "claimed" && !hasSubmittedSolution;
+
+  const resetSolutionForm = () => {
+    setSolutionFile(null);
+    setSolutionUrl("");
+    if (solutionFileInputRef.current) solutionFileInputRef.current.value = "";
+  };
+
+  const handleSolutionFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) {
+      setSolutionFile(null);
+      return;
+    }
+
+    if (!ALLOWED_SOLUTION_TYPES.includes(file.type)) {
+      toast.error(t`Only PDF, JPG, JPEG, PNG, and ZIP files are allowed.`);
+      event.target.value = "";
+      setSolutionFile(null);
+      return;
+    }
+
+    if (file.size > MAX_SOLUTION_FILE_SIZE) {
+      toast.error(t`File size must be under 25MB.`);
+      event.target.value = "";
+      setSolutionFile(null);
+      return;
+    }
+
+    setSolutionFile(file);
+  };
+
+  const handleSubmitSolution = () => {
+    const trimmedUrl = solutionUrl.trim();
+    if (!solutionFile && !trimmedUrl) {
+      toast.error(t`Provide a file or solution URL.`);
+      return;
+    }
+
+    submitAssessmentSolution.mutate(
+      {
+        resumeId,
+        itemId: item.id,
+        ...(solutionFile ? { file: solutionFile } : {}),
+        ...(trimmedUrl ? { solutionUrl: trimmedUrl } : {}),
+      },
+      {
+        onSuccess: () => {
+          toast.success(t`Assessment solution submitted for "${item.label}".`);
+          resetSolutionForm();
+          onMutationSuccess();
+        },
+        onError: (error) => {
+          toast.error(error.message);
+        },
+      },
+    );
+  };
 
   const handleRequest = () => {
     const mutate = sectionType === "skill" ? requestSkill.mutate : requestProject.mutate;
@@ -344,6 +542,166 @@ function SkillProjectItemRow({
           )}
         </div>
       </div>
+
+      {existingStatus?.status === "claimed" && existingStatus.assessmentInstructionsUrl && (
+        <div className="mt-3 space-y-3 rounded-md border border-purple-500/30 bg-purple-50/40 p-3 dark:bg-purple-900/10">
+          <div className="space-y-2">
+            <p className="text-xs font-medium text-purple-900 dark:text-purple-200">
+              <Trans>Assessment in progress</Trans>
+            </p>
+            <p className="text-xs text-muted-foreground">
+              <Trans>
+                Your reviewer has accepted your request. Download the instructions, complete the assessment, then submit
+                your solution below.
+              </Trans>
+            </p>
+            <a
+              href={existingStatus.assessmentInstructionsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-x-1.5 text-xs font-medium text-primary hover:underline"
+            >
+              <FileTextIcon className="size-3.5" />
+              <Trans>Download assessment instructions</Trans>
+            </a>
+          </div>
+
+          {showSolutionForm ? (
+            <div className="space-y-2 border-t border-purple-500/20 pt-3">
+              <p className="text-xs font-medium text-purple-900 dark:text-purple-200">
+                <Trans>Submit your solution</Trans>
+              </p>
+              <p className="text-xs text-muted-foreground">
+                <Trans>
+                  Upload a file or share a link (for example, a GitHub repository). At least one is required.
+                </Trans>
+              </p>
+              <div className="space-y-2">
+                <input
+                  ref={solutionFileInputRef}
+                  type="file"
+                  accept={ALLOWED_SOLUTION_TYPES.join(",")}
+                  className="block w-full text-xs file:me-2 file:rounded file:border-0 file:bg-primary file:px-2 file:py-1 file:text-xs file:font-medium file:text-primary-foreground"
+                  onChange={handleSolutionFileChange}
+                />
+                {solutionFile ? (
+                  <p className="text-xs text-muted-foreground">
+                    <Trans>Selected file:</Trans> {solutionFile.name}
+                  </p>
+                ) : null}
+                <div className="flex items-center gap-x-2">
+                  <LinkIcon className="size-3.5 shrink-0 text-muted-foreground" />
+                  <input
+                    type="url"
+                    value={solutionUrl}
+                    onChange={(event) => setSolutionUrl(event.target.value)}
+                    placeholder={t`https://github.com/you/your-solution`}
+                    className="h-8 w-full rounded border bg-background px-2 text-xs"
+                  />
+                </div>
+              </div>
+              <Button
+                size="sm"
+                variant="default"
+                className="h-7 text-xs"
+                disabled={isPending}
+                onClick={handleSubmitSolution}
+              >
+                <UploadIcon className="mr-1.5 size-3" />
+                <Trans>Submit solution</Trans>
+              </Button>
+            </div>
+          ) : hasSubmittedSolution ? (
+            <div className="space-y-2 border-t border-purple-500/20 pt-3">
+              <p className="text-xs font-medium text-purple-900 dark:text-purple-200">
+                <Trans>Solution submitted</Trans>
+              </p>
+              {existingStatus.assessmentSolutionSubmittedAt ? (
+                <p className="text-xs text-muted-foreground">
+                  <Trans>Submitted on</Trans> {formatDefaultDate(existingStatus.assessmentSolutionSubmittedAt)}
+                </p>
+              ) : null}
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+                {existingStatus.assessmentSolutionFileUrl ? (
+                  <a
+                    href={existingStatus.assessmentSolutionFileUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-x-1.5 text-xs font-medium text-primary hover:underline"
+                  >
+                    <FileTextIcon className="size-3.5" />
+                    <Trans>View submitted file</Trans>
+                  </a>
+                ) : null}
+                {existingStatus.assessmentSolutionLinkUrl ? (
+                  <a
+                    href={existingStatus.assessmentSolutionLinkUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-x-1.5 text-xs font-medium text-primary hover:underline"
+                  >
+                    <LinkIcon className="size-3.5" />
+                    <Trans>Open submitted link</Trans>
+                  </a>
+                ) : null}
+              </div>
+            </div>
+          ) : null}
+        </div>
+      )}
+
+      {existingStatus?.status === "verdict_pending" && (
+        <div className="mt-3 space-y-3 rounded-md border border-blue-500/30 bg-blue-50/40 p-3 dark:bg-blue-900/10">
+          <div className="space-y-2">
+            <p className="text-xs font-medium text-blue-900 dark:text-blue-200">
+              <Trans>Awaiting final approval</Trans>
+            </p>
+            <p className="text-xs text-muted-foreground">
+              <Trans>
+                Your reviewer has completed their assessment. Your submission is now awaiting final approval from Skill
+                Verdict Admin. You will be notified by email once a final decision is made.
+              </Trans>
+            </p>
+          </div>
+
+          {hasSubmittedSolution ? (
+            <div className="space-y-2 border-t border-blue-500/20 pt-3">
+              <p className="text-xs font-medium text-blue-900 dark:text-blue-200">
+                <Trans>Submitted solution</Trans>
+              </p>
+              {existingStatus.assessmentSolutionSubmittedAt ? (
+                <p className="text-xs text-muted-foreground">
+                  <Trans>Submitted on</Trans> {formatDefaultDate(existingStatus.assessmentSolutionSubmittedAt)}
+                </p>
+              ) : null}
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+                {existingStatus.assessmentSolutionFileUrl ? (
+                  <a
+                    href={existingStatus.assessmentSolutionFileUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-x-1.5 text-xs font-medium text-primary hover:underline"
+                  >
+                    <FileTextIcon className="size-3.5" />
+                    <Trans>View submitted file</Trans>
+                  </a>
+                ) : null}
+                {existingStatus.assessmentSolutionLinkUrl ? (
+                  <a
+                    href={existingStatus.assessmentSolutionLinkUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-x-1.5 text-xs font-medium text-primary hover:underline"
+                  >
+                    <LinkIcon className="size-3.5" />
+                    <Trans>Open submitted link</Trans>
+                  </a>
+                ) : null}
+              </div>
+            </div>
+          ) : null}
+        </div>
+      )}
 
       {historyOpen && existingStatus && <VerificationHistory resumeId={resumeId} itemId={item.id} />}
     </div>
@@ -661,7 +1019,8 @@ function StatusIcon({ status }: { status: string | undefined }) {
 
 function StatusBadge({ status }: { status: string }) {
   const displayStatus = (s: string) => {
-    if (s === "claimed" || s === "verdict_pending") return "pending";
+    if (s === "claimed") return "assessment in progress";
+    if (s === "verdict_pending") return "awaiting final review";
     return s;
   };
 
@@ -721,6 +1080,14 @@ function VerificationHistory({ resumeId, itemId }: { resumeId: string; itemId: s
             {entry.verifiedBy && (
               <p className="truncate text-[11px] text-muted-foreground/80">
                 <Trans>Verified by {entry.verifiedBy}</Trans>
+                {entry.reviewerProfileUrl && (
+                  <>
+                    {" — "}
+                    <Link to={entry.reviewerProfileUrl} className="underline" target="_blank" rel="noopener noreferrer">
+                      <Trans>View profile</Trans>
+                    </Link>
+                  </>
+                )}
               </p>
             )}
           </div>

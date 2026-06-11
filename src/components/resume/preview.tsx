@@ -1,19 +1,16 @@
 import type z from "zod";
 
 import { Trans } from "@lingui/react/macro";
-import { ArrowRightIcon, IconContext, type IconProps, WarningIcon } from "@phosphor-icons/react";
-import { type RefObject, useMemo, useRef, useState } from "react";
+import { IconContext, type IconProps } from "@phosphor-icons/react";
+import { useMemo } from "react";
 import { match } from "ts-pattern";
-import { useResizeObserver } from "usehooks-ts";
 
 import type { pageLayoutSchema } from "@/schema/resume/data";
 import type { Template } from "@/schema/templates";
 
-import { pageDimensionsAsPixels } from "@/schema/page";
 import { sanitizeCss } from "@/utils/sanitize";
 import { cn } from "@/utils/style";
 
-import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
 import { useCSSVariables } from "./hooks/use-css-variables";
 import { useWebfonts } from "./hooks/use-webfonts";
 import styles from "./preview.module.css";
@@ -129,23 +126,11 @@ type PageContainerProps = {
 };
 
 function PageContainer({ pageIndex, pageLayout, pageClassName, showPageNumbers = false }: PageContainerProps) {
-  const pageRef = useRef<HTMLDivElement>(null);
-  const [pageHeight, setPageHeight] = useState<number>(0);
-
   const metadata = useResumeStore((state) => state.resume.data.metadata);
 
   const pageNumber = useMemo(() => pageIndex + 1, [pageIndex]);
-  const maxPageHeight = useMemo(() => pageDimensionsAsPixels[metadata.page.format].height, [metadata.page.format]);
   const totalNumberOfPages = useMemo(() => metadata.layout.pages.length, [metadata.layout.pages]);
   const TemplateComponent = useMemo(() => getTemplateComponent(metadata.template), [metadata.template]);
-
-  useResizeObserver({
-    ref: pageRef as RefObject<HTMLDivElement>,
-    onResize: (size) => {
-      if (!size.height) return;
-      setPageHeight(size.height);
-    },
-  });
 
   return (
     <div data-page-index={pageIndex} className="relative">
@@ -159,33 +144,9 @@ function PageContainer({ pageIndex, pageLayout, pageClassName, showPageNumbers =
         </div>
       )}
 
-      <div ref={pageRef} className={cn(`page page-${pageIndex}`, styles.page, pageClassName)}>
+      <div className={cn(`page page-${pageIndex}`, styles.page, pageClassName)}>
         <TemplateComponent pageIndex={pageIndex} pageLayout={pageLayout} />
       </div>
-
-      {metadata.page.format !== "free-form" && pageHeight > maxPageHeight && (
-        <div className="absolute inset-s-0 top-full mt-4 print:hidden">
-          <a
-            rel="noopener"
-            target="_blank"
-            className="group/link"
-            href="YOUR_DOCS_URL/guides/fitting-content-on-a-page"
-          >
-            <Alert className="max-w-sm text-yellow-600">
-              <WarningIcon color="currentColor" />
-              <AlertTitle>
-                <Trans>
-                  The content is too tall for this page, this may cause undesirable results when exporting to PDF.
-                </Trans>
-              </AlertTitle>
-              <AlertDescription className="text-xs underline-offset-2 group-hover/link:underline">
-                <Trans>Learn more about how to fit content on a page</Trans>
-                <ArrowRightIcon color="currentColor" className="ms-1 inline size-3" />
-              </AlertDescription>
-            </Alert>
-          </a>
-        </div>
-      )}
     </div>
   );
 }

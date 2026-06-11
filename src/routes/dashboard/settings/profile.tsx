@@ -267,7 +267,7 @@ function RouteComponent() {
         </motion.form>
       </Form>
 
-      {data.role !== "skill_verdict_admin" && (
+      {data.role !== "skill_verdict_admin" && data.role !== "reviewer_admin" && (
         <>
           <Separator />
           <IdentityVerificationBlock />

@@ -8,7 +8,9 @@ function Accordion({ className, ...props }: AccordionPrimitive.Root.Props) {
 }
 
 function AccordionItem({ className, ...props }: AccordionPrimitive.Item.Props) {
-  return <AccordionPrimitive.Item data-slot="accordion-item" className={cn(className)} {...props} />;
+  return (
+    <AccordionPrimitive.Item data-slot="accordion-item" className={cn("group/accordion-item", className)} {...props} />
+  );
 }
 
 function AccordionTrigger({ className, children, ...props }: AccordionPrimitive.Trigger.Props) {
@@ -23,7 +25,10 @@ function AccordionTrigger({ className, children, ...props }: AccordionPrimitive.
         {...props}
       >
         {children}
-        <CaretUpIcon data-slot="accordion-trigger-icon" className="pointer-events-none shrink-0" />
+        <CaretUpIcon
+          data-slot="accordion-trigger-icon"
+          className="pointer-events-none shrink-0 transition-transform duration-200 group-data-closed/accordion-item:rotate-180"
+        />
       </AccordionPrimitive.Trigger>
     </AccordionPrimitive.Header>
   );

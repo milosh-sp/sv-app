@@ -2,7 +2,7 @@ import { Trans } from "@lingui/react/macro";
 import { ORPCError } from "@orpc/client";
 import { DownloadSimpleIcon } from "@phosphor-icons/react";
 import { useMutation } from "@tanstack/react-query";
-import { createFileRoute, notFound, redirect } from "@tanstack/react-router";
+import { createFileRoute, Link, notFound, redirect } from "@tanstack/react-router";
 import { useCallback, useEffect } from "react";
 
 import type { ResumeData } from "@/schema/resume/data";
@@ -131,6 +131,19 @@ function PublicVerificationTimeline({ data }: { data: PublicTimelineData }) {
               {entry.verifiedBy && (
                 <p className="truncate text-[11px] text-muted-foreground/80">
                   <Trans>Verified by {entry.verifiedBy}</Trans>
+                  {entry.reviewerProfileUrl && (
+                    <>
+                      {" — "}
+                      <Link
+                        to={entry.reviewerProfileUrl}
+                        className="underline"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <Trans>View profile</Trans>
+                      </Link>
+                    </>
+                  )}
                 </p>
               )}
             </div>

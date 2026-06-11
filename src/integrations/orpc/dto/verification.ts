@@ -5,17 +5,22 @@ export const resumeItemIdSchema = z
   .string()
   .regex(/^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/, "Invalid item id");
 
-const verificationStatusOutputSchema = z.array(
-  z.object({
-    id: z.string().uuid(),
-    sectionType: z.enum(["skill", "project", "experience", "identity"]),
-    itemId: z.string(),
-    itemLabel: z.string(),
-    status: z.enum(["pending", "claimed", "verdict_pending", "verified", "rejected", "issue"]),
-    badgeVisible: z.boolean(),
-    submittedAt: z.date(),
-  }),
-);
+const verificationStatusItemSchema = z.object({
+  id: z.string().uuid(),
+  sectionType: z.enum(["skill", "project", "experience", "identity"]),
+  itemId: z.string(),
+  itemLabel: z.string(),
+  status: z.enum(["pending", "claimed", "verdict_pending", "verified", "rejected", "issue"]),
+  badgeVisible: z.boolean(),
+  submittedAt: z.date(),
+  assessmentInstructionsUrl: z.string().nullable().optional(),
+  assessmentAcceptedAt: z.date().nullable().optional(),
+  assessmentSolutionSubmittedAt: z.date().nullable().optional(),
+  assessmentSolutionFileUrl: z.string().nullable().optional(),
+  assessmentSolutionLinkUrl: z.string().nullable().optional(),
+});
+
+const verificationStatusOutputSchema = z.array(verificationStatusItemSchema);
 
 export const verificationDto = {
   statusOutput: verificationStatusOutputSchema,
@@ -40,6 +45,18 @@ export const verificationDto = {
       file: z.instanceof(File),
       documentType: z.enum(["payslip", "contract", "freelancer_link"]),
     }),
+  },
+  submitAssessmentSolution: {
+    input: z
+      .object({
+        resumeId: z.string().uuid(),
+        itemId: resumeItemIdSchema,
+        file: z.instanceof(File).optional(),
+        solutionUrl: z.string().url().optional(),
+      })
+      .refine((value) => Boolean(value.file || value.solutionUrl), {
+        message: "Provide a file or solution URL",
+      }),
   },
   requestExperience: {
     input: z.object({
@@ -90,6 +107,7 @@ export const verificationDto = {
           submittedAt: z.date(),
           resolvedAt: z.date().nullable(),
           verifiedBy: z.string().nullable(),
+          reviewerProfileUrl: z.string().nullable(),
         }),
       ),
     }),

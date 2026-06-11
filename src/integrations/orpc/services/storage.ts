@@ -78,6 +78,29 @@ function buildPublicUrl(path: string): string {
   return new URL(path, env.APP_URL).toString();
 }
 
+/** Normalize a stored file reference to a storage key (`uploads/...`). */
+export function toStorageKey(stored: string): string {
+  if (stored.startsWith("uploads/")) {
+    return stored;
+  }
+
+  if (stored.startsWith("http://") || stored.startsWith("https://")) {
+    try {
+      const pathname = new URL(stored).pathname;
+      return pathname.startsWith("/") ? pathname.slice(1) : pathname;
+    } catch {
+      return stored;
+    }
+  }
+
+  return stored;
+}
+
+/** Build a browser-accessible URL from a storage key. */
+export function toPublicFileUrl(key: string): string {
+  return buildPublicUrl(key);
+}
+
 export function inferContentType(filename: string): string {
   const extension = extname(filename).toLowerCase();
   return CONTENT_TYPE_MAP[extension] ?? DEFAULT_CONTENT_TYPE;

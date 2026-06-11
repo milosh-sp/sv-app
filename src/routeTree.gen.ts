@@ -34,6 +34,7 @@ import { Route as DotwellKnownOauthProtectedResourceRouteImport } from "./routes
 import { Route as DotwellKnownOauthAuthorizationServerRouteImport } from "./routes/[.]well-known/oauth-authorization-server";
 import { Route as UsernameSlugRouteImport } from "./routes/$username/$slug";
 import { Route as DashboardSettingsRouteRouteImport } from "./routes/dashboard/settings/route";
+import { Route as DashboardReviewerRouteRouteImport } from "./routes/dashboard/reviewer/route";
 import { Route as DashboardAdminRouteRouteImport } from "./routes/dashboard/admin/route";
 import { Route as BuilderResumeIdRouteRouteImport } from "./routes/builder/$resumeId/route";
 import { Route as DashboardWorkAuthorizationIndexRouteImport } from "./routes/dashboard/work-authorization/index";
@@ -49,7 +50,9 @@ import { Route as DashboardSettingsJobSearchRouteImport } from "./routes/dashboa
 import { Route as DashboardSettingsDangerZoneRouteImport } from "./routes/dashboard/settings/danger-zone";
 import { Route as DashboardSettingsApiKeysRouteImport } from "./routes/dashboard/settings/api-keys";
 import { Route as DashboardSettingsAiRouteImport } from "./routes/dashboard/settings/ai";
+import { Route as DashboardReviewerQueueRouteImport } from "./routes/dashboard/reviewer/queue";
 import { Route as DashboardAdminUsersRouteImport } from "./routes/dashboard/admin/users";
+import { Route as DashboardAdminReviewersRouteImport } from "./routes/dashboard/admin/reviewers";
 import { Route as DashboardAdminJobSearchRouteImport } from "./routes/dashboard/admin/job-search";
 import { Route as DashboardAdminIdentityRouteImport } from "./routes/dashboard/admin/identity";
 import { Route as DashboardAdminExperienceQueueRouteImport } from "./routes/dashboard/admin/experience-queue";
@@ -61,6 +64,7 @@ import { Route as DotwellKnownOauthProtectedResourceSplatRouteImport } from "./r
 import { Route as DotwellKnownOauthAuthorizationServerSplatRouteImport } from "./routes/[.]well-known/oauth-authorization-server.$";
 import { Route as DashboardSettingsAuthenticationIndexRouteImport } from "./routes/dashboard/settings/authentication/index";
 import { Route as DashboardAdminResumeResumeIdRouteImport } from "./routes/dashboard/admin/resume/$resumeId";
+import { Route as ApiReviewerDocumentsRequestIdDocumentIdRouteImport } from "./routes/api/reviewer/documents/$requestId.$documentId";
 
 const SchemaDotjsonRoute = SchemaDotjsonRouteImport.update({
   id: "/schema.json",
@@ -189,6 +193,11 @@ const DashboardSettingsRouteRoute = DashboardSettingsRouteRouteImport.update({
   path: "/settings",
   getParentRoute: () => DashboardRouteRoute,
 } as any);
+const DashboardReviewerRouteRoute = DashboardReviewerRouteRouteImport.update({
+  id: "/reviewer",
+  path: "/reviewer",
+  getParentRoute: () => DashboardRouteRoute,
+} as any);
 const DashboardAdminRouteRoute = DashboardAdminRouteRouteImport.update({
   id: "/admin",
   path: "/admin",
@@ -272,9 +281,19 @@ const DashboardSettingsAiRoute = DashboardSettingsAiRouteImport.update({
   path: "/ai",
   getParentRoute: () => DashboardSettingsRouteRoute,
 } as any);
+const DashboardReviewerQueueRoute = DashboardReviewerQueueRouteImport.update({
+  id: "/queue",
+  path: "/queue",
+  getParentRoute: () => DashboardReviewerRouteRoute,
+} as any);
 const DashboardAdminUsersRoute = DashboardAdminUsersRouteImport.update({
   id: "/users",
   path: "/users",
+  getParentRoute: () => DashboardAdminRouteRoute,
+} as any);
+const DashboardAdminReviewersRoute = DashboardAdminReviewersRouteImport.update({
+  id: "/reviewers",
+  path: "/reviewers",
   getParentRoute: () => DashboardAdminRouteRoute,
 } as any);
 const DashboardAdminJobSearchRoute = DashboardAdminJobSearchRouteImport.update({
@@ -337,6 +356,12 @@ const DashboardAdminResumeResumeIdRoute =
     path: "/resume/$resumeId",
     getParentRoute: () => DashboardAdminRouteRoute,
   } as any);
+const ApiReviewerDocumentsRequestIdDocumentIdRoute =
+  ApiReviewerDocumentsRequestIdDocumentIdRouteImport.update({
+    id: "/api/reviewer/documents/$requestId/$documentId",
+    path: "/api/reviewer/documents/$requestId/$documentId",
+    getParentRoute: () => rootRouteImport,
+  } as any);
 
 export interface FileRoutesByFullPath {
   "/": typeof HomeIndexRoute;
@@ -345,6 +370,7 @@ export interface FileRoutesByFullPath {
   "/schema.json": typeof SchemaDotjsonRoute;
   "/builder/$resumeId": typeof BuilderResumeIdRouteRouteWithChildren;
   "/dashboard/admin": typeof DashboardAdminRouteRouteWithChildren;
+  "/dashboard/reviewer": typeof DashboardReviewerRouteRouteWithChildren;
   "/dashboard/settings": typeof DashboardSettingsRouteRouteWithChildren;
   "/$username/$slug": typeof UsernameSlugRoute;
   "/.well-known/oauth-authorization-server": typeof DotwellKnownOauthAuthorizationServerRouteWithChildren;
@@ -374,7 +400,9 @@ export interface FileRoutesByFullPath {
   "/dashboard/admin/experience-queue": typeof DashboardAdminExperienceQueueRoute;
   "/dashboard/admin/identity": typeof DashboardAdminIdentityRoute;
   "/dashboard/admin/job-search": typeof DashboardAdminJobSearchRoute;
+  "/dashboard/admin/reviewers": typeof DashboardAdminReviewersRoute;
   "/dashboard/admin/users": typeof DashboardAdminUsersRoute;
+  "/dashboard/reviewer/queue": typeof DashboardReviewerQueueRoute;
   "/dashboard/settings/ai": typeof DashboardSettingsAiRoute;
   "/dashboard/settings/api-keys": typeof DashboardSettingsApiKeysRoute;
   "/dashboard/settings/danger-zone": typeof DashboardSettingsDangerZoneRoute;
@@ -390,10 +418,12 @@ export interface FileRoutesByFullPath {
   "/dashboard/work-authorization/": typeof DashboardWorkAuthorizationIndexRoute;
   "/dashboard/admin/resume/$resumeId": typeof DashboardAdminResumeResumeIdRoute;
   "/dashboard/settings/authentication/": typeof DashboardSettingsAuthenticationIndexRoute;
+  "/api/reviewer/documents/$requestId/$documentId": typeof ApiReviewerDocumentsRequestIdDocumentIdRoute;
 }
 export interface FileRoutesByTo {
   "/schema.json": typeof SchemaDotjsonRoute;
   "/dashboard/admin": typeof DashboardAdminRouteRouteWithChildren;
+  "/dashboard/reviewer": typeof DashboardReviewerRouteRouteWithChildren;
   "/dashboard/settings": typeof DashboardSettingsRouteRouteWithChildren;
   "/$username/$slug": typeof UsernameSlugRoute;
   "/.well-known/oauth-authorization-server": typeof DotwellKnownOauthAuthorizationServerRouteWithChildren;
@@ -424,7 +454,9 @@ export interface FileRoutesByTo {
   "/dashboard/admin/experience-queue": typeof DashboardAdminExperienceQueueRoute;
   "/dashboard/admin/identity": typeof DashboardAdminIdentityRoute;
   "/dashboard/admin/job-search": typeof DashboardAdminJobSearchRoute;
+  "/dashboard/admin/reviewers": typeof DashboardAdminReviewersRoute;
   "/dashboard/admin/users": typeof DashboardAdminUsersRoute;
+  "/dashboard/reviewer/queue": typeof DashboardReviewerQueueRoute;
   "/dashboard/settings/ai": typeof DashboardSettingsAiRoute;
   "/dashboard/settings/api-keys": typeof DashboardSettingsApiKeysRoute;
   "/dashboard/settings/danger-zone": typeof DashboardSettingsDangerZoneRoute;
@@ -440,6 +472,7 @@ export interface FileRoutesByTo {
   "/dashboard/work-authorization": typeof DashboardWorkAuthorizationIndexRoute;
   "/dashboard/admin/resume/$resumeId": typeof DashboardAdminResumeResumeIdRoute;
   "/dashboard/settings/authentication": typeof DashboardSettingsAuthenticationIndexRoute;
+  "/api/reviewer/documents/$requestId/$documentId": typeof ApiReviewerDocumentsRequestIdDocumentIdRoute;
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport;
@@ -449,6 +482,7 @@ export interface FileRoutesById {
   "/schema.json": typeof SchemaDotjsonRoute;
   "/builder/$resumeId": typeof BuilderResumeIdRouteRouteWithChildren;
   "/dashboard/admin": typeof DashboardAdminRouteRouteWithChildren;
+  "/dashboard/reviewer": typeof DashboardReviewerRouteRouteWithChildren;
   "/dashboard/settings": typeof DashboardSettingsRouteRouteWithChildren;
   "/$username/$slug": typeof UsernameSlugRoute;
   "/.well-known/oauth-authorization-server": typeof DotwellKnownOauthAuthorizationServerRouteWithChildren;
@@ -479,7 +513,9 @@ export interface FileRoutesById {
   "/dashboard/admin/experience-queue": typeof DashboardAdminExperienceQueueRoute;
   "/dashboard/admin/identity": typeof DashboardAdminIdentityRoute;
   "/dashboard/admin/job-search": typeof DashboardAdminJobSearchRoute;
+  "/dashboard/admin/reviewers": typeof DashboardAdminReviewersRoute;
   "/dashboard/admin/users": typeof DashboardAdminUsersRoute;
+  "/dashboard/reviewer/queue": typeof DashboardReviewerQueueRoute;
   "/dashboard/settings/ai": typeof DashboardSettingsAiRoute;
   "/dashboard/settings/api-keys": typeof DashboardSettingsApiKeysRoute;
   "/dashboard/settings/danger-zone": typeof DashboardSettingsDangerZoneRoute;
@@ -495,6 +531,7 @@ export interface FileRoutesById {
   "/dashboard/work-authorization/": typeof DashboardWorkAuthorizationIndexRoute;
   "/dashboard/admin/resume/$resumeId": typeof DashboardAdminResumeResumeIdRoute;
   "/dashboard/settings/authentication/": typeof DashboardSettingsAuthenticationIndexRoute;
+  "/api/reviewer/documents/$requestId/$documentId": typeof ApiReviewerDocumentsRequestIdDocumentIdRoute;
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath;
@@ -505,6 +542,7 @@ export interface FileRouteTypes {
     | "/schema.json"
     | "/builder/$resumeId"
     | "/dashboard/admin"
+    | "/dashboard/reviewer"
     | "/dashboard/settings"
     | "/$username/$slug"
     | "/.well-known/oauth-authorization-server"
@@ -534,7 +572,9 @@ export interface FileRouteTypes {
     | "/dashboard/admin/experience-queue"
     | "/dashboard/admin/identity"
     | "/dashboard/admin/job-search"
+    | "/dashboard/admin/reviewers"
     | "/dashboard/admin/users"
+    | "/dashboard/reviewer/queue"
     | "/dashboard/settings/ai"
     | "/dashboard/settings/api-keys"
     | "/dashboard/settings/danger-zone"
@@ -549,11 +589,13 @@ export interface FileRouteTypes {
     | "/dashboard/verification/"
     | "/dashboard/work-authorization/"
     | "/dashboard/admin/resume/$resumeId"
-    | "/dashboard/settings/authentication/";
+    | "/dashboard/settings/authentication/"
+    | "/api/reviewer/documents/$requestId/$documentId";
   fileRoutesByTo: FileRoutesByTo;
   to:
     | "/schema.json"
     | "/dashboard/admin"
+    | "/dashboard/reviewer"
     | "/dashboard/settings"
     | "/$username/$slug"
     | "/.well-known/oauth-authorization-server"
@@ -584,7 +626,9 @@ export interface FileRouteTypes {
     | "/dashboard/admin/experience-queue"
     | "/dashboard/admin/identity"
     | "/dashboard/admin/job-search"
+    | "/dashboard/admin/reviewers"
     | "/dashboard/admin/users"
+    | "/dashboard/reviewer/queue"
     | "/dashboard/settings/ai"
     | "/dashboard/settings/api-keys"
     | "/dashboard/settings/danger-zone"
@@ -599,7 +643,8 @@ export interface FileRouteTypes {
     | "/dashboard/verification"
     | "/dashboard/work-authorization"
     | "/dashboard/admin/resume/$resumeId"
-    | "/dashboard/settings/authentication";
+    | "/dashboard/settings/authentication"
+    | "/api/reviewer/documents/$requestId/$documentId";
   id:
     | "__root__"
     | "/_home"
@@ -608,6 +653,7 @@ export interface FileRouteTypes {
     | "/schema.json"
     | "/builder/$resumeId"
     | "/dashboard/admin"
+    | "/dashboard/reviewer"
     | "/dashboard/settings"
     | "/$username/$slug"
     | "/.well-known/oauth-authorization-server"
@@ -638,7 +684,9 @@ export interface FileRouteTypes {
     | "/dashboard/admin/experience-queue"
     | "/dashboard/admin/identity"
     | "/dashboard/admin/job-search"
+    | "/dashboard/admin/reviewers"
     | "/dashboard/admin/users"
+    | "/dashboard/reviewer/queue"
     | "/dashboard/settings/ai"
     | "/dashboard/settings/api-keys"
     | "/dashboard/settings/danger-zone"
@@ -653,7 +701,8 @@ export interface FileRouteTypes {
     | "/dashboard/verification/"
     | "/dashboard/work-authorization/"
     | "/dashboard/admin/resume/$resumeId"
-    | "/dashboard/settings/authentication/";
+    | "/dashboard/settings/authentication/"
+    | "/api/reviewer/documents/$requestId/$documentId";
   fileRoutesById: FileRoutesById;
 }
 export interface RootRouteChildren {
@@ -674,6 +723,7 @@ export interface RootRouteChildren {
   ApiOpenapiSplatRoute: typeof ApiOpenapiSplatRoute;
   ApiRpcSplatRoute: typeof ApiRpcSplatRoute;
   UploadsUserIdSplatRoute: typeof UploadsUserIdSplatRoute;
+  ApiReviewerDocumentsRequestIdDocumentIdRoute: typeof ApiReviewerDocumentsRequestIdDocumentIdRoute;
 }
 
 declare module "@tanstack/react-router" {
@@ -853,6 +903,13 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof DashboardSettingsRouteRouteImport;
       parentRoute: typeof DashboardRouteRoute;
     };
+    "/dashboard/reviewer": {
+      id: "/dashboard/reviewer";
+      path: "/reviewer";
+      fullPath: "/dashboard/reviewer";
+      preLoaderRoute: typeof DashboardReviewerRouteRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
     "/dashboard/admin": {
       id: "/dashboard/admin";
       path: "/admin";
@@ -958,11 +1015,25 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof DashboardSettingsAiRouteImport;
       parentRoute: typeof DashboardSettingsRouteRoute;
     };
+    "/dashboard/reviewer/queue": {
+      id: "/dashboard/reviewer/queue";
+      path: "/queue";
+      fullPath: "/dashboard/reviewer/queue";
+      preLoaderRoute: typeof DashboardReviewerQueueRouteImport;
+      parentRoute: typeof DashboardReviewerRouteRoute;
+    };
     "/dashboard/admin/users": {
       id: "/dashboard/admin/users";
       path: "/users";
       fullPath: "/dashboard/admin/users";
       preLoaderRoute: typeof DashboardAdminUsersRouteImport;
+      parentRoute: typeof DashboardAdminRouteRoute;
+    };
+    "/dashboard/admin/reviewers": {
+      id: "/dashboard/admin/reviewers";
+      path: "/reviewers";
+      fullPath: "/dashboard/admin/reviewers";
+      preLoaderRoute: typeof DashboardAdminReviewersRouteImport;
       parentRoute: typeof DashboardAdminRouteRoute;
     };
     "/dashboard/admin/job-search": {
@@ -1042,6 +1113,13 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof DashboardAdminResumeResumeIdRouteImport;
       parentRoute: typeof DashboardAdminRouteRoute;
     };
+    "/api/reviewer/documents/$requestId/$documentId": {
+      id: "/api/reviewer/documents/$requestId/$documentId";
+      path: "/api/reviewer/documents/$requestId/$documentId";
+      fullPath: "/api/reviewer/documents/$requestId/$documentId";
+      preLoaderRoute: typeof ApiReviewerDocumentsRequestIdDocumentIdRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
   }
 }
 
@@ -1092,6 +1170,7 @@ interface DashboardAdminRouteRouteChildren {
   DashboardAdminExperienceQueueRoute: typeof DashboardAdminExperienceQueueRoute;
   DashboardAdminIdentityRoute: typeof DashboardAdminIdentityRoute;
   DashboardAdminJobSearchRoute: typeof DashboardAdminJobSearchRoute;
+  DashboardAdminReviewersRoute: typeof DashboardAdminReviewersRoute;
   DashboardAdminUsersRoute: typeof DashboardAdminUsersRoute;
   DashboardAdminResumeResumeIdRoute: typeof DashboardAdminResumeResumeIdRoute;
 }
@@ -1101,12 +1180,27 @@ const DashboardAdminRouteRouteChildren: DashboardAdminRouteRouteChildren = {
   DashboardAdminExperienceQueueRoute: DashboardAdminExperienceQueueRoute,
   DashboardAdminIdentityRoute: DashboardAdminIdentityRoute,
   DashboardAdminJobSearchRoute: DashboardAdminJobSearchRoute,
+  DashboardAdminReviewersRoute: DashboardAdminReviewersRoute,
   DashboardAdminUsersRoute: DashboardAdminUsersRoute,
   DashboardAdminResumeResumeIdRoute: DashboardAdminResumeResumeIdRoute,
 };
 
 const DashboardAdminRouteRouteWithChildren =
   DashboardAdminRouteRoute._addFileChildren(DashboardAdminRouteRouteChildren);
+
+interface DashboardReviewerRouteRouteChildren {
+  DashboardReviewerQueueRoute: typeof DashboardReviewerQueueRoute;
+}
+
+const DashboardReviewerRouteRouteChildren: DashboardReviewerRouteRouteChildren =
+  {
+    DashboardReviewerQueueRoute: DashboardReviewerQueueRoute,
+  };
+
+const DashboardReviewerRouteRouteWithChildren =
+  DashboardReviewerRouteRoute._addFileChildren(
+    DashboardReviewerRouteRouteChildren,
+  );
 
 interface DashboardSettingsRouteRouteChildren {
   DashboardSettingsAiRoute: typeof DashboardSettingsAiRoute;
@@ -1139,6 +1233,7 @@ const DashboardSettingsRouteRouteWithChildren =
 
 interface DashboardRouteRouteChildren {
   DashboardAdminRouteRoute: typeof DashboardAdminRouteRouteWithChildren;
+  DashboardReviewerRouteRoute: typeof DashboardReviewerRouteRouteWithChildren;
   DashboardSettingsRouteRoute: typeof DashboardSettingsRouteRouteWithChildren;
   DashboardIndexRoute: typeof DashboardIndexRoute;
   DashboardJobSearchIndexRoute: typeof DashboardJobSearchIndexRoute;
@@ -1149,6 +1244,7 @@ interface DashboardRouteRouteChildren {
 
 const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
   DashboardAdminRouteRoute: DashboardAdminRouteRouteWithChildren,
+  DashboardReviewerRouteRoute: DashboardReviewerRouteRouteWithChildren,
   DashboardSettingsRouteRoute: DashboardSettingsRouteRouteWithChildren,
   DashboardIndexRoute: DashboardIndexRoute,
   DashboardJobSearchIndexRoute: DashboardJobSearchIndexRoute,
@@ -1222,6 +1318,8 @@ const rootRouteChildren: RootRouteChildren = {
   ApiOpenapiSplatRoute: ApiOpenapiSplatRoute,
   ApiRpcSplatRoute: ApiRpcSplatRoute,
   UploadsUserIdSplatRoute: UploadsUserIdSplatRoute,
+  ApiReviewerDocumentsRequestIdDocumentIdRoute:
+    ApiReviewerDocumentsRequestIdDocumentIdRoute,
 };
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

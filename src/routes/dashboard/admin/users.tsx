@@ -16,6 +16,7 @@ import { Separator } from "@/components/ui/separator";
 import { orpc } from "@/integrations/orpc/client";
 
 import { DashboardHeader } from "../-components/header";
+import { ReviewerProfileDialogTrigger } from "./-components/reviewer-profile-panel";
 
 const PAGE_SIZE = 20;
 
@@ -341,6 +342,15 @@ function UserRoleRow({
           </p>
         </div>
         <div className="flex shrink-0 flex-wrap items-center gap-2">
+          {user.adminRole === "reviewer_admin" ? (
+            <ReviewerProfileDialogTrigger
+              adminId={user.id}
+              userName={user.name}
+              userEmail={user.email}
+              hasProfile={undefined}
+              currentUserId={currentUserId}
+            />
+          ) : null}
           <Button type="button" size="sm" variant="outline" onClick={() => onExpandedChange(!expanded)}>
             {expanded ? <Trans>Hide details</Trans> : <Trans>View details</Trans>}
           </Button>
@@ -379,331 +389,333 @@ function UserRoleRow({
               </Button>
             </div>
           ) : detailsQuery.data ? (
-            <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
-              <div className="space-y-1 rounded-md border p-3 text-sm">
-                <p className="font-medium">
-                  <Trans>Account health</Trans>
-                </p>
-                <p className="text-muted-foreground">
-                  <Trans>Email verified</Trans>: {detailsQuery.data.user.emailVerified ? "Yes" : "No"}
-                </p>
-                <p className="text-muted-foreground">
-                  <Trans>Two-factor enabled</Trans>: {detailsQuery.data.user.twoFactorEnabled ? "Yes" : "No"}
-                </p>
-                <p className="text-muted-foreground">
-                  <Trans>Last active</Trans>: {formatDateTime(detailsQuery.data.user.lastActiveAt)}
-                </p>
-                <p className="text-muted-foreground">
-                  <Trans>Updated</Trans>: {formatDateTime(detailsQuery.data.user.updatedAt)}
-                </p>
-                <p className="text-muted-foreground">
-                  <Trans>Role assigned</Trans>: {formatDateTime(detailsQuery.data.user.adminRoleAssignedAt)}
-                </p>
-              </div>
-
-              <div className="space-y-1 rounded-md border p-3 text-sm">
-                <p className="font-medium">
-                  <Trans>Session summary</Trans>
-                </p>
-                <p className="text-muted-foreground">
-                  <Trans>Total sessions</Trans>: {detailsQuery.data.sessions.total}
-                </p>
-                <p className="text-muted-foreground">
-                  <Trans>Active sessions</Trans>: {detailsQuery.data.sessions.active}
-                </p>
-                <p className="text-muted-foreground">
-                  <Trans>Recent sessions</Trans>:
-                </p>
-                <ul className="space-y-1 text-xs text-muted-foreground">
-                  {detailsQuery.data.sessions.recent.length > 0 ? (
-                    detailsQuery.data.sessions.recent.map((sessionRow) => (
-                      <li key={sessionRow.id}>
-                        {formatDateTime(sessionRow.createdAt)} • {sessionRow.ipAddress ?? "—"} •{" "}
-                        {(sessionRow.userAgent ?? "Unknown device").slice(0, 42)}
-                      </li>
-                    ))
-                  ) : (
-                    <li>
-                      <Trans>No sessions found.</Trans>
-                    </li>
-                  )}
-                </ul>
-              </div>
-
-              <div className="space-y-1 rounded-md border p-3 text-sm">
-                <p className="font-medium">
-                  <Trans>Auth providers</Trans>
-                </p>
-                <p className="text-muted-foreground">
-                  <Trans>Linked accounts</Trans>: {detailsQuery.data.authProviders.totalLinkedAccounts}
-                </p>
-                <p className="text-muted-foreground">
-                  <Trans>Providers</Trans>:{" "}
-                  {detailsQuery.data.authProviders.providerIds.length > 0
-                    ? detailsQuery.data.authProviders.providerIds.join(", ")
-                    : "—"}
-                </p>
-              </div>
-
-              <div className="space-y-1 rounded-md border p-3 text-sm">
-                <p className="font-medium">
-                  <Trans>Resume footprint</Trans>
-                </p>
-                <p className="text-muted-foreground">
-                  <Trans>Total resumes</Trans>: {detailsQuery.data.resumes.total}
-                </p>
-                <p className="text-muted-foreground">
-                  <Trans>Public</Trans>: {detailsQuery.data.resumes.publicCount}
-                </p>
-                <p className="text-muted-foreground">
-                  <Trans>Locked</Trans>: {detailsQuery.data.resumes.lockedCount}
-                </p>
-                <p className="text-muted-foreground">
-                  <Trans>Last resume update</Trans>: {formatDateTime(detailsQuery.data.resumes.lastUpdatedAt)}
-                </p>
-                <p className="text-muted-foreground">
-                  <Trans>Views / downloads</Trans>: {detailsQuery.data.resumes.totalViews} /{" "}
-                  {detailsQuery.data.resumes.totalDownloads}
-                </p>
-                <div className="mt-2 border-t pt-2">
-                  <p className="text-xs font-medium text-foreground">
-                    <Trans>Resumes</Trans>
+            <div className="space-y-4">
+              <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+                <div className="space-y-1 rounded-md border p-3 text-sm">
+                  <p className="font-medium">
+                    <Trans>Account health</Trans>
                   </p>
-                  <ul className="mt-1 space-y-1 text-xs text-muted-foreground">
-                    {detailsQuery.data.resumes.items.length > 0 ? (
-                      detailsQuery.data.resumes.items.map((resumeItem) => (
-                        <li key={resumeItem.id} className="space-y-0.5 rounded border px-2 py-1.5">
-                          <p className="break-words">
-                            <Link
-                              to="/dashboard/admin/resume/$resumeId"
-                              params={{ resumeId: resumeItem.id }}
-                              className="underline underline-offset-2"
-                            >
-                              {resumeItem.name}
-                            </Link>
-                          </p>
-                          <p>
-                            <Trans>Visibility</Trans>: {resumeItem.isPublic ? "public" : "private"}
-                          </p>
-                          <p>
-                            <Trans>Lock status</Trans>: {resumeItem.isLocked ? "locked" : "unlocked"}
-                          </p>
-                          <p>
-                            <Trans>Updated</Trans>: {formatDateTime(resumeItem.updatedAt)}
-                          </p>
+                  <p className="text-muted-foreground">
+                    <Trans>Email verified</Trans>: {detailsQuery.data.user.emailVerified ? "Yes" : "No"}
+                  </p>
+                  <p className="text-muted-foreground">
+                    <Trans>Two-factor enabled</Trans>: {detailsQuery.data.user.twoFactorEnabled ? "Yes" : "No"}
+                  </p>
+                  <p className="text-muted-foreground">
+                    <Trans>Last active</Trans>: {formatDateTime(detailsQuery.data.user.lastActiveAt)}
+                  </p>
+                  <p className="text-muted-foreground">
+                    <Trans>Updated</Trans>: {formatDateTime(detailsQuery.data.user.updatedAt)}
+                  </p>
+                  <p className="text-muted-foreground">
+                    <Trans>Role assigned</Trans>: {formatDateTime(detailsQuery.data.user.adminRoleAssignedAt)}
+                  </p>
+                </div>
+
+                <div className="space-y-1 rounded-md border p-3 text-sm">
+                  <p className="font-medium">
+                    <Trans>Session summary</Trans>
+                  </p>
+                  <p className="text-muted-foreground">
+                    <Trans>Total sessions</Trans>: {detailsQuery.data.sessions.total}
+                  </p>
+                  <p className="text-muted-foreground">
+                    <Trans>Active sessions</Trans>: {detailsQuery.data.sessions.active}
+                  </p>
+                  <p className="text-muted-foreground">
+                    <Trans>Recent sessions</Trans>:
+                  </p>
+                  <ul className="space-y-1 text-xs text-muted-foreground">
+                    {detailsQuery.data.sessions.recent.length > 0 ? (
+                      detailsQuery.data.sessions.recent.map((sessionRow) => (
+                        <li key={sessionRow.id}>
+                          {formatDateTime(sessionRow.createdAt)} • {sessionRow.ipAddress ?? "—"} •{" "}
+                          {(sessionRow.userAgent ?? "Unknown device").slice(0, 42)}
                         </li>
                       ))
                     ) : (
                       <li>
-                        <Trans>No resumes found.</Trans>
+                        <Trans>No sessions found.</Trans>
                       </li>
                     )}
-                    {detailsQuery.data.resumes.hiddenCount > 0 ? (
-                      <li>
-                        <Trans>+{detailsQuery.data.resumes.hiddenCount} more</Trans>
-                      </li>
-                    ) : null}
                   </ul>
                 </div>
-              </div>
 
-              <div className="space-y-1 rounded-md border p-3 text-sm">
-                <p className="font-medium">
-                  <Trans>Visa authorization</Trans>
-                </p>
-                {workAuthorization ? (
-                  <div className="grid gap-2 text-xs sm:grid-cols-3">
-                    {(["eu", "usa", "uk"] as const).map((region) => (
-                      <div key={region} className="space-y-1 rounded border p-2">
-                        <p className="font-medium uppercase">{region}</p>
-                        <p className="text-muted-foreground">
-                          {formatWorkAuthStatusLabel(workAuthorization[region].status)}
-                        </p>
-                        <p className="text-muted-foreground">
-                          <Trans>Sponsorship</Trans>:{" "}
-                          {formatSponsorshipLabel(workAuthorization[region].sponsorshipRequired)}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  <p className="text-xs text-muted-foreground">
-                    <Trans>No visa authorization data available.</Trans>
+                <div className="space-y-1 rounded-md border p-3 text-sm">
+                  <p className="font-medium">
+                    <Trans>Auth providers</Trans>
                   </p>
-                )}
-              </div>
-
-              <div className="space-y-1 rounded-md border p-3 text-sm">
-                <p className="font-medium">
-                  <Trans>Verification</Trans>
-                </p>
-                <p className="text-muted-foreground">
-                  <Trans>Total requests</Trans>: {detailsQuery.data.verification.total}
-                </p>
-                <p className="text-muted-foreground">
-                  <Trans>Pending</Trans>: {detailsQuery.data.verification.pending}
-                </p>
-                <p className="text-muted-foreground">
-                  <Trans>Claimed</Trans>: {detailsQuery.data.verification.claimed}
-                </p>
-                <p className="text-muted-foreground">
-                  <Trans>Verdict pending</Trans>: {detailsQuery.data.verification.verdictPending}
-                </p>
-                <p className="text-muted-foreground">
-                  <Trans>Verified</Trans>: {detailsQuery.data.verification.verified}
-                </p>
-                <p className="text-muted-foreground">
-                  <Trans>Rejected/issue</Trans>: {detailsQuery.data.verification.rejected}/
-                  {detailsQuery.data.verification.issue}
-                </p>
-
-                <div className="mt-2 border-t pt-2">
-                  <p className="text-xs font-medium text-foreground">
-                    <Trans>Uploaded documents</Trans>
+                  <p className="text-muted-foreground">
+                    <Trans>Linked accounts</Trans>: {detailsQuery.data.authProviders.totalLinkedAccounts}
                   </p>
-                  {detailsQuery.data.verification.uploadedDocuments.items.length > 0 ? (
-                    <ul className="mt-1 space-y-1 text-xs text-muted-foreground">
-                      {detailsQuery.data.verification.uploadedDocuments.items.map((doc, index) => (
-                        <li key={`${doc.verificationRequestId}-${doc.fileUrl}-${index}`} className="truncate">
-                          <a
-                            href={doc.fileUrl}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="underline underline-offset-2"
-                          >
-                            {doc.itemLabel} • {doc.documentType.replaceAll("_", " ")} •{" "}
-                            {doc.status.replaceAll("_", " ")} • {formatDateTime(doc.uploadedAt)}
-                          </a>
-                        </li>
-                      ))}
-                    </ul>
-                  ) : (
-                    <p className="mt-1 text-xs text-muted-foreground">
-                      <Trans>No uploaded documents found.</Trans>
-                    </p>
-                  )}
-                  {detailsQuery.data.verification.uploadedDocuments.hiddenCount > 0 ? (
-                    <p className="mt-1 text-xs text-muted-foreground">
-                      <Trans>+{detailsQuery.data.verification.uploadedDocuments.hiddenCount} more uploaded</Trans>
-                    </p>
-                  ) : null}
+                  <p className="text-muted-foreground">
+                    <Trans>Providers</Trans>:{" "}
+                    {detailsQuery.data.authProviders.providerIds.length > 0
+                      ? detailsQuery.data.authProviders.providerIds.join(", ")
+                      : "—"}
+                  </p>
                 </div>
 
-                <div className="mt-2 border-t pt-2">
-                  <p className="text-xs font-medium text-foreground">
-                    <Trans>Approved identity</Trans>
+                <div className="space-y-1 rounded-md border p-3 text-sm">
+                  <p className="font-medium">
+                    <Trans>Resume footprint</Trans>
                   </p>
-                  {detailsQuery.data.verification.approvedIdentity ? (
-                    <div className="mt-1 space-y-1 text-xs text-muted-foreground">
-                      <p className="truncate">
-                        {detailsQuery.data.verification.approvedIdentity.itemLabel} •{" "}
-                        {formatDateTime(detailsQuery.data.verification.approvedIdentity.resolvedAt)}
-                      </p>
-                      <p className="truncate">
-                        <Trans>Method</Trans>:{" "}
-                        {formatMethodLabel(detailsQuery.data.verification.approvedIdentity.method)}
-                      </p>
-                      {detailsQuery.data.verification.approvedIdentity.reviewerNote ? (
-                        <p className="truncate">
-                          <Trans>Note</Trans>:{" "}
-                          {truncateText(detailsQuery.data.verification.approvedIdentity.reviewerNote)}
-                        </p>
-                      ) : null}
-                      {detailsQuery.data.verification.approvedIdentity.documents.length > 0 ? (
-                        <ul className="space-y-1">
-                          {detailsQuery.data.verification.approvedIdentity.documents.map((doc, index) => (
-                            <li key={`${doc.fileUrl}-${index}`} className="truncate">
-                              <a
-                                href={doc.fileUrl}
-                                target="_blank"
-                                rel="noreferrer"
+                  <p className="text-muted-foreground">
+                    <Trans>Total resumes</Trans>: {detailsQuery.data.resumes.total}
+                  </p>
+                  <p className="text-muted-foreground">
+                    <Trans>Public</Trans>: {detailsQuery.data.resumes.publicCount}
+                  </p>
+                  <p className="text-muted-foreground">
+                    <Trans>Locked</Trans>: {detailsQuery.data.resumes.lockedCount}
+                  </p>
+                  <p className="text-muted-foreground">
+                    <Trans>Last resume update</Trans>: {formatDateTime(detailsQuery.data.resumes.lastUpdatedAt)}
+                  </p>
+                  <p className="text-muted-foreground">
+                    <Trans>Views / downloads</Trans>: {detailsQuery.data.resumes.totalViews} /{" "}
+                    {detailsQuery.data.resumes.totalDownloads}
+                  </p>
+                  <div className="mt-2 border-t pt-2">
+                    <p className="text-xs font-medium text-foreground">
+                      <Trans>Resumes</Trans>
+                    </p>
+                    <ul className="mt-1 space-y-1 text-xs text-muted-foreground">
+                      {detailsQuery.data.resumes.items.length > 0 ? (
+                        detailsQuery.data.resumes.items.map((resumeItem) => (
+                          <li key={resumeItem.id} className="space-y-0.5 rounded border px-2 py-1.5">
+                            <p className="break-words">
+                              <Link
+                                to="/dashboard/admin/resume/$resumeId"
+                                params={{ resumeId: resumeItem.id }}
                                 className="underline underline-offset-2"
                               >
-                                {doc.documentType} • {formatDateTime(doc.uploadedAt)}
-                              </a>
-                            </li>
-                          ))}
-                        </ul>
+                                {resumeItem.name}
+                              </Link>
+                            </p>
+                            <p>
+                              <Trans>Visibility</Trans>: {resumeItem.isPublic ? "public" : "private"}
+                            </p>
+                            <p>
+                              <Trans>Lock status</Trans>: {resumeItem.isLocked ? "locked" : "unlocked"}
+                            </p>
+                            <p>
+                              <Trans>Updated</Trans>: {formatDateTime(resumeItem.updatedAt)}
+                            </p>
+                          </li>
+                        ))
                       ) : (
-                        <p>
-                          <Trans>No approved identity documents.</Trans>
-                        </p>
+                        <li>
+                          <Trans>No resumes found.</Trans>
+                        </li>
                       )}
+                      {detailsQuery.data.resumes.hiddenCount > 0 ? (
+                        <li>
+                          <Trans>+{detailsQuery.data.resumes.hiddenCount} more</Trans>
+                        </li>
+                      ) : null}
+                    </ul>
+                  </div>
+                </div>
+
+                <div className="space-y-1 rounded-md border p-3 text-sm">
+                  <p className="font-medium">
+                    <Trans>Visa authorization</Trans>
+                  </p>
+                  {workAuthorization ? (
+                    <div className="grid gap-2 text-xs sm:grid-cols-3">
+                      {(["eu", "usa", "uk"] as const).map((region) => (
+                        <div key={region} className="space-y-1 rounded border p-2">
+                          <p className="font-medium uppercase">{region}</p>
+                          <p className="text-muted-foreground">
+                            {formatWorkAuthStatusLabel(workAuthorization[region].status)}
+                          </p>
+                          <p className="text-muted-foreground">
+                            <Trans>Sponsorship</Trans>:{" "}
+                            {formatSponsorshipLabel(workAuthorization[region].sponsorshipRequired)}
+                          </p>
+                        </div>
+                      ))}
                     </div>
                   ) : (
-                    <p className="mt-1 text-xs text-muted-foreground">
-                      <Trans>No approved identity information.</Trans>
+                    <p className="text-xs text-muted-foreground">
+                      <Trans>No visa authorization data available.</Trans>
                     </p>
                   )}
                 </div>
 
-                <div className="mt-2 border-t pt-2">
-                  <p className="text-xs font-medium text-foreground">
-                    <Trans>Approved experience</Trans>
+                <div className="space-y-1 rounded-md border p-3 text-sm">
+                  <p className="font-medium">
+                    <Trans>Verification</Trans>
                   </p>
-                  {detailsQuery.data.verification.approvedExperience.items.length > 0 ? (
-                    <ul className="mt-1 space-y-2 text-xs text-muted-foreground">
-                      {detailsQuery.data.verification.approvedExperience.items.map((experienceItem) => (
-                        <li key={experienceItem.id} className="space-y-1">
-                          <p className="truncate">
-                            {experienceItem.itemLabel} • {formatDateTime(experienceItem.resolvedAt)}
-                          </p>
-                          <p className="truncate">
-                            <Trans>Method</Trans>: {formatMethodLabel(experienceItem.method)}
-                          </p>
-                          {experienceItem.reviewerNote ? (
-                            <p className="truncate">
-                              <Trans>Note</Trans>: {truncateText(experienceItem.reviewerNote, 64)}
-                            </p>
-                          ) : null}
-                          {experienceItem.documents.length > 0 ? (
-                            <ul className="space-y-1">
-                              {experienceItem.documents.map((doc, index) => (
-                                <li key={`${experienceItem.id}-${doc.fileUrl}-${index}`} className="truncate">
-                                  <a
-                                    href={doc.fileUrl}
-                                    target="_blank"
-                                    rel="noreferrer"
-                                    className="underline underline-offset-2"
-                                  >
-                                    {doc.documentType} • {formatDateTime(doc.uploadedAt)}
-                                  </a>
-                                </li>
-                              ))}
-                            </ul>
-                          ) : null}
-                        </li>
-                      ))}
-                    </ul>
-                  ) : (
-                    <p className="mt-1 text-xs text-muted-foreground">
-                      <Trans>No approved experience information.</Trans>
-                    </p>
-                  )}
-                  {detailsQuery.data.verification.approvedExperience.hiddenCount > 0 ? (
-                    <p className="mt-1 text-xs text-muted-foreground">
-                      <Trans>+{detailsQuery.data.verification.approvedExperience.hiddenCount} more approved</Trans>
-                    </p>
-                  ) : null}
-                </div>
-              </div>
+                  <p className="text-muted-foreground">
+                    <Trans>Total requests</Trans>: {detailsQuery.data.verification.total}
+                  </p>
+                  <p className="text-muted-foreground">
+                    <Trans>Pending</Trans>: {detailsQuery.data.verification.pending}
+                  </p>
+                  <p className="text-muted-foreground">
+                    <Trans>Claimed</Trans>: {detailsQuery.data.verification.claimed}
+                  </p>
+                  <p className="text-muted-foreground">
+                    <Trans>Verdict pending</Trans>: {detailsQuery.data.verification.verdictPending}
+                  </p>
+                  <p className="text-muted-foreground">
+                    <Trans>Verified</Trans>: {detailsQuery.data.verification.verified}
+                  </p>
+                  <p className="text-muted-foreground">
+                    <Trans>Rejected/issue</Trans>: {detailsQuery.data.verification.rejected}/
+                    {detailsQuery.data.verification.issue}
+                  </p>
 
-              <div className="space-y-1 rounded-md border p-3 text-sm">
-                <p className="font-medium">
-                  <Trans>API keys</Trans>
-                </p>
-                <p className="text-muted-foreground">
-                  <Trans>Total keys</Trans>: {detailsQuery.data.apiKeys.total}
-                </p>
-                <p className="text-muted-foreground">
-                  <Trans>Enabled</Trans>: {detailsQuery.data.apiKeys.enabled}
-                </p>
-                <p className="text-muted-foreground">
-                  <Trans>Total request count</Trans>: {detailsQuery.data.apiKeys.totalRequestCount}
-                </p>
-                <p className="text-muted-foreground">
-                  <Trans>Last request</Trans>: {formatDateTime(detailsQuery.data.apiKeys.lastRequestAt)}
-                </p>
+                  <div className="mt-2 border-t pt-2">
+                    <p className="text-xs font-medium text-foreground">
+                      <Trans>Uploaded documents</Trans>
+                    </p>
+                    {detailsQuery.data.verification.uploadedDocuments.items.length > 0 ? (
+                      <ul className="mt-1 space-y-1 text-xs text-muted-foreground">
+                        {detailsQuery.data.verification.uploadedDocuments.items.map((doc, index) => (
+                          <li key={`${doc.verificationRequestId}-${doc.fileUrl}-${index}`} className="truncate">
+                            <a
+                              href={doc.fileUrl}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="underline underline-offset-2"
+                            >
+                              {doc.itemLabel} • {doc.documentType.replaceAll("_", " ")} •{" "}
+                              {doc.status.replaceAll("_", " ")} • {formatDateTime(doc.uploadedAt)}
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <p className="mt-1 text-xs text-muted-foreground">
+                        <Trans>No uploaded documents found.</Trans>
+                      </p>
+                    )}
+                    {detailsQuery.data.verification.uploadedDocuments.hiddenCount > 0 ? (
+                      <p className="mt-1 text-xs text-muted-foreground">
+                        <Trans>+{detailsQuery.data.verification.uploadedDocuments.hiddenCount} more uploaded</Trans>
+                      </p>
+                    ) : null}
+                  </div>
+
+                  <div className="mt-2 border-t pt-2">
+                    <p className="text-xs font-medium text-foreground">
+                      <Trans>Approved identity</Trans>
+                    </p>
+                    {detailsQuery.data.verification.approvedIdentity ? (
+                      <div className="mt-1 space-y-1 text-xs text-muted-foreground">
+                        <p className="truncate">
+                          {detailsQuery.data.verification.approvedIdentity.itemLabel} •{" "}
+                          {formatDateTime(detailsQuery.data.verification.approvedIdentity.resolvedAt)}
+                        </p>
+                        <p className="truncate">
+                          <Trans>Method</Trans>:{" "}
+                          {formatMethodLabel(detailsQuery.data.verification.approvedIdentity.method)}
+                        </p>
+                        {detailsQuery.data.verification.approvedIdentity.reviewerNote ? (
+                          <p className="truncate">
+                            <Trans>Note</Trans>:{" "}
+                            {truncateText(detailsQuery.data.verification.approvedIdentity.reviewerNote)}
+                          </p>
+                        ) : null}
+                        {detailsQuery.data.verification.approvedIdentity.documents.length > 0 ? (
+                          <ul className="space-y-1">
+                            {detailsQuery.data.verification.approvedIdentity.documents.map((doc, index) => (
+                              <li key={`${doc.fileUrl}-${index}`} className="truncate">
+                                <a
+                                  href={doc.fileUrl}
+                                  target="_blank"
+                                  rel="noreferrer"
+                                  className="underline underline-offset-2"
+                                >
+                                  {doc.documentType} • {formatDateTime(doc.uploadedAt)}
+                                </a>
+                              </li>
+                            ))}
+                          </ul>
+                        ) : (
+                          <p>
+                            <Trans>No approved identity documents.</Trans>
+                          </p>
+                        )}
+                      </div>
+                    ) : (
+                      <p className="mt-1 text-xs text-muted-foreground">
+                        <Trans>No approved identity information.</Trans>
+                      </p>
+                    )}
+                  </div>
+
+                  <div className="mt-2 border-t pt-2">
+                    <p className="text-xs font-medium text-foreground">
+                      <Trans>Approved experience</Trans>
+                    </p>
+                    {detailsQuery.data.verification.approvedExperience.items.length > 0 ? (
+                      <ul className="mt-1 space-y-2 text-xs text-muted-foreground">
+                        {detailsQuery.data.verification.approvedExperience.items.map((experienceItem) => (
+                          <li key={experienceItem.id} className="space-y-1">
+                            <p className="truncate">
+                              {experienceItem.itemLabel} • {formatDateTime(experienceItem.resolvedAt)}
+                            </p>
+                            <p className="truncate">
+                              <Trans>Method</Trans>: {formatMethodLabel(experienceItem.method)}
+                            </p>
+                            {experienceItem.reviewerNote ? (
+                              <p className="truncate">
+                                <Trans>Note</Trans>: {truncateText(experienceItem.reviewerNote, 64)}
+                              </p>
+                            ) : null}
+                            {experienceItem.documents.length > 0 ? (
+                              <ul className="space-y-1">
+                                {experienceItem.documents.map((doc, index) => (
+                                  <li key={`${experienceItem.id}-${doc.fileUrl}-${index}`} className="truncate">
+                                    <a
+                                      href={doc.fileUrl}
+                                      target="_blank"
+                                      rel="noreferrer"
+                                      className="underline underline-offset-2"
+                                    >
+                                      {doc.documentType} • {formatDateTime(doc.uploadedAt)}
+                                    </a>
+                                  </li>
+                                ))}
+                              </ul>
+                            ) : null}
+                          </li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <p className="mt-1 text-xs text-muted-foreground">
+                        <Trans>No approved experience information.</Trans>
+                      </p>
+                    )}
+                    {detailsQuery.data.verification.approvedExperience.hiddenCount > 0 ? (
+                      <p className="mt-1 text-xs text-muted-foreground">
+                        <Trans>+{detailsQuery.data.verification.approvedExperience.hiddenCount} more approved</Trans>
+                      </p>
+                    ) : null}
+                  </div>
+                </div>
+
+                <div className="space-y-1 rounded-md border p-3 text-sm">
+                  <p className="font-medium">
+                    <Trans>API keys</Trans>
+                  </p>
+                  <p className="text-muted-foreground">
+                    <Trans>Total keys</Trans>: {detailsQuery.data.apiKeys.total}
+                  </p>
+                  <p className="text-muted-foreground">
+                    <Trans>Enabled</Trans>: {detailsQuery.data.apiKeys.enabled}
+                  </p>
+                  <p className="text-muted-foreground">
+                    <Trans>Total request count</Trans>: {detailsQuery.data.apiKeys.totalRequestCount}
+                  </p>
+                  <p className="text-muted-foreground">
+                    <Trans>Last request</Trans>: {formatDateTime(detailsQuery.data.apiKeys.lastRequestAt)}
+                  </p>
+                </div>
               </div>
             </div>
           ) : null}

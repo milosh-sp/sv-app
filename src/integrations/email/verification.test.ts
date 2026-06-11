@@ -11,6 +11,7 @@ const {
   sendVerificationRejectedEmail,
   sendVerificationIssueEmail,
   sendVerificationStatusEmail,
+  sendVerdictAwaitingFinalApprovalEmail,
 } = await import("./verification");
 
 beforeEach(() => {
@@ -118,5 +119,26 @@ describe("sendVerificationStatusEmail", () => {
     // The function only accepts "verified" | "rejected" | "issue" by type,
     // so the guard is at the type level
     expect(mockSendEmail).not.toHaveBeenCalled();
+  });
+});
+
+describe("sendVerdictAwaitingFinalApprovalEmail", () => {
+  it("should send awaiting final approval email with correct subject and body", async () => {
+    await sendVerdictAwaitingFinalApprovalEmail({
+      to: "user@test.com",
+      itemLabel: "TypeScript",
+      sectionType: "skill",
+      reviewerName: "Jane Smith",
+      verificationDashboardUrl: "https://app.test/dashboard/verification",
+    });
+
+    expect(mockSendEmail).toHaveBeenCalledOnce();
+    const call = mockSendEmail.mock.calls[0]![0];
+    expect(call.to).toBe("user@test.com");
+    expect(call.subject).toContain("Awaiting Final Approval");
+    expect(call.subject).toContain("TypeScript");
+    expect(call.text).toContain("Jane Smith");
+    expect(call.text).toContain("final approval stage");
+    expect(call.text).toContain("https://app.test/dashboard/verification");
   });
 });

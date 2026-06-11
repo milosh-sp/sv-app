@@ -1,4 +1,4 @@
-import { CheckCircleIcon, ClockIcon } from "@phosphor-icons/react";
+import { CheckCircleIcon } from "@phosphor-icons/react";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 
@@ -8,7 +8,6 @@ import { cn } from "@/utils/style";
 
 /** Explicit colors: resume preview sets IconContext to `--page-primary-color`, which would tint these badges red. */
 const VERIFIED_BADGE_COLOR = "rgb(22 163 74)";
-const PENDING_BADGE_COLOR = "rgb(245 158 11)";
 
 type VerificationBadgeProps = {
   requestId: string;
@@ -22,23 +21,11 @@ export function VerificationBadge({ requestId, status, badgeVisible, className }
 
   if (status === "rejected" || status === "issue") return null;
 
-  const isVerified = status === "verified";
-  const isPending = status === "pending" || status === "claimed" || status === "verdict_pending";
-
-  if (!isVerified && !isPending) return null;
-
-  if (isVerified) {
+  if (status === "verified") {
     return <VerifiedBadge requestId={requestId} className={className} />;
   }
 
-  return (
-    <ClockIcon
-      className={cn("inline-block size-3.5", className)}
-      color={PENDING_BADGE_COLOR}
-      weight="fill"
-      data-testid="verification-badge-pending"
-    />
-  );
+  return null;
 }
 
 function VerifiedBadge({ requestId, className }: { requestId: string; className?: string }) {
@@ -68,7 +55,12 @@ function VerifiedBadge({ requestId, className }: { requestId: string; className?
           </span>
         }
       />
-      <TooltipContent>
+      <TooltipContent
+        className={cn(
+          "max-w-sm border border-border bg-popover text-popover-foreground shadow-lg ring-1 ring-foreground/10",
+          "*:data-[slot=tooltip-arrow]:bg-popover *:data-[slot=tooltip-arrow]:fill-popover",
+        )}
+      >
         <BadgeTooltipContent detail={detail} />
       </TooltipContent>
     </Tooltip>

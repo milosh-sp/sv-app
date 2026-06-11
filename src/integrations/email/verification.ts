@@ -87,3 +87,78 @@ export const sendVerificationStatusEmail = async (
     }
   }
 };
+
+interface SkillAssessmentAcceptedEmailInput {
+  to: string;
+  itemLabel: string;
+  reviewerName: string;
+  message?: string;
+  verificationDashboardUrl: string;
+}
+
+export const sendSkillAssessmentAcceptedEmail = async (input: SkillAssessmentAcceptedEmailInput) => {
+  await sendEmail({
+    to: input.to,
+    subject: `Skill Assessment Accepted: ${input.itemLabel}`,
+    text: [
+      `Your skill verification request for "${input.itemLabel}" has been accepted by ${input.reviewerName}.`,
+      "",
+      input.message ? `Message from your reviewer:\n${input.message}` : "",
+      input.message ? "" : "",
+      "Sign in to view and download your assessment instructions:",
+      input.verificationDashboardUrl,
+      "",
+      "Complete the assessment as described, then submit your solution on the Verification dashboard:",
+      input.verificationDashboardUrl,
+      "",
+      "Your reviewer will evaluate your submission after you upload a file or share a link (for example, a GitHub repository).",
+    ]
+      .filter((line, index, arr) => !(line === "" && arr[index - 1] === ""))
+      .join("\n"),
+  });
+};
+
+interface AssessmentSolutionSubmittedEmailInput {
+  to: string;
+  itemLabel: string;
+  applicantName?: string | null;
+  reviewerQueueUrl: string;
+}
+
+export const sendAssessmentSolutionSubmittedEmail = async (input: AssessmentSolutionSubmittedEmailInput) => {
+  const applicantLabel = input.applicantName?.trim() || "An applicant";
+
+  await sendEmail({
+    to: input.to,
+    subject: `Assessment Solution Submitted: ${input.itemLabel}`,
+    text: [
+      `${applicantLabel} submitted a solution for "${input.itemLabel}".`,
+      "",
+      "Review the submission in your reviewer queue:",
+      input.reviewerQueueUrl,
+    ].join("\n"),
+  });
+};
+
+interface VerdictAwaitingFinalApprovalEmailInput {
+  to: string;
+  itemLabel: string;
+  sectionType: string;
+  reviewerName: string;
+  verificationDashboardUrl: string;
+}
+
+export const sendVerdictAwaitingFinalApprovalEmail = async (input: VerdictAwaitingFinalApprovalEmailInput) => {
+  await sendEmail({
+    to: input.to,
+    subject: `Assessment Reviewed — Awaiting Final Approval: ${input.itemLabel}`,
+    text: [
+      `${input.reviewerName} has completed their review of your ${input.sectionType} verification for "${input.itemLabel}".`,
+      "",
+      "Your submission is now in the final approval stage with Skill Verdict Admin. You will receive another email once a final decision has been made.",
+      "",
+      "Track your verification status:",
+      input.verificationDashboardUrl,
+    ].join("\n"),
+  });
+};

@@ -112,6 +112,14 @@ const settingsSidebarBaseItems = [
 
 const settingsSidebarItems = [...settingsSidebarBaseItems] as const satisfies SidebarItem[];
 
+const reviewerSidebarItems = [
+  {
+    icon: <SealCheckIcon />,
+    label: msg`Skill Review Queue`,
+    href: "/dashboard/reviewer/queue",
+  },
+] as const satisfies SidebarItem[];
+
 const skillVerdictVerificationSidebarItems = [
   {
     icon: <ShieldStarIcon />,
@@ -130,6 +138,11 @@ const adminSidebarItems = [
     icon: <UserListIcon />,
     label: msg`Users`,
     href: "/dashboard/admin/users",
+  },
+  {
+    icon: <SealCheckIcon />,
+    label: msg`Reviewers`,
+    href: "/dashboard/admin/reviewers",
   },
   {
     icon: <BrainIcon />,
@@ -166,8 +179,10 @@ function SidebarItemList({ items }: SidebarItemListProps) {
             render={
               <Link
                 to={item.href}
-                activeProps={{ className: "bg-sidebar-accent text-sidebar-accent-foreground" }}
-                activeOptions={{ exact: item.exact ?? true }}
+                activeProps={{
+                  className: "bg-sidebar-accent font-medium text-sidebar-accent-foreground",
+                }}
+                activeOptions={{ exact: item.exact ?? true, includeSearch: false }}
               >
                 {item.icon}
                 <span className="shrink-0 transition-[margin,opacity] duration-200 ease-in-out group-data-[collapsible=icon]:-ms-8 group-data-[collapsible=icon]:opacity-0">
@@ -200,6 +215,8 @@ export function DashboardSidebar() {
 
   const identityVerificationState = deriveIdentitySidebarVerificationState(user);
   const isSkillVerdictAdmin = adminRole?.role === "skill_verdict_admin";
+  const isReviewerAdmin = adminRole?.role === "reviewer_admin";
+  const showSkillCenter = !isSkillVerdictAdmin && !isReviewerAdmin;
   const roleLabel = (() => {
     if (adminRole?.role === "skill_verdict_admin") return msg`Skill Verdict Admin`;
     if (adminRole?.role === "reviewer_admin") return msg`Reviewer Admin`;
@@ -258,7 +275,7 @@ export function DashboardSidebar() {
       <SidebarSeparator className="mx-3" />
 
       <SidebarContent className="gap-0">
-        {!isSkillVerdictAdmin && (
+        {showSkillCenter && (
           <SidebarGroup className="pt-1">
             <SidebarGroupLabel>
               <Trans>Skill Center</Trans>
@@ -269,7 +286,21 @@ export function DashboardSidebar() {
           </SidebarGroup>
         )}
 
-        {!isSkillVerdictAdmin && <SidebarSeparator className="mx-3" />}
+        {isReviewerAdmin && (
+          <>
+            <SidebarGroup className="pt-1">
+              <SidebarGroupLabel>
+                <Trans>Reviewer</Trans>
+              </SidebarGroupLabel>
+              <SidebarGroupContent>
+                <SidebarItemList items={reviewerSidebarItems} />
+              </SidebarGroupContent>
+            </SidebarGroup>
+            <SidebarSeparator className="mx-3" />
+          </>
+        )}
+
+        {showSkillCenter && <SidebarSeparator className="mx-3" />}
         {isSkillVerdictAdmin && (
           <>
             <SidebarGroup className="pt-1">

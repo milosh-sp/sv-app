@@ -1,6 +1,7 @@
 import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
 import {
+  CalendarBlankIcon,
   CheckCircleIcon,
   ClockIcon,
   FileTextIcon,
@@ -53,6 +54,24 @@ export type QueueDocument = {
   uploadedAt: Date;
 };
 
+export type DirectAdminReviewHistoryItem = {
+  id: string;
+  sectionType: string;
+  itemId: string;
+  itemLabel: string;
+  status: string;
+  method: string | null;
+  submittedAt: Date;
+  resolvedAt: Date | null;
+  reviewerNote: string | null;
+  calendarLinkSentAt?: Date | null;
+  user: QueueUser | null;
+  resume: QueueResume | null;
+  documents: QueueDocument[];
+  reviewedBy: { id: string; name: string; email: string } | null;
+  reviewedAt: Date | null;
+};
+
 // ---------------------------------------------------------------------------
 // Queue state helpers
 // ---------------------------------------------------------------------------
@@ -71,6 +90,17 @@ export function QueueEmptyState({ message }: { message: string }) {
     <div className="rounded-lg border p-6 text-center">
       <CheckCircleIcon className="mx-auto mb-2 size-8 text-muted-foreground" />
       <p className="text-sm text-muted-foreground">{message}</p>
+    </div>
+  );
+}
+
+export function QueueErrorState({ message }: { message?: string }) {
+  return (
+    <div className="rounded-lg border border-destructive/40 bg-destructive/5 p-6 text-center">
+      <WarningCircleIcon className="mx-auto mb-2 size-8 text-destructive" weight="fill" />
+      <p className="text-sm text-destructive">
+        {message ?? <Trans>Failed to load queue. Please refresh and try again.</Trans>}
+      </p>
     </div>
   );
 }
@@ -150,6 +180,102 @@ export function ApplicantDetails({ user }: { user: QueueUser }) {
 }
 
 // ---------------------------------------------------------------------------
+// Reviewer details
+// ---------------------------------------------------------------------------
+
+export function ReviewerDetails({
+  name,
+  title,
+  skills,
+  publicProfileUrl,
+  proposedVerdict,
+  verdictNotes,
+  verdictSubmittedAt,
+}: {
+  name: string | null;
+  title: string | null;
+  skills: string[];
+  publicProfileUrl: string | null;
+  proposedVerdict: "verified" | "rejected" | "issue" | null;
+  verdictNotes: string | null;
+  verdictSubmittedAt: Date | null;
+}) {
+  const fmtDate = (d: Date | null) => (d ? new Date(d).toLocaleString() : "—");
+
+  return (
+    <div className="space-y-2">
+      <p className="text-xs font-medium text-muted-foreground">
+        <Trans>Reviewer</Trans>
+      </p>
+      <div className="rounded-md border bg-muted/20 px-3 py-2 text-xs">
+        <dl className="grid gap-x-4 gap-y-2 sm:grid-cols-[minmax(7rem,auto)_1fr]">
+          <dt className="text-muted-foreground">
+            <Trans>Name</Trans>
+          </dt>
+          <dd className="wrap-break-word">{name ?? "—"}</dd>
+
+          <dt className="text-muted-foreground">
+            <Trans>Title</Trans>
+          </dt>
+          <dd className="wrap-break-word">{title ?? "—"}</dd>
+
+          <dt className="text-muted-foreground">
+            <Trans>Reviewable skills</Trans>
+          </dt>
+          <dd>{skills.length > 0 ? skills.join(", ") : "—"}</dd>
+
+          <dt className="text-muted-foreground">
+            <Trans>Public profile</Trans>
+          </dt>
+          <dd>
+            {publicProfileUrl ? (
+              <a
+                href={publicProfileUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary hover:underline"
+              >
+                {publicProfileUrl}
+              </a>
+            ) : (
+              "—"
+            )}
+          </dd>
+
+          <dt className="text-muted-foreground">
+            <Trans>Proposed verdict</Trans>
+          </dt>
+          <dd>{proposedVerdict ? <ProposedVerdictLabel verdict={proposedVerdict} /> : "—"}</dd>
+
+          <dt className="text-muted-foreground">
+            <Trans>Verdict notes</Trans>
+          </dt>
+          <dd className="wrap-break-word">{verdictNotes ?? "—"}</dd>
+
+          <dt className="text-muted-foreground">
+            <Trans>Verdict submitted</Trans>
+          </dt>
+          <dd>{fmtDate(verdictSubmittedAt)}</dd>
+        </dl>
+      </div>
+    </div>
+  );
+}
+
+function ProposedVerdictLabel({ verdict }: { verdict: "verified" | "rejected" | "issue" }) {
+  const colorClass =
+    verdict === "verified"
+      ? "text-green-700 dark:text-green-400"
+      : verdict === "rejected"
+        ? "text-red-700 dark:text-red-400"
+        : "text-orange-700 dark:text-orange-400";
+
+  const label = verdict === "verified" ? t`Pass` : verdict === "rejected" ? t`Fail` : t`Issue`;
+
+  return <span className={`font-medium capitalize ${colorClass}`}>{label}</span>;
+}
+
+// ---------------------------------------------------------------------------
 // Resume preview
 // ---------------------------------------------------------------------------
 
@@ -213,10 +339,10 @@ export function DocumentPreview({
   const [renderType, setRenderType] = useState<DocRenderType>("loading");
   const blobUrlRef = useRef<string | null>(null);
 
-  const isFreelancerLink = documentType === "freelancer_link";
+  const isExternalLink = documentType === "freelancer_link" || documentType === "assessment_solution_link";
 
   useEffect(() => {
-    if (!expanded || isFreelancerLink) return;
+    if (!expanded || isExternalLink) return;
 
     let cancelled = false;
     setRenderType("loading");
@@ -264,13 +390,13 @@ export function DocumentPreview({
       }
       setObjectUrl(null);
     };
-  }, [expanded, fileUrl, isFreelancerLink]);
+  }, [expanded, fileUrl, isExternalLink]);
 
   return (
     <div className="overflow-hidden rounded border">
       <div className="flex items-center justify-between p-2">
         <div className="flex items-center gap-x-2">
-          {isFreelancerLink ? (
+          {isExternalLink ? (
             <LinkIcon className="size-3.5 text-muted-foreground" />
           ) : (
             <FileTextIcon className="size-3.5 text-muted-foreground" />
@@ -279,14 +405,14 @@ export function DocumentPreview({
           <span className="text-xs text-muted-foreground">{formatDefaultDate(uploadedAt)}</span>
         </div>
 
-        {isFreelancerLink ? (
+        {isExternalLink ? (
           <a
             href={fileUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="text-xs text-blue-600 hover:underline dark:text-blue-400"
           >
-            <Trans>Open Profile</Trans>
+            {documentType === "freelancer_link" ? <Trans>Open Profile</Trans> : <Trans>Open Link</Trans>}
           </a>
         ) : (
           <Button size="sm" variant="ghost" className="h-6 px-2 text-xs" onClick={() => setExpanded(!expanded)}>
@@ -295,7 +421,7 @@ export function DocumentPreview({
         )}
       </div>
 
-      {expanded && !isFreelancerLink && (
+      {expanded && !isExternalLink && (
         <div className="border-t bg-muted/30 p-2">
           {renderType === "loading" && (
             <div className="flex items-center justify-center gap-x-2 py-4 text-xs text-muted-foreground">
@@ -468,4 +594,179 @@ export function MethodBadge({ method }: { method: string | null }) {
   }
 
   return null;
+}
+
+// ---------------------------------------------------------------------------
+// Direct admin review history (experience / identity)
+// ---------------------------------------------------------------------------
+
+export function DirectAdminReviewHistoryTab({
+  items,
+  isLoading,
+  isError,
+  emptyMessage,
+  filteredEmptyMessage,
+  hasActiveFilter = false,
+  resumeLabel,
+}: {
+  items: DirectAdminReviewHistoryItem[];
+  isLoading: boolean;
+  isError: boolean;
+  emptyMessage: string;
+  filteredEmptyMessage?: string;
+  hasActiveFilter?: boolean;
+  resumeLabel?: string;
+}) {
+  const [expandedId, setExpandedId] = useState<string | null>(null);
+
+  if (isLoading) return <QueueLoadingState />;
+  if (isError) return <QueueErrorState message={t`Failed to load history. Please refresh and try again.`} />;
+
+  if (items.length === 0) {
+    return (
+      <QueueEmptyState
+        message={
+          hasActiveFilter ? (filteredEmptyMessage ?? t`No completed reviews match the selected filters.`) : emptyMessage
+        }
+      />
+    );
+  }
+
+  return (
+    <div className="w-full space-y-3">
+      {items.map((item) => (
+        <DirectAdminReviewHistoryRow
+          key={item.id}
+          item={item}
+          expanded={expandedId === item.id}
+          onExpandedChange={(open) => setExpandedId(open ? item.id : null)}
+          resumeLabel={resumeLabel}
+        />
+      ))}
+    </div>
+  );
+}
+
+function DirectAdminReviewHistoryRow({
+  item,
+  expanded,
+  onExpandedChange,
+  resumeLabel,
+}: {
+  item: DirectAdminReviewHistoryItem;
+  expanded: boolean;
+  onExpandedChange: (open: boolean) => void;
+  resumeLabel?: string;
+}) {
+  return (
+    <div className="space-y-3 rounded-lg border p-4">
+      <div className="flex items-start justify-between gap-x-3">
+        <div className="min-w-0 space-y-1">
+          <p className="text-sm font-medium">{item.itemLabel}</p>
+          {item.user ? (
+            <p className="truncate text-xs text-muted-foreground">
+              {item.user.name}
+              <span className="mx-1.5 opacity-60">·</span>
+              {item.user.email}
+              <span className="mx-1.5 opacity-60">·</span>@{item.user.username}
+            </p>
+          ) : (
+            <p className="text-xs text-muted-foreground">
+              <Trans>Unknown applicant</Trans>
+            </p>
+          )}
+          <div className="flex flex-wrap items-center gap-x-2">
+            <StatusBadge status={item.status} />
+            <MethodBadge method={item.method} />
+            <span className="flex items-center gap-x-1 text-xs text-muted-foreground">
+              <CalendarBlankIcon className="size-3" />
+              <Trans>Submitted</Trans>
+              {" · "}
+              {formatDefaultDate(item.submittedAt)}
+            </span>
+            {item.resolvedAt && (
+              <span className="flex items-center gap-x-1 text-xs text-muted-foreground">
+                <CalendarBlankIcon className="size-3" />
+                <Trans>Resolved</Trans>
+                {" · "}
+                {formatDefaultDate(item.resolvedAt)}
+              </span>
+            )}
+            {item.calendarLinkSentAt && (
+              <span className="flex items-center gap-x-1 rounded-full bg-muted px-2 py-0.5 text-xs text-muted-foreground">
+                <Trans>Call link sent</Trans>
+                {" · "}
+                {formatDefaultDate(item.calendarLinkSentAt)}
+              </span>
+            )}
+          </div>
+        </div>
+
+        <Button
+          size="sm"
+          variant="outline"
+          className="h-7 shrink-0 text-xs"
+          onClick={() => onExpandedChange(!expanded)}
+        >
+          {expanded ? <Trans>Collapse</Trans> : <Trans>Details</Trans>}
+        </Button>
+      </div>
+
+      {expanded && (
+        <div className="space-y-3 border-t pt-3">
+          {item.user && <ApplicantDetails user={item.user} />}
+
+          {item.resume && (
+            <div className="space-y-2">
+              <p className="text-xs font-medium text-muted-foreground">{resumeLabel ?? <Trans>CV / resume</Trans>}</p>
+              <QueueResumePreview resume={item.resume} />
+            </div>
+          )}
+
+          {item.documents.length > 0 && (
+            <div className="space-y-2">
+              <p className="text-xs font-medium text-muted-foreground">
+                <Trans>Documents</Trans>
+              </p>
+              {item.documents.map((doc) => (
+                <DocumentPreview
+                  key={doc.id}
+                  fileUrl={doc.fileUrl}
+                  documentType={doc.documentType}
+                  uploadedAt={doc.uploadedAt}
+                />
+              ))}
+            </div>
+          )}
+
+          {item.reviewerNote && (
+            <div className="space-y-1">
+              <p className="text-xs font-medium text-muted-foreground">
+                <Trans>Review notes</Trans>
+              </p>
+              <p className="text-xs text-muted-foreground">{item.reviewerNote}</p>
+            </div>
+          )}
+
+          {(item.reviewedBy || item.reviewedAt) && (
+            <p className="text-xs text-muted-foreground">
+              {item.reviewedBy ? (
+                <Trans>
+                  Reviewed by {item.reviewedBy.name} ({item.reviewedBy.email})
+                </Trans>
+              ) : (
+                <Trans>Reviewed by Skill Verdict Admin</Trans>
+              )}
+              {item.reviewedAt && (
+                <>
+                  {" "}
+                  <Trans>on {formatDefaultDate(item.reviewedAt)}</Trans>
+                </>
+              )}
+            </p>
+          )}
+        </div>
+      )}
+    </div>
+  );
 }

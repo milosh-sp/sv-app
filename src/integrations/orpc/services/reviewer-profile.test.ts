@@ -1,13 +1,20 @@
 import { beforeEach, describe, expect, it, vi } from "vite-plus/test";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
+const mockInnerJoin = vi.fn((): any => ({ leftJoin: mockLeftJoin }));
+const mockLeftJoin = vi.fn((): any => ({ where: mockWhere }));
 const mockReturning = vi.fn();
 const mockLimit = vi.fn((): any[] => []);
 const mockWhere = vi.fn((): any => ({ returning: mockReturning, limit: mockLimit }));
 const mockSet = vi.fn((): any => ({ where: mockWhere, returning: mockReturning }));
 const mockValues = vi.fn((): any => ({ returning: mockReturning }));
 const mockOrderBy = vi.fn((): any => ({ limit: vi.fn(() => []) }));
-const mockFrom = vi.fn((): any => ({ where: mockWhere, limit: mockLimit, orderBy: mockOrderBy }));
+const mockFrom = vi.fn((): any => ({
+  where: mockWhere,
+  limit: mockLimit,
+  orderBy: mockOrderBy,
+  innerJoin: mockInnerJoin,
+}));
 const mockSelect = vi.fn((): any => ({ from: mockFrom }));
 
 vi.mock("@/integrations/drizzle/client", () => ({
@@ -20,6 +27,15 @@ vi.mock("@/integrations/drizzle/client", () => ({
 }));
 
 vi.mock("@/integrations/drizzle/schema", () => ({
+  adminRoles: {
+    userId: "user_id",
+    role: "role",
+  },
+  user: {
+    id: "id",
+    name: "name",
+    email: "email",
+  },
   reviewerProfiles: {
     id: "id",
     adminId: "admin_id",
@@ -29,6 +45,7 @@ vi.mock("@/integrations/drizzle/schema", () => ({
     publicProfileUrl: "public_profile_url",
     consentGiven: "consent_given",
     consentGivenAt: "consent_given_at",
+    reviewerSkills: "reviewer_skills",
     createdAt: "created_at",
     updatedAt: "updated_at",
   },
@@ -99,6 +116,53 @@ describe("reviewerProfileService.create", () => {
   });
 });
 
+describe("reviewerProfileService.list", () => {
+  it("should return reviewer admins with profiles", async () => {
+    mockFrom.mockReturnValueOnce({
+      innerJoin: vi.fn(() => ({
+        leftJoin: vi.fn(() => ({
+          where: vi.fn(() =>
+            Promise.resolve([
+              {
+                userId: "admin-1",
+                name: "Jane Reviewer",
+                email: "jane@example.com",
+                profile: {
+                  id: "profile-1",
+                  adminId: "admin-1",
+                  firstName: "Jane",
+                  lastName: "Reviewer",
+                  title: "Engineer",
+                  reviewerSkills: ["Python"],
+                },
+              },
+              {
+                userId: "admin-2",
+                name: "No Profile",
+                email: "none@example.com",
+                profile: {
+                  id: null,
+                  adminId: null,
+                  firstName: null,
+                  lastName: null,
+                  title: null,
+                  reviewerSkills: null,
+                },
+              },
+            ]),
+          ),
+        })),
+      })),
+    });
+
+    const result = await reviewerProfileService.list();
+
+    expect(result).toHaveLength(2);
+    expect(result[0]?.profile?.reviewerSkills).toEqual(["Python"]);
+    expect(result[1]?.profile).toBeNull();
+  });
+});
+
 describe("reviewerProfileService.updateDirect", () => {
   it("should update any field", async () => {
     const updated = {
@@ -122,6 +186,22 @@ describe("reviewerProfileService.updateDirect", () => {
 
   it("should error with no fields to update", async () => {
     await expect(reviewerProfileService.updateDirect({ adminId: "admin-1" })).rejects.toThrow("No fields to update");
+  });
+
+  it("should update reviewer skills", async () => {
+    const updated = {
+      id: "profile-1",
+      adminId: "admin-1",
+      reviewerSkills: ["C#", "Python"],
+    };
+    mockReturning.mockResolvedValueOnce([updated]);
+
+    const result = await reviewerProfileService.updateDirect({
+      adminId: "admin-1",
+      reviewerSkills: [" C# ", "c#", "Python"],
+    });
+
+    expect(result.reviewerSkills).toEqual(["C#", "Python"]);
   });
 });
 

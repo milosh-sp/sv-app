@@ -448,13 +448,23 @@ export const changeRequestStatusEnum = pg.pgEnum("change_request_status", ["pend
 export const metadataActionEnum = pg.pgEnum("metadata_action", [
   "claimed",
   "verdict_submitted",
+  "solution_submitted",
   "verified",
   "rejected",
   "flagged",
   "overridden",
 ]);
 
-export const documentTypeEnum = pg.pgEnum("document_type", ["payslip", "contract", "freelancer_link"]);
+export const documentTypeEnum = pg.pgEnum("document_type", [
+  "payslip",
+  "contract",
+  "freelancer_link",
+  "assessment_instructions",
+  "assessment_solution",
+  "assessment_solution_link",
+]);
+
+export const proposedVerdictEnum = pg.pgEnum("proposed_verdict", ["verified", "rejected", "issue"]);
 
 // --- Verification Feature Tables ---
 
@@ -525,6 +535,7 @@ export const reviewerProfiles = pg.pgTable(
     publicProfileUrl: pg.text("public_profile_url").notNull().unique(),
     consentGiven: pg.boolean("consent_given").notNull().default(false),
     consentGivenAt: pg.timestamp("consent_given_at", { withTimezone: true }),
+    reviewerSkills: pg.text("reviewer_skills").array().notNull().default([]),
     createdAt: pg.timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
     updatedAt: pg
       .timestamp("updated_at", { withTimezone: true })
@@ -581,8 +592,10 @@ export const verificationRequests = pg.pgTable(
     claimedByAdminId: pg.uuid("claimed_by_admin_id"),
     resolvedAt: pg.timestamp("resolved_at", { withTimezone: true }),
     reviewerNote: pg.text("reviewer_note"),
+    proposedVerdict: proposedVerdictEnum("proposed_verdict"),
     badgeVisible: pg.boolean("badge_visible").notNull().default(true),
     calendarLinkSentAt: pg.timestamp("calendar_link_sent_at", { withTimezone: true }),
+    assessmentAcceptedAt: pg.timestamp("assessment_accepted_at", { withTimezone: true }),
   },
   (t) => [pg.index().on(t.userId), pg.index().on(t.resumeId), pg.index().on(t.status)],
 );
