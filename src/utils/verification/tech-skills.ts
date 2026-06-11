@@ -5,2195 +5,2195 @@ export type TechSkill = {
 
 export const techSkills: TechSkill[] = [
   {
-    "id": "abap",
-    "label": "ABAP"
+    id: "abap",
+    label: "ABAP",
   },
   {
-    "id": "a11y",
-    "label": "Accessibility (A11y)"
+    id: "a11y",
+    label: "Accessibility (A11y)",
   },
   {
-    "id": "actionscript",
-    "label": "ActionScript"
+    id: "actionscript",
+    label: "ActionScript",
   },
   {
-    "id": "actix",
-    "label": "Actix"
+    id: "actix",
+    label: "Actix",
   },
   {
-    "id": "ada",
-    "label": "Ada"
+    id: "ada",
+    label: "Ada",
   },
   {
-    "id": "adobe-xd",
-    "label": "Adobe XD"
+    id: "adobe-xd",
+    label: "Adobe XD",
   },
   {
-    "id": "agile-scrum",
-    "label": "Agile/Scrum"
+    id: "agile-scrum",
+    label: "Agile/Scrum",
   },
   {
-    "id": "ai",
-    "label": "AI"
+    id: "ai",
+    label: "AI",
   },
   {
-    "id": "airflow",
-    "label": "Airflow"
+    id: "airflow",
+    label: "Airflow",
   },
   {
-    "id": "akka",
-    "label": "Akka"
+    id: "akka",
+    label: "Akka",
   },
   {
-    "id": "algolia",
-    "label": "Algolia"
+    id: "algolia",
+    label: "Algolia",
   },
   {
-    "id": "alpinejs",
-    "label": "Alpine.js"
+    id: "alpinejs",
+    label: "Alpine.js",
   },
   {
-    "id": "altair",
-    "label": "Altair"
+    id: "altair",
+    label: "Altair",
   },
   {
-    "id": "amazon-ecs",
-    "label": "Amazon ECS"
+    id: "amazon-ecs",
+    label: "Amazon ECS",
   },
   {
-    "id": "amazon-eks",
-    "label": "Amazon EKS"
+    id: "amazon-eks",
+    label: "Amazon EKS",
   },
   {
-    "id": "amqp",
-    "label": "AMQP"
+    id: "amqp",
+    label: "AMQP",
   },
   {
-    "id": "anaconda",
-    "label": "Anaconda"
+    id: "anaconda",
+    label: "Anaconda",
   },
   {
-    "id": "anchor",
-    "label": "Anchor"
+    id: "anchor",
+    label: "Anchor",
   },
   {
-    "id": "android-studio",
-    "label": "Android Studio"
+    id: "android-studio",
+    label: "Android Studio",
   },
   {
-    "id": "angular",
-    "label": "Angular"
+    id: "angular",
+    label: "Angular",
   },
   {
-    "id": "ansible",
-    "label": "Ansible"
+    id: "ansible",
+    label: "Ansible",
   },
   {
-    "id": "ant-design",
-    "label": "Ant Design"
+    id: "ant-design",
+    label: "Ant Design",
   },
   {
-    "id": "avro",
-    "label": "Apache Avro"
+    id: "avro",
+    label: "Apache Avro",
   },
   {
-    "id": "kafka",
-    "label": "Apache Kafka"
+    id: "kafka",
+    label: "Apache Kafka",
   },
   {
-    "id": "apache-parquet",
-    "label": "Apache Parquet"
+    id: "apache-parquet",
+    label: "Apache Parquet",
   },
   {
-    "id": "pulsar",
-    "label": "Apache Pulsar"
+    id: "pulsar",
+    label: "Apache Pulsar",
   },
   {
-    "id": "apache-spark",
-    "label": "Apache Spark"
+    id: "apache-spark",
+    label: "Apache Spark",
   },
   {
-    "id": "appium",
-    "label": "Appium"
+    id: "appium",
+    label: "Appium",
   },
   {
-    "id": "applescript",
-    "label": "AppleScript"
+    id: "applescript",
+    label: "AppleScript",
   },
   {
-    "id": "appsheet",
-    "label": "AppSheet"
+    id: "appsheet",
+    label: "AppSheet",
   },
   {
-    "id": "arangodb",
-    "label": "ArangoDB"
+    id: "arangodb",
+    label: "ArangoDB",
   },
   {
-    "id": "arbitrum",
-    "label": "Arbitrum"
+    id: "arbitrum",
+    label: "Arbitrum",
   },
   {
-    "id": "arduino",
-    "label": "Arduino"
+    id: "arduino",
+    label: "Arduino",
   },
   {
-    "id": "argocd",
-    "label": "ArgoCD"
+    id: "argocd",
+    label: "ArgoCD",
   },
   {
-    "id": "argon2",
-    "label": "Argon2"
+    id: "argon2",
+    label: "Argon2",
   },
   {
-    "id": "aspnet-core",
-    "label": "ASP.NET Core"
+    id: "aspnet-core",
+    label: "ASP.NET Core",
   },
   {
-    "id": "aspnet-mvc",
-    "label": "ASP.NET MVC"
+    id: "aspnet-mvc",
+    label: "ASP.NET MVC",
   },
   {
-    "id": "assembly",
-    "label": "Assembly"
+    id: "assembly",
+    label: "Assembly",
   },
   {
-    "id": "astro",
-    "label": "Astro"
+    id: "astro",
+    label: "Astro",
   },
   {
-    "id": "atom",
-    "label": "Atom"
+    id: "atom",
+    label: "Atom",
   },
   {
-    "id": "atomic-design",
-    "label": "Atomic Design"
+    id: "atomic-design",
+    label: "Atomic Design",
   },
   {
-    "id": "auth0",
-    "label": "Auth0"
+    id: "auth0",
+    label: "Auth0",
   },
   {
-    "id": "autoit",
-    "label": "AutoIt"
+    id: "autoit",
+    label: "AutoIt",
   },
   {
-    "id": "awk",
-    "label": "AWK"
+    id: "awk",
+    label: "AWK",
   },
   {
-    "id": "aws",
-    "label": "AWS"
+    id: "aws",
+    label: "AWS",
   },
   {
-    "id": "aws-iam",
-    "label": "AWS IAM"
+    id: "aws-iam",
+    label: "AWS IAM",
   },
   {
-    "id": "aws-lambda",
-    "label": "AWS Lambda"
+    id: "aws-lambda",
+    label: "AWS Lambda",
   },
   {
-    "id": "axum",
-    "label": "Axum"
+    id: "axum",
+    label: "Axum",
   },
   {
-    "id": "azure-functions",
-    "label": "Azure Functions"
+    id: "azure-functions",
+    label: "Azure Functions",
   },
   {
-    "id": "azure-pipelines",
-    "label": "Azure Pipelines"
+    id: "azure-pipelines",
+    label: "Azure Pipelines",
   },
   {
-    "id": "babylonjs",
-    "label": "Babylon.js"
+    id: "babylonjs",
+    label: "Babylon.js",
   },
   {
-    "id": "bash",
-    "label": "Bash"
+    id: "bash",
+    label: "Bash",
   },
   {
-    "id": "bazel",
-    "label": "Bazel"
+    id: "bazel",
+    label: "Bazel",
   },
   {
-    "id": "bcrypt",
-    "label": "bcrypt"
+    id: "bcrypt",
+    label: "bcrypt",
   },
   {
-    "id": "beego",
-    "label": "Beego"
+    id: "beego",
+    label: "Beego",
   },
   {
-    "id": "behat",
-    "label": "Behat"
+    id: "behat",
+    label: "Behat",
   },
   {
-    "id": "bigquery",
-    "label": "BigQuery"
+    id: "bigquery",
+    label: "BigQuery",
   },
   {
-    "id": "bitbucket",
-    "label": "Bitbucket"
+    id: "bitbucket",
+    label: "Bitbucket",
   },
   {
-    "id": "bitbucket-pipelines",
-    "label": "Bitbucket Pipelines"
+    id: "bitbucket-pipelines",
+    label: "Bitbucket Pipelines",
   },
   {
-    "id": "bitcoin",
-    "label": "Bitcoin"
+    id: "bitcoin",
+    label: "Bitcoin",
   },
   {
-    "id": "black",
-    "label": "Black"
+    id: "black",
+    label: "Black",
   },
   {
-    "id": "blazor",
-    "label": "Blazor"
+    id: "blazor",
+    label: "Blazor",
   },
   {
-    "id": "bokeh",
-    "label": "Bokeh"
+    id: "bokeh",
+    label: "Bokeh",
   },
   {
-    "id": "bootstrap",
-    "label": "Bootstrap"
+    id: "bootstrap",
+    label: "Bootstrap",
   },
   {
-    "id": "bottle",
-    "label": "Bottle"
+    id: "bottle",
+    label: "Bottle",
   },
   {
-    "id": "brownie",
-    "label": "Brownie"
+    id: "brownie",
+    label: "Brownie",
   },
   {
-    "id": "bubble",
-    "label": "Bubble"
+    id: "bubble",
+    label: "Bubble",
   },
   {
-    "id": "bulma",
-    "label": "Bulma"
+    id: "bulma",
+    label: "Bulma",
   },
   {
-    "id": "bun",
-    "label": "Bun"
+    id: "bun",
+    label: "Bun",
   },
   {
-    "id": "burp-suite",
-    "label": "Burp Suite"
+    id: "burp-suite",
+    label: "Burp Suite",
   },
   {
-    "id": "bi",
-    "label": "Business Intelligence"
+    id: "bi",
+    label: "Business Intelligence",
   },
   {
-    "id": "c",
-    "label": "C"
+    id: "c",
+    label: "C",
   },
   {
-    "id": "csharp",
-    "label": "C#"
+    id: "csharp",
+    label: "C#",
   },
   {
-    "id": "cpp",
-    "label": "C++"
+    id: "cpp",
+    label: "C++",
   },
   {
-    "id": "caching-strategies",
-    "label": "Caching Strategies"
+    id: "caching-strategies",
+    label: "Caching Strategies",
   },
   {
-    "id": "cargo",
-    "label": "Cargo"
+    id: "cargo",
+    label: "Cargo",
   },
   {
-    "id": "cassandra",
-    "label": "Cassandra"
+    id: "cassandra",
+    label: "Cassandra",
   },
   {
-    "id": "aws-cdk",
-    "label": "CDK (AWS CDK)"
+    id: "aws-cdk",
+    label: "CDK (AWS CDK)",
   },
   {
-    "id": "cdn",
-    "label": "CDN"
+    id: "cdn",
+    label: "CDN",
   },
   {
-    "id": "chai",
-    "label": "Chai"
+    id: "chai",
+    label: "Chai",
   },
   {
-    "id": "chakra-ui",
-    "label": "Chakra UI"
+    id: "chakra-ui",
+    label: "Chakra UI",
   },
   {
-    "id": "chef",
-    "label": "Chef"
+    id: "chef",
+    label: "Chef",
   },
   {
-    "id": "chroma",
-    "label": "Chroma"
+    id: "chroma",
+    label: "Chroma",
   },
   {
-    "id": "circleci",
-    "label": "CircleCI"
+    id: "circleci",
+    label: "CircleCI",
   },
   {
-    "id": "circuitpython",
-    "label": "CircuitPython"
+    id: "circuitpython",
+    label: "CircuitPython",
   },
   {
-    "id": "clickhouse",
-    "label": "Clickhouse"
+    id: "clickhouse",
+    label: "Clickhouse",
   },
   {
-    "id": "clion",
-    "label": "CLion"
+    id: "clion",
+    label: "CLion",
   },
   {
-    "id": "clippy",
-    "label": "Clippy"
+    id: "clippy",
+    label: "Clippy",
   },
   {
-    "id": "clojure",
-    "label": "Clojure"
+    id: "clojure",
+    label: "Clojure",
   },
   {
-    "id": "cloudformation",
-    "label": "CloudFormation"
+    id: "cloudformation",
+    label: "CloudFormation",
   },
   {
-    "id": "cloudwatch",
-    "label": "CloudWatch"
+    id: "cloudwatch",
+    label: "CloudWatch",
   },
   {
-    "id": "cobol",
-    "label": "COBOL"
+    id: "cobol",
+    label: "COBOL",
   },
   {
-    "id": "cocoapods",
-    "label": "CocoaPods"
+    id: "cocoapods",
+    label: "CocoaPods",
   },
   {
-    "id": "cocos2d",
-    "label": "Cocos2d"
+    id: "cocos2d",
+    label: "Cocos2d",
   },
   {
-    "id": "code-review",
-    "label": "Code Review"
+    id: "code-review",
+    label: "Code Review",
   },
   {
-    "id": "codeigniter",
-    "label": "CodeIgniter"
+    id: "codeigniter",
+    label: "CodeIgniter",
   },
   {
-    "id": "composer",
-    "label": "Composer"
+    id: "composer",
+    label: "Composer",
   },
   {
-    "id": "conda",
-    "label": "Conda"
+    id: "conda",
+    label: "Conda",
   },
   {
-    "id": "confluence",
-    "label": "Confluence"
+    id: "confluence",
+    label: "Confluence",
   },
   {
-    "id": "contentful",
-    "label": "Contentful"
+    id: "contentful",
+    label: "Contentful",
   },
   {
-    "id": "coq",
-    "label": "Coq"
+    id: "coq",
+    label: "Coq",
   },
   {
-    "id": "cordova",
-    "label": "Cordova"
+    id: "cordova",
+    label: "Cordova",
   },
   {
-    "id": "cosmos-db",
-    "label": "Cosmos DB"
+    id: "cosmos-db",
+    label: "Cosmos DB",
   },
   {
-    "id": "couchdb",
-    "label": "CouchDB"
+    id: "couchdb",
+    label: "CouchDB",
   },
   {
-    "id": "cql",
-    "label": "CQL"
+    id: "cql",
+    label: "CQL",
   },
   {
-    "id": "crystal",
-    "label": "Crystal"
+    id: "crystal",
+    label: "Crystal",
   },
   {
-    "id": "css",
-    "label": "CSS"
+    id: "css",
+    label: "CSS",
   },
   {
-    "id": "css-in-js",
-    "label": "CSS-in-JS"
+    id: "css-in-js",
+    label: "CSS-in-JS",
   },
   {
-    "id": "cuda",
-    "label": "CUDA"
+    id: "cuda",
+    label: "CUDA",
   },
   {
-    "id": "cypress",
-    "label": "Cypress"
+    id: "cypress",
+    label: "Cypress",
   },
   {
-    "id": "dart",
-    "label": "Dart"
+    id: "dart",
+    label: "Dart",
   },
   {
-    "id": "data-analysis",
-    "label": "Data Analysis"
+    id: "data-analysis",
+    label: "Data Analysis",
   },
   {
-    "id": "data-visualization",
-    "label": "Data Visualization"
+    id: "data-visualization",
+    label: "Data Visualization",
   },
   {
-    "id": "databricks",
-    "label": "Databricks"
+    id: "databricks",
+    label: "Databricks",
   },
   {
-    "id": "datadog",
-    "label": "Datadog"
+    id: "datadog",
+    label: "Datadog",
   },
   {
-    "id": "dbt",
-    "label": "Dbt"
+    id: "dbt",
+    label: "Dbt",
   },
   {
-    "id": "debugging",
-    "label": "Debugging"
+    id: "debugging",
+    label: "Debugging",
   },
   {
-    "id": "delphi",
-    "label": "Delphi"
+    id: "delphi",
+    label: "Delphi",
   },
   {
-    "id": "derby",
-    "label": "Derby"
+    id: "derby",
+    label: "Derby",
   },
   {
-    "id": "design-systems",
-    "label": "Design Systems"
+    id: "design-systems",
+    label: "Design Systems",
   },
   {
-    "id": "digitalocean",
-    "label": "DigitalOcean"
+    id: "digitalocean",
+    label: "DigitalOcean",
   },
   {
-    "id": "directus",
-    "label": "Directus"
+    id: "directus",
+    label: "Directus",
   },
   {
-    "id": "discord",
-    "label": "Discord"
+    id: "discord",
+    label: "Discord",
   },
   {
-    "id": "django",
-    "label": "Django"
+    id: "django",
+    label: "Django",
   },
   {
-    "id": "dns",
-    "label": "DNS"
+    id: "dns",
+    label: "DNS",
   },
   {
-    "id": "docker",
-    "label": "Docker"
+    id: "docker",
+    label: "Docker",
   },
   {
-    "id": "docker-compose",
-    "label": "Docker Compose"
+    id: "docker-compose",
+    label: "Docker Compose",
   },
   {
-    "id": "documentdb",
-    "label": "DocumentDB"
+    id: "documentdb",
+    label: "DocumentDB",
   },
   {
-    "id": "docusaurus",
-    "label": "Docusaurus"
+    id: "docusaurus",
+    label: "Docusaurus",
   },
   {
-    "id": "doxygen",
-    "label": "Doxygen"
+    id: "doxygen",
+    label: "Doxygen",
   },
   {
-    "id": "drupal",
-    "label": "Drupal"
+    id: "drupal",
+    label: "Drupal",
   },
   {
-    "id": "dynamodb",
-    "label": "DynamoDB"
+    id: "dynamodb",
+    label: "DynamoDB",
   },
   {
-    "id": "ebpf",
-    "label": "eBPF"
+    id: "ebpf",
+    label: "eBPF",
   },
   {
-    "id": "echo",
-    "label": "Echo"
+    id: "echo",
+    label: "Echo",
   },
   {
-    "id": "eclipse",
-    "label": "Eclipse"
+    id: "eclipse",
+    label: "Eclipse",
   },
   {
-    "id": "edge-computing",
-    "label": "Edge Computing"
+    id: "edge-computing",
+    label: "Edge Computing",
   },
   {
-    "id": "ejs",
-    "label": "EJS"
+    id: "ejs",
+    label: "EJS",
   },
   {
-    "id": "elasticsearch",
-    "label": "Elasticsearch"
+    id: "elasticsearch",
+    label: "Elasticsearch",
   },
   {
-    "id": "electron",
-    "label": "Electron"
+    id: "electron",
+    label: "Electron",
   },
   {
-    "id": "elixir",
-    "label": "Elixir"
+    id: "elixir",
+    label: "Elixir",
   },
   {
-    "id": "elk-stack",
-    "label": "ELK Stack (Elasticsearch, Logstash, Kibana)"
+    id: "elk-stack",
+    label: "ELK Stack (Elasticsearch, Logstash, Kibana)",
   },
   {
-    "id": "elm",
-    "label": "Elm"
+    id: "elm",
+    label: "Elm",
   },
   {
-    "id": "emacs",
-    "label": "Emacs"
+    id: "emacs",
+    label: "Emacs",
   },
   {
-    "id": "emotion",
-    "label": "Emotion"
+    id: "emotion",
+    label: "Emotion",
   },
   {
-    "id": "equinix",
-    "label": "Equinix"
+    id: "equinix",
+    label: "Equinix",
   },
   {
-    "id": "erb",
-    "label": "ERB"
+    id: "erb",
+    label: "ERB",
   },
   {
-    "id": "erlang",
-    "label": "Erlang"
+    id: "erlang",
+    label: "Erlang",
   },
   {
-    "id": "esbuild",
-    "label": "Esbuild"
+    id: "esbuild",
+    label: "Esbuild",
   },
   {
-    "id": "eslint",
-    "label": "ESLint"
+    id: "eslint",
+    label: "ESLint",
   },
   {
-    "id": "ethereum",
-    "label": "Ethereum"
+    id: "ethereum",
+    label: "Ethereum",
   },
   {
-    "id": "ethersjs",
-    "label": "Ethers.js"
+    id: "ethersjs",
+    label: "Ethers.js",
   },
   {
-    "id": "expo",
-    "label": "Expo"
+    id: "expo",
+    label: "Expo",
   },
   {
-    "id": "express",
-    "label": "Express.js"
+    id: "express",
+    label: "Express.js",
   },
   {
-    "id": "fsharp",
-    "label": "F#"
+    id: "fsharp",
+    label: "F#",
   },
   {
-    "id": "fastapi",
-    "label": "FastAPI"
+    id: "fastapi",
+    label: "FastAPI",
   },
   {
-    "id": "fastify",
-    "label": "Fastify"
+    id: "fastify",
+    label: "Fastify",
   },
   {
-    "id": "fiber",
-    "label": "Fiber"
+    id: "fiber",
+    label: "Fiber",
   },
   {
-    "id": "figma",
-    "label": "Figma"
+    id: "figma",
+    label: "Figma",
   },
   {
-    "id": "firestore",
-    "label": "Firebase Firestore"
+    id: "firestore",
+    label: "Firebase Firestore",
   },
   {
-    "id": "flake8",
-    "label": "Flake8"
+    id: "flake8",
+    label: "Flake8",
   },
   {
-    "id": "flask",
-    "label": "Flask"
+    id: "flask",
+    label: "Flask",
   },
   {
-    "id": "flutter",
-    "label": "Flutter"
+    id: "flutter",
+    label: "Flutter",
   },
   {
-    "id": "fly-io",
-    "label": "Fly.io"
+    id: "fly-io",
+    label: "Fly.io",
   },
   {
-    "id": "fortran",
-    "label": "Fortran"
+    id: "fortran",
+    label: "Fortran",
   },
   {
-    "id": "foundation",
-    "label": "Foundation"
+    id: "foundation",
+    label: "Foundation",
   },
   {
-    "id": "foundry",
-    "label": "Foundry"
+    id: "foundry",
+    label: "Foundry",
   },
   {
-    "id": "ftp",
-    "label": "FTP/SFTP"
+    id: "ftp",
+    label: "FTP/SFTP",
   },
   {
-    "id": "gamemaker",
-    "label": "Game Maker"
+    id: "gamemaker",
+    label: "Game Maker",
   },
   {
-    "id": "gawk",
-    "label": "Gawk"
+    id: "gawk",
+    label: "Gawk",
   },
   {
-    "id": "gem",
-    "label": "Gem"
+    id: "gem",
+    label: "Gem",
   },
   {
-    "id": "ghost",
-    "label": "Ghost"
+    id: "ghost",
+    label: "Ghost",
   },
   {
-    "id": "gin",
-    "label": "Gin"
+    id: "gin",
+    label: "Gin",
   },
   {
-    "id": "ginkgo",
-    "label": "Ginkgo"
+    id: "ginkgo",
+    label: "Ginkgo",
   },
   {
-    "id": "git",
-    "label": "Git"
+    id: "git",
+    label: "Git",
   },
   {
-    "id": "gitea",
-    "label": "Gitea"
+    id: "gitea",
+    label: "Gitea",
   },
   {
-    "id": "github",
-    "label": "GitHub"
+    id: "github",
+    label: "GitHub",
   },
   {
-    "id": "github-actions",
-    "label": "GitHub Actions"
+    id: "github-actions",
+    label: "GitHub Actions",
   },
   {
-    "id": "gitlab",
-    "label": "GitLab"
+    id: "gitlab",
+    label: "GitLab",
   },
   {
-    "id": "gitlab-ci",
-    "label": "GitLab CI/CD"
+    id: "gitlab-ci",
+    label: "GitLab CI/CD",
   },
   {
-    "id": "gitpod",
-    "label": "Gitpod"
+    id: "gitpod",
+    label: "Gitpod",
   },
   {
-    "id": "go",
-    "label": "Go (Golang)"
+    id: "go",
+    label: "Go (Golang)",
   },
   {
-    "id": "godot",
-    "label": "Godot"
+    id: "godot",
+    label: "Godot",
   },
   {
-    "id": "goland",
-    "label": "GoLand"
+    id: "goland",
+    label: "GoLand",
   },
   {
-    "id": "golangci-lint",
-    "label": "Golangci-lint"
+    id: "golangci-lint",
+    label: "Golangci-lint",
   },
   {
-    "id": "gcp-functions",
-    "label": "Google Cloud Functions"
+    id: "gcp-functions",
+    label: "Google Cloud Functions",
   },
   {
-    "id": "gcp",
-    "label": "Google Cloud Platform (GCP)"
+    id: "gcp",
+    label: "Google Cloud Platform (GCP)",
   },
   {
-    "id": "gradle",
-    "label": "Gradle"
+    id: "gradle",
+    label: "Gradle",
   },
   {
-    "id": "grafana",
-    "label": "Grafana"
+    id: "grafana",
+    label: "Grafana",
   },
   {
-    "id": "graphite",
-    "label": "Graphite"
+    id: "graphite",
+    label: "Graphite",
   },
   {
-    "id": "graphql",
-    "label": "GraphQL"
+    id: "graphql",
+    label: "GraphQL",
   },
   {
-    "id": "graphql-api",
-    "label": "GraphQL"
+    id: "graphql-api",
+    label: "GraphQL",
   },
   {
-    "id": "graphql-playground",
-    "label": "GraphQL Playground"
+    id: "graphql-playground",
+    label: "GraphQL Playground",
   },
   {
-    "id": "groovy",
-    "label": "Groovy"
+    id: "groovy",
+    label: "Groovy",
   },
   {
-    "id": "grpc",
-    "label": "gRPC"
+    id: "grpc",
+    label: "gRPC",
   },
   {
-    "id": "grunt",
-    "label": "Grunt"
+    id: "grunt",
+    label: "Grunt",
   },
   {
-    "id": "gtk",
-    "label": "Gtk"
+    id: "gtk",
+    label: "Gtk",
   },
   {
-    "id": "gulp",
-    "label": "Gulp"
+    id: "gulp",
+    label: "Gulp",
   },
   {
-    "id": "h2",
-    "label": "H2"
+    id: "h2",
+    label: "H2",
   },
   {
-    "id": "hadoop",
-    "label": "Hadoop"
+    id: "hadoop",
+    label: "Hadoop",
   },
   {
-    "id": "haml",
-    "label": "Haml"
+    id: "haml",
+    label: "Haml",
   },
   {
-    "id": "handlebars",
-    "label": "Handlebars"
+    id: "handlebars",
+    label: "Handlebars",
   },
   {
-    "id": "hapi",
-    "label": "Hapi"
+    id: "hapi",
+    label: "Hapi",
   },
   {
-    "id": "hardhat",
-    "label": "Hardhat"
+    id: "hardhat",
+    label: "Hardhat",
   },
   {
-    "id": "vault",
-    "label": "HashiCorp Vault"
+    id: "vault",
+    label: "HashiCorp Vault",
   },
   {
-    "id": "haskell",
-    "label": "Haskell"
+    id: "haskell",
+    label: "Haskell",
   },
   {
-    "id": "hbase",
-    "label": "HBase"
+    id: "hbase",
+    label: "HBase",
   },
   {
-    "id": "heroku",
-    "label": "Heroku"
+    id: "heroku",
+    label: "Heroku",
   },
   {
-    "id": "hetzner",
-    "label": "Hetzner"
+    id: "hetzner",
+    label: "Hetzner",
   },
   {
-    "id": "hex",
-    "label": "Hex"
+    id: "hex",
+    label: "Hex",
   },
   {
-    "id": "hotwire",
-    "label": "Hotwire"
+    id: "hotwire",
+    label: "Hotwire",
   },
   {
-    "id": "hql",
-    "label": "HQL"
+    id: "hql",
+    label: "HQL",
   },
   {
-    "id": "html",
-    "label": "HTML"
+    id: "html",
+    label: "HTML",
   },
   {
-    "id": "html-templates",
-    "label": "HTML Templates"
+    id: "html-templates",
+    label: "HTML Templates",
   },
   {
-    "id": "htmx",
-    "label": "htmx"
+    id: "htmx",
+    label: "htmx",
   },
   {
-    "id": "http2",
-    "label": "HTTP/2"
+    id: "http2",
+    label: "HTTP/2",
   },
   {
-    "id": "http3",
-    "label": "HTTP/3"
+    id: "http3",
+    label: "HTTP/3",
   },
   {
-    "id": "https",
-    "label": "HTTPS"
+    id: "https",
+    label: "HTTPS",
   },
   {
-    "id": "ibm-cloud",
-    "label": "IBM Cloud"
+    id: "ibm-cloud",
+    label: "IBM Cloud",
   },
   {
-    "id": "ibm-db2",
-    "label": "IBM Db2"
+    id: "ibm-db2",
+    label: "IBM Db2",
   },
   {
-    "id": "idris",
-    "label": "Idris"
+    id: "idris",
+    label: "Idris",
   },
   {
-    "id": "influxdb",
-    "label": "InfluxDB"
+    id: "influxdb",
+    label: "InfluxDB",
   },
   {
-    "id": "insomnia",
-    "label": "Insomnia"
+    id: "insomnia",
+    label: "Insomnia",
   },
   {
-    "id": "ionic",
-    "label": "Ionic"
+    id: "ionic",
+    label: "Ionic",
   },
   {
-    "id": "janusgraph",
-    "label": "JanusGraph"
+    id: "janusgraph",
+    label: "JanusGraph",
   },
   {
-    "id": "jasmine",
-    "label": "Jasmine"
+    id: "jasmine",
+    label: "Jasmine",
   },
   {
-    "id": "java",
-    "label": "Java"
+    id: "java",
+    label: "Java",
   },
   {
-    "id": "javascript",
-    "label": "JavaScript"
+    id: "javascript",
+    label: "JavaScript",
   },
   {
-    "id": "jax",
-    "label": "JAX"
+    id: "jax",
+    label: "JAX",
   },
   {
-    "id": "jenkins",
-    "label": "Jenkins"
+    id: "jenkins",
+    label: "Jenkins",
   },
   {
-    "id": "jest",
-    "label": "Jest"
+    id: "jest",
+    label: "Jest",
   },
   {
-    "id": "intellij-idea",
-    "label": "JetBrains IntelliJ IDEA"
+    id: "intellij-idea",
+    label: "JetBrains IntelliJ IDEA",
   },
   {
-    "id": "jinja2",
-    "label": "Jinja2"
+    id: "jinja2",
+    label: "Jinja2",
   },
   {
-    "id": "jira",
-    "label": "Jira"
+    id: "jira",
+    label: "Jira",
   },
   {
-    "id": "joomla",
-    "label": "Joomla"
+    id: "joomla",
+    label: "Joomla",
   },
   {
-    "id": "jsdoc",
-    "label": "JSDoc"
+    id: "jsdoc",
+    label: "JSDoc",
   },
   {
-    "id": "json",
-    "label": "JSON"
+    id: "json",
+    label: "JSON",
   },
   {
-    "id": "json-schema",
-    "label": "JSON Schema"
+    id: "json-schema",
+    label: "JSON Schema",
   },
   {
-    "id": "julia",
-    "label": "Julia"
+    id: "julia",
+    label: "Julia",
   },
   {
-    "id": "junit",
-    "label": "Junit"
+    id: "junit",
+    label: "Junit",
   },
   {
-    "id": "jupyter-lab",
-    "label": "Jupyter Lab"
+    id: "jupyter-lab",
+    label: "Jupyter Lab",
   },
   {
-    "id": "jupyter-notebook",
-    "label": "Jupyter Notebook"
+    id: "jupyter-notebook",
+    label: "Jupyter Notebook",
   },
   {
-    "id": "jwt",
-    "label": "JWT"
+    id: "jwt",
+    label: "JWT",
   },
   {
-    "id": "kanban",
-    "label": "Kanban"
+    id: "kanban",
+    label: "Kanban",
   },
   {
-    "id": "keras",
-    "label": "Keras"
+    id: "keras",
+    label: "Keras",
   },
   {
-    "id": "keycloak",
-    "label": "Keycloak"
+    id: "keycloak",
+    label: "Keycloak",
   },
   {
-    "id": "koa",
-    "label": "Koa"
+    id: "koa",
+    label: "Koa",
   },
   {
-    "id": "kotlin",
-    "label": "Kotlin"
+    id: "kotlin",
+    label: "Kotlin",
   },
   {
-    "id": "kubernetes",
-    "label": "Kubernetes (K8s)"
+    id: "kubernetes",
+    label: "Kubernetes (K8s)",
   },
   {
-    "id": "laravel",
-    "label": "Laravel"
+    id: "laravel",
+    label: "Laravel",
   },
   {
-    "id": "latex",
-    "label": "LaTeX"
+    id: "latex",
+    label: "LaTeX",
   },
   {
-    "id": "less",
-    "label": "Less"
+    id: "less",
+    label: "Less",
   },
   {
-    "id": "linode",
-    "label": "Linode"
+    id: "linode",
+    label: "Linode",
   },
   {
-    "id": "linux",
-    "label": "Linux"
+    id: "linux",
+    label: "Linux",
   },
   {
-    "id": "liquid",
-    "label": "Liquid"
+    id: "liquid",
+    label: "Liquid",
   },
   {
-    "id": "lisp",
-    "label": "Lisp"
+    id: "lisp",
+    label: "Lisp",
   },
   {
-    "id": "llama",
-    "label": "LLaMA"
+    id: "llama",
+    label: "LLaMA",
   },
   {
-    "id": "load-balancing",
-    "label": "Load Balancing"
+    id: "load-balancing",
+    label: "Load Balancing",
   },
   {
-    "id": "load-testing",
-    "label": "Load Testing"
+    id: "load-testing",
+    label: "Load Testing",
   },
   {
-    "id": "lua",
-    "label": "Lua"
+    id: "lua",
+    label: "Lua",
   },
   {
-    "id": "machine-learning",
-    "label": "Machine Learning"
+    id: "machine-learning",
+    label: "Machine Learning",
   },
   {
-    "id": "macos",
-    "label": "MacOS"
+    id: "macos",
+    label: "MacOS",
   },
   {
-    "id": "make",
-    "label": "Make"
+    id: "make",
+    label: "Make",
   },
   {
-    "id": "mariadb",
-    "label": "MariaDB"
+    id: "mariadb",
+    label: "MariaDB",
   },
   {
-    "id": "markdown",
-    "label": "Markdown"
+    id: "markdown",
+    label: "Markdown",
   },
   {
-    "id": "material-ui",
-    "label": "Material UI"
+    id: "material-ui",
+    label: "Material UI",
   },
   {
-    "id": "mathematica",
-    "label": "Mathematica"
+    id: "mathematica",
+    label: "Mathematica",
   },
   {
-    "id": "matlab",
-    "label": "MATLAB"
+    id: "matlab",
+    label: "MATLAB",
   },
   {
-    "id": "matplotlib",
-    "label": "Matplotlib"
+    id: "matplotlib",
+    label: "Matplotlib",
   },
   {
-    "id": "maven",
-    "label": "Maven"
+    id: "maven",
+    label: "Maven",
   },
   {
-    "id": "meilisearch",
-    "label": "Meilisearch"
+    id: "meilisearch",
+    label: "Meilisearch",
   },
   {
-    "id": "memcached",
-    "label": "Memcached"
+    id: "memcached",
+    label: "Memcached",
   },
   {
-    "id": "mendix",
-    "label": "Mendix"
+    id: "mendix",
+    label: "Mendix",
   },
   {
-    "id": "mercurial",
-    "label": "Mercurial"
+    id: "mercurial",
+    label: "Mercurial",
   },
   {
-    "id": "messagepack",
-    "label": "MessagePack"
+    id: "messagepack",
+    label: "MessagePack",
   },
   {
-    "id": "micronaut",
-    "label": "Micronaut"
+    id: "micronaut",
+    label: "Micronaut",
   },
   {
-    "id": "micropython",
-    "label": "MicroPython"
+    id: "micropython",
+    label: "MicroPython",
   },
   {
-    "id": "microservices",
-    "label": "Microservices"
+    id: "microservices",
+    label: "Microservices",
   },
   {
-    "id": "azure",
-    "label": "Microsoft Azure"
+    id: "azure",
+    label: "Microsoft Azure",
   },
   {
-    "id": "sql-server",
-    "label": "Microsoft SQL Server"
+    id: "sql-server",
+    label: "Microsoft SQL Server",
   },
   {
-    "id": "microsoft-teams",
-    "label": "Microsoft Teams"
+    id: "microsoft-teams",
+    label: "Microsoft Teams",
   },
   {
-    "id": "milvus",
-    "label": "Milvus"
+    id: "milvus",
+    label: "Milvus",
   },
   {
-    "id": "minitest",
-    "label": "Minitest"
+    id: "minitest",
+    label: "Minitest",
   },
   {
-    "id": "mkdocs",
-    "label": "MkDocs"
+    id: "mkdocs",
+    label: "MkDocs",
   },
   {
-    "id": "mobile-first-design",
-    "label": "Mobile-First Design"
+    id: "mobile-first-design",
+    label: "Mobile-First Design",
   },
   {
-    "id": "mobx",
-    "label": "MobX"
+    id: "mobx",
+    label: "MobX",
   },
   {
-    "id": "mocha",
-    "label": "Mocha"
+    id: "mocha",
+    label: "Mocha",
   },
   {
-    "id": "mongodb",
-    "label": "MongoDB"
+    id: "mongodb",
+    label: "MongoDB",
   },
   {
-    "id": "monolithic-architecture",
-    "label": "Monolithic Architecture"
+    id: "monolithic-architecture",
+    label: "Monolithic Architecture",
   },
   {
-    "id": "mqtt",
-    "label": "MQTT"
+    id: "mqtt",
+    label: "MQTT",
   },
   {
-    "id": "mustache",
-    "label": "Mustache"
+    id: "mustache",
+    label: "Mustache",
   },
   {
-    "id": "mxnet",
-    "label": "MXNet"
+    id: "mxnet",
+    label: "MXNet",
   },
   {
-    "id": "mysql",
-    "label": "MySQL"
+    id: "mysql",
+    label: "MySQL",
   },
   {
-    "id": "nagios",
-    "label": "Nagios"
+    id: "nagios",
+    label: "Nagios",
   },
   {
-    "id": "nasm",
-    "label": "Nasm"
+    id: "nasm",
+    label: "Nasm",
   },
   {
-    "id": "nativescript",
-    "label": "NativeScript"
+    id: "nativescript",
+    label: "NativeScript",
   },
   {
-    "id": "neo4j",
-    "label": "Neo4j"
+    id: "neo4j",
+    label: "Neo4j",
   },
   {
-    "id": "neovim",
-    "label": "Neovim"
+    id: "neovim",
+    label: "Neovim",
   },
   {
-    "id": "nestjs",
-    "label": "Nest.js"
+    id: "nestjs",
+    label: "Nest.js",
   },
   {
-    "id": "netbeans",
-    "label": "NetBeans"
+    id: "netbeans",
+    label: "NetBeans",
   },
   {
-    "id": "netlify",
-    "label": "Netlify"
+    id: "netlify",
+    label: "Netlify",
   },
   {
-    "id": "new-relic",
-    "label": "New Relic"
+    id: "new-relic",
+    label: "New Relic",
   },
   {
-    "id": "nextjs",
-    "label": "Next.js"
+    id: "nextjs",
+    label: "Next.js",
   },
   {
-    "id": "nightwatch",
-    "label": "Nightwatch"
+    id: "nightwatch",
+    label: "Nightwatch",
   },
   {
-    "id": "nim",
-    "label": "Nim"
+    id: "nim",
+    label: "Nim",
   },
   {
-    "id": "nose",
-    "label": "Nose"
+    id: "nose",
+    label: "Nose",
   },
   {
-    "id": "npm",
-    "label": "npm"
+    id: "npm",
+    label: "npm",
   },
   {
-    "id": "nuget",
-    "label": "NuGet"
+    id: "nuget",
+    label: "NuGet",
   },
   {
-    "id": "numpy",
-    "label": "NumPy"
+    id: "numpy",
+    label: "NumPy",
   },
   {
-    "id": "nuxtjs",
-    "label": "Nuxt.js"
+    id: "nuxtjs",
+    label: "Nuxt.js",
   },
   {
-    "id": "nx",
-    "label": "Nx"
+    id: "nx",
+    label: "Nx",
   },
   {
-    "id": "oauth2",
-    "label": "OAuth 2.0"
+    id: "oauth2",
+    label: "OAuth 2.0",
   },
   {
-    "id": "objective-c",
-    "label": "Objective-C"
+    id: "objective-c",
+    label: "Objective-C",
   },
   {
-    "id": "ocaml",
-    "label": "OCaml"
+    id: "ocaml",
+    label: "OCaml",
   },
   {
-    "id": "octave",
-    "label": "Octave"
+    id: "octave",
+    label: "Octave",
   },
   {
-    "id": "odin",
-    "label": "Odin"
+    id: "odin",
+    label: "Odin",
   },
   {
-    "id": "okta",
-    "label": "Okta"
+    id: "okta",
+    label: "Okta",
   },
   {
-    "id": "onnx",
-    "label": "ONNX"
+    id: "onnx",
+    label: "ONNX",
   },
   {
-    "id": "openai-api",
-    "label": "OpenAI API"
+    id: "openai-api",
+    label: "OpenAI API",
   },
   {
-    "id": "openapi-swagger",
-    "label": "OpenAPI/Swagger"
+    id: "openapi-swagger",
+    label: "OpenAPI/Swagger",
   },
   {
-    "id": "opencl",
-    "label": "OpenCL"
+    id: "opencl",
+    label: "OpenCL",
   },
   {
-    "id": "oidc",
-    "label": "OpenID Connect"
+    id: "oidc",
+    label: "OpenID Connect",
   },
   {
-    "id": "opensearch",
-    "label": "Opensearch"
+    id: "opensearch",
+    label: "Opensearch",
   },
   {
-    "id": "openshift",
-    "label": "OpenShift"
+    id: "openshift",
+    label: "OpenShift",
   },
   {
-    "id": "optimism",
-    "label": "Optimism"
+    id: "optimism",
+    label: "Optimism",
   },
   {
-    "id": "oracle-cloud",
-    "label": "Oracle Cloud"
+    id: "oracle-cloud",
+    label: "Oracle Cloud",
   },
   {
-    "id": "oracle-db",
-    "label": "Oracle Database"
+    id: "oracle-db",
+    label: "Oracle Database",
   },
   {
-    "id": "orc",
-    "label": "ORC"
+    id: "orc",
+    label: "ORC",
   },
   {
-    "id": "ovh",
-    "label": "OVH"
+    id: "ovh",
+    label: "OVH",
   },
   {
-    "id": "owasp",
-    "label": "OWASP"
+    id: "owasp",
+    label: "OWASP",
   },
   {
-    "id": "owasp-zap",
-    "label": "OWASP ZAP"
+    id: "owasp-zap",
+    label: "OWASP ZAP",
   },
   {
-    "id": "pagerduty",
-    "label": "PagerDuty"
+    id: "pagerduty",
+    label: "PagerDuty",
   },
   {
-    "id": "pandas",
-    "label": "Pandas"
+    id: "pandas",
+    label: "Pandas",
   },
   {
-    "id": "parcel",
-    "label": "Parcel"
+    id: "parcel",
+    label: "Parcel",
   },
   {
-    "id": "pascal",
-    "label": "Pascal"
+    id: "pascal",
+    label: "Pascal",
   },
   {
-    "id": "payload-cms",
-    "label": "Payload CMS"
+    id: "payload-cms",
+    label: "Payload CMS",
   },
   {
-    "id": "penetration-testing",
-    "label": "Penetration Testing"
+    id: "penetration-testing",
+    label: "Penetration Testing",
   },
   {
-    "id": "perforce",
-    "label": "Perforce"
+    id: "perforce",
+    label: "Perforce",
   },
   {
-    "id": "performance-testing",
-    "label": "Performance Testing"
+    id: "performance-testing",
+    label: "Performance Testing",
   },
   {
-    "id": "perl",
-    "label": "Perl"
+    id: "perl",
+    label: "Perl",
   },
   {
-    "id": "phaser",
-    "label": "Phaser"
+    id: "phaser",
+    label: "Phaser",
   },
   {
-    "id": "phoenix",
-    "label": "Phoenix"
+    id: "phoenix",
+    label: "Phoenix",
   },
   {
-    "id": "phonegap",
-    "label": "PhoneGap"
+    id: "phonegap",
+    label: "PhoneGap",
   },
   {
-    "id": "php",
-    "label": "PHP"
+    id: "php",
+    label: "PHP",
   },
   {
-    "id": "pinecone",
-    "label": "Pinecone"
+    id: "pinecone",
+    label: "Pinecone",
   },
   {
-    "id": "pinia",
-    "label": "Pinia"
+    id: "pinia",
+    label: "Pinia",
   },
   {
-    "id": "pip",
-    "label": "pip"
+    id: "pip",
+    label: "pip",
   },
   {
-    "id": "pipenv",
-    "label": "Pipenv"
+    id: "pipenv",
+    label: "Pipenv",
   },
   {
-    "id": "pki",
-    "label": "PKI"
+    id: "pki",
+    label: "PKI",
   },
   {
-    "id": "pl-i",
-    "label": "PL/I"
+    id: "pl-i",
+    label: "PL/I",
   },
   {
-    "id": "plsql",
-    "label": "PL/SQL"
+    id: "plsql",
+    label: "PL/SQL",
   },
   {
-    "id": "planetscale",
-    "label": "PlanetScale"
+    id: "planetscale",
+    label: "PlanetScale",
   },
   {
-    "id": "play-framework",
-    "label": "Play Framework"
+    id: "play-framework",
+    label: "Play Framework",
   },
   {
-    "id": "playcanvas",
-    "label": "PlayCanvas"
+    id: "playcanvas",
+    label: "PlayCanvas",
   },
   {
-    "id": "playwright",
-    "label": "Playwright"
+    id: "playwright",
+    label: "Playwright",
   },
   {
-    "id": "plotly",
-    "label": "Plotly"
+    id: "plotly",
+    label: "Plotly",
   },
   {
-    "id": "pnpm",
-    "label": "pnpm"
+    id: "pnpm",
+    label: "pnpm",
   },
   {
-    "id": "podman",
-    "label": "Podman"
+    id: "podman",
+    label: "Podman",
   },
   {
-    "id": "poetry",
-    "label": "Poetry"
+    id: "poetry",
+    label: "Poetry",
   },
   {
-    "id": "polygon",
-    "label": "Polygon"
+    id: "polygon",
+    label: "Polygon",
   },
   {
-    "id": "postcss",
-    "label": "PostCSS"
+    id: "postcss",
+    label: "PostCSS",
   },
   {
-    "id": "postgresql",
-    "label": "PostgreSQL"
+    id: "postgresql",
+    label: "PostgreSQL",
   },
   {
-    "id": "postman",
-    "label": "Postman"
+    id: "postman",
+    label: "Postman",
   },
   {
-    "id": "powershell",
-    "label": "PowerShell"
+    id: "powershell",
+    label: "PowerShell",
   },
   {
-    "id": "prettier",
-    "label": "Prettier"
+    id: "prettier",
+    label: "Prettier",
   },
   {
-    "id": "prismic",
-    "label": "Prismic"
+    id: "prismic",
+    label: "Prismic",
   },
   {
-    "id": "problem-solving",
-    "label": "Problem Solving"
+    id: "problem-solving",
+    label: "Problem Solving",
   },
   {
-    "id": "profiling",
-    "label": "Profiling"
+    id: "profiling",
+    label: "Profiling",
   },
   {
-    "id": "pwa",
-    "label": "Progressive Web Apps (PWA)"
+    id: "pwa",
+    label: "Progressive Web Apps (PWA)",
   },
   {
-    "id": "prolog",
-    "label": "Prolog"
+    id: "prolog",
+    label: "Prolog",
   },
   {
-    "id": "prometheus",
-    "label": "Prometheus"
+    id: "prometheus",
+    label: "Prometheus",
   },
   {
-    "id": "prometheus-monitoring",
-    "label": "Prometheus"
+    id: "prometheus-monitoring",
+    label: "Prometheus",
   },
   {
-    "id": "protobuf",
-    "label": "Protocol Buffers"
+    id: "protobuf",
+    label: "Protocol Buffers",
   },
   {
-    "id": "pub",
-    "label": "Pub"
+    id: "pub",
+    label: "Pub",
   },
   {
-    "id": "pug",
-    "label": "Pug"
+    id: "pug",
+    label: "Pug",
   },
   {
-    "id": "pulumi",
-    "label": "Pulumi"
+    id: "pulumi",
+    label: "Pulumi",
   },
   {
-    "id": "puppet",
-    "label": "Puppet"
+    id: "puppet",
+    label: "Puppet",
   },
   {
-    "id": "puppeteer",
-    "label": "Puppeteer"
+    id: "puppeteer",
+    label: "Puppeteer",
   },
   {
-    "id": "purecss",
-    "label": "Pure.css"
+    id: "purecss",
+    label: "Pure.css",
   },
   {
-    "id": "pycharm",
-    "label": "PyCharm"
+    id: "pycharm",
+    label: "PyCharm",
   },
   {
-    "id": "pylint",
-    "label": "Pylint"
+    id: "pylint",
+    label: "Pylint",
   },
   {
-    "id": "pyramid",
-    "label": "Pyramid"
+    id: "pyramid",
+    label: "Pyramid",
   },
   {
-    "id": "pytest",
-    "label": "Pytest"
+    id: "pytest",
+    label: "Pytest",
   },
   {
-    "id": "python",
-    "label": "Python"
+    id: "python",
+    label: "Python",
   },
   {
-    "id": "pytorch",
-    "label": "PyTorch"
+    id: "pytorch",
+    label: "PyTorch",
   },
   {
-    "id": "qdrant",
-    "label": "Qdrant"
+    id: "qdrant",
+    label: "Qdrant",
   },
   {
-    "id": "qt",
-    "label": "Qt"
+    id: "qt",
+    label: "Qt",
   },
   {
-    "id": "quarkus",
-    "label": "Quarkus"
+    id: "quarkus",
+    label: "Quarkus",
   },
   {
-    "id": "qwik",
-    "label": "Qwik"
+    id: "qwik",
+    label: "Qwik",
   },
   {
-    "id": "r",
-    "label": "R"
+    id: "r",
+    label: "R",
   },
   {
-    "id": "rabbitmq",
-    "label": "RabbitMQ"
+    id: "rabbitmq",
+    label: "RabbitMQ",
   },
   {
-    "id": "racket",
-    "label": "Racket"
+    id: "racket",
+    label: "Racket",
   },
   {
-    "id": "railway",
-    "label": "Railway"
+    id: "railway",
+    label: "Railway",
   },
   {
-    "id": "react",
-    "label": "React"
+    id: "react",
+    label: "React",
   },
   {
-    "id": "react-native",
-    "label": "React Native"
+    id: "react-native",
+    label: "React Native",
   },
   {
-    "id": "reasonml",
-    "label": "ReasonML"
+    id: "reasonml",
+    label: "ReasonML",
   },
   {
-    "id": "redis",
-    "label": "Redis"
+    id: "redis",
+    label: "Redis",
   },
   {
-    "id": "redis-streams",
-    "label": "Redis Streams"
+    id: "redis-streams",
+    label: "Redis Streams",
   },
   {
-    "id": "redshift",
-    "label": "Redshift"
+    id: "redshift",
+    label: "Redshift",
   },
   {
-    "id": "redux",
-    "label": "Redux"
+    id: "redux",
+    label: "Redux",
   },
   {
-    "id": "regex",
-    "label": "Regex"
+    id: "regex",
+    label: "Regex",
   },
   {
-    "id": "remix",
-    "label": "Remix"
+    id: "remix",
+    label: "Remix",
   },
   {
-    "id": "remix-ide",
-    "label": "Remix IDE"
+    id: "remix-ide",
+    label: "Remix IDE",
   },
   {
-    "id": "render",
-    "label": "Render"
+    id: "render",
+    label: "Render",
   },
   {
-    "id": "replit",
-    "label": "Replit"
+    id: "replit",
+    label: "Replit",
   },
   {
-    "id": "requirements-engineering",
-    "label": "Requirements Engineering"
+    id: "requirements-engineering",
+    label: "Requirements Engineering",
   },
   {
-    "id": "responsive-design",
-    "label": "Responsive Design"
+    id: "responsive-design",
+    label: "Responsive Design",
   },
   {
-    "id": "rest",
-    "label": "REST"
+    id: "rest",
+    label: "REST",
   },
   {
-    "id": "retool",
-    "label": "Retool"
+    id: "retool",
+    label: "Retool",
   },
   {
-    "id": "revel",
-    "label": "Revel"
+    id: "revel",
+    label: "Revel",
   },
   {
-    "id": "riak",
-    "label": "Riak"
+    id: "riak",
+    label: "Riak",
   },
   {
-    "id": "rider",
-    "label": "Rider"
+    id: "rider",
+    label: "Rider",
   },
   {
-    "id": "rocket",
-    "label": "Rocket"
+    id: "rocket",
+    label: "Rocket",
   },
   {
-    "id": "rollup",
-    "label": "Rollup"
+    id: "rollup",
+    label: "Rollup",
   },
   {
-    "id": "rspack",
-    "label": "Rspack"
+    id: "rspack",
+    label: "Rspack",
   },
   {
-    "id": "rspec",
-    "label": "RSpec"
+    id: "rspec",
+    label: "RSpec",
   },
   {
-    "id": "rstudio",
-    "label": "RStudio"
+    id: "rstudio",
+    label: "RStudio",
   },
   {
-    "id": "ruby",
-    "label": "Ruby"
+    id: "ruby",
+    label: "Ruby",
   },
   {
-    "id": "rails",
-    "label": "Ruby on Rails"
+    id: "rails",
+    label: "Ruby on Rails",
   },
   {
-    "id": "rubymine",
-    "label": "RubyMine"
+    id: "rubymine",
+    label: "RubyMine",
   },
   {
-    "id": "rust",
-    "label": "Rust"
+    id: "rust",
+    label: "Rust",
   },
   {
-    "id": "saltstack",
-    "label": "SaltStack"
+    id: "saltstack",
+    label: "SaltStack",
   },
   {
-    "id": "saml",
-    "label": "SAML"
+    id: "saml",
+    label: "SAML",
   },
   {
-    "id": "sanity",
-    "label": "Sanity"
+    id: "sanity",
+    label: "Sanity",
   },
   {
-    "id": "sas",
-    "label": "SAS"
+    id: "sas",
+    label: "SAS",
   },
   {
-    "id": "sass-scss",
-    "label": "Sass/SCSS"
+    id: "sass-scss",
+    label: "Sass/SCSS",
   },
   {
-    "id": "scala",
-    "label": "Scala"
+    id: "scala",
+    label: "Scala",
   },
   {
-    "id": "scheme",
-    "label": "Scheme"
+    id: "scheme",
+    label: "Scheme",
   },
   {
-    "id": "scikit-learn",
-    "label": "Scikit-learn"
+    id: "scikit-learn",
+    label: "Scikit-learn",
   },
   {
-    "id": "scipy",
-    "label": "SciPy"
+    id: "scipy",
+    label: "SciPy",
   },
   {
-    "id": "seaborn",
-    "label": "Seaborn"
+    id: "seaborn",
+    label: "Seaborn",
   },
   {
-    "id": "security-testing",
-    "label": "Security Testing"
+    id: "security-testing",
+    label: "Security Testing",
   },
   {
-    "id": "sed",
-    "label": "Sed"
+    id: "sed",
+    label: "Sed",
   },
   {
-    "id": "selenium",
-    "label": "Selenium"
+    id: "selenium",
+    label: "Selenium",
   },
   {
-    "id": "semantic-ui",
-    "label": "Semantic UI"
+    id: "semantic-ui",
+    label: "Semantic UI",
   },
   {
-    "id": "sentry",
-    "label": "Sentry"
+    id: "sentry",
+    label: "Sentry",
   },
   {
-    "id": "seo",
-    "label": "SEO"
+    id: "seo",
+    label: "SEO",
   },
   {
-    "id": "serverless",
-    "label": "Serverless"
+    id: "serverless",
+    label: "Serverless",
   },
   {
-    "id": "shell",
-    "label": "Shell"
+    id: "shell",
+    label: "Shell",
   },
   {
-    "id": "shellcheck",
-    "label": "Shellcheck"
+    id: "shellcheck",
+    label: "Shellcheck",
   },
   {
-    "id": "shopify",
-    "label": "Shopify"
+    id: "shopify",
+    label: "Shopify",
   },
   {
-    "id": "sinatra",
-    "label": "Sinatra"
+    id: "sinatra",
+    label: "Sinatra",
   },
   {
-    "id": "sketch",
-    "label": "Sketch"
+    id: "sketch",
+    label: "Sketch",
   },
   {
-    "id": "slack",
-    "label": "Slack"
+    id: "slack",
+    label: "Slack",
   },
   {
-    "id": "slim",
-    "label": "Slim"
+    id: "slim",
+    label: "Slim",
   },
   {
-    "id": "slim-framework",
-    "label": "Slim"
+    id: "slim-framework",
+    label: "Slim",
   },
   {
-    "id": "snowflake",
-    "label": "Snowflake"
+    id: "snowflake",
+    label: "Snowflake",
   },
   {
-    "id": "snyk",
-    "label": "Snyk"
+    id: "snyk",
+    label: "Snyk",
   },
   {
-    "id": "solana",
-    "label": "Solana"
+    id: "solana",
+    label: "Solana",
   },
   {
-    "id": "solidity",
-    "label": "Solidity"
+    id: "solidity",
+    label: "Solidity",
   },
   {
-    "id": "solidjs",
-    "label": "SolidJS"
+    id: "solidjs",
+    label: "SolidJS",
   },
   {
-    "id": "solr",
-    "label": "Solr"
+    id: "solr",
+    label: "Solr",
   },
   {
-    "id": "sphinx",
-    "label": "Sphinx"
+    id: "sphinx",
+    label: "Sphinx",
   },
   {
-    "id": "spinnaker",
-    "label": "Spinnaker"
+    id: "spinnaker",
+    label: "Spinnaker",
   },
   {
-    "id": "splunk",
-    "label": "Splunk"
+    id: "splunk",
+    label: "Splunk",
   },
   {
-    "id": "spring-boot",
-    "label": "Spring Boot"
+    id: "spring-boot",
+    label: "Spring Boot",
   },
   {
-    "id": "spring",
-    "label": "Spring Framework"
+    id: "spring",
+    label: "Spring Framework",
   },
   {
-    "id": "sql",
-    "label": "SQL"
+    id: "sql",
+    label: "SQL",
   },
   {
-    "id": "sqlite",
-    "label": "SQLite"
+    id: "sqlite",
+    label: "SQLite",
   },
   {
-    "id": "ssh",
-    "label": "SSH"
+    id: "ssh",
+    label: "SSH",
   },
   {
-    "id": "ssl-tls",
-    "label": "SSL/TLS"
+    id: "ssl-tls",
+    label: "SSL/TLS",
   },
   {
-    "id": "stackdriver",
-    "label": "StackDriver"
+    id: "stackdriver",
+    label: "StackDriver",
   },
   {
-    "id": "stata",
-    "label": "Stata"
+    id: "stata",
+    label: "Stata",
   },
   {
-    "id": "staticcheck",
-    "label": "Staticcheck"
+    id: "staticcheck",
+    label: "Staticcheck",
   },
   {
-    "id": "stimulus",
-    "label": "Stimulus"
+    id: "stimulus",
+    label: "Stimulus",
   },
   {
-    "id": "storybook",
-    "label": "Storybook"
+    id: "storybook",
+    label: "Storybook",
   },
   {
-    "id": "strapi",
-    "label": "Strapi"
+    id: "strapi",
+    label: "Strapi",
   },
   {
-    "id": "styled-components",
-    "label": "Styled Components"
+    id: "styled-components",
+    label: "Styled Components",
   },
   {
-    "id": "stylelint",
-    "label": "Stylelint"
+    id: "stylelint",
+    label: "Stylelint",
   },
   {
-    "id": "stylus",
-    "label": "Stylus"
+    id: "stylus",
+    label: "Stylus",
   },
   {
-    "id": "sublime-text",
-    "label": "Sublime Text"
+    id: "sublime-text",
+    label: "Sublime Text",
   },
   {
-    "id": "supabase",
-    "label": "Supabase"
+    id: "supabase",
+    label: "Supabase",
   },
   {
-    "id": "svelte",
-    "label": "Svelte"
+    id: "svelte",
+    label: "Svelte",
   },
   {
-    "id": "svn",
-    "label": "SVN"
+    id: "svn",
+    label: "SVN",
   },
   {
-    "id": "openapi",
-    "label": "Swagger/OpenAPI"
+    id: "openapi",
+    label: "Swagger/OpenAPI",
   },
   {
-    "id": "swift",
-    "label": "Swift"
+    id: "swift",
+    label: "Swift",
   },
   {
-    "id": "swr",
-    "label": "SWR"
+    id: "swr",
+    label: "SWR",
   },
   {
-    "id": "symfony",
-    "label": "Symfony"
+    id: "symfony",
+    label: "Symfony",
   },
   {
-    "id": "tsql",
-    "label": "T-SQL (Transact-SQL)"
+    id: "tsql",
+    label: "T-SQL (Transact-SQL)",
   },
   {
-    "id": "tailwind",
-    "label": "Tailwind CSS"
+    id: "tailwind",
+    label: "Tailwind CSS",
   },
   {
-    "id": "tanstack-query",
-    "label": "TanStack Query"
+    id: "tanstack-query",
+    label: "TanStack Query",
   },
   {
-    "id": "tauri",
-    "label": "Tauri"
+    id: "tauri",
+    label: "Tauri",
   },
   {
-    "id": "tensorflow",
-    "label": "TensorFlow"
+    id: "tensorflow",
+    label: "TensorFlow",
   },
   {
-    "id": "terraform",
-    "label": "Terraform"
+    id: "terraform",
+    label: "Terraform",
   },
   {
-    "id": "testcafe",
-    "label": "TestCafe"
+    id: "testcafe",
+    label: "TestCafe",
   },
   {
-    "id": "testify",
-    "label": "Testify"
+    id: "testify",
+    label: "Testify",
   },
   {
-    "id": "testng",
-    "label": "TestNG"
+    id: "testng",
+    label: "TestNG",
   },
   {
-    "id": "threejs",
-    "label": "Three.js"
+    id: "threejs",
+    label: "Three.js",
   },
   {
-    "id": "tigergraph",
-    "label": "TigerGraph"
+    id: "tigergraph",
+    label: "TigerGraph",
   },
   {
-    "id": "timescaledb",
-    "label": "TimescaleDB"
+    id: "timescaledb",
+    label: "TimescaleDB",
   },
   {
-    "id": "toml",
-    "label": "TOML"
+    id: "toml",
+    label: "TOML",
   },
   {
-    "id": "transformers",
-    "label": "Transformers (HuggingFace)"
+    id: "transformers",
+    label: "Transformers (HuggingFace)",
   },
   {
-    "id": "travis-ci",
-    "label": "Travis CI"
+    id: "travis-ci",
+    label: "Travis CI",
   },
   {
-    "id": "truffle",
-    "label": "Truffle"
+    id: "truffle",
+    label: "Truffle",
   },
   {
-    "id": "turbo",
-    "label": "Turbo"
+    id: "turbo",
+    label: "Turbo",
   },
   {
-    "id": "turbopack",
-    "label": "Turbopack"
+    id: "turbopack",
+    label: "Turbopack",
   },
   {
-    "id": "turso",
-    "label": "Turso"
+    id: "turso",
+    label: "Turso",
   },
   {
-    "id": "typescript",
-    "label": "TypeScript"
+    id: "typescript",
+    label: "TypeScript",
   },
   {
-    "id": "unittest",
-    "label": "Unittest"
+    id: "unittest",
+    label: "Unittest",
   },
   {
-    "id": "unity",
-    "label": "Unity"
+    id: "unity",
+    label: "Unity",
   },
   {
-    "id": "unix",
-    "label": "Unix"
+    id: "unix",
+    label: "Unix",
   },
   {
-    "id": "unreal-engine",
-    "label": "Unreal Engine"
+    id: "unreal-engine",
+    label: "Unreal Engine",
   },
   {
-    "id": "ux-ui-design",
-    "label": "UX/UI Design"
+    id: "ux-ui-design",
+    label: "UX/UI Design",
   },
   {
-    "id": "vb-net",
-    "label": "VB.NET"
+    id: "vb-net",
+    label: "VB.NET",
   },
   {
-    "id": "vbscript",
-    "label": "VBScript"
+    id: "vbscript",
+    label: "VBScript",
   },
   {
-    "id": "vercel",
-    "label": "Vercel"
+    id: "vercel",
+    label: "Vercel",
   },
   {
-    "id": "verilog",
-    "label": "Verilog"
+    id: "verilog",
+    label: "Verilog",
   },
   {
-    "id": "vespa",
-    "label": "Vespa"
+    id: "vespa",
+    label: "Vespa",
   },
   {
-    "id": "vhdl",
-    "label": "VHDL"
+    id: "vhdl",
+    label: "VHDL",
   },
   {
-    "id": "victoriametrics",
-    "label": "VictoriaMetrics"
+    id: "victoriametrics",
+    label: "VictoriaMetrics",
   },
   {
-    "id": "vim-editor",
-    "label": "Vim"
+    id: "vim-editor",
+    label: "Vim",
   },
   {
-    "id": "vim-skill",
-    "label": "Vim"
+    id: "vim-skill",
+    label: "Vim",
   },
   {
-    "id": "visual-basic",
-    "label": "Visual Basic"
+    id: "visual-basic",
+    label: "Visual Basic",
   },
   {
-    "id": "visual-studio",
-    "label": "Visual Studio"
+    id: "visual-studio",
+    label: "Visual Studio",
   },
   {
-    "id": "vscode",
-    "label": "Visual Studio Code"
+    id: "vscode",
+    label: "Visual Studio Code",
   },
   {
-    "id": "vite",
-    "label": "Vite"
+    id: "vite",
+    label: "Vite",
   },
   {
-    "id": "vitest",
-    "label": "Vitest"
+    id: "vitest",
+    label: "Vitest",
   },
   {
-    "id": "vue",
-    "label": "Vue.js"
+    id: "vue",
+    label: "Vue.js",
   },
   {
-    "id": "vuex",
-    "label": "Vuex"
+    id: "vuex",
+    label: "Vuex",
   },
   {
-    "id": "vultr",
-    "label": "Vultr"
+    id: "vultr",
+    label: "Vultr",
   },
   {
-    "id": "vyper",
-    "label": "Vyper"
+    id: "vyper",
+    label: "Vyper",
   },
   {
-    "id": "warp",
-    "label": "Warp"
+    id: "warp",
+    label: "Warp",
   },
   {
-    "id": "weaviate",
-    "label": "Weaviate"
+    id: "weaviate",
+    label: "Weaviate",
   },
   {
-    "id": "web-performance",
-    "label": "Web Performance Optimization"
+    id: "web-performance",
+    label: "Web Performance Optimization",
   },
   {
-    "id": "web3js",
-    "label": "Web3.js"
+    id: "web3js",
+    label: "Web3.js",
   },
   {
-    "id": "web3-blockchain",
-    "label": "Web3/Blockchain"
+    id: "web3-blockchain",
+    label: "Web3/Blockchain",
   },
   {
-    "id": "web3py",
-    "label": "Web3py"
+    id: "web3py",
+    label: "Web3py",
   },
   {
-    "id": "webdriver",
-    "label": "WebDriver"
+    id: "webdriver",
+    label: "WebDriver",
   },
   {
-    "id": "webflow",
-    "label": "Webflow"
+    id: "webflow",
+    label: "Webflow",
   },
   {
-    "id": "webpack",
-    "label": "Webpack"
+    id: "webpack",
+    label: "Webpack",
   },
   {
-    "id": "websockets",
-    "label": "WebSockets"
+    id: "websockets",
+    label: "WebSockets",
   },
   {
-    "id": "webstorm",
-    "label": "WebStorm"
+    id: "webstorm",
+    label: "WebStorm",
   },
   {
-    "id": "windows",
-    "label": "Windows"
+    id: "windows",
+    label: "Windows",
   },
   {
-    "id": "wix",
-    "label": "Wix"
+    id: "wix",
+    label: "Wix",
   },
   {
-    "id": "wolfram-language",
-    "label": "Wolfram Language"
+    id: "wolfram-language",
+    label: "Wolfram Language",
   },
   {
-    "id": "wordpress",
-    "label": "WordPress"
+    id: "wordpress",
+    label: "WordPress",
   },
   {
-    "id": "wxwidgets",
-    "label": "wxWidgets"
+    id: "wxwidgets",
+    label: "wxWidgets",
   },
   {
-    "id": "xamarin",
-    "label": "Xamarin"
+    id: "xamarin",
+    label: "Xamarin",
   },
   {
-    "id": "xcode",
-    "label": "XCode"
+    id: "xcode",
+    label: "XCode",
   },
   {
-    "id": "xml",
-    "label": "XML"
+    id: "xml",
+    label: "XML",
   },
   {
-    "id": "xquery",
-    "label": "XQuery"
+    id: "xquery",
+    label: "XQuery",
   },
   {
-    "id": "xslt",
-    "label": "XSLT"
+    id: "xslt",
+    label: "XSLT",
   },
   {
-    "id": "yaml",
-    "label": "YAML"
+    id: "yaml",
+    label: "YAML",
   },
   {
-    "id": "yarn",
-    "label": "Yarn"
+    id: "yarn",
+    label: "Yarn",
   },
   {
-    "id": "yii",
-    "label": "Yii"
+    id: "yii",
+    label: "Yii",
   },
   {
-    "id": "zabbix",
-    "label": "Zabbix"
+    id: "zabbix",
+    label: "Zabbix",
   },
   {
-    "id": "zend-framework",
-    "label": "Zend Framework"
+    id: "zend-framework",
+    label: "Zend Framework",
   },
   {
-    "id": "zig",
-    "label": "Zig"
+    id: "zig",
+    label: "Zig",
   },
   {
-    "id": "zustand",
-    "label": "Zustand"
-  }
+    id: "zustand",
+    label: "Zustand",
+  },
 ];
