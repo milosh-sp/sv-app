@@ -23,6 +23,13 @@ describe("COMMON_REVIEWER_SKILLS", () => {
     expect(isCommonReviewerSkill("JavaScript")).toBe(true);
     expect(isCommonReviewerSkill("javascript")).toBe(true);
   });
+
+  it("should include tech catalog skills", () => {
+    expect(isCommonReviewerSkill("Docker")).toBe(true);
+    expect(isCommonReviewerSkill("FastAPI")).toBe(true);
+    expect(isCommonReviewerSkill("Playwright")).toBe(true);
+    expect(COMMON_REVIEWER_SKILLS.length).toBeGreaterThan(500);
+  });
 });
 
 describe("buildReviewerSkillOptions", () => {
@@ -41,6 +48,24 @@ describe("buildReviewerSkillOptions", () => {
     const options = buildReviewerSkillOptions(["javascript", "Python"]);
     const javascriptCount = options.filter((opt) => opt.value === "JavaScript").length;
     expect(javascriptCount).toBe(1);
+  });
+
+  it("should include verification screenshot skills in catalog options", () => {
+    const screenshotSkills = [
+      "Flutter & Dart",
+      "REST API Integration",
+      "CI/CD Pipelines",
+      "AI Chatbot Development",
+      "Product Management",
+      "Strategic Planning",
+      "Business Development",
+    ] as const;
+    const options = buildReviewerSkillOptions();
+    const values = new Set(options.map((opt) => opt.value));
+
+    for (const skill of screenshotSkills) {
+      expect(values.has(skill)).toBe(true);
+    }
   });
 });
 
@@ -64,12 +89,25 @@ describe("resolveCanonicalSkillLabel", () => {
 
   it("should not resolve blocklisted compound skills to a shorter catalog skill", () => {
     expect(resolveCanonicalSkillLabel("React Native")).toBe("React Native");
-    expect(resolveCanonicalSkillLabel("react-native")).toBe("react-native");
+    expect(resolveCanonicalSkillLabel("react-native")).toBe("React Native");
   });
 
   it("should preserve unknown skills and unknown compounds", () => {
     expect(resolveCanonicalSkillLabel("LegacySkill")).toBe("LegacySkill");
     expect(resolveCanonicalSkillLabel("LegacySkill ES6")).toBe("LegacySkill ES6");
+  });
+
+  it("should resolve screenshot skill aliases to canonical catalog labels", () => {
+    expect(resolveCanonicalSkillLabel("REST API Integration")).toBe("REST APIs");
+    expect(resolveCanonicalSkillLabel("CI/CD Pipelines")).toBe("CI/CD");
+  });
+
+  it("should preserve screenshot skills that are canonical catalog entries", () => {
+    expect(resolveCanonicalSkillLabel("Flutter & Dart")).toBe("Flutter & Dart");
+    expect(resolveCanonicalSkillLabel("AI Chatbot Development")).toBe("AI Chatbot Development");
+    expect(resolveCanonicalSkillLabel("Product Management")).toBe("Product Management");
+    expect(resolveCanonicalSkillLabel("Strategic Planning")).toBe("Strategic Planning");
+    expect(resolveCanonicalSkillLabel("Business Development")).toBe("Business Development");
   });
 });
 

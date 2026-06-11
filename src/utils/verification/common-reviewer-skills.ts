@@ -1,56 +1,58 @@
 import type { ComboboxOption } from "@/components/ui/combobox";
 
+import { techSkills } from "./tech-skills";
+
 function normalizeKey(label: string): string {
   return label.trim().toLowerCase();
 }
 
-/** Predefined skills reviewers can be assigned. Grouped in source for readability. */
-export const COMMON_REVIEWER_SKILLS = [
-  // Languages
-  "JavaScript",
-  "TypeScript",
-  "Python",
-  "Java",
-  "C#",
-  "Go",
-  "Rust",
-  "SQL",
-  "HTML",
-  "CSS",
-  // Frameworks & runtimes
-  "React",
-  "Vue",
-  "Angular",
+/** Skills not covered by the tech catalog (product/business + legacy short forms). */
+const SUPPLEMENTAL_REVIEWER_SKILLS = [
   "Node.js",
-  "Next.js",
-  "Django",
-  "Spring",
   ".NET",
-  // Cloud & DevOps
-  "AWS",
-  "Azure",
+  "Spring",
+  "Go",
   "GCP",
-  "Docker",
-  "Kubernetes",
-  "Terraform",
-  "CI/CD",
-  // Data & databases
-  "PostgreSQL",
-  "MongoDB",
-  "Redis",
-  "GraphQL",
-  "TensorFlow",
-  "PyTorch",
-  // Other
-  "Git",
-  "Linux",
+  "Vue",
   "Agile",
   "REST APIs",
-  "Microservices",
-] as const satisfies readonly string[];
+  "CI/CD",
+  "Flutter & Dart",
+  "REST API Integration",
+  "CI/CD Pipelines",
+  "AI Chatbot Development",
+  "Product Management",
+  "Strategic Planning",
+  "Business Development",
+] as const;
+
+function dedupeSkillLabels(labels: readonly string[]): string[] {
+  const seen = new Set<string>();
+  const result: string[] = [];
+
+  for (const label of labels) {
+    const trimmed = label.trim();
+    if (!trimmed) continue;
+
+    const key = normalizeKey(trimmed);
+    if (seen.has(key)) continue;
+
+    seen.add(key);
+    result.push(trimmed);
+  }
+
+  return result;
+}
+
+/** Predefined skills reviewers can be assigned. */
+export const COMMON_REVIEWER_SKILLS: readonly string[] = Object.freeze(
+  dedupeSkillLabels([...techSkills.map((skill) => skill.label), ...SUPPLEMENTAL_REVIEWER_SKILLS]).sort((a, b) =>
+    a.localeCompare(b),
+  ),
+);
 
 /** Extra normalized spellings mapped to canonical catalog labels. */
-export const SKILL_ALIASES: Record<string, (typeof COMMON_REVIEWER_SKILLS)[number]> = {
+const MANUAL_SKILL_ALIASES: Record<string, string> = {
   js: "JavaScript",
   javascript: "JavaScript",
   ecmascript: "JavaScript",
@@ -59,6 +61,7 @@ export const SKILL_ALIASES: Record<string, (typeof COMMON_REVIEWER_SKILLS)[numbe
   py: "Python",
   python3: "Python",
   golang: "Go",
+  "go (golang)": "Go",
   node: "Node.js",
   nodejs: "Node.js",
   "node.js": "Node.js",
@@ -66,24 +69,28 @@ export const SKILL_ALIASES: Record<string, (typeof COMMON_REVIEWER_SKILLS)[numbe
   "next.js": "Next.js",
   reactjs: "React",
   "react.js": "React",
-  vuejs: "Vue",
-  "vue.js": "Vue",
+  vuejs: "Vue.js",
+  vue: "Vue.js",
+  "vue.js": "Vue.js",
   angularjs: "Angular",
   postgres: "PostgreSQL",
   postgresql: "PostgreSQL",
   mongo: "MongoDB",
   mongodb: "MongoDB",
-  k8s: "Kubernetes",
-  kube: "Kubernetes",
+  k8s: "Kubernetes (K8s)",
+  kube: "Kubernetes (K8s)",
+  kubernetes: "Kubernetes (K8s)",
   csharp: "C#",
   "c#": "C#",
   dotnet: ".NET",
   ".net": ".NET",
   cicd: "CI/CD",
   "ci/cd": "CI/CD",
+  "ci/cd pipelines": "CI/CD",
   aws: "AWS",
-  azure: "Azure",
+  azure: "Microsoft Azure",
   gcp: "GCP",
+  "google cloud platform (gcp)": "GCP",
   googlecloud: "GCP",
   tf: "Terraform",
   graphql: "GraphQL",
@@ -92,7 +99,30 @@ export const SKILL_ALIASES: Record<string, (typeof COMMON_REVIEWER_SKILLS)[numbe
   rest: "REST APIs",
   "rest api": "REST APIs",
   "rest apis": "REST APIs",
+  "rest api integration": "REST APIs",
   microservice: "Microservices",
+  spring: "Spring Framework",
+  agile: "Agile/Scrum",
+  "agile/scrum": "Agile",
+};
+
+function buildTechSkillIdAliases(): Record<string, string> {
+  const aliases: Record<string, string> = {};
+
+  for (const { id, label } of techSkills) {
+    const idKey = id.toLowerCase();
+    const labelKey = normalizeKey(label);
+    if (idKey !== labelKey && !(idKey in MANUAL_SKILL_ALIASES)) {
+      aliases[idKey] = label;
+    }
+  }
+
+  return aliases;
+}
+
+export const SKILL_ALIASES: Record<string, string> = {
+  ...buildTechSkillIdAliases(),
+  ...MANUAL_SKILL_ALIASES,
 };
 
 const normalizedKeyToCanonical = new Map<string, string>();
@@ -188,7 +218,7 @@ export function buildReviewerSkillOptions(extraSkills: string[] = []): ComboboxO
   const options: ComboboxOption<string>[] = [];
 
   for (const skill of COMMON_REVIEWER_SKILLS) {
-    const key = getSkillMatchKey(skill);
+    const key = normalizeKey(skill);
     if (seen.has(key)) continue;
     seen.add(key);
     options.push({ value: skill, label: skill });

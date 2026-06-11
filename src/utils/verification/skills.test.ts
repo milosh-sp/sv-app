@@ -171,4 +171,16 @@ describe("reviewerCanReviewSkill", () => {
   it("does not match Java to JavaScript assignment", () => {
     expect(reviewerCanReviewSkill(["JavaScript"], "Java")).toBe(false);
   });
+
+  it("matches verification screenshot skill labels", () => {
+    expect(reviewerCanReviewSkill(["Flutter & Dart"], "Flutter & Dart")).toBe(true);
+    expect(reviewerCanReviewSkill(["AI Chatbot Development"], "AI Chatbot Development")).toBe(true);
+    expect(reviewerCanReviewSkill(["Product Management"], "Product Management")).toBe(true);
+    expect(reviewerCanReviewSkill(["Strategic Planning"], "Strategic Planning")).toBe(true);
+    expect(reviewerCanReviewSkill(["Business Development"], "Business Development")).toBe(true);
+    expect(reviewerCanReviewSkill(["REST API Integration"], "REST API Integration")).toBe(true);
+    expect(reviewerCanReviewSkill(["REST APIs"], "REST API Integration")).toBe(true);
+    expect(reviewerCanReviewSkill(["CI/CD Pipelines"], "CI/CD Pipelines")).toBe(true);
+    expect(reviewerCanReviewSkill(["CI/CD"], "CI/CD Pipelines")).toBe(true);
+  });
 });
