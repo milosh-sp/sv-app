@@ -277,7 +277,7 @@ function ReviewerProfileForm({
   return (
     <>
       <div className="space-y-4">
-        <div className="grid gap-3 sm:grid-cols-3">
+        <div className="grid gap-2 sm:grid-cols-2">
           <Input value={firstName} onChange={(e) => setFirstName(e.target.value)} placeholder={t`First name`} />
           <Input value={lastName} onChange={(e) => setLastName(e.target.value)} placeholder={t`Last name`} />
         </div>
