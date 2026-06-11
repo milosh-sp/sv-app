@@ -110,10 +110,7 @@ export function hasActiveAdminVerificationFilters(
   return false;
 }
 
-export function hasActiveAdminExperienceFilters(
-  search: AdminExperienceSearch,
-  tab: "queue" | "history",
-): boolean {
+export function hasActiveAdminExperienceFilters(search: AdminExperienceSearch, tab: "queue" | "history"): boolean {
   return hasActiveAdminVerificationFilters(search, tab);
 }
 

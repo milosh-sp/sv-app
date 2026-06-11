@@ -617,6 +617,43 @@ describe("verificationService.getStatus", () => {
     expect(first).not.toHaveProperty("reviewerNote");
     expect(first).not.toHaveProperty("claimedByAdminId");
   });
+
+  it("returns latest status per itemId when retry succeeds after rejection", async () => {
+    const olderRejected = {
+      id: "req-old",
+      sectionType: "experience",
+      itemId: "exp-1",
+      itemLabel: "Acme",
+      status: "rejected",
+      badgeVisible: true,
+      submittedAt: new Date("2024-01-01"),
+      assessmentAcceptedAt: null,
+    };
+    const newerVerified = {
+      id: "req-new",
+      sectionType: "experience",
+      itemId: "exp-1",
+      itemLabel: "Acme",
+      status: "verified",
+      badgeVisible: true,
+      submittedAt: new Date("2024-02-01"),
+      assessmentAcceptedAt: null,
+    };
+    const statuses = [olderRejected, newerVerified];
+
+    mockFrom
+      .mockReturnValueOnce({ where: vi.fn(() => statuses), limit: mockLimit, orderBy: mockOrderBy })
+      .mockReturnValueOnce({
+        where: vi.fn(() => ({ orderBy: vi.fn(() => ({ limit: vi.fn(() => []) })) })),
+        limit: mockLimit,
+        orderBy: mockOrderBy,
+      });
+
+    const result = await verificationService.getStatus({ userId: "user-1", resumeId: "resume-1" });
+
+    expect(result).toHaveLength(1);
+    expect(result[0]).toMatchObject({ id: "req-new", itemId: "exp-1", status: "verified" });
+  });
 });
 
 describe("verificationService.getPublicStatus", () => {
@@ -708,6 +745,44 @@ describe("verificationService.getPublicStatus", () => {
     const result = await verificationService.getPublicStatus("resume-1");
 
     expect(result).toEqual([]);
+  });
+
+  it("returns latest status per itemId when retry succeeds after rejection", async () => {
+    const olderRejected = {
+      id: "req-old",
+      sectionType: "experience",
+      itemId: "exp-1",
+      itemLabel: "Acme",
+      status: "rejected",
+      badgeVisible: true,
+      submittedAt: new Date("2024-01-01"),
+    };
+    const newerVerified = {
+      id: "req-new",
+      sectionType: "experience",
+      itemId: "exp-1",
+      itemLabel: "Acme",
+      status: "verified",
+      badgeVisible: true,
+      submittedAt: new Date("2024-02-01"),
+    };
+    const sectionStatuses = [olderRejected, newerVerified];
+
+    mockFrom
+      .mockReturnValueOnce({
+        where: vi.fn(() => ({ limit: vi.fn(() => [{ userId: "user-1", isPublic: true }]) })),
+      })
+      .mockReturnValueOnce({
+        where: vi.fn(() => sectionStatuses),
+      })
+      .mockReturnValueOnce({
+        where: vi.fn(() => ({ orderBy: vi.fn(() => ({ limit: vi.fn(() => []) })) })),
+      });
+
+    const result = await verificationService.getPublicStatus("resume-1");
+
+    expect(result).toHaveLength(1);
+    expect(result[0]).toEqual(newerVerified);
   });
 });
 

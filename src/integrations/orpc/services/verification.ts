@@ -52,6 +52,17 @@ function stripPendingLikeStatuses<T extends { status: string }>(rows: T[]): T[] 
   return rows.filter((r) => !PENDING_LIKE_STATUSES.has(r.status));
 }
 
+function dedupeLatestByItemId<T extends { itemId: string; submittedAt: Date }>(rows: T[]): T[] {
+  const latestByItemId = new Map<string, T>();
+  for (const row of rows) {
+    const existing = latestByItemId.get(row.itemId);
+    if (!existing || row.submittedAt > existing.submittedAt) {
+      latestByItemId.set(row.itemId, row);
+    }
+  }
+  return [...latestByItemId.values()];
+}
+
 function assertReviewerWorkflowRequest(request: { sectionType: string }) {
   if (!(REVIEWER_WORKFLOW_SECTION_TYPES as readonly string[]).includes(request.sectionType)) {
     throw new ORPCError("BAD_REQUEST", {
@@ -1383,7 +1394,7 @@ export const verificationService = {
       .where(eq(verificationRequests.userId, userId))
       .orderBy(desc(verificationRequests.submittedAt));
 
-    return await attachAssessmentFields(rows);
+    return await attachAssessmentFields(dedupeLatestByItemId(rows));
   },
 
   getIdentityStatus: async (userId: string) => {
@@ -1415,7 +1426,7 @@ export const verificationService = {
       .from(verificationRequests)
       .where(and(eq(verificationRequests.userId, input.userId), eq(verificationRequests.resumeId, input.resumeId)));
 
-    const enrichedSectionStatuses = await attachAssessmentFields(sectionStatuses);
+    const enrichedSectionStatuses = await attachAssessmentFields(dedupeLatestByItemId(sectionStatuses));
 
     const [identityStatus] = await db
       .select({
@@ -1442,7 +1453,7 @@ export const verificationService = {
   },
 
   getStatusByResumeId: async (resumeId: string) => {
-    return await db
+    const rows = await db
       .select({
         id: verificationRequests.id,
         sectionType: verificationRequests.sectionType,
@@ -1454,6 +1465,8 @@ export const verificationService = {
       })
       .from(verificationRequests)
       .where(eq(verificationRequests.resumeId, resumeId));
+
+    return dedupeLatestByItemId(rows);
   },
 
   getPublicStatus: async (resumeId: string) => {
@@ -1483,6 +1496,8 @@ export const verificationService = {
       .from(verificationRequests)
       .where(eq(verificationRequests.resumeId, resumeId));
 
+    const dedupedSectionStatuses = dedupeLatestByItemId(sectionStatuses);
+
     const [identityStatus] = await db
       .select({
         id: verificationRequests.id,
@@ -1499,10 +1514,10 @@ export const verificationService = {
       .limit(1);
 
     if (!identityStatus) {
-      return stripPendingLikeStatuses(sectionStatuses);
+      return stripPendingLikeStatuses(dedupedSectionStatuses);
     }
 
-    return stripPendingLikeStatuses([...sectionStatuses, identityStatus]);
+    return stripPendingLikeStatuses([...dedupedSectionStatuses, identityStatus]);
   },
 
   getPrinterStatus: async (resumeId: string, options?: { includePendingLike?: boolean }) => {
@@ -1531,6 +1546,8 @@ export const verificationService = {
       .from(verificationRequests)
       .where(eq(verificationRequests.resumeId, resumeId));
 
+    const dedupedSectionStatuses = dedupeLatestByItemId(sectionStatuses);
+
     const [identityStatus] = await db
       .select({
         id: verificationRequests.id,
@@ -1547,10 +1564,12 @@ export const verificationService = {
       .limit(1);
 
     if (!identityStatus) {
-      return options?.includePendingLike === false ? stripPendingLikeStatuses(sectionStatuses) : sectionStatuses;
+      return options?.includePendingLike === false
+        ? stripPendingLikeStatuses(dedupedSectionStatuses)
+        : dedupedSectionStatuses;
     }
 
-    const combined = [...sectionStatuses, identityStatus];
+    const combined = [...dedupedSectionStatuses, identityStatus];
     return options?.includePendingLike === false ? stripPendingLikeStatuses(combined) : combined;
   },
 
@@ -2553,9 +2572,7 @@ export const verificationService = {
     const { page, pageSize } = input;
     const offset = (page - 1) * pageSize;
     const statusCondition =
-      input.statuses && input.statuses.length > 0
-        ? null
-        : inArray(verificationRequests.status, [...FINAL_STATUSES]);
+      input.statuses && input.statuses.length > 0 ? null : inArray(verificationRequests.status, [...FINAL_STATUSES]);
     const baseWhere = and(
       inArray(verificationRequests.sectionType, [...REVIEWER_WORKFLOW_SECTION_TYPES]),
       ...(statusCondition ? [statusCondition] : []),
@@ -2718,10 +2735,7 @@ export const verificationService = {
         resolvedAt: new Date(),
       })
       .where(
-        and(
-          eq(verificationRequests.id, input.requestId),
-          inArray(verificationRequests.status, [...FINAL_STATUSES]),
-        ),
+        and(eq(verificationRequests.id, input.requestId), inArray(verificationRequests.status, [...FINAL_STATUSES])),
       )
       .returning({
         id: verificationRequests.id,
