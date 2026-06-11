@@ -6,6 +6,7 @@ import { auth } from "@/integrations/auth/config";
 import { db } from "@/integrations/drizzle/client";
 import { adminRoles } from "@/integrations/drizzle/schema";
 import { verificationService } from "@/integrations/orpc/services/verification";
+import { getEffectiveDashboardMode, parseDashboardModeFromCookieHeader } from "@/utils/dashboard-mode";
 
 export const Route = createFileRoute("/api/reviewer/documents/$requestId/$documentId")({
   server: {
@@ -30,6 +31,11 @@ async function handler({ request, params }: { request: Request; params: { reques
     .limit(1);
 
   if (!role || role.role !== "reviewer_admin") {
+    return new Response("Forbidden", { status: 403 });
+  }
+
+  const cookieMode = parseDashboardModeFromCookieHeader(request.headers);
+  if (getEffectiveDashboardMode(role.role, cookieMode) === "user") {
     return new Response("Forbidden", { status: 403 });
   }
 

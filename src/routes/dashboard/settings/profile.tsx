@@ -24,6 +24,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { authClient } from "@/integrations/auth/client";
+import { useDashboardMode } from "@/hooks/use-dashboard-mode";
 import { orpc } from "@/integrations/orpc/client";
 import { getAdminRoleQueryOptionsForUser } from "@/integrations/orpc/get-admin-role-query-options";
 
@@ -52,6 +53,7 @@ function RouteComponent() {
   const router = useRouter();
   const { session } = Route.useRouteContext();
   const { data } = useSuspenseQuery(getAdminRoleQueryOptionsForUser(session.user.id));
+  const { effectiveMode } = useDashboardMode();
 
   const defaultValues = useMemo(() => {
     return {
@@ -267,7 +269,7 @@ function RouteComponent() {
         </motion.form>
       </Form>
 
-      {data.role !== "skill_verdict_admin" && data.role !== "reviewer_admin" && (
+      {data.role !== "skill_verdict_admin" && (data.role !== "reviewer_admin" || effectiveMode === "user") && (
         <>
           <Separator />
           <IdentityVerificationBlock />

@@ -1037,6 +1037,7 @@ describe("verificationService.acceptCase", () => {
   };
   const pendingSkillRequest = {
     id: "req-1",
+    userId: "user-1",
     sectionType: "skill",
     itemLabel: "TypeScript",
     status: "pending",
@@ -1095,6 +1096,16 @@ describe("verificationService.acceptCase", () => {
 
     await expect(verificationService.acceptCase({ requestId: "req-1", adminId: "admin-1", file })).rejects.toThrow(
       "not available to accept",
+    );
+  });
+
+  it("should reject self-review requests", async () => {
+    mockLimit.mockReturnValueOnce([reviewerProfile]).mockReturnValueOnce([
+      { ...pendingSkillRequest, userId: "admin-1" },
+    ]);
+
+    await expect(verificationService.acceptCase({ requestId: "req-1", adminId: "admin-1", file })).rejects.toThrow(
+      "You cannot review your own verification requests",
     );
   });
 
@@ -1299,6 +1310,7 @@ describe("verificationService.submitVerdict", () => {
   it("should error if not the claiming reviewer", async () => {
     mockLimit
       .mockReturnValueOnce([reviewerProfile])
+      .mockReturnValueOnce([{ userId: "user-1" }])
       .mockReturnValueOnce([{ id: "req-1", status: "claimed", claimedByAdminId: "admin-2", sectionType: "skill" }]);
     mockReturning.mockResolvedValueOnce([]);
 
@@ -1314,6 +1326,7 @@ describe("verificationService.submitVerdict", () => {
   it("should error if not in claimed status", async () => {
     mockLimit
       .mockReturnValueOnce([reviewerProfile])
+      .mockReturnValueOnce([{ userId: "user-1" }])
       .mockReturnValueOnce([{ id: "req-1", status: "pending", claimedByAdminId: "admin-1", sectionType: "skill" }]);
     mockReturning.mockResolvedValueOnce([]);
 
@@ -1324,6 +1337,18 @@ describe("verificationService.submitVerdict", () => {
         verdict: "verified",
       }),
     ).rejects.toThrow("must be in claimed status");
+  });
+
+  it("should reject self-review verdict submission", async () => {
+    mockLimit.mockReturnValueOnce([reviewerProfile]).mockReturnValueOnce([{ userId: "admin-1" }]);
+
+    await expect(
+      verificationService.submitVerdict({
+        requestId: "req-1",
+        adminId: "admin-1",
+        verdict: "verified",
+      }),
+    ).rejects.toThrow("You cannot review your own verification requests");
   });
 
   it("should error if profile not found", async () => {
@@ -1341,7 +1366,8 @@ describe("verificationService.submitVerdict", () => {
   it("should submit verdict when claimed by reviewer", async () => {
     mockLimit.mockImplementation(() => {
       if (mockLimit.mock.calls.length === 1) return [reviewerProfile];
-      if (mockLimit.mock.calls.length === 2) return [{ email: "applicant@test.com" }];
+      if (mockLimit.mock.calls.length === 2) return [{ userId: "user-1" }];
+      if (mockLimit.mock.calls.length === 3) return [{ email: "applicant@test.com" }];
       return [];
     });
     mockReturning.mockResolvedValueOnce([
@@ -1832,6 +1858,67 @@ describe("verificationService.listQueue", () => {
     const result = await verificationService.listQueue("admin-1");
     expect(result).toHaveLength(1);
     expect(result[0]?.id).toBe("req-js-es6");
+  });
+
+  it("excludes the reviewer's own verification requests", async () => {
+    const rows = [
+      {
+        id: "req-own",
+        userId: "admin-1",
+        resumeId: "resume-1",
+        sectionType: "skill",
+        itemId: "item-1",
+        itemLabel: "TypeScript",
+        status: "pending",
+        submittedAt: new Date(),
+      },
+      {
+        id: "req-other",
+        userId: "user-2",
+        resumeId: "resume-2",
+        sectionType: "skill",
+        itemId: "item-2",
+        itemLabel: "TypeScript",
+        status: "pending",
+        submittedAt: new Date(),
+      },
+    ];
+    mockFrom
+      .mockReturnValueOnce({
+        where: vi.fn(() => ({
+          limit: vi.fn(() => [{ reviewerSkills: ["TypeScript"] }]),
+        })),
+      })
+      .mockReturnValueOnce({ where: vi.fn(() => ({ orderBy: vi.fn(() => rows) })) })
+      .mockReturnValueOnce({ where: vi.fn(() => []) })
+      .mockReturnValueOnce({ where: vi.fn(() => []) })
+      .mockReturnValueOnce({ where: vi.fn(() => []) });
+    const result = await verificationService.listQueue("admin-1");
+    expect(result).toHaveLength(1);
+    expect(result[0]?.id).toBe("req-other");
+  });
+});
+
+describe("verificationService.downloadReviewerDocument", () => {
+  it("should reject access to the reviewer's own verification documents", async () => {
+    mockLimit.mockReturnValueOnce([
+      {
+        id: "req-1",
+        userId: "admin-1",
+        sectionType: "skill",
+        itemLabel: "TypeScript",
+        status: "pending",
+        claimedByAdminId: null,
+      },
+    ]);
+
+    await expect(
+      verificationService.downloadReviewerDocument({
+        requestId: "req-1",
+        documentId: "doc-1",
+        adminId: "admin-1",
+      }),
+    ).rejects.toThrow("You cannot review your own verification requests");
   });
 });
 
