@@ -5,6 +5,7 @@ import { eq } from "drizzle-orm";
 
 import type { Locale } from "@/utils/locale";
 
+import { getEffectiveDashboardMode, parseDashboardModeFromCookieHeader } from "@/utils/dashboard-mode";
 import { env } from "@/utils/env";
 
 import { auth, verifyOAuthToken } from "../auth/config";
@@ -143,6 +144,13 @@ export const reviewerAdminProcedure = protectedProcedure.use(async ({ context, n
 
   if (!role || role.role !== "reviewer_admin") {
     throw new ORPCError("FORBIDDEN", { message: "Reviewer Admin role required" });
+  }
+
+  const cookieMode = parseDashboardModeFromCookieHeader(context.reqHeaders ?? new Headers());
+  if (getEffectiveDashboardMode(role.role, cookieMode) === "user") {
+    throw new ORPCError("FORBIDDEN", {
+      message: "Reviewer actions are unavailable while in User Mode. Switch to Reviewer Mode to continue.",
+    });
   }
 
   return next({ context: { ...context, adminRole: "reviewer_admin" as const } });

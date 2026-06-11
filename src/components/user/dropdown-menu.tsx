@@ -1,7 +1,7 @@
 import { t } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { Trans } from "@lingui/react/macro";
-import { PaletteIcon, SignOutIcon, TranslateIcon } from "@phosphor-icons/react";
+import { PaletteIcon, SealCheckIcon, SignOutIcon, TranslateIcon, UserCircleIcon } from "@phosphor-icons/react";
 import { useRouter } from "@tanstack/react-router";
 import { toast } from "sonner";
 
@@ -21,6 +21,7 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useDashboardMode } from "@/hooks/use-dashboard-mode";
 import { authClient } from "@/integrations/auth/client";
 import { isLocale, loadLocale, localeMap, setLocaleServerFn } from "@/utils/locale";
 import { isTheme } from "@/utils/theme";
@@ -34,6 +35,7 @@ export function UserDropdownMenu({ children }: Props) {
   const { i18n } = useLingui();
   const { theme, setTheme } = useTheme();
   const { data: session } = authClient.useSession();
+  const { effectiveMode, isPending: isModePending, isReviewerPrivileged, setMode } = useDashboardMode();
 
   const handleThemeChange = (value: string) => {
     if (!isTheme(value)) return;
@@ -62,6 +64,16 @@ export function UserDropdownMenu({ children }: Props) {
     });
   };
 
+  const handleModeToggle = async () => {
+    if (isModePending) return;
+
+    try {
+      await setMode(effectiveMode === "reviewer" ? "user" : "reviewer");
+    } catch {
+      toast.error(t`Failed to switch dashboard mode. Please try again.`);
+    }
+  };
+
   if (!session?.user) return null;
 
   return (
@@ -69,6 +81,28 @@ export function UserDropdownMenu({ children }: Props) {
       <DropdownMenuTrigger render={children({ session: session as AuthSession })} />
 
       <DropdownMenuContent align="start" side="top">
+        {isReviewerPrivileged && (
+          <>
+            <DropdownMenuGroup>
+              <DropdownMenuItem disabled={isModePending} onClick={() => void handleModeToggle()}>
+                {effectiveMode === "reviewer" ? (
+                  <>
+                    <UserCircleIcon />
+                    <Trans>Switch to User Mode</Trans>
+                  </>
+                ) : (
+                  <>
+                    <SealCheckIcon />
+                    <Trans>Switch to Reviewer Mode</Trans>
+                  </>
+                )}
+              </DropdownMenuItem>
+            </DropdownMenuGroup>
+
+            <DropdownMenuSeparator className="my-2 h-0.5 bg-border" />
+          </>
+        )}
+
         <DropdownMenuGroup>
           <DropdownMenuSub>
             <DropdownMenuSubTrigger>

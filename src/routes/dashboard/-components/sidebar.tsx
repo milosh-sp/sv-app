@@ -38,6 +38,7 @@ import {
   SidebarSeparator,
 } from "@/components/ui/sidebar";
 import { UserDropdownMenu } from "@/components/user/dropdown-menu";
+import { useDashboardMode } from "@/hooks/use-dashboard-mode";
 import { orpc } from "@/integrations/orpc/client";
 import { getAdminRoleQueryOptionsForUser } from "@/integrations/orpc/get-admin-role-query-options";
 import {
@@ -219,14 +220,17 @@ export function DashboardSidebar() {
   });
 
   const identityVerificationState = deriveIdentitySidebarVerificationState(user);
+  const { effectiveMode } = useDashboardMode();
   const isSkillVerdictAdmin = adminRole?.role === "skill_verdict_admin";
   const isReviewerAdmin = adminRole?.role === "reviewer_admin";
-  const showSkillCenter = !isSkillVerdictAdmin && !isReviewerAdmin;
+  const isReviewerMode = isReviewerAdmin && effectiveMode === "reviewer";
+  const showSkillCenter = !isSkillVerdictAdmin && effectiveMode !== "reviewer";
   const roleLabel = (() => {
+    if (isReviewerMode) return msg`Reviewer Admin`;
     if (adminRole?.role === "skill_verdict_admin") return msg`Skill Verdict Admin`;
-    if (adminRole?.role === "reviewer_admin") return msg`Reviewer Admin`;
     return null;
   })();
+  const showIdentityStatus = !isSkillVerdictAdmin && !isReviewerMode;
 
   return (
     <Sidebar
@@ -266,7 +270,7 @@ export function DashboardSidebar() {
                     >
                       {roleLabel ? i18n.t(roleLabel) : session.user.email}
                     </p>
-                    {!adminRole?.role && <SidebarIdentityVerificationStatus state={identityVerificationState} />}
+                    {showIdentityStatus && <SidebarIdentityVerificationStatus state={identityVerificationState} />}
                   </div>
 
                   <DotsThreeIcon className="size-4 shrink-0 text-sidebar-foreground/60 transition-opacity group-data-[collapsible=icon]:opacity-0" />
@@ -291,7 +295,7 @@ export function DashboardSidebar() {
           </SidebarGroup>
         )}
 
-        {isReviewerAdmin && (
+        {isReviewerMode && (
           <>
             <SidebarGroup className="pt-1">
               <SidebarGroupLabel>

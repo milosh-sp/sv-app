@@ -8,15 +8,17 @@ import { getSession } from "./integrations/auth/functions";
 import { client, orpc } from "./integrations/orpc/client";
 import { getQueryClient } from "./integrations/query/client";
 import { routeTree } from "./routeTree.gen";
+import { getDashboardMode } from "./utils/dashboard-mode";
 import { getLocale, loadLocale } from "./utils/locale";
 import { getTheme } from "./utils/theme";
 
 export const getRouter = async () => {
   const queryClient = getQueryClient();
 
-  const [theme, locale, session, flags] = await Promise.all([
+  const [theme, locale, dashboardMode, session, flags] = await Promise.all([
     getTheme(),
     getLocale(),
+    getDashboardMode(),
     getSession(),
     client.flags.get(),
   ]);
@@ -32,7 +34,7 @@ export const getRouter = async () => {
     defaultErrorComponent: ErrorScreen,
     defaultPendingComponent: LoadingScreen,
     defaultNotFoundComponent: NotFoundScreen,
-    context: { orpc, queryClient, theme, locale, session, flags },
+    context: { orpc, queryClient, theme, locale, dashboardMode, session, flags },
   });
 
   setupRouterSsrQueryIntegration({

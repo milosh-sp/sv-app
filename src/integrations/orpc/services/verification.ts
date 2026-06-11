@@ -1,5 +1,5 @@
 import { ORPCError } from "@orpc/server";
-import { and, count, desc, eq, ilike, inArray, isNull, or, type SQL } from "drizzle-orm";
+import { and, count, desc, eq, ilike, inArray, isNull, ne, or, type SQL } from "drizzle-orm";
 
 import type { ResumeData } from "@/schema/resume/data";
 
@@ -525,10 +525,17 @@ async function enrichSkillProjectRequestsForReviewer(requests: SkillProjectReque
   });
 }
 
+function assertNotSelfReview(requestUserId: string, adminId: string) {
+  if (requestUserId === adminId) {
+    throw new ORPCError("FORBIDDEN", { message: "You cannot review your own verification requests" });
+  }
+}
+
 async function assertReviewerDocumentAccess(requestId: string, adminId: string) {
   const [request] = await db
     .select({
       id: verificationRequests.id,
+      userId: verificationRequests.userId,
       sectionType: verificationRequests.sectionType,
       itemLabel: verificationRequests.itemLabel,
       status: verificationRequests.status,
@@ -545,6 +552,8 @@ async function assertReviewerDocumentAccess(requestId: string, adminId: string) 
   if (!(REVIEWER_WORKFLOW_SECTION_TYPES as readonly string[]).includes(request.sectionType)) {
     throw new ORPCError("FORBIDDEN", { message: "Document access is limited to skill and project requests" });
   }
+
+  assertNotSelfReview(request.userId, adminId);
 
   if (request.claimedByAdminId === adminId) {
     return request;
@@ -1844,11 +1853,13 @@ export const verificationService = {
         and(
           eq(verificationRequests.status, "pending"),
           inArray(verificationRequests.sectionType, ["skill", "project"]),
+          ne(verificationRequests.userId, adminId),
         ),
       )
       .orderBy(desc(verificationRequests.submittedAt));
 
     const filtered = requests.filter((request) => {
+      if (request.userId === adminId) return false;
       if (request.sectionType === "project") return true;
       return reviewerCanReviewSkill(profile.reviewerSkills, request.itemLabel);
     });
@@ -1878,6 +1889,7 @@ export const verificationService = {
     const [pendingRequest] = await db
       .select({
         id: verificationRequests.id,
+        userId: verificationRequests.userId,
         sectionType: verificationRequests.sectionType,
         itemLabel: verificationRequests.itemLabel,
         status: verificationRequests.status,
@@ -1890,6 +1902,8 @@ export const verificationService = {
     if (!pendingRequest) {
       throw new ORPCError("NOT_FOUND", { message: "Verification request not found" });
     }
+
+    assertNotSelfReview(pendingRequest.userId, input.adminId);
 
     if (
       pendingRequest.sectionType === "skill" &&
@@ -2117,6 +2131,18 @@ export const verificationService = {
     if (!profile.consentGiven) {
       throw new ORPCError("FORBIDDEN", { message: "Consent must be given before submitting verdicts" });
     }
+
+    const [requestToReview] = await db
+      .select({ userId: verificationRequests.userId })
+      .from(verificationRequests)
+      .where(eq(verificationRequests.id, input.requestId))
+      .limit(1);
+
+    if (!requestToReview) {
+      throw new ORPCError("NOT_FOUND", { message: "Verification request not found" });
+    }
+
+    assertNotSelfReview(requestToReview.userId, input.adminId);
 
     const [updated] = await db
       .update(verificationRequests)

@@ -12,6 +12,7 @@ import type { AuthSession } from "@/integrations/auth/types";
 import type { FeatureFlags } from "@/integrations/orpc/services/flags";
 
 import { CommandPalette } from "@/components/command-palette";
+import { DashboardModeProvider } from "@/components/dashboard-mode/provider";
 import { ThemeProvider } from "@/components/theme/provider";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -20,6 +21,7 @@ import { ConfirmDialogProvider } from "@/hooks/use-confirm";
 import { PromptDialogProvider } from "@/hooks/use-prompt";
 import { getSession } from "@/integrations/auth/functions";
 import { client, type orpc } from "@/integrations/orpc/client";
+import { getDashboardMode, type DashboardMode } from "@/utils/dashboard-mode";
 import { getLocale, isRTL, type Locale, loadLocale } from "@/utils/locale";
 import { getTheme, type Theme } from "@/utils/theme";
 
@@ -28,6 +30,7 @@ import appCss from "../styles/globals.css?url";
 type RouterContext = {
   theme: Theme;
   locale: Locale;
+  dashboardMode: DashboardMode;
   orpc: typeof orpc;
   queryClient: QueryClient;
   session: AuthSession | null;
@@ -91,14 +94,15 @@ export const Route = createRootRouteWithContext<RouterContext>()({
     };
   },
   beforeLoad: async () => {
-    const [theme, locale, session, flags] = await Promise.all([
+    const [theme, locale, dashboardMode, session, flags] = await Promise.all([
       getTheme(),
       getLocale(),
+      getDashboardMode(),
       getSession(),
       client.flags.get(),
     ]);
 
-    return { theme, locale, session, flags };
+    return { theme, locale, dashboardMode, session, flags };
   },
 });
 
@@ -107,7 +111,7 @@ type Props = {
 };
 
 function RootDocument({ children }: Props) {
-  const { theme, locale } = Route.useRouteContext();
+  const { theme, locale, dashboardMode } = Route.useRouteContext();
   const dir = isRTL(locale) ? "rtl" : "ltr";
 
   return (
@@ -121,17 +125,19 @@ function RootDocument({ children }: Props) {
           <I18nProvider i18n={i18n}>
             <IconContext.Provider value={{ size: 16, weight: "regular" }}>
               <ThemeProvider theme={theme}>
-                <TooltipProvider>
-                  <ConfirmDialogProvider>
-                    <PromptDialogProvider>
-                      {children}
+                <DashboardModeProvider dashboardMode={dashboardMode}>
+                  <TooltipProvider>
+                    <ConfirmDialogProvider>
+                      <PromptDialogProvider>
+                        {children}
 
-                      <DialogManager />
-                      <CommandPalette />
-                      <Toaster richColors position="bottom-right" />
-                    </PromptDialogProvider>
-                  </ConfirmDialogProvider>
-                </TooltipProvider>
+                        <DialogManager />
+                        <CommandPalette />
+                        <Toaster richColors position="bottom-right" />
+                      </PromptDialogProvider>
+                    </ConfirmDialogProvider>
+                  </TooltipProvider>
+                </DashboardModeProvider>
               </ThemeProvider>
             </IconContext.Provider>
           </I18nProvider>
