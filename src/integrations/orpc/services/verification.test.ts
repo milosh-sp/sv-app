@@ -1100,9 +1100,9 @@ describe("verificationService.acceptCase", () => {
   });
 
   it("should reject self-review requests", async () => {
-    mockLimit.mockReturnValueOnce([reviewerProfile]).mockReturnValueOnce([
-      { ...pendingSkillRequest, userId: "admin-1" },
-    ]);
+    mockLimit
+      .mockReturnValueOnce([reviewerProfile])
+      .mockReturnValueOnce([{ ...pendingSkillRequest, userId: "admin-1" }]);
 
     await expect(verificationService.acceptCase({ requestId: "req-1", adminId: "admin-1", file })).rejects.toThrow(
       "You cannot review your own verification requests",

@@ -8,7 +8,6 @@ import { toast } from "sonner";
 import type { AuthSession } from "@/integrations/auth/types";
 
 import { useTheme } from "@/components/theme/provider";
-import { useDashboardMode } from "@/hooks/use-dashboard-mode";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -22,6 +21,7 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useDashboardMode } from "@/hooks/use-dashboard-mode";
 import { authClient } from "@/integrations/auth/client";
 import { isLocale, loadLocale, localeMap, setLocaleServerFn } from "@/utils/locale";
 import { isTheme } from "@/utils/theme";

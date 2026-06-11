@@ -23,8 +23,8 @@ import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-import { authClient } from "@/integrations/auth/client";
 import { useDashboardMode } from "@/hooks/use-dashboard-mode";
+import { authClient } from "@/integrations/auth/client";
 import { orpc } from "@/integrations/orpc/client";
 import { getAdminRoleQueryOptionsForUser } from "@/integrations/orpc/get-admin-role-query-options";
 

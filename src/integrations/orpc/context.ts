@@ -5,8 +5,8 @@ import { eq } from "drizzle-orm";
 
 import type { Locale } from "@/utils/locale";
 
-import { env } from "@/utils/env";
 import { getEffectiveDashboardMode, parseDashboardModeFromCookieHeader } from "@/utils/dashboard-mode";
+import { env } from "@/utils/env";
 
 import { auth, verifyOAuthToken } from "../auth/config";
 import { db } from "../drizzle/client";
