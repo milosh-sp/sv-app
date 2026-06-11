@@ -127,6 +127,11 @@ const skillVerdictVerificationSidebarItems = [
     href: "/dashboard/admin/experience-queue",
   },
   {
+    icon: <SealCheckIcon />,
+    label: msg`Pending Verdicts`,
+    href: "/dashboard/admin/pending-verdicts",
+  },
+  {
     icon: <IdentificationCardIcon />,
     label: msg`Identity Queue`,
     href: "/dashboard/admin/identity",

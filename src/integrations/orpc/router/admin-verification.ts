@@ -170,6 +170,27 @@ export const adminVerificationRouter = {
       });
     }),
 
+  listVerdictHistory: skillVerdictAdminProcedure.input(pendingVerdictsListInputSchema).handler(async ({ input }) => {
+    return await verificationService.listVerdictHistory(input);
+  }),
+
+  overrideConcludedVerdict: skillVerdictAdminProcedure
+    .input(
+      z.object({
+        requestId: z.string().uuid(),
+        action: z.enum(["verified", "rejected", "issue"]),
+        reason: z.string().min(1),
+      }),
+    )
+    .handler(async ({ context, input }) => {
+      return await verificationService.overrideConcludedVerdict({
+        requestId: input.requestId,
+        adminId: context.user.id,
+        action: input.action,
+        reason: input.reason,
+      });
+    }),
+
   listIdentityQueue: skillVerdictAdminProcedure.input(verificationListBaseInputSchema).handler(async ({ input }) => {
     return await verificationService.listIdentityQueue(input);
   }),

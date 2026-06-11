@@ -8,14 +8,17 @@ import { Input } from "@/components/ui/input";
 import {
   type AdminExperienceSearch,
   type AdminVerificationBaseSearch,
+  type AdminVerdictSearch,
   type AdminVerificationHistoryStatus,
   type AdminVerificationMethod,
   type AdminVerificationProposedOutcome,
   type AdminVerificationSectionType,
   defaultAdminExperienceSearch,
+  defaultAdminVerdictSearch,
   defaultAdminVerificationSearch,
   hasActiveAdminExperienceFilters,
   hasActiveAdminVerificationFilters,
+  hasActiveAdminVerdictFilters,
 } from "@/utils/verification/admin-verification-search";
 
 const HISTORY_STATUS_OPTIONS: ComboboxOption<AdminVerificationHistoryStatus>[] = [
@@ -81,7 +84,7 @@ export function AdminVerificationFilterBar({
   onReset,
 }: {
   variant: "identity" | "experience";
-  tab: "queue" | "history" | "verdicts";
+  tab: "queue" | "history";
   search: AdminVerificationBaseSearch;
   onSearchChange: (next: Partial<AdminVerificationBaseSearch>) => void;
   onReset: () => void;
@@ -106,7 +109,7 @@ export function AdminVerificationFilterBar({
           }}
         />
 
-        {variant === "experience" && tab !== "verdicts" && (
+        {variant === "experience" && (
           <div className="space-y-1.5">
             <p className="text-xs font-medium text-muted-foreground">
               <Trans>Method</Trans>
@@ -154,7 +157,7 @@ export function AdminExperienceFilterBar({
   onSearchChange,
   onReset,
 }: {
-  tab: "queue" | "history" | "verdicts";
+  tab: "queue" | "history";
   search: AdminExperienceSearch;
   onSearchChange: (next: Partial<AdminExperienceSearch>) => void;
   onReset: () => void;
@@ -216,8 +219,43 @@ export function AdminExperienceFilterBar({
             />
           </div>
         )}
+      </div>
+    </div>
+  );
+}
 
-        {tab === "verdicts" && (
+export function AdminVerdictFilterBar({
+  tab,
+  search,
+  onSearchChange,
+  onReset,
+}: {
+  tab: "queue" | "history";
+  search: AdminVerdictSearch;
+  onSearchChange: (next: Partial<AdminVerdictSearch>) => void;
+  onReset: () => void;
+}) {
+  const hasActiveFilter = hasActiveAdminVerdictFilters(search, tab);
+
+  return (
+    <div className="space-y-3 rounded-lg border p-4">
+      {hasActiveFilter && (
+        <div className="flex justify-end">
+          <Button size="sm" variant="ghost" className="h-7 text-xs" onClick={onReset}>
+            <Trans>Reset filters</Trans>
+          </Button>
+        </div>
+      )}
+
+      <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+        <AdminVerificationSearchField
+          committedQ={search.q}
+          onCommittedQChange={(q) => {
+            onSearchChange({ q, page: 1 });
+          }}
+        />
+
+        {tab === "queue" && (
           <>
             <div className="space-y-1.5">
               <p className="text-xs font-medium text-muted-foreground">
@@ -253,9 +291,46 @@ export function AdminExperienceFilterBar({
             </div>
           </>
         )}
+
+        {tab === "history" && (
+          <>
+            <div className="space-y-1.5">
+              <p className="text-xs font-medium text-muted-foreground">
+                <Trans>Status</Trans>
+              </p>
+              <Combobox
+                multiple
+                value={search.statuses}
+                options={HISTORY_STATUS_OPTIONS}
+                placeholder={t`Filter by status`}
+                searchPlaceholder={t`Search statuses…`}
+                emptyMessage={t`No matching statuses.`}
+                onValueChange={(value) => {
+                  onSearchChange({ statuses: value ?? [], page: 1 });
+                }}
+              />
+            </div>
+            <div className="space-y-1.5">
+              <p className="text-xs font-medium text-muted-foreground">
+                <Trans>Type</Trans>
+              </p>
+              <Combobox
+                multiple
+                value={search.types}
+                options={SECTION_TYPE_OPTIONS}
+                placeholder={t`Filter by type`}
+                searchPlaceholder={t`Search types…`}
+                emptyMessage={t`No matching types.`}
+                onValueChange={(value) => {
+                  onSearchChange({ types: value ?? [], page: 1 });
+                }}
+              />
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
 }
 
-export { defaultAdminExperienceSearch, defaultAdminVerificationSearch };
+export { defaultAdminExperienceSearch, defaultAdminVerdictSearch, defaultAdminVerificationSearch };

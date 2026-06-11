@@ -53,6 +53,7 @@ import { Route as DashboardSettingsAiRouteImport } from "./routes/dashboard/sett
 import { Route as DashboardReviewerQueueRouteImport } from "./routes/dashboard/reviewer/queue";
 import { Route as DashboardAdminUsersRouteImport } from "./routes/dashboard/admin/users";
 import { Route as DashboardAdminReviewersRouteImport } from "./routes/dashboard/admin/reviewers";
+import { Route as DashboardAdminPendingVerdictsRouteImport } from "./routes/dashboard/admin/pending-verdicts";
 import { Route as DashboardAdminJobSearchRouteImport } from "./routes/dashboard/admin/job-search";
 import { Route as DashboardAdminIdentityRouteImport } from "./routes/dashboard/admin/identity";
 import { Route as DashboardAdminExperienceQueueRouteImport } from "./routes/dashboard/admin/experience-queue";
@@ -296,6 +297,12 @@ const DashboardAdminReviewersRoute = DashboardAdminReviewersRouteImport.update({
   path: "/reviewers",
   getParentRoute: () => DashboardAdminRouteRoute,
 } as any);
+const DashboardAdminPendingVerdictsRoute =
+  DashboardAdminPendingVerdictsRouteImport.update({
+    id: "/pending-verdicts",
+    path: "/pending-verdicts",
+    getParentRoute: () => DashboardAdminRouteRoute,
+  } as any);
 const DashboardAdminJobSearchRoute = DashboardAdminJobSearchRouteImport.update({
   id: "/job-search",
   path: "/job-search",
@@ -400,6 +407,7 @@ export interface FileRoutesByFullPath {
   "/dashboard/admin/experience-queue": typeof DashboardAdminExperienceQueueRoute;
   "/dashboard/admin/identity": typeof DashboardAdminIdentityRoute;
   "/dashboard/admin/job-search": typeof DashboardAdminJobSearchRoute;
+  "/dashboard/admin/pending-verdicts": typeof DashboardAdminPendingVerdictsRoute;
   "/dashboard/admin/reviewers": typeof DashboardAdminReviewersRoute;
   "/dashboard/admin/users": typeof DashboardAdminUsersRoute;
   "/dashboard/reviewer/queue": typeof DashboardReviewerQueueRoute;
@@ -454,6 +462,7 @@ export interface FileRoutesByTo {
   "/dashboard/admin/experience-queue": typeof DashboardAdminExperienceQueueRoute;
   "/dashboard/admin/identity": typeof DashboardAdminIdentityRoute;
   "/dashboard/admin/job-search": typeof DashboardAdminJobSearchRoute;
+  "/dashboard/admin/pending-verdicts": typeof DashboardAdminPendingVerdictsRoute;
   "/dashboard/admin/reviewers": typeof DashboardAdminReviewersRoute;
   "/dashboard/admin/users": typeof DashboardAdminUsersRoute;
   "/dashboard/reviewer/queue": typeof DashboardReviewerQueueRoute;
@@ -513,6 +522,7 @@ export interface FileRoutesById {
   "/dashboard/admin/experience-queue": typeof DashboardAdminExperienceQueueRoute;
   "/dashboard/admin/identity": typeof DashboardAdminIdentityRoute;
   "/dashboard/admin/job-search": typeof DashboardAdminJobSearchRoute;
+  "/dashboard/admin/pending-verdicts": typeof DashboardAdminPendingVerdictsRoute;
   "/dashboard/admin/reviewers": typeof DashboardAdminReviewersRoute;
   "/dashboard/admin/users": typeof DashboardAdminUsersRoute;
   "/dashboard/reviewer/queue": typeof DashboardReviewerQueueRoute;
@@ -572,6 +582,7 @@ export interface FileRouteTypes {
     | "/dashboard/admin/experience-queue"
     | "/dashboard/admin/identity"
     | "/dashboard/admin/job-search"
+    | "/dashboard/admin/pending-verdicts"
     | "/dashboard/admin/reviewers"
     | "/dashboard/admin/users"
     | "/dashboard/reviewer/queue"
@@ -626,6 +637,7 @@ export interface FileRouteTypes {
     | "/dashboard/admin/experience-queue"
     | "/dashboard/admin/identity"
     | "/dashboard/admin/job-search"
+    | "/dashboard/admin/pending-verdicts"
     | "/dashboard/admin/reviewers"
     | "/dashboard/admin/users"
     | "/dashboard/reviewer/queue"
@@ -684,6 +696,7 @@ export interface FileRouteTypes {
     | "/dashboard/admin/experience-queue"
     | "/dashboard/admin/identity"
     | "/dashboard/admin/job-search"
+    | "/dashboard/admin/pending-verdicts"
     | "/dashboard/admin/reviewers"
     | "/dashboard/admin/users"
     | "/dashboard/reviewer/queue"
@@ -1036,6 +1049,13 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof DashboardAdminReviewersRouteImport;
       parentRoute: typeof DashboardAdminRouteRoute;
     };
+    "/dashboard/admin/pending-verdicts": {
+      id: "/dashboard/admin/pending-verdicts";
+      path: "/pending-verdicts";
+      fullPath: "/dashboard/admin/pending-verdicts";
+      preLoaderRoute: typeof DashboardAdminPendingVerdictsRouteImport;
+      parentRoute: typeof DashboardAdminRouteRoute;
+    };
     "/dashboard/admin/job-search": {
       id: "/dashboard/admin/job-search";
       path: "/job-search";
@@ -1170,6 +1190,7 @@ interface DashboardAdminRouteRouteChildren {
   DashboardAdminExperienceQueueRoute: typeof DashboardAdminExperienceQueueRoute;
   DashboardAdminIdentityRoute: typeof DashboardAdminIdentityRoute;
   DashboardAdminJobSearchRoute: typeof DashboardAdminJobSearchRoute;
+  DashboardAdminPendingVerdictsRoute: typeof DashboardAdminPendingVerdictsRoute;
   DashboardAdminReviewersRoute: typeof DashboardAdminReviewersRoute;
   DashboardAdminUsersRoute: typeof DashboardAdminUsersRoute;
   DashboardAdminResumeResumeIdRoute: typeof DashboardAdminResumeResumeIdRoute;
@@ -1180,6 +1201,7 @@ const DashboardAdminRouteRouteChildren: DashboardAdminRouteRouteChildren = {
   DashboardAdminExperienceQueueRoute: DashboardAdminExperienceQueueRoute,
   DashboardAdminIdentityRoute: DashboardAdminIdentityRoute,
   DashboardAdminJobSearchRoute: DashboardAdminJobSearchRoute,
+  DashboardAdminPendingVerdictsRoute: DashboardAdminPendingVerdictsRoute,
   DashboardAdminReviewersRoute: DashboardAdminReviewersRoute,
   DashboardAdminUsersRoute: DashboardAdminUsersRoute,
   DashboardAdminResumeResumeIdRoute: DashboardAdminResumeResumeIdRoute,
