@@ -58,6 +58,11 @@ msgstr "{0} / {1} பயன்படுத்தப்பட்ட கோரி�
 msgid "{0} months ago"
 msgstr "{0} சில மாதங்களுக்கு முன்பு"
 
+#. placeholder {0}: reviewerSkills.length
+#: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
+msgid "{0} skills selected."
+msgstr ""
+
 #. placeholder {0}: Math.floor(diffDays / 7)
 #: src/routes/dashboard/job-search/-components/job-utils.ts
 msgid "{0} weeks ago"
@@ -71,6 +76,10 @@ msgstr "{column, plural, one {# நெடுவரிசை} other {# நெட�
 #: src/routes/dashboard/job-search/-components/job-utils.ts
 msgid "{diffDays} days ago"
 msgstr "{diffDays} சில நாட்களுக்கு முன்பு"
+
+#: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
+msgid "{userName} · {userEmail}"
+msgstr ""
 
 #. placeholder {0}: detailsQuery.data.resumes.hiddenCount
 #: src/routes/dashboard/admin/users.tsx
@@ -94,6 +103,10 @@ msgstr "<0>Your skills, finally,</0><1>Proven. Not just claimed.</1>"
 #: src/dialogs/api-key/create.tsx
 msgid "1 month"
 msgstr "1 மாதம்"
+
+#: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
+msgid "1 skill selected."
+msgstr ""
 
 #: src/dialogs/api-key/create.tsx
 msgid "1 year"
@@ -156,6 +169,22 @@ msgstr "A unique QR code and public link make your profile shareable in person, 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/page.tsx
 msgid "A4"
 msgstr "ஏ4"
+
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Accept"
+msgstr ""
+
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Accept & send instructions"
+msgstr ""
+
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Accept case"
+msgstr ""
+
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Accepting..."
+msgstr ""
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Account created"
@@ -283,6 +312,10 @@ msgstr "Added"
 msgid "Added {0} new skills to your original resume"
 msgstr "உங்கள் அசல் ரெஸ்யூமில் {0} -இன் புதிய திறன்கள் சேர்க்கப்பட்டன."
 
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Additional context for the assessment..."
+msgstr ""
+
 #: src/components/command-palette/pages/navigation.tsx
 msgid "Admin AI"
 msgstr "Admin AI"
@@ -334,6 +367,11 @@ msgstr "அல்பேனியன்"
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Alex Smith"
 msgstr "Alex Smith"
+
+#: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
+#: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
+msgid "All methods"
+msgstr ""
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "All roles"
@@ -476,6 +514,10 @@ msgstr "கடவுச்சொல் பாதுகாப்பை நிச�
 msgid "Area of Study"
 msgstr "கற்றல் துறை"
 
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Ask a Skill Verdict Admin to assign your reviewable skills before cases appear in the queue."
+msgstr ""
+
 #: src/components/ai/chat.tsx
 msgid "Ask me to update your resume..."
 msgstr "Ask me to update your resume..."
@@ -483,6 +525,35 @@ msgstr "Ask me to update your resume..."
 #: src/routes/builder/$resumeId/-sidebar/left/sections/picture.tsx
 msgid "Aspect Ratio"
 msgstr "ஒப்புத்திணைவு விகிதம்"
+
+#: src/routes/dashboard/verification/index.tsx
+msgid "Assessment in progress"
+msgstr ""
+
+#: src/routes/dashboard/admin/experience-queue.tsx
+#: src/routes/dashboard/reviewer/queue.tsx
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Assessment instructions"
+msgstr ""
+
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Assessment instructions file is required."
+msgstr ""
+
+#: src/routes/dashboard/admin/experience-queue.tsx
+#: src/routes/dashboard/reviewer/queue.tsx
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Assessment solution"
+msgstr ""
+
+#. placeholder {0}: item.label
+#: src/routes/dashboard/verification/index.tsx
+msgid "Assessment solution submitted for \"{0}\"."
+msgstr ""
+
+#: src/routes/dashboard/admin/reviewers.tsx
+msgid "Assign the Reviewer Admin role on the <0>Users</0> page first."
+msgstr ""
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Auth providers"
@@ -498,6 +569,14 @@ msgstr "அங்கீகாரம்"
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Authorization details are stored per resume profile."
 msgstr "Authorization details are stored per resume profile."
+
+#: src/routes/dashboard/verification/index.tsx
+msgid "Awaiting final approval"
+msgstr ""
+
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Awaiting Skill Verdict Admin confirmation."
+msgstr ""
 
 #: src/dialogs/resume/sections/award.tsx
 msgctxt "(noun) person, organization, or entity that gives an award"
@@ -560,6 +639,10 @@ msgstr "அடிப்படைத் தகவல்கள்"
 msgid "Become a verifier"
 msgstr "Become a verifier"
 
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Before submitting verdicts, confirm that you agree to have your name displayed on verified skill badges."
+msgstr ""
+
 #: src/routes/dashboard/job-search/-components/job-detail.tsx
 msgid "Benefits"
 msgstr "நன்மைகள்"
@@ -609,6 +692,7 @@ msgstr "பல்கேரியன்"
 msgid "Bullet List"
 msgstr "குறியிட்டு பட்டியல்"
 
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/identity.tsx
 msgid "Call link sent"
 msgstr "Call link sent"
@@ -650,8 +734,10 @@ msgstr "Can I update my profile and re-verify skills later?"
 #: src/dialogs/resume/sections/volunteer.tsx
 #: src/hooks/use-prompt.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
+#: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
+#: src/routes/dashboard/reviewer/queue.tsx
 #: src/routes/dashboard/settings/api-keys.tsx
 #: src/routes/dashboard/settings/danger-zone.tsx
 #: src/routes/dashboard/settings/profile.tsx
@@ -675,9 +761,22 @@ msgstr "Cancel Verification"
 msgid "Candidates"
 msgstr "Candidates"
 
+#: src/routes/dashboard/reviewer/-components/reviewer-context-panels.tsx
+msgid "Case"
+msgstr ""
+
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Case accepted. Assessment instructions sent to the applicant."
+msgstr ""
+
 #: src/utils/locale.ts
 msgid "Catalan"
 msgstr "கட்டலான்"
+
+#: src/routes/dashboard/reviewer/-components/reviewer-context-panels.tsx
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Category"
+msgstr ""
 
 #: src/components/input/rich-input.tsx
 msgid "Center Align"
@@ -767,8 +866,13 @@ msgstr "Cluster"
 msgid "Code Block"
 msgstr "குறியீட்டு தொகுதி"
 
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+#: src/routes/dashboard/admin/experience-queue.tsx
 #: src/routes/dashboard/admin/experience-queue.tsx
 #: src/routes/dashboard/admin/identity.tsx
+#: src/routes/dashboard/reviewer/queue.tsx
+#: src/routes/dashboard/reviewer/queue.tsx
+#: src/routes/dashboard/reviewer/queue.tsx
 msgid "Collapse"
 msgstr "Collapse"
 
@@ -826,6 +930,18 @@ msgid "Confirm decision: "
 msgstr "Confirm decision: "
 
 #: src/routes/dashboard/admin/experience-queue.tsx
+msgid "Confirm Fail"
+msgstr ""
+
+#: src/routes/dashboard/admin/experience-queue.tsx
+msgid "Confirm Issue"
+msgstr ""
+
+#: src/routes/dashboard/admin/experience-queue.tsx
+msgid "Confirm Pass"
+msgstr ""
+
+#: src/routes/dashboard/admin/experience-queue.tsx
 msgid "Confirming..."
 msgstr "Confirming..."
 
@@ -840,6 +956,10 @@ msgstr "Connect your professional accounts and portfolio to instantly build a li
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Consent"
 msgstr "Consent"
+
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Consent recorded. You can now submit verdicts."
+msgstr ""
 
 #: src/routes/_home/-sections/footer.tsx
 msgid "Contact us"
@@ -1023,9 +1143,21 @@ msgstr "Create a resume first, then add your work authorization details."
 msgid "Create a Sample Resume"
 msgstr "ஒரு உதாரண ரெஸ்யூமியை உருவாக்கவும்"
 
+#: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
+msgid "Create profile"
+msgstr ""
+
 #: src/dialogs/resume/index.tsx
 msgid "Create Resume with Options"
 msgstr "விருப்பங்களுடன் ரெஸ்யூமை உருவாக்கவும்"
+
+#: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
+msgid "Create reviewer profile"
+msgstr ""
+
+#: src/routes/dashboard/admin/reviewers.tsx
+msgid "Create reviewer profiles and assign reviewable skills. Reviewers need at least one skill before cases appear in their queue."
+msgstr ""
 
 #: src/dialogs/api-key/create.tsx
 msgid "Creating your API key..."
@@ -1035,6 +1167,10 @@ msgstr "உங்கள் API விசையை உருவாக்குக
 #: src/dialogs/resume/index.tsx
 msgid "Creating your resume..."
 msgstr "உங்கள் ரெஸ்யூமியை உருவாக்குகிறது..."
+
+#: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
+msgid "Creating…"
+msgstr ""
 
 #: src/routes/dashboard/admin/ai.tsx
 msgid "Credentials are stored in the database and used for all users who enable AI in their account. Only Skill Verdict administrators can change this configuration."
@@ -1052,6 +1188,8 @@ msgstr "தனிப்பயன் CSS"
 msgid "Custom Sections"
 msgstr "தனிப்பயன் பகுதிகள்"
 
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+#: src/routes/dashboard/admin/experience-queue.tsx
 #: src/routes/dashboard/admin/experience-queue.tsx
 msgid "CV / resume"
 msgstr "CV / resume"
@@ -1155,6 +1293,7 @@ msgstr "உங்கள் ரெஸ்யூமியை நீக்கிக�
 #: src/dialogs/resume/sections/reference.tsx
 #: src/dialogs/resume/sections/volunteer.tsx
 #: src/routes/dashboard/job-search/-components/job-detail.tsx
+#: src/routes/dashboard/reviewer/-components/reviewer-context-panels.tsx
 msgid "Description"
 msgstr "விளக்கம்"
 
@@ -1162,6 +1301,12 @@ msgstr "விளக்கம்"
 #: src/utils/resume/section.tsx
 msgid "Design"
 msgstr "வடிவமைப்பு"
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+#: src/routes/dashboard/reviewer/queue.tsx
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Details"
+msgstr ""
 
 #: src/routes/dashboard/job-search/-components/job-detail.tsx
 msgid "Direct"
@@ -1208,6 +1353,7 @@ msgstr "Docker"
 msgid "Document"
 msgstr "Document"
 
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/experience-queue.tsx
 #: src/routes/dashboard/admin/identity.tsx
 msgid "Documents"
@@ -1237,6 +1383,10 @@ msgstr "உங்கள் ரெஸ்யூமியின் ஒரு நக
 #: src/routes/builder/$resumeId/-sidebar/right/sections/export.tsx
 msgid "Download a copy of your resume in PDF format. Use this file for printing or to easily share your resume with recruiters."
 msgstr "உங்கள் ரெஸ்யூமியின் ஒரு நகலை PDF வடிவில் பதிவிறக்கவும். இந்த கோப்பை அச்சிடுவதற்கும் அல்லது பணியமர்த்துநர்களுடன் எளிதாக பகிர்வதற்கும் பயன்படுத்தலாம்."
+
+#: src/routes/dashboard/verification/index.tsx
+msgid "Download assessment instructions"
+msgstr ""
 
 #: src/routes/builder/$resumeId/-components/dock.tsx
 #: src/routes/builder/$resumeId/-components/dock.tsx
@@ -1326,6 +1476,10 @@ msgstr "Earn peer-endorsed badges from domain experts — turn claims into evide
 msgid "Earn your verdict"
 msgstr "Earn your verdict"
 
+#: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
+msgid "Edit reviewer profile"
+msgstr ""
+
 #: src/dialogs/resume/sections/custom.tsx
 #: src/routes/_home/-sections/hero-visual.tsx
 #: src/utils/resume/section.tsx
@@ -1349,6 +1503,10 @@ msgstr "மின்னஞ்சல் முகவரி"
 #: src/routes/dashboard/admin/users.tsx
 msgid "Email verified"
 msgstr "Email verified"
+
+#: src/routes/dashboard/reviewer/-components/reviewer-context-panels.tsx
+msgid "Employer names and locations are hidden to keep review anonymous."
+msgstr ""
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/css.tsx
 msgctxt "Turn On/Apply Custom CSS"
@@ -1491,6 +1649,14 @@ msgstr "Skill Verdict-ஐ உங்கள் பயன்பாடுகளு�
 msgid "Export"
 msgstr "ஏற்றுமதி"
 
+#: src/routes/dashboard/reviewer/-components/reviewer-context-panels.tsx
+msgid "External link — may contain identifying information. Evaluate the technical content only."
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Fail"
+msgstr ""
+
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 msgid "Failed to duplicate resume"
 msgstr "வாழ்க்கை வரலாற்றை நகலெடுக்கத் தவறியது"
@@ -1502,6 +1668,22 @@ msgstr "Failed to generate AI review"
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Failed to load document."
 msgstr "Failed to load document."
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Failed to load history. Please refresh and try again."
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Failed to load queue. Please refresh and try again."
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
+msgid "Failed to load reviewer profile."
+msgstr ""
+
+#: src/routes/dashboard/admin/reviewers.tsx
+msgid "Failed to load reviewers."
+msgstr ""
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Failed to load user details."
@@ -1535,10 +1717,18 @@ msgstr "FAQ"
 msgid "Features"
 msgstr "அம்சங்கள்"
 
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "File must be 5 MB or smaller."
+msgstr ""
+
 #. placeholder {0}: selectedFile.name
 #: src/routes/dashboard/verification/index.tsx
 msgid "File selected: {0}. Submit your verification request?"
 msgstr "File selected: {0}. Submit your verification request?"
+
+#: src/routes/dashboard/verification/index.tsx
+msgid "File size must be under 25MB."
+msgstr ""
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "File size must be under 5MB."
@@ -1548,9 +1738,45 @@ msgstr "File size must be under 5MB."
 msgid "Filter by"
 msgstr "இதன்படி வடிகட்டு"
 
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Filter by category"
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Filter by proposed outcome"
+msgstr ""
+
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Filter by skill"
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
+#: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Filter by status"
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Filter by type"
+msgstr ""
+
+#: src/routes/dashboard/admin/experience-queue.tsx
+msgid "Final Decision"
+msgstr ""
+
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Final verdict differed from your proposal."
+msgstr ""
+
 #: src/utils/locale.ts
 msgid "Finnish"
 msgstr "ஃபின்னிஷ்"
+
+#: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
+msgid "First name"
+msgstr ""
 
 #: src/routes/builder/$resumeId/-components/dock.tsx
 msgid "Fit resume to screen"
@@ -1654,6 +1880,10 @@ msgstr "Get AI feedback on what is strong in this resume and what should be impr
 #: src/routes/_home/-sections/footer.tsx
 msgid "Get verified"
 msgstr "Get verified"
+
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Give consent"
+msgstr ""
 
 #: src/components/command-palette/pages/navigation.tsx
 #: src/components/command-palette/pages/navigation.tsx
@@ -1762,6 +1992,7 @@ msgstr "மறைக்கப்பட்டது"
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-menu.tsx
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+#: src/routes/dashboard/reviewer/-components/reviewer-context-panels.tsx
 msgid "Hide"
 msgstr "மறை"
 
@@ -1780,6 +2011,12 @@ msgstr "ஹைலைட்"
 #: src/utils/locale.ts
 msgid "Hindi"
 msgstr "ஹிந்தி"
+
+#: src/routes/dashboard/admin/experience-queue.tsx
+#: src/routes/dashboard/admin/identity.tsx
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "History"
+msgstr ""
 
 #: src/components/command-palette/pages/navigation.tsx
 #: src/components/command-palette/pages/navigation.tsx
@@ -1802,6 +2039,10 @@ msgstr "How it works"
 #: src/routes/_home/-sections/faq.tsx
 msgid "How long does a verification take?"
 msgstr "How long does a verification take?"
+
+#: src/routes/dashboard/verification/index.tsx
+msgid "https://github.com/you/your-solution"
+msgstr ""
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "https://www.upwork.com/freelancers/~..."
@@ -1829,6 +2070,7 @@ msgid "Identity Call"
 msgstr "Identity Call"
 
 #: src/routes/dashboard/-components/sidebar.tsx
+#: src/routes/dashboard/admin/identity.tsx
 msgid "Identity Queue"
 msgstr "Identity Queue"
 
@@ -1899,6 +2141,10 @@ msgstr "இன்லைன் குறியீடு"
 msgid "Insert Table"
 msgstr "அட்டவணையை நுழைக்கவும்"
 
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Instructions file"
+msgstr ""
+
 #: src/dialogs/resume/sections/custom.tsx
 #: src/utils/resume/section.tsx
 msgid "Interests"
@@ -1911,6 +2157,10 @@ msgstr "பயிற்சியாளர்"
 #: src/routes/_home/-sections/faq.tsx
 msgid "Is the review really unbiased?"
 msgstr "Is the review really unbiased?"
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Issue"
+msgstr ""
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Issue date"
@@ -2010,6 +2260,10 @@ msgstr "Last active"
 msgid "Last downloaded on {0}"
 msgstr "கடைசியாக {0} அன்று பதிவிறக்கப்பட்டது"
 
+#: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
+msgid "Last name"
+msgstr ""
+
 #: src/routes/dashboard/admin/users.tsx
 msgid "Last request"
 msgstr "Last request"
@@ -2029,6 +2283,7 @@ msgid "Last viewed on {0}"
 msgstr "கடைசியாக {0} அன்று பார்க்கப்பட்டது"
 
 #: src/routes/dashboard/admin/identity.tsx
+#: src/routes/dashboard/admin/identity.tsx
 msgid "Latest CV / resume"
 msgstr "Latest CV / resume"
 
@@ -2043,10 +2298,6 @@ msgstr "லேயவுட்"
 #: src/routes/_home/-sections/templates.tsx
 msgid "Layouts for evidence, not decoration"
 msgstr "Layouts for evidence, not decoration"
-
-#: src/components/resume/preview.tsx
-msgid "Learn more about how to fit content on a page"
-msgstr "ஒரு பக்கத்தில் உள்ளடக்கத்தை எப்படி பொருத்துவது என்பதைப் பற்றி மேலும் அறிந்துகொள்ளவும்"
 
 #: src/hooks/use-form-blocker.tsx
 msgid "Leave"
@@ -2069,6 +2320,10 @@ msgstr "Ledger"
 msgid "Left Align"
 msgstr "இடது சீரமை"
 
+#: src/routes/dashboard/verification/index.tsx
+msgid "Legacy category request"
+msgstr ""
+
 #: src/routes/builder/$resumeId/-sidebar/right/sections/page.tsx
 msgid "Letter"
 msgstr "அஞ்சல்"
@@ -2076,6 +2331,7 @@ msgstr "அஞ்சல்"
 #: src/dialogs/resume/sections/language.tsx
 #: src/dialogs/resume/sections/skill.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/design.tsx
+#: src/routes/dashboard/reviewer/-components/reviewer-context-panels.tsx
 msgid "Level"
 msgstr "நிலை"
 
@@ -2140,6 +2396,14 @@ msgstr "Loading queue..."
 #: src/components/command-palette/pages/resumes.tsx
 msgid "Loading resumes..."
 msgstr "ரெஸ்யூமிகளை ஏற்றிக் கொண்டிருக்கிறது..."
+
+#: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
+msgid "Loading reviewer profile…"
+msgstr ""
+
+#: src/routes/dashboard/admin/reviewers.tsx
+msgid "Loading reviewers…"
+msgstr ""
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Loading selected resume details..."
@@ -2211,6 +2475,10 @@ msgstr "மலாய்"
 msgid "Malayalam"
 msgstr "மலையாளம்"
 
+#: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
+msgid "Manage profile"
+msgstr ""
+
 #: src/utils/locale.ts
 msgid "Marathi"
 msgstr "மராத்தி"
@@ -2227,6 +2495,12 @@ msgstr "விளிம்பு (செங்குத்து)"
 msgid "Maximum Salary"
 msgstr "அதிகபட்ச சம்பளம்"
 
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Message to applicant (optional)"
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
+#: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
 #: src/routes/dashboard/admin/users.tsx
 #: src/routes/dashboard/admin/users.tsx
 msgid "Method"
@@ -2235,6 +2509,10 @@ msgstr "Method"
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Minimum Salary"
 msgstr "குறைந்தபட்ச சம்பளம்"
+
+#: src/routes/dashboard/admin/experience-queue.tsx
+msgid "Missing proposed verdict"
+msgstr ""
 
 #: src/routes/dashboard/admin/ai.tsx
 msgid "Model"
@@ -2264,6 +2542,10 @@ msgstr "MSc Computer Science"
 msgid "Must start with https://"
 msgstr "https:// உடன் தொடங்க வேண்டும்"
 
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "My Cases"
+msgstr ""
+
 #: src/dialogs/api-key/create.tsx
 #: src/dialogs/resume/index.tsx
 #: src/dialogs/resume/sections/interest.tsx
@@ -2273,9 +2555,14 @@ msgstr "https:// உடன் தொடங்க வேண்டும்"
 #: src/routes/auth/register.tsx
 #: src/routes/builder/$resumeId/-sidebar/left/sections/basics.tsx
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Name"
 msgstr "பெயர்"
+
+#: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
+msgid "Name, email, @username, or label…"
+msgstr ""
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Name, email, or @username…"
@@ -2323,6 +2610,7 @@ msgstr "புதிய திறன்கள் கண்டறியப்ப�
 msgid "New skills were found in your experience that match this job. Select which ones to save back to your original resume for future applications. This will permanently modify your original resume and cannot be undone."
 msgstr "New skills were found in your experience that match this job. Select which ones to save back to your original resume for future applications. This will permanently modify your original resume and cannot be undone."
 
+#: src/routes/dashboard/admin/-components/admin-list-pagination.tsx
 #: src/routes/dashboard/admin/users.tsx
 #: src/routes/dashboard/job-search/index.tsx
 msgid "Next"
@@ -2349,6 +2637,29 @@ msgstr "No approved identity documents."
 msgid "No approved identity information."
 msgstr "No approved identity information."
 
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "No cases match the selected filters."
+msgstr ""
+
+#: src/routes/dashboard/admin/experience-queue.tsx
+msgid "No completed experience reviews yet."
+msgstr ""
+
+#: src/routes/dashboard/admin/identity.tsx
+msgid "No completed identity reviews yet."
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+#: src/routes/dashboard/admin/experience-queue.tsx
+#: src/routes/dashboard/admin/identity.tsx
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "No completed reviews match the selected filters."
+msgstr ""
+
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "No completed reviews yet."
+msgstr ""
+
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "No degree required"
 msgstr "பட்டம் தேவையில்லை"
@@ -2362,6 +2673,10 @@ msgid "No experience items in your resume. Add some to get started."
 msgstr "No experience items in your resume. Add some to get started."
 
 #: src/routes/dashboard/admin/experience-queue.tsx
+msgid "No experience verification requests match the selected filters."
+msgstr ""
+
+#: src/routes/dashboard/admin/experience-queue.tsx
 msgid "No experience verification requests pending."
 msgstr "No experience verification requests pending."
 
@@ -2370,9 +2685,14 @@ msgid "No history available."
 msgstr "No history available."
 
 #: src/routes/dashboard/admin/identity.tsx
+msgid "No identity verification requests match the selected filters."
+msgstr ""
+
+#: src/routes/dashboard/admin/identity.tsx
 msgid "No identity verification requests pending."
 msgstr "No identity verification requests pending."
 
+#: src/routes/dashboard/verification/index.tsx
 #: src/routes/dashboard/verification/index.tsx
 msgid "No items in this section. Add some to your resume first."
 msgstr "No items in this section. Add some to your resume first."
@@ -2380,6 +2700,47 @@ msgstr "No items in this section. Add some to your resume first."
 #: src/routes/dashboard/job-search/index.tsx
 msgid "No jobs found. Try a different search query."
 msgstr "வேலைகள் எதுவும் காணப்படவில்லை. வேறு தேடல் வினவலை முயற்சிக்கவும்."
+
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "No matching categories."
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "No matching outcomes."
+msgstr ""
+
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "No matching requests for your assigned skills."
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "No matching skills."
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
+#: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "No matching statuses."
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "No matching types."
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
+msgid "No profile"
+msgstr ""
+
+#: src/routes/dashboard/admin/reviewers.tsx
+msgid "No public reviewer profile yet."
+msgstr ""
+
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "No requests match the selected filters."
+msgstr ""
 
 #: src/components/ui/combobox.tsx
 msgid "No results found."
@@ -2393,9 +2754,34 @@ msgstr "No resumes found."
 msgid "No resumes found. Create a resume first."
 msgstr "ரெஸ்யூம்கள் எதுவும் காணப்படவில்லை. முதலில் ஒரு ரெஸ்யூமை உருவாக்கவும்."
 
+#: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
+msgid "No reviewable skills assigned. The reviewer's queue will stay empty until at least one skill is added."
+msgstr ""
+
+#: src/routes/dashboard/admin/reviewers.tsx
+msgid "No Reviewer Admins found."
+msgstr ""
+
 #: src/routes/dashboard/admin/users.tsx
 msgid "No sessions found."
 msgstr "No sessions found."
+
+#: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
+msgid "No skills"
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
+msgid "No skills selected."
+msgstr ""
+
+#: src/routes/dashboard/admin/experience-queue.tsx
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "No solution submitted"
+msgstr ""
+
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "No solution submitted yet"
+msgstr ""
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "No uploaded documents found."
@@ -2408,6 +2794,10 @@ msgstr "No users match your filters."
 #: src/routes/dashboard/admin/experience-queue.tsx
 msgid "No verdicts awaiting confirmation."
 msgstr "No verdicts awaiting confirmation."
+
+#: src/routes/dashboard/admin/experience-queue.tsx
+msgid "No verdicts match the selected filters."
+msgstr ""
 
 #: src/routes/dashboard/settings/privacy.tsx
 msgid "No verified items yet."
@@ -2443,6 +2833,11 @@ msgstr "குறிப்புகள்"
 msgid "Odia"
 msgstr "ஒடியா"
 
+#. placeholder {0}: formatDefaultDate(item.reviewedAt)
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "on {0}"
+msgstr ""
+
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Only employers with permission can use these fields for filtering."
 msgstr "Only employers with permission can use these fields for filtering."
@@ -2450,6 +2845,10 @@ msgstr "Only employers with permission can use these fields for filtering."
 #: src/routes/dashboard/verification/index.tsx
 msgid "Only PDF, JPG, JPEG, and PNG files are allowed."
 msgstr "Only PDF, JPG, JPEG, and PNG files are allowed."
+
+#: src/routes/dashboard/verification/index.tsx
+msgid "Only PDF, JPG, JPEG, PNG, and ZIP files are allowed."
+msgstr ""
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "Only your assigned reviewer sees the assignments you submit. On your public profile, you decide which verified skills to display — everything else stays private."
@@ -2475,8 +2874,17 @@ msgid "Open Email Client"
 msgstr "மின்னஞ்சல் பயன்பாட்டை திறக்கவும்"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Open Link"
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Open Profile"
 msgstr "Open Profile"
+
+#: src/routes/dashboard/verification/index.tsx
+#: src/routes/dashboard/verification/index.tsx
+msgid "Open submitted link"
+msgstr ""
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "OpenAI"
@@ -2574,6 +2982,10 @@ msgstr "பக்கம் {0}: {sectionTitle}"
 msgid "Page {currentPage}"
 msgstr "பக்கம் {currentPage}"
 
+#: src/routes/dashboard/admin/-components/admin-list-pagination.tsx
+msgid "Page {page} of {totalPages} — {total} results"
+msgstr ""
+
 #: src/components/resume/preview.tsx
 msgid "Page {pageNumber} of {totalNumberOfPages}"
 msgstr "மொத்தம் {totalNumberOfPages} பக்கங்களில் {pageNumber} ஆம் பக்கம்"
@@ -2585,6 +2997,10 @@ msgstr "பத்தியம்"
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Part-time"
 msgstr "அரைநேர"
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Pass"
+msgstr ""
 
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Pass the review to earn a verified skill badge, boost your profile visibility, and let opportunities come to you."
@@ -2633,6 +3049,7 @@ msgstr "Pending verification"
 #: src/dialogs/resume/sections/experience.tsx
 #: src/dialogs/resume/sections/project.tsx
 #: src/dialogs/resume/sections/volunteer.tsx
+#: src/routes/dashboard/reviewer/-components/reviewer-context-panels.tsx
 msgid "Period"
 msgstr "காலம்"
 
@@ -2693,6 +3110,10 @@ msgstr "நீங்கள் இணைக்க விரும்பும் 
 msgid "Please select a resume before saving."
 msgstr "Please select a resume before saving."
 
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Please upload a PDF or image file."
+msgstr ""
+
 #: src/dialogs/resume/import.tsx
 msgid "Please wait for AI availability to finish loading, then try again."
 msgstr "Please wait for AI availability to finish loading, then try again."
@@ -2744,6 +3165,7 @@ msgstr "Preview"
 msgid "Preview of a verified candidate profile"
 msgstr "Preview of a verified candidate profile"
 
+#: src/routes/dashboard/admin/-components/admin-list-pagination.tsx
 #: src/routes/dashboard/admin/users.tsx
 #: src/routes/dashboard/job-search/index.tsx
 msgid "Previous"
@@ -2763,6 +3185,7 @@ msgid "Product"
 msgstr "Product"
 
 #: src/dialogs/resume/sections/skill.tsx
+#: src/routes/dashboard/reviewer/-components/reviewer-context-panels.tsx
 msgid "Proficiency"
 msgstr "திறமைத் தரம்"
 
@@ -2790,6 +3213,14 @@ msgstr "சுயவிவரங்கள்"
 msgid "Progress Bar"
 msgstr "முன்னேற்ற பட்டை"
 
+#: src/routes/dashboard/reviewer/-components/reviewer-context-panels.tsx
+msgid "Project"
+msgstr ""
+
+#: src/routes/dashboard/reviewer/-components/reviewer-context-panels.tsx
+msgid "Project context"
+msgstr ""
+
 #: src/dialogs/resume/sections/custom.tsx
 #: src/routes/_home/-sections/hero-visual.tsx
 #: src/routes/dashboard/verification/index.tsx
@@ -2801,9 +3232,37 @@ msgstr "திட்டங்கள்"
 msgid "Proof-first"
 msgstr "Proof-first"
 
+#: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Proposed outcome"
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Proposed verdict"
+msgstr ""
+
+#: src/routes/dashboard/admin/experience-queue.tsx
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Proposed: Fail"
+msgstr ""
+
+#: src/routes/dashboard/admin/experience-queue.tsx
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Proposed: Issue"
+msgstr ""
+
+#: src/routes/dashboard/admin/experience-queue.tsx
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Proposed: Pass"
+msgstr ""
+
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 msgid "Protect your resume from unauthorized access with a password"
 msgstr "உங்கள் ரெஸ்யூமியை அனுமதியற்ற அணுகலிலிருந்து ஒரு கடவுச்சொல்லால் பாதுகாக்கவும்"
+
+#: src/routes/dashboard/verification/index.tsx
+msgid "Provide a file or solution URL."
+msgstr ""
 
 #: src/routes/dashboard/admin/ai.tsx
 msgid "Provider"
@@ -2816,6 +3275,10 @@ msgstr "Providers"
 #: src/routes/dashboard/admin/users.tsx
 msgid "Public"
 msgstr "Public"
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Public profile"
+msgstr ""
 
 #: src/dialogs/resume/sections/custom.tsx
 #: src/utils/resume/section.tsx
@@ -2834,6 +3297,10 @@ msgstr "Pulse"
 msgid "Python/Django dashboard with interactive visualizations"
 msgstr "Python/Django dashboard with interactive visualizations"
 
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Queue"
+msgstr ""
+
 #. placeholder {0}: quota.remaining
 #: src/routes/dashboard/job-search/index.tsx
 msgid "Quota: {0} remaining"
@@ -2851,6 +3318,10 @@ msgstr "React"
 msgid "React Native mobile app with real-time synchronization"
 msgstr "React Native mobile app with real-time synchronization"
 
+#: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
+msgid "Ready"
+msgstr ""
+
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Receive a practical assignment from your reviewer, submit your work, and get actionable feedback in a real conversation."
 msgstr "Receive a practical assignment from your reviewer, submit your work, and get actionable feedback in a real conversation."
@@ -2862,6 +3333,10 @@ msgstr "Recent sessions"
 #: src/dialogs/resume/sections/cover-letter.tsx
 msgid "Recipient"
 msgstr "பெறுநர்"
+
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Recording..."
+msgstr ""
 
 #: src/components/level/combobox.tsx
 msgid "Rectangle"
@@ -2897,6 +3372,14 @@ msgstr "Region"
 #: src/routes/dashboard/admin/users.tsx
 msgid "Rejected/issue"
 msgstr "Rejected/issue"
+
+#: src/routes/dashboard/reviewer/-components/reviewer-context-panels.tsx
+msgid "Related experience"
+msgstr ""
+
+#: src/routes/dashboard/reviewer/-components/reviewer-context-panels.tsx
+msgid "Related keywords"
+msgstr ""
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Relay"
@@ -2948,6 +3431,10 @@ msgstr "Request"
 msgid "Request a new link"
 msgstr "புதிய இணைப்பை கோரவும்"
 
+#: src/routes/dashboard/verification/index.tsx
+msgid "Request verification for the items on your resume. Skills are reviewed by domain-expert reviewers, while work experience is confirmed from documents or a freelancer profile link."
+msgstr ""
+
 #: src/routes/dashboard/job-search/-components/job-detail.tsx
 msgid "Required Skills"
 msgstr "தேவையான திறன்கள்"
@@ -2971,6 +3458,12 @@ msgstr "சரிபார்ப்பு மின்னஞ்சலை மீ�
 msgid "Reset"
 msgstr "மீட்டமை"
 
+#: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
+#: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Reset filters"
+msgstr ""
+
 #: src/routes/auth/reset-password.tsx
 msgid "Reset Password"
 msgstr "கடவுச்சொல்லை மீட்டமைக்கவும்"
@@ -2982,6 +3475,10 @@ msgstr "உங்கள் கடவுச்சொல்லை மீட்ட�
 #: src/routes/auth/reset-password.tsx
 msgid "Resetting your password..."
 msgstr "உங்கள் கடவுச்சொல்லை மீட்டமைத்து கொண்டிருக்கிறது..."
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Resolved"
+msgstr ""
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Resume"
@@ -3008,6 +3505,8 @@ msgstr "வெற்றிகரமாக வடிவமைக்கப்ப�
 msgid "Resumes"
 msgstr "ரெஸ்யூமிகள்"
 
+#: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
+#: src/routes/dashboard/admin/reviewers.tsx
 #: src/routes/dashboard/admin/users.tsx
 #: src/routes/dashboard/job-search/index.tsx
 #: src/routes/dashboard/verification/index.tsx
@@ -3020,6 +3519,7 @@ msgid "Retry Identity Verification"
 msgstr "Retry Identity Verification"
 
 #: src/routes/dashboard/admin/experience-queue.tsx
+#: src/routes/dashboard/admin/experience-queue.tsx
 #: src/routes/dashboard/admin/identity.tsx
 msgid "Review"
 msgstr "Review"
@@ -3028,14 +3528,65 @@ msgstr "Review"
 msgid "Review Decision"
 msgstr "Review Decision"
 
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Review notes"
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Reviewable skills"
+msgstr ""
+
+#. placeholder {0}: item.reviewedBy.name
+#. placeholder {1}: item.reviewedBy.email
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Reviewed by {0} ({1})"
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Reviewed by Skill Verdict Admin"
+msgstr ""
+
+#: src/routes/dashboard/-components/sidebar.tsx
+#: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Reviewer"
+msgstr ""
+
 #: src/routes/dashboard/-components/sidebar.tsx
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Reviewer Admin"
 msgstr "Reviewer Admin"
 
+#: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
+#: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
+msgid "Reviewer profile"
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
+msgid "Reviewer profile created."
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
+msgid "Reviewer profile updated."
+msgstr ""
+
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Reviewer setup required"
+msgstr ""
+
 #: src/routes/reviewer/$adminId.tsx
 msgid "Reviewer since {memberSince}"
 msgstr "Reviewer since {memberSince}"
+
+#: src/routes/dashboard/admin/experience-queue.tsx
+msgid "Reviewer:"
+msgstr ""
+
+#: src/routes/dashboard/-components/sidebar.tsx
+#: src/routes/dashboard/admin/reviewers.tsx
+msgid "Reviewers"
+msgstr ""
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Reviewers don't see who they're assessing, so your skills are judged on their merit — not your background."
@@ -3050,6 +3601,7 @@ msgid "Right Align"
 msgstr "வலது சீரமை"
 
 #: src/routes/dashboard/admin/users.tsx
+#: src/routes/dashboard/reviewer/-components/reviewer-context-panels.tsx
 msgid "Role"
 msgstr "Role"
 
@@ -3111,6 +3663,10 @@ msgstr "Save and verify"
 msgid "Save Changes"
 msgstr "மாற்றங்களைச் சேமிக்கவும்"
 
+#: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
+msgid "Save reviewer profile"
+msgstr ""
+
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Save work authorization"
 msgstr "Save work authorization"
@@ -3123,6 +3679,10 @@ msgstr "Saved, but the connection test did not succeed"
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Saving..."
 msgstr "Saving..."
+
+#: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
+msgid "Saving…"
+msgstr ""
 
 #: src/dialogs/auth/enable-two-factor.tsx
 msgid "Scan the QR code below with your preferred authenticator app. You can also copy the secret below and paste it into your app."
@@ -3140,11 +3700,16 @@ msgstr "Scheduling is not currently available."
 msgid "School"
 msgstr "பள்ளி"
 
+#: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
 #: src/routes/dashboard/admin/users.tsx
 #: src/routes/dashboard/job-search/index.tsx
 #: src/routes/dashboard/job-search/index.tsx
 msgid "Search"
 msgstr "தேடல்"
+
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Search categories…"
+msgstr ""
 
 #: src/components/command-palette/index.tsx
 msgid "Search commands"
@@ -3162,6 +3727,27 @@ msgstr "ஒரு ஐகானைத் தேடுங்கள்"
 #: src/components/command-palette/pages/resumes.tsx
 msgid "Search for..."
 msgstr "தேடுங்கள்..."
+
+#: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Search outcomes…"
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Search skills…"
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
+#: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Search statuses…"
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Search types…"
+msgstr ""
 
 #: src/components/command-palette/index.tsx
 #: src/components/ui/combobox.tsx
@@ -3211,6 +3797,10 @@ msgstr "Select resume"
 msgid "Select Resume"
 msgstr "Select Resume"
 
+#: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
+msgid "Select skills…"
+msgstr ""
+
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Select sponsorship requirement"
 msgstr "Select sponsorship requirement"
@@ -3226,6 +3816,10 @@ msgstr "Select the skills you want endorsed and choose a reviewer for a personal
 #: src/components/ui/combobox.tsx
 msgid "Select..."
 msgstr "தேர்ந்தெடு..."
+
+#: src/routes/dashboard/verification/index.tsx
+msgid "Selected file:"
+msgstr ""
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Self-starter"
@@ -3296,6 +3890,7 @@ msgstr "பகிர்வு"
 #: src/routes/builder/$resumeId/-sidebar/left/sections/custom.tsx
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-menu.tsx
+#: src/routes/dashboard/reviewer/-components/reviewer-context-panels.tsx
 msgid "Show"
 msgstr "காட்டு"
 
@@ -3319,6 +3914,17 @@ msgstr "Show or hide the verification timeline on your public CV. This is off by
 #: src/routes/dashboard/settings/privacy.tsx
 msgid "Show Timeline on Public CV"
 msgstr "Show Timeline on Public CV"
+
+#. placeholder {0}: items.length
+#: src/routes/dashboard/admin/experience-queue.tsx
+#: src/routes/dashboard/admin/identity.tsx
+msgid "Showing {0} of {total} pending requests"
+msgstr ""
+
+#. placeholder {0}: items.length
+#: src/routes/dashboard/admin/experience-queue.tsx
+msgid "Showing {0} of {total} pending verdicts"
+msgstr ""
 
 #: src/components/ui/sidebar.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/layout/pages.tsx
@@ -3393,6 +3999,14 @@ msgstr "ஒற்றை நெடுவரிசை; மெத்தனமாக
 msgid "Size"
 msgstr "அளவு"
 
+#: src/routes/dashboard/admin/reviewers.tsx
+msgid "skill"
+msgstr ""
+
+#: src/routes/dashboard/reviewer/-components/reviewer-context-panels.tsx
+msgid "Skill"
+msgstr ""
+
 #: src/routes/dashboard/-components/sidebar.tsx
 msgid "Skill Center"
 msgstr "Skill Center"
@@ -3400,6 +4014,15 @@ msgstr "Skill Center"
 #: src/routes/_home/-sections/templates.tsx
 msgid "Skill clusters"
 msgstr "Skill clusters"
+
+#: src/routes/dashboard/reviewer/-components/reviewer-context-panels.tsx
+msgid "Skill context"
+msgstr ""
+
+#: src/routes/dashboard/-components/sidebar.tsx
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Skill Review Queue"
+msgstr ""
 
 #: src/routes/_home/-sections/header.tsx
 msgid "Skill Verdict - Go to homepage"
@@ -3414,7 +4037,12 @@ msgstr "Skill Verdict Admin"
 msgid "Skill Verdict Verification"
 msgstr "Skill Verdict Verification"
 
+#: src/routes/dashboard/admin/reviewers.tsx
+msgid "skills"
+msgstr ""
+
 #: src/dialogs/resume/sections/custom.tsx
+#: src/routes/dashboard/reviewer/queue.tsx
 #: src/routes/dashboard/verification/index.tsx
 #: src/utils/resume/section.tsx
 msgid "Skills"
@@ -3439,6 +4067,10 @@ msgstr "Slovenian"
 #: src/dialogs/resume/index.tsx
 msgid "Slug"
 msgstr "ஸ்லக்"
+
+#: src/routes/dashboard/verification/index.tsx
+msgid "Solution submitted"
+msgstr ""
 
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 msgid "Some suggestions could not be applied"
@@ -3505,6 +4137,9 @@ msgstr "அடிப்படையில் இருந்து உங்க�
 msgid "Statistics"
 msgstr "புள்ளிவிபரங்கள்"
 
+#: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
+#: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
+#: src/routes/dashboard/reviewer/queue.tsx
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Status"
 msgstr "Status"
@@ -3538,8 +4173,29 @@ msgid "Submit Review"
 msgstr "Submit Review"
 
 #: src/routes/dashboard/verification/index.tsx
+msgid "Submit solution"
+msgstr ""
+
+#: src/routes/dashboard/verification/index.tsx
+msgid "Submit your solution"
+msgstr ""
+
+#: src/routes/dashboard/verification/index.tsx
 msgid "Submit?"
 msgstr "Submit?"
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Submitted"
+msgstr ""
+
+#: src/routes/dashboard/verification/index.tsx
+#: src/routes/dashboard/verification/index.tsx
+msgid "Submitted on"
+msgstr ""
+
+#: src/routes/dashboard/verification/index.tsx
+msgid "Submitted solution"
+msgstr ""
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/verification/index.tsx
@@ -3640,10 +4296,6 @@ msgstr "API விசை நீக்கப்பட்ட பின்னர்
 #: src/components/command-palette/index.tsx
 msgid "The command you're looking for doesn't exist."
 msgstr "நீங்கள் தேடும் கட்டளை இல்லை."
-
-#: src/components/resume/preview.tsx
-msgid "The content is too tall for this page, this may cause undesirable results when exporting to PDF."
-msgstr "இந்த பக்கத்திற்கு உள்ளடக்கம் மிகுந்த உயரமானது, இது PDF-ஆக ஏற்றுமதி செய்யும்போது விரும்பத்தகாத விளைவுகளை ஏற்படுத்தும்."
 
 #: src/routes/auth/resume-password.tsx
 msgid "The password you entered is incorrect"
@@ -3760,6 +4412,8 @@ msgstr "குறிப்பு: நீங்கள் விண்ணப்ப
 #: src/dialogs/resume/sections/certification.tsx
 #: src/dialogs/resume/sections/custom.tsx
 #: src/dialogs/resume/sections/publication.tsx
+#: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Title"
 msgstr "தலைப்பு"
 
@@ -3878,7 +4532,9 @@ msgstr "Two-pane"
 
 #: src/dialogs/resume/import.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/design.tsx
+#: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
+#: src/routes/dashboard/reviewer/queue.tsx
 msgid "Type"
 msgstr "வகை"
 
@@ -3917,6 +4573,8 @@ msgctxt "'Ctrl' may be replaced with the locale-specific equivalent (e.g. 'Strg'
 msgid "Undo (Ctrl+Z)"
 msgstr "முன்னைய செயல்கள் நீக்கு (Ctrl+Z)"
 
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+#: src/routes/dashboard/admin/experience-queue.tsx
 #: src/routes/dashboard/admin/experience-queue.tsx
 #: src/routes/dashboard/admin/identity.tsx
 msgid "Unknown applicant"
@@ -4034,6 +4692,15 @@ msgid "Updating your resume..."
 msgstr "உங்கள் ரெஸ்யூமியை புதுப்பித்து கொண்டிருக்கிறது..."
 
 #: src/routes/dashboard/verification/index.tsx
+msgid "Upload a file or share a link (for example, a GitHub repository). At least one is required."
+msgstr ""
+
+#. placeholder {0}: item.itemLabel
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Upload assessment instructions for \"{0}\". The applicant will receive them by email and on their Verification dashboard."
+msgstr ""
+
+#: src/routes/dashboard/verification/index.tsx
 msgid "Upload Document"
 msgstr "Upload Document"
 
@@ -4078,8 +4745,24 @@ msgid "Valid URLs must start with http:// or https://."
 msgstr "சரியான URL-கள் http:// அல்லது https:// கொண்டு தொடங்க வேண்டும்."
 
 #: src/routes/dashboard/admin/experience-queue.tsx
-msgid "Verdict confirmed. Experience verified."
-msgstr "Verdict confirmed. Experience verified."
+msgid "Verdict confirmed."
+msgstr ""
+
+#: src/routes/dashboard/admin/experience-queue.tsx
+msgid "Verdict confirmed. Request flagged as issue."
+msgstr ""
+
+#: src/routes/dashboard/admin/experience-queue.tsx
+msgid "Verdict confirmed. Request rejected."
+msgstr ""
+
+#: src/routes/dashboard/admin/experience-queue.tsx
+msgid "Verdict confirmed. Skill verified."
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Verdict notes"
+msgstr ""
 
 #: src/routes/dashboard/admin/experience-queue.tsx
 msgid "Verdict overridden successfully."
@@ -4088,6 +4771,14 @@ msgstr "Verdict overridden successfully."
 #: src/routes/dashboard/admin/users.tsx
 msgid "Verdict pending"
 msgstr "Verdict pending"
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Verdict submitted"
+msgstr ""
+
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Verdict submitted for admin confirmation."
+msgstr ""
 
 #: src/routes/dashboard/-components/sidebar.tsx
 #: src/routes/dashboard/admin/users.tsx
@@ -4114,6 +4805,8 @@ msgstr "Verification History Timeline"
 msgid "Verification requested for \"{0}\"."
 msgstr "Verification requested for \"{0}\"."
 
+#: src/routes/dashboard/verification/index.tsx
+#: src/routes/dashboard/verification/index.tsx
 #: src/routes/dashboard/verification/index.tsx
 #: src/routes/dashboard/verification/index.tsx
 msgid "verified"
@@ -4182,9 +4875,23 @@ msgstr "கடவுச்சொல்லை சரிபார்த்து �
 msgid "Vietnamese"
 msgstr "வியட்‌നாமீஸ்"
 
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "View"
+msgstr ""
+
 #: src/routes/dashboard/admin/users.tsx
 msgid "View details"
 msgstr "View details"
+
+#: src/routes/$username/$slug.tsx
+#: src/routes/dashboard/verification/index.tsx
+msgid "View profile"
+msgstr ""
+
+#: src/routes/dashboard/verification/index.tsx
+#: src/routes/dashboard/verification/index.tsx
+msgid "View submitted file"
+msgstr ""
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/statistics.tsx
 msgid "Views"
@@ -4284,6 +4991,10 @@ msgstr "உள்நுழைய நீங்கள் உங்கள் பய
 msgid "You can now use account recovery and other features that require a verified email address."
 msgstr "இப்போது சரிபார்க்கப்பட்ட மின்னஞ்சல் முகவரி தேவைப்படும் கணக்கு மீட்பு மற்றும் பிற அம்சங்களை பயன்படுத்தலாம்."
 
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "You have no active cases."
+msgstr ""
+
 #: src/hooks/use-form-blocker.tsx
 msgid "You have unsaved changes that will be lost."
 msgstr "சேமிக்கப்படாத மாற்றங்கள் இழக்கப்படும்."
@@ -4366,6 +5077,22 @@ msgstr "உங்கள் ரெஸ்யூமி வெற்றிகரம�
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 msgid "Your resume's public link is currently protected by a password. Share the password only with people you trust."
 msgstr "உங்கள் ரெஸ்யூமியின் பொது இணைப்பு தற்போது ஒரு கடவுச்சொல்லால் பாதுகாக்கப்பட்டுள்ளது. நீங்கள் நம்பும் மக்களுடன்தான் அந்த கடவுச்சொல்லைப் பகிரவும்."
+
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Your review notes"
+msgstr ""
+
+#: src/routes/dashboard/verification/index.tsx
+msgid "Your reviewer has accepted your request. Download the instructions, complete the assessment, then submit your solution below."
+msgstr ""
+
+#: src/routes/dashboard/verification/index.tsx
+msgid "Your reviewer has completed their assessment. Your submission is now awaiting final approval from Skill Verdict Admin. You will be notified by email once a final decision is made."
+msgstr ""
+
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Your reviewer profile has not been created yet. Ask a Skill Verdict Admin to assign your reviewer role and create your public reviewer profile before accepting cases."
+msgstr ""
 
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Your verification call has been scheduled. Our team will review and confirm your identity shortly."

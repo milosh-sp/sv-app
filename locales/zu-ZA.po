@@ -53,6 +53,11 @@ msgstr "{0} / {1} izicelo ezisetshenzisiwe"
 msgid "{0} months ago"
 msgstr "{0} izinyanga ezedlule"
 
+#. placeholder {0}: reviewerSkills.length
+#: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
+msgid "{0} skills selected."
+msgstr ""
+
 #. placeholder {0}: Math.floor(diffDays / 7)
 #: src/routes/dashboard/job-search/-components/job-utils.ts
 msgid "{0} weeks ago"
@@ -66,6 +71,10 @@ msgstr "{ikholomu, ubuningi, eyodwa {# Ikholomu} enye {# Amakholomu}}"
 #: src/routes/dashboard/job-search/-components/job-utils.ts
 msgid "{diffDays} days ago"
 msgstr "{diffDays} izinsuku ezedlule"
+
+#: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
+msgid "{userName} · {userEmail}"
+msgstr ""
 
 #. placeholder {0}: detailsQuery.data.resumes.hiddenCount
 #: src/routes/dashboard/admin/users.tsx
@@ -89,6 +98,10 @@ msgstr "<0>Amakhono akho, ekugcineni,</0><1>Afakazelwe. Hhayi nje ukufunwa.</1>"
 #: src/dialogs/api-key/create.tsx
 msgid "1 month"
 msgstr "Inyanga engu-1"
+
+#: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
+msgid "1 skill selected."
+msgstr ""
 
 #: src/dialogs/api-key/create.tsx
 msgid "1 year"
@@ -151,6 +164,22 @@ msgstr "Ikhodi ye-QR ehlukile nesixhumanisi esisesidlangalaleni kwenza iphrofaye
 #: src/routes/builder/$resumeId/-sidebar/right/sections/page.tsx
 msgid "A4"
 msgstr "A4"
+
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Accept"
+msgstr ""
+
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Accept & send instructions"
+msgstr ""
+
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Accept case"
+msgstr ""
+
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Accepting..."
+msgstr ""
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Account created"
@@ -278,6 +307,10 @@ msgstr "Kwengeziwe"
 msgid "Added {0} new skills to your original resume"
 msgstr "Kwengezwe {0} amakhono amasha ku-resume yakho yasekuqaleni"
 
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Additional context for the assessment..."
+msgstr ""
+
 #: src/components/command-palette/pages/navigation.tsx
 msgid "Admin AI"
 msgstr "Admin AI"
@@ -329,6 +362,11 @@ msgstr "Isi-Albania"
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Alex Smith"
 msgstr "Alex Smith"
+
+#: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
+#: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
+msgid "All methods"
+msgstr ""
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "All roles"
@@ -471,6 +509,10 @@ msgstr "Ingabe uqinisekile ukuthi ufuna ukususa ukuvikelwa kwephasiwedi?"
 msgid "Area of Study"
 msgstr "Indawo Yokufunda"
 
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Ask a Skill Verdict Admin to assign your reviewable skills before cases appear in the queue."
+msgstr ""
+
 #: src/components/ai/chat.tsx
 msgid "Ask me to update your resume..."
 msgstr "Ngicele ukuthi ngibuyekeze i-resume yakho..."
@@ -478,6 +520,35 @@ msgstr "Ngicele ukuthi ngibuyekeze i-resume yakho..."
 #: src/routes/builder/$resumeId/-sidebar/left/sections/picture.tsx
 msgid "Aspect Ratio"
 msgstr "I-Aspect ratio"
+
+#: src/routes/dashboard/verification/index.tsx
+msgid "Assessment in progress"
+msgstr ""
+
+#: src/routes/dashboard/admin/experience-queue.tsx
+#: src/routes/dashboard/reviewer/queue.tsx
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Assessment instructions"
+msgstr ""
+
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Assessment instructions file is required."
+msgstr ""
+
+#: src/routes/dashboard/admin/experience-queue.tsx
+#: src/routes/dashboard/reviewer/queue.tsx
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Assessment solution"
+msgstr ""
+
+#. placeholder {0}: item.label
+#: src/routes/dashboard/verification/index.tsx
+msgid "Assessment solution submitted for \"{0}\"."
+msgstr ""
+
+#: src/routes/dashboard/admin/reviewers.tsx
+msgid "Assign the Reviewer Admin role on the <0>Users</0> page first."
+msgstr ""
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Auth providers"
@@ -493,6 +564,14 @@ msgstr "Ukuqinisekisa"
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Authorization details are stored per resume profile."
 msgstr "Imininingwane yokugunyazwa igcinwa ngephrofayela ngayinye yokuqalisa."
+
+#: src/routes/dashboard/verification/index.tsx
+msgid "Awaiting final approval"
+msgstr ""
+
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Awaiting Skill Verdict Admin confirmation."
+msgstr ""
 
 #: src/dialogs/resume/sections/award.tsx
 msgctxt "(noun) person, organization, or entity that gives an award"
@@ -555,6 +634,10 @@ msgstr "Okuyisisekelo"
 msgid "Become a verifier"
 msgstr "Iba isiqinisekisi"
 
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Before submitting verdicts, confirm that you agree to have your name displayed on verified skill badges."
+msgstr ""
+
 #: src/routes/dashboard/job-search/-components/job-detail.tsx
 msgid "Benefits"
 msgstr "Izinzuzo"
@@ -604,6 +687,7 @@ msgstr "IsiBulgaria"
 msgid "Bullet List"
 msgstr "Uhlu Lwezinhlamvu"
 
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/identity.tsx
 msgid "Call link sent"
 msgstr "Isixhumanisi sekholi sithunyelwe"
@@ -645,8 +729,10 @@ msgstr "Ngingakwazi ukubuyekeza iphrofayela yami futhi ngiphinde ngiqinisekise a
 #: src/dialogs/resume/sections/volunteer.tsx
 #: src/hooks/use-prompt.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
+#: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
+#: src/routes/dashboard/reviewer/queue.tsx
 #: src/routes/dashboard/settings/api-keys.tsx
 #: src/routes/dashboard/settings/danger-zone.tsx
 #: src/routes/dashboard/settings/profile.tsx
@@ -670,9 +756,22 @@ msgstr "Khansela Ukuqinisekisa"
 msgid "Candidates"
 msgstr "Abazokhethwa"
 
+#: src/routes/dashboard/reviewer/-components/reviewer-context-panels.tsx
+msgid "Case"
+msgstr ""
+
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Case accepted. Assessment instructions sent to the applicant."
+msgstr ""
+
 #: src/utils/locale.ts
 msgid "Catalan"
 msgstr "IsiCatalan"
+
+#: src/routes/dashboard/reviewer/-components/reviewer-context-panels.tsx
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Category"
+msgstr ""
 
 #: src/components/input/rich-input.tsx
 msgid "Center Align"
@@ -762,8 +861,13 @@ msgstr "Iqoqo"
 msgid "Code Block"
 msgstr "Ikhodi Block"
 
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+#: src/routes/dashboard/admin/experience-queue.tsx
 #: src/routes/dashboard/admin/experience-queue.tsx
 #: src/routes/dashboard/admin/identity.tsx
+#: src/routes/dashboard/reviewer/queue.tsx
+#: src/routes/dashboard/reviewer/queue.tsx
+#: src/routes/dashboard/reviewer/queue.tsx
 msgid "Collapse"
 msgstr "Goqa"
 
@@ -821,6 +925,18 @@ msgid "Confirm decision: "
 msgstr "Qinisekisa isinqumo:"
 
 #: src/routes/dashboard/admin/experience-queue.tsx
+msgid "Confirm Fail"
+msgstr ""
+
+#: src/routes/dashboard/admin/experience-queue.tsx
+msgid "Confirm Issue"
+msgstr ""
+
+#: src/routes/dashboard/admin/experience-queue.tsx
+msgid "Confirm Pass"
+msgstr ""
+
+#: src/routes/dashboard/admin/experience-queue.tsx
 msgid "Confirming..."
 msgstr "Iyaqinisekisa..."
 
@@ -835,6 +951,10 @@ msgstr "Xhuma ama-akhawunti akho ochwepheshe kanye nephothifoliyo ukuze wakhe ng
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Consent"
 msgstr "Imvume"
+
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Consent recorded. You can now submit verdicts."
+msgstr ""
 
 #: src/routes/_home/-sections/footer.tsx
 msgid "Contact us"
@@ -1018,9 +1138,21 @@ msgstr "Dala i-resume kuqala, bese wengeza imininingwane yakho yokugunyazwa koms
 msgid "Create a Sample Resume"
 msgstr "Dala i-Resume yesampula"
 
+#: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
+msgid "Create profile"
+msgstr ""
+
 #: src/dialogs/resume/index.tsx
 msgid "Create Resume with Options"
 msgstr "Dala i-Resume ngezinketho"
+
+#: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
+msgid "Create reviewer profile"
+msgstr ""
+
+#: src/routes/dashboard/admin/reviewers.tsx
+msgid "Create reviewer profiles and assign reviewable skills. Reviewers need at least one skill before cases appear in their queue."
+msgstr ""
 
 #: src/dialogs/api-key/create.tsx
 msgid "Creating your API key..."
@@ -1030,6 +1162,10 @@ msgstr "Idala ukhiye wakho we-API..."
 #: src/dialogs/resume/index.tsx
 msgid "Creating your resume..."
 msgstr "Idala i-resume yakho..."
+
+#: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
+msgid "Creating…"
+msgstr ""
 
 #: src/routes/dashboard/admin/ai.tsx
 msgid "Credentials are stored in the database and used for all users who enable AI in their account. Only Skill Verdict administrators can change this configuration."
@@ -1047,6 +1183,8 @@ msgstr "I-CSS yangokwezifiso"
 msgid "Custom Sections"
 msgstr "Izigaba Ngokwezifiso"
 
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+#: src/routes/dashboard/admin/experience-queue.tsx
 #: src/routes/dashboard/admin/experience-queue.tsx
 msgid "CV / resume"
 msgstr "I-CV / qala kabusha"
@@ -1150,6 +1288,7 @@ msgstr "Isusa ukuqhubeka kwakho..."
 #: src/dialogs/resume/sections/reference.tsx
 #: src/dialogs/resume/sections/volunteer.tsx
 #: src/routes/dashboard/job-search/-components/job-detail.tsx
+#: src/routes/dashboard/reviewer/-components/reviewer-context-panels.tsx
 msgid "Description"
 msgstr "Incazelo"
 
@@ -1157,6 +1296,12 @@ msgstr "Incazelo"
 #: src/utils/resume/section.tsx
 msgid "Design"
 msgstr "Idizayini"
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+#: src/routes/dashboard/reviewer/queue.tsx
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Details"
+msgstr ""
 
 #: src/routes/dashboard/job-search/-components/job-detail.tsx
 msgid "Direct"
@@ -1203,6 +1348,7 @@ msgstr "I-Docker"
 msgid "Document"
 msgstr "Idokhumenti"
 
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/experience-queue.tsx
 #: src/routes/dashboard/admin/identity.tsx
 msgid "Documents"
@@ -1232,6 +1378,10 @@ msgstr "Landa ikhophi ye-resume yakho ngefomethi ye-JSON. Sebenzisa leli fayela 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/export.tsx
 msgid "Download a copy of your resume in PDF format. Use this file for printing or to easily share your resume with recruiters."
 msgstr "Landa ikhophi ye-resume yakho ngefomethi ye-PDF. Sebenzisa leli fayela ukuze uphrinte noma wabelane kalula nge-resume yakho nabaqashi."
+
+#: src/routes/dashboard/verification/index.tsx
+msgid "Download assessment instructions"
+msgstr ""
 
 #: src/routes/builder/$resumeId/-components/dock.tsx
 #: src/routes/builder/$resumeId/-components/dock.tsx
@@ -1321,6 +1471,10 @@ msgstr "Zuza amabheji agunyazwe ngontanga kochwepheshe besizinda â guqula izima
 msgid "Earn your verdict"
 msgstr "Thola isinqumo sakho"
 
+#: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
+msgid "Edit reviewer profile"
+msgstr ""
+
 #: src/dialogs/resume/sections/custom.tsx
 #: src/routes/_home/-sections/hero-visual.tsx
 #: src/utils/resume/section.tsx
@@ -1344,6 +1498,10 @@ msgstr "Ikheli le-imeyili"
 #: src/routes/dashboard/admin/users.tsx
 msgid "Email verified"
 msgstr "I-imeyili iqinisekisiwe"
+
+#: src/routes/dashboard/reviewer/-components/reviewer-context-panels.tsx
+msgid "Employer names and locations are hidden to keep review anonymous."
+msgstr ""
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/css.tsx
 msgctxt "Turn On/Apply Custom CSS"
@@ -1486,6 +1644,14 @@ msgstr "Hlola imibhalo ye-API ukuze ufunde ukuthi ungahlanganisa kanjani Isinqum
 msgid "Export"
 msgstr "Thekelisa"
 
+#: src/routes/dashboard/reviewer/-components/reviewer-context-panels.tsx
+msgid "External link — may contain identifying information. Evaluate the technical content only."
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Fail"
+msgstr ""
+
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 msgid "Failed to duplicate resume"
 msgstr "Yehlulekile ukuphinda iqalise"
@@ -1497,6 +1663,22 @@ msgstr "Yehlulekile ukukhiqiza isibuyekezo se-AI"
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Failed to load document."
 msgstr "Yehlulekile ukulayisha idokhumenti."
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Failed to load history. Please refresh and try again."
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Failed to load queue. Please refresh and try again."
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
+msgid "Failed to load reviewer profile."
+msgstr ""
+
+#: src/routes/dashboard/admin/reviewers.tsx
+msgid "Failed to load reviewers."
+msgstr ""
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Failed to load user details."
@@ -1530,10 +1712,18 @@ msgstr "FAQ"
 msgid "Features"
 msgstr "Izici"
 
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "File must be 5 MB or smaller."
+msgstr ""
+
 #. placeholder {0}: selectedFile.name
 #: src/routes/dashboard/verification/index.tsx
 msgid "File selected: {0}. Submit your verification request?"
 msgstr "Ifayela likhethiwe: {0}. Thumela isicelo sakho sokuqinisekisa?"
+
+#: src/routes/dashboard/verification/index.tsx
+msgid "File size must be under 25MB."
+msgstr ""
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "File size must be under 5MB."
@@ -1543,9 +1733,45 @@ msgstr "Usayizi wefayela kufanele ube ngaphansi kuka-5MB."
 msgid "Filter by"
 msgstr "Hlunga nge"
 
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Filter by category"
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Filter by proposed outcome"
+msgstr ""
+
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Filter by skill"
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
+#: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Filter by status"
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Filter by type"
+msgstr ""
+
+#: src/routes/dashboard/admin/experience-queue.tsx
+msgid "Final Decision"
+msgstr ""
+
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Final verdict differed from your proposal."
+msgstr ""
+
 #: src/utils/locale.ts
 msgid "Finnish"
 msgstr "IsiFinnish"
+
+#: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
+msgid "First name"
+msgstr ""
 
 #: src/routes/builder/$resumeId/-components/dock.tsx
 msgid "Fit resume to screen"
@@ -1649,6 +1875,10 @@ msgstr "Thola impendulo ye-AI mayelana nokuthi yini enamandla kulokhu kuqalisa f
 #: src/routes/_home/-sections/footer.tsx
 msgid "Get verified"
 msgstr "Qinisekisa"
+
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Give consent"
+msgstr ""
 
 #: src/components/command-palette/pages/navigation.tsx
 #: src/components/command-palette/pages/navigation.tsx
@@ -1757,6 +1987,7 @@ msgstr "Kufihliwe"
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-menu.tsx
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+#: src/routes/dashboard/reviewer/-components/reviewer-context-panels.tsx
 msgid "Hide"
 msgstr "Fihla"
 
@@ -1775,6 +2006,12 @@ msgstr "Gqamisa"
 #: src/utils/locale.ts
 msgid "Hindi"
 msgstr "IsiHindi"
+
+#: src/routes/dashboard/admin/experience-queue.tsx
+#: src/routes/dashboard/admin/identity.tsx
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "History"
+msgstr ""
 
 #: src/components/command-palette/pages/navigation.tsx
 #: src/components/command-palette/pages/navigation.tsx
@@ -1797,6 +2034,10 @@ msgstr "Isebenza kanjani"
 #: src/routes/_home/-sections/faq.tsx
 msgid "How long does a verification take?"
 msgstr "Ukuqinisekisa kuthatha isikhathi esingakanani?"
+
+#: src/routes/dashboard/verification/index.tsx
+msgid "https://github.com/you/your-solution"
+msgstr ""
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "https://www.upwork.com/freelancers/~..."
@@ -1824,6 +2065,7 @@ msgid "Identity Call"
 msgstr "I-Identity Call"
 
 #: src/routes/dashboard/-components/sidebar.tsx
+#: src/routes/dashboard/admin/identity.tsx
 msgid "Identity Queue"
 msgstr "Umugqa Wokuhlonza"
 
@@ -1894,6 +2136,10 @@ msgstr "Ikhodi Esemgqeni"
 msgid "Insert Table"
 msgstr "Faka Ithebula"
 
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Instructions file"
+msgstr ""
+
 #: src/dialogs/resume/sections/custom.tsx
 #: src/utils/resume/section.tsx
 msgid "Interests"
@@ -1906,6 +2152,10 @@ msgstr "Ofunda umsebenzi"
 #: src/routes/_home/-sections/faq.tsx
 msgid "Is the review really unbiased?"
 msgstr "Ingabe isibuyekezo asichemile ngempela?"
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Issue"
+msgstr ""
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Issue date"
@@ -2005,6 +2255,10 @@ msgstr "Igcine ukusebenza"
 msgid "Last downloaded on {0}"
 msgstr "Igcine ukulandwa ngo-{0}"
 
+#: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
+msgid "Last name"
+msgstr ""
+
 #: src/routes/dashboard/admin/users.tsx
 msgid "Last request"
 msgstr "Isicelo sokugcina"
@@ -2024,6 +2278,7 @@ msgid "Last viewed on {0}"
 msgstr "Igcine ukubukwa ngo-{0}"
 
 #: src/routes/dashboard/admin/identity.tsx
+#: src/routes/dashboard/admin/identity.tsx
 msgid "Latest CV / resume"
 msgstr "I-CV / qala kabusha yakamuva"
 
@@ -2038,10 +2293,6 @@ msgstr "Isakhiwo"
 #: src/routes/_home/-sections/templates.tsx
 msgid "Layouts for evidence, not decoration"
 msgstr "Izakhiwo zobufakazi, hhayi umhlobiso"
-
-#: src/components/resume/preview.tsx
-msgid "Learn more about how to fit content on a page"
-msgstr "Funda kabanzi mayelana nendlela yokufaka okuqukethwe ekhasini"
 
 #: src/hooks/use-form-blocker.tsx
 msgid "Leave"
@@ -2064,6 +2315,10 @@ msgstr "Incwadi yokubhala"
 msgid "Left Align"
 msgstr "Qondanisa kwesokunxele"
 
+#: src/routes/dashboard/verification/index.tsx
+msgid "Legacy category request"
+msgstr ""
+
 #: src/routes/builder/$resumeId/-sidebar/right/sections/page.tsx
 msgid "Letter"
 msgstr "Incwadi"
@@ -2071,6 +2326,7 @@ msgstr "Incwadi"
 #: src/dialogs/resume/sections/language.tsx
 #: src/dialogs/resume/sections/skill.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/design.tsx
+#: src/routes/dashboard/reviewer/-components/reviewer-context-panels.tsx
 msgid "Level"
 msgstr "Izinga"
 
@@ -2135,6 +2391,14 @@ msgstr "Ilayisha ulayini..."
 #: src/components/command-palette/pages/resumes.tsx
 msgid "Loading resumes..."
 msgstr "Ilayisha ukuqhubeka..."
+
+#: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
+msgid "Loading reviewer profile…"
+msgstr ""
+
+#: src/routes/dashboard/admin/reviewers.tsx
+msgid "Loading reviewers…"
+msgstr ""
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Loading selected resume details..."
@@ -2206,6 +2470,10 @@ msgstr "Isi-Malay"
 msgid "Malayalam"
 msgstr "Isi-Malayalam"
 
+#: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
+msgid "Manage profile"
+msgstr ""
+
 #: src/utils/locale.ts
 msgid "Marathi"
 msgstr "IsiMarathi"
@@ -2222,6 +2490,12 @@ msgstr "Imajini (Imile)"
 msgid "Maximum Salary"
 msgstr "Iholo Eliphezulu"
 
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Message to applicant (optional)"
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
+#: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
 #: src/routes/dashboard/admin/users.tsx
 #: src/routes/dashboard/admin/users.tsx
 msgid "Method"
@@ -2230,6 +2504,10 @@ msgstr "Indlela"
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Minimum Salary"
 msgstr "Iholo Elincane"
+
+#: src/routes/dashboard/admin/experience-queue.tsx
+msgid "Missing proposed verdict"
+msgstr ""
 
 #: src/routes/dashboard/admin/ai.tsx
 msgid "Model"
@@ -2259,6 +2537,10 @@ msgstr "Isayensi Yekhompyutha ye-MSc"
 msgid "Must start with https://"
 msgstr "Kufanele kuqale ngokuthi https://"
 
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "My Cases"
+msgstr ""
+
 #: src/dialogs/api-key/create.tsx
 #: src/dialogs/resume/index.tsx
 #: src/dialogs/resume/sections/interest.tsx
@@ -2268,9 +2550,14 @@ msgstr "Kufanele kuqale ngokuthi https://"
 #: src/routes/auth/register.tsx
 #: src/routes/builder/$resumeId/-sidebar/left/sections/basics.tsx
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Name"
 msgstr "Igama"
+
+#: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
+msgid "Name, email, @username, or label…"
+msgstr ""
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Name, email, or @username…"
@@ -2318,6 +2605,7 @@ msgstr "Amakhono Amasha Atholiwe"
 msgid "New skills were found in your experience that match this job. Select which ones to save back to your original resume for future applications. This will permanently modify your original resume and cannot be undone."
 msgstr "Kutholwe amakhono amasha kokuhlangenwe nakho kwakho afana nalo msebenzi. Khetha ukuthi iziphi ozozilondoloza ubuyisele ku-resume yakho yangempela yezinhlelo zokusebenza zesikhathi esizayo. Lokhu kuzoshintsha unomphela ukuqhubeka kwakho kwangempela futhi akukwazi ukuhlehliswa."
 
+#: src/routes/dashboard/admin/-components/admin-list-pagination.tsx
 #: src/routes/dashboard/admin/users.tsx
 #: src/routes/dashboard/job-search/index.tsx
 msgid "Next"
@@ -2344,6 +2632,29 @@ msgstr "Awekho omazisi abagunyaziwe."
 msgid "No approved identity information."
 msgstr "Alukho ulwazi lukamazisi olugunyaziwe."
 
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "No cases match the selected filters."
+msgstr ""
+
+#: src/routes/dashboard/admin/experience-queue.tsx
+msgid "No completed experience reviews yet."
+msgstr ""
+
+#: src/routes/dashboard/admin/identity.tsx
+msgid "No completed identity reviews yet."
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+#: src/routes/dashboard/admin/experience-queue.tsx
+#: src/routes/dashboard/admin/identity.tsx
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "No completed reviews match the selected filters."
+msgstr ""
+
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "No completed reviews yet."
+msgstr ""
+
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "No degree required"
 msgstr "Ayikho idigri edingekayo"
@@ -2357,6 +2668,10 @@ msgid "No experience items in your resume. Add some to get started."
 msgstr "Azikho izinto zokwenziwa ku-resume yakho. Engeza okunye ukuze uqalise."
 
 #: src/routes/dashboard/admin/experience-queue.tsx
+msgid "No experience verification requests match the selected filters."
+msgstr ""
+
+#: src/routes/dashboard/admin/experience-queue.tsx
 msgid "No experience verification requests pending."
 msgstr "Azikho izicelo zokuqinisekisa ulwazi olulindile."
 
@@ -2365,9 +2680,14 @@ msgid "No history available."
 msgstr "Awukho umlando otholakalayo."
 
 #: src/routes/dashboard/admin/identity.tsx
+msgid "No identity verification requests match the selected filters."
+msgstr ""
+
+#: src/routes/dashboard/admin/identity.tsx
 msgid "No identity verification requests pending."
 msgstr "Azikho izicelo zokuqinisekisa umazisi ezilindile."
 
+#: src/routes/dashboard/verification/index.tsx
 #: src/routes/dashboard/verification/index.tsx
 msgid "No items in this section. Add some to your resume first."
 msgstr "Azikho izinto kulesi sigaba. Engeza okunye ku-resume yakho kuqala."
@@ -2375,6 +2695,47 @@ msgstr "Azikho izinto kulesi sigaba. Engeza okunye ku-resume yakho kuqala."
 #: src/routes/dashboard/job-search/index.tsx
 msgid "No jobs found. Try a different search query."
 msgstr "Ayikho imisebenzi etholiwe. Zama umbuzo wosesho ohlukile."
+
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "No matching categories."
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "No matching outcomes."
+msgstr ""
+
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "No matching requests for your assigned skills."
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "No matching skills."
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
+#: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "No matching statuses."
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "No matching types."
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
+msgid "No profile"
+msgstr ""
+
+#: src/routes/dashboard/admin/reviewers.tsx
+msgid "No public reviewer profile yet."
+msgstr ""
+
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "No requests match the selected filters."
+msgstr ""
 
 #: src/components/ui/combobox.tsx
 msgid "No results found."
@@ -2388,9 +2749,34 @@ msgstr "Akukho ukuqhubeka okutholiwe."
 msgid "No resumes found. Create a resume first."
 msgstr "Akukho ukuqhubeka okutholiwe. Dala i-resume kuqala."
 
+#: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
+msgid "No reviewable skills assigned. The reviewer's queue will stay empty until at least one skill is added."
+msgstr ""
+
+#: src/routes/dashboard/admin/reviewers.tsx
+msgid "No Reviewer Admins found."
+msgstr ""
+
 #: src/routes/dashboard/admin/users.tsx
 msgid "No sessions found."
 msgstr "Awekho amaseshini atholiwe."
+
+#: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
+msgid "No skills"
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
+msgid "No skills selected."
+msgstr ""
+
+#: src/routes/dashboard/admin/experience-queue.tsx
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "No solution submitted"
+msgstr ""
+
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "No solution submitted yet"
+msgstr ""
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "No uploaded documents found."
@@ -2403,6 +2789,10 @@ msgstr "Abekho abasebenzisi abafana nezihlungi zakho."
 #: src/routes/dashboard/admin/experience-queue.tsx
 msgid "No verdicts awaiting confirmation."
 msgstr "Azikho izinqumo ezilindele ukuqinisekiswa."
+
+#: src/routes/dashboard/admin/experience-queue.tsx
+msgid "No verdicts match the selected filters."
+msgstr ""
 
 #: src/routes/dashboard/settings/privacy.tsx
 msgid "No verified items yet."
@@ -2438,6 +2828,11 @@ msgstr "Amanothi"
 msgid "Odia"
 msgstr "Odiya"
 
+#. placeholder {0}: formatDefaultDate(item.reviewedAt)
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "on {0}"
+msgstr ""
+
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Only employers with permission can use these fields for filtering."
 msgstr "Abaqashi abanemvume kuphela abangasebenzisa lezi zindawo ukuze bahlunge."
@@ -2445,6 +2840,10 @@ msgstr "Abaqashi abanemvume kuphela abangasebenzisa lezi zindawo ukuze bahlunge.
 #: src/routes/dashboard/verification/index.tsx
 msgid "Only PDF, JPG, JPEG, and PNG files are allowed."
 msgstr "Amafayela e-PDF, JPG, JPEG, kanye ne-PNG kuphela avunyelwe."
+
+#: src/routes/dashboard/verification/index.tsx
+msgid "Only PDF, JPG, JPEG, PNG, and ZIP files are allowed."
+msgstr ""
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "Only your assigned reviewer sees the assignments you submit. On your public profile, you decide which verified skills to display — everything else stays private."
@@ -2470,8 +2869,17 @@ msgid "Open Email Client"
 msgstr "Vula iklayenti le-imeyili"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Open Link"
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Open Profile"
 msgstr "Vula iphrofayela"
+
+#: src/routes/dashboard/verification/index.tsx
+#: src/routes/dashboard/verification/index.tsx
+msgid "Open submitted link"
+msgstr ""
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "OpenAI"
@@ -2569,6 +2977,10 @@ msgstr "Ikhasi {0}: {sectionTitle}"
 msgid "Page {currentPage}"
 msgstr "Ikhasi {currentPage}"
 
+#: src/routes/dashboard/admin/-components/admin-list-pagination.tsx
+msgid "Page {page} of {totalPages} — {total} results"
+msgstr ""
+
 #: src/components/resume/preview.tsx
 msgid "Page {pageNumber} of {totalNumberOfPages}"
 msgstr "Ikhasi {pageNumber} kwangu-{totalNumberOfPages}"
@@ -2580,6 +2992,10 @@ msgstr "Isigaba"
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Part-time"
 msgstr "Itoho"
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Pass"
+msgstr ""
 
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Pass the review to earn a verified skill badge, boost your profile visibility, and let opportunities come to you."
@@ -2628,6 +3044,7 @@ msgstr "Kusalinde ukuqinisekiswa"
 #: src/dialogs/resume/sections/experience.tsx
 #: src/dialogs/resume/sections/project.tsx
 #: src/dialogs/resume/sections/volunteer.tsx
+#: src/routes/dashboard/reviewer/-components/reviewer-context-panels.tsx
 msgid "Period"
 msgstr "Isikhathi"
 
@@ -2688,6 +3105,10 @@ msgstr "Sicela ufake i-URL ofuna ukuyixhumanisa nayo:"
 msgid "Please select a resume before saving."
 msgstr "Sicela ukhethe ukuqhubeka ngaphambi kokulondoloza."
 
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Please upload a PDF or image file."
+msgstr ""
+
 #: src/dialogs/resume/import.tsx
 msgid "Please wait for AI availability to finish loading, then try again."
 msgstr "Sicela ulinde ukutholakala kwe-AI ukuze kuqedele ukulayisha, bese uzama futhi."
@@ -2739,6 +3160,7 @@ msgstr "Buka kuqala"
 msgid "Preview of a verified candidate profile"
 msgstr "Ukubuka kuqala kwephrofayela yekhandidethi eqinisekisiwe"
 
+#: src/routes/dashboard/admin/-components/admin-list-pagination.tsx
 #: src/routes/dashboard/admin/users.tsx
 #: src/routes/dashboard/job-search/index.tsx
 msgid "Previous"
@@ -2758,6 +3180,7 @@ msgid "Product"
 msgstr "Umkhiqizo"
 
 #: src/dialogs/resume/sections/skill.tsx
+#: src/routes/dashboard/reviewer/-components/reviewer-context-panels.tsx
 msgid "Proficiency"
 msgstr "Ubungoti"
 
@@ -2785,6 +3208,14 @@ msgstr "Amaphrofayili"
 msgid "Progress Bar"
 msgstr "Ibha Yentuthuko"
 
+#: src/routes/dashboard/reviewer/-components/reviewer-context-panels.tsx
+msgid "Project"
+msgstr ""
+
+#: src/routes/dashboard/reviewer/-components/reviewer-context-panels.tsx
+msgid "Project context"
+msgstr ""
+
 #: src/dialogs/resume/sections/custom.tsx
 #: src/routes/_home/-sections/hero-visual.tsx
 #: src/routes/dashboard/verification/index.tsx
@@ -2796,9 +3227,37 @@ msgstr "Amaphrojekthi"
 msgid "Proof-first"
 msgstr "Ubufakazi-kuqala"
 
+#: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Proposed outcome"
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Proposed verdict"
+msgstr ""
+
+#: src/routes/dashboard/admin/experience-queue.tsx
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Proposed: Fail"
+msgstr ""
+
+#: src/routes/dashboard/admin/experience-queue.tsx
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Proposed: Issue"
+msgstr ""
+
+#: src/routes/dashboard/admin/experience-queue.tsx
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Proposed: Pass"
+msgstr ""
+
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 msgid "Protect your resume from unauthorized access with a password"
 msgstr "Vikela i-resume yakho ekufinyeleleni okungagunyaziwe ngephasiwedi"
+
+#: src/routes/dashboard/verification/index.tsx
+msgid "Provide a file or solution URL."
+msgstr ""
 
 #: src/routes/dashboard/admin/ai.tsx
 msgid "Provider"
@@ -2811,6 +3270,10 @@ msgstr "Abahlinzeki"
 #: src/routes/dashboard/admin/users.tsx
 msgid "Public"
 msgstr "Esidlangalaleni"
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Public profile"
+msgstr ""
 
 #: src/dialogs/resume/sections/custom.tsx
 #: src/utils/resume/section.tsx
@@ -2829,6 +3292,10 @@ msgstr "I-Pulse"
 msgid "Python/Django dashboard with interactive visualizations"
 msgstr "Ideshibhodi yePython/Django enokubonwa okusebenzisanayo"
 
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Queue"
+msgstr ""
+
 #. placeholder {0}: quota.remaining
 #: src/routes/dashboard/job-search/index.tsx
 msgid "Quota: {0} remaining"
@@ -2846,6 +3313,10 @@ msgstr "Sabele"
 msgid "React Native mobile app with real-time synchronization"
 msgstr "Uhlelo lokusebenza leselula le-React Native ngokuvumelanisa ngesikhathi sangempela"
 
+#: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
+msgid "Ready"
+msgstr ""
+
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Receive a practical assignment from your reviewer, submit your work, and get actionable feedback in a real conversation."
 msgstr "Thola umsebenzi ozokwenziwa ovela kumbuyekezi wakho, hambisa umsebenzi wakho, futhi uthole impendulo engenzeka engxoxweni yangempela."
@@ -2857,6 +3328,10 @@ msgstr "Amaseshini akamuva"
 #: src/dialogs/resume/sections/cover-letter.tsx
 msgid "Recipient"
 msgstr "Umamukeli"
+
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Recording..."
+msgstr ""
 
 #: src/components/level/combobox.tsx
 msgid "Rectangle"
@@ -2892,6 +3367,14 @@ msgstr "Isifunda"
 #: src/routes/dashboard/admin/users.tsx
 msgid "Rejected/issue"
 msgstr "Inqatshiwe/indaba"
+
+#: src/routes/dashboard/reviewer/-components/reviewer-context-panels.tsx
+msgid "Related experience"
+msgstr ""
+
+#: src/routes/dashboard/reviewer/-components/reviewer-context-panels.tsx
+msgid "Related keywords"
+msgstr ""
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Relay"
@@ -2943,6 +3426,10 @@ msgstr "Isicelo"
 msgid "Request a new link"
 msgstr "Cela isixhumanisi esisha"
 
+#: src/routes/dashboard/verification/index.tsx
+msgid "Request verification for the items on your resume. Skills are reviewed by domain-expert reviewers, while work experience is confirmed from documents or a freelancer profile link."
+msgstr ""
+
 #: src/routes/dashboard/job-search/-components/job-detail.tsx
 msgid "Required Skills"
 msgstr "Amakhono Adingekayo"
@@ -2966,6 +3453,12 @@ msgstr "Kuthunyelwa kabusha i-imeyili yokuqinisekisa..."
 msgid "Reset"
 msgstr "Setha kabusha"
 
+#: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
+#: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Reset filters"
+msgstr ""
+
 #: src/routes/auth/reset-password.tsx
 msgid "Reset Password"
 msgstr "Setha kabusha Iphasiwedi"
@@ -2977,6 +3470,10 @@ msgstr "Setha kabusha iphasiwedi yakho"
 #: src/routes/auth/reset-password.tsx
 msgid "Resetting your password..."
 msgstr "Isetha kabusha iphasiwedi yakho..."
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Resolved"
+msgstr ""
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Resume"
@@ -3003,6 +3500,8 @@ msgstr "Qalisa kabusha yenziwe ngempumelelo"
 msgid "Resumes"
 msgstr "Iqalisa kabusha"
 
+#: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
+#: src/routes/dashboard/admin/reviewers.tsx
 #: src/routes/dashboard/admin/users.tsx
 #: src/routes/dashboard/job-search/index.tsx
 #: src/routes/dashboard/verification/index.tsx
@@ -3015,6 +3514,7 @@ msgid "Retry Identity Verification"
 msgstr "Zama futhi ukuqinisekiswa kobunikazi"
 
 #: src/routes/dashboard/admin/experience-queue.tsx
+#: src/routes/dashboard/admin/experience-queue.tsx
 #: src/routes/dashboard/admin/identity.tsx
 msgid "Review"
 msgstr "Buyekeza"
@@ -3023,14 +3523,65 @@ msgstr "Buyekeza"
 msgid "Review Decision"
 msgstr "Buyekeza Isinqumo"
 
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Review notes"
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Reviewable skills"
+msgstr ""
+
+#. placeholder {0}: item.reviewedBy.name
+#. placeholder {1}: item.reviewedBy.email
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Reviewed by {0} ({1})"
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Reviewed by Skill Verdict Admin"
+msgstr ""
+
+#: src/routes/dashboard/-components/sidebar.tsx
+#: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Reviewer"
+msgstr ""
+
 #: src/routes/dashboard/-components/sidebar.tsx
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Reviewer Admin"
 msgstr "Umlawuli Wokubuyekeza"
 
+#: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
+#: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
+msgid "Reviewer profile"
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
+msgid "Reviewer profile created."
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
+msgid "Reviewer profile updated."
+msgstr ""
+
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Reviewer setup required"
+msgstr ""
+
 #: src/routes/reviewer/$adminId.tsx
 msgid "Reviewer since {memberSince}"
 msgstr "Umbuyekezi kusukela ku-{memberSince}"
+
+#: src/routes/dashboard/admin/experience-queue.tsx
+msgid "Reviewer:"
+msgstr ""
+
+#: src/routes/dashboard/-components/sidebar.tsx
+#: src/routes/dashboard/admin/reviewers.tsx
+msgid "Reviewers"
+msgstr ""
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Reviewers don't see who they're assessing, so your skills are judged on their merit — not your background."
@@ -3045,6 +3596,7 @@ msgid "Right Align"
 msgstr "Qondanisa Kwesokudla"
 
 #: src/routes/dashboard/admin/users.tsx
+#: src/routes/dashboard/reviewer/-components/reviewer-context-panels.tsx
 msgid "Role"
 msgstr "Iqhaza"
 
@@ -3106,6 +3658,10 @@ msgstr "Londoloza futhi uqinisekise"
 msgid "Save Changes"
 msgstr "Londoloza Izinguquko"
 
+#: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
+msgid "Save reviewer profile"
+msgstr ""
+
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Save work authorization"
 msgstr "Londoloza ukugunyazwa komsebenzi"
@@ -3118,6 +3674,10 @@ msgstr "Kulondoloziwe, kodwa ukuhlolwa kokuxhumeka akuphumelelanga"
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Saving..."
 msgstr "Iyalondoloza..."
+
+#: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
+msgid "Saving…"
+msgstr ""
 
 #: src/dialogs/auth/enable-two-factor.tsx
 msgid "Scan the QR code below with your preferred authenticator app. You can also copy the secret below and paste it into your app."
@@ -3135,11 +3695,16 @@ msgstr "Ukuhlela akutholakali okwamanje."
 msgid "School"
 msgstr "Isikole"
 
+#: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
 #: src/routes/dashboard/admin/users.tsx
 #: src/routes/dashboard/job-search/index.tsx
 #: src/routes/dashboard/job-search/index.tsx
 msgid "Search"
 msgstr "Sesha"
+
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Search categories…"
+msgstr ""
 
 #: src/components/command-palette/index.tsx
 msgid "Search commands"
@@ -3157,6 +3722,27 @@ msgstr "Sesha isithonjana"
 #: src/components/command-palette/pages/resumes.tsx
 msgid "Search for..."
 msgstr "Sesha..."
+
+#: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Search outcomes…"
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Search skills…"
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
+#: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Search statuses…"
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Search types…"
+msgstr ""
 
 #: src/components/command-palette/index.tsx
 #: src/components/ui/combobox.tsx
@@ -3206,6 +3792,10 @@ msgstr "Khetha ukuqhubeka"
 msgid "Select Resume"
 msgstr "Khetha Qalisa Kabusha"
 
+#: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
+msgid "Select skills…"
+msgstr ""
+
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Select sponsorship requirement"
 msgstr "Khetha imfuneko yoxhaso"
@@ -3221,6 +3811,10 @@ msgstr "Khetha amakhono ofuna agunyazwe bese ukhetha umbuyekezi wokuhlola komunt
 #: src/components/ui/combobox.tsx
 msgid "Select..."
 msgstr "Khetha..."
+
+#: src/routes/dashboard/verification/index.tsx
+msgid "Selected file:"
+msgstr ""
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Self-starter"
@@ -3291,6 +3885,7 @@ msgstr "Ukwabelana"
 #: src/routes/builder/$resumeId/-sidebar/left/sections/custom.tsx
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-menu.tsx
+#: src/routes/dashboard/reviewer/-components/reviewer-context-panels.tsx
 msgid "Show"
 msgstr "Bonisa"
 
@@ -3314,6 +3909,17 @@ msgstr "Bonisa noma fihla umugqa wesikhathi wokuqinisekisa ku-CV yakho yomphakat
 #: src/routes/dashboard/settings/privacy.tsx
 msgid "Show Timeline on Public CV"
 msgstr "Bonisa umugqa wesikhathi ku-CV yomphakathi"
+
+#. placeholder {0}: items.length
+#: src/routes/dashboard/admin/experience-queue.tsx
+#: src/routes/dashboard/admin/identity.tsx
+msgid "Showing {0} of {total} pending requests"
+msgstr ""
+
+#. placeholder {0}: items.length
+#: src/routes/dashboard/admin/experience-queue.tsx
+msgid "Showing {0} of {total} pending verdicts"
+msgstr ""
 
 #: src/components/ui/sidebar.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/layout/pages.tsx
@@ -3388,6 +3994,14 @@ msgstr "Ikholomu eyodwa; iphucuziwe futhi ibucayi ezikhundleni eziphezulu noma z
 msgid "Size"
 msgstr "Usayizi"
 
+#: src/routes/dashboard/admin/reviewers.tsx
+msgid "skill"
+msgstr ""
+
+#: src/routes/dashboard/reviewer/-components/reviewer-context-panels.tsx
+msgid "Skill"
+msgstr ""
+
 #: src/routes/dashboard/-components/sidebar.tsx
 msgid "Skill Center"
 msgstr "Isikhungo Samakhono"
@@ -3395,6 +4009,15 @@ msgstr "Isikhungo Samakhono"
 #: src/routes/_home/-sections/templates.tsx
 msgid "Skill clusters"
 msgstr "Amaqoqo amakhono"
+
+#: src/routes/dashboard/reviewer/-components/reviewer-context-panels.tsx
+msgid "Skill context"
+msgstr ""
+
+#: src/routes/dashboard/-components/sidebar.tsx
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Skill Review Queue"
+msgstr ""
 
 #: src/routes/_home/-sections/header.tsx
 msgid "Skill Verdict - Go to homepage"
@@ -3409,7 +4032,12 @@ msgstr "Skill Verdict Admin"
 msgid "Skill Verdict Verification"
 msgstr "Ukuqinisekiswa Kwesinqumo Sekhono"
 
+#: src/routes/dashboard/admin/reviewers.tsx
+msgid "skills"
+msgstr ""
+
 #: src/dialogs/resume/sections/custom.tsx
+#: src/routes/dashboard/reviewer/queue.tsx
 #: src/routes/dashboard/verification/index.tsx
 #: src/utils/resume/section.tsx
 msgid "Skills"
@@ -3434,6 +4062,10 @@ msgstr "IsiSlovenian"
 #: src/dialogs/resume/index.tsx
 msgid "Slug"
 msgstr "Slug"
+
+#: src/routes/dashboard/verification/index.tsx
+msgid "Solution submitted"
+msgstr ""
 
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 msgid "Some suggestions could not be applied"
@@ -3500,6 +4132,9 @@ msgstr "Qala ukwakha i-resume yakho kusukela ekuqaleni"
 msgid "Statistics"
 msgstr "Izibalo"
 
+#: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
+#: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
+#: src/routes/dashboard/reviewer/queue.tsx
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Status"
 msgstr "Isimo"
@@ -3533,8 +4168,29 @@ msgid "Submit Review"
 msgstr "Thumela isibuyekezo"
 
 #: src/routes/dashboard/verification/index.tsx
+msgid "Submit solution"
+msgstr ""
+
+#: src/routes/dashboard/verification/index.tsx
+msgid "Submit your solution"
+msgstr ""
+
+#: src/routes/dashboard/verification/index.tsx
 msgid "Submit?"
 msgstr "Thumela?"
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Submitted"
+msgstr ""
+
+#: src/routes/dashboard/verification/index.tsx
+#: src/routes/dashboard/verification/index.tsx
+msgid "Submitted on"
+msgstr ""
+
+#: src/routes/dashboard/verification/index.tsx
+msgid "Submitted solution"
+msgstr ""
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/verification/index.tsx
@@ -3635,10 +4291,6 @@ msgstr "Ukhiye we-API ngeke usakwazi ukufinyelela idatha yakho ngemva kokususwa.
 #: src/components/command-palette/index.tsx
 msgid "The command you're looking for doesn't exist."
 msgstr "Umyalo owufunayo awukho."
-
-#: src/components/resume/preview.tsx
-msgid "The content is too tall for this page, this may cause undesirable results when exporting to PDF."
-msgstr "Okuqukethwe kude kakhulu kuleli khasi, lokhu kungase kubangele imiphumela engathandeki uma uthekelisa ku-PDF."
 
 #: src/routes/auth/resume-password.tsx
 msgid "The password you entered is incorrect"
@@ -3755,6 +4407,8 @@ msgstr "Ithiphu: Ungasho igama lomsebenzisi ubhekise esikhundleni osifakela isic
 #: src/dialogs/resume/sections/certification.tsx
 #: src/dialogs/resume/sections/custom.tsx
 #: src/dialogs/resume/sections/publication.tsx
+#: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Title"
 msgstr "Isihloko"
 
@@ -3873,7 +4527,9 @@ msgstr "Amafasitelana amabili"
 
 #: src/dialogs/resume/import.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/design.tsx
+#: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
+#: src/routes/dashboard/reviewer/queue.tsx
 msgid "Type"
 msgstr "Uhlobo"
 
@@ -3912,6 +4568,8 @@ msgctxt "'Ctrl' may be replaced with the locale-specific equivalent (e.g. 'Strg'
 msgid "Undo (Ctrl+Z)"
 msgstr "Hlehlisa (Ctrl+Z)"
 
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+#: src/routes/dashboard/admin/experience-queue.tsx
 #: src/routes/dashboard/admin/experience-queue.tsx
 #: src/routes/dashboard/admin/identity.tsx
 msgid "Unknown applicant"
@@ -4029,6 +4687,15 @@ msgid "Updating your resume..."
 msgstr "Ibuyekeza ukuqhubeka kwakho..."
 
 #: src/routes/dashboard/verification/index.tsx
+msgid "Upload a file or share a link (for example, a GitHub repository). At least one is required."
+msgstr ""
+
+#. placeholder {0}: item.itemLabel
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Upload assessment instructions for \"{0}\". The applicant will receive them by email and on their Verification dashboard."
+msgstr ""
+
+#: src/routes/dashboard/verification/index.tsx
 msgid "Upload Document"
 msgstr "Layisha Idokhumenti"
 
@@ -4073,8 +4740,24 @@ msgid "Valid URLs must start with http:// or https://."
 msgstr "Ama-URL avumelekile kufanele aqale ngokuthi http:// noma https://."
 
 #: src/routes/dashboard/admin/experience-queue.tsx
-msgid "Verdict confirmed. Experience verified."
-msgstr "Isinqumo siqinisekisiwe. Okuhlangenwe nakho kuqinisekisiwe."
+msgid "Verdict confirmed."
+msgstr ""
+
+#: src/routes/dashboard/admin/experience-queue.tsx
+msgid "Verdict confirmed. Request flagged as issue."
+msgstr ""
+
+#: src/routes/dashboard/admin/experience-queue.tsx
+msgid "Verdict confirmed. Request rejected."
+msgstr ""
+
+#: src/routes/dashboard/admin/experience-queue.tsx
+msgid "Verdict confirmed. Skill verified."
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Verdict notes"
+msgstr ""
 
 #: src/routes/dashboard/admin/experience-queue.tsx
 msgid "Verdict overridden successfully."
@@ -4083,6 +4766,14 @@ msgstr "Isinqumo sikhishwe ngempumelelo."
 #: src/routes/dashboard/admin/users.tsx
 msgid "Verdict pending"
 msgstr "Isinqumo silindile"
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Verdict submitted"
+msgstr ""
+
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Verdict submitted for admin confirmation."
+msgstr ""
 
 #: src/routes/dashboard/-components/sidebar.tsx
 #: src/routes/dashboard/admin/users.tsx
@@ -4109,6 +4800,8 @@ msgstr "Umugqa Wesikhathi Womlando Wokuqinisekisa"
 msgid "Verification requested for \"{0}\"."
 msgstr ""
 
+#: src/routes/dashboard/verification/index.tsx
+#: src/routes/dashboard/verification/index.tsx
 #: src/routes/dashboard/verification/index.tsx
 #: src/routes/dashboard/verification/index.tsx
 msgid "verified"
@@ -4177,9 +4870,23 @@ msgstr "Iqinisekisa iphasiwedi..."
 msgid "Vietnamese"
 msgstr "Isi-Vietnamese"
 
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "View"
+msgstr ""
+
 #: src/routes/dashboard/admin/users.tsx
 msgid "View details"
 msgstr "Buka imininingwane"
+
+#: src/routes/$username/$slug.tsx
+#: src/routes/dashboard/verification/index.tsx
+msgid "View profile"
+msgstr ""
+
+#: src/routes/dashboard/verification/index.tsx
+#: src/routes/dashboard/verification/index.tsx
+msgid "View submitted file"
+msgstr ""
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/statistics.tsx
 msgid "Views"
@@ -4279,6 +4986,10 @@ msgstr "Ungasebenzisa futhi igama lakho lomsebenzisi ukungena ngemvume."
 msgid "You can now use account recovery and other features that require a verified email address."
 msgstr "Manje ungasebenzisa ukubuyiselwa kwe-akhawunti nezinye izici ezidinga ikheli le-imeyili eliqinisekisiwe."
 
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "You have no active cases."
+msgstr ""
+
 #: src/hooks/use-form-blocker.tsx
 msgid "You have unsaved changes that will be lost."
 msgstr "Unezinguquko ezingalondoloziwe ezizolahleka."
@@ -4361,6 +5072,22 @@ msgstr "I-CV yakho ibuyekezwe ngempumelelo."
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 msgid "Your resume's public link is currently protected by a password. Share the password only with people you trust."
 msgstr "Isixhumanisi esisesidlangalaleni se-CV yakho sivikelwe yi-password. Yabelana ngephasiwedi kuphela nabantu obathembayo."
+
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Your review notes"
+msgstr ""
+
+#: src/routes/dashboard/verification/index.tsx
+msgid "Your reviewer has accepted your request. Download the instructions, complete the assessment, then submit your solution below."
+msgstr ""
+
+#: src/routes/dashboard/verification/index.tsx
+msgid "Your reviewer has completed their assessment. Your submission is now awaiting final approval from Skill Verdict Admin. You will be notified by email once a final decision is made."
+msgstr ""
+
+#: src/routes/dashboard/reviewer/queue.tsx
+msgid "Your reviewer profile has not been created yet. Ask a Skill Verdict Admin to assign your reviewer role and create your public reviewer profile before accepting cases."
+msgstr ""
 
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Your verification call has been scheduled. Our team will review and confirm your identity shortly."
