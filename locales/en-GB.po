@@ -153,7 +153,8 @@ msgstr "A new verification link has been sent to your email address. Please chec
 msgid "A profile that reflects what you can actually do — verified by people who know what they're looking at, and built to travel with you wherever you go."
 msgstr "A profile that reflects what you can actually do — verified by people who know what they're looking at, and built to travel with you wherever you go."
 
-#: src/routes/dashboard/admin/experience-queue.tsx
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+#: src/routes/dashboard/admin/pending-verdicts.tsx
 msgid "A reason is required to override."
 msgstr "A reason is required to override."
 
@@ -530,7 +531,8 @@ msgstr "Aspect Ratio"
 msgid "Assessment in progress"
 msgstr ""
 
-#: src/routes/dashboard/admin/experience-queue.tsx
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+#: src/routes/dashboard/admin/pending-verdicts.tsx
 #: src/routes/dashboard/reviewer/queue.tsx
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "Assessment instructions"
@@ -540,7 +542,8 @@ msgstr ""
 msgid "Assessment instructions file is required."
 msgstr ""
 
-#: src/routes/dashboard/admin/experience-queue.tsx
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+#: src/routes/dashboard/admin/pending-verdicts.tsx
 #: src/routes/dashboard/reviewer/queue.tsx
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "Assessment solution"
@@ -601,7 +604,8 @@ msgid "Azerbaijani"
 msgstr "Azerbaijani"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
-#: src/routes/dashboard/admin/experience-queue.tsx
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+#: src/routes/dashboard/admin/pending-verdicts.tsx
 msgid "Back"
 msgstr "Back"
 
@@ -749,7 +753,8 @@ msgstr "Can I update my profile and re-verify skills later?"
 msgid "Cancel"
 msgstr "Cancel"
 
-#: src/routes/dashboard/admin/experience-queue.tsx
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+#: src/routes/dashboard/admin/pending-verdicts.tsx
 msgid "Cancel Override"
 msgstr "Cancel Override"
 
@@ -867,9 +872,10 @@ msgid "Code Block"
 msgstr "Code Block"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
-#: src/routes/dashboard/admin/experience-queue.tsx
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/experience-queue.tsx
 #: src/routes/dashboard/admin/identity.tsx
+#: src/routes/dashboard/admin/pending-verdicts.tsx
 #: src/routes/dashboard/reviewer/queue.tsx
 #: src/routes/dashboard/reviewer/queue.tsx
 #: src/routes/dashboard/reviewer/queue.tsx
@@ -914,12 +920,23 @@ msgstr "Company"
 msgid "Complete the assessment"
 msgstr "Complete the assessment"
 
+#. placeholder {0}: item.reviewedBy.name
+#. placeholder {1}: item.reviewedBy.email
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Concluded by {0} ({1})"
+msgstr ""
+
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Concluded by Skill Verdict Admin"
+msgstr ""
+
 #: src/dialogs/api-key/create.tsx
 #: src/hooks/use-prompt.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
-#: src/routes/dashboard/admin/experience-queue.tsx
-#: src/routes/dashboard/admin/experience-queue.tsx
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+#: src/routes/dashboard/admin/pending-verdicts.tsx
+#: src/routes/dashboard/admin/pending-verdicts.tsx
 #: src/routes/dashboard/settings/danger-zone.tsx
 #: src/routes/dashboard/verification/index.tsx
 msgid "Confirm"
@@ -929,19 +946,19 @@ msgstr "Confirm"
 msgid "Confirm decision: "
 msgstr "Confirm decision: "
 
-#: src/routes/dashboard/admin/experience-queue.tsx
+#: src/routes/dashboard/admin/pending-verdicts.tsx
 msgid "Confirm Fail"
 msgstr ""
 
-#: src/routes/dashboard/admin/experience-queue.tsx
+#: src/routes/dashboard/admin/pending-verdicts.tsx
 msgid "Confirm Issue"
 msgstr ""
 
-#: src/routes/dashboard/admin/experience-queue.tsx
+#: src/routes/dashboard/admin/pending-verdicts.tsx
 msgid "Confirm Pass"
 msgstr ""
 
-#: src/routes/dashboard/admin/experience-queue.tsx
+#: src/routes/dashboard/admin/pending-verdicts.tsx
 msgid "Confirming..."
 msgstr "Confirming..."
 
@@ -1189,8 +1206,9 @@ msgid "Custom Sections"
 msgstr "Custom Sections"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/experience-queue.tsx
-#: src/routes/dashboard/admin/experience-queue.tsx
+#: src/routes/dashboard/admin/pending-verdicts.tsx
 msgid "CV / resume"
 msgstr "CV / resume"
 
@@ -1302,6 +1320,7 @@ msgstr "Description"
 msgid "Design"
 msgstr "Design"
 
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/reviewer/queue.tsx
 #: src/routes/dashboard/reviewer/queue.tsx
@@ -1670,6 +1689,7 @@ msgid "Failed to load document."
 msgstr "Failed to load document."
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Failed to load history. Please refresh and try again."
 msgstr ""
 
@@ -1704,6 +1724,10 @@ msgstr "Failed to setup two-factor authentication."
 #: src/routes/auth/login.tsx
 msgid "Failed to sign in. Please try again."
 msgstr "Failed to sign in. Please try again."
+
+#: src/components/user/dropdown-menu.tsx
+msgid "Failed to switch dashboard mode. Please try again."
+msgstr ""
 
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 msgid "Failed to sync skills"
@@ -1753,16 +1777,18 @@ msgstr ""
 
 #: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
 #: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
+#: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "Filter by status"
 msgstr ""
 
 #: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
+#: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "Filter by type"
 msgstr ""
 
-#: src/routes/dashboard/admin/experience-queue.tsx
+#: src/routes/dashboard/admin/pending-verdicts.tsx
 msgid "Final Decision"
 msgstr ""
 
@@ -2014,6 +2040,7 @@ msgstr "Hindi"
 
 #: src/routes/dashboard/admin/experience-queue.tsx
 #: src/routes/dashboard/admin/identity.tsx
+#: src/routes/dashboard/admin/pending-verdicts.tsx
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "History"
 msgstr ""
@@ -2381,7 +2408,7 @@ msgstr "Loading document..."
 msgid "Loading history..."
 msgstr "Loading history..."
 
-#: src/routes/dashboard/admin/experience-queue.tsx
+#: src/routes/dashboard/admin/pending-verdicts.tsx
 msgid "Loading pending verdicts..."
 msgstr "Loading pending verdicts..."
 
@@ -2510,7 +2537,7 @@ msgstr "Method"
 msgid "Minimum Salary"
 msgstr "Minimum Salary"
 
-#: src/routes/dashboard/admin/experience-queue.tsx
+#: src/routes/dashboard/admin/pending-verdicts.tsx
 msgid "Missing proposed verdict"
 msgstr ""
 
@@ -2650,6 +2677,7 @@ msgid "No completed identity reviews yet."
 msgstr ""
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/experience-queue.tsx
 #: src/routes/dashboard/admin/identity.tsx
 #: src/routes/dashboard/reviewer/queue.tsx
@@ -2658,6 +2686,14 @@ msgstr ""
 
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "No completed reviews yet."
+msgstr ""
+
+#: src/routes/dashboard/admin/pending-verdicts.tsx
+msgid "No concluded verdicts match the selected filters."
+msgstr ""
+
+#: src/routes/dashboard/admin/pending-verdicts.tsx
+msgid "No concluded verdicts yet."
 msgstr ""
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
@@ -2721,10 +2757,12 @@ msgstr ""
 
 #: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
 #: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
+#: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "No matching statuses."
 msgstr ""
 
+#: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
 #: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "No matching types."
@@ -2774,7 +2812,8 @@ msgstr ""
 msgid "No skills selected."
 msgstr ""
 
-#: src/routes/dashboard/admin/experience-queue.tsx
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+#: src/routes/dashboard/admin/pending-verdicts.tsx
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "No solution submitted"
 msgstr ""
@@ -2791,11 +2830,11 @@ msgstr "No uploaded documents found."
 msgid "No users match your filters."
 msgstr "No users match your filters."
 
-#: src/routes/dashboard/admin/experience-queue.tsx
+#: src/routes/dashboard/admin/pending-verdicts.tsx
 msgid "No verdicts awaiting confirmation."
 msgstr "No verdicts awaiting confirmation."
 
-#: src/routes/dashboard/admin/experience-queue.tsx
+#: src/routes/dashboard/admin/pending-verdicts.tsx
 msgid "No verdicts match the selected filters."
 msgstr ""
 
@@ -2834,6 +2873,7 @@ msgid "Odia"
 msgstr "Odia"
 
 #. placeholder {0}: formatDefaultDate(item.reviewedAt)
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "on {0}"
 msgstr ""
@@ -2937,19 +2977,26 @@ msgstr "Overall Period"
 msgid "Overall Title (optional)"
 msgstr "Overall Title (optional)"
 
-#: src/routes/dashboard/admin/experience-queue.tsx
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+#: src/routes/dashboard/admin/pending-verdicts.tsx
 msgid "Override"
 msgstr "Override"
 
-#: src/routes/dashboard/admin/experience-queue.tsx
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+msgid "Override Conclusion"
+msgstr ""
+
+#: src/routes/dashboard/admin/pending-verdicts.tsx
 msgid "Override Decision"
 msgstr "Override Decision"
 
-#: src/routes/dashboard/admin/experience-queue.tsx
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+#: src/routes/dashboard/admin/pending-verdicts.tsx
 msgid "Override to "
 msgstr "Override to "
 
-#: src/routes/dashboard/admin/experience-queue.tsx
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+#: src/routes/dashboard/admin/pending-verdicts.tsx
 msgid "Overriding..."
 msgstr "Overriding..."
 
@@ -3036,7 +3083,9 @@ msgstr "Password protection has been enabled."
 msgid "Pending"
 msgstr "Pending"
 
-#: src/routes/dashboard/admin/experience-queue.tsx
+#: src/routes/dashboard/-components/sidebar.tsx
+#: src/routes/dashboard/admin/pending-verdicts.tsx
+#: src/routes/dashboard/admin/pending-verdicts.tsx
 msgid "Pending Verdicts"
 msgstr "Pending Verdicts"
 
@@ -3241,17 +3290,20 @@ msgstr ""
 msgid "Proposed verdict"
 msgstr ""
 
-#: src/routes/dashboard/admin/experience-queue.tsx
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+#: src/routes/dashboard/admin/pending-verdicts.tsx
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "Proposed: Fail"
 msgstr ""
 
-#: src/routes/dashboard/admin/experience-queue.tsx
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+#: src/routes/dashboard/admin/pending-verdicts.tsx
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "Proposed: Issue"
 msgstr ""
 
-#: src/routes/dashboard/admin/experience-queue.tsx
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+#: src/routes/dashboard/admin/pending-verdicts.tsx
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "Proposed: Pass"
 msgstr ""
@@ -3439,7 +3491,8 @@ msgstr ""
 msgid "Required Skills"
 msgstr "Required Skills"
 
-#: src/routes/dashboard/admin/experience-queue.tsx
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+#: src/routes/dashboard/admin/pending-verdicts.tsx
 msgid "Required: reason for overriding this verdict..."
 msgstr "Required: reason for overriding this verdict..."
 
@@ -3460,6 +3513,7 @@ msgstr "Reset"
 
 #: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
 #: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
+#: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "Reset filters"
 msgstr ""
@@ -3476,6 +3530,7 @@ msgstr "Reset your password"
 msgid "Resetting your password..."
 msgstr "Resetting your password..."
 
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Resolved"
 msgstr ""
@@ -3519,8 +3574,8 @@ msgid "Retry Identity Verification"
 msgstr "Retry Identity Verification"
 
 #: src/routes/dashboard/admin/experience-queue.tsx
-#: src/routes/dashboard/admin/experience-queue.tsx
 #: src/routes/dashboard/admin/identity.tsx
+#: src/routes/dashboard/admin/pending-verdicts.tsx
 msgid "Review"
 msgstr "Review"
 
@@ -3579,7 +3634,8 @@ msgstr ""
 msgid "Reviewer since {memberSince}"
 msgstr "Reviewer since {memberSince}"
 
-#: src/routes/dashboard/admin/experience-queue.tsx
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+#: src/routes/dashboard/admin/pending-verdicts.tsx
 msgid "Reviewer:"
 msgstr ""
 
@@ -3740,10 +3796,12 @@ msgstr ""
 
 #: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
 #: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
+#: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "Search statuses…"
 msgstr ""
 
+#: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
 #: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "Search types…"
@@ -3922,7 +3980,7 @@ msgid "Showing {0} of {total} pending requests"
 msgstr ""
 
 #. placeholder {0}: items.length
-#: src/routes/dashboard/admin/experience-queue.tsx
+#: src/routes/dashboard/admin/pending-verdicts.tsx
 msgid "Showing {0} of {total} pending verdicts"
 msgstr ""
 
@@ -4139,6 +4197,7 @@ msgstr "Statistics"
 
 #: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
 #: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
+#: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
 #: src/routes/dashboard/reviewer/queue.tsx
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Status"
@@ -4160,7 +4219,8 @@ msgstr "Story arc"
 msgid "Strike"
 msgstr "Strike"
 
-#: src/routes/dashboard/admin/experience-queue.tsx
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+#: src/routes/dashboard/admin/pending-verdicts.tsx
 msgid "Submit Override"
 msgstr "Submit Override"
 
@@ -4184,6 +4244,7 @@ msgstr ""
 msgid "Submit?"
 msgstr "Submit?"
 
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Submitted"
 msgstr ""
@@ -4218,6 +4279,14 @@ msgstr "Switch to dark theme"
 #: src/components/theme/toggle-button.tsx
 msgid "Switch to light theme"
 msgstr "Switch to light theme"
+
+#: src/components/user/dropdown-menu.tsx
+msgid "Switch to Reviewer Mode"
+msgstr ""
+
+#: src/components/user/dropdown-menu.tsx
+msgid "Switch to User Mode"
+msgstr ""
 
 #: src/components/input/rich-input.tsx
 msgid "Table"
@@ -4533,6 +4602,7 @@ msgstr "Two-pane"
 #: src/dialogs/resume/import.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/design.tsx
 #: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
+#: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "Type"
@@ -4574,9 +4644,10 @@ msgid "Undo (Ctrl+Z)"
 msgstr "Undo (Ctrl+Z)"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
-#: src/routes/dashboard/admin/experience-queue.tsx
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/experience-queue.tsx
 #: src/routes/dashboard/admin/identity.tsx
+#: src/routes/dashboard/admin/pending-verdicts.tsx
 msgid "Unknown applicant"
 msgstr "Unknown applicant"
 
@@ -4744,19 +4815,19 @@ msgstr "Uzbek"
 msgid "Valid URLs must start with http:// or https://."
 msgstr "Valid URLs must start with http:// or https://."
 
-#: src/routes/dashboard/admin/experience-queue.tsx
+#: src/routes/dashboard/admin/pending-verdicts.tsx
 msgid "Verdict confirmed."
 msgstr ""
 
-#: src/routes/dashboard/admin/experience-queue.tsx
+#: src/routes/dashboard/admin/pending-verdicts.tsx
 msgid "Verdict confirmed. Request flagged as issue."
 msgstr ""
 
-#: src/routes/dashboard/admin/experience-queue.tsx
+#: src/routes/dashboard/admin/pending-verdicts.tsx
 msgid "Verdict confirmed. Request rejected."
 msgstr ""
 
-#: src/routes/dashboard/admin/experience-queue.tsx
+#: src/routes/dashboard/admin/pending-verdicts.tsx
 msgid "Verdict confirmed. Skill verified."
 msgstr ""
 
@@ -4764,7 +4835,8 @@ msgstr ""
 msgid "Verdict notes"
 msgstr ""
 
-#: src/routes/dashboard/admin/experience-queue.tsx
+#: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
+#: src/routes/dashboard/admin/pending-verdicts.tsx
 msgid "Verdict overridden successfully."
 msgstr "Verdict overridden successfully."
 
