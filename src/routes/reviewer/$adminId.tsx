@@ -57,14 +57,16 @@ function RouteComponent() {
         </div>
 
         <div className="mt-6 space-y-2">
-            <p className="text-sm text-muted-foreground"><Trans>Reviewer ID</Trans>:{adminId}</p>
+          <p className="text-sm text-muted-foreground">
+            <Trans>Reviewer ID</Trans>:{adminId}
+          </p>
           <p className="text-xs text-muted-foreground">
             <Trans>Reviewer since {memberSince}</Trans>
           </p>
           <p className="text-xs text-muted-foreground/70">
             <Trans>
-              This page shows live profile information of a reviewer. Verification snapshots captured at the time of review may differ
-              from the current details shown here.
+              This page shows live profile information of a reviewer. Verification snapshots captured at the time of
+              review may differ from the current details shown here.
             </Trans>
           </p>
         </div>
