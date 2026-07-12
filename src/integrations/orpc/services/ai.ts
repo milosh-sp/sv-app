@@ -3,14 +3,14 @@ import { createGoogleGenerativeAI } from "@ai-sdk/google";
 import { createOpenAI } from "@ai-sdk/openai";
 import { streamToEventIterator } from "@orpc/server";
 import {
-  convertToModelMessages,
-  createGateway,
-  generateText,
-  Output,
-  stepCountIs,
-  streamText,
-  tool,
-  type UIMessage,
+    convertToModelMessages,
+    createGateway,
+    generateText,
+    Output,
+    stepCountIs,
+    streamText,
+    tool,
+    type UIMessage,
 } from "ai";
 import { createOllama } from "ai-sdk-ollama";
 import { jsonrepair } from "jsonrepair";
@@ -28,9 +28,9 @@ import pdfParserUserPrompt from "@/integrations/ai/prompts/pdf-parser-user.md?ra
 import resumeReviewSystemPromptTemplate from "@/integrations/ai/prompts/resume-review-system.md?raw";
 import tailorSystemPromptTemplate from "@/integrations/ai/prompts/tailor-system.md?raw";
 import {
-  executePatchResume,
-  patchResumeDescription,
-  patchResumeInputSchema,
+    executePatchResume,
+    patchResumeDescription,
+    patchResumeInputSchema,
 } from "@/integrations/ai/tools/patch-resume";
 import { defaultResumeData, resumeDataSchema } from "@/schema/resume/data";
 import { type TailorOutput, tailorOutputSchema } from "@/schema/tailor";
@@ -358,22 +358,21 @@ function buildResumeParsingMessages({
   file: z.infer<typeof fileInputSchema>;
   mediaType: string;
 }) {
-  return [
-    {
-      role: "system" as const,
-      content:
-        systemPrompt +
-        "\n\nIMPORTANT: You must return ONLY raw valid JSON. Do not return markdown, do not return explanations. Just the JSON object. Use the following JSON as a template and fill in the extracted values. For arrays, you MUST use the exact key names shown in the template (e.g. use 'description' instead of 'summary', 'website' instead of 'url'):\n\n" +
-        JSON.stringify(aiExtractionTemplate, null, 2),
-    },
-    {
-      role: "user" as const,
-      content: [
-        { type: "text" as const, text: userPrompt },
-        { type: "file" as const, data: file.data, mediaType, filename: file.name },
-      ],
-    },
-  ];
+  return {
+    instructions:
+      systemPrompt +
+      "\n\nIMPORTANT: You must return ONLY raw valid JSON. Do not return markdown, do not return explanations. Just the JSON object. Use the following JSON as a template and fill in the extracted values. For arrays, you MUST use the exact key names shown in the template (e.g. use 'description' instead of 'summary', 'website' instead of 'url'):\n\n" +
+      JSON.stringify(aiExtractionTemplate, null, 2),
+    messages: [
+      {
+        role: "user" as const,
+        content: [
+          { type: "text" as const, text: userPrompt },
+          { type: "file" as const, data: file.data, mediaType, filename: file.name },
+        ],
+      },
+    ],
+  };
 }
 
 async function parsePdf(input: ParsePdfInput): Promise<ResumeData> {
@@ -381,7 +380,7 @@ async function parsePdf(input: ParsePdfInput): Promise<ResumeData> {
 
   const result = await generateText({
     model,
-    messages: buildResumeParsingMessages({
+    ...buildResumeParsingMessages({
       systemPrompt: pdfParserSystemPrompt,
       userPrompt: pdfParserUserPrompt,
       file: input.file,
@@ -402,7 +401,7 @@ async function parseDocx(input: ParseDocxInput): Promise<ResumeData> {
 
   const result = await generateText({
     model,
-    messages: buildResumeParsingMessages({
+    ...buildResumeParsingMessages({
       systemPrompt: docxParserSystemPrompt,
       userPrompt: docxParserUserPrompt,
       file: input.file,
@@ -479,8 +478,8 @@ async function reviewResume(input: ReviewResumeInput): Promise<string> {
 
   const result = await generateText({
     model,
+    instructions: systemPrompt,
     messages: [
-      { role: "system", content: systemPrompt },
       { role: "user", content: "Please review this resume and provide actionable improvement feedback." },
     ],
   });
@@ -494,9 +493,9 @@ async function tailorResume(input: TailorResumeInput): Promise<TailorOutput> {
 
   const result = await generateText({
     model,
+    instructions: systemPrompt,
     output: Output.object({ schema: tailorOutputSchema }),
     messages: [
-      { role: "system", content: systemPrompt },
       {
         role: "user",
         content: `Please tailor this resume for the ${input.job.job_title} position at ${input.job.employer_name}. Optimize for ATS compatibility and relevance.`,

@@ -1,17 +1,16 @@
 import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
 import {
-  CalendarBlankIcon,
-  CheckCircleIcon,
-  ClockIcon,
-  FileTextIcon,
-  SealCheckIcon,
-  UploadIcon,
-  WarningCircleIcon,
+    CalendarBlankIcon,
+    CheckCircleIcon,
+    ClockIcon,
+    FileTextIcon,
+    SealCheckIcon,
+    UploadIcon,
+    WarningCircleIcon,
 } from "@phosphor-icons/react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { createFileRoute, stripSearchParams, useNavigate } from "@tanstack/react-router";
-import { zodValidator } from "@tanstack/zod-adapter";
 import { useMemo, useRef, useState } from "react";
 import { toast } from "sonner";
 import z from "zod";
@@ -21,46 +20,46 @@ import type { RouterOutput } from "@/integrations/orpc/client";
 import { Button } from "@/components/ui/button";
 import { Combobox } from "@/components/ui/combobox";
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
 } from "@/components/ui/dialog";
 import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
 import { orpc } from "@/integrations/orpc/client";
 import { formatDefaultDate } from "@/utils/format-date";
 import {
-  buildAllowedFilterValues,
-  buildFilterOptionsFromItems,
-  filterQueueItems,
-  hasActiveQueueFilters,
-  sanitizeQueueFilters,
-  shouldShowMultiSelectFilter,
-  type ProposedVerdict,
-  type QueueFilterOptions,
-  type QueueFilterParams,
-  type QueueFilterTab,
-  type SectionType,
+    buildAllowedFilterValues,
+    buildFilterOptionsFromItems,
+    filterQueueItems,
+    hasActiveQueueFilters,
+    sanitizeQueueFilters,
+    shouldShowMultiSelectFilter,
+    type ProposedVerdict,
+    type QueueFilterOptions,
+    type QueueFilterParams,
+    type QueueFilterTab,
+    type SectionType,
 } from "@/utils/verification/queue-filters";
 
 import type { ReviewAction } from "../admin/-components/verification-queue-shared";
 
 import { DashboardHeader } from "../-components/header";
 import {
-  DocumentPreview,
-  QueueEmptyState,
-  QueueErrorState,
-  QueueLoadingState,
-  ReviewDecisionPanel,
-  StatusBadge,
+    DocumentPreview,
+    QueueEmptyState,
+    QueueErrorState,
+    QueueLoadingState,
+    ReviewDecisionPanel,
+    StatusBadge,
 } from "../admin/-components/verification-queue-shared";
 import {
-  ExternalLinkWarning,
-  ReviewerCaseLabel,
-  ReviewerSubmissionContext,
+    ExternalLinkWarning,
+    ReviewerCaseLabel,
+    ReviewerSubmissionContext,
 } from "./-components/reviewer-context-panels";
 
 const searchSchema = z.object({
@@ -81,7 +80,7 @@ const defaultSearchParams = {
 
 export const Route = createFileRoute("/dashboard/reviewer/queue")({
   component: RouteComponent,
-  validateSearch: zodValidator(searchSchema),
+  validateSearch: searchSchema,
   search: {
     middlewares: [stripSearchParams(defaultSearchParams)],
   },
