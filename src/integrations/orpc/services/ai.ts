@@ -3,14 +3,14 @@ import { createGoogleGenerativeAI } from "@ai-sdk/google";
 import { createOpenAI } from "@ai-sdk/openai";
 import { streamToEventIterator } from "@orpc/server";
 import {
-    convertToModelMessages,
-    createGateway,
-    generateText,
-    Output,
-    stepCountIs,
-    streamText,
-    tool,
-    type UIMessage,
+  convertToModelMessages,
+  createGateway,
+  generateText,
+  Output,
+  stepCountIs,
+  streamText,
+  tool,
+  type UIMessage,
 } from "ai";
 import { createOllama } from "ai-sdk-ollama";
 import { jsonrepair } from "jsonrepair";
@@ -28,9 +28,9 @@ import pdfParserUserPrompt from "@/integrations/ai/prompts/pdf-parser-user.md?ra
 import resumeReviewSystemPromptTemplate from "@/integrations/ai/prompts/resume-review-system.md?raw";
 import tailorSystemPromptTemplate from "@/integrations/ai/prompts/tailor-system.md?raw";
 import {
-    executePatchResume,
-    patchResumeDescription,
-    patchResumeInputSchema,
+  executePatchResume,
+  patchResumeDescription,
+  patchResumeInputSchema,
 } from "@/integrations/ai/tools/patch-resume";
 import { defaultResumeData, resumeDataSchema } from "@/schema/resume/data";
 import { type TailorOutput, tailorOutputSchema } from "@/schema/tailor";
@@ -479,9 +479,7 @@ async function reviewResume(input: ReviewResumeInput): Promise<string> {
   const result = await generateText({
     model,
     instructions: systemPrompt,
-    messages: [
-      { role: "user", content: "Please review this resume and provide actionable improvement feedback." },
-    ],
+    messages: [{ role: "user", content: "Please review this resume and provide actionable improvement feedback." }],
   });
 
   return result.text;
