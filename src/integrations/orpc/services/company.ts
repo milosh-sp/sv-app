@@ -76,6 +76,11 @@ const getWorkAuthorizationConditions = (filters: WorkAuthorizationFilters) => {
     conditions.push(gte(schema.resume.workAuthUpdatedAt, threshold));
   }
 
+  // Consent only matters when filtering on work-auth fields — not for pool membership.
+  if (conditions.length > 0) {
+    conditions.unshift(eq(schema.resume.workAuthConsentToShare, true));
+  }
+
   return conditions;
 };
 
@@ -87,7 +92,10 @@ function experienceTitlesFromData(data: ResumeData): string[] {
     .filter((title) => title.length > 0);
 }
 
-async function loadVerifiedSkillsByUserIds(userIds: string[]): Promise<Map<string, string[]>> {
+async function loadVerifiedLabelsByUserIds(
+  userIds: string[],
+  sectionType: "skill" | "experience" | "project",
+): Promise<Map<string, string[]>> {
   const map = new Map<string, string[]>();
   if (userIds.length === 0) return map;
 
@@ -100,7 +108,7 @@ async function loadVerifiedSkillsByUserIds(userIds: string[]): Promise<Map<strin
     .where(
       and(
         inArray(schema.verificationRequests.userId, userIds),
-        eq(schema.verificationRequests.sectionType, "skill"),
+        eq(schema.verificationRequests.sectionType, sectionType),
         eq(schema.verificationRequests.status, "verified"),
       ),
     );
@@ -112,6 +120,25 @@ async function loadVerifiedSkillsByUserIds(userIds: string[]): Promise<Map<strin
   }
 
   return map;
+}
+
+async function loadVerifiedIdentityUserIds(userIds: string[]): Promise<Set<string>> {
+  const verified = new Set<string>();
+  if (userIds.length === 0) return verified;
+
+  const rows = await db
+    .select({ userId: schema.verificationRequests.userId })
+    .from(schema.verificationRequests)
+    .where(
+      and(
+        inArray(schema.verificationRequests.userId, userIds),
+        eq(schema.verificationRequests.sectionType, "identity"),
+        eq(schema.verificationRequests.status, "verified"),
+      ),
+    );
+
+  for (const row of rows) verified.add(row.userId);
+  return verified;
 }
 
 async function loadListFlags(companyUserId: string, candidateUserIds: string[]) {
@@ -175,11 +202,14 @@ async function loadVettedPool(filters: WorkAuthorizationFilters) {
     .select({
       resumeId: schema.resume.id,
       candidateUserId: schema.resume.userId,
+      username: schema.user.username,
+      slug: schema.resume.slug,
       updatedAt: schema.resume.updatedAt,
       basics: sql<ResumeData["basics"]>`${schema.resume.data}->'basics'`,
       data: schema.resume.data,
     })
     .from(schema.resume)
+    .innerJoin(schema.user, eq(schema.user.id, schema.resume.userId))
     .where(and(...vettedEmployerVisibilityConditions(), ...workAuthConditions))
     .orderBy(desc(schema.resume.updatedAt))
     .limit(MATCH_POOL_CAP);
@@ -198,24 +228,36 @@ export const companyService = {
     if (pool.length === 0) return [];
 
     const userIds = pool.map((row) => row.candidateUserId);
-    const [skillsByUser, listFlags, contacts] = await Promise.all([
-      loadVerifiedSkillsByUserIds(userIds),
+    const [skillsByUser, experiencesByUser, identityVerified, listFlags, contacts] = await Promise.all([
+      loadVerifiedLabelsByUserIds(userIds, "skill"),
+      loadVerifiedLabelsByUserIds(userIds, "experience"),
+      loadVerifiedIdentityUserIds(userIds),
       loadListFlags(companyUserId, userIds),
       loadLatestContactByCandidate(companyUserId, userIds),
     ]);
 
     const summaries = pool.map((row) => ({
       resumeId: row.resumeId,
+      username: row.username,
+      slug: row.slug,
       displayName: row.basics.name || "Candidate",
       headline: row.basics.headline || "",
+      identityVerified: identityVerified.has(row.candidateUserId),
       verifiedSkills: skillsByUser.get(row.candidateUserId) ?? [],
+      verifiedExperiences: experiencesByUser.get(row.candidateUserId) ?? [],
       experienceTitles: experienceTitlesFromData(row.data),
     }));
 
     const aiResult = await aiService.matchCandidates({
       ...creds,
       jobDescription: input.jobDescription,
-      candidates: summaries,
+      candidates: summaries.map(({ resumeId, displayName, headline, verifiedSkills, experienceTitles }) => ({
+        resumeId,
+        displayName,
+        headline,
+        verifiedSkills,
+        experienceTitles,
+      })),
     });
 
     const byResumeId = new Map(pool.map((row) => [row.resumeId, row]));
@@ -231,9 +273,13 @@ export const companyService = {
         return {
           resumeId: row.resumeId,
           candidateUserId: row.candidateUserId,
+          username: summary.username,
+          slug: summary.slug,
           displayName: summary.displayName,
           headline: summary.headline,
+          identityVerified: summary.identityVerified,
           verifiedSkills: summary.verifiedSkills,
+          verifiedExperiences: summary.verifiedExperiences,
           experienceTitles: summary.experienceTitles,
           matchScore: matchItem.matchScore,
           matchReason: matchItem.matchReason,
@@ -259,6 +305,7 @@ export const companyService = {
         listType: schema.companySavedCandidates.listType,
         savedAt: schema.companySavedCandidates.createdAt,
         candidateName: schema.user.name,
+        username: schema.user.username,
       })
       .from(schema.companySavedCandidates)
       .innerJoin(schema.user, eq(schema.user.id, schema.companySavedCandidates.candidateUserId))
@@ -270,14 +317,17 @@ export const companyService = {
     const userIds = [...new Set(saved.map((row) => row.candidateUserId))];
     const resumeIds = [...new Set(saved.map((row) => row.resumeId).filter((id): id is string => Boolean(id)))];
 
-    const [skillsByUser, contacts, listFlags, resumes] = await Promise.all([
-      loadVerifiedSkillsByUserIds(userIds),
+    const [skillsByUser, experiencesByUser, identityVerified, contacts, listFlags, resumes] = await Promise.all([
+      loadVerifiedLabelsByUserIds(userIds, "skill"),
+      loadVerifiedLabelsByUserIds(userIds, "experience"),
+      loadVerifiedIdentityUserIds(userIds),
       loadLatestContactByCandidate(companyUserId, userIds),
       loadListFlags(companyUserId, userIds),
       resumeIds.length > 0
         ? db
             .select({
               id: schema.resume.id,
+              slug: schema.resume.slug,
               basics: sql<ResumeData["basics"]>`${schema.resume.data}->'basics'`,
               data: schema.resume.data,
             })
@@ -294,9 +344,13 @@ export const companyService = {
       return {
         resumeId: row.resumeId,
         candidateUserId: row.candidateUserId,
+        username: row.username,
+        slug: resume?.slug ?? null,
         displayName: resume?.basics.name || row.candidateName,
         headline: resume?.basics.headline || "",
+        identityVerified: identityVerified.has(row.candidateUserId),
         verifiedSkills: skillsByUser.get(row.candidateUserId) ?? [],
+        verifiedExperiences: experiencesByUser.get(row.candidateUserId) ?? [],
         experienceTitles: resume ? experienceTitlesFromData(resume.data) : [],
         isFavorite: listFlags.favorite.has(row.candidateUserId),
         isToContact: listFlags.toContact.has(row.candidateUserId),

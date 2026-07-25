@@ -1,10 +1,11 @@
 import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
-import { MagnifyingGlassIcon, SealCheckIcon, WarningCircleIcon } from "@phosphor-icons/react";
+import { MagnifyingGlassIcon, WarningCircleIcon } from "@phosphor-icons/react";
 import { useMutation } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "motion/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import z from "zod";
 
 import type { RouterOutput } from "@/integrations/orpc/client";
 
@@ -16,15 +17,55 @@ import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "
 import { Spinner } from "@/components/ui/spinner";
 import { Textarea } from "@/components/ui/textarea";
 import { orpc } from "@/integrations/orpc/client";
+import { companyDto } from "@/integrations/orpc/dto/company";
 
 import { DashboardHeader } from "../-components/header";
 import { CandidateActions, type CandidateActionFlags } from "./-components/candidate-actions";
+import { CandidateResumePreview } from "./-components/candidate-resume-preview";
+import {
+    CandidateVerificationSummary,
+    IdentityVerifiedBadge,
+} from "./-components/candidate-verification-summary";
 
 export const Route = createFileRoute("/dashboard/company/match")({
   component: RouteComponent,
 });
 
 type MatchResult = RouterOutput["company"]["matchCandidates"][number];
+
+const MATCH_STATE_STORAGE_KEY = "company-match-state";
+
+const matchPageStateSchema = z.object({
+  jobDescription: z.string().max(20_000),
+  results: companyDto.matchCandidates.output,
+  hasSearched: z.boolean(),
+});
+
+type MatchPageState = z.infer<typeof matchPageStateSchema>;
+
+const emptyMatchPageState: MatchPageState = {
+  jobDescription: "",
+  results: [],
+  hasSearched: false,
+};
+
+function loadMatchPageState(): MatchPageState {
+  try {
+    const stored = localStorage.getItem(MATCH_STATE_STORAGE_KEY);
+    if (!stored) return emptyMatchPageState;
+    return matchPageStateSchema.parse(JSON.parse(stored));
+  } catch {
+    return emptyMatchPageState;
+  }
+}
+
+function saveMatchPageState(state: MatchPageState): void {
+  try {
+    localStorage.setItem(MATCH_STATE_STORAGE_KEY, JSON.stringify(state));
+  } catch {
+    // Ignore quota / private-mode failures.
+  }
+}
 
 function patchCandidate(candidate: MatchResult, flags: Partial<CandidateActionFlags>): MatchResult {
   return { ...candidate, ...flags };
@@ -49,22 +90,19 @@ function MatchCard({
     >
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
-          <h3 className="truncate font-medium">{candidate.displayName}</h3>
+          <div className="flex min-w-0 flex-wrap items-center gap-2">
+            <h3 className="truncate font-medium">{candidate.displayName}</h3>
+            <IdentityVerifiedBadge verified={candidate.identityVerified} />
+          </div>
           {candidate.headline && <p className="truncate text-sm text-muted-foreground">{candidate.headline}</p>}
         </div>
         <Badge variant="secondary">{candidate.matchScore}%</Badge>
       </div>
 
-      {candidate.verifiedSkills.length > 0 && (
-        <div className="flex flex-wrap gap-1.5">
-          {candidate.verifiedSkills.slice(0, 6).map((skill) => (
-            <Badge key={skill} variant="outline" className="gap-x-1">
-              <SealCheckIcon className="size-3" />
-              {skill}
-            </Badge>
-          ))}
-        </div>
-      )}
+      <CandidateVerificationSummary
+        verifiedSkills={candidate.verifiedSkills}
+        verifiedExperiences={candidate.verifiedExperiences}
+      />
 
       <p className="line-clamp-2 text-sm text-muted-foreground">{candidate.matchReason}</p>
 
@@ -86,8 +124,22 @@ function RouteComponent() {
   const [jobDescription, setJobDescription] = useState("");
   const [results, setResults] = useState<MatchResult[]>([]);
   const [hasSearched, setHasSearched] = useState(false);
+  const [hydrated, setHydrated] = useState(false);
   const [selected, setSelected] = useState<MatchResult | null>(null);
   const [sheetOpen, setSheetOpen] = useState(false);
+
+  useEffect(() => {
+    const stored = loadMatchPageState();
+    setJobDescription(stored.jobDescription);
+    setResults(stored.results);
+    setHasSearched(stored.hasSearched);
+    setHydrated(true);
+  }, []);
+
+  useEffect(() => {
+    if (!hydrated) return;
+    saveMatchPageState({ jobDescription, results, hasSearched });
+  }, [jobDescription, results, hasSearched, hydrated]);
 
   const updateFlags = (resumeId: string | null, flags: Partial<CandidateActionFlags>) => {
     setResults((current) => current.map((row) => (row.resumeId === resumeId ? patchCandidate(row, flags) : row)));
@@ -186,11 +238,14 @@ function RouteComponent() {
       )}
 
       <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
-        <SheetContent side="right" className="data-[side=right]:sm:max-w-lg">
+        <SheetContent side="right" className="overflow-y-auto data-[side=right]:sm:max-w-2xl">
           {selected && (
             <>
               <SheetHeader>
-                <SheetTitle>{selected.displayName}</SheetTitle>
+                <SheetTitle className="flex flex-wrap items-center gap-2">
+                  <span>{selected.displayName}</span>
+                  <IdentityVerifiedBadge verified={selected.identityVerified} />
+                </SheetTitle>
                 <SheetDescription>{selected.headline || t`Vetted candidate`}</SheetDescription>
               </SheetHeader>
 
@@ -201,33 +256,15 @@ function RouteComponent() {
 
                 <p className="text-sm text-muted-foreground">{selected.matchReason}</p>
 
-                {selected.verifiedSkills.length > 0 && (
-                  <div className="space-y-2">
-                    <p className="text-sm font-medium">
-                      <Trans>Verified skills</Trans>
-                    </p>
-                    <div className="flex flex-wrap gap-1.5">
-                      {selected.verifiedSkills.map((skill) => (
-                        <Badge key={skill} variant="outline" className="gap-x-1">
-                          <SealCheckIcon className="size-3" />
-                          {skill}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
-                )}
+                <CandidateVerificationSummary
+                  verifiedSkills={selected.verifiedSkills}
+                  verifiedExperiences={selected.verifiedExperiences}
+                  skillLimit={20}
+                  experienceLimit={20}
+                />
 
-                {selected.experienceTitles.length > 0 && (
-                  <div className="space-y-2">
-                    <p className="text-sm font-medium">
-                      <Trans>Recent experience</Trans>
-                    </p>
-                    <ul className="list-inside list-disc text-sm text-muted-foreground">
-                      {selected.experienceTitles.map((title) => (
-                        <li key={title}>{title}</li>
-                      ))}
-                    </ul>
-                  </div>
+                {sheetOpen && selected.slug && (
+                  <CandidateResumePreview username={selected.username} slug={selected.slug} />
                 )}
 
                 <CandidateActions

@@ -1,25 +1,36 @@
 import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
-import { HeartIcon, SealCheckIcon } from "@phosphor-icons/react";
+import { HeartIcon } from "@phosphor-icons/react";
 import { useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 
-import { Badge } from "@/components/ui/badge";
+import type { RouterOutput } from "@/integrations/orpc/client";
+
 import { Separator } from "@/components/ui/separator";
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { Spinner } from "@/components/ui/spinner";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { orpc } from "@/integrations/orpc/client";
 
 import { DashboardHeader } from "../-components/header";
 import { CandidateActions } from "./-components/candidate-actions";
+import { CandidateResumePreview } from "./-components/candidate-resume-preview";
+import {
+    CandidateVerificationSummary,
+    IdentityVerifiedBadge,
+} from "./-components/candidate-verification-summary";
 
 export const Route = createFileRoute("/dashboard/company/saved")({
   component: RouteComponent,
 });
 
+type SavedCandidate = RouterOutput["company"]["listSaved"][number];
+
 function RouteComponent() {
   const [tab, setTab] = useState<"favorite" | "to_contact">("favorite");
+  const [selected, setSelected] = useState<SavedCandidate | null>(null);
+  const [sheetOpen, setSheetOpen] = useState(false);
 
   const {
     data = [],
@@ -62,37 +73,85 @@ function RouteComponent() {
           )}
 
           {data.map((candidate) => (
-            <div key={`${candidate.listType}-${candidate.candidateUserId}`} className="space-y-3 rounded-md border p-4">
+            <button
+              key={`${candidate.listType}-${candidate.candidateUserId}`}
+              type="button"
+              className="w-full space-y-3 rounded-md border p-4 text-start transition-colors hover:bg-accent/50"
+              onClick={() => {
+                setSelected(candidate);
+                setSheetOpen(true);
+              }}
+            >
               <div>
-                <h3 className="font-medium">{candidate.displayName}</h3>
+                <div className="flex flex-wrap items-center gap-2">
+                  <h3 className="font-medium">{candidate.displayName}</h3>
+                  <IdentityVerifiedBadge verified={candidate.identityVerified} />
+                </div>
                 {candidate.headline && <p className="text-sm text-muted-foreground">{candidate.headline}</p>}
               </div>
 
-              {candidate.verifiedSkills.length > 0 && (
-                <div className="flex flex-wrap gap-1.5">
-                  {candidate.verifiedSkills.slice(0, 8).map((skill) => (
-                    <Badge key={skill} variant="outline" className="gap-x-1">
-                      <SealCheckIcon className="size-3" />
-                      {skill}
-                    </Badge>
-                  ))}
-                </div>
-              )}
-
-              <CandidateActions
-                candidateUserId={candidate.candidateUserId}
-                resumeId={candidate.resumeId}
-                isFavorite={candidate.isFavorite}
-                isToContact={candidate.isToContact}
-                contactStatus={candidate.contactStatus}
-                onFlagsChange={() => {
-                  void refetch();
-                }}
+              <CandidateVerificationSummary
+                verifiedSkills={candidate.verifiedSkills}
+                verifiedExperiences={candidate.verifiedExperiences}
+                skillLimit={8}
               />
-            </div>
+
+              <div onClick={(event) => event.stopPropagation()}>
+                <CandidateActions
+                  candidateUserId={candidate.candidateUserId}
+                  resumeId={candidate.resumeId}
+                  isFavorite={candidate.isFavorite}
+                  isToContact={candidate.isToContact}
+                  contactStatus={candidate.contactStatus}
+                  onFlagsChange={() => {
+                    void refetch();
+                  }}
+                />
+              </div>
+            </button>
           ))}
         </TabsContent>
       </Tabs>
+
+      <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
+        <SheetContent side="right" className="overflow-y-auto data-[side=right]:sm:max-w-2xl">
+          {selected && (
+            <>
+              <SheetHeader>
+                <SheetTitle className="flex flex-wrap items-center gap-2">
+                  <span>{selected.displayName}</span>
+                  <IdentityVerifiedBadge verified={selected.identityVerified} />
+                </SheetTitle>
+                <SheetDescription>{selected.headline || t`Vetted candidate`}</SheetDescription>
+              </SheetHeader>
+
+              <div className="space-y-4 px-4 pb-6">
+                <CandidateVerificationSummary
+                  verifiedSkills={selected.verifiedSkills}
+                  verifiedExperiences={selected.verifiedExperiences}
+                  skillLimit={20}
+                  experienceLimit={20}
+                />
+
+                {sheetOpen && selected.slug && (
+                  <CandidateResumePreview username={selected.username} slug={selected.slug} />
+                )}
+
+                <CandidateActions
+                  candidateUserId={selected.candidateUserId}
+                  resumeId={selected.resumeId}
+                  isFavorite={selected.isFavorite}
+                  isToContact={selected.isToContact}
+                  contactStatus={selected.contactStatus}
+                  onFlagsChange={() => {
+                    void refetch();
+                  }}
+                />
+              </div>
+            </>
+          )}
+        </SheetContent>
+      </Sheet>
     </div>
   );
 }

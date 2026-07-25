@@ -25,9 +25,13 @@ export const companySavedListTypeSchema = z.enum(["favorite", "to_contact"]);
 const candidateCardSchema = z.object({
   resumeId: z.string().uuid().nullable(),
   candidateUserId: z.string().uuid(),
+  username: z.string(),
+  slug: z.string().nullable(),
   displayName: z.string(),
   headline: z.string(),
+  identityVerified: z.boolean(),
   verifiedSkills: z.array(z.string()),
+  verifiedExperiences: z.array(z.string()),
   experienceTitles: z.array(z.string()),
   isFavorite: z.boolean(),
   isToContact: z.boolean(),

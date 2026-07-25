@@ -39,12 +39,8 @@ export function hasVerifiedSkillExperienceOrProjectExists() {
   );
 }
 
-/** Full vetted-employer visibility gates (public + consent + identity + verified item). */
+/** Full vetted-employer visibility gates (public + identity + verified item).
+ * Work-auth consent is not required here — it only gates sharing/filtering of work-auth details. */
 export function vettedEmployerVisibilityConditions() {
-  return [
-    eq(schema.resume.isPublic, true),
-    eq(schema.resume.workAuthConsentToShare, true),
-    hasVerifiedIdentityExists(),
-    hasVerifiedSkillExperienceOrProjectExists(),
-  ];
+  return [eq(schema.resume.isPublic, true), hasVerifiedIdentityExists(), hasVerifiedSkillExperienceOrProjectExists()];
 }

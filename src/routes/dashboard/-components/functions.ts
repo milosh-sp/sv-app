@@ -10,7 +10,7 @@ export const getDashboardSidebarServerFn = createServerFn({ method: "GET" }).han
 });
 
 export const setDashboardSidebarServerFn = createServerFn({ method: "POST" })
-  .inputValidator(z.boolean())
+  .validator(z.boolean())
   .handler(async ({ data }) => {
     setCookie(SIDEBAR_COOKIE_NAME, data.toString());
   });

@@ -161,7 +161,7 @@ export const getLocale = createIsomorphicFn()
   });
 
 export const setLocaleServerFn = createServerFn({ method: "POST" })
-  .inputValidator(localeSchema)
+  .validator(localeSchema)
   .handler(async ({ data }) => {
     setCookie(storageKey, data);
   });

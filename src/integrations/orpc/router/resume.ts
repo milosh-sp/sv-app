@@ -101,8 +101,8 @@ export const resumeRouter = {
       operationId: "searchResumesForEmployers",
       summary: "Search vetted resumes by work authorization",
       description:
-        "Returns vetted candidate resumes (verified identity + at least one verified skill/experience/project) that opted in for employer visibility and match the provided work-authorization filters. Only accessible to company or Skill Verdict Admin roles.",
-      successDescription: "A list of matching candidate resume summaries with work authorization facets.",
+        "Returns public vetted candidate resumes (verified identity + at least one verified skill/experience/project). Optional work-authorization filters only apply to candidates who consented to share those details. Only accessible to company or Skill Verdict Admin roles.",
+      successDescription: "A list of matching candidate resume summaries with work authorization facets (redacted when consent is absent).",
     })
     .input(resumeDto.searchForEmployers.input)
     .output(resumeDto.searchForEmployers.output)

@@ -135,7 +135,7 @@ const RESUMES_VIEW_COOKIE_NAME = "resumes_view";
 const viewSchema = z.enum(["grid", "list"]).catch("grid");
 
 const setViewServerFn = createServerFn({ method: "POST" })
-  .inputValidator(viewSchema)
+  .validator(viewSchema)
   .handler(async ({ data }) => {
     setCookie(RESUMES_VIEW_COOKIE_NAME, JSON.stringify(data));
   });

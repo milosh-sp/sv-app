@@ -10,7 +10,7 @@ import type { Locale } from "@/utils/locale";
 
 import { schema } from "@/integrations/drizzle";
 import { db } from "@/integrations/drizzle/client";
-import { defaultResumeData } from "@/schema/resume/data";
+import { defaultResumeData, defaultWorkAuthorizationData } from "@/schema/resume/data";
 import { env } from "@/utils/env";
 import { hashPassword, verifyPassword } from "@/utils/password";
 import { applyResumePatches, ResumePatchError } from "@/utils/resume/patch";
@@ -42,10 +42,9 @@ const getWorkAuthSponsorshipColumn = (region: "eu" | "usa" | "uk") =>
     .with("uk", () => schema.resume.workAuthUkSponsorshipRequired)
     .exhaustive();
 
-const getWorkAuthorizationConditions = (filters: WorkAuthorizationFilters, requireConsent: boolean) => {
+const getWorkAuthorizationConditions = (filters: WorkAuthorizationFilters, forEmployers = false) => {
   const conditions = [];
 
-  if (requireConsent) conditions.push(eq(schema.resume.workAuthConsentToShare, true));
   if (filters.workAuthRegions.length > 0) {
     const regionConditions = filters.workAuthRegions.map(
       (region) => sql`${getWorkAuthStatusColumn(region)} <> 'not_authorized'`,
@@ -75,6 +74,11 @@ const getWorkAuthorizationConditions = (filters: WorkAuthorizationFilters, requi
   if (filters.authorizationFreshnessDays) {
     const threshold = new Date(Date.now() - filters.authorizationFreshnessDays * 24 * 60 * 60 * 1000);
     conditions.push(gte(schema.resume.workAuthUpdatedAt, threshold));
+  }
+
+  // Employer filters may only use work-auth fields the candidate consented to share.
+  if (forEmployers && conditions.length > 0) {
+    conditions.unshift(eq(schema.resume.workAuthConsentToShare, true));
   }
 
   return conditions;
@@ -155,7 +159,7 @@ export const resumeService = {
       sort: "lastUpdatedAt" | "createdAt" | "name";
     } & WorkAuthorizationFilters,
   ) => {
-    const workAuthConditions = getWorkAuthorizationConditions(input, false);
+    const workAuthConditions = getWorkAuthorizationConditions(input);
 
     return await db
       .select({
@@ -188,10 +192,9 @@ export const resumeService = {
   },
 
   searchForEmployers: async (input: WorkAuthorizationFilters) => {
-    // Consent is already required by vettedEmployerVisibilityConditions.
-    const workAuthConditions = getWorkAuthorizationConditions(input, false);
+    const workAuthConditions = getWorkAuthorizationConditions(input, true);
 
-    return await db
+    const rows = await db
       .select({
         id: schema.resume.id,
         name: schema.resume.name,
@@ -199,10 +202,18 @@ export const resumeService = {
         updatedAt: schema.resume.updatedAt,
         basics: sql<ResumeData["basics"]>`${schema.resume.data}->'basics'`,
         workAuthorization: sql<ResumeData["workAuthorization"]>`${schema.resume.data}->'workAuthorization'`,
+        workAuthConsentToShare: schema.resume.workAuthConsentToShare,
       })
       .from(schema.resume)
       .where(and(...vettedEmployerVisibilityConditions(), ...workAuthConditions))
       .orderBy(desc(schema.resume.updatedAt));
+
+    return rows.map(({ workAuthConsentToShare, ...row }) => ({
+      ...row,
+      workAuthorization: workAuthConsentToShare
+        ? (row.workAuthorization ?? defaultWorkAuthorizationData)
+        : defaultWorkAuthorizationData,
+    }));
   },
 
   getById: async (input: { id: string; userId: string }) => {
