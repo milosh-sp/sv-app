@@ -186,7 +186,7 @@ msgstr ""
 
 #: src/routes/dashboard/company/-components/candidate-actions.tsx:71
 msgid "Accepted"
-msgstr ""
+msgstr "Qəbul edildi"
 
 #: src/routes/dashboard/reviewer/queue.tsx:721
 msgid "Accepting..."
@@ -992,7 +992,7 @@ msgstr ""
 
 #: src/routes/dashboard/company/-components/candidate-actions.tsx:74
 msgid "Contact"
-msgstr ""
+msgstr "Əlaqə"
 
 #: src/routes/dashboard/contact-requests.tsx:60
 msgid "Contact accepted."
@@ -1005,11 +1005,11 @@ msgstr ""
 #: src/routes/dashboard/-components/sidebar.tsx:108
 #: src/routes/dashboard/company/contacts.tsx:70
 msgid "Contact History"
-msgstr ""
+msgstr "Əlaqə Tarixçəsi"
 
 #: src/routes/dashboard/company/-components/candidate-actions.tsx:58
 msgid "Contact request sent."
-msgstr ""
+msgstr "Əlaqə sorğusu göndərildi."
 
 #: src/routes/dashboard/-components/sidebar.tsx:79
 #: src/routes/dashboard/contact-requests.tsx:70
@@ -1082,15 +1082,15 @@ msgstr "Could not load the selected resume. Please choose another resume and try
 
 #: src/routes/dashboard/company/-components/candidate-resume-preview.tsx:58
 msgid "Could not load this candidate's resume."
-msgstr ""
+msgstr "Bu namizədin CV-ni yükləmək mümkün olmadı."
 
 #: src/routes/dashboard/company/match.tsx:196
 msgid "Could not match candidates"
-msgstr ""
+msgstr "Namizədləri uyğunlaşdırmaq mümkün olmadı"
 
 #: src/routes/dashboard/company/-components/candidate-actions.tsx:63
 msgid "Could not send contact request."
-msgstr ""
+msgstr "Əlaqə sorğusunu göndərmək mümkün olmadı."
 
 #: src/routes/dashboard/contact-requests.tsx:64
 msgid "Could not update contact request."
@@ -1098,7 +1098,7 @@ msgstr ""
 
 #: src/routes/dashboard/company/-components/candidate-actions.tsx:51
 msgid "Could not update saved list."
-msgstr ""
+msgstr "Yadda saxlanmış siyahını yeniləmək mümkün olmadı."
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx:166
 msgid "Country"
@@ -1318,7 +1318,7 @@ msgstr ""
 
 #: src/routes/dashboard/company/-components/candidate-actions.tsx:73
 msgid "Declined"
-msgstr ""
+msgstr "Rədd edildi"
 
 #: src/dialogs/resume/sections/education.tsx:183
 msgid "Degree"
@@ -1585,7 +1585,7 @@ msgstr "E‑poçt Ünvanı"
 
 #: src/routes/dashboard/company/contacts.tsx:119
 msgid "Email hidden until accepted"
-msgstr ""
+msgstr "Qəbul edilənə qədər e-poçt gizlədilib"
 
 #: src/routes/auth/verify-email.tsx:203
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx:166
@@ -1809,11 +1809,11 @@ msgstr "FAQ"
 
 #: src/routes/dashboard/company/-components/candidate-actions.tsx:93
 msgid "Favorite"
-msgstr ""
+msgstr "Sevimli"
 
 #: src/routes/dashboard/company/saved.tsx:51
 msgid "Favorites"
-msgstr ""
+msgstr "Sevimlilər"
 
 #: src/routes/_home/-sections/footer.tsx:31
 msgid "Features"
@@ -1876,7 +1876,7 @@ msgstr ""
 
 #: src/routes/dashboard/company/match.tsx:186
 msgid "Find matches"
-msgstr ""
+msgstr "Uyğunluqları tapın"
 
 #: src/utils/locale.ts:87
 msgid "Finnish"
@@ -2210,7 +2210,7 @@ msgstr "Identity verification requested. Please check your email for next steps.
 
 #: src/routes/dashboard/company/-components/candidate-verification-summary.tsx:62
 msgid "Identity verified"
-msgstr ""
+msgstr "Şəxsiyyət təsdiqləndi"
 
 #: src/routes/dashboard/-components/sidebar-identity-verification-status.tsx:17
 msgid "Identity Verified"
@@ -2301,7 +2301,7 @@ msgstr "JavaScript"
 
 #: src/routes/dashboard/company/match.tsx:173
 msgid "Job description"
-msgstr ""
+msgstr "İş təsviri"
 
 #: src/routes/dashboard/-components/sidebar.tsx:69
 #: src/routes/dashboard/job-search/index.tsx:139
@@ -2513,7 +2513,7 @@ msgstr "Loading queue..."
 
 #: src/routes/dashboard/company/-components/candidate-resume-preview.tsx:50
 msgid "Loading resume…"
-msgstr ""
+msgstr "CV yüklənir..."
 
 #: src/components/command-palette/pages/resumes.tsx:62
 msgid "Loading resumes..."
@@ -2616,7 +2616,7 @@ msgstr "Kənar (Şaquli)"
 #. placeholder {0}: selected.matchScore
 #: src/routes/dashboard/company/match.tsx:254
 msgid "Match score: {0}%"
-msgstr ""
+msgstr "Uyğunluq xalı: {0}%"
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx:229
 msgid "Maximum Salary"
@@ -2766,7 +2766,7 @@ msgstr "No approved identity information."
 
 #: src/routes/dashboard/company/saved.tsx:70
 msgid "No candidates marked to contact later."
-msgstr ""
+msgstr "Daha sonra əlaqə saxlamaq üçün heç bir namizəd qeyd olunmayıb."
 
 #: src/routes/dashboard/reviewer/queue.tsx:747
 msgid "No cases match the selected filters."
@@ -2802,7 +2802,7 @@ msgstr ""
 
 #: src/routes/dashboard/company/contacts.tsx:107
 msgid "No contact requests yet."
-msgstr ""
+msgstr "Hələlik əlaqə sorğusu yoxdur."
 
 #: src/routes/dashboard/contact-requests.tsx:94
 msgid "No contact requests."
@@ -2830,7 +2830,7 @@ msgstr "No experience verification requests pending."
 
 #: src/routes/dashboard/company/saved.tsx:68
 msgid "No favorite candidates yet."
-msgstr ""
+msgstr "Hələlik favorit namizəd yoxdur."
 
 #: src/routes/dashboard/verification/index.tsx:1069
 msgid "No history available."
@@ -2886,7 +2886,7 @@ msgstr ""
 
 #: src/routes/dashboard/company/match.tsx:235
 msgid "No matching vetted candidates found. Try adjusting the job description."
-msgstr ""
+msgstr "Uyğun yoxlanılmış namizəd tapılmadı. İş təsvirini tənzimləməyə çalışın."
 
 #: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx:351
 msgid "No profile"
@@ -3035,7 +3035,7 @@ msgstr "E‑poçt müştərisini aç"
 
 #: src/routes/dashboard/company/-components/candidate-resume-preview.tsx:76
 msgid "Open full CV"
-msgstr ""
+msgstr "Tam CV açın"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx:443
 msgid "Open Link"
@@ -3204,7 +3204,7 @@ msgstr "Parol qorunması aktiv edilib."
 
 #: src/routes/dashboard/company/match.tsx:179
 msgid "Paste a job description to find closely matching vetted candidates…"
-msgstr ""
+msgstr "Yaxından uyğun gələn yoxlanılmış namizədləri tapmaq üçün iş təsvirini yapışdırın..."
 
 #: src/routes/dashboard/admin/users.tsx:557
 #: src/routes/dashboard/company/-components/candidate-actions.tsx:69
@@ -3863,11 +3863,11 @@ msgstr "Save work authorization"
 
 #: src/routes/dashboard/-components/sidebar.tsx:103
 msgid "Saved"
-msgstr ""
+msgstr "Saxlandı"
 
 #: src/routes/dashboard/company/saved.tsx:45
 msgid "Saved Candidates"
-msgstr ""
+msgstr "Saxlanılan Namizədlər"
 
 #: src/routes/dashboard/admin/ai.tsx:102
 #: src/routes/dashboard/admin/job-search.tsx:60
@@ -3907,7 +3907,7 @@ msgstr "Axtarış"
 
 #: src/routes/dashboard/company/contacts.tsx:80
 msgid "Search by candidate name…"
-msgstr ""
+msgstr "Namizəd adına görə axtarış..."
 
 #: src/routes/dashboard/reviewer/queue.tsx:339
 msgid "Search categories…"
@@ -4275,7 +4275,7 @@ msgstr "Slug"
 #: src/routes/dashboard/-components/sidebar.tsx:98
 #: src/routes/dashboard/company/match.tsx:167
 msgid "Smart AI Search"
-msgstr ""
+msgstr "Ağıllı AI Axtarışı"
 
 #: src/routes/dashboard/verification/index.tsx:617
 msgid "Solution submitted"
@@ -4640,7 +4640,7 @@ msgstr "Başlıq"
 #: src/routes/dashboard/company/-components/candidate-actions.tsx:111
 #: src/routes/dashboard/company/saved.tsx:54
 msgid "To contact"
-msgstr ""
+msgstr "Əlaqə üçün"
 
 #: src/routes/dashboard/settings/danger-zone.tsx:70
 msgid "To delete your account, you need to enter the confirmation text and click the button below."
@@ -5054,7 +5054,7 @@ msgstr "Verified by {0}"
 
 #: src/routes/dashboard/company/-components/candidate-verification-summary.tsx:40
 msgid "Verified experience"
-msgstr ""
+msgstr "Təsdiqlənmiş təcrübə"
 
 #: src/routes/_home/-sections/features.tsx:28
 msgid "Verified skill badges"
@@ -5106,7 +5106,7 @@ msgstr "Parol yoxlanılır..."
 #: src/routes/dashboard/company/match.tsx:249
 #: src/routes/dashboard/company/saved.tsx:125
 msgid "Vetted candidate"
-msgstr ""
+msgstr "Təcrübəli namizəd"
 
 #: src/utils/locale.ts:123
 msgid "Vietnamese"

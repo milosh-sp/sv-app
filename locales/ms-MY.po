@@ -186,7 +186,7 @@ msgstr ""
 
 #: src/routes/dashboard/company/-components/candidate-actions.tsx:71
 msgid "Accepted"
-msgstr ""
+msgstr "Diterima"
 
 #: src/routes/dashboard/reviewer/queue.tsx:721
 msgid "Accepting..."
@@ -992,7 +992,7 @@ msgstr ""
 
 #: src/routes/dashboard/company/-components/candidate-actions.tsx:74
 msgid "Contact"
-msgstr ""
+msgstr "Kenalan"
 
 #: src/routes/dashboard/contact-requests.tsx:60
 msgid "Contact accepted."
@@ -1005,11 +1005,11 @@ msgstr ""
 #: src/routes/dashboard/-components/sidebar.tsx:108
 #: src/routes/dashboard/company/contacts.tsx:70
 msgid "Contact History"
-msgstr ""
+msgstr "Sejarah Kenalan"
 
 #: src/routes/dashboard/company/-components/candidate-actions.tsx:58
 msgid "Contact request sent."
-msgstr ""
+msgstr "Permintaan kenalan dihantar."
 
 #: src/routes/dashboard/-components/sidebar.tsx:79
 #: src/routes/dashboard/contact-requests.tsx:70
@@ -1082,15 +1082,15 @@ msgstr "Could not load the selected resume. Please choose another resume and try
 
 #: src/routes/dashboard/company/-components/candidate-resume-preview.tsx:58
 msgid "Could not load this candidate's resume."
-msgstr ""
+msgstr "Tidak dapat memuatkan resume calon ini."
 
 #: src/routes/dashboard/company/match.tsx:196
 msgid "Could not match candidates"
-msgstr ""
+msgstr "Tidak dapat menandingi calon"
 
 #: src/routes/dashboard/company/-components/candidate-actions.tsx:63
 msgid "Could not send contact request."
-msgstr ""
+msgstr "Tidak dapat menghantar permintaan hubungan."
 
 #: src/routes/dashboard/contact-requests.tsx:64
 msgid "Could not update contact request."
@@ -1098,7 +1098,7 @@ msgstr ""
 
 #: src/routes/dashboard/company/-components/candidate-actions.tsx:51
 msgid "Could not update saved list."
-msgstr ""
+msgstr "Tidak dapat mengemas kini senarai yang disimpan."
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx:166
 msgid "Country"
@@ -1318,7 +1318,7 @@ msgstr ""
 
 #: src/routes/dashboard/company/-components/candidate-actions.tsx:73
 msgid "Declined"
-msgstr ""
+msgstr "ditolak"
 
 #: src/dialogs/resume/sections/education.tsx:183
 msgid "Degree"
@@ -1585,7 +1585,7 @@ msgstr "Alamat E-mel"
 
 #: src/routes/dashboard/company/contacts.tsx:119
 msgid "Email hidden until accepted"
-msgstr ""
+msgstr "E-mel disembunyikan sehingga diterima"
 
 #: src/routes/auth/verify-email.tsx:203
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx:166
@@ -1809,11 +1809,11 @@ msgstr "FAQ"
 
 #: src/routes/dashboard/company/-components/candidate-actions.tsx:93
 msgid "Favorite"
-msgstr ""
+msgstr "Kegemaran"
 
 #: src/routes/dashboard/company/saved.tsx:51
 msgid "Favorites"
-msgstr ""
+msgstr "Kegemaran"
 
 #: src/routes/_home/-sections/footer.tsx:31
 msgid "Features"
@@ -1876,7 +1876,7 @@ msgstr ""
 
 #: src/routes/dashboard/company/match.tsx:186
 msgid "Find matches"
-msgstr ""
+msgstr "Cari padanan"
 
 #: src/utils/locale.ts:87
 msgid "Finnish"
@@ -2210,7 +2210,7 @@ msgstr "Identity verification requested. Please check your email for next steps.
 
 #: src/routes/dashboard/company/-components/candidate-verification-summary.tsx:62
 msgid "Identity verified"
-msgstr ""
+msgstr "Identiti disahkan"
 
 #: src/routes/dashboard/-components/sidebar-identity-verification-status.tsx:17
 msgid "Identity Verified"
@@ -2301,7 +2301,7 @@ msgstr "JavaScript"
 
 #: src/routes/dashboard/company/match.tsx:173
 msgid "Job description"
-msgstr ""
+msgstr "Penerangan kerja"
 
 #: src/routes/dashboard/-components/sidebar.tsx:69
 #: src/routes/dashboard/job-search/index.tsx:139
@@ -2513,7 +2513,7 @@ msgstr "Loading queue..."
 
 #: src/routes/dashboard/company/-components/candidate-resume-preview.tsx:50
 msgid "Loading resume…"
-msgstr ""
+msgstr "Memuatkan resume…"
 
 #: src/components/command-palette/pages/resumes.tsx:62
 msgid "Loading resumes..."
@@ -2616,7 +2616,7 @@ msgstr "Margin (Menegak)"
 #. placeholder {0}: selected.matchScore
 #: src/routes/dashboard/company/match.tsx:254
 msgid "Match score: {0}%"
-msgstr ""
+msgstr "Markah perlawanan: {0}%"
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx:229
 msgid "Maximum Salary"
@@ -2766,7 +2766,7 @@ msgstr "No approved identity information."
 
 #: src/routes/dashboard/company/saved.tsx:70
 msgid "No candidates marked to contact later."
-msgstr ""
+msgstr "Tiada calon yang ditanda untuk dihubungi kemudian."
 
 #: src/routes/dashboard/reviewer/queue.tsx:747
 msgid "No cases match the selected filters."
@@ -2802,7 +2802,7 @@ msgstr ""
 
 #: src/routes/dashboard/company/contacts.tsx:107
 msgid "No contact requests yet."
-msgstr ""
+msgstr "Tiada permintaan kenalan lagi."
 
 #: src/routes/dashboard/contact-requests.tsx:94
 msgid "No contact requests."
@@ -2830,7 +2830,7 @@ msgstr "No experience verification requests pending."
 
 #: src/routes/dashboard/company/saved.tsx:68
 msgid "No favorite candidates yet."
-msgstr ""
+msgstr "Belum ada calon kegemaran."
 
 #: src/routes/dashboard/verification/index.tsx:1069
 msgid "No history available."
@@ -2886,7 +2886,7 @@ msgstr ""
 
 #: src/routes/dashboard/company/match.tsx:235
 msgid "No matching vetted candidates found. Try adjusting the job description."
-msgstr ""
+msgstr "Tiada calon yang disemak sepadan ditemui. Cuba laraskan huraian kerja."
 
 #: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx:351
 msgid "No profile"
@@ -3035,7 +3035,7 @@ msgstr "Buka Klien E-mel"
 
 #: src/routes/dashboard/company/-components/candidate-resume-preview.tsx:76
 msgid "Open full CV"
-msgstr ""
+msgstr "Buka CV penuh"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx:443
 msgid "Open Link"
@@ -3204,7 +3204,7 @@ msgstr "Perlindungan kata laluan telah diaktifkan."
 
 #: src/routes/dashboard/company/match.tsx:179
 msgid "Paste a job description to find closely matching vetted candidates…"
-msgstr ""
+msgstr "Tampalkan huraian kerja untuk mencari calon yang disemak yang hampir sama…"
 
 #: src/routes/dashboard/admin/users.tsx:557
 #: src/routes/dashboard/company/-components/candidate-actions.tsx:69
@@ -3863,11 +3863,11 @@ msgstr "Save work authorization"
 
 #: src/routes/dashboard/-components/sidebar.tsx:103
 msgid "Saved"
-msgstr ""
+msgstr "Disimpan"
 
 #: src/routes/dashboard/company/saved.tsx:45
 msgid "Saved Candidates"
-msgstr ""
+msgstr "Calon Disimpan"
 
 #: src/routes/dashboard/admin/ai.tsx:102
 #: src/routes/dashboard/admin/job-search.tsx:60
@@ -3907,7 +3907,7 @@ msgstr "Cari"
 
 #: src/routes/dashboard/company/contacts.tsx:80
 msgid "Search by candidate name…"
-msgstr ""
+msgstr "Cari mengikut nama calon…"
 
 #: src/routes/dashboard/reviewer/queue.tsx:339
 msgid "Search categories…"
@@ -4275,7 +4275,7 @@ msgstr "Slug"
 #: src/routes/dashboard/-components/sidebar.tsx:98
 #: src/routes/dashboard/company/match.tsx:167
 msgid "Smart AI Search"
-msgstr ""
+msgstr "Carian AI Pintar"
 
 #: src/routes/dashboard/verification/index.tsx:617
 msgid "Solution submitted"
@@ -4640,7 +4640,7 @@ msgstr "Tajuk"
 #: src/routes/dashboard/company/-components/candidate-actions.tsx:111
 #: src/routes/dashboard/company/saved.tsx:54
 msgid "To contact"
-msgstr ""
+msgstr "Untuk menghubungi"
 
 #: src/routes/dashboard/settings/danger-zone.tsx:70
 msgid "To delete your account, you need to enter the confirmation text and click the button below."
@@ -5054,7 +5054,7 @@ msgstr "Verified by {0}"
 
 #: src/routes/dashboard/company/-components/candidate-verification-summary.tsx:40
 msgid "Verified experience"
-msgstr ""
+msgstr "Pengalaman yang disahkan"
 
 #: src/routes/_home/-sections/features.tsx:28
 msgid "Verified skill badges"
@@ -5106,7 +5106,7 @@ msgstr "Mengesahkan kata laluan..."
 #: src/routes/dashboard/company/match.tsx:249
 #: src/routes/dashboard/company/saved.tsx:125
 msgid "Vetted candidate"
-msgstr ""
+msgstr "Calon yang disemak"
 
 #: src/utils/locale.ts:123
 msgid "Vietnamese"

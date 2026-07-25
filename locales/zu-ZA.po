@@ -181,7 +181,7 @@ msgstr ""
 
 #: src/routes/dashboard/company/-components/candidate-actions.tsx:71
 msgid "Accepted"
-msgstr ""
+msgstr "Kwamukelwe"
 
 #: src/routes/dashboard/reviewer/queue.tsx:721
 msgid "Accepting..."
@@ -987,7 +987,7 @@ msgstr ""
 
 #: src/routes/dashboard/company/-components/candidate-actions.tsx:74
 msgid "Contact"
-msgstr ""
+msgstr "Oxhumana naye"
 
 #: src/routes/dashboard/contact-requests.tsx:60
 msgid "Contact accepted."
@@ -1000,11 +1000,11 @@ msgstr ""
 #: src/routes/dashboard/-components/sidebar.tsx:108
 #: src/routes/dashboard/company/contacts.tsx:70
 msgid "Contact History"
-msgstr ""
+msgstr "Umlando Wokuxhumana"
 
 #: src/routes/dashboard/company/-components/candidate-actions.tsx:58
 msgid "Contact request sent."
-msgstr ""
+msgstr "Isicelo sokuxhumana sithunyelwe."
 
 #: src/routes/dashboard/-components/sidebar.tsx:79
 #: src/routes/dashboard/contact-requests.tsx:70
@@ -1077,15 +1077,15 @@ msgstr "Ayikwazanga ukulayisha ukuqhubeka okukhethiwe. Sicela ukhethe okunye uku
 
 #: src/routes/dashboard/company/-components/candidate-resume-preview.tsx:58
 msgid "Could not load this candidate's resume."
-msgstr ""
+msgstr "Ayikwazanga ukulayisha ukuqhubeka kwaleli khandidethi."
 
 #: src/routes/dashboard/company/match.tsx:196
 msgid "Could not match candidates"
-msgstr ""
+msgstr "Ayikwazanga ukufanisa amakhandidethi"
 
 #: src/routes/dashboard/company/-components/candidate-actions.tsx:63
 msgid "Could not send contact request."
-msgstr ""
+msgstr "Ayikwazanga ukuthumela isicelo sokuxhumana."
 
 #: src/routes/dashboard/contact-requests.tsx:64
 msgid "Could not update contact request."
@@ -1093,7 +1093,7 @@ msgstr ""
 
 #: src/routes/dashboard/company/-components/candidate-actions.tsx:51
 msgid "Could not update saved list."
-msgstr ""
+msgstr "Ayikwazanga ukubuyekeza uhlu olulondoloziwe."
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx:166
 msgid "Country"
@@ -1313,7 +1313,7 @@ msgstr ""
 
 #: src/routes/dashboard/company/-components/candidate-actions.tsx:73
 msgid "Declined"
-msgstr ""
+msgstr "Kwenqatshiwe"
 
 #: src/dialogs/resume/sections/education.tsx:183
 msgid "Degree"
@@ -1580,7 +1580,7 @@ msgstr "Ikheli le-imeyili"
 
 #: src/routes/dashboard/company/contacts.tsx:119
 msgid "Email hidden until accepted"
-msgstr ""
+msgstr "I-imeyili ifihliwe ize yamukelwe"
 
 #: src/routes/auth/verify-email.tsx:203
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx:166
@@ -1804,11 +1804,11 @@ msgstr "FAQ"
 
 #: src/routes/dashboard/company/-components/candidate-actions.tsx:93
 msgid "Favorite"
-msgstr ""
+msgstr "Intandokazi"
 
 #: src/routes/dashboard/company/saved.tsx:51
 msgid "Favorites"
-msgstr ""
+msgstr "Izintandokazi"
 
 #: src/routes/_home/-sections/footer.tsx:31
 msgid "Features"
@@ -1871,7 +1871,7 @@ msgstr ""
 
 #: src/routes/dashboard/company/match.tsx:186
 msgid "Find matches"
-msgstr ""
+msgstr "Thola okufanayo"
 
 #: src/utils/locale.ts:87
 msgid "Finnish"
@@ -2205,7 +2205,7 @@ msgstr "Kucelwe ukuqinisekiswa kobunikazi. Sicela uhlole i-imeyili yakho ukuze u
 
 #: src/routes/dashboard/company/-components/candidate-verification-summary.tsx:62
 msgid "Identity verified"
-msgstr ""
+msgstr "Ubunikazi buqinisekisiwe"
 
 #: src/routes/dashboard/-components/sidebar-identity-verification-status.tsx:17
 msgid "Identity Verified"
@@ -2296,7 +2296,7 @@ msgstr "I-JavaScript"
 
 #: src/routes/dashboard/company/match.tsx:173
 msgid "Job description"
-msgstr ""
+msgstr "Incazelo yomsebenzi"
 
 #: src/routes/dashboard/-components/sidebar.tsx:69
 #: src/routes/dashboard/job-search/index.tsx:139
@@ -2508,7 +2508,7 @@ msgstr "Ilayisha ulayini..."
 
 #: src/routes/dashboard/company/-components/candidate-resume-preview.tsx:50
 msgid "Loading resume…"
-msgstr ""
+msgstr "Ilayisha ukuqhubeka..."
 
 #: src/components/command-palette/pages/resumes.tsx:62
 msgid "Loading resumes..."
@@ -2611,7 +2611,7 @@ msgstr "Imajini (Imile)"
 #. placeholder {0}: selected.matchScore
 #: src/routes/dashboard/company/match.tsx:254
 msgid "Match score: {0}%"
-msgstr ""
+msgstr "Umphumela womdlalo: {0}%"
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx:229
 msgid "Maximum Salary"
@@ -2761,7 +2761,7 @@ msgstr "Alukho ulwazi lukamazisi olugunyaziwe."
 
 #: src/routes/dashboard/company/saved.tsx:70
 msgid "No candidates marked to contact later."
-msgstr ""
+msgstr "Awekho amakhandidethi amakwe ukuthi axhunywe kamuva."
 
 #: src/routes/dashboard/reviewer/queue.tsx:747
 msgid "No cases match the selected filters."
@@ -2797,7 +2797,7 @@ msgstr ""
 
 #: src/routes/dashboard/company/contacts.tsx:107
 msgid "No contact requests yet."
-msgstr ""
+msgstr "Azikho izicelo zokuxhumana okwamanje."
 
 #: src/routes/dashboard/contact-requests.tsx:94
 msgid "No contact requests."
@@ -2825,7 +2825,7 @@ msgstr "Azikho izicelo zokuqinisekisa ulwazi olulindile."
 
 #: src/routes/dashboard/company/saved.tsx:68
 msgid "No favorite candidates yet."
-msgstr ""
+msgstr "Awekho amakhandidethi ayintandokazi okwamanje."
 
 #: src/routes/dashboard/verification/index.tsx:1069
 msgid "No history available."
@@ -2881,7 +2881,7 @@ msgstr ""
 
 #: src/routes/dashboard/company/match.tsx:235
 msgid "No matching vetted candidates found. Try adjusting the job description."
-msgstr ""
+msgstr "Awekho amakhandidethi ahloliwe afanayo atholiwe. Zama ukulungisa incazelo yomsebenzi."
 
 #: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx:351
 msgid "No profile"
@@ -3030,7 +3030,7 @@ msgstr "Vula iklayenti le-imeyili"
 
 #: src/routes/dashboard/company/-components/candidate-resume-preview.tsx:76
 msgid "Open full CV"
-msgstr ""
+msgstr "Vula i-CV egcwele"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx:443
 msgid "Open Link"
@@ -3199,7 +3199,7 @@ msgstr "Ukuvikelwa kwephasiwedi kunikwe amandla."
 
 #: src/routes/dashboard/company/match.tsx:179
 msgid "Paste a job description to find closely matching vetted candidates…"
-msgstr ""
+msgstr "Namathisela incazelo yomsebenzi ukuze uthole amakhandidethi afaniswayo eduze..."
 
 #: src/routes/dashboard/admin/users.tsx:557
 #: src/routes/dashboard/company/-components/candidate-actions.tsx:69
@@ -3858,11 +3858,11 @@ msgstr "Londoloza ukugunyazwa komsebenzi"
 
 #: src/routes/dashboard/-components/sidebar.tsx:103
 msgid "Saved"
-msgstr ""
+msgstr "Kulondoloziwe"
 
 #: src/routes/dashboard/company/saved.tsx:45
 msgid "Saved Candidates"
-msgstr ""
+msgstr "Abakhethiwe Abalondoloziwe"
 
 #: src/routes/dashboard/admin/ai.tsx:102
 #: src/routes/dashboard/admin/job-search.tsx:60
@@ -3902,7 +3902,7 @@ msgstr "Sesha"
 
 #: src/routes/dashboard/company/contacts.tsx:80
 msgid "Search by candidate name…"
-msgstr ""
+msgstr "Sesha ngegama lekhandidethi..."
 
 #: src/routes/dashboard/reviewer/queue.tsx:339
 msgid "Search categories…"
@@ -4270,7 +4270,7 @@ msgstr "Slug"
 #: src/routes/dashboard/-components/sidebar.tsx:98
 #: src/routes/dashboard/company/match.tsx:167
 msgid "Smart AI Search"
-msgstr ""
+msgstr "I-Smart AI Search"
 
 #: src/routes/dashboard/verification/index.tsx:617
 msgid "Solution submitted"
@@ -4635,7 +4635,7 @@ msgstr "Isihloko"
 #: src/routes/dashboard/company/-components/candidate-actions.tsx:111
 #: src/routes/dashboard/company/saved.tsx:54
 msgid "To contact"
-msgstr ""
+msgstr "Ukuze uxhumane"
 
 #: src/routes/dashboard/settings/danger-zone.tsx:70
 msgid "To delete your account, you need to enter the confirmation text and click the button below."
@@ -5049,7 +5049,7 @@ msgstr "Kuqinisekiswe ngu-{0}"
 
 #: src/routes/dashboard/company/-components/candidate-verification-summary.tsx:40
 msgid "Verified experience"
-msgstr ""
+msgstr "Umuzwa oqinisekisiwe"
 
 #: src/routes/_home/-sections/features.tsx:28
 msgid "Verified skill badges"
@@ -5101,7 +5101,7 @@ msgstr "Iqinisekisa iphasiwedi..."
 #: src/routes/dashboard/company/match.tsx:249
 #: src/routes/dashboard/company/saved.tsx:125
 msgid "Vetted candidate"
-msgstr ""
+msgstr "Ikhandidethi elihloliwe"
 
 #: src/utils/locale.ts:123
 msgid "Vietnamese"
