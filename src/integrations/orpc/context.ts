@@ -155,3 +155,26 @@ export const reviewerAdminProcedure = protectedProcedure.use(async ({ context, n
 
   return next({ context: { ...context, adminRole: "reviewer_admin" as const } });
 });
+
+export const companyProcedure = protectedProcedure.use(async ({ context, next }) => {
+  const [role] = await db.select().from(adminRoles).where(eq(adminRoles.userId, context.user.id)).limit(1);
+
+  if (!role || role.role !== "company") {
+    throw new ORPCError("FORBIDDEN", { message: "Company role required" });
+  }
+
+  return next({ context: { ...context, adminRole: "company" as const } });
+});
+
+/** Company accounts, or Skill Verdict admins (for debugging employer search). */
+export const companyOrSkillVerdictAdminProcedure = protectedProcedure.use(async ({ context, next }) => {
+  const [role] = await db.select().from(adminRoles).where(eq(adminRoles.userId, context.user.id)).limit(1);
+
+  if (!role || (role.role !== "company" && role.role !== "skill_verdict_admin")) {
+    throw new ORPCError("FORBIDDEN", { message: "Company or Skill Verdict Admin role required" });
+  }
+
+  return next({
+    context: { ...context, adminRole: role.role as "company" | "skill_verdict_admin" },
+  });
+});

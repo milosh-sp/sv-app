@@ -17,6 +17,7 @@ import { applyResumePatches, ResumePatchError } from "@/utils/resume/patch";
 import { generateId } from "@/utils/string";
 
 import { grantResumeAccess, hasResumeAccess } from "../helpers/resume-access";
+import { vettedEmployerVisibilityConditions } from "./company-vetted-pool";
 import { deriveWorkAuthorizationIndexes } from "./resume-work-authorization";
 import { getStorageService } from "./storage";
 
@@ -187,7 +188,8 @@ export const resumeService = {
   },
 
   searchForEmployers: async (input: WorkAuthorizationFilters) => {
-    const workAuthConditions = getWorkAuthorizationConditions(input, true);
+    // Consent is already required by vettedEmployerVisibilityConditions.
+    const workAuthConditions = getWorkAuthorizationConditions(input, false);
 
     return await db
       .select({
@@ -199,7 +201,7 @@ export const resumeService = {
         workAuthorization: sql<ResumeData["workAuthorization"]>`${schema.resume.data}->'workAuthorization'`,
       })
       .from(schema.resume)
-      .where(and(eq(schema.resume.isPublic, true), ...workAuthConditions))
+      .where(and(...vettedEmployerVisibilityConditions(), ...workAuthConditions))
       .orderBy(desc(schema.resume.updatedAt));
   },
 

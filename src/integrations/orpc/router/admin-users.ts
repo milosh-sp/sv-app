@@ -4,16 +4,16 @@ import z from "zod";
 
 import { db } from "@/integrations/drizzle/client";
 import {
-  account,
-  adminRoleEnum,
-  adminRoles,
-  apikey,
-  resume,
-  resumeStatistics,
-  session,
-  user,
-  verificationDocuments,
-  verificationRequests,
+    account,
+    adminRoleEnum,
+    adminRoles,
+    apikey,
+    resume,
+    resumeStatistics,
+    session,
+    user,
+    verificationDocuments,
+    verificationRequests,
 } from "@/integrations/drizzle/schema";
 import { defaultWorkAuthorizationData, type ResumeData, workAuthorizationSchema } from "@/schema/resume/data";
 
@@ -31,7 +31,7 @@ const listUsersInputSchema = z.object({
       const t = s?.trim() ?? "";
       return t.length > 0 ? t : undefined;
     }),
-  roleFilter: z.enum(["all", "user", "skill_verdict_admin", "reviewer_admin"]).default("all"),
+  roleFilter: z.enum(["all", "user", "skill_verdict_admin", "reviewer_admin", "company"]).default("all"),
 });
 
 function searchOrCondition(query: string) {
@@ -87,6 +87,7 @@ export const adminUsersRouter = {
     if (roleFilter === "user") filters.push(isNull(adminRoles.role));
     if (roleFilter === "skill_verdict_admin") filters.push(eq(adminRoles.role, "skill_verdict_admin"));
     if (roleFilter === "reviewer_admin") filters.push(eq(adminRoles.role, "reviewer_admin"));
+    if (roleFilter === "company") filters.push(eq(adminRoles.role, "company"));
     const where = filters.length > 0 ? and(...filters) : undefined;
 
     const [totalRow] = await db

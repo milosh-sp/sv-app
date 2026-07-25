@@ -4,46 +4,50 @@ import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { Trans } from "@lingui/react/macro";
 import {
-  BrainIcon,
-  BriefcaseIcon,
-  DotsThreeIcon,
-  EyeIcon,
-  GearSixIcon,
-  GlobeIcon,
-  IdentificationCardIcon,
-  KeyIcon,
-  ReadCvLogoIcon,
-  SealCheckIcon,
-  ShieldCheckIcon,
-  ShieldStarIcon,
-  UserCircleIcon,
-  UserListIcon,
-  WarningIcon,
+    BrainIcon,
+    BriefcaseIcon,
+    BuildingsIcon,
+    ChatsCircleIcon,
+    DotsThreeIcon,
+    EyeIcon,
+    GearSixIcon,
+    GlobeIcon,
+    HeartIcon,
+    IdentificationCardIcon,
+    KeyIcon,
+    MagnifyingGlassIcon,
+    ReadCvLogoIcon,
+    SealCheckIcon,
+    ShieldCheckIcon,
+    ShieldStarIcon,
+    UserCircleIcon,
+    UserListIcon,
+    WarningIcon,
 } from "@phosphor-icons/react";
 import { useQuery } from "@tanstack/react-query";
 import { Link, useRouteContext } from "@tanstack/react-router";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
-  Sidebar,
-  SidebarContent,
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarGroupLabel,
-  SidebarHeader,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  SidebarRail,
-  SidebarSeparator,
+    Sidebar,
+    SidebarContent,
+    SidebarGroup,
+    SidebarGroupContent,
+    SidebarGroupLabel,
+    SidebarHeader,
+    SidebarMenu,
+    SidebarMenuButton,
+    SidebarMenuItem,
+    SidebarRail,
+    SidebarSeparator,
 } from "@/components/ui/sidebar";
 import { UserDropdownMenu } from "@/components/user/dropdown-menu";
 import { useDashboardMode } from "@/hooks/use-dashboard-mode";
 import { orpc } from "@/integrations/orpc/client";
 import { getAdminRoleQueryOptionsForUser } from "@/integrations/orpc/get-admin-role-query-options";
 import {
-  deriveIdentitySidebarVerificationState,
-  SidebarIdentityVerificationStatus,
+    deriveIdentitySidebarVerificationState,
+    SidebarIdentityVerificationStatus,
 } from "@/routes/dashboard/-components/sidebar-identity-verification-status";
 import { getInitials } from "@/utils/string";
 
@@ -71,6 +75,11 @@ const appSidebarItems = [
     href: "/dashboard/verification",
   },
   {
+    icon: <ChatsCircleIcon />,
+    label: msg`Contact Requests`,
+    href: "/dashboard/contact-requests",
+  },
+  {
     icon: <EyeIcon />,
     label: msg`Privacy`,
     href: "/dashboard/settings/privacy",
@@ -80,6 +89,24 @@ const appSidebarItems = [
     icon: <GlobeIcon />,
     label: msg`Work Authorization`,
     href: "/dashboard/work-authorization",
+  },
+] as const satisfies SidebarItem[];
+
+const companySidebarItems = [
+  {
+    icon: <MagnifyingGlassIcon />,
+    label: msg`Match Candidates`,
+    href: "/dashboard/company/match",
+  },
+  {
+    icon: <HeartIcon />,
+    label: msg`Saved`,
+    href: "/dashboard/company/saved",
+  },
+  {
+    icon: <BuildingsIcon />,
+    label: msg`Contact History`,
+    href: "/dashboard/company/contacts",
   },
 ] as const satisfies SidebarItem[];
 
@@ -223,14 +250,16 @@ export function DashboardSidebar() {
   const { effectiveMode } = useDashboardMode();
   const isSkillVerdictAdmin = adminRole?.role === "skill_verdict_admin";
   const isReviewerAdmin = adminRole?.role === "reviewer_admin";
+  const isCompany = adminRole?.role === "company";
   const isReviewerMode = isReviewerAdmin && effectiveMode === "reviewer";
-  const showSkillCenter = !isSkillVerdictAdmin && effectiveMode !== "reviewer";
+  const showSkillCenter = !isSkillVerdictAdmin && !isCompany && effectiveMode !== "reviewer";
   const roleLabel = (() => {
     if (isReviewerMode) return msg`Reviewer Admin`;
     if (adminRole?.role === "skill_verdict_admin") return msg`Skill Verdict Admin`;
+    if (isCompany) return msg`Company`;
     return null;
   })();
-  const showIdentityStatus = !isSkillVerdictAdmin && !isReviewerMode;
+  const showIdentityStatus = !isSkillVerdictAdmin && !isReviewerMode && !isCompany;
 
   return (
     <Sidebar
@@ -295,6 +324,17 @@ export function DashboardSidebar() {
           </SidebarGroup>
         )}
 
+        {isCompany && (
+          <SidebarGroup className="pt-1">
+            <SidebarGroupLabel>
+              <Trans>Company</Trans>
+            </SidebarGroupLabel>
+            <SidebarGroupContent>
+              <SidebarItemList items={companySidebarItems} />
+            </SidebarGroupContent>
+          </SidebarGroup>
+        )}
+
         {isReviewerMode && (
           <>
             <SidebarGroup className="pt-1">
@@ -309,7 +349,7 @@ export function DashboardSidebar() {
           </>
         )}
 
-        {showSkillCenter && <SidebarSeparator className="mx-3" />}
+        {(showSkillCenter || isCompany) && <SidebarSeparator className="mx-3" />}
         {isSkillVerdictAdmin && (
           <>
             <SidebarGroup className="pt-1">

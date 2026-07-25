@@ -2,12 +2,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
 import {
-  CalendarCheckIcon,
-  CheckIcon,
-  ClockIcon,
-  SealCheckIcon,
-  UserCircleIcon,
-  WarningIcon,
+    CalendarCheckIcon,
+    CheckIcon,
+    ClockIcon,
+    SealCheckIcon,
+    UserCircleIcon,
+    WarningIcon,
 } from "@phosphor-icons/react";
 import { useMutation, useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute, useRouter } from "@tanstack/react-router";
@@ -139,6 +139,11 @@ function RouteComponent() {
           .with("reviewer_admin", () => (
             <Badge variant="secondary">
               <Trans>Reviewer Admin</Trans>
+            </Badge>
+          ))
+          .with("company", () => (
+            <Badge variant="secondary">
+              <Trans>Company</Trans>
             </Badge>
           ))
           .exhaustive();

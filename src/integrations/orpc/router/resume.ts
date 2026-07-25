@@ -3,7 +3,12 @@ import z from "zod";
 import { sampleResumeData } from "@/schema/resume/sample";
 import { generateRandomName, slugify } from "@/utils/string";
 
-import { protectedProcedure, publicProcedure, serverOnlyProcedure, skillVerdictAdminProcedure } from "../context";
+import {
+    companyOrSkillVerdictAdminProcedure,
+    protectedProcedure,
+    publicProcedure,
+    serverOnlyProcedure,
+} from "../context";
 import { resumeDto } from "../dto/resume";
 import { resumeService } from "../services/resume";
 
@@ -88,15 +93,15 @@ export const resumeRouter = {
       });
     }),
 
-  searchForEmployers: skillVerdictAdminProcedure
+  searchForEmployers: companyOrSkillVerdictAdminProcedure
     .route({
       method: "GET",
       path: "/resumes/company/search",
       tags: ["Resumes"],
       operationId: "searchResumesForEmployers",
-      summary: "Search resumes by work authorization",
+      summary: "Search vetted resumes by work authorization",
       description:
-        "Returns candidate resumes that opted in for employer visibility and match the provided work-authorization filters. Only accessible to authorized company/admin roles.",
+        "Returns vetted candidate resumes (verified identity + at least one verified skill/experience/project) that opted in for employer visibility and match the provided work-authorization filters. Only accessible to company or Skill Verdict Admin roles.",
       successDescription: "A list of matching candidate resume summaries with work authorization facets.",
     })
     .input(resumeDto.searchForEmployers.input)

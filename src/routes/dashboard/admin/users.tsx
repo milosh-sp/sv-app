@@ -22,7 +22,7 @@ const PAGE_SIZE = 20;
 
 const usersSearchSchema = z.object({
   q: z.string().optional().default(""),
-  role: z.enum(["all", "user", "skill_verdict_admin", "reviewer_admin"]).default("all"),
+  role: z.enum(["all", "user", "skill_verdict_admin", "reviewer_admin", "company"]).default("all"),
   page: z.coerce.number().int().min(1).default(1),
 });
 
@@ -30,6 +30,7 @@ const roleSelectOptions: ComboboxOption<string>[] = [
   { value: "__none__", label: "User" },
   { value: "skill_verdict_admin", label: "Skill Verdict Admin" },
   { value: "reviewer_admin", label: "Reviewer Admin" },
+  { value: "company", label: "Company" },
 ];
 
 const roleFilterOptions: ComboboxOption<string>[] = [
@@ -37,15 +38,16 @@ const roleFilterOptions: ComboboxOption<string>[] = [
   { value: "user", label: "User" },
   { value: "skill_verdict_admin", label: "Skill Verdict Admin" },
   { value: "reviewer_admin", label: "Reviewer Admin" },
+  { value: "company", label: "Company" },
 ];
 
-function roleToSelectValue(role: "skill_verdict_admin" | "reviewer_admin" | null): string {
+function roleToSelectValue(role: "skill_verdict_admin" | "reviewer_admin" | "company" | null): string {
   return role ?? "__none__";
 }
 
-function selectValueToRole(value: string | null): "skill_verdict_admin" | "reviewer_admin" | null {
+function selectValueToRole(value: string | null): "skill_verdict_admin" | "reviewer_admin" | "company" | null {
   if (!value || value === "__none__") return null;
-  if (value === "skill_verdict_admin" || value === "reviewer_admin") return value;
+  if (value === "skill_verdict_admin" || value === "reviewer_admin" || value === "company") return value;
   return null;
 }
 
@@ -282,7 +284,7 @@ type UserRow = {
   username: string;
   displayUsername: string;
   createdAt: Date | string;
-  adminRole: "skill_verdict_admin" | "reviewer_admin" | null;
+  adminRole: "skill_verdict_admin" | "reviewer_admin" | "company" | null;
 };
 
 function UserRoleRow({
@@ -298,7 +300,7 @@ function UserRoleRow({
   disabled: boolean;
   expanded: boolean;
   onExpandedChange: (expanded: boolean) => void;
-  onSave: (role: "skill_verdict_admin" | "reviewer_admin" | null) => void;
+  onSave: (role: "skill_verdict_admin" | "reviewer_admin" | "company" | null) => void;
 }) {
   const [draft, setDraft] = useState(() => roleToSelectValue(user.adminRole));
   const serverValue = roleToSelectValue(user.adminRole);

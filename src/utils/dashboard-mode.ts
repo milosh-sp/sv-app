@@ -7,7 +7,7 @@ const dashboardModeSchema = z.union([z.literal("reviewer"), z.literal("user")]);
 
 export type DashboardMode = z.infer<typeof dashboardModeSchema>;
 
-export type AdminRole = "skill_verdict_admin" | "reviewer_admin" | null;
+export type AdminRole = "skill_verdict_admin" | "reviewer_admin" | "company" | null;
 
 export const dashboardModeStorageKey = "dashboardMode";
 const defaultDashboardMode: DashboardMode = "reviewer";
