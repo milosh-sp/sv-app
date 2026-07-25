@@ -95,7 +95,7 @@ const appSidebarItems = [
 const companySidebarItems = [
   {
     icon: <MagnifyingGlassIcon />,
-    label: msg`Match Candidates`,
+    label: msg`Smart AI Search`,
     href: "/dashboard/company/match",
   },
   {

@@ -164,7 +164,7 @@ function RouteComponent() {
 
   return (
     <div className="space-y-4">
-      <DashboardHeader icon={MagnifyingGlassIcon} title={t`Match Candidates`} />
+      <DashboardHeader icon={MagnifyingGlassIcon} title={t`Smart AI Search`} />
       <Separator />
 
       <form onSubmit={handleSearch} className="space-y-3">
