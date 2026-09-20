@@ -185,8 +185,8 @@ Every layout is designed around evidence — verified badges, outcomes, and real
 
 A single-package, end-to-end TypeScript application — one codebase serves the frontend, the API, and the server runtime.
 
-| Area                 | Technology                                                    |
-| -------------------- | ------------------------------------------------------------- |
+| Area                 | Technology                                                     |
+| -------------------- | -------------------------------------------------------------- |
 | Language             | TypeScript (strict)                                            |
 | Full-stack framework | TanStack Start (React 19, Vite, Nitro)                         |
 | Routing              | TanStack React Router (file-based)                             |
