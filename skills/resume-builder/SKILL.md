@@ -1,11 +1,11 @@
 ---
 name: resume-builder
-description: Generate professional resumes that conform to the Skill Verdict schema. Use when the user wants to create, build, or generate a resume through conversational AI, or asks about resume structure, sections, or content. This skill guides the agent to ask clarifying questions, avoid hallucination, and produce valid JSON output for YOUR_APP_URL.
+description: Generate professional resumes that conform to the Skill Verdict schema. Use when the user wants to create, build, or generate a resume through conversational AI, or asks about resume structure, sections, or content. This skill guides the agent to ask clarifying questions, avoid hallucination, and produce valid JSON output for https://app.skillverdict.com.
 ---
 
 # Resume Builder for Skill Verdict
 
-Build professional resumes through conversational AI for [Skill Verdict](YOUR_APP_URL), a free and open-source resume builder.
+Build professional resumes through conversational AI for [Skill Verdict](https://app.skillverdict.com), a skill verification platform where domain experts endorse real ability.
 
 ## Core Principles
 
@@ -102,7 +102,7 @@ For students/recent graduates:
 
 ## Output Format
 
-When generating the resume, output a complete JSON object that conforms to the Skill Verdict schema. The user can then import this JSON directly into Skill Verdict at YOUR_APP_URL.
+When generating the resume, output a complete JSON object that conforms to the Skill Verdict schema. The user can then import this JSON directly into Skill Verdict at https://app.skillverdict.com.
 
 Example minimal structure:
 

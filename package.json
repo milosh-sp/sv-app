@@ -1,16 +1,17 @@
 {
   "name": "skill-verdict",
   "version": "5.0.14",
-  "description": "Skill Verdict is a free and open-source resume builder that simplifies the process of creating, updating, and sharing your resume.",
-  "license": "MIT",
+  "private": true,
+  "description": "Skill Verdict turns claimed skills into evidence: build a living profile, get endorsed by domain experts, and let opportunities come to you.",
+  "license": "UNLICENSED",
+  "homepage": "https://app.skillverdict.com",
   "author": {
-    "name": "YOUR_CONTACT_NAME",
-    "email": "YOUR_SUPPORT_EMAIL",
-    "url": "YOUR_CONTACT_URL"
+    "name": "Skill Verdict",
+    "url": "https://app.skillverdict.com"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/YOUR_GITHUB_OWNER/skill-verdict.git"
+    "url": "https://github.com/milosh-sp/somebody-get-the-door.git"
   },
   "type": "module",
   "scripts": {

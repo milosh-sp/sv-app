@@ -39,26 +39,7 @@ const resumeRouter = {
     }),
 };
 
-const githubRouter = {
-  getStarCount: publicProcedure
-    .route({
-      method: "GET",
-      path: "/statistics/github/stars",
-      tags: ["Platform Statistics"],
-      operationId: "getGitHubStarCount",
-      summary: "Get GitHub star count",
-      description:
-        "Returns the number of GitHub stars for the Skill Verdict repository. The count is cached for up to 6 hours and falls back to a last-known value if the GitHub API is unavailable. No authentication required.",
-      successDescription: "The number of GitHub stars for the Skill Verdict repository.",
-    })
-    .output(z.number().describe("The number of GitHub stars."))
-    .handler(async (): Promise<number> => {
-      return await statisticsService.github.getStarCount();
-    }),
-};
-
 export const statisticsRouter = {
   user: userRouter,
   resume: resumeRouter,
-  github: githubRouter,
 };

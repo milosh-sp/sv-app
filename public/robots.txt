@@ -2,4 +2,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: YOUR_APP_URL/sitemap.xml
+Sitemap: https://app.skillverdict.com/sitemap.xml

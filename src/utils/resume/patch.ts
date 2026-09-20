@@ -90,7 +90,6 @@ function toResumePatchError(error: JsonPatchError): ResumePatchError {
  *
  * The original `data` object is not mutated; a deep clone is created internally.
  *
- * @see YOUR_DOCS_URL/guides/using-the-patch-api — for usage examples and API details.
  * @see https://datatracker.ietf.org/doc/html/rfc6902 — JSON Patch specification.
  *
  * @param data - The current resume data to patch.

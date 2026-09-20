@@ -36,7 +36,7 @@ const plugins = [
           manifest: {
             name: "Skill Verdict",
             short_name: "Skill Verdict",
-            description: "A free and open-source resume builder.",
+            description: "Proven. Not just claimed. Get your skills endorsed by domain experts.",
             id: "/?source=pwa",
             start_url: "/?source=pwa",
             display: "standalone",

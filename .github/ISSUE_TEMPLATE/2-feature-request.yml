@@ -4,7 +4,7 @@ description: Suggest an feature or idea that you would like to see in Skill Verd
 
 title: "[Feature] <title>"
 labels: [enhancement, v5, needs triage]
-assignees: "YOUR_GITHUB_OWNER"
+assignees: "milosh-sp"
 
 body:
   - type: checkboxes

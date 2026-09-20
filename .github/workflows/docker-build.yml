@@ -171,13 +171,12 @@ jobs:
           set -euo pipefail
           docker buildx imagetools create \
             $(jq -cr '.tags | map("-t " + .) | join(" ")' <<< "$DOCKER_METADATA_OUTPUT_JSON") \
-            --annotation "index:org.opencontainers.image.licenses=MIT" \
+            --annotation "index:org.opencontainers.image.licenses=UNLICENSED" \
             --annotation "index:org.opencontainers.image.title=Skill Verdict" \
-            --annotation "index:org.opencontainers.image.description=A free and open-source resume builder." \
-            --annotation "index:org.opencontainers.image.vendor=YOUR_CONTACT_NAME" \
-            --annotation "index:org.opencontainers.image.url=YOUR_APP_URL" \
-            --annotation "index:org.opencontainers.image.documentation=YOUR_DOCS_URL" \
-            --annotation "index:org.opencontainers.image.source=YOUR_GITHUB_REPO_URL" \
+            --annotation "index:org.opencontainers.image.description=Skill verification platform where domain experts endorse real ability." \
+            --annotation "index:org.opencontainers.image.vendor=Skill Verdict" \
+            --annotation "index:org.opencontainers.image.url=https://app.skillverdict.com" \
+            --annotation "index:org.opencontainers.image.source=https://github.com/${{ github.repository }}" \
             --annotation "index:org.opencontainers.image.version=${{ steps.version.outputs.version }}" \
             $(printf 'ghcr.io/${{ env.IMAGE }}@sha256:%s ' *) \
             $(printf 'docker.io/${{ env.IMAGE }}@sha256:%s ' *)

@@ -32,7 +32,6 @@ services:
       retries: 10
 
   # As an alternative to browserless, you can also use a lightweight image like chromedp/headless-shell:latest
-  # See YOUR_DOCS_URL/self-hosting/docker#alternative-printer-options for more information.
   # chrome:
   #   image: chromedp/headless-shell:latest
   #   restart: unless-stopped
@@ -70,8 +69,7 @@ services:
         condition: service_healthy
 
   skill_verdict:
-    image: YOUR_GITHUB_OWNER/skill-verdict:latest
-    # image: ghcr.io/YOUR_GITHUB_OWNER/skill-verdict:latest
+    image: ghcr.io/milosh-sp/somebody-get-the-door:latest
     environment:
       # Server
       - TZ=Etc/UTC

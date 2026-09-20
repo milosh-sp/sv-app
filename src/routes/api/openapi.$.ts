@@ -40,15 +40,13 @@ async function handler({ request }: { request: Request }) {
         title: "Skill Verdict",
         version: __APP_VERSION__,
         description: "Skill Verdict API",
-        license: { name: "MIT", url: "YOUR_GITHUB_REPO_URL/blob/main/LICENSE" },
+        license: { name: "UNLICENSED" },
         contact: {
-          name: "YOUR_CONTACT_NAME",
-          email: "YOUR_SUPPORT_EMAIL",
-          url: "YOUR_CONTACT_URL",
+          name: "Skill Verdict",
+          url: "https://app.skillverdict.com",
         },
       },
       servers: [{ url: `${env.APP_URL}/api/openapi` }],
-      externalDocs: { url: "YOUR_DOCS_URL", description: "Skill Verdict Documentation" },
       commonSchemas: {
         ResumeData: { schema: resumeDataSchema },
       },

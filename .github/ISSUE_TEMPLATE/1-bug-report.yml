@@ -4,7 +4,7 @@ description: Create a bug report to help improve Skill Verdict
 
 title: "[Bug] <title>"
 labels: [bug, v5, needs triage]
-assignees: "YOUR_GITHUB_OWNER"
+assignees: "milosh-sp"
 
 body:
   - type: checkboxes
@@ -16,13 +16,13 @@ body:
           required: true
 
   - type: dropdown
-    id: variant
+    id: environment
     attributes:
-      label: Product Variant
-      description: What variant of Skill Verdict are you using?
+      label: Environment
+      description: Where did you encounter this?
       options:
-        - Cloud (YOUR_APP_URL)
-        - Self-Hosted
+        - Production (app.skillverdict.com)
+        - Local development
     validations:
       required: true
 

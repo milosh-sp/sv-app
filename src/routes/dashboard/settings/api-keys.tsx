@@ -92,7 +92,7 @@ function RouteComponent() {
               variant="link"
               nativeButton={false}
               render={
-                <a href="YOUR_DOCS_URL/api-reference" target="_blank" rel="noopener noreferrer">
+                <a href="/api/openapi/spec.json" target="_blank" rel="noopener noreferrer">
                   <LinkSimpleIcon />
                   <Trans>API Reference</Trans>
                 </a>

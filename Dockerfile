@@ -33,14 +33,13 @@ RUN pnpm run build
 # ---------- Runtime Layer ----------
 FROM node:24-slim AS runtime
 
-LABEL maintainer="YOUR_GITHUB_OWNER"
-LABEL org.opencontainers.image.licenses="MIT"
+LABEL maintainer="milosh-sp"
+LABEL org.opencontainers.image.licenses="UNLICENSED"
 LABEL org.opencontainers.image.title="Skill Verdict"
-LABEL org.opencontainers.image.description="A free and open-source resume builder."
-LABEL org.opencontainers.image.vendor="YOUR_CONTACT_NAME"
-LABEL org.opencontainers.image.url="YOUR_APP_URL"
-LABEL org.opencontainers.image.documentation="YOUR_DOCS_URL"
-LABEL org.opencontainers.image.source="https://github.com/YOUR_GITHUB_OWNER/skill-verdict"
+LABEL org.opencontainers.image.description="Skill verification platform where domain experts endorse real ability."
+LABEL org.opencontainers.image.vendor="Skill Verdict"
+LABEL org.opencontainers.image.url="https://app.skillverdict.com"
+LABEL org.opencontainers.image.source="https://github.com/milosh-sp/somebody-get-the-door"
 
 RUN apt-get update && apt-get install -y --no-install-recommends curl \
     && rm -rf /var/lib/apt/lists/*

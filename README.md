@@ -1,70 +1,94 @@
 <div align="center">
-  <a href="YOUR_APP_URL">
+  <a href="https://app.skillverdict.com">
     <img src="public/opengraph/banner.jpg" alt="Skill Verdict" />
   </a>
 
   <h1>Skill Verdict</h1>
 
-  <p>Skill Verdict is a free and open-source resume builder that simplifies the process of creating, updating, and sharing your resume.</p>
+  <p><strong>Your skills, finally — proven, not just claimed.</strong></p>
+
+  <p>Skill Verdict turns claimed skills into evidence. Build a living profile, get endorsed by domain experts in short practical reviews, and let opportunities come to you.</p>
 
   <p>
-    <a href="YOUR_APP_URL"><strong>Get Started</strong></a>
+    <a href="https://app.skillverdict.com"><strong>Get Started</strong></a>
     ·
-    <a href="YOUR_DOCS_URL"><strong>Learn More</strong></a>
-  </p>
-
-  <p>
-    <img src="https://img.shields.io/github/package-json/v/YOUR_GITHUB_OWNER/YOUR_GITHUB_REPO?style=flat-square" alt="Skill Verdict version">
-    <img src="https://img.shields.io/github/stars/YOUR_GITHUB_OWNER/skill-verdict?style=flat-square" alt="GitHub Stars">
-    <img src="https://img.shields.io/github/license/YOUR_GITHUB_OWNER/skill-verdict?style=flat-square" alt="License" />
-    <img src="https://img.shields.io/docker/pulls/YOUR_GITHUB_OWNER/YOUR_GITHUB_REPO?style=flat-square" alt="Docker Pulls" />
-    <a href="https://discord.gg/aSyA5ZSxpb"><img src="https://img.shields.io/discord/1173518977851473940?style=flat-square&label=discord" alt="Discord" /></a>
-    <a href="https://crowdin.com/project/skill-verdict"><img src="https://badges.crowdin.net/skill-verdict/localized.svg?style=flat-square" alt="Crowdin" /></a>
-    <a href="YOUR_GITHUB_SPONSORS_URL"><img src="https://img.shields.io/github/sponsors/YOUR_GITHUB_OWNER?style=flat-square&label=sponsors" alt="Sponsors" /></a>
-    <a href="YOUR_OPEN_COLLECTIVE_URL"><img src="https://img.shields.io/opencollective/backers/skill-verdict?style=flat-square&label=donations" alt="Donations" /></a>
+    <a href="https://app.skillverdict.com/#how-it-works"><strong>See How It Works</strong></a>
   </p>
 </div>
 
 ---
 
-Skill Verdict makes building resumes straightforward. Pick a template, fill in your details, and export to PDF—no account required for basic use. For those who want more control, the entire application can be self-hosted on your own infrastructure.
+## The problem
 
-Built with privacy as a core principle, Skill Verdict gives you complete ownership of your data. The codebase is fully open-source under the MIT license, with no tracking, no ads, and no hidden costs.
+Every CV claims the same things. "Expert in React." "Strong communicator." "5 years of Python." None of it is checked, so hiring teams fall back on proxies — brand names, job titles, referrals — and spend weeks re-testing skills that candidates already have.
 
-## Features
+Candidates lose too. Good people get filtered out by keyword matching before anyone looks at what they can actually do, so they spend their time chasing applications instead of being found.
 
-**Resume Building**
+Skill Verdict fixes the missing layer: independent, expert-reviewed proof of ability, attached to a profile the candidate owns and can share anywhere.
 
-- Real-time preview as you type
-- Multiple export formats (PDF, JSON)
-- Drag-and-drop section ordering
-- Custom sections for any content type
-- Rich text editor with formatting support
+## How it works
 
-**Templates**
+1. **Build your profile** — Bring in your experience, projects, and portfolio to create a living, evidence-backed profile.
+2. **Pick skills to verify** — Choose the skills you want endorsed and get matched with a domain expert reviewer.
+3. **Complete the assessment** — Receive a practical, scenario-based assignment, submit your work, and get real feedback in conversation.
+4. **Earn your verdict** — Pass the review to earn a verified skill badge on your profile, visible to anyone you share it with.
 
-- Professionally designed templates
-- A4 and Letter size support
-- Customizable colors, fonts, and spacing
-- Custom CSS for advanced styling
+Reviews are anonymous. Reviewers assess the work, not the name, the school, or the last logo on the CV.
 
-**Privacy & Control**
+## What you get
 
-- Self-host on your own infrastructure
-- No tracking or analytics by default
-- Full data export at any time
-- Delete your data permanently with one click
+Skill Verdict has three sides, and all three are built: candidates who prove what they can do, domain experts who assess them, and the team that runs the verification pipeline.
 
-**Extras**
+### For candidates
 
-- AI integration (OpenAI, Google Gemini, Anthropic Claude)
-- Multi-language support
-- Share resumes via unique links
-- Import from JSON Resume format
-- Dark mode support
-- Passkey and two-factor authentication
+**Three kinds of proof — and each one can be shown on your CV.**
 
-## Templates
+- **Skill verification** — Pick a skill, get matched with a domain expert, and complete a practical, scenario-based assessment. A verified skill carries a green check on your CV, and hovering it names the reviewer who signed off and their title.
+- **Employment history verification** — Prove a job actually happened with a payslip, a contract, or a freelancer profile link. Once the Skill Verdict team confirms it, a green check appears beside the employer's name on your CV.
+- **Identity verification** — Confirm you are who you say you are in a short video call. Approved identities carry a green check beside your name on every layout.
+
+Everything you verify is yours to display or hide. Badges render inline on your CV, an optional Verification History section can list each verdict and who issued it, and any individual badge can be switched off in Privacy settings.
+
+**Your CV**
+
+- Full builder with live preview, 16 section types, drag-and-drop ordering, rich text, and undo/redo
+- 13 layouts, with control over typography, color, spacing, page size, and custom CSS
+- Publish at `app.skillverdict.com/your-name/your-cv`, protect it with a password, or unpublish in one click
+- View and download counts on every public CV
+- Export to PDF, DOCX, or JSON — your data leaves with you
+- AI assistant that rewrites and restructures any section on request, reviews the whole CV with an action plan, and imports an existing PDF or Word CV into structured data
+
+**Job search**
+
+- Live listings from across the major job boards, filtered by role, location, salary, remote, and employment type
+- Tailor your verified CV to any posting in one click before you apply
+
+**Work authorization**
+
+- Record your status for the EU, US, and UK, including sponsorship needs, visa type, and dates
+- Attached to your CV for employer matching and shared only with employers after you tick the consent box for that region. It is never displayed on your public CV.
+
+**Account**
+
+- Profile details, language, and theme preferences
+- Password, two-factor authentication, and linked sign-in providers
+- Permanent account and data deletion on request, no support ticket required
+
+### For expert reviewers
+
+- A dedicated review queue with the candidate's identity withheld, so assessments are judged on the work alone
+- Issue an assessment, review the submitted solution, attach supporting documents, and propose a verdict
+- A public reviewer profile that appears in the badge tooltip on every CV you have signed off
+
+### For the Skill Verdict team
+
+- **Verification pipeline** — separate queues for pending skill verdicts, employment history evidence, and identity calls
+- **People** — user directory with role assignment, plus reviewer onboarding and the skills each reviewer is allowed to assess
+- **Configuration** — global AI provider credentials with a connection test, job search API setup, and scoped API keys
+
+## Layouts
+
+Every layout is designed around evidence — verified badges, outcomes, and real work sit above decoration.
 
 <table>
   <tr>
@@ -129,114 +153,30 @@ Built with privacy as a core principle, Skill Verdict gives you complete ownersh
   </tr>
 </table>
 
-## Quick Start
+## Built to scale
 
-The quickest way to run Skill Verdict locally:
+- **55 languages** — the entire product is localized, not just the marketing pages
+- **Works offline** — installable as an app on desktop and mobile, with offline editing
+- **Accessible by default** — keyboard navigation throughout, a command palette, and screen-reader support
+- **Secure accounts** — two-factor authentication, Google and GitHub sign-in, and enterprise SSO via custom OAuth
+- **Open to integration** — a documented API and a Model Context Protocol server let AI agents and internal tools read and update profiles directly
 
-```bash
-# Clone the repository
-git clone YOUR_GITHUB_REPO_URL.git
-cd skill-verdict
+## On the roadmap
 
-# Start all services
-docker compose up -d
+- **Passive discovery** — companies search verified skills and reach out to candidates directly, instead of the other way around
+- **Personality and culture fit** — research-backed insights alongside verified skills, so teams hire for capability and fit
+- **QR sharing** — a unique code that makes your verified profile shareable in person as easily as online
 
-# Access the app
-open http://localhost:3000
-```
+## For the team
 
-[![Build with Ona](https://ona.com/build-with-ona.svg)](https://app.ona.com/#YOUR_GITHUB_REPO_URL)
+Single-package TypeScript app on TanStack Start (React, Vite, Nitro), PostgreSQL with Drizzle, oRPC, Better Auth, Tailwind, and Vite+.
 
-For detailed setup instructions, environment configuration, and self-hosting guides, see the [documentation](YOUR_DOCS_URL).
+Setup, environment, and command reference live in [AGENTS.md](AGENTS.md).
 
-## Tech Stack
+---
 
-| Category         | Technology                      |
-| ---------------- | ------------------------------- |
-| Framework        | TanStack Start (React 19, Vite) |
-| Runtime          | Node.js                         |
-| Language         | TypeScript                      |
-| Database         | PostgreSQL with Drizzle ORM     |
-| API              | ORPC (Type-safe RPC)            |
-| Auth             | Better Auth                     |
-| Styling          | Tailwind CSS                    |
-| UI Components    | Radix UI                        |
-| State Management | Zustand + TanStack Query        |
-
-## Documentation
-
-Comprehensive guides are available at [YOUR_DOCS_URL](YOUR_DOCS_URL):
-
-| Guide                                                               | Description                      |
-| ------------------------------------------------------------------- | -------------------------------- |
-| [Getting Started](YOUR_DOCS_URL/getting-started)                    | First-time setup and basic usage |
-| [Self-Hosting](YOUR_DOCS_URL/self-hosting/docker)                   | Deploy on your own server        |
-| [Development Setup](YOUR_DOCS_URL/contributing/development)         | Local development environment    |
-| [Project Architecture](YOUR_DOCS_URL/contributing/architecture)     | Codebase structure and patterns  |
-| [Exporting Your Resume](YOUR_DOCS_URL/guides/exporting-your-resume) | PDF and JSON export options      |
-
-## Self-Hosting
-
-Skill Verdict can be self-hosted using Docker. The stack includes:
-
-- **PostgreSQL** — Database for storing user data and resumes
-- **Printer** — Headless Chromium service for PDF and screenshot generation
-- **SeaweedFS** (optional) — S3-compatible storage for file uploads
-
-Pull the latest image from Docker Hub or GitHub Container Registry:
-
-```bash
-# Docker Hub
-docker pull YOUR_GITHUB_OWNER/YOUR_GITHUB_REPO:latest
-
-# GitHub Container Registry
-docker pull ghcr.io/YOUR_GITHUB_OWNER/YOUR_GITHUB_REPO:latest
-```
-
-See the [self-hosting guide](YOUR_DOCS_URL/self-hosting/docker) for complete instructions.
-
-## Support
-
-Skill Verdict is and always will be free and open-source. If it has helped you land a job or saved you time, please consider supporting continued development:
-
-<p>
-  <a href="YOUR_GITHUB_SPONSORS_URL">
-    <img src="https://img.shields.io/badge/GitHub%20Sponsors-Support-ea4aaa?style=flat-square&logo=github-sponsors" alt="GitHub Sponsors" />
-  </a>
-  <a href="YOUR_OPEN_COLLECTIVE_URL">
-    <img src="https://img.shields.io/badge/Open%20Collective-Contribute-7FADF2?style=flat-square&logo=open-collective" alt="Open Collective" />
-  </a>
-</p>
-
-Other ways to support:
-
-- Star this repository
-- Report bugs and suggest features
-- Improve documentation
-- Help with translations
-
-## Star History
-
-<a href="https://www.star-history.com/#YOUR_GITHUB_OWNER/YOUR_GITHUB_REPO&type=date&legend=top-left">
- <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=YOUR_GITHUB_OWNER/YOUR_GITHUB_REPO&type=date&theme=dark&legend=top-left" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=YOUR_GITHUB_OWNER/YOUR_GITHUB_REPO&type=date&legend=top-left" />
-   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=YOUR_GITHUB_OWNER/YOUR_GITHUB_REPO&type=date&legend=top-left" />
- </picture>
-</a>
-
-## Contributing
-
-Contributions make open-source thrive. Whether fixing a typo or adding a feature, all contributions are welcome.
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-See the [development setup guide](YOUR_DOCS_URL/contributing/development) for detailed instructions on how to set up the project locally.
-
-## License
-
-[MIT](./LICENSE) — do whatever you want with it.
+<div align="center">
+  <p><strong>Don't chase. Attract.</strong></p>
+  <p><a href="https://app.skillverdict.com">app.skillverdict.com</a></p>
+  <p><sub>Copyright © Skill Verdict. All rights reserved. This software is proprietary and confidential.</sub></p>
+</div>

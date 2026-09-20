@@ -4,7 +4,7 @@ pull_request_title: Sync Translations from Crowdin
 pull_request_labels:
   - l10n
 pull_request_reviewers:
-  - YOUR_GITHUB_OWNER
+  - milosh-sp
 files:
   - source: /locales/en-US.po
     translation: /locales/%locale%.%file_extension%

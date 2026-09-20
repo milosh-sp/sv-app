@@ -20,8 +20,7 @@ const SCREENSHOT_TTL = 1000 * 60 * 60 * 6; // 6 hours
 let browserInstance: Browser | null = null;
 
 async function normalizePrinterEndpoint(printerEndpoint: string): Promise<URL> {
-  // Convert endpoint hostname to IP when using chromedp
-  // YOUR_GITHUB_REPO_URL/issues/2681
+  // Convert endpoint hostname to IP when using chromedp, which rejects non-IP hosts
   const endpoint = new URL(printerEndpoint);
 
   if (!isIP(endpoint.hostname) && !endpoint.protocol.startsWith("ws")) {

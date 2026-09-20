@@ -3,6 +3,7 @@ import { WebStandardStreamableHTTPServerTransport } from "@modelcontextprotocol/
 import { createFileRoute } from "@tanstack/react-router";
 
 import { auth, authBaseUrl, verifyOAuthToken } from "@/integrations/auth/config";
+import { env } from "@/utils/env";
 
 import { registerPrompts } from "./-helpers/prompts";
 import { registerResources } from "./-helpers/resources";
@@ -13,17 +14,17 @@ function createMcpServer() {
     name: "skill-verdict",
     version: "1.0.0",
     title: "Skill Verdict",
-    websiteUrl: "YOUR_APP_URL",
+    websiteUrl: env.APP_URL,
     description:
-      "Skill Verdict is a free and open-source resume builder. Use this MCP server to interact with your resume using an LLM of your choice.",
+      "Skill Verdict is a skill verification platform where domain experts endorse real ability. Use this MCP server to interact with your profile using an LLM of your choice.",
     icons: [
       {
-        src: "YOUR_APP_URL/icon/light.svg",
+        src: `${env.APP_URL}/icon/light.svg`,
         mimeType: "image/svg+xml",
         theme: "light",
       },
       {
-        src: "YOUR_APP_URL/icon/dark.svg",
+        src: `${env.APP_URL}/icon/dark.svg`,
         mimeType: "image/svg+xml",
         theme: "dark",
       },
