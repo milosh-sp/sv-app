@@ -18,6 +18,20 @@
 
 ---
 
+## Contents
+
+- [The problem](#the-problem)
+- [How it works](#how-it-works)
+- [What you get](#what-you-get)
+  - [For candidates](#for-candidates)
+  - [For expert reviewers](#for-expert-reviewers)
+  - [For the Skill Verdict team](#for-the-skill-verdict-team)
+- [Layouts](#layouts)
+- [Built to scale](#built-to-scale)
+- [On the roadmap](#on-the-roadmap)
+- [Tech stack](#tech-stack)
+- [For the team](#for-the-team)
+
 ## The problem
 
 Every CV claims the same things. "Expert in React." "Strong communicator." "5 years of Python." None of it is checked, so hiring teams fall back on proxies — brand names, job titles, referrals — and spend weeks re-testing skills that candidates already have.
@@ -167,11 +181,34 @@ Every layout is designed around evidence — verified badges, outcomes, and real
 - **Personality and culture fit** — research-backed insights alongside verified skills, so teams hire for capability and fit
 - **QR sharing** — a unique code that makes your verified profile shareable in person as easily as online
 
+## Tech stack
+
+A single-package, end-to-end TypeScript application — one codebase serves the frontend, the API, and the server runtime.
+
+| Area                 | Technology                                                    |
+| -------------------- | ------------------------------------------------------------- |
+| Language             | TypeScript (strict)                                            |
+| Full-stack framework | TanStack Start (React 19, Vite, Nitro)                         |
+| Routing              | TanStack React Router (file-based)                             |
+| Server state         | TanStack React Query                                           |
+| Client state         | Zustand, with Zundo for undo/redo and Immer for updates        |
+| API                  | oRPC (type-safe RPC with a generated OpenAPI spec)             |
+| Database             | PostgreSQL with Drizzle ORM                                    |
+| Authentication       | Better Auth (OAuth, 2FA, API keys, OAuth provider for clients) |
+| Styling              | Tailwind CSS v4                                                |
+| UI components        | shadcn/ui on Base UI, Phosphor icons, Motion                   |
+| Forms and validation | React Hook Form with Zod                                       |
+| Rich text            | Tiptap                                                         |
+| AI                   | Vercel AI SDK (OpenAI, Anthropic, Gemini, Ollama)              |
+| Agent access         | Model Context Protocol SDK                                     |
+| Internationalization | Lingui, 55 locales                                             |
+| PDF export           | Puppeteer Core via Browserless                                 |
+| File storage         | S3-compatible, with local filesystem fallback                  |
+| Toolchain            | Vite+ (Rolldown, Vitest, Oxlint, Oxfmt, tsgo)                  |
+
 ## For the team
 
-Single-package TypeScript app on TanStack Start (React, Vite, Nitro), PostgreSQL with Drizzle, oRPC, Better Auth, Tailwind, and Vite+.
-
-Setup, environment, and command reference live in [AGENTS.md](AGENTS.md).
+Setup, environment variables, and the command reference live in [AGENTS.md](AGENTS.md).
 
 ---
 
