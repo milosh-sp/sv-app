@@ -55,7 +55,7 @@ export const getDashboardMode = createIsomorphicFn()
   });
 
 export const setDashboardModeServerFn = createServerFn({ method: "POST" })
-  .inputValidator(dashboardModeSchema)
+  .validator(dashboardModeSchema)
   .handler(async ({ data }) => {
     setCookie(dashboardModeStorageKey, data);
   });
