@@ -16,7 +16,7 @@ const plugins = [
   viteReact(),
   ...(!isVitest
     ? [
-        lingui(),
+        lingui({ failOnCompileError: true }),
         tailwindcss(),
         nitro({ plugins: ["plugins/1.migrate.ts"] }),
         babel({ plugins: ["@lingui/babel-plugin-lingui-macro"] }) as unknown as PluginOption,
