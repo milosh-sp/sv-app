@@ -17,5 +17,6 @@ overrides:
   minimatch: ^10.2.5
   qs: ^6.15.3
   serialize-javascript: ^7.0.7
-  vite: npm:@voidzero-dev/vite-plus-core@latest
-  vitest: npm:@voidzero-dev/vite-plus-test@latest
+  # vite-plus, vite-plus-core and vitest only work as a matched set: bump all three together (vitest = vite-plus's own vitest dependency)
+  vite: npm:@voidzero-dev/vite-plus-core@0.3.3
+  vitest: 4.1.11
