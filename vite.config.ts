@@ -214,6 +214,7 @@ const config = defineConfig({
     ],
     rules: {
       "react/exhaustive-deps": "off",
+      "no-unused-vars": ["warn", { argsIgnorePattern: "^_", varsIgnorePattern: "^_" }],
       "jest/require-to-throw-message": "off",
       "vitest/require-to-throw-message": "off",
       "typescript/consistent-type-imports": "error",
