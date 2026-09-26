@@ -2,11 +2,11 @@ import { createORPCClient, onError } from "@orpc/client";
 import { RPCLink } from "@orpc/client/fetch";
 import { BatchLinkPlugin } from "@orpc/client/plugins";
 import {
-    createRouterClient,
-    ORPCError,
-    type InferRouterInputs,
-    type InferRouterOutputs,
-    type RouterClient,
+  createRouterClient,
+  ORPCError,
+  type InferRouterInputs,
+  type InferRouterOutputs,
+  type RouterClient,
 } from "@orpc/server";
 import { createTanstackQueryUtils } from "@orpc/tanstack-query";
 import { createIsomorphicFn } from "@tanstack/react-start";

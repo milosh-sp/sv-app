@@ -18,42 +18,42 @@ describe("LocaleCombobox options", () => {
       locale: "en-US",
       messages: {
         English: "English",
-        French: "French",
+        German: "German",
         Spanish: "Spanish",
       },
     });
 
     const englishLabels = getOptionLabels();
     expect(englishLabels.get("en-US")).toBe("English");
-    expect(englishLabels.get("fr-FR")).toBe("French");
+    expect(englishLabels.get("de-DE")).toBe("German");
     expect(englishLabels.get("es-ES")).toBe("Spanish");
 
     i18n.loadAndActivate({
-      locale: "fr-FR",
+      locale: "de-DE",
       messages: {
-        English: "Anglais",
-        French: "Français",
-        Spanish: "Espagnol",
+        English: "Englisch",
+        German: "Deutsch",
+        Spanish: "Spanisch",
       },
     });
 
-    const frenchLabels = getOptionLabels();
-    expect(frenchLabels.get("en-US")).toBe("Anglais");
-    expect(frenchLabels.get("fr-FR")).toBe("Français");
-    expect(frenchLabels.get("es-ES")).toBe("Espagnol");
+    const germanLabels = getOptionLabels();
+    expect(germanLabels.get("en-US")).toBe("Englisch");
+    expect(germanLabels.get("de-DE")).toBe("Deutsch");
+    expect(germanLabels.get("es-ES")).toBe("Spanisch");
 
     i18n.loadAndActivate({
       locale: "es-ES",
       messages: {
         English: "Inglés",
-        French: "Francés",
+        German: "Alemán",
         Spanish: "Español",
       },
     });
 
     const spanishLabels = getOptionLabels();
     expect(spanishLabels.get("en-US")).toBe("Inglés");
-    expect(spanishLabels.get("fr-FR")).toBe("Francés");
+    expect(spanishLabels.get("de-DE")).toBe("Alemán");
     expect(spanishLabels.get("es-ES")).toBe("Español");
   });
 });

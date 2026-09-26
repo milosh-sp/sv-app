@@ -3,8 +3,8 @@
   "version": "5.0.14",
   "private": true,
   "description": "Skill Verdict turns claimed skills into evidence: build a living profile, get endorsed by domain experts, and let opportunities come to you.",
-  "license": "UNLICENSED",
   "homepage": "https://app.skillverdict.com",
+  "license": "UNLICENSED",
   "author": {
     "name": "Skill Verdict",
     "url": "https://app.skillverdict.com"

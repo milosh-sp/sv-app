@@ -11,8 +11,14 @@ const { isLocale, isRTL } = await import("./locale");
 describe("isLocale", () => {
   it("should return true for valid locales", () => {
     expect(isLocale("en-US")).toBe(true);
-    expect(isLocale("fr-FR")).toBe(true);
-    expect(isLocale("zh-CN")).toBe(true);
+    expect(isLocale("de-DE")).toBe(true);
+    expect(isLocale("es-ES")).toBe(true);
+    expect(isLocale("ru-RU")).toBe(true);
+  });
+
+  it("should return false for hidden locales", () => {
+    expect(isLocale("fr-FR")).toBe(false);
+    expect(isLocale("zh-CN")).toBe(false);
   });
 
   it("should return false for invalid locales", () => {
