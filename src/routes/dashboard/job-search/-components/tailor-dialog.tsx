@@ -29,6 +29,8 @@ import { formatDefaultDate } from "@/utils/format-date";
 import { buildSkillSyncOperations, tailorOutputToPatches, validateTailorOutput } from "@/utils/resume/tailor";
 import { slugify } from "@/utils/string";
 
+const createTailorSlug = (tailorName: string) => slugify(`${tailorName}-${Date.now()}`);
+
 type Props = {
   job: JobResult;
   open: boolean;
@@ -71,7 +73,7 @@ export function TailorDialog({ job, open, onOpenChange }: Props) {
 
   const handleSelectResume = async (resumeId: string, resumeName: string) => {
     const tailorName = `${resumeName} - ${job.job_title}`;
-    const tailorSlug = slugify(`${tailorName}-${Date.now()}`);
+    const tailorSlug = createTailorSlug(tailorName);
 
     // If AI is not enabled, fall back to duplicating and navigating to builder
     if (!aiEnabled) {

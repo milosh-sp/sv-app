@@ -66,7 +66,7 @@ msgstr "{0} emavikini adlule"
 #: src/routes/builder/$resumeId/-sidebar/left/sections/custom.tsx
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-menu.tsx
 msgid "{column, plural, one {# Column} other {# Columns}}"
-msgstr "{ikholomu, ubuningi, eyodwa {# Ikholomu} enye {# Amakholomu}}"
+msgstr "{column, plural, one {# Ikholomu} other {# Amakholomu}}"
 
 #: src/routes/dashboard/job-search/-components/job-utils.ts
 msgid "{diffDays} days ago"

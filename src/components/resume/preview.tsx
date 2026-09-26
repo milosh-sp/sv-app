@@ -3,7 +3,6 @@ import type z from "zod";
 import { Trans } from "@lingui/react/macro";
 import { IconContext, type IconProps } from "@phosphor-icons/react";
 import { useMemo } from "react";
-import { match } from "ts-pattern";
 
 import type { pageLayoutSchema } from "@/schema/resume/data";
 import type { Template } from "@/schema/templates";
@@ -36,23 +35,21 @@ export type ExtendedIconProps = IconProps & {
 const CSS_RULE_SPLIT_PATTERN = /\n(?=\s*[.#a-zA-Z])/;
 const CSS_SELECTOR_PATTERN = /^([^{]+)(\{)/;
 
-function getTemplateComponent(template: Template) {
-  return match(template)
-    .with("azurill", () => AzurillTemplate)
-    .with("bronzor", () => BronzorTemplate)
-    .with("chikorita", () => ChikoritaTemplate)
-    .with("ditto", () => DittoTemplate)
-    .with("ditgar", () => DitgarTemplate)
-    .with("gengar", () => GengarTemplate)
-    .with("glalie", () => GlalieTemplate)
-    .with("kakuna", () => KakunaTemplate)
-    .with("lapras", () => LaprasTemplate)
-    .with("leafish", () => LeafishTemplate)
-    .with("onyx", () => OnyxTemplate)
-    .with("pikachu", () => PikachuTemplate)
-    .with("rhyhorn", () => RhyhornTemplate)
-    .exhaustive();
-}
+const templateComponents = {
+  azurill: AzurillTemplate,
+  bronzor: BronzorTemplate,
+  chikorita: ChikoritaTemplate,
+  ditto: DittoTemplate,
+  ditgar: DitgarTemplate,
+  gengar: GengarTemplate,
+  glalie: GlalieTemplate,
+  kakuna: KakunaTemplate,
+  lapras: LaprasTemplate,
+  leafish: LeafishTemplate,
+  onyx: OnyxTemplate,
+  pikachu: PikachuTemplate,
+  rhyhorn: RhyhornTemplate,
+} satisfies Record<Template, unknown>;
 
 type Props = React.ComponentProps<"div"> & {
   pageClassName?: string;
@@ -130,7 +127,7 @@ function PageContainer({ pageIndex, pageLayout, pageClassName, showPageNumbers =
 
   const pageNumber = useMemo(() => pageIndex + 1, [pageIndex]);
   const totalNumberOfPages = useMemo(() => metadata.layout.pages.length, [metadata.layout.pages]);
-  const TemplateComponent = useMemo(() => getTemplateComponent(metadata.template), [metadata.template]);
+  const TemplateComponent = templateComponents[metadata.template];
 
   return (
     <div data-page-index={pageIndex} className="relative">

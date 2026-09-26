@@ -190,10 +190,9 @@ export function AIChat() {
   const [open, setOpen] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-  const processedToolCallIds = useRef(new Set<string>());
-
-  const [initialMessages] = useState(() => {
+  const [{ initialMessages, initialToolCallIds }] = useState(() => {
     const stored = loadStoredMessages(resumeId);
+    const toolCallIds = new Set<string>();
 
     for (const message of stored) {
       if (message.role !== "assistant") continue;
@@ -201,13 +200,14 @@ export function AIChat() {
         if (part.type !== "tool-patch_resume") continue;
         const toolPart = part as any;
         if (toolPart.state === "output-available") {
-          processedToolCallIds.current.add(toolPart.toolCallId as string);
+          toolCallIds.add(toolPart.toolCallId as string);
         }
       }
     }
 
-    return stored;
+    return { initialMessages: stored, initialToolCallIds: toolCallIds };
   });
+  const processedToolCallIds = useRef(initialToolCallIds);
 
   const { messages, sendMessage, status, stop, setMessages } = useChat({
     messages: initialMessages,

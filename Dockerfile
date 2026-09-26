@@ -9,8 +9,8 @@ RUN corepack enable
 
 RUN mkdir -p /tmp/dev /tmp/prod
 
-COPY package.json pnpm-lock.yaml /tmp/dev/
-COPY package.json pnpm-lock.yaml /tmp/prod/
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml /tmp/dev/
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml /tmp/prod/
 
 RUN cd /tmp/dev && pnpm install --frozen-lockfile
 

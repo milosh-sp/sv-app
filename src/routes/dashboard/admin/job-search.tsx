@@ -4,7 +4,7 @@ import { BriefcaseIcon, CheckCircleIcon, InfoIcon, XCircleIcon } from "@phosphor
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "motion/react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { toast } from "sonner";
 import { useIsClient } from "usehooks-ts";
 
@@ -33,11 +33,13 @@ function AdminJobSearchForm() {
   const [apiKey, setApiKey] = useState("");
   const [testStatus, setTestStatus] = useState<TestStatus>("unverified");
 
-  useEffect(() => {
-    if (!settings || isLoading) return;
+  const [syncedSettings, setSyncedSettings] = useState<typeof settings>();
+
+  if (settings && settings !== syncedSettings) {
+    setSyncedSettings(settings);
     setTestStatus(settings.connectionTestOk ? "success" : "unverified");
     setApiKey("");
-  }, [settings, isLoading]);
+  }
 
   const { mutate: testConnection, isPending: isTestingForm } = useMutation(
     orpc.admin.jobSearch.testConnection.mutationOptions(),
