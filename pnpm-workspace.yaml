@@ -1,0 +1,21 @@
+allowBuilds:
+  "@prisma/engines": false
+  bcrypt: true
+  esbuild: true
+  msw: true
+  prisma: false
+  sharp: true
+
+overrides:
+  "@isaacs/brace-expansion": ^5.0.1
+  ajv: ^8.20.0
+  basic-ftp: ^6.0.1
+  fast-xml-parser: ^5.10.0
+  hono: ^4.12.29
+  lodash: ^4.18.1
+  markdown-it: ^14.3.0
+  minimatch: ^10.2.5
+  qs: ^6.15.3
+  serialize-javascript: ^7.0.7
+  vite: npm:@voidzero-dev/vite-plus-core@latest
+  vitest: npm:@voidzero-dev/vite-plus-test@latest
