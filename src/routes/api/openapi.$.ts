@@ -1,7 +1,7 @@
 import { SmartCoercionPlugin } from "@orpc/json-schema";
 import { OpenAPIGenerator } from "@orpc/openapi";
 import { OpenAPIHandler } from "@orpc/openapi/fetch";
-import { onError } from "@orpc/server";
+import { ORPCError, onError } from "@orpc/server";
 import { BatchHandlerPlugin, RequestHeadersPlugin, StrictGetMethodPlugin } from "@orpc/server/plugins";
 import { ZodToJsonSchemaConverter } from "@orpc/zod/zod4";
 import { createFileRoute } from "@tanstack/react-router";
@@ -22,6 +22,7 @@ const openAPIHandler = new OpenAPIHandler(router, {
   ],
   interceptors: [
     onError((error) => {
+      if (error instanceof ORPCError && error.status < 500) return;
       console.error("[OpenAPI]", error);
     }),
   ],

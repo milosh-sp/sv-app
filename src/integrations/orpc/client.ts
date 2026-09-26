@@ -1,7 +1,13 @@
 import { createORPCClient, onError } from "@orpc/client";
 import { RPCLink } from "@orpc/client/fetch";
 import { BatchLinkPlugin } from "@orpc/client/plugins";
-import { createRouterClient, type InferRouterInputs, type InferRouterOutputs, type RouterClient } from "@orpc/server";
+import {
+  createRouterClient,
+  ORPCError,
+  type InferRouterInputs,
+  type InferRouterOutputs,
+  type RouterClient,
+} from "@orpc/server";
 import { createTanstackQueryUtils } from "@orpc/tanstack-query";
 import { createIsomorphicFn } from "@tanstack/react-start";
 import { getRequestHeaders } from "@tanstack/react-start/server";
@@ -14,6 +20,7 @@ export const getORPCClient = createIsomorphicFn()
     return createRouterClient(router, {
       interceptors: [
         onError((error) => {
+          if (error instanceof ORPCError && error.status < 500) return;
           console.error("[oRPC server]", error);
         }),
       ],

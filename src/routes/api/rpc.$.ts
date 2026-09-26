@@ -1,4 +1,4 @@
-import { onError } from "@orpc/server";
+import { ORPCError, onError } from "@orpc/server";
 import { RPCHandler } from "@orpc/server/fetch";
 import { BatchHandlerPlugin, RequestHeadersPlugin, StrictGetMethodPlugin } from "@orpc/server/plugins";
 import { createFileRoute } from "@tanstack/react-router";
@@ -10,6 +10,7 @@ const rpcHandler = new RPCHandler(router, {
   plugins: [new BatchHandlerPlugin(), new RequestHeadersPlugin(), new StrictGetMethodPlugin()],
   interceptors: [
     onError((error) => {
+      if (error instanceof ORPCError && error.status < 500) return;
       console.error("[oRPC Server]", error);
     }),
   ],

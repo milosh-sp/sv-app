@@ -35,7 +35,7 @@ msgstr "Nombre"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "(you)"
-msgstr "(you)"
+msgstr "(tú)"
 
 #. placeholder {0}: section.items.length
 #: src/routes/builder/$resumeId/-sidebar/left/sections/custom.tsx
@@ -61,7 +61,7 @@ msgstr "{0} hace meses"
 #. placeholder {0}: reviewerSkills.length
 #: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
 msgid "{0} skills selected."
-msgstr ""
+msgstr "{0} habilidades seleccionadas."
 
 #. placeholder {0}: Math.floor(diffDays / 7)
 #: src/routes/dashboard/job-search/-components/job-utils.ts
@@ -79,22 +79,22 @@ msgstr "{diffDays} días atrás"
 
 #: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
 msgid "{userName} · {userEmail}"
-msgstr ""
+msgstr "{userName} · {userEmail}"
 
 #. placeholder {0}: detailsQuery.data.resumes.hiddenCount
 #: src/routes/dashboard/admin/users.tsx
 msgid "+{0} more"
-msgstr "+{0} more"
+msgstr "+{0} más"
 
 #. placeholder {0}: detailsQuery.data.verification.approvedExperience.hiddenCount
 #: src/routes/dashboard/admin/users.tsx
 msgid "+{0} more approved"
-msgstr "+{0} more approved"
+msgstr "+{0} más aprobados"
 
 #. placeholder {0}: detailsQuery.data.verification.uploadedDocuments.hiddenCount
 #: src/routes/dashboard/admin/users.tsx
 msgid "+{0} more uploaded"
-msgstr "+{0} more uploaded"
+msgstr "+{0} más subidos"
 
 #: src/routes/_home/-sections/hero.tsx
 msgid "<0>Your skills, finally,</0><1>Proven. Not just claimed.</1>"
@@ -106,7 +106,7 @@ msgstr "1 mes"
 
 #: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
 msgid "1 skill selected."
-msgstr ""
+msgstr "1 habilidad seleccionada."
 
 #: src/dialogs/api-key/create.tsx
 msgid "1 year"
@@ -156,7 +156,7 @@ msgstr "Un perfil que refleja lo que realmente puedes hacer: verificado por pers
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/pending-verdicts.tsx
 msgid "A reason is required to override."
-msgstr "A reason is required to override."
+msgstr "Se requiere un motivo para anular."
 
 #: src/dialogs/resume/index.tsx
 #: src/dialogs/resume/index.tsx
@@ -173,31 +173,31 @@ msgstr "A4"
 
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "Accept"
-msgstr ""
+msgstr "Aceptar"
 
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "Accept & send instructions"
-msgstr ""
+msgstr "Aceptar y enviar instrucciones"
 
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "Accept case"
-msgstr ""
+msgstr "Aceptar caso"
 
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "Accepting..."
-msgstr ""
+msgstr "Aceptando..."
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Account created"
-msgstr "Account created"
+msgstr "Cuenta creada"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Account health"
-msgstr "Account health"
+msgstr "Estado de la cuenta"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Account updated"
-msgstr "Account updated"
+msgstr "Cuenta actualizada"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Action oriented"
@@ -205,7 +205,7 @@ msgstr "Orientado a la acción"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Active sessions"
-msgstr "Active sessions"
+msgstr "Sesiones activas"
 
 #: src/routes/builder/$resumeId/-sidebar/left/sections/custom-fields.tsx
 msgid "Add a custom field"
@@ -282,7 +282,7 @@ msgstr "Añadir columna antes"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Add extra context for recruiters (optional)."
-msgstr "Add extra context for recruiters (optional)."
+msgstr "Añade contexto adicional para los reclutadores (opcional)."
 
 #: src/dialogs/resume/sections/experience.tsx
 msgid "Add multiple roles to show career progression at the same company."
@@ -306,7 +306,7 @@ msgstr "Añadir fila antes"
 
 #: src/components/ai/chat.tsx
 msgid "Added"
-msgstr "Added"
+msgstr "Añadido"
 
 #. placeholder {0}: skillsToSync.length
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
@@ -315,20 +315,20 @@ msgstr "Añadió {0} nuevas habilidades a su currículum original"
 
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "Additional context for the assessment..."
-msgstr ""
+msgstr "Contexto adicional para la evaluación..."
 
 #: src/components/command-palette/pages/navigation.tsx
 msgid "Admin AI"
-msgstr "Admin AI"
+msgstr "IA de administración"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Admin role"
-msgstr "Admin role"
+msgstr "Rol de administrador"
 
 #: src/components/command-palette/pages/navigation.tsx
 #: src/routes/dashboard/-components/sidebar.tsx
 msgid "Administration"
-msgstr "Administration"
+msgstr "Administración"
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Advanced Filters"
@@ -344,22 +344,22 @@ msgstr "AI / ML"
 
 #: src/components/ai/chat.tsx
 msgid "AI Chat"
-msgstr "AI Chat"
+msgstr "Chat de IA"
 
 #: src/dialogs/resume/ai-review.tsx
 msgid "AI integration is not configured. Contact an administrator to enable AI features."
-msgstr "AI integration is not configured. Contact an administrator to enable AI features."
+msgstr "La integración de IA no está configurada. Contacta con un administrador para activar las funciones de IA."
 
 #: src/routes/dashboard/resumes/-components/cards/resume-card.tsx
 #: src/routes/dashboard/resumes/-components/menus/context-menu.tsx
 #: src/routes/dashboard/resumes/-components/menus/dropdown-menu.tsx
 msgid "AI review"
-msgstr "AI review"
+msgstr "Revisión con IA"
 
 #. placeholder {0}: data.name
 #: src/dialogs/resume/ai-review.tsx
 msgid "AI review for {0}"
-msgstr "AI review for {0}"
+msgstr "Revisión con IA para {0}"
 
 #: src/utils/locale.ts
 msgid "Albanian"
@@ -372,11 +372,11 @@ msgstr "Alex Smith"
 #: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
 #: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
 msgid "All methods"
-msgstr ""
+msgstr "Todos los métodos"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "All roles"
-msgstr "All roles"
+msgstr "Todos los roles"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 msgid "Allow Public Access"
@@ -438,7 +438,7 @@ msgstr "Clave API"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "API keys"
-msgstr "API keys"
+msgstr "Claves de API"
 
 #: src/components/command-palette/pages/navigation.tsx
 #: src/components/command-palette/pages/navigation.tsx
@@ -453,7 +453,7 @@ msgstr "Referencia de la API"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Applicant"
-msgstr "Applicant"
+msgstr "Solicitante"
 
 #: src/routes/dashboard/job-search/-components/job-detail.tsx
 msgid "Apply"
@@ -469,11 +469,11 @@ msgstr "Solicitar vía"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Approved experience"
-msgstr "Approved experience"
+msgstr "Experiencia aprobada"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Approved identity"
-msgstr "Approved identity"
+msgstr "Identidad aprobada"
 
 #: src/utils/locale.ts
 msgid "Arabic"
@@ -517,11 +517,11 @@ msgstr "Área de estudio"
 
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "Ask a Skill Verdict Admin to assign your reviewable skills before cases appear in the queue."
-msgstr ""
+msgstr "Pide a un administrador de Skill Verdict que te asigne habilidades revisables para que aparezcan casos en la cola."
 
 #: src/components/ai/chat.tsx
 msgid "Ask me to update your resume..."
-msgstr "Ask me to update your resume..."
+msgstr "Pídeme que actualice tu currículum..."
 
 #: src/routes/builder/$resumeId/-sidebar/left/sections/picture.tsx
 msgid "Aspect Ratio"
@@ -529,38 +529,38 @@ msgstr "Relación de aspecto"
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "Assessment in progress"
-msgstr ""
+msgstr "Evaluación en curso"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/pending-verdicts.tsx
 #: src/routes/dashboard/reviewer/queue.tsx
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "Assessment instructions"
-msgstr ""
+msgstr "Instrucciones de la evaluación"
 
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "Assessment instructions file is required."
-msgstr ""
+msgstr "Se requiere el archivo de instrucciones de la evaluación."
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/pending-verdicts.tsx
 #: src/routes/dashboard/reviewer/queue.tsx
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "Assessment solution"
-msgstr ""
+msgstr "Solución de la evaluación"
 
 #. placeholder {0}: item.label
 #: src/routes/dashboard/verification/index.tsx
 msgid "Assessment solution submitted for \"{0}\"."
-msgstr ""
+msgstr "Solución de la evaluación enviada para \"{0}\"."
 
 #: src/routes/dashboard/admin/reviewers.tsx
 msgid "Assign the Reviewer Admin role on the <0>Users</0> page first."
-msgstr ""
+msgstr "Primero asigna el rol de administrador de revisores en la página <0>Usuarios</0>."
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Auth providers"
-msgstr "Auth providers"
+msgstr "Proveedores de autenticación"
 
 #: src/components/command-palette/pages/navigation.tsx
 #: src/components/command-palette/pages/navigation.tsx
@@ -571,15 +571,15 @@ msgstr "Autenticación"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Authorization details are stored per resume profile."
-msgstr "Authorization details are stored per resume profile."
+msgstr "Los datos del permiso de trabajo se guardan por perfil de currículum."
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "Awaiting final approval"
-msgstr ""
+msgstr "Pendiente de aprobación final"
 
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "Awaiting Skill Verdict Admin confirmation."
-msgstr ""
+msgstr "Pendiente de confirmación por un administrador de Skill Verdict."
 
 #: src/dialogs/resume/sections/award.tsx
 msgctxt "(noun) person, organization, or entity that gives an award"
@@ -607,7 +607,7 @@ msgstr "Azerí"
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/pending-verdicts.tsx
 msgid "Back"
-msgstr "Back"
+msgstr "Atrás"
 
 #: src/routes/auth/verify-2fa.tsx
 msgid "Back to Login"
@@ -621,7 +621,7 @@ msgstr "Volver a currículums"
 
 #: src/routes/dashboard/admin/resume/$resumeId.tsx
 msgid "Back to users"
-msgstr "Back to users"
+msgstr "Volver a usuarios"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/design.tsx
 msgid "Background Color"
@@ -645,7 +645,7 @@ msgstr "Conviértete en un verificador"
 
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "Before submitting verdicts, confirm that you agree to have your name displayed on verified skill badges."
-msgstr ""
+msgstr "Antes de enviar veredictos, confirma que aceptas que tu nombre se muestre en las insignias de habilidades verificadas."
 
 #: src/routes/dashboard/job-search/-components/job-detail.tsx
 msgid "Benefits"
@@ -674,7 +674,7 @@ msgstr "Ancho del borde"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "BSc Software Engineering"
-msgstr "BSc Software Engineering"
+msgstr "Grado en Ingeniería de Software"
 
 #: src/routes/_home/-sections/hero.tsx
 msgid "Build a living profile backed by real evidence. Get your skills endorsed by domain experts in short, practical reviews — and let opportunities come to you."
@@ -699,7 +699,7 @@ msgstr "Lista con viñetas"
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/identity.tsx
 msgid "Call link sent"
-msgstr "Call link sent"
+msgstr "Enlace de llamada enviado"
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "Can I update my profile and re-verify skills later?"
@@ -756,11 +756,11 @@ msgstr "Cancelar"
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/pending-verdicts.tsx
 msgid "Cancel Override"
-msgstr "Cancel Override"
+msgstr "Cancelar anulación"
 
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Cancel Verification"
-msgstr "Cancel Verification"
+msgstr "Cancelar verificación"
 
 #: src/routes/_home/-sections/statistics.tsx
 msgid "Candidates"
@@ -768,11 +768,11 @@ msgstr "Candidatos"
 
 #: src/routes/dashboard/reviewer/-components/reviewer-context-panels.tsx
 msgid "Case"
-msgstr ""
+msgstr "Caso"
 
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "Case accepted. Assessment instructions sent to the applicant."
-msgstr ""
+msgstr "Caso aceptado. Las instrucciones de la evaluación se enviaron al solicitante."
 
 #: src/utils/locale.ts
 msgid "Catalan"
@@ -781,7 +781,7 @@ msgstr "Catalán"
 #: src/routes/dashboard/reviewer/-components/reviewer-context-panels.tsx
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "Category"
-msgstr ""
+msgstr "Categoría"
 
 #: src/components/input/rich-input.tsx
 msgid "Center Align"
@@ -831,11 +831,11 @@ msgstr "Chino (tradicional)"
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "Choose a verification method:"
-msgstr "Choose a verification method:"
+msgstr "Elige un método de verificación:"
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "Choose File"
-msgstr "Choose File"
+msgstr "Elegir archivo"
 
 #: src/components/level/combobox.tsx
 msgid "Circle"
@@ -843,7 +843,7 @@ msgstr "Círculo"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Claimed"
-msgstr "Claimed"
+msgstr "Declarado"
 
 #: src/routes/dashboard/job-search/index.tsx
 msgid "Clear all"
@@ -851,7 +851,7 @@ msgstr "Borrar todo"
 
 #: src/components/ai/chat.tsx
 msgid "Clear chat history"
-msgstr "Clear chat history"
+msgstr "Borrar historial del chat"
 
 #: src/dialogs/resume/import.tsx
 msgid "Click here to select a file to import"
@@ -880,7 +880,7 @@ msgstr "Bloque de código"
 #: src/routes/dashboard/reviewer/queue.tsx
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "Collapse"
-msgstr "Collapse"
+msgstr "Contraer"
 
 #: src/routes/builder/$resumeId/-sidebar/left/sections/custom.tsx
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-menu.tsx
@@ -910,7 +910,7 @@ msgstr "Compacto"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Compact signal row for endorsements and recency — less chrome, more \"what passed\"."
-msgstr "Compact signal row for endorsements and recency — less chrome, more \"what passed\"."
+msgstr "Fila compacta de señales para respaldos y actualidad: menos adornos, más \"lo que se aprobó\"."
 
 #: src/dialogs/resume/sections/experience.tsx
 msgid "Company"
@@ -924,11 +924,11 @@ msgstr "Completa la evaluación"
 #. placeholder {1}: item.reviewedBy.email
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Concluded by {0} ({1})"
-msgstr ""
+msgstr "Concluido por {0} ({1})"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Concluded by Skill Verdict Admin"
-msgstr ""
+msgstr "Concluido por un administrador de Skill Verdict"
 
 #: src/dialogs/api-key/create.tsx
 #: src/hooks/use-prompt.tsx
@@ -944,23 +944,23 @@ msgstr "Confirmar"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Confirm decision: "
-msgstr "Confirm decision: "
+msgstr "Confirmar decisión: "
 
 #: src/routes/dashboard/admin/pending-verdicts.tsx
 msgid "Confirm Fail"
-msgstr ""
+msgstr "Confirmar suspenso"
 
 #: src/routes/dashboard/admin/pending-verdicts.tsx
 msgid "Confirm Issue"
-msgstr ""
+msgstr "Confirmar incidencia"
 
 #: src/routes/dashboard/admin/pending-verdicts.tsx
 msgid "Confirm Pass"
-msgstr ""
+msgstr "Confirmar aprobado"
 
 #: src/routes/dashboard/admin/pending-verdicts.tsx
 msgid "Confirming..."
-msgstr "Confirming..."
+msgstr "Confirmando..."
 
 #: src/routes/dashboard/settings/authentication/-components/social-provider.tsx
 msgid "Connect"
@@ -972,11 +972,11 @@ msgstr "Conecte sus cuentas profesionales y su cartera para crear instantáneame
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Consent"
-msgstr "Consent"
+msgstr "Consentimiento"
 
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "Consent recorded. You can now submit verdicts."
-msgstr ""
+msgstr "Consentimiento registrado. Ya puedes enviar veredictos."
 
 #: src/routes/_home/-sections/footer.tsx
 msgid "Contact us"
@@ -1011,7 +1011,7 @@ msgstr "Contratista"
 
 #: src/routes/dashboard/settings/privacy.tsx
 msgid "Control which verification badges are visible on your public CV."
-msgstr "Control which verification badges are visible on your public CV."
+msgstr "Controla qué insignias de verificación son visibles en tu CV público."
 
 #: src/dialogs/auth/enable-two-factor.tsx
 msgid "Copy"
@@ -1040,7 +1040,7 @@ msgstr "No se han podido recuperar los trabajos"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Could not load the selected resume. Please choose another resume and try again."
-msgstr "Could not load the selected resume. Please choose another resume and try again."
+msgstr "No se pudo cargar el currículum seleccionado. Elige otro currículum e inténtalo de nuevo."
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Country"
@@ -1150,11 +1150,11 @@ msgstr "Crear una nueva experiencia de voluntariado"
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "Create a resume first to start verifying your skills, projects, and experience."
-msgstr "Create a resume first to start verifying your skills, projects, and experience."
+msgstr "Crea primero un currículum para empezar a verificar tus habilidades, proyectos y experiencia."
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Create a resume first, then add your work authorization details."
-msgstr "Create a resume first, then add your work authorization details."
+msgstr "Crea primero un currículum y luego añade los datos de tu permiso de trabajo."
 
 #: src/dialogs/resume/index.tsx
 msgid "Create a Sample Resume"
@@ -1162,7 +1162,7 @@ msgstr "Crear un currículum de ejemplo"
 
 #: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
 msgid "Create profile"
-msgstr ""
+msgstr "Crear perfil"
 
 #: src/dialogs/resume/index.tsx
 msgid "Create Resume with Options"
@@ -1170,11 +1170,11 @@ msgstr "Crear currículum con opciones"
 
 #: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
 msgid "Create reviewer profile"
-msgstr ""
+msgstr "Crear perfil de revisor"
 
 #: src/routes/dashboard/admin/reviewers.tsx
 msgid "Create reviewer profiles and assign reviewable skills. Reviewers need at least one skill before cases appear in their queue."
-msgstr ""
+msgstr "Crea perfiles de revisor y asigna habilidades revisables. Los revisores necesitan al menos una habilidad para que aparezcan casos en su cola."
 
 #: src/dialogs/api-key/create.tsx
 msgid "Creating your API key..."
@@ -1187,11 +1187,11 @@ msgstr "Creando tu currículum..."
 
 #: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
 msgid "Creating…"
-msgstr ""
+msgstr "Creando…"
 
 #: src/routes/dashboard/admin/ai.tsx
 msgid "Credentials are stored in the database and used for all users who enable AI in their account. Only Skill Verdict administrators can change this configuration."
-msgstr "Credentials are stored in the database and used for all users who enable AI in their account. Only Skill Verdict administrators can change this configuration."
+msgstr "Las credenciales se guardan en la base de datos y se usan para todos los usuarios que activan la IA en su cuenta. Solo los administradores de Skill Verdict pueden cambiar esta configuración."
 
 #: src/dialogs/auth/change-password.tsx
 msgid "Current Password"
@@ -1210,7 +1210,7 @@ msgstr "Secciones personalizadas"
 #: src/routes/dashboard/admin/experience-queue.tsx
 #: src/routes/dashboard/admin/pending-verdicts.tsx
 msgid "CV / resume"
-msgstr "CV / resume"
+msgstr "CV / currículum"
 
 #: src/utils/locale.ts
 msgid "Czech"
@@ -1325,11 +1325,11 @@ msgstr "Diseño"
 #: src/routes/dashboard/reviewer/queue.tsx
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "Details"
-msgstr ""
+msgstr "Detalles"
 
 #: src/routes/dashboard/job-search/-components/job-detail.tsx
 msgid "Direct"
-msgstr "Direct"
+msgstr "Directo"
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Direct Apply"
@@ -1358,7 +1358,7 @@ msgstr "Desconectar"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Display username"
-msgstr "Display username"
+msgstr "Nombre de usuario visible"
 
 #: src/components/ui/sidebar.tsx
 msgid "Displays the mobile sidebar."
@@ -1370,13 +1370,13 @@ msgstr "Docker"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Document"
-msgstr "Document"
+msgstr "Documento"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/experience-queue.tsx
 #: src/routes/dashboard/admin/identity.tsx
 msgid "Documents"
-msgstr "Documents"
+msgstr "Documentos"
 
 #: src/routes/_home/-sections/hero.tsx
 msgid "Don't chase. Attract."
@@ -1405,7 +1405,7 @@ msgstr "Descarga una copia de tu currículum en formato PDF. Usa este archivo pa
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "Download assessment instructions"
-msgstr ""
+msgstr "Descargar instrucciones de la evaluación"
 
 #: src/routes/builder/$resumeId/-components/dock.tsx
 #: src/routes/builder/$resumeId/-components/dock.tsx
@@ -1473,7 +1473,7 @@ msgstr "por ejemplo, 50000"
 
 #: src/components/ai/chat.tsx
 msgid "e.g. Change my name to..."
-msgstr "e.g. Change my name to..."
+msgstr "p. ej., Cambia mi nombre a..."
 
 #: src/routes/dashboard/job-search/index.tsx
 msgid "e.g. frontend developer jobs in Berlin"
@@ -1481,7 +1481,7 @@ msgstr "p.ej. trabajos de desarrollador frontend en Berlín"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "e.g. Skilled Worker"
-msgstr "e.g. Skilled Worker"
+msgstr "p. ej., Trabajador cualificado"
 
 #: src/routes/dashboard/admin/ai.tsx
 msgid "e.g., gpt-4, claude-3-opus, gemini-pro"
@@ -1497,7 +1497,7 @@ msgstr "Gana tu veredicto"
 
 #: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
 msgid "Edit reviewer profile"
-msgstr ""
+msgstr "Editar perfil de revisor"
 
 #: src/dialogs/resume/sections/custom.tsx
 #: src/routes/_home/-sections/hero-visual.tsx
@@ -1521,11 +1521,11 @@ msgstr "Dirección de correo electrónico"
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/users.tsx
 msgid "Email verified"
-msgstr "Email verified"
+msgstr "Correo verificado"
 
 #: src/routes/dashboard/reviewer/-components/reviewer-context-panels.tsx
 msgid "Employer names and locations are hidden to keep review anonymous."
-msgstr ""
+msgstr "Los nombres y ubicaciones de los empleadores se ocultan para mantener la revisión anónima."
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/css.tsx
 msgctxt "Turn On/Apply Custom CSS"
@@ -1542,7 +1542,7 @@ msgstr "Habilitar la autenticación de doble factor"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Enabled"
-msgstr "Enabled"
+msgstr "Activado"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 msgid "Enabling password protection..."
@@ -1563,7 +1563,7 @@ msgstr "Inglés (Reino Unido)"
 #: src/routes/dashboard/admin/ai.tsx
 #: src/routes/dashboard/admin/job-search.tsx
 msgid "Enter an API key before testing."
-msgstr "Enter an API key before testing."
+msgstr "Introduce una clave de API antes de probar."
 
 #: src/routes/auth/verify-2fa-backup.tsx
 msgid "Enter one of your saved backup codes to access your account"
@@ -1583,7 +1583,7 @@ msgstr "Introduce tu contraseña actual y una nueva contraseña para actualizar 
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "Enter your freelancer profile URL (e.g. Upwork, Fiverr, Toptal):"
-msgstr "Enter your freelancer profile URL (e.g. Upwork, Fiverr, Toptal):"
+msgstr "Introduce la URL de tu perfil de freelancer (p. ej., Upwork, Fiverr, Toptal):"
 
 #: src/dialogs/auth/enable-two-factor.tsx
 msgid "Enter your password to confirm setting up two-factor authentication. When enabled, you'll need to enter a code from your authenticator app every time you log in."
@@ -1623,33 +1623,33 @@ msgstr "Experiencia"
 #: src/routes/dashboard/-components/sidebar.tsx
 #: src/routes/dashboard/admin/experience-queue.tsx
 msgid "Experience Queue"
-msgstr "Experience Queue"
+msgstr "Cola de experiencia"
 
 #: src/routes/dashboard/admin/experience-queue.tsx
 msgid "Experience request flagged as issue."
-msgstr "Experience request flagged as issue."
+msgstr "Solicitud de experiencia marcada como incidencia."
 
 #: src/routes/dashboard/admin/experience-queue.tsx
 msgid "Experience request rejected."
-msgstr "Experience request rejected."
+msgstr "Solicitud de experiencia rechazada."
 
 #: src/routes/dashboard/admin/experience-queue.tsx
 msgid "Experience Verification"
-msgstr "Experience Verification"
+msgstr "Verificación de experiencia"
 
 #. placeholder {0}: item.label
 #: src/routes/dashboard/verification/index.tsx
 #: src/routes/dashboard/verification/index.tsx
 msgid "Experience verification requested for \"{0}\"."
-msgstr "Experience verification requested for \"{0}\"."
+msgstr "Verificación de experiencia solicitada para \"{0}\"."
 
 #: src/routes/dashboard/admin/experience-queue.tsx
 msgid "Experience verified successfully."
-msgstr "Experience verified successfully."
+msgstr "Experiencia verificada correctamente."
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Expiration date"
-msgstr "Expiration date"
+msgstr "Fecha de caducidad"
 
 #: src/dialogs/api-key/create.tsx
 msgid "Expires in"
@@ -1670,11 +1670,11 @@ msgstr "Exportar"
 
 #: src/routes/dashboard/reviewer/-components/reviewer-context-panels.tsx
 msgid "External link — may contain identifying information. Evaluate the technical content only."
-msgstr ""
+msgstr "Enlace externo: puede contener información identificativa. Evalúa solo el contenido técnico."
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Fail"
-msgstr ""
+msgstr "Suspenso"
 
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 msgid "Failed to duplicate resume"
@@ -1682,32 +1682,32 @@ msgstr "Fallo al duplicar el currículum"
 
 #: src/dialogs/resume/ai-review.tsx
 msgid "Failed to generate AI review"
-msgstr "Failed to generate AI review"
+msgstr "No se pudo generar la revisión con IA"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Failed to load document."
-msgstr "Failed to load document."
+msgstr "No se pudo cargar el documento."
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Failed to load history. Please refresh and try again."
-msgstr ""
+msgstr "No se pudo cargar el historial. Actualiza la página e inténtalo de nuevo."
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Failed to load queue. Please refresh and try again."
-msgstr ""
+msgstr "No se pudo cargar la cola. Actualiza la página e inténtalo de nuevo."
 
 #: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
 msgid "Failed to load reviewer profile."
-msgstr ""
+msgstr "No se pudo cargar el perfil del revisor."
 
 #: src/routes/dashboard/admin/reviewers.tsx
 msgid "Failed to load reviewers."
-msgstr ""
+msgstr "No se pudieron cargar los revisores."
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Failed to load user details."
-msgstr "Failed to load user details."
+msgstr "No se pudieron cargar los detalles del usuario."
 
 #: src/routes/auth/verify-email.tsx
 msgid "Failed to resend verification email. Please try again."
@@ -1715,7 +1715,7 @@ msgstr "No se pudo reenviar el correo de verificación. Inténtalo de nuevo."
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Failed to save work authorization."
-msgstr "Failed to save work authorization."
+msgstr "No se pudo guardar el permiso de trabajo."
 
 #: src/dialogs/auth/enable-two-factor.tsx
 msgid "Failed to setup two-factor authentication."
@@ -1727,7 +1727,7 @@ msgstr "No se pudo iniciar sesión. Inténtalo de nuevo."
 
 #: src/components/user/dropdown-menu.tsx
 msgid "Failed to switch dashboard mode. Please try again."
-msgstr ""
+msgstr "No se pudo cambiar el modo del panel. Inténtalo de nuevo."
 
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 msgid "Failed to sync skills"
@@ -1735,7 +1735,7 @@ msgstr "Fallo en la sincronización de habilidades"
 
 #: src/routes/_home/-sections/footer.tsx
 msgid "FAQ"
-msgstr "FAQ"
+msgstr "Preguntas frecuentes"
 
 #: src/routes/_home/-sections/footer.tsx
 msgid "Features"
@@ -1743,20 +1743,20 @@ msgstr "Funciones"
 
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "File must be 5 MB or smaller."
-msgstr ""
+msgstr "El archivo debe tener 5 MB o menos."
 
 #. placeholder {0}: selectedFile.name
 #: src/routes/dashboard/verification/index.tsx
 msgid "File selected: {0}. Submit your verification request?"
-msgstr "File selected: {0}. Submit your verification request?"
+msgstr "Archivo seleccionado: {0}. ¿Enviar tu solicitud de verificación?"
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "File size must be under 25MB."
-msgstr ""
+msgstr "El archivo debe pesar menos de 25 MB."
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "File size must be under 5MB."
-msgstr "File size must be under 5MB."
+msgstr "El archivo debe pesar menos de 5 MB."
 
 #: src/routes/dashboard/resumes/index.tsx
 msgid "Filter by"
@@ -1764,37 +1764,37 @@ msgstr "Filtrar por"
 
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "Filter by category"
-msgstr ""
+msgstr "Filtrar por categoría"
 
 #: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "Filter by proposed outcome"
-msgstr ""
+msgstr "Filtrar por resultado propuesto"
 
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "Filter by skill"
-msgstr ""
+msgstr "Filtrar por habilidad"
 
 #: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
 #: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
 #: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "Filter by status"
-msgstr ""
+msgstr "Filtrar por estado"
 
 #: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
 #: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "Filter by type"
-msgstr ""
+msgstr "Filtrar por tipo"
 
 #: src/routes/dashboard/admin/pending-verdicts.tsx
 msgid "Final Decision"
-msgstr ""
+msgstr "Decisión final"
 
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "Final verdict differed from your proposal."
-msgstr ""
+msgstr "El veredicto final difiere de tu propuesta."
 
 #: src/utils/locale.ts
 msgid "Finnish"
@@ -1802,7 +1802,7 @@ msgstr "Finés"
 
 #: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
 msgid "First name"
-msgstr ""
+msgstr "Nombre"
 
 #: src/routes/builder/$resumeId/-components/dock.tsx
 msgid "Fit resume to screen"
@@ -1861,11 +1861,11 @@ msgstr "Libre"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Freelancer Link"
-msgstr "Freelancer Link"
+msgstr "Enlace de freelancer"
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "Freelancer Profile Link"
-msgstr "Freelancer Profile Link"
+msgstr "Enlace al perfil de freelancer"
 
 #: src/utils/locale.ts
 msgid "French"
@@ -1901,7 +1901,7 @@ msgstr "Alemán"
 
 #: src/dialogs/resume/ai-review.tsx
 msgid "Get AI feedback on what is strong in this resume and what should be improved."
-msgstr "Get AI feedback on what is strong in this resume and what should be improved."
+msgstr "Obtén comentarios de la IA sobre los puntos fuertes de este currículum y lo que debería mejorarse."
 
 #: src/routes/_home/-sections/footer.tsx
 msgid "Get verified"
@@ -1909,14 +1909,14 @@ msgstr "Obtener verificado"
 
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "Give consent"
-msgstr ""
+msgstr "Dar consentimiento"
 
 #: src/components/command-palette/pages/navigation.tsx
 #: src/components/command-palette/pages/navigation.tsx
 #: src/routes/dashboard/-components/sidebar.tsx
 #: src/routes/dashboard/admin/ai.tsx
 msgid "Global AI"
-msgstr "Global AI"
+msgstr "IA global"
 
 #: src/components/layout/not-found-screen.tsx
 #: src/routes/auth/verify-2fa-backup.tsx
@@ -2028,7 +2028,7 @@ msgstr "Ocultar todos los iconos en el currículum"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Hide details"
-msgstr "Hide details"
+msgstr "Ocultar detalles"
 
 #: src/components/input/rich-input.tsx
 msgid "Highlight"
@@ -2043,7 +2043,7 @@ msgstr "Hindi"
 #: src/routes/dashboard/admin/pending-verdicts.tsx
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "History"
-msgstr ""
+msgstr "Historial"
 
 #: src/components/command-palette/pages/navigation.tsx
 #: src/components/command-palette/pages/navigation.tsx
@@ -2069,7 +2069,7 @@ msgstr "¿Cuánto tiempo lleva una verificación?"
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "https://github.com/you/your-solution"
-msgstr ""
+msgstr "https://github.com/you/your-solution"
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "https://www.upwork.com/freelancers/~..."
@@ -2085,7 +2085,7 @@ msgstr "Estoy listo para empezar"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "I consent to sharing my work authorization details with employers for matching."
-msgstr "I consent to sharing my work authorization details with employers for matching."
+msgstr "Doy mi consentimiento para compartir los datos de mi permiso de trabajo con empleadores a efectos de emparejamiento."
 
 #: src/components/level/combobox.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/design.tsx
@@ -2094,45 +2094,45 @@ msgstr "Icono"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Identity Call"
-msgstr "Identity Call"
+msgstr "Llamada de identidad"
 
 #: src/routes/dashboard/-components/sidebar.tsx
 #: src/routes/dashboard/admin/identity.tsx
 msgid "Identity Queue"
-msgstr "Identity Queue"
+msgstr "Cola de identidad"
 
 #: src/routes/dashboard/admin/identity.tsx
 msgid "Identity request flagged as issue."
-msgstr "Identity request flagged as issue."
+msgstr "Solicitud de identidad marcada como incidencia."
 
 #: src/routes/dashboard/admin/identity.tsx
 msgid "Identity request rejected."
-msgstr "Identity request rejected."
+msgstr "Solicitud de identidad rechazada."
 
 #: src/routes/dashboard/-components/sidebar-identity-verification-status.tsx
 msgid "Identity Unverified"
-msgstr "Identity Unverified"
+msgstr "Identidad no verificada"
 
 #: src/routes/dashboard/admin/identity.tsx
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Identity Verification"
-msgstr "Identity Verification"
+msgstr "Verificación de identidad"
 
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Identity verification request cancelled."
-msgstr "Identity verification request cancelled."
+msgstr "Solicitud de verificación de identidad cancelada."
 
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Identity verification requested. Please check your email for next steps."
-msgstr "Identity verification requested. Please check your email for next steps."
+msgstr "Verificación de identidad solicitada. Revisa tu correo para ver los siguientes pasos."
 
 #: src/routes/dashboard/-components/sidebar-identity-verification-status.tsx
 msgid "Identity Verified"
-msgstr "Identity Verified"
+msgstr "Identidad verificada"
 
 #: src/routes/dashboard/admin/identity.tsx
 msgid "Identity verified successfully."
-msgstr "Identity verified successfully."
+msgstr "Identidad verificada correctamente."
 
 #: src/dialogs/resume/import.tsx
 msgid "Import"
@@ -2170,7 +2170,7 @@ msgstr "Insertar tabla"
 
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "Instructions file"
-msgstr ""
+msgstr "Archivo de instrucciones"
 
 #: src/dialogs/resume/sections/custom.tsx
 #: src/utils/resume/section.tsx
@@ -2187,11 +2187,11 @@ msgstr "¿La revisión es realmente imparcial?"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Issue"
-msgstr ""
+msgstr "Incidencia"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Issue date"
-msgstr "Issue date"
+msgstr "Fecha de emisión"
 
 #: src/dialogs/resume/sections/certification.tsx
 msgid "Issuer"
@@ -2225,11 +2225,11 @@ msgstr "API de búsqueda de empleo"
 
 #: src/routes/dashboard/job-search/index.tsx
 msgid "Job search has not been configured yet. Contact an administrator to set it up."
-msgstr "Job search has not been configured yet. Contact an administrator to set it up."
+msgstr "La búsqueda de empleo aún no está configurada. Contacta con un administrador para configurarla."
 
 #: src/routes/dashboard/job-search/index.tsx
 msgid "Job Search Not Available"
-msgstr "Job Search Not Available"
+msgstr "Búsqueda de empleo no disponible"
 
 #: src/components/input/rich-input.tsx
 msgid "Justify Align"
@@ -2280,7 +2280,7 @@ msgstr "Últimos 3 días"
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/users.tsx
 msgid "Last active"
-msgstr "Last active"
+msgstr "Última actividad"
 
 #. placeholder {0}: statistics.lastDownloadedAt.toDateString()
 #: src/routes/builder/$resumeId/-sidebar/right/sections/statistics.tsx
@@ -2289,15 +2289,15 @@ msgstr "Última descarga el {0}"
 
 #: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
 msgid "Last name"
-msgstr ""
+msgstr "Apellido"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Last request"
-msgstr "Last request"
+msgstr "Última solicitud"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Last resume update"
-msgstr "Last resume update"
+msgstr "Última actualización del currículum"
 
 #: src/routes/dashboard/resumes/-components/cards/resume-card.tsx
 #: src/routes/dashboard/resumes/-components/list-view.tsx
@@ -2312,7 +2312,7 @@ msgstr "Última visualización el {0}"
 #: src/routes/dashboard/admin/identity.tsx
 #: src/routes/dashboard/admin/identity.tsx
 msgid "Latest CV / resume"
-msgstr "Latest CV / resume"
+msgstr "CV / currículum más reciente"
 
 #: src/utils/locale.ts
 msgid "Latvian"
@@ -2333,7 +2333,7 @@ msgstr "Salir"
 #: src/routes/dashboard/admin/ai.tsx
 #: src/routes/dashboard/admin/job-search.tsx
 msgid "Leave blank to keep the existing key"
-msgstr "Leave blank to keep the existing key"
+msgstr "Déjalo en blanco para conservar la clave existente"
 
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-menu.tsx
 msgid "Leave empty to reset the title to the original."
@@ -2349,7 +2349,7 @@ msgstr "Alinear a la izquierda"
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "Legacy category request"
-msgstr ""
+msgstr "Solicitud de categoría antigua"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/page.tsx
 msgid "Letter"
@@ -2382,7 +2382,7 @@ msgstr "Altura de la línea"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Linked accounts"
-msgstr "Linked accounts"
+msgstr "Cuentas vinculadas"
 
 #: src/routes/dashboard/settings/authentication/-components/hooks.tsx
 msgid "Linking your {providerName} account..."
@@ -2402,23 +2402,23 @@ msgstr "Cargando"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Loading document..."
-msgstr "Loading document..."
+msgstr "Cargando documento..."
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "Loading history..."
-msgstr "Loading history..."
+msgstr "Cargando historial..."
 
 #: src/routes/dashboard/admin/pending-verdicts.tsx
 msgid "Loading pending verdicts..."
-msgstr "Loading pending verdicts..."
+msgstr "Cargando veredictos pendientes..."
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Loading preview…"
-msgstr "Loading preview…"
+msgstr "Cargando vista previa…"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Loading queue..."
-msgstr "Loading queue..."
+msgstr "Cargando cola..."
 
 #: src/components/command-palette/pages/resumes.tsx
 msgid "Loading resumes..."
@@ -2426,23 +2426,23 @@ msgstr "Cargando currículums..."
 
 #: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
 msgid "Loading reviewer profile…"
-msgstr ""
+msgstr "Cargando perfil del revisor…"
 
 #: src/routes/dashboard/admin/reviewers.tsx
 msgid "Loading reviewers…"
-msgstr ""
+msgstr "Cargando revisores…"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Loading selected resume details..."
-msgstr "Loading selected resume details..."
+msgstr "Cargando detalles del currículum seleccionado..."
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Loading user details…"
-msgstr "Loading user details…"
+msgstr "Cargando detalles del usuario…"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Loading users…"
-msgstr "Loading users…"
+msgstr "Cargando usuarios…"
 
 #: src/components/layout/loading-screen.tsx
 msgid "Loading..."
@@ -2451,7 +2451,7 @@ msgstr "Cargando..."
 #: src/routes/dashboard/admin/ai.tsx
 #: src/routes/dashboard/admin/job-search.tsx
 msgid "Loading…"
-msgstr "Loading…"
+msgstr "Cargando…"
 
 #: src/dialogs/resume/sections/education.tsx
 #: src/dialogs/resume/sections/experience.tsx
@@ -2468,11 +2468,11 @@ msgstr "Bloquear"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Lock status"
-msgstr "Lock status"
+msgstr "Estado de bloqueo"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Locked"
-msgstr "Locked"
+msgstr "Bloqueado"
 
 #: src/components/user/dropdown-menu.tsx
 msgid "Logout"
@@ -2492,7 +2492,7 @@ msgstr "Navegación principal"
 
 #: src/routes/dashboard/settings/privacy.tsx
 msgid "Make at least one resume public to control the timeline on your public CV."
-msgstr "Make at least one resume public to control the timeline on your public CV."
+msgstr "Haz público al menos un currículum para controlar la cronología de tu CV público."
 
 #: src/utils/locale.ts
 msgid "Malay"
@@ -2504,7 +2504,7 @@ msgstr "Malayalam"
 
 #: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
 msgid "Manage profile"
-msgstr ""
+msgstr "Gestionar perfil"
 
 #: src/utils/locale.ts
 msgid "Marathi"
@@ -2524,14 +2524,14 @@ msgstr "Salario máximo"
 
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "Message to applicant (optional)"
-msgstr ""
+msgstr "Mensaje para el solicitante (opcional)"
 
 #: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
 #: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
 #: src/routes/dashboard/admin/users.tsx
 #: src/routes/dashboard/admin/users.tsx
 msgid "Method"
-msgstr "Method"
+msgstr "Método"
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Minimum Salary"
@@ -2539,7 +2539,7 @@ msgstr "Salario mínimo"
 
 #: src/routes/dashboard/admin/pending-verdicts.tsx
 msgid "Missing proposed verdict"
-msgstr ""
+msgstr "Falta el veredicto propuesto"
 
 #: src/routes/dashboard/admin/ai.tsx
 msgid "Model"
@@ -2563,7 +2563,7 @@ msgstr "Mover a"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "MSc Computer Science"
-msgstr "MSc Computer Science"
+msgstr "Máster en Informática"
 
 #: src/routes/builder/$resumeId/-sidebar/left/sections/custom-fields.tsx
 msgid "Must start with https://"
@@ -2571,7 +2571,7 @@ msgstr "Debe comenzar con https://"
 
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "My Cases"
-msgstr ""
+msgstr "Mis casos"
 
 #: src/dialogs/api-key/create.tsx
 #: src/dialogs/resume/index.tsx
@@ -2589,11 +2589,11 @@ msgstr "Nombre"
 
 #: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
 msgid "Name, email, @username, or label…"
-msgstr ""
+msgstr "Nombre, correo, @usuario o etiqueta…"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Name, email, or @username…"
-msgstr "Name, email, or @username…"
+msgstr "Nombre, correo o @usuario…"
 
 #: src/utils/locale.ts
 msgid "Nepali"
@@ -2635,7 +2635,7 @@ msgstr "Nuevas habilidades detectadas"
 
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 msgid "New skills were found in your experience that match this job. Select which ones to save back to your original resume for future applications. This will permanently modify your original resume and cannot be undone."
-msgstr "New skills were found in your experience that match this job. Select which ones to save back to your original resume for future applications. This will permanently modify your original resume and cannot be undone."
+msgstr "Se encontraron nuevas habilidades en tu experiencia que encajan con este empleo. Selecciona cuáles guardar en tu currículum original para futuras candidaturas. Esto modificará tu currículum original de forma permanente y no se puede deshacer."
 
 #: src/routes/dashboard/admin/-components/admin-list-pagination.tsx
 #: src/routes/dashboard/admin/users.tsx
@@ -2650,31 +2650,31 @@ msgstr "No"
 
 #: src/dialogs/resume/ai-review.tsx
 msgid "No analysis was generated. Try again."
-msgstr "No analysis was generated. Try again."
+msgstr "No se generó ningún análisis. Inténtalo de nuevo."
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "No approved experience information."
-msgstr "No approved experience information."
+msgstr "No hay información de experiencia aprobada."
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "No approved identity documents."
-msgstr "No approved identity documents."
+msgstr "No hay documentos de identidad aprobados."
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "No approved identity information."
-msgstr "No approved identity information."
+msgstr "No hay información de identidad aprobada."
 
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "No cases match the selected filters."
-msgstr ""
+msgstr "Ningún caso coincide con los filtros seleccionados."
 
 #: src/routes/dashboard/admin/experience-queue.tsx
 msgid "No completed experience reviews yet."
-msgstr ""
+msgstr "Aún no hay revisiones de experiencia completadas."
 
 #: src/routes/dashboard/admin/identity.tsx
 msgid "No completed identity reviews yet."
-msgstr ""
+msgstr "Aún no hay revisiones de identidad completadas."
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
@@ -2682,19 +2682,19 @@ msgstr ""
 #: src/routes/dashboard/admin/identity.tsx
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "No completed reviews match the selected filters."
-msgstr ""
+msgstr "Ninguna revisión completada coincide con los filtros seleccionados."
 
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "No completed reviews yet."
-msgstr ""
+msgstr "Aún no hay revisiones completadas."
 
 #: src/routes/dashboard/admin/pending-verdicts.tsx
 msgid "No concluded verdicts match the selected filters."
-msgstr ""
+msgstr "Ningún veredicto concluido coincide con los filtros seleccionados."
 
 #: src/routes/dashboard/admin/pending-verdicts.tsx
 msgid "No concluded verdicts yet."
-msgstr ""
+msgstr "Aún no hay veredictos concluidos."
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "No degree required"
@@ -2706,32 +2706,32 @@ msgstr "Sin experiencia"
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "No experience items in your resume. Add some to get started."
-msgstr "No experience items in your resume. Add some to get started."
+msgstr "Tu currículum no tiene elementos de experiencia. Añade algunos para empezar."
 
 #: src/routes/dashboard/admin/experience-queue.tsx
 msgid "No experience verification requests match the selected filters."
-msgstr ""
+msgstr "Ninguna solicitud de verificación de experiencia coincide con los filtros seleccionados."
 
 #: src/routes/dashboard/admin/experience-queue.tsx
 msgid "No experience verification requests pending."
-msgstr "No experience verification requests pending."
+msgstr "No hay solicitudes de verificación de experiencia pendientes."
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "No history available."
-msgstr "No history available."
+msgstr "No hay historial disponible."
 
 #: src/routes/dashboard/admin/identity.tsx
 msgid "No identity verification requests match the selected filters."
-msgstr ""
+msgstr "Ninguna solicitud de verificación de identidad coincide con los filtros seleccionados."
 
 #: src/routes/dashboard/admin/identity.tsx
 msgid "No identity verification requests pending."
-msgstr "No identity verification requests pending."
+msgstr "No hay solicitudes de verificación de identidad pendientes."
 
 #: src/routes/dashboard/verification/index.tsx
 #: src/routes/dashboard/verification/index.tsx
 msgid "No items in this section. Add some to your resume first."
-msgstr "No items in this section. Add some to your resume first."
+msgstr "No hay elementos en esta sección. Añade algunos a tu currículum primero."
 
 #: src/routes/dashboard/job-search/index.tsx
 msgid "No jobs found. Try a different search query."
@@ -2739,46 +2739,46 @@ msgstr "No se han encontrado empleos. Pruebe con otra consulta de búsqueda."
 
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "No matching categories."
-msgstr ""
+msgstr "No hay categorías coincidentes."
 
 #: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "No matching outcomes."
-msgstr ""
+msgstr "No hay resultados coincidentes."
 
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "No matching requests for your assigned skills."
-msgstr ""
+msgstr "No hay solicitudes coincidentes para tus habilidades asignadas."
 
 #: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "No matching skills."
-msgstr ""
+msgstr "No hay habilidades coincidentes."
 
 #: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
 #: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
 #: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "No matching statuses."
-msgstr ""
+msgstr "No hay estados coincidentes."
 
 #: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
 #: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "No matching types."
-msgstr ""
+msgstr "No hay tipos coincidentes."
 
 #: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
 msgid "No profile"
-msgstr ""
+msgstr "Sin perfil"
 
 #: src/routes/dashboard/admin/reviewers.tsx
 msgid "No public reviewer profile yet."
-msgstr ""
+msgstr "Aún no hay perfil público de revisor."
 
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "No requests match the selected filters."
-msgstr ""
+msgstr "Ninguna solicitud coincide con los filtros seleccionados."
 
 #: src/components/ui/combobox.tsx
 msgid "No results found."
@@ -2786,7 +2786,7 @@ msgstr "No se han encontrado resultados."
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "No resumes found."
-msgstr "No resumes found."
+msgstr "No se encontraron currículums."
 
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 msgid "No resumes found. Create a resume first."
@@ -2794,57 +2794,57 @@ msgstr "No se han encontrado currículos. Cree primero un currículum."
 
 #: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
 msgid "No reviewable skills assigned. The reviewer's queue will stay empty until at least one skill is added."
-msgstr ""
+msgstr "No hay habilidades revisables asignadas. La cola del revisor permanecerá vacía hasta que se añada al menos una habilidad."
 
 #: src/routes/dashboard/admin/reviewers.tsx
 msgid "No Reviewer Admins found."
-msgstr ""
+msgstr "No se encontraron administradores de revisores."
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "No sessions found."
-msgstr "No sessions found."
+msgstr "No se encontraron sesiones."
 
 #: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
 msgid "No skills"
-msgstr ""
+msgstr "Sin habilidades"
 
 #: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
 msgid "No skills selected."
-msgstr ""
+msgstr "No hay habilidades seleccionadas."
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/pending-verdicts.tsx
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "No solution submitted"
-msgstr ""
+msgstr "No se ha enviado ninguna solución"
 
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "No solution submitted yet"
-msgstr ""
+msgstr "Aún no se ha enviado ninguna solución"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "No uploaded documents found."
-msgstr "No uploaded documents found."
+msgstr "No se encontraron documentos subidos."
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "No users match your filters."
-msgstr "No users match your filters."
+msgstr "Ningún usuario coincide con tus filtros."
 
 #: src/routes/dashboard/admin/pending-verdicts.tsx
 msgid "No verdicts awaiting confirmation."
-msgstr "No verdicts awaiting confirmation."
+msgstr "No hay veredictos pendientes de confirmación."
 
 #: src/routes/dashboard/admin/pending-verdicts.tsx
 msgid "No verdicts match the selected filters."
-msgstr ""
+msgstr "Ningún veredicto coincide con los filtros seleccionados."
 
 #: src/routes/dashboard/settings/privacy.tsx
 msgid "No verified items yet."
-msgstr "No verified items yet."
+msgstr "Aún no hay elementos verificados."
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "No visa authorization data available."
-msgstr "No visa authorization data available."
+msgstr "No hay datos de autorización de visado disponibles."
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Node.js"
@@ -2861,7 +2861,7 @@ msgstr "Noruego"
 #: src/routes/dashboard/admin/users.tsx
 #: src/routes/dashboard/admin/users.tsx
 msgid "Note"
-msgstr "Note"
+msgstr "Nota"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 #: src/utils/resume/section.tsx
@@ -2870,25 +2870,25 @@ msgstr "Notas"
 
 #: src/utils/locale.ts
 msgid "Odia"
-msgstr "Odia"
+msgstr "Oriya"
 
 #. placeholder {0}: formatDefaultDate(item.reviewedAt)
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "on {0}"
-msgstr ""
+msgstr "el {0}"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Only employers with permission can use these fields for filtering."
-msgstr "Only employers with permission can use these fields for filtering."
+msgstr "Solo los empleadores con permiso pueden usar estos campos para filtrar."
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "Only PDF, JPG, JPEG, and PNG files are allowed."
-msgstr "Only PDF, JPG, JPEG, and PNG files are allowed."
+msgstr "Solo se permiten archivos PDF, JPG, JPEG y PNG."
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "Only PDF, JPG, JPEG, PNG, and ZIP files are allowed."
-msgstr ""
+msgstr "Solo se permiten archivos PDF, JPG, JPEG, PNG y ZIP."
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "Only your assigned reviewer sees the assignments you submit. On your public profile, you decide which verified skills to display — everything else stays private."
@@ -2915,16 +2915,16 @@ msgstr "Abrir cliente de correo"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Open Link"
-msgstr ""
+msgstr "Abrir enlace"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Open Profile"
-msgstr "Open Profile"
+msgstr "Abrir perfil"
 
 #: src/routes/dashboard/verification/index.tsx
 #: src/routes/dashboard/verification/index.tsx
 msgid "Open submitted link"
-msgstr ""
+msgstr "Abrir enlace enviado"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "OpenAI"
@@ -2942,7 +2942,7 @@ msgstr "Optimizar el resumen, la experiencia y las habilidades para {0}"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Optional notes for the applicant..."
-msgstr "Optional notes for the applicant..."
+msgstr "Notas opcionales para el solicitante..."
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 msgid "Optionally, set a password so that only people with the password can view your resume through the link."
@@ -2963,11 +2963,11 @@ msgstr "Organización"
 
 #: src/routes/dashboard/admin/ai.tsx
 msgid "Organization-wide AI"
-msgstr "Organization-wide AI"
+msgstr "IA para toda la organización"
 
 #: src/routes/dashboard/admin/job-search.tsx
 msgid "Organization-wide Job Search"
-msgstr "Organization-wide Job Search"
+msgstr "Búsqueda de empleo para toda la organización"
 
 #: src/dialogs/resume/sections/experience.tsx
 msgid "Overall Period"
@@ -2980,25 +2980,25 @@ msgstr "Título general (opcional)"
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/pending-verdicts.tsx
 msgid "Override"
-msgstr "Override"
+msgstr "Anular"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Override Conclusion"
-msgstr ""
+msgstr "Anular conclusión"
 
 #: src/routes/dashboard/admin/pending-verdicts.tsx
 msgid "Override Decision"
-msgstr "Override Decision"
+msgstr "Anular decisión"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/pending-verdicts.tsx
 msgid "Override to "
-msgstr "Override to "
+msgstr "Cambiar a "
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/pending-verdicts.tsx
 msgid "Overriding..."
-msgstr "Overriding..."
+msgstr "Anulando..."
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Oxford University"
@@ -3018,7 +3018,7 @@ msgstr "Página {0}"
 #. placeholder {1}: data.total
 #: src/routes/dashboard/admin/users.tsx
 msgid "Page {0} of {totalPages} — {1} users"
-msgstr "Page {0} of {totalPages} — {1} users"
+msgstr "Página {0} de {totalPages} — {1} usuarios"
 
 #. placeholder {0}: pageIndex + 1
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
@@ -3031,7 +3031,7 @@ msgstr "Página {currentPage}"
 
 #: src/routes/dashboard/admin/-components/admin-list-pagination.tsx
 msgid "Page {page} of {totalPages} — {total} results"
-msgstr ""
+msgstr "Página {page} de {totalPages} — {total} resultados"
 
 #: src/components/resume/preview.tsx
 msgid "Page {pageNumber} of {totalNumberOfPages}"
@@ -3047,7 +3047,7 @@ msgstr "A tiempo parcial"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Pass"
-msgstr ""
+msgstr "Aprobado"
 
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Pass the review to earn a verified skill badge, boost your profile visibility, and let opportunities come to you."
@@ -3081,17 +3081,17 @@ msgstr "La protección con contraseña se ha habilitado."
 #: src/routes/dashboard/admin/users.tsx
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Pending"
-msgstr "Pending"
+msgstr "Pendiente"
 
 #: src/routes/dashboard/-components/sidebar.tsx
 #: src/routes/dashboard/admin/pending-verdicts.tsx
 #: src/routes/dashboard/admin/pending-verdicts.tsx
 msgid "Pending Verdicts"
-msgstr "Pending Verdicts"
+msgstr "Veredictos pendientes"
 
 #: src/routes/dashboard/-components/sidebar-identity-verification-status.tsx
 msgid "Pending verification"
-msgstr "Pending verification"
+msgstr "Verificación pendiente"
 
 #: src/dialogs/resume/sections/education.tsx
 #: src/dialogs/resume/sections/experience.tsx
@@ -3125,7 +3125,7 @@ msgstr "Elija una presentación que dé prioridad a la verificación y los resul
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Pick a region to fill in your authorization details. Statuses already filled are shown next to each region."
-msgstr "Pick a region to fill in your authorization details. Statuses already filled are shown next to each region."
+msgstr "Elige una región para completar los datos de tu permiso de trabajo. Los estados ya completados se muestran junto a cada región."
 
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Pick skills to verify"
@@ -3141,7 +3141,7 @@ msgstr "Estadísticas de la plataforma"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Please complete the required work authorization fields before saving."
-msgstr "Please complete the required work authorization fields before saving."
+msgstr "Completa los campos obligatorios del permiso de trabajo antes de guardar."
 
 #: src/routes/auth/reset-password.tsx
 msgid "Please enter a new password for your account"
@@ -3157,15 +3157,15 @@ msgstr "Introduce la URL a la que quieres enlazar:"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Please select a resume before saving."
-msgstr "Please select a resume before saving."
+msgstr "Selecciona un currículum antes de guardar."
 
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "Please upload a PDF or image file."
-msgstr ""
+msgstr "Sube un archivo PDF o una imagen."
 
 #: src/dialogs/resume/import.tsx
 msgid "Please wait for AI availability to finish loading, then try again."
-msgstr "Please wait for AI availability to finish loading, then try again."
+msgstr "Espera a que termine de cargarse la disponibilidad de la IA e inténtalo de nuevo."
 
 #: src/routes/builder/$resumeId/-components/dock.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/export.tsx
@@ -3208,7 +3208,7 @@ msgstr "Presiona <0>{RETURN_KEY}</0> o <1>{COMMA_KEY}</1> para agregar o guardar
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Preview"
-msgstr "Preview"
+msgstr "Vista previa"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Preview of a verified candidate profile"
@@ -3227,7 +3227,7 @@ msgstr "Color primario"
 #: src/routes/dashboard/-components/sidebar.tsx
 #: src/routes/dashboard/settings/privacy.tsx
 msgid "Privacy"
-msgstr "Privacy"
+msgstr "Privacidad"
 
 #: src/routes/_home/-sections/footer.tsx
 msgid "Product"
@@ -3247,11 +3247,11 @@ msgstr "Perfil"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Profile image URL"
-msgstr "Profile image URL"
+msgstr "URL de la imagen de perfil"
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "Profile link: {freelancerUrl}. Submit your verification request?"
-msgstr "Profile link: {freelancerUrl}. Submit your verification request?"
+msgstr "Enlace del perfil: {freelancerUrl}. ¿Enviar tu solicitud de verificación?"
 
 #: src/dialogs/resume/sections/custom.tsx
 #: src/utils/resume/section.tsx
@@ -3264,11 +3264,11 @@ msgstr "Barra de progreso"
 
 #: src/routes/dashboard/reviewer/-components/reviewer-context-panels.tsx
 msgid "Project"
-msgstr ""
+msgstr "Proyecto"
 
 #: src/routes/dashboard/reviewer/-components/reviewer-context-panels.tsx
 msgid "Project context"
-msgstr ""
+msgstr "Contexto del proyecto"
 
 #: src/dialogs/resume/sections/custom.tsx
 #: src/routes/_home/-sections/hero-visual.tsx
@@ -3284,29 +3284,29 @@ msgstr "Prueba primero"
 #: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "Proposed outcome"
-msgstr ""
+msgstr "Resultado propuesto"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Proposed verdict"
-msgstr ""
+msgstr "Veredicto propuesto"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/pending-verdicts.tsx
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "Proposed: Fail"
-msgstr ""
+msgstr "Propuesto: Suspenso"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/pending-verdicts.tsx
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "Proposed: Issue"
-msgstr ""
+msgstr "Propuesto: Incidencia"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/pending-verdicts.tsx
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "Proposed: Pass"
-msgstr ""
+msgstr "Propuesto: Aprobado"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 msgid "Protect your resume from unauthorized access with a password"
@@ -3314,7 +3314,7 @@ msgstr "Protege tu currículum del acceso no autorizado con una contraseña"
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "Provide a file or solution URL."
-msgstr ""
+msgstr "Proporciona un archivo o una URL de la solución."
 
 #: src/routes/dashboard/admin/ai.tsx
 msgid "Provider"
@@ -3322,15 +3322,15 @@ msgstr "Proveedor"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Providers"
-msgstr "Providers"
+msgstr "Proveedores"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Public"
-msgstr "Public"
+msgstr "Público"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Public profile"
-msgstr ""
+msgstr "Perfil público"
 
 #: src/dialogs/resume/sections/custom.tsx
 #: src/utils/resume/section.tsx
@@ -3351,7 +3351,7 @@ msgstr "Panel de Python/Django con visualizaciones interactivas"
 
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "Queue"
-msgstr ""
+msgstr "Cola"
 
 #. placeholder {0}: quota.remaining
 #: src/routes/dashboard/job-search/index.tsx
@@ -3372,7 +3372,7 @@ msgstr "Aplicación móvil React Native con sincronización en tiempo real"
 
 #: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
 msgid "Ready"
-msgstr ""
+msgstr "Listo"
 
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Receive a practical assignment from your reviewer, submit your work, and get actionable feedback in a real conversation."
@@ -3380,7 +3380,7 @@ msgstr "Reciba una tarea práctica de su revisor, envíe su trabajo y obtenga co
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Recent sessions"
-msgstr "Recent sessions"
+msgstr "Sesiones recientes"
 
 #: src/dialogs/resume/sections/cover-letter.tsx
 msgid "Recipient"
@@ -3388,7 +3388,7 @@ msgstr "Destinatario"
 
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "Recording..."
-msgstr ""
+msgstr "Registrando..."
 
 #: src/components/level/combobox.tsx
 msgid "Rectangle"
@@ -3415,23 +3415,23 @@ msgstr "Actualizar"
 
 #: src/dialogs/resume/ai-review.tsx
 msgid "Regenerate review"
-msgstr "Regenerate review"
+msgstr "Regenerar revisión"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Region"
-msgstr "Region"
+msgstr "Región"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Rejected/issue"
-msgstr "Rejected/issue"
+msgstr "Rechazado/incidencia"
 
 #: src/routes/dashboard/reviewer/-components/reviewer-context-panels.tsx
 msgid "Related experience"
-msgstr ""
+msgstr "Experiencia relacionada"
 
 #: src/routes/dashboard/reviewer/-components/reviewer-context-panels.tsx
 msgid "Related keywords"
-msgstr ""
+msgstr "Palabras clave relacionadas"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Relay"
@@ -3461,7 +3461,7 @@ msgstr "Quitar contraseña"
 
 #: src/components/ai/chat.tsx
 msgid "Removed"
-msgstr "Removed"
+msgstr "Eliminado"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 msgid "Removing password protection..."
@@ -3477,7 +3477,7 @@ msgstr "Reordenar"
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "Request"
-msgstr "Request"
+msgstr "Solicitud"
 
 #: src/routes/auth/verify-email.tsx
 msgid "Request a new link"
@@ -3485,7 +3485,7 @@ msgstr "Solicitar un nuevo enlace"
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "Request verification for the items on your resume. Skills are reviewed by domain-expert reviewers, while work experience is confirmed from documents or a freelancer profile link."
-msgstr ""
+msgstr "Solicita la verificación de los elementos de tu currículum. Las habilidades las revisan expertos en la materia, mientras que la experiencia laboral se confirma mediante documentos o un enlace a tu perfil de freelancer."
 
 #: src/routes/dashboard/job-search/-components/job-detail.tsx
 msgid "Required Skills"
@@ -3494,7 +3494,7 @@ msgstr "Habilidades requeridas"
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/pending-verdicts.tsx
 msgid "Required: reason for overriding this verdict..."
-msgstr "Required: reason for overriding this verdict..."
+msgstr "Obligatorio: motivo para anular este veredicto..."
 
 #: src/routes/auth/verify-email.tsx
 #: src/routes/dashboard/settings/profile.tsx
@@ -3516,7 +3516,7 @@ msgstr "Restablecer"
 #: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "Reset filters"
-msgstr ""
+msgstr "Restablecer filtros"
 
 #: src/routes/auth/reset-password.tsx
 msgid "Reset Password"
@@ -3533,15 +3533,15 @@ msgstr "Restableciendo tu contraseña..."
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Resolved"
-msgstr ""
+msgstr "Resuelto"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Resume"
-msgstr "Resume"
+msgstr "Currículum"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Resume footprint"
-msgstr "Resume footprint"
+msgstr "Resumen de currículums"
 
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
@@ -3571,82 +3571,82 @@ msgstr "Vuelva a intentarlo"
 
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Retry Identity Verification"
-msgstr "Retry Identity Verification"
+msgstr "Reintentar verificación de identidad"
 
 #: src/routes/dashboard/admin/experience-queue.tsx
 #: src/routes/dashboard/admin/identity.tsx
 #: src/routes/dashboard/admin/pending-verdicts.tsx
 msgid "Review"
-msgstr "Review"
+msgstr "Revisar"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Review Decision"
-msgstr "Review Decision"
+msgstr "Decisión de revisión"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Review notes"
-msgstr ""
+msgstr "Notas de revisión"
 
 #: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Reviewable skills"
-msgstr ""
+msgstr "Habilidades revisables"
 
 #. placeholder {0}: item.reviewedBy.name
 #. placeholder {1}: item.reviewedBy.email
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Reviewed by {0} ({1})"
-msgstr ""
+msgstr "Revisado por {0} ({1})"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Reviewed by Skill Verdict Admin"
-msgstr ""
+msgstr "Revisado por un administrador de Skill Verdict"
 
 #: src/routes/dashboard/-components/sidebar.tsx
 #: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Reviewer"
-msgstr ""
+msgstr "Revisor"
 
 #: src/routes/dashboard/-components/sidebar.tsx
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Reviewer Admin"
-msgstr "Reviewer Admin"
+msgstr "Administrador de revisores"
 
 #: src/routes/reviewer/$adminId.tsx
 msgid "Reviewer ID"
-msgstr ""
+msgstr "ID del revisor"
 
 #: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
 #: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
 msgid "Reviewer profile"
-msgstr ""
+msgstr "Perfil del revisor"
 
 #: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
 msgid "Reviewer profile created."
-msgstr ""
+msgstr "Perfil de revisor creado."
 
 #: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
 msgid "Reviewer profile updated."
-msgstr ""
+msgstr "Perfil de revisor actualizado."
 
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "Reviewer setup required"
-msgstr ""
+msgstr "Se requiere configurar el revisor"
 
 #: src/routes/reviewer/$adminId.tsx
 msgid "Reviewer since {memberSince}"
-msgstr "Reviewer since {memberSince}"
+msgstr "Revisor desde {memberSince}"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/pending-verdicts.tsx
 msgid "Reviewer:"
-msgstr ""
+msgstr "Revisor:"
 
 #: src/routes/dashboard/-components/sidebar.tsx
 #: src/routes/dashboard/admin/reviewers.tsx
 msgid "Reviewers"
-msgstr ""
+msgstr "Revisores"
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Reviewers don't see who they're assessing, so your skills are judged on their merit — not your background."
@@ -3663,11 +3663,11 @@ msgstr "Alinear a la derecha"
 #: src/routes/dashboard/admin/users.tsx
 #: src/routes/dashboard/reviewer/-components/reviewer-context-panels.tsx
 msgid "Role"
-msgstr "Role"
+msgstr "Rol"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Role assigned"
-msgstr "Role assigned"
+msgstr "Rol asignado"
 
 #: src/dialogs/resume/sections/experience.tsx
 msgid "Role Progression"
@@ -3675,7 +3675,7 @@ msgstr "Progresión de puestos"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Role updated"
-msgstr "Role updated"
+msgstr "Rol actualizado"
 
 #: src/utils/locale.ts
 msgid "Romanian"
@@ -3691,7 +3691,7 @@ msgstr "Ruso"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Save"
-msgstr "Save"
+msgstr "Guardar"
 
 #. placeholder {0}: selectedSkills.size
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
@@ -3701,7 +3701,7 @@ msgstr "Guardar {0} Habilidades"
 #: src/routes/dashboard/admin/ai.tsx
 #: src/routes/dashboard/admin/job-search.tsx
 msgid "Save and verify"
-msgstr "Save and verify"
+msgstr "Guardar y verificar"
 
 #: src/dialogs/resume/index.tsx
 #: src/dialogs/resume/sections/award.tsx
@@ -3725,24 +3725,24 @@ msgstr "Guardar cambios"
 
 #: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
 msgid "Save reviewer profile"
-msgstr ""
+msgstr "Guardar perfil de revisor"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Save work authorization"
-msgstr "Save work authorization"
+msgstr "Guardar permiso de trabajo"
 
 #: src/routes/dashboard/admin/ai.tsx
 #: src/routes/dashboard/admin/job-search.tsx
 msgid "Saved, but the connection test did not succeed"
-msgstr "Saved, but the connection test did not succeed"
+msgstr "Guardado, pero la prueba de conexión no tuvo éxito"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Saving..."
-msgstr "Saving..."
+msgstr "Guardando..."
 
 #: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
 msgid "Saving…"
-msgstr ""
+msgstr "Guardando…"
 
 #: src/dialogs/auth/enable-two-factor.tsx
 msgid "Scan the QR code below with your preferred authenticator app. You can also copy the secret below and paste it into your app."
@@ -3750,11 +3750,11 @@ msgstr "Escanea el código QR de abajo con tu aplicación de autenticación pref
 
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Schedule Identity Verification"
-msgstr "Schedule Identity Verification"
+msgstr "Programar verificación de identidad"
 
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Scheduling is not currently available."
-msgstr "Scheduling is not currently available."
+msgstr "La programación no está disponible en este momento."
 
 #: src/dialogs/resume/sections/education.tsx
 msgid "School"
@@ -3769,7 +3769,7 @@ msgstr "Busque en"
 
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "Search categories…"
-msgstr ""
+msgstr "Buscar categorías…"
 
 #: src/components/command-palette/index.tsx
 msgid "Search commands"
@@ -3791,25 +3791,25 @@ msgstr "Buscar..."
 #: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "Search outcomes…"
-msgstr ""
+msgstr "Buscar resultados…"
 
 #: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "Search skills…"
-msgstr ""
+msgstr "Buscar habilidades…"
 
 #: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
 #: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
 #: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "Search statuses…"
-msgstr ""
+msgstr "Buscar estados…"
 
 #: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
 #: src/routes/dashboard/admin/-components/admin-verification-filters.tsx
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "Search types…"
-msgstr ""
+msgstr "Buscar tipos…"
 
 #: src/components/command-palette/index.tsx
 #: src/components/ui/combobox.tsx
@@ -3834,7 +3834,7 @@ msgstr "Vea cómo funciona la verificación"
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "Select a payslip, contract, or other proof of employment (PDF, JPG, PNG, max 5MB)."
-msgstr "Select a payslip, contract, or other proof of employment (PDF, JPG, PNG, max 5MB)."
+msgstr "Selecciona una nómina, un contrato u otro justificante de empleo (PDF, JPG, PNG, máx. 5 MB)."
 
 #. placeholder {0}: job.job_title
 #. placeholder {1}: job.employer_name
@@ -3849,27 +3849,27 @@ msgstr "Seleccione el país"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Select region"
-msgstr "Select region"
+msgstr "Seleccionar región"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Select resume"
-msgstr "Select resume"
+msgstr "Seleccionar currículum"
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "Select Resume"
-msgstr "Select Resume"
+msgstr "Seleccionar currículum"
 
 #: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
 msgid "Select skills…"
-msgstr ""
+msgstr "Seleccionar habilidades…"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Select sponsorship requirement"
-msgstr "Select sponsorship requirement"
+msgstr "Seleccionar necesidad de patrocinio"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Select status"
-msgstr "Select status"
+msgstr "Seleccionar estado"
 
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Select the skills you want endorsed and choose a reviewer for a personalized, scenario-based assessment."
@@ -3881,7 +3881,7 @@ msgstr "Seleccionar..."
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "Selected file:"
-msgstr ""
+msgstr "Archivo seleccionado:"
 
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "Self-starter"
@@ -3913,7 +3913,7 @@ msgstr "Serbio"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Session summary"
-msgstr "Session summary"
+msgstr "Resumen de sesiones"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
@@ -3931,7 +3931,7 @@ msgstr "Configuración"
 #: src/routes/dashboard/admin/ai.tsx
 #: src/routes/dashboard/admin/job-search.tsx
 msgid "Settings saved"
-msgstr "Settings saved"
+msgstr "Configuración guardada"
 
 #: src/dialogs/auth/enable-two-factor.tsx
 msgid "Setup Authenticator App"
@@ -3971,22 +3971,22 @@ msgstr "Mostrar enlace en el título"
 #: src/routes/dashboard/settings/privacy.tsx
 #: src/routes/dashboard/settings/privacy.tsx
 msgid "Show or hide the verification timeline on your public CV. This is off by default."
-msgstr "Show or hide the verification timeline on your public CV. This is off by default."
+msgstr "Muestra u oculta la cronología de verificación en tu CV público. Está desactivada de forma predeterminada."
 
 #: src/routes/dashboard/settings/privacy.tsx
 msgid "Show Timeline on Public CV"
-msgstr "Show Timeline on Public CV"
+msgstr "Mostrar cronología en el CV público"
 
 #. placeholder {0}: items.length
 #: src/routes/dashboard/admin/experience-queue.tsx
 #: src/routes/dashboard/admin/identity.tsx
 msgid "Showing {0} of {total} pending requests"
-msgstr ""
+msgstr "Mostrando {0} de {total} solicitudes pendientes"
 
 #. placeholder {0}: items.length
 #: src/routes/dashboard/admin/pending-verdicts.tsx
 msgid "Showing {0} of {total} pending verdicts"
-msgstr ""
+msgstr "Mostrando {0} de {total} veredictos pendientes"
 
 #: src/components/ui/sidebar.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/layout/pages.tsx
@@ -4063,15 +4063,15 @@ msgstr "Tamaño"
 
 #: src/routes/dashboard/admin/reviewers.tsx
 msgid "skill"
-msgstr ""
+msgstr "habilidad"
 
 #: src/routes/dashboard/reviewer/-components/reviewer-context-panels.tsx
 msgid "Skill"
-msgstr ""
+msgstr "Habilidad"
 
 #: src/routes/dashboard/-components/sidebar.tsx
 msgid "Skill Center"
-msgstr "Skill Center"
+msgstr "Centro de habilidades"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Skill clusters"
@@ -4079,12 +4079,12 @@ msgstr "Grupos de habilidades"
 
 #: src/routes/dashboard/reviewer/-components/reviewer-context-panels.tsx
 msgid "Skill context"
-msgstr ""
+msgstr "Contexto de la habilidad"
 
 #: src/routes/dashboard/-components/sidebar.tsx
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "Skill Review Queue"
-msgstr ""
+msgstr "Cola de revisión de habilidades"
 
 #: src/routes/_home/-sections/header.tsx
 msgid "Skill Verdict - Go to homepage"
@@ -4093,15 +4093,15 @@ msgstr "Veredicto de habilidad - Ir a la página de inicio"
 #: src/routes/dashboard/-components/sidebar.tsx
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Skill Verdict Admin"
-msgstr "Skill Verdict Admin"
+msgstr "Administrador de Skill Verdict"
 
 #: src/routes/dashboard/-components/sidebar.tsx
 msgid "Skill Verdict Verification"
-msgstr "Skill Verdict Verification"
+msgstr "Verificación de Skill Verdict"
 
 #: src/routes/dashboard/admin/reviewers.tsx
 msgid "skills"
-msgstr ""
+msgstr "habilidades"
 
 #: src/dialogs/resume/sections/custom.tsx
 #: src/routes/dashboard/reviewer/queue.tsx
@@ -4124,7 +4124,7 @@ msgstr "Eslovaco"
 
 #: src/utils/locale.ts
 msgid "Slovenian"
-msgstr "Slovenian"
+msgstr "Esloveno"
 
 #: src/dialogs/resume/index.tsx
 msgid "Slug"
@@ -4132,11 +4132,11 @@ msgstr "Slug"
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "Solution submitted"
-msgstr ""
+msgstr "Solución enviada"
 
 #: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 msgid "Some suggestions could not be applied"
-msgstr "Some suggestions could not be applied"
+msgstr "No se pudieron aplicar algunas sugerencias"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
@@ -4166,11 +4166,11 @@ msgstr "Dividir paneles de identidad y pruebas; mantiene el contexto de la perso
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Sponsorship"
-msgstr "Sponsorship"
+msgstr "Patrocinio"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Sponsorship required"
-msgstr "Sponsorship required"
+msgstr "Se requiere patrocinio"
 
 #: src/components/level/combobox.tsx
 #: src/routes/builder/$resumeId/-sidebar/left/sections/picture.tsx
@@ -4205,7 +4205,7 @@ msgstr "Estadísticas"
 #: src/routes/dashboard/reviewer/queue.tsx
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Status"
-msgstr "Status"
+msgstr "Estado"
 
 #: src/hooks/use-form-blocker.tsx
 msgid "Stay"
@@ -4226,46 +4226,46 @@ msgstr "Tachado"
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/pending-verdicts.tsx
 msgid "Submit Override"
-msgstr "Submit Override"
+msgstr "Enviar anulación"
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "Submit Request"
-msgstr "Submit Request"
+msgstr "Enviar solicitud"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Submit Review"
-msgstr "Submit Review"
+msgstr "Enviar revisión"
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "Submit solution"
-msgstr ""
+msgstr "Enviar solución"
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "Submit your solution"
-msgstr ""
+msgstr "Envía tu solución"
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "Submit?"
-msgstr "Submit?"
+msgstr "¿Enviar?"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Submitted"
-msgstr ""
+msgstr "Enviado"
 
 #: src/routes/dashboard/verification/index.tsx
 #: src/routes/dashboard/verification/index.tsx
 msgid "Submitted on"
-msgstr ""
+msgstr "Enviado el"
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "Submitted solution"
-msgstr ""
+msgstr "Solución enviada"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/verification/index.tsx
 msgid "Submitting..."
-msgstr "Submitting..."
+msgstr "Enviando..."
 
 #: src/dialogs/resume/sections/custom.tsx
 #: src/utils/resume/section.tsx
@@ -4286,11 +4286,11 @@ msgstr "Cambiar a tema claro"
 
 #: src/components/user/dropdown-menu.tsx
 msgid "Switch to Reviewer Mode"
-msgstr ""
+msgstr "Cambiar al modo revisor"
 
 #: src/components/user/dropdown-menu.tsx
 msgid "Switch to User Mode"
-msgstr ""
+msgstr "Cambiar al modo usuario"
 
 #: src/components/input/rich-input.tsx
 msgid "Table"
@@ -4348,7 +4348,7 @@ msgstr "Galería de plantillas"
 #: src/routes/dashboard/admin/ai.tsx
 #: src/routes/dashboard/admin/job-search.tsx
 msgid "Test connection"
-msgstr "Test connection"
+msgstr "Probar conexión"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/design.tsx
 msgid "Text Color"
@@ -4376,7 +4376,7 @@ msgstr "La contraseña que introdujiste es incorrecta"
 
 #: src/routes/dashboard/admin/job-search.tsx
 msgid "The RapidAPI key is stored in the database and used for all users. Once configured and verified, every signed-in user can search for job listings via the JSearch API. Only Skill Verdict administrators can change this configuration."
-msgstr "The RapidAPI key is stored in the database and used for all users. Once configured and verified, every signed-in user can search for job listings via the JSearch API. Only Skill Verdict administrators can change this configuration."
+msgstr "La clave de RapidAPI se guarda en la base de datos y se usa para todos los usuarios. Una vez configurada y verificada, cualquier usuario con sesión iniciada puede buscar ofertas de empleo a través de la API de JSearch. Solo los administradores de Skill Verdict pueden cambiar esta configuración."
 
 #: src/routes/auth/resume-password.tsx
 msgid "The resume you are trying to access is password protected"
@@ -4412,7 +4412,7 @@ msgstr "Ha habido un problema al generar el PDF, inténtalo de nuevo dentro de u
 
 #: src/components/ai/chat.tsx
 msgid "Thinking..."
-msgstr "Thinking..."
+msgstr "Pensando..."
 
 #: src/routes/builder/$resumeId/-components/header.tsx
 #: src/routes/dashboard/resumes/-components/menus/context-menu.tsx
@@ -4426,7 +4426,7 @@ msgstr "Esta acción no se puede deshacer. Todos tus datos se eliminarán perman
 
 #: src/dialogs/resume/import.tsx
 msgid "This import option is not available right now. Please try another format."
-msgstr "This import option is not available right now. Please try another format."
+msgstr "Esta opción de importación no está disponible ahora mismo. Prueba con otro formato."
 
 #: src/dialogs/resume/index.tsx
 msgid "This is a URL-friendly name for your resume."
@@ -4434,7 +4434,7 @@ msgstr "Este es un nombre compatible con URL para tu currículum."
 
 #: src/dialogs/resume/import.tsx
 msgid "This may take a few minutes. Please do not close the window or refresh the page."
-msgstr "This may take a few minutes. Please do not close the window or refresh the page."
+msgstr "Esto puede tardar unos minutos. No cierres la ventana ni actualices la página."
 
 #: src/routes/builder/$resumeId/-components/dock.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/export.tsx
@@ -4447,7 +4447,7 @@ msgstr "Este mes"
 
 #: src/routes/reviewer/$adminId.tsx
 msgid "This page shows live profile information of a reviewer. Verification snapshots captured at the time of review may differ from the current details shown here."
-msgstr ""
+msgstr "Esta página muestra la información actual del perfil de un revisor. Los datos de verificación registrados en el momento de la revisión pueden diferir de los detalles actuales que se muestran aquí."
 
 #: src/components/resume/store/resume.ts
 msgid "This resume is locked and cannot be updated."
@@ -4507,23 +4507,23 @@ msgstr "Alternar barra lateral"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Total keys"
-msgstr "Total keys"
+msgstr "Total de claves"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Total request count"
-msgstr "Total request count"
+msgstr "Número total de solicitudes"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Total requests"
-msgstr "Total requests"
+msgstr "Total de solicitudes"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Total resumes"
-msgstr "Total resumes"
+msgstr "Total de currículums"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Total sessions"
-msgstr "Total sessions"
+msgstr "Total de sesiones"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/statistics.tsx
 msgid "Track your resume's views and downloads"
@@ -4597,7 +4597,7 @@ msgstr "Código QR de autenticación de dos factores"
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/users.tsx
 msgid "Two-factor enabled"
-msgstr "Two-factor enabled"
+msgstr "Doble factor activado"
 
 #: src/routes/_home/-sections/templates.tsx
 msgid "Two-pane"
@@ -4631,7 +4631,7 @@ msgstr "Ucraniano"
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "Unable to load verification history right now."
-msgstr "Unable to load verification history right now."
+msgstr "No se puede cargar el historial de verificación en este momento."
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Under 3 years"
@@ -4653,7 +4653,7 @@ msgstr "Deshacer (Ctrl+Z)"
 #: src/routes/dashboard/admin/identity.tsx
 #: src/routes/dashboard/admin/pending-verdicts.tsx
 msgid "Unknown applicant"
-msgstr "Unknown applicant"
+msgstr "Solicitante desconocido"
 
 #: src/routes/dashboard/settings/authentication/-components/hooks.tsx
 msgid "Unlinking your {providerName} account..."
@@ -4756,7 +4756,7 @@ msgstr "Actualiza tu contraseña"
 #: src/routes/dashboard/admin/users.tsx
 #: src/routes/dashboard/admin/users.tsx
 msgid "Updated"
-msgstr "Updated"
+msgstr "Actualizado"
 
 #: src/dialogs/auth/change-password.tsx
 msgid "Updating your password..."
@@ -4768,20 +4768,20 @@ msgstr "Actualizando tu currículum..."
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "Upload a file or share a link (for example, a GitHub repository). At least one is required."
-msgstr ""
+msgstr "Sube un archivo o comparte un enlace (por ejemplo, un repositorio de GitHub). Se requiere al menos uno."
 
 #. placeholder {0}: item.itemLabel
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "Upload assessment instructions for \"{0}\". The applicant will receive them by email and on their Verification dashboard."
-msgstr ""
+msgstr "Sube las instrucciones de la evaluación para \"{0}\". El solicitante las recibirá por correo electrónico y en su panel de verificación."
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "Upload Document"
-msgstr "Upload Document"
+msgstr "Subir documento"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Uploaded documents"
-msgstr "Uploaded documents"
+msgstr "Documentos subidos"
 
 #: src/routes/builder/$resumeId/-sidebar/left/sections/picture.tsx
 msgid "Uploading picture..."
@@ -4789,7 +4789,7 @@ msgstr "Subiendo imagen..."
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "Uploading..."
-msgstr "Uploading..."
+msgstr "Subiendo..."
 
 #: src/routes/builder/$resumeId/-sidebar/left/sections/picture.tsx
 msgid "URL"
@@ -4797,7 +4797,7 @@ msgstr "URL"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "User ID"
-msgstr "User ID"
+msgstr "ID de usuario"
 
 #: src/dialogs/resume/sections/profile.tsx
 #: src/routes/auth/register.tsx
@@ -4809,7 +4809,7 @@ msgstr "Usuario"
 #: src/routes/dashboard/-components/sidebar.tsx
 #: src/routes/dashboard/admin/users.tsx
 msgid "Users"
-msgstr "Users"
+msgstr "Usuarios"
 
 #: src/utils/locale.ts
 msgid "Uzbek"
@@ -4821,72 +4821,72 @@ msgstr "Las URL válidas deben comenzar con http:// o https://."
 
 #: src/routes/dashboard/admin/pending-verdicts.tsx
 msgid "Verdict confirmed."
-msgstr ""
+msgstr "Veredicto confirmado."
 
 #: src/routes/dashboard/admin/pending-verdicts.tsx
 msgid "Verdict confirmed. Request flagged as issue."
-msgstr ""
+msgstr "Veredicto confirmado. Solicitud marcada como incidencia."
 
 #: src/routes/dashboard/admin/pending-verdicts.tsx
 msgid "Verdict confirmed. Request rejected."
-msgstr ""
+msgstr "Veredicto confirmado. Solicitud rechazada."
 
 #: src/routes/dashboard/admin/pending-verdicts.tsx
 msgid "Verdict confirmed. Skill verified."
-msgstr ""
+msgstr "Veredicto confirmado. Habilidad verificada."
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Verdict notes"
-msgstr ""
+msgstr "Notas del veredicto"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/pending-verdicts.tsx
 msgid "Verdict overridden successfully."
-msgstr "Verdict overridden successfully."
+msgstr "Veredicto anulado correctamente."
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Verdict pending"
-msgstr "Verdict pending"
+msgstr "Veredicto pendiente"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Verdict submitted"
-msgstr ""
+msgstr "Veredicto enviado"
 
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "Verdict submitted for admin confirmation."
-msgstr ""
+msgstr "Veredicto enviado para confirmación del administrador."
 
 #: src/routes/dashboard/-components/sidebar.tsx
 #: src/routes/dashboard/admin/users.tsx
 #: src/routes/dashboard/verification/index.tsx
 #: src/routes/dashboard/verification/index.tsx
 msgid "Verification"
-msgstr "Verification"
+msgstr "Verificación"
 
 #: src/routes/dashboard/settings/privacy.tsx
 msgid "Verification Badges"
-msgstr "Verification Badges"
+msgstr "Insignias de verificación"
 
 #: src/routes/$username/$slug.tsx
 msgid "Verification History"
-msgstr "Verification History"
+msgstr "Historial de verificación"
 
 #: src/routes/dashboard/settings/privacy.tsx
 #: src/routes/dashboard/settings/privacy.tsx
 msgid "Verification History Timeline"
-msgstr "Verification History Timeline"
+msgstr "Cronología del historial de verificación"
 
 #. placeholder {0}: item.label
 #: src/routes/dashboard/verification/index.tsx
 msgid "Verification requested for \"{0}\"."
-msgstr "Verification requested for \"{0}\"."
+msgstr "Verificación solicitada para \"{0}\"."
 
 #: src/routes/dashboard/verification/index.tsx
 #: src/routes/dashboard/verification/index.tsx
 #: src/routes/dashboard/verification/index.tsx
 #: src/routes/dashboard/verification/index.tsx
 msgid "verified"
-msgstr "verified"
+msgstr "verificado"
 
 #: src/routes/dashboard/admin/users.tsx
 #: src/routes/dashboard/settings/profile.tsx
@@ -4898,7 +4898,7 @@ msgstr "Verificada"
 #: src/routes/$username/$slug.tsx
 #: src/routes/dashboard/verification/index.tsx
 msgid "Verified by {0}"
-msgstr "Verified by {0}"
+msgstr "Verificado por {0}"
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Verified skill badges"
@@ -4932,7 +4932,7 @@ msgstr "Verifica tu correo electrónico"
 
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Verify your identity through a short video call. This adds trust to your resume."
-msgstr "Verify your identity through a short video call. This adds trust to your resume."
+msgstr "Verifica tu identidad mediante una breve videollamada. Esto aporta confianza a tu currículum."
 
 #: src/routes/auth/verify-2fa-backup.tsx
 msgid "Verifying backup code..."
@@ -4953,21 +4953,21 @@ msgstr "Vietnamita"
 
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "View"
-msgstr ""
+msgstr "Ver"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "View details"
-msgstr "View details"
+msgstr "Ver detalles"
 
 #: src/routes/$username/$slug.tsx
 #: src/routes/dashboard/verification/index.tsx
 msgid "View profile"
-msgstr ""
+msgstr "Ver perfil"
 
 #: src/routes/dashboard/verification/index.tsx
 #: src/routes/dashboard/verification/index.tsx
 msgid "View submitted file"
-msgstr ""
+msgstr "Ver archivo enviado"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/statistics.tsx
 msgid "Views"
@@ -4975,19 +4975,19 @@ msgstr "Visualizaciones"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Views / downloads"
-msgstr "Views / downloads"
+msgstr "Vistas / descargas"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Visa authorization"
-msgstr "Visa authorization"
+msgstr "Autorización de visado"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Visa type (optional)"
-msgstr "Visa type (optional)"
+msgstr "Tipo de visado (opcional)"
 
 #: src/routes/dashboard/admin/users.tsx
 msgid "Visibility"
-msgstr "Visibility"
+msgstr "Visibilidad"
 
 #: src/dialogs/resume/sections/custom.tsx
 #: src/utils/resume/section.tsx
@@ -5036,20 +5036,20 @@ msgstr "Por qué los candidatos nos eligen"
 #: src/routes/dashboard/-components/sidebar.tsx
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Work Authorization"
-msgstr "Work Authorization"
+msgstr "Permiso de trabajo"
 
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Work authorization saved."
-msgstr "Work authorization saved."
+msgstr "Permiso de trabajo guardado."
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "Work Experience"
-msgstr "Work Experience"
+msgstr "Experiencia laboral"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Yes"
-msgstr "Yes"
+msgstr "Sí"
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "Yes. Add or remove skills any time, and request re-verification as you level up. Your profile is designed to evolve with your career."
@@ -5069,7 +5069,7 @@ msgstr "Ahora puedes usar la recuperación de cuenta y otras funciones que requi
 
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "You have no active cases."
-msgstr ""
+msgstr "No tienes casos activos."
 
 #: src/hooks/use-form-blocker.tsx
 msgid "You have unsaved changes that will be lost."
@@ -5109,7 +5109,7 @@ msgstr "Tu dirección de correo electrónico está confirmada. Puedes seguir usa
 
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Your identity has been verified and your profile is trusted."
-msgstr "Your identity has been verified and your profile is trusted."
+msgstr "Tu identidad ha sido verificada y tu perfil es de confianza."
 
 #: src/routes/auth/reset-password.tsx
 msgid "Your password has been reset successfully. You can now sign in with your new password."
@@ -5121,7 +5121,7 @@ msgstr "Tu contraseña se ha actualizado con éxito."
 
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Your previous identity verification was unsuccessful. You may try again."
-msgstr "Your previous identity verification was unsuccessful. You may try again."
+msgstr "Tu anterior verificación de identidad no tuvo éxito. Puedes intentarlo de nuevo."
 
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Your profile has been updated successfully."
@@ -5156,23 +5156,23 @@ msgstr "El enlace público de tu currículum está actualmente protegido con con
 
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "Your review notes"
-msgstr ""
+msgstr "Tus notas de revisión"
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "Your reviewer has accepted your request. Download the instructions, complete the assessment, then submit your solution below."
-msgstr ""
+msgstr "Tu revisor ha aceptado tu solicitud. Descarga las instrucciones, completa la evaluación y envía tu solución a continuación."
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "Your reviewer has completed their assessment. Your submission is now awaiting final approval from Skill Verdict Admin. You will be notified by email once a final decision is made."
-msgstr ""
+msgstr "Tu revisor ha completado su evaluación. Tu envío está pendiente de la aprobación final de un administrador de Skill Verdict. Te avisaremos por correo electrónico cuando se tome una decisión final."
 
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "Your reviewer profile has not been created yet. Ask a Skill Verdict Admin to assign your reviewer role and create your public reviewer profile before accepting cases."
-msgstr ""
+msgstr "Tu perfil de revisor aún no se ha creado. Pide a un administrador de Skill Verdict que te asigne el rol de revisor y cree tu perfil público de revisor antes de aceptar casos."
 
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Your verification call has been scheduled. Our team will review and confirm your identity shortly."
-msgstr "Your verification call has been scheduled. Our team will review and confirm your identity shortly."
+msgstr "Tu llamada de verificación ha sido programada. Nuestro equipo revisará y confirmará tu identidad en breve."
 
 #: src/routes/builder/$resumeId/-components/dock.tsx
 #: src/routes/builder/$resumeId/-components/dock.tsx

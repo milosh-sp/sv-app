@@ -225,7 +225,7 @@ const incomingLayoutSchema = z
   });
 
 const setBuilderLayoutServerFn = createServerFn({ method: "POST" })
-  .inputValidator(incomingLayoutSchema)
+  .validator(incomingLayoutSchema)
   .handler(async ({ data }) => {
     setCookie(BUILDER_LAYOUT_COOKIE_NAME, JSON.stringify(data));
   });

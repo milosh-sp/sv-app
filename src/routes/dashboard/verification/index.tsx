@@ -85,7 +85,9 @@ function RouteComponent() {
   const [selectedResumeId, setSelectedResumeId] = useState<string | null>(null);
 
   const { data: resumes } = useSuspenseQuery(
-    orpc.resume.list.queryOptions({ input: { tags: [], sort: "lastUpdatedAt" } }),
+    orpc.resume.list.queryOptions({
+      input: { tags: [], sort: "lastUpdatedAt" },
+    }),
   );
 
   const firstResumeId = resumes?.[0]?.id ?? null;
@@ -143,7 +145,9 @@ function RouteComponent() {
     items.filter((item) => getStatusForItem(item.id)?.status === "verified").length;
 
   const invalidateStatuses = () => {
-    void queryClient.invalidateQueries({ queryKey: orpc.verification.getAllStatuses.queryOptions().queryKey });
+    void queryClient.invalidateQueries({
+      queryKey: orpc.verification.getAllStatuses.queryOptions().queryKey,
+    });
   };
 
   if (!resumes || resumes.length === 0) {
@@ -156,7 +160,12 @@ function RouteComponent() {
         </p>
         <Button
           size="sm"
-          onClick={() => void navigate({ to: "/dashboard/resumes", search: { sort: "lastUpdatedAt", tags: [] } })}
+          onClick={() =>
+            void navigate({
+              to: "/dashboard/resumes",
+              search: { sort: "lastUpdatedAt", tags: [] },
+            })
+          }
         >
           <Trans>Create a new resume</Trans>
         </Button>
@@ -210,7 +219,10 @@ function RouteComponent() {
               groups={skillGroups}
               getStatusForItem={getStatusForItem}
               verifiedCount={countVerified(
-                verifiableSkills.map((unit) => ({ id: unit.itemId, label: unit.itemLabel })),
+                verifiableSkills.map((unit) => ({
+                  id: unit.itemId,
+                  label: unit.itemLabel,
+                })),
               )}
               totalCount={verifiableSkills.length}
               onMutationSuccess={invalidateStatuses}
