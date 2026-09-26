@@ -237,6 +237,7 @@ const config = defineConfig({
   build: {
     sourcemap: true,
     chunkSizeWarningLimit: 10 * 1024, // 10mb
+    rolldownOptions: { checks: { pluginTimings: false } },
   },
 
   server: {
