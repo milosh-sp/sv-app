@@ -42,7 +42,7 @@ const productionPool = new Pool({ connectionString: productionUrl });
 const localPool = new Pool({ connectionString: localUrl });
 
 const productionDb = drizzle({ client: productionPool });
-const localDb = drizzle({ client: localPool, schema });
+const localDb = drizzle({ client: localPool, relations: schema.relations });
 
 // == Persistent mapping file paths ==
 const USER_ID_MAP_FILE = "./scripts/migration/user-id-map.json";

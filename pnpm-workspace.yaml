@@ -1,0 +1,24 @@
+allowBuilds:
+  "@prisma/engines": false
+  bcrypt: true
+  esbuild: true
+  msw: true
+  prisma: false
+  sharp: true
+
+overrides:
+  # keep one core for better-auth and its plugins (their ^1.6 peer otherwise auto-installs core 1.7); bump with better-auth
+  "@better-auth/core": ~1.6.33
+  "@isaacs/brace-expansion": ^5.0.1
+  ajv: ^8.20.0
+  basic-ftp: ^6.0.1
+  fast-xml-parser: ^5.10.0
+  hono: ^4.12.29
+  lodash: ^4.18.1
+  markdown-it: ^14.3.0
+  minimatch: ^10.2.5
+  qs: ^6.15.3
+  serialize-javascript: ^7.0.7
+  # vite-plus, vite-plus-core and vitest only work as a matched set: bump all three together (vitest = vite-plus's own vitest dependency)
+  vite: npm:@voidzero-dev/vite-plus-core@0.3.3
+  vitest: 4.1.11

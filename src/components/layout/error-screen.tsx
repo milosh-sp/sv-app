@@ -18,7 +18,7 @@ export function ErrorScreen({ error, reset }: ErrorComponentProps) {
         <AlertTitle>
           <Trans>An error occurred while loading the page.</Trans>
         </AlertTitle>
-        <AlertDescription>{error.message}</AlertDescription>
+        <AlertDescription>{error instanceof Error ? error.message : String(error)}</AlertDescription>
       </Alert>
 
       <Button onClick={reset}>
