@@ -217,6 +217,7 @@ const config = defineConfig({
       "no-unused-vars": ["warn", { argsIgnorePattern: "^_", varsIgnorePattern: "^_" }],
       "jest/require-to-throw-message": "off",
       "vitest/require-to-throw-message": "off",
+      "vitest/require-mock-type-parameters": "off",
       "typescript/consistent-type-imports": "error",
     },
   },
