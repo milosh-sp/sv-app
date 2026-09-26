@@ -110,7 +110,7 @@
     "shadcn": "^4.21.0",
     "sharp": "^0.35.4",
     "sonner": "^2.0.8",
-    "srvx": "^0.11.22",
+    "srvx": "^1.0.5",
     "tailwind-merge": "^3.7.0",
     "tailwindcss": "^4.3.3",
     "ts-pattern": "^5.9.0",
