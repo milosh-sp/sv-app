@@ -212,6 +212,7 @@ const config = defineConfig({
     rules: {
       "react/exhaustive-deps": "off",
       "jest/require-to-throw-message": "off",
+      "vitest/require-to-throw-message": "off",
       "typescript/consistent-type-imports": "error",
     },
   },

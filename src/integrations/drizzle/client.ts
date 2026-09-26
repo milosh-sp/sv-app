@@ -11,7 +11,7 @@ import * as schema from "./schema";
 
 declare global {
   var __pool: Pool | undefined;
-  var __drizzle: NodePgDatabase<typeof schema> | undefined;
+  var __drizzle: NodePgDatabase<typeof schema.relations> | undefined;
 }
 
 function getPool() {
@@ -23,7 +23,7 @@ function getPool() {
 
 function makeDrizzleClient() {
   const pool = getPool();
-  return drizzle({ client: pool, schema });
+  return drizzle({ client: pool, relations: schema.relations });
 }
 
 const getDatabaseServerFn = createServerOnlyFn(() => {
