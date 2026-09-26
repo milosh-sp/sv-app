@@ -16,7 +16,7 @@ import {
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useParams } from "@tanstack/react-router";
 import { motion } from "motion/react";
-import { useCallback, useMemo } from "react";
+import { useMemo } from "react";
 import { useHotkeys } from "react-hotkeys-hook";
 import { useControls } from "react-zoom-pan-pinch";
 import { toast } from "sonner";
@@ -71,21 +71,21 @@ export function BuilderDock() {
     return `${window.location.origin}/${session.user.username}/${resume.slug}`;
   }, [session?.user.username, resume?.slug]);
 
-  const onCopyUrl = useCallback(async () => {
+  const onCopyUrl = async () => {
     await copyToClipboard(publicUrl);
     toast.success(t`A link to your resume has been copied to clipboard.`);
-  }, [publicUrl, copyToClipboard]);
+  };
 
-  const onDownloadJSON = useCallback(async () => {
+  const onDownloadJSON = () => {
     if (!resume?.data) return;
     const filename = generateFilename(resume.name, "json");
     const jsonString = JSON.stringify(resume.data, null, 2);
     const blob = new Blob([jsonString], { type: "application/json" });
 
     downloadWithAnchor(blob, filename);
-  }, [resume?.data]);
+  };
 
-  const onDownloadDOCX = useCallback(async () => {
+  const onDownloadDOCX = async () => {
     if (!resume?.data) return;
     const filename = generateFilename(resume.name, "docx");
 
@@ -95,9 +95,9 @@ export function BuilderDock() {
     } catch {
       toast.error(t`There was a problem while generating the DOCX, please try again.`);
     }
-  }, [resume?.data]);
+  };
 
-  const onDownloadPDF = useCallback(async () => {
+  const onDownloadPDF = async () => {
     if (!resume?.id) return;
 
     const filename = generateFilename(resume.name, "pdf");
@@ -113,7 +113,7 @@ export function BuilderDock() {
     } finally {
       toast.dismiss(toastId);
     }
-  }, [resume?.id, resume?.name, printResumeAsPDF]);
+  };
 
   if (isMobile) {
     return (
