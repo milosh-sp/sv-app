@@ -18,10 +18,10 @@ import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
 import { orpc } from "@/integrations/orpc/client";
 import {
-    defaultWorkAuthorizationData,
-    sponsorshipRequirementSchema,
-    workAuthorizationSchema,
-    workAuthorizationStatusSchema,
+  defaultWorkAuthorizationData,
+  sponsorshipRequirementSchema,
+  workAuthorizationSchema,
+  workAuthorizationStatusSchema,
 } from "@/schema/resume/data";
 
 import { DashboardHeader } from "../-components/header";
