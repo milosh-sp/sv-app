@@ -373,8 +373,6 @@ export function DocumentPreview({
     if (!expanded || isExternalLink) return;
 
     let cancelled = false;
-    setRenderType("loading");
-    setObjectUrl(null);
 
     void (async () => {
       try {
@@ -417,6 +415,7 @@ export function DocumentPreview({
         blobUrlRef.current = null;
       }
       setObjectUrl(null);
+      setRenderType("loading");
     };
   }, [expanded, fileUrl, isExternalLink]);
 

@@ -4,7 +4,7 @@ import { UserListIcon } from "@phosphor-icons/react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Link, createFileRoute, useNavigate, useRouteContext } from "@tanstack/react-router";
 import { zodValidator } from "@tanstack/zod-adapter";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { toast } from "sonner";
 import { useDebounceCallback } from "usehooks-ts";
 import z from "zod";
@@ -92,9 +92,12 @@ function AdminUsersSearchField({
   onCommittedQChange: (q: string) => void;
 }) {
   const [qInput, setQInput] = useState(committedQ);
-  useEffect(() => {
+  const [prevCommittedQ, setPrevCommittedQ] = useState(committedQ);
+
+  if (committedQ !== prevCommittedQ) {
+    setPrevCommittedQ(committedQ);
     setQInput(committedQ);
-  }, [committedQ]);
+  }
 
   return (
     <div className="space-y-1.5 md:col-span-2">
@@ -300,8 +303,14 @@ function UserRoleRow({
   onExpandedChange: (expanded: boolean) => void;
   onSave: (role: "skill_verdict_admin" | "reviewer_admin" | null) => void;
 }) {
-  const [draft, setDraft] = useState(() => roleToSelectValue(user.adminRole));
   const serverValue = roleToSelectValue(user.adminRole);
+  const [draft, setDraft] = useState(serverValue);
+  const [prevServerValue, setPrevServerValue] = useState(serverValue);
+
+  if (serverValue !== prevServerValue) {
+    setPrevServerValue(serverValue);
+    setDraft(serverValue);
+  }
   const isDirty = draft !== serverValue;
   const detailsQuery = useQuery({
     ...orpc.admin.users.getUserOverview.queryOptions({
@@ -310,10 +319,6 @@ function UserRoleRow({
     enabled: expanded,
   });
   const workAuthorization = detailsQuery.data?.workAuthorization ?? null;
-
-  useEffect(() => {
-    setDraft(roleToSelectValue(user.adminRole));
-  }, [user.adminRole]);
 
   const created =
     typeof user.createdAt === "string"

@@ -4,7 +4,7 @@ import { BrainIcon, CheckCircleIcon, InfoIcon, XCircleIcon } from "@phosphor-ico
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "motion/react";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { toast } from "sonner";
 import { useIsClient } from "usehooks-ts";
 
@@ -72,14 +72,16 @@ function AdminAiForm() {
   const [baseURL, setBaseURL] = useState("");
   const [testStatus, setTestStatus] = useState<TestStatus>("unverified");
 
-  useEffect(() => {
-    if (!settings || isLoading) return;
+  const [syncedSettings, setSyncedSettings] = useState<typeof settings>();
+
+  if (settings && settings !== syncedSettings) {
+    setSyncedSettings(settings);
     setProvider(settings.provider);
     setModel(settings.model);
     setBaseURL(settings.baseURL);
     setTestStatus(settings.connectionTestOk ? "success" : "unverified");
     setApiKey("");
-  }, [settings, isLoading]);
+  }
 
   const selectedOption = useMemo(() => {
     return providerOptions.find((option) => option.value === provider);

@@ -1,6 +1,6 @@
 import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Combobox, type ComboboxOption } from "@/components/ui/combobox";
@@ -52,10 +52,12 @@ function AdminVerificationSearchField({
   onCommittedQChange: (q: string) => void;
 }) {
   const [qInput, setQInput] = useState(committedQ);
+  const [prevCommittedQ, setPrevCommittedQ] = useState(committedQ);
 
-  useEffect(() => {
+  if (committedQ !== prevCommittedQ) {
+    setPrevCommittedQ(committedQ);
     setQInput(committedQ);
-  }, [committedQ]);
+  }
 
   return (
     <div className="space-y-1.5 md:col-span-2">

@@ -1,7 +1,7 @@
 import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
@@ -216,22 +216,16 @@ function ReviewerProfileForm({
   const [lastName, setLastName] = useState("");
   const [title, setTitle] = useState("");
   const [reviewerSkills, setReviewerSkills] = useState<string[]>([]);
+  const [syncedFrom, setSyncedFrom] = useState<{ profile: ProfileData; userName: string } | null>(null);
 
-  useEffect(() => {
-    if (profile) {
-      setFirstName(profile.firstName);
-      setLastName(profile.lastName);
-      setTitle(profile.title);
-      setReviewerSkills(profile.reviewerSkills ?? []);
-      return;
-    }
-
+  if (!syncedFrom || syncedFrom.profile !== profile || syncedFrom.userName !== userName) {
+    setSyncedFrom({ profile, userName });
     const nameParts = userName.trim().split(/\s+/);
-    setFirstName(nameParts[0] ?? "");
-    setLastName(nameParts.slice(1).join(" "));
-    setTitle("");
-    setReviewerSkills([]);
-  }, [profile, userName]);
+    setFirstName(profile ? profile.firstName : (nameParts[0] ?? ""));
+    setLastName(profile ? profile.lastName : nameParts.slice(1).join(" "));
+    setTitle(profile ? profile.title : "");
+    setReviewerSkills(profile?.reviewerSkills ?? []);
+  }
 
   const skillOptions = useMemo(
     () => buildReviewerSkillOptions(profile?.reviewerSkills ?? reviewerSkills),

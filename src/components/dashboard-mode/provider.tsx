@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useNavigate, useRouteContext, useRouter } from "@tanstack/react-router";
-import { createContext, type PropsWithChildren, use, useEffect, useState } from "react";
+import { createContext, type PropsWithChildren, use, useState } from "react";
 
 import { getAdminRoleQueryOptionsForUser } from "@/integrations/orpc/get-admin-role-query-options";
 import {
@@ -28,10 +28,12 @@ export function DashboardModeProvider({ children, dashboardMode }: ProviderProps
   const navigate = useNavigate();
   const { session } = useRouteContext({ strict: false });
   const [cookieMode, setCookieMode] = useState(dashboardMode);
+  const [prevDashboardMode, setPrevDashboardMode] = useState(dashboardMode);
 
-  useEffect(() => {
+  if (dashboardMode !== prevDashboardMode) {
+    setPrevDashboardMode(dashboardMode);
     setCookieMode(dashboardMode);
-  }, [dashboardMode]);
+  }
 
   const { data: adminRole } = useQuery({
     ...getAdminRoleQueryOptionsForUser(session?.user?.id ?? ""),
