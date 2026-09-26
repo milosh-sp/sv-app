@@ -18,7 +18,10 @@ const plugins = [
     ? [
         lingui({ failOnCompileError: true }),
         tailwindcss(),
-        nitro({ plugins: ["plugins/1.migrate.ts"] }),
+        nitro({
+          plugins: ["plugins/1.migrate.ts"],
+          rolldownConfig: { checks: { moduleLevelDirective: false } },
+        }),
         babel({ plugins: ["@lingui/babel-plugin-lingui-macro"] }) as unknown as PluginOption,
         VitePWA({
           outDir: "public",
