@@ -183,6 +183,10 @@ msgstr ""
 msgid "Accept case"
 msgstr ""
 
+#: src/routes/dashboard/-components/contact-status.tsx
+msgid "Accepted"
+msgstr "Đã chấp nhận"
+
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "Accepting..."
 msgstr ""
@@ -377,6 +381,10 @@ msgstr ""
 #: src/routes/dashboard/admin/users.tsx
 msgid "All roles"
 msgstr "All roles"
+
+#: src/routes/dashboard/-components/contact-status.tsx
+msgid "All statuses"
+msgstr ""
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 msgid "Allow Public Access"
@@ -916,6 +924,10 @@ msgstr "Compact signal row for endorsements and recency — less chrome, more \"
 msgid "Company"
 msgstr "Công ty"
 
+#: src/routes/dashboard/contact-requests.tsx
+msgid "Company email shared after you accept"
+msgstr ""
+
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Complete the assessment"
 msgstr "Complete the assessment"
@@ -976,6 +988,32 @@ msgstr "Consent"
 
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "Consent recorded. You can now submit verdicts."
+msgstr ""
+
+#: src/routes/dashboard/company/-components/candidate-actions.tsx
+msgid "Contact"
+msgstr "Liên hệ"
+
+#: src/routes/dashboard/contact-requests.tsx
+msgid "Contact accepted."
+msgstr ""
+
+#: src/routes/dashboard/contact-requests.tsx
+msgid "Contact declined."
+msgstr ""
+
+#: src/routes/dashboard/-components/sidebar.tsx
+#: src/routes/dashboard/company/contacts.tsx
+msgid "Contact History"
+msgstr "Lịch sử liên hệ"
+
+#: src/routes/dashboard/company/-components/candidate-actions.tsx
+msgid "Contact request sent."
+msgstr "Yêu cầu liên hệ đã được gửi."
+
+#: src/routes/dashboard/-components/sidebar.tsx
+#: src/routes/dashboard/contact-requests.tsx
+msgid "Contact Requests"
 msgstr ""
 
 #: src/routes/_home/-sections/footer.tsx
@@ -1041,6 +1079,26 @@ msgstr "Không thể lấy được các công việc"
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Could not load the selected resume. Please choose another resume and try again."
 msgstr "Could not load the selected resume. Please choose another resume and try again."
+
+#: src/routes/dashboard/company/-components/candidate-resume-preview.tsx
+msgid "Could not load this candidate's resume."
+msgstr "Không thể tải sơ yếu lý lịch của ứng viên này."
+
+#: src/routes/dashboard/company/match.tsx
+msgid "Could not match candidates"
+msgstr "Không thể phù hợp với ứng viên"
+
+#: src/routes/dashboard/company/-components/candidate-actions.tsx
+msgid "Could not send contact request."
+msgstr "Không thể gửi yêu cầu liên hệ."
+
+#: src/routes/dashboard/contact-requests.tsx
+msgid "Could not update contact request."
+msgstr ""
+
+#: src/routes/dashboard/company/-components/candidate-actions.tsx
+msgid "Could not update saved list."
+msgstr "Không thể cập nhật danh sách đã lưu."
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Country"
@@ -1253,6 +1311,14 @@ msgstr "Ngày"
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Date Posted"
 msgstr "Ngày đăng"
+
+#: src/routes/dashboard/contact-requests.tsx
+msgid "Decline"
+msgstr ""
+
+#: src/routes/dashboard/-components/contact-status.tsx
+msgid "Declined"
+msgstr "Bị từ chối"
 
 #: src/dialogs/resume/sections/education.tsx
 msgid "Degree"
@@ -1517,6 +1583,10 @@ msgstr "Email"
 msgid "Email Address"
 msgstr "Địa chỉ Email"
 
+#: src/routes/dashboard/company/contacts.tsx
+msgid "Email hidden until accepted"
+msgstr "Email ẩn cho đến khi được chấp nhận"
+
 #: src/routes/auth/verify-email.tsx
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/users.tsx
@@ -1737,6 +1807,14 @@ msgstr "Không đồng bộ hóa được các kỹ năng"
 msgid "FAQ"
 msgstr "FAQ"
 
+#: src/routes/dashboard/company/-components/candidate-actions.tsx
+msgid "Favorite"
+msgstr "Yêu thích"
+
+#: src/routes/dashboard/company/saved.tsx
+msgid "Favorites"
+msgstr "Yêu thích"
+
 #: src/routes/_home/-sections/footer.tsx
 msgid "Features"
 msgstr "Tính năng"
@@ -1795,6 +1873,10 @@ msgstr ""
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "Final verdict differed from your proposal."
 msgstr ""
+
+#: src/routes/dashboard/company/match.tsx
+msgid "Find matches"
+msgstr "Tìm trận đấu"
 
 #: src/utils/locale.ts
 msgid "Finnish"
@@ -2126,6 +2208,10 @@ msgstr "Identity verification request cancelled."
 msgid "Identity verification requested. Please check your email for next steps."
 msgstr "Identity verification requested. Please check your email for next steps."
 
+#: src/routes/dashboard/company/-components/candidate-verification-summary.tsx
+msgid "Identity verified"
+msgstr "Đã xác minh danh tính"
+
 #: src/routes/dashboard/-components/sidebar-identity-verification-status.tsx
 msgid "Identity Verified"
 msgstr "Identity Verified"
@@ -2212,6 +2298,10 @@ msgstr "Tiếng Nhật"
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "JavaScript"
 msgstr "JavaScript"
+
+#: src/routes/dashboard/company/match.tsx
+msgid "Job description"
+msgstr "Mô tả công việc"
 
 #: src/routes/dashboard/-components/sidebar.tsx
 #: src/routes/dashboard/job-search/index.tsx
@@ -2420,6 +2510,10 @@ msgstr "Loading preview…"
 msgid "Loading queue..."
 msgstr "Loading queue..."
 
+#: src/routes/dashboard/company/-components/candidate-resume-preview.tsx
+msgid "Loading resume…"
+msgstr "Đang tải sơ yếu lý lịch…"
+
 #: src/components/command-palette/pages/resumes.tsx
 msgid "Loading resumes..."
 msgstr "Đang tải sơ yếu lý lịch..."
@@ -2517,6 +2611,11 @@ msgstr "Lề (Ngang)"
 #: src/routes/builder/$resumeId/-sidebar/right/sections/page.tsx
 msgid "Margin (Vertical)"
 msgstr "Lề (Dọc)"
+
+#. placeholder {0}: candidate.matchScore
+#: src/routes/dashboard/company/match.tsx
+msgid "Match score: {0}%"
+msgstr "Tỷ số trận đấu: {0}%"
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Maximum Salary"
@@ -2664,6 +2763,10 @@ msgstr "No approved identity documents."
 msgid "No approved identity information."
 msgstr "No approved identity information."
 
+#: src/routes/dashboard/company/saved.tsx
+msgid "No candidates marked to contact later."
+msgstr "Không có ứng viên nào được đánh dấu để liên hệ sau."
+
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "No cases match the selected filters."
 msgstr ""
@@ -2696,6 +2799,14 @@ msgstr ""
 msgid "No concluded verdicts yet."
 msgstr ""
 
+#: src/routes/dashboard/company/contacts.tsx
+msgid "No contact requests yet."
+msgstr "Chưa có yêu cầu liên hệ nào."
+
+#: src/routes/dashboard/contact-requests.tsx
+msgid "No contact requests."
+msgstr ""
+
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "No degree required"
 msgstr "Không yêu cầu bằng cấp"
@@ -2715,6 +2826,10 @@ msgstr ""
 #: src/routes/dashboard/admin/experience-queue.tsx
 msgid "No experience verification requests pending."
 msgstr "No experience verification requests pending."
+
+#: src/routes/dashboard/company/saved.tsx
+msgid "No favorite candidates yet."
+msgstr "Chưa có ứng cử viên yêu thích."
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "No history available."
@@ -2767,6 +2882,10 @@ msgstr ""
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "No matching types."
 msgstr ""
+
+#: src/routes/dashboard/company/match.tsx
+msgid "No matching vetted candidates found. Try adjusting the job description."
+msgstr "Không tìm thấy ứng cử viên đã được hiệu đính nào phù hợp. Hãy thử điều chỉnh mô tả công việc."
 
 #: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
 msgid "No profile"
@@ -2912,6 +3031,10 @@ msgstr "Mở cài đặt thiết kế"
 #: src/routes/auth/forgot-password.tsx
 msgid "Open Email Client"
 msgstr "Mở ứng dụng Email"
+
+#: src/routes/dashboard/company/-components/candidate-resume-preview.tsx
+msgid "Open full CV"
+msgstr "Mở CV đầy đủ"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Open Link"
@@ -3077,6 +3200,10 @@ msgstr "Bảo vệ bằng mật khẩu đã bị tắt."
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 msgid "Password protection has been enabled."
 msgstr "Bảo vệ bằng mật khẩu đã được bật."
+
+#: src/routes/dashboard/company/match.tsx
+msgid "Paste a job description to find closely matching vetted candidates…"
+msgstr "Dán mô tả công việc để tìm các ứng viên phù hợp nhất…"
 
 #: src/routes/dashboard/admin/users.tsx
 #: src/routes/dashboard/settings/profile.tsx
@@ -3731,6 +3858,14 @@ msgstr ""
 msgid "Save work authorization"
 msgstr "Save work authorization"
 
+#: src/routes/dashboard/-components/sidebar.tsx
+msgid "Saved"
+msgstr "Đã lưu"
+
+#: src/routes/dashboard/company/saved.tsx
+msgid "Saved Candidates"
+msgstr "Ứng viên đã lưu"
+
 #: src/routes/dashboard/admin/ai.tsx
 #: src/routes/dashboard/admin/job-search.tsx
 msgid "Saved, but the connection test did not succeed"
@@ -3766,6 +3901,14 @@ msgstr "Trường"
 #: src/routes/dashboard/job-search/index.tsx
 msgid "Search"
 msgstr "Tìm kiếm"
+
+#: src/routes/dashboard/company/contacts.tsx
+msgid "Search by candidate name"
+msgstr ""
+
+#: src/routes/dashboard/company/contacts.tsx
+msgid "Search by candidate name…"
+msgstr "Tìm kiếm theo tên ứng viên…"
 
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "Search categories…"
@@ -4130,6 +4273,11 @@ msgstr "Slovenian"
 msgid "Slug"
 msgstr "Slug"
 
+#: src/routes/dashboard/-components/sidebar.tsx
+#: src/routes/dashboard/company/match.tsx
+msgid "Smart AI Search"
+msgstr "Tìm kiếm AI thông minh"
+
 #: src/routes/dashboard/verification/index.tsx
 msgid "Solution submitted"
 msgstr ""
@@ -4489,6 +4637,11 @@ msgstr "Mẹo: Bạn có thể đặt tên hồ sơ theo vị trí bạn đang �
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Title"
 msgstr "Tiêu đề"
+
+#: src/routes/dashboard/company/-components/candidate-actions.tsx
+#: src/routes/dashboard/company/saved.tsx
+msgid "To contact"
+msgstr "Để liên hệ"
 
 #: src/routes/dashboard/settings/danger-zone.tsx
 msgid "To delete your account, you need to enter the confirmation text and click the button below."
@@ -4900,6 +5053,10 @@ msgstr "Đã xác minh"
 msgid "Verified by {0}"
 msgstr "Verified by {0}"
 
+#: src/routes/dashboard/company/-components/candidate-verification-summary.tsx
+msgid "Verified experience"
+msgstr "Trải nghiệm đã được xác minh"
+
 #: src/routes/_home/-sections/features.tsx
 msgid "Verified skill badges"
 msgstr "Verified skill badges"
@@ -4946,6 +5103,10 @@ msgstr "Đang xác minh mã..."
 #: src/routes/auth/resume-password.tsx
 msgid "Verifying password..."
 msgstr "Đang xác minh mật khẩu..."
+
+#: src/routes/dashboard/company/-components/candidate-detail-sheet.tsx
+msgid "Vetted candidate"
+msgstr "ứng cử viên được hiệu đính"
 
 #: src/utils/locale.ts
 msgid "Vietnamese"

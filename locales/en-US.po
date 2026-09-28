@@ -178,6 +178,10 @@ msgstr "Accept & send instructions"
 msgid "Accept case"
 msgstr "Accept case"
 
+#: src/routes/dashboard/-components/contact-status.tsx
+msgid "Accepted"
+msgstr "Accepted"
+
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "Accepting..."
 msgstr "Accepting..."
@@ -372,6 +376,10 @@ msgstr "All methods"
 #: src/routes/dashboard/admin/users.tsx
 msgid "All roles"
 msgstr "All roles"
+
+#: src/routes/dashboard/-components/contact-status.tsx
+msgid "All statuses"
+msgstr "All statuses"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 msgid "Allow Public Access"
@@ -911,6 +919,10 @@ msgstr "Compact signal row for endorsements and recency — less chrome, more \"
 msgid "Company"
 msgstr "Company"
 
+#: src/routes/dashboard/contact-requests.tsx
+msgid "Company email shared after you accept"
+msgstr "Company email shared after you accept"
+
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Complete the assessment"
 msgstr "Complete the assessment"
@@ -972,6 +984,32 @@ msgstr "Consent"
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "Consent recorded. You can now submit verdicts."
 msgstr "Consent recorded. You can now submit verdicts."
+
+#: src/routes/dashboard/company/-components/candidate-actions.tsx
+msgid "Contact"
+msgstr "Contact"
+
+#: src/routes/dashboard/contact-requests.tsx
+msgid "Contact accepted."
+msgstr "Contact accepted."
+
+#: src/routes/dashboard/contact-requests.tsx
+msgid "Contact declined."
+msgstr "Contact declined."
+
+#: src/routes/dashboard/-components/sidebar.tsx
+#: src/routes/dashboard/company/contacts.tsx
+msgid "Contact History"
+msgstr "Contact History"
+
+#: src/routes/dashboard/company/-components/candidate-actions.tsx
+msgid "Contact request sent."
+msgstr "Contact request sent."
+
+#: src/routes/dashboard/-components/sidebar.tsx
+#: src/routes/dashboard/contact-requests.tsx
+msgid "Contact Requests"
+msgstr "Contact Requests"
 
 #: src/routes/_home/-sections/footer.tsx
 msgid "Contact us"
@@ -1036,6 +1074,26 @@ msgstr "Could not fetch jobs"
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Could not load the selected resume. Please choose another resume and try again."
 msgstr "Could not load the selected resume. Please choose another resume and try again."
+
+#: src/routes/dashboard/company/-components/candidate-resume-preview.tsx
+msgid "Could not load this candidate's resume."
+msgstr "Could not load this candidate's resume."
+
+#: src/routes/dashboard/company/match.tsx
+msgid "Could not match candidates"
+msgstr "Could not match candidates"
+
+#: src/routes/dashboard/company/-components/candidate-actions.tsx
+msgid "Could not send contact request."
+msgstr "Could not send contact request."
+
+#: src/routes/dashboard/contact-requests.tsx
+msgid "Could not update contact request."
+msgstr "Could not update contact request."
+
+#: src/routes/dashboard/company/-components/candidate-actions.tsx
+msgid "Could not update saved list."
+msgstr "Could not update saved list."
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Country"
@@ -1248,6 +1306,14 @@ msgstr "Date"
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Date Posted"
 msgstr "Date Posted"
+
+#: src/routes/dashboard/contact-requests.tsx
+msgid "Decline"
+msgstr "Decline"
+
+#: src/routes/dashboard/-components/contact-status.tsx
+msgid "Declined"
+msgstr "Declined"
 
 #: src/dialogs/resume/sections/education.tsx
 msgid "Degree"
@@ -1512,6 +1578,10 @@ msgstr "Email"
 msgid "Email Address"
 msgstr "Email Address"
 
+#: src/routes/dashboard/company/contacts.tsx
+msgid "Email hidden until accepted"
+msgstr "Email hidden until accepted"
+
 #: src/routes/auth/verify-email.tsx
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/users.tsx
@@ -1732,6 +1802,14 @@ msgstr "Failed to sync skills"
 msgid "FAQ"
 msgstr "FAQ"
 
+#: src/routes/dashboard/company/-components/candidate-actions.tsx
+msgid "Favorite"
+msgstr "Favorite"
+
+#: src/routes/dashboard/company/saved.tsx
+msgid "Favorites"
+msgstr "Favorites"
+
 #: src/routes/_home/-sections/footer.tsx
 msgid "Features"
 msgstr "Features"
@@ -1790,6 +1868,10 @@ msgstr "Final Decision"
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "Final verdict differed from your proposal."
 msgstr "Final verdict differed from your proposal."
+
+#: src/routes/dashboard/company/match.tsx
+msgid "Find matches"
+msgstr "Find matches"
 
 #: src/utils/locale.ts
 msgid "Finnish"
@@ -2121,6 +2203,10 @@ msgstr "Identity verification request cancelled."
 msgid "Identity verification requested. Please check your email for next steps."
 msgstr "Identity verification requested. Please check your email for next steps."
 
+#: src/routes/dashboard/company/-components/candidate-verification-summary.tsx
+msgid "Identity verified"
+msgstr "Identity verified"
+
 #: src/routes/dashboard/-components/sidebar-identity-verification-status.tsx
 msgid "Identity Verified"
 msgstr "Identity Verified"
@@ -2207,6 +2293,10 @@ msgstr "Japanese"
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "JavaScript"
 msgstr "JavaScript"
+
+#: src/routes/dashboard/company/match.tsx
+msgid "Job description"
+msgstr "Job description"
 
 #: src/routes/dashboard/-components/sidebar.tsx
 #: src/routes/dashboard/job-search/index.tsx
@@ -2415,6 +2505,10 @@ msgstr "Loading preview…"
 msgid "Loading queue..."
 msgstr "Loading queue..."
 
+#: src/routes/dashboard/company/-components/candidate-resume-preview.tsx
+msgid "Loading resume…"
+msgstr "Loading resume…"
+
 #: src/components/command-palette/pages/resumes.tsx
 msgid "Loading resumes..."
 msgstr "Loading resumes..."
@@ -2512,6 +2606,11 @@ msgstr "Margin (Horizontal)"
 #: src/routes/builder/$resumeId/-sidebar/right/sections/page.tsx
 msgid "Margin (Vertical)"
 msgstr "Margin (Vertical)"
+
+#. placeholder {0}: candidate.matchScore
+#: src/routes/dashboard/company/match.tsx
+msgid "Match score: {0}%"
+msgstr "Match score: {0}%"
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Maximum Salary"
@@ -2659,6 +2758,10 @@ msgstr "No approved identity documents."
 msgid "No approved identity information."
 msgstr "No approved identity information."
 
+#: src/routes/dashboard/company/saved.tsx
+msgid "No candidates marked to contact later."
+msgstr "No candidates marked to contact later."
+
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "No cases match the selected filters."
 msgstr "No cases match the selected filters."
@@ -2691,6 +2794,14 @@ msgstr "No concluded verdicts match the selected filters."
 msgid "No concluded verdicts yet."
 msgstr "No concluded verdicts yet."
 
+#: src/routes/dashboard/company/contacts.tsx
+msgid "No contact requests yet."
+msgstr "No contact requests yet."
+
+#: src/routes/dashboard/contact-requests.tsx
+msgid "No contact requests."
+msgstr "No contact requests."
+
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "No degree required"
 msgstr "No degree required"
@@ -2710,6 +2821,10 @@ msgstr "No experience verification requests match the selected filters."
 #: src/routes/dashboard/admin/experience-queue.tsx
 msgid "No experience verification requests pending."
 msgstr "No experience verification requests pending."
+
+#: src/routes/dashboard/company/saved.tsx
+msgid "No favorite candidates yet."
+msgstr "No favorite candidates yet."
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "No history available."
@@ -2762,6 +2877,10 @@ msgstr "No matching statuses."
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "No matching types."
 msgstr "No matching types."
+
+#: src/routes/dashboard/company/match.tsx
+msgid "No matching vetted candidates found. Try adjusting the job description."
+msgstr "No matching vetted candidates found. Try adjusting the job description."
 
 #: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
 msgid "No profile"
@@ -2907,6 +3026,10 @@ msgstr "Open design settings"
 #: src/routes/auth/forgot-password.tsx
 msgid "Open Email Client"
 msgstr "Open Email Client"
+
+#: src/routes/dashboard/company/-components/candidate-resume-preview.tsx
+msgid "Open full CV"
+msgstr "Open full CV"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Open Link"
@@ -3072,6 +3195,10 @@ msgstr "Password protection has been disabled."
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 msgid "Password protection has been enabled."
 msgstr "Password protection has been enabled."
+
+#: src/routes/dashboard/company/match.tsx
+msgid "Paste a job description to find closely matching vetted candidates…"
+msgstr "Paste a job description to find closely matching vetted candidates…"
 
 #: src/routes/dashboard/admin/users.tsx
 #: src/routes/dashboard/settings/profile.tsx
@@ -3726,6 +3853,14 @@ msgstr "Save reviewer profile"
 msgid "Save work authorization"
 msgstr "Save work authorization"
 
+#: src/routes/dashboard/-components/sidebar.tsx
+msgid "Saved"
+msgstr "Saved"
+
+#: src/routes/dashboard/company/saved.tsx
+msgid "Saved Candidates"
+msgstr "Saved Candidates"
+
 #: src/routes/dashboard/admin/ai.tsx
 #: src/routes/dashboard/admin/job-search.tsx
 msgid "Saved, but the connection test did not succeed"
@@ -3761,6 +3896,14 @@ msgstr "School"
 #: src/routes/dashboard/job-search/index.tsx
 msgid "Search"
 msgstr "Search"
+
+#: src/routes/dashboard/company/contacts.tsx
+msgid "Search by candidate name"
+msgstr "Search by candidate name"
+
+#: src/routes/dashboard/company/contacts.tsx
+msgid "Search by candidate name…"
+msgstr "Search by candidate name…"
 
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "Search categories…"
@@ -4125,6 +4268,11 @@ msgstr "Slovenian"
 msgid "Slug"
 msgstr "Slug"
 
+#: src/routes/dashboard/-components/sidebar.tsx
+#: src/routes/dashboard/company/match.tsx
+msgid "Smart AI Search"
+msgstr "Smart AI Search"
+
 #: src/routes/dashboard/verification/index.tsx
 msgid "Solution submitted"
 msgstr "Solution submitted"
@@ -4484,6 +4632,11 @@ msgstr "Tip: You can name the resume referring to the position you are applying 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Title"
 msgstr "Title"
+
+#: src/routes/dashboard/company/-components/candidate-actions.tsx
+#: src/routes/dashboard/company/saved.tsx
+msgid "To contact"
+msgstr "To contact"
 
 #: src/routes/dashboard/settings/danger-zone.tsx
 msgid "To delete your account, you need to enter the confirmation text and click the button below."
@@ -4895,6 +5048,10 @@ msgstr "Verified"
 msgid "Verified by {0}"
 msgstr "Verified by {0}"
 
+#: src/routes/dashboard/company/-components/candidate-verification-summary.tsx
+msgid "Verified experience"
+msgstr "Verified experience"
+
 #: src/routes/_home/-sections/features.tsx
 msgid "Verified skill badges"
 msgstr "Verified skill badges"
@@ -4941,6 +5098,10 @@ msgstr "Verifying code..."
 #: src/routes/auth/resume-password.tsx
 msgid "Verifying password..."
 msgstr "Verifying password..."
+
+#: src/routes/dashboard/company/-components/candidate-detail-sheet.tsx
+msgid "Vetted candidate"
+msgstr "Vetted candidate"
 
 #: src/utils/locale.ts
 msgid "Vietnamese"

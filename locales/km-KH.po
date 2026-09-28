@@ -183,6 +183,10 @@ msgstr ""
 msgid "Accept case"
 msgstr ""
 
+#: src/routes/dashboard/-components/contact-status.tsx
+msgid "Accepted"
+msgstr "ទទួលយក"
+
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "Accepting..."
 msgstr ""
@@ -377,6 +381,10 @@ msgstr ""
 #: src/routes/dashboard/admin/users.tsx
 msgid "All roles"
 msgstr "All roles"
+
+#: src/routes/dashboard/-components/contact-status.tsx
+msgid "All statuses"
+msgstr ""
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 msgid "Allow Public Access"
@@ -916,6 +924,10 @@ msgstr "Compact signal row for endorsements and recency — less chrome, more \"
 msgid "Company"
 msgstr "ក្រុមហ៊ុន"
 
+#: src/routes/dashboard/contact-requests.tsx
+msgid "Company email shared after you accept"
+msgstr ""
+
 #: src/routes/_home/-sections/how-it-works.tsx
 msgid "Complete the assessment"
 msgstr "Complete the assessment"
@@ -976,6 +988,32 @@ msgstr "Consent"
 
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "Consent recorded. You can now submit verdicts."
+msgstr ""
+
+#: src/routes/dashboard/company/-components/candidate-actions.tsx
+msgid "Contact"
+msgstr "ទំនាក់ទំនង"
+
+#: src/routes/dashboard/contact-requests.tsx
+msgid "Contact accepted."
+msgstr ""
+
+#: src/routes/dashboard/contact-requests.tsx
+msgid "Contact declined."
+msgstr ""
+
+#: src/routes/dashboard/-components/sidebar.tsx
+#: src/routes/dashboard/company/contacts.tsx
+msgid "Contact History"
+msgstr "ប្រវត្តិទំនាក់ទំនង"
+
+#: src/routes/dashboard/company/-components/candidate-actions.tsx
+msgid "Contact request sent."
+msgstr "បានផ្ញើសំណើទំនាក់ទំនង។"
+
+#: src/routes/dashboard/-components/sidebar.tsx
+#: src/routes/dashboard/contact-requests.tsx
+msgid "Contact Requests"
 msgstr ""
 
 #: src/routes/_home/-sections/footer.tsx
@@ -1041,6 +1079,26 @@ msgstr "Could not fetch jobs"
 #: src/routes/dashboard/work-authorization/index.tsx
 msgid "Could not load the selected resume. Please choose another resume and try again."
 msgstr "Could not load the selected resume. Please choose another resume and try again."
+
+#: src/routes/dashboard/company/-components/candidate-resume-preview.tsx
+msgid "Could not load this candidate's resume."
+msgstr "មិនអាចផ្ទុកប្រវត្តិរូបសង្ខេបរបស់បេក្ខជននេះបានទេ។"
+
+#: src/routes/dashboard/company/match.tsx
+msgid "Could not match candidates"
+msgstr "មិនអាចផ្គូផ្គងបេក្ខជនបានទេ។"
+
+#: src/routes/dashboard/company/-components/candidate-actions.tsx
+msgid "Could not send contact request."
+msgstr "មិនអាចផ្ញើសំណើទំនាក់ទំនងបានទេ។"
+
+#: src/routes/dashboard/contact-requests.tsx
+msgid "Could not update contact request."
+msgstr ""
+
+#: src/routes/dashboard/company/-components/candidate-actions.tsx
+msgid "Could not update saved list."
+msgstr "មិនអាចធ្វើបច្ចុប្បន្នភាពបញ្ជីដែលបានរក្សាទុកបានទេ។"
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Country"
@@ -1253,6 +1311,14 @@ msgstr "កាលបរិច្ឆេទ"
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Date Posted"
 msgstr "Date Posted"
+
+#: src/routes/dashboard/contact-requests.tsx
+msgid "Decline"
+msgstr ""
+
+#: src/routes/dashboard/-components/contact-status.tsx
+msgid "Declined"
+msgstr "បានបដិសេធ"
 
 #: src/dialogs/resume/sections/education.tsx
 msgid "Degree"
@@ -1517,6 +1583,10 @@ msgstr "អ៊ីមែល"
 msgid "Email Address"
 msgstr "អាសយដ្ឋាន​អ៊ីមែល"
 
+#: src/routes/dashboard/company/contacts.tsx
+msgid "Email hidden until accepted"
+msgstr "អ៊ីមែលត្រូវបានលាក់រហូតដល់ទទួលយក"
+
 #: src/routes/auth/verify-email.tsx
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 #: src/routes/dashboard/admin/users.tsx
@@ -1737,6 +1807,14 @@ msgstr "Failed to sync skills"
 msgid "FAQ"
 msgstr "FAQ"
 
+#: src/routes/dashboard/company/-components/candidate-actions.tsx
+msgid "Favorite"
+msgstr "សំណព្វ"
+
+#: src/routes/dashboard/company/saved.tsx
+msgid "Favorites"
+msgstr "ចំណូលចិត្ត"
+
 #: src/routes/_home/-sections/footer.tsx
 msgid "Features"
 msgstr "មុខងារ"
@@ -1795,6 +1873,10 @@ msgstr ""
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "Final verdict differed from your proposal."
 msgstr ""
+
+#: src/routes/dashboard/company/match.tsx
+msgid "Find matches"
+msgstr "ស្វែងរកការប្រកួត"
 
 #: src/utils/locale.ts
 msgid "Finnish"
@@ -2126,6 +2208,10 @@ msgstr "Identity verification request cancelled."
 msgid "Identity verification requested. Please check your email for next steps."
 msgstr "Identity verification requested. Please check your email for next steps."
 
+#: src/routes/dashboard/company/-components/candidate-verification-summary.tsx
+msgid "Identity verified"
+msgstr "បានផ្ទៀងផ្ទាត់អត្តសញ្ញាណ"
+
 #: src/routes/dashboard/-components/sidebar-identity-verification-status.tsx
 msgid "Identity Verified"
 msgstr "Identity Verified"
@@ -2212,6 +2298,10 @@ msgstr "Japanese"
 #: src/routes/_home/-sections/hero-visual.tsx
 msgid "JavaScript"
 msgstr "JavaScript"
+
+#: src/routes/dashboard/company/match.tsx
+msgid "Job description"
+msgstr "ការពិពណ៌នាការងារ"
 
 #: src/routes/dashboard/-components/sidebar.tsx
 #: src/routes/dashboard/job-search/index.tsx
@@ -2420,6 +2510,10 @@ msgstr "Loading preview…"
 msgid "Loading queue..."
 msgstr "Loading queue..."
 
+#: src/routes/dashboard/company/-components/candidate-resume-preview.tsx
+msgid "Loading resume…"
+msgstr "កំពុងផ្ទុកប្រវត្តិរូប..."
+
 #: src/components/command-palette/pages/resumes.tsx
 msgid "Loading resumes..."
 msgstr "កំពុង​ផ្ទុក​ប្រវត្តិរូប..."
@@ -2517,6 +2611,11 @@ msgstr "រឹម (ផ្ដេក)"
 #: src/routes/builder/$resumeId/-sidebar/right/sections/page.tsx
 msgid "Margin (Vertical)"
 msgstr "រឹម (បញ្ឈរ)"
+
+#. placeholder {0}: candidate.matchScore
+#: src/routes/dashboard/company/match.tsx
+msgid "Match score: {0}%"
+msgstr "ពិន្ទុការប្រកួត៖ {0}%"
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Maximum Salary"
@@ -2664,6 +2763,10 @@ msgstr "No approved identity documents."
 msgid "No approved identity information."
 msgstr "No approved identity information."
 
+#: src/routes/dashboard/company/saved.tsx
+msgid "No candidates marked to contact later."
+msgstr "មិន​មាន​បេក្ខជន​ត្រូវ​បាន​សម្គាល់​ដើម្បី​ទាក់ទង​ពេល​ក្រោយ​ទេ។"
+
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "No cases match the selected filters."
 msgstr ""
@@ -2696,6 +2799,14 @@ msgstr ""
 msgid "No concluded verdicts yet."
 msgstr ""
 
+#: src/routes/dashboard/company/contacts.tsx
+msgid "No contact requests yet."
+msgstr "មិនទាន់មានសំណើទំនាក់ទំនងនៅឡើយទេ។"
+
+#: src/routes/dashboard/contact-requests.tsx
+msgid "No contact requests."
+msgstr ""
+
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "No degree required"
 msgstr "No degree required"
@@ -2715,6 +2826,10 @@ msgstr ""
 #: src/routes/dashboard/admin/experience-queue.tsx
 msgid "No experience verification requests pending."
 msgstr "No experience verification requests pending."
+
+#: src/routes/dashboard/company/saved.tsx
+msgid "No favorite candidates yet."
+msgstr "មិនទាន់មានបេក្ខជនដែលពេញចិត្តនៅឡើយ។"
 
 #: src/routes/dashboard/verification/index.tsx
 msgid "No history available."
@@ -2767,6 +2882,10 @@ msgstr ""
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "No matching types."
 msgstr ""
+
+#: src/routes/dashboard/company/match.tsx
+msgid "No matching vetted candidates found. Try adjusting the job description."
+msgstr "រកមិនឃើញបេក្ខជនដែលត្រូវគ្នា ព្យាយាមកែតម្រូវការពិពណ៌នាការងារ។"
 
 #: src/routes/dashboard/admin/-components/reviewer-profile-panel.tsx
 msgid "No profile"
@@ -2912,6 +3031,10 @@ msgstr "បើកការកំណត់ការរចនា"
 #: src/routes/auth/forgot-password.tsx
 msgid "Open Email Client"
 msgstr "បើក​កម្មវិធី​អ៊ីមែល"
+
+#: src/routes/dashboard/company/-components/candidate-resume-preview.tsx
+msgid "Open full CV"
+msgstr "បើក CV ពេញ"
 
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Open Link"
@@ -3077,6 +3200,10 @@ msgstr "ការ​ការពារ​ដោយ​ពាក្យសម្ង
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 msgid "Password protection has been enabled."
 msgstr "ការ​ការពារ​ដោយ​ពាក្យសម្ងាត់​ត្រូវ​បាន​បើក។"
+
+#: src/routes/dashboard/company/match.tsx
+msgid "Paste a job description to find closely matching vetted candidates…"
+msgstr "បិទភ្ជាប់ការពិពណ៌នាការងារ ដើម្បីស្វែងរកបេក្ខជនដែលត្រូវពិនិត្យយ៉ាងជិតស្និទ្ធ…"
 
 #: src/routes/dashboard/admin/users.tsx
 #: src/routes/dashboard/settings/profile.tsx
@@ -3731,6 +3858,14 @@ msgstr ""
 msgid "Save work authorization"
 msgstr "Save work authorization"
 
+#: src/routes/dashboard/-components/sidebar.tsx
+msgid "Saved"
+msgstr "បានរក្សាទុក"
+
+#: src/routes/dashboard/company/saved.tsx
+msgid "Saved Candidates"
+msgstr "បេក្ខជនដែលបានរក្សាទុក"
+
 #: src/routes/dashboard/admin/ai.tsx
 #: src/routes/dashboard/admin/job-search.tsx
 msgid "Saved, but the connection test did not succeed"
@@ -3766,6 +3901,14 @@ msgstr "សាលា"
 #: src/routes/dashboard/job-search/index.tsx
 msgid "Search"
 msgstr "Search"
+
+#: src/routes/dashboard/company/contacts.tsx
+msgid "Search by candidate name"
+msgstr ""
+
+#: src/routes/dashboard/company/contacts.tsx
+msgid "Search by candidate name…"
+msgstr "ស្វែងរកតាមឈ្មោះបេក្ខជន..."
 
 #: src/routes/dashboard/reviewer/queue.tsx
 msgid "Search categories…"
@@ -4130,6 +4273,11 @@ msgstr "Slovenian"
 msgid "Slug"
 msgstr "Slug"
 
+#: src/routes/dashboard/-components/sidebar.tsx
+#: src/routes/dashboard/company/match.tsx
+msgid "Smart AI Search"
+msgstr "ការស្វែងរកឆ្លាតវៃ AI"
+
 #: src/routes/dashboard/verification/index.tsx
 msgid "Solution submitted"
 msgstr ""
@@ -4489,6 +4637,11 @@ msgstr "គន្លឹះ៖ អ្នក​អាច​ដាក់​ឈ្�
 #: src/routes/dashboard/admin/-components/verification-queue-shared.tsx
 msgid "Title"
 msgstr "ចំណងជើង"
+
+#: src/routes/dashboard/company/-components/candidate-actions.tsx
+#: src/routes/dashboard/company/saved.tsx
+msgid "To contact"
+msgstr "ដើម្បីទាក់ទង"
 
 #: src/routes/dashboard/settings/danger-zone.tsx
 msgid "To delete your account, you need to enter the confirmation text and click the button below."
@@ -4900,6 +5053,10 @@ msgstr "បាន​ផ្ទៀងផ្ទាត់"
 msgid "Verified by {0}"
 msgstr "Verified by {0}"
 
+#: src/routes/dashboard/company/-components/candidate-verification-summary.tsx
+msgid "Verified experience"
+msgstr "បទពិសោធន៍ដែលបានផ្ទៀងផ្ទាត់"
+
 #: src/routes/_home/-sections/features.tsx
 msgid "Verified skill badges"
 msgstr "Verified skill badges"
@@ -4946,6 +5103,10 @@ msgstr "កំពុង​ផ្ទៀងផ្ទាត់​កូដ..."
 #: src/routes/auth/resume-password.tsx
 msgid "Verifying password..."
 msgstr "កំពុង​ផ្ទៀងផ្ទាត់​ពាក្យសម្ងាត់..."
+
+#: src/routes/dashboard/company/-components/candidate-detail-sheet.tsx
+msgid "Vetted candidate"
+msgstr "បេក្ខជនដែលបានទទួលការពិនិត្យ"
 
 #: src/utils/locale.ts
 msgid "Vietnamese"
