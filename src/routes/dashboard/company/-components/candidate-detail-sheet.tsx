@@ -13,7 +13,7 @@ type CandidateDetailSheetProps<T extends Candidate> = {
   onClose: () => void;
   /** Rendered above the verification summary, e.g. match score and reason. */
   renderExtra?: (candidate: T) => React.ReactNode;
-  onFlagsChange?: (flags: Partial<CandidateActionFlags>) => void;
+  onFlagsChange?: (candidate: T, flags: Partial<CandidateActionFlags>) => void;
 };
 
 export function CandidateDetailSheet<T extends Candidate>({
@@ -51,7 +51,7 @@ export function CandidateDetailSheet<T extends Candidate>({
 
               {shown.slug && <CandidateResumePreview username={shown.username} slug={shown.slug} />}
 
-              <CandidateActions candidate={shown} onFlagsChange={onFlagsChange} />
+              <CandidateActions candidate={shown} onFlagsChange={(flags) => onFlagsChange?.(shown, flags)} />
             </div>
           </>
         )}

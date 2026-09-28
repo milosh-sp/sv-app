@@ -6,13 +6,16 @@ import { Trans } from "@lingui/react/macro";
 import {
   BrainIcon,
   BriefcaseIcon,
+  BuildingsIcon,
   ChatsCircleIcon,
   DotsThreeIcon,
   EyeIcon,
   GearSixIcon,
   GlobeIcon,
+  HeartIcon,
   IdentificationCardIcon,
   KeyIcon,
+  MagnifyingGlassIcon,
   ReadCvLogoIcon,
   SealCheckIcon,
   ShieldCheckIcon,
@@ -86,6 +89,24 @@ const appSidebarItems = [
     icon: <GlobeIcon />,
     label: msg`Work Authorization`,
     href: "/dashboard/work-authorization",
+  },
+] as const satisfies SidebarItem[];
+
+const companySidebarItems = [
+  {
+    icon: <MagnifyingGlassIcon />,
+    label: msg`Smart AI Search`,
+    href: "/dashboard/company/match",
+  },
+  {
+    icon: <HeartIcon />,
+    label: msg`Saved`,
+    href: "/dashboard/company/saved",
+  },
+  {
+    icon: <BuildingsIcon />,
+    label: msg`Contact History`,
+    href: "/dashboard/company/contacts",
   },
 ] as const satisfies SidebarItem[];
 
@@ -229,14 +250,16 @@ export function DashboardSidebar() {
   const { effectiveMode } = useDashboardMode();
   const isSkillVerdictAdmin = adminRole?.role === "skill_verdict_admin";
   const isReviewerAdmin = adminRole?.role === "reviewer_admin";
+  const isCompany = adminRole?.role === "company";
   const isReviewerMode = isReviewerAdmin && effectiveMode === "reviewer";
-  const showSkillCenter = !isSkillVerdictAdmin && effectiveMode !== "reviewer";
+  const showSkillCenter = !isSkillVerdictAdmin && !isCompany && effectiveMode !== "reviewer";
   const roleLabel = (() => {
     if (isReviewerMode) return msg`Reviewer Admin`;
     if (adminRole?.role === "skill_verdict_admin") return msg`Skill Verdict Admin`;
+    if (isCompany) return msg`Company`;
     return null;
   })();
-  const showIdentityStatus = !isSkillVerdictAdmin && !isReviewerMode;
+  const showIdentityStatus = !isSkillVerdictAdmin && !isReviewerMode && !isCompany;
 
   return (
     <Sidebar
@@ -299,6 +322,20 @@ export function DashboardSidebar() {
               <SidebarItemList items={appSidebarItems} />
             </SidebarGroupContent>
           </SidebarGroup>
+        )}
+
+        {isCompany && (
+          <>
+            <SidebarGroup className="pt-1">
+              <SidebarGroupLabel>
+                <Trans>Company</Trans>
+              </SidebarGroupLabel>
+              <SidebarGroupContent>
+                <SidebarItemList items={companySidebarItems} />
+              </SidebarGroupContent>
+            </SidebarGroup>
+            <SidebarSeparator className="mx-3" />
+          </>
         )}
 
         {isReviewerMode && (

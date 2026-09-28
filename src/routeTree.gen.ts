@@ -52,6 +52,9 @@ import { Route as DashboardAdminJobSearchRouteImport } from "./routes/dashboard/
 import { Route as DashboardAdminPendingVerdictsRouteImport } from "./routes/dashboard/admin/pending-verdicts";
 import { Route as DashboardAdminReviewersRouteImport } from "./routes/dashboard/admin/reviewers";
 import { Route as DashboardAdminUsersRouteImport } from "./routes/dashboard/admin/users";
+import { Route as DashboardCompanyContactsRouteImport } from "./routes/dashboard/company/contacts";
+import { Route as DashboardCompanyMatchRouteImport } from "./routes/dashboard/company/match";
+import { Route as DashboardCompanySavedRouteImport } from "./routes/dashboard/company/saved";
 import { Route as DashboardJobSearchIndexRouteImport } from "./routes/dashboard/job-search/index";
 import { Route as DashboardResumesIndexRouteImport } from "./routes/dashboard/resumes/index";
 import { Route as DashboardReviewerQueueRouteImport } from "./routes/dashboard/reviewer/queue";
@@ -291,6 +294,22 @@ const DashboardAdminUsersRoute = DashboardAdminUsersRouteImport.update({
   path: "/users",
   getParentRoute: () => DashboardAdminRouteRoute,
 } as any);
+const DashboardCompanyContactsRoute =
+  DashboardCompanyContactsRouteImport.update({
+    id: "/contacts",
+    path: "/contacts",
+    getParentRoute: () => DashboardCompanyRouteRoute,
+  } as any);
+const DashboardCompanyMatchRoute = DashboardCompanyMatchRouteImport.update({
+  id: "/match",
+  path: "/match",
+  getParentRoute: () => DashboardCompanyRouteRoute,
+} as any);
+const DashboardCompanySavedRoute = DashboardCompanySavedRouteImport.update({
+  id: "/saved",
+  path: "/saved",
+  getParentRoute: () => DashboardCompanyRouteRoute,
+} as any);
 const DashboardJobSearchIndexRoute = DashboardJobSearchIndexRouteImport.update({
   id: "/job-search/",
   path: "/job-search/",
@@ -390,7 +409,7 @@ export interface FileRoutesByFullPath {
   "/schema.json": typeof SchemaDotjsonRoute;
   "/builder/$resumeId": typeof BuilderResumeIdRouteRouteWithChildren;
   "/dashboard/admin": typeof DashboardAdminRouteRouteWithChildren;
-  "/dashboard/company": typeof DashboardCompanyRouteRoute;
+  "/dashboard/company": typeof DashboardCompanyRouteRouteWithChildren;
   "/dashboard/reviewer": typeof DashboardReviewerRouteRouteWithChildren;
   "/dashboard/settings": typeof DashboardSettingsRouteRouteWithChildren;
   "/$username/$slug": typeof UsernameSlugRoute;
@@ -425,6 +444,9 @@ export interface FileRoutesByFullPath {
   "/dashboard/admin/pending-verdicts": typeof DashboardAdminPendingVerdictsRoute;
   "/dashboard/admin/reviewers": typeof DashboardAdminReviewersRoute;
   "/dashboard/admin/users": typeof DashboardAdminUsersRoute;
+  "/dashboard/company/contacts": typeof DashboardCompanyContactsRoute;
+  "/dashboard/company/match": typeof DashboardCompanyMatchRoute;
+  "/dashboard/company/saved": typeof DashboardCompanySavedRoute;
   "/dashboard/reviewer/queue": typeof DashboardReviewerQueueRoute;
   "/dashboard/settings/ai": typeof DashboardSettingsAiRoute;
   "/dashboard/settings/api-keys": typeof DashboardSettingsApiKeysRoute;
@@ -446,7 +468,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   "/schema.json": typeof SchemaDotjsonRoute;
   "/dashboard/admin": typeof DashboardAdminRouteRouteWithChildren;
-  "/dashboard/company": typeof DashboardCompanyRouteRoute;
+  "/dashboard/company": typeof DashboardCompanyRouteRouteWithChildren;
   "/dashboard/reviewer": typeof DashboardReviewerRouteRouteWithChildren;
   "/dashboard/settings": typeof DashboardSettingsRouteRouteWithChildren;
   "/$username/$slug": typeof UsernameSlugRoute;
@@ -482,6 +504,9 @@ export interface FileRoutesByTo {
   "/dashboard/admin/pending-verdicts": typeof DashboardAdminPendingVerdictsRoute;
   "/dashboard/admin/reviewers": typeof DashboardAdminReviewersRoute;
   "/dashboard/admin/users": typeof DashboardAdminUsersRoute;
+  "/dashboard/company/contacts": typeof DashboardCompanyContactsRoute;
+  "/dashboard/company/match": typeof DashboardCompanyMatchRoute;
+  "/dashboard/company/saved": typeof DashboardCompanySavedRoute;
   "/dashboard/reviewer/queue": typeof DashboardReviewerQueueRoute;
   "/dashboard/settings/ai": typeof DashboardSettingsAiRoute;
   "/dashboard/settings/api-keys": typeof DashboardSettingsApiKeysRoute;
@@ -508,7 +533,7 @@ export interface FileRoutesById {
   "/schema.json": typeof SchemaDotjsonRoute;
   "/builder/$resumeId": typeof BuilderResumeIdRouteRouteWithChildren;
   "/dashboard/admin": typeof DashboardAdminRouteRouteWithChildren;
-  "/dashboard/company": typeof DashboardCompanyRouteRoute;
+  "/dashboard/company": typeof DashboardCompanyRouteRouteWithChildren;
   "/dashboard/reviewer": typeof DashboardReviewerRouteRouteWithChildren;
   "/dashboard/settings": typeof DashboardSettingsRouteRouteWithChildren;
   "/$username/$slug": typeof UsernameSlugRoute;
@@ -544,6 +569,9 @@ export interface FileRoutesById {
   "/dashboard/admin/pending-verdicts": typeof DashboardAdminPendingVerdictsRoute;
   "/dashboard/admin/reviewers": typeof DashboardAdminReviewersRoute;
   "/dashboard/admin/users": typeof DashboardAdminUsersRoute;
+  "/dashboard/company/contacts": typeof DashboardCompanyContactsRoute;
+  "/dashboard/company/match": typeof DashboardCompanyMatchRoute;
+  "/dashboard/company/saved": typeof DashboardCompanySavedRoute;
   "/dashboard/reviewer/queue": typeof DashboardReviewerQueueRoute;
   "/dashboard/settings/ai": typeof DashboardSettingsAiRoute;
   "/dashboard/settings/api-keys": typeof DashboardSettingsApiKeysRoute;
@@ -606,6 +634,9 @@ export interface FileRouteTypes {
     | "/dashboard/admin/pending-verdicts"
     | "/dashboard/admin/reviewers"
     | "/dashboard/admin/users"
+    | "/dashboard/company/contacts"
+    | "/dashboard/company/match"
+    | "/dashboard/company/saved"
     | "/dashboard/reviewer/queue"
     | "/dashboard/settings/ai"
     | "/dashboard/settings/api-keys"
@@ -663,6 +694,9 @@ export interface FileRouteTypes {
     | "/dashboard/admin/pending-verdicts"
     | "/dashboard/admin/reviewers"
     | "/dashboard/admin/users"
+    | "/dashboard/company/contacts"
+    | "/dashboard/company/match"
+    | "/dashboard/company/saved"
     | "/dashboard/reviewer/queue"
     | "/dashboard/settings/ai"
     | "/dashboard/settings/api-keys"
@@ -724,6 +758,9 @@ export interface FileRouteTypes {
     | "/dashboard/admin/pending-verdicts"
     | "/dashboard/admin/reviewers"
     | "/dashboard/admin/users"
+    | "/dashboard/company/contacts"
+    | "/dashboard/company/match"
+    | "/dashboard/company/saved"
     | "/dashboard/reviewer/queue"
     | "/dashboard/settings/ai"
     | "/dashboard/settings/api-keys"
@@ -1067,6 +1104,27 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof DashboardAdminUsersRouteImport;
       parentRoute: typeof DashboardAdminRouteRoute;
     };
+    "/dashboard/company/contacts": {
+      id: "/dashboard/company/contacts";
+      path: "/contacts";
+      fullPath: "/dashboard/company/contacts";
+      preLoaderRoute: typeof DashboardCompanyContactsRouteImport;
+      parentRoute: typeof DashboardCompanyRouteRoute;
+    };
+    "/dashboard/company/match": {
+      id: "/dashboard/company/match";
+      path: "/match";
+      fullPath: "/dashboard/company/match";
+      preLoaderRoute: typeof DashboardCompanyMatchRouteImport;
+      parentRoute: typeof DashboardCompanyRouteRoute;
+    };
+    "/dashboard/company/saved": {
+      id: "/dashboard/company/saved";
+      path: "/saved";
+      fullPath: "/dashboard/company/saved";
+      preLoaderRoute: typeof DashboardCompanySavedRouteImport;
+      parentRoute: typeof DashboardCompanyRouteRoute;
+    };
     "/dashboard/job-search/": {
       id: "/dashboard/job-search/";
       path: "/job-search";
@@ -1249,6 +1307,23 @@ const DashboardAdminRouteRouteChildren: DashboardAdminRouteRouteChildren = {
 const DashboardAdminRouteRouteWithChildren =
   DashboardAdminRouteRoute._addFileChildren(DashboardAdminRouteRouteChildren);
 
+interface DashboardCompanyRouteRouteChildren {
+  DashboardCompanyContactsRoute: typeof DashboardCompanyContactsRoute;
+  DashboardCompanyMatchRoute: typeof DashboardCompanyMatchRoute;
+  DashboardCompanySavedRoute: typeof DashboardCompanySavedRoute;
+}
+
+const DashboardCompanyRouteRouteChildren: DashboardCompanyRouteRouteChildren = {
+  DashboardCompanyContactsRoute: DashboardCompanyContactsRoute,
+  DashboardCompanyMatchRoute: DashboardCompanyMatchRoute,
+  DashboardCompanySavedRoute: DashboardCompanySavedRoute,
+};
+
+const DashboardCompanyRouteRouteWithChildren =
+  DashboardCompanyRouteRoute._addFileChildren(
+    DashboardCompanyRouteRouteChildren,
+  );
+
 interface DashboardReviewerRouteRouteChildren {
   DashboardReviewerQueueRoute: typeof DashboardReviewerQueueRoute;
 }
@@ -1294,7 +1369,7 @@ const DashboardSettingsRouteRouteWithChildren =
 
 interface DashboardRouteRouteChildren {
   DashboardAdminRouteRoute: typeof DashboardAdminRouteRouteWithChildren;
-  DashboardCompanyRouteRoute: typeof DashboardCompanyRouteRoute;
+  DashboardCompanyRouteRoute: typeof DashboardCompanyRouteRouteWithChildren;
   DashboardReviewerRouteRoute: typeof DashboardReviewerRouteRouteWithChildren;
   DashboardSettingsRouteRoute: typeof DashboardSettingsRouteRouteWithChildren;
   DashboardContactRequestsRoute: typeof DashboardContactRequestsRoute;
@@ -1307,7 +1382,7 @@ interface DashboardRouteRouteChildren {
 
 const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
   DashboardAdminRouteRoute: DashboardAdminRouteRouteWithChildren,
-  DashboardCompanyRouteRoute: DashboardCompanyRouteRoute,
+  DashboardCompanyRouteRoute: DashboardCompanyRouteRouteWithChildren,
   DashboardReviewerRouteRoute: DashboardReviewerRouteRouteWithChildren,
   DashboardSettingsRouteRoute: DashboardSettingsRouteRouteWithChildren,
   DashboardContactRequestsRoute: DashboardContactRequestsRoute,

@@ -12,6 +12,10 @@ export const Route = createFileRoute("/dashboard/")({
       throw redirect({ to: "/dashboard/admin/experience-queue", replace: true });
     }
 
+    if (adminRole?.role === "company") {
+      throw redirect({ to: "/dashboard/company/match", replace: true });
+    }
+
     throw redirect({ to: "/dashboard/resumes", search: { sort: "lastUpdatedAt", tags: [] }, replace: true });
   },
 });
