@@ -6,6 +6,7 @@ import { Trans } from "@lingui/react/macro";
 import {
   BrainIcon,
   BriefcaseIcon,
+  ChatsCircleIcon,
   DotsThreeIcon,
   EyeIcon,
   GearSixIcon,
@@ -69,6 +70,11 @@ const appSidebarItems = [
     icon: <SealCheckIcon />,
     label: msg`Verification`,
     href: "/dashboard/verification",
+  },
+  {
+    icon: <ChatsCircleIcon />,
+    label: msg`Contact Requests`,
+    href: "/dashboard/contact-requests",
   },
   {
     icon: <EyeIcon />,

@@ -32,6 +32,7 @@ import { Route as AuthVerifyEmailRouteImport } from "./routes/auth/verify-email"
 import { Route as BuilderResumeIdRouteRouteImport } from "./routes/builder/$resumeId/route";
 import { Route as DashboardIndexRouteImport } from "./routes/dashboard/index";
 import { Route as DashboardAdminRouteRouteImport } from "./routes/dashboard/admin/route";
+import { Route as DashboardContactRequestsRouteImport } from "./routes/dashboard/contact-requests";
 import { Route as DashboardReviewerRouteRouteImport } from "./routes/dashboard/reviewer/route";
 import { Route as DashboardSettingsRouteRouteImport } from "./routes/dashboard/settings/route";
 import { Route as McpIndexRouteImport } from "./routes/mcp/index";
@@ -184,6 +185,12 @@ const DashboardAdminRouteRoute = DashboardAdminRouteRouteImport.update({
   path: "/admin",
   getParentRoute: () => DashboardRouteRoute,
 } as any);
+const DashboardContactRequestsRoute =
+  DashboardContactRequestsRouteImport.update({
+    id: "/contact-requests",
+    path: "/contact-requests",
+    getParentRoute: () => DashboardRouteRoute,
+  } as any);
 const DashboardReviewerRouteRoute = DashboardReviewerRouteRouteImport.update({
   id: "/reviewer",
   path: "/reviewer",
@@ -393,6 +400,7 @@ export interface FileRoutesByFullPath {
   "/auth/verify-2fa": typeof AuthVerify2faRoute;
   "/auth/verify-2fa-backup": typeof AuthVerify2faBackupRoute;
   "/auth/verify-email": typeof AuthVerifyEmailRoute;
+  "/dashboard/contact-requests": typeof DashboardContactRequestsRoute;
   "/printer/$id": typeof PrinterIdRoute;
   "/reviewer/$adminId": typeof ReviewerAdminIdRoute;
   "/auth/": typeof AuthIndexRoute;
@@ -447,6 +455,7 @@ export interface FileRoutesByTo {
   "/auth/verify-2fa": typeof AuthVerify2faRoute;
   "/auth/verify-2fa-backup": typeof AuthVerify2faBackupRoute;
   "/auth/verify-email": typeof AuthVerifyEmailRoute;
+  "/dashboard/contact-requests": typeof DashboardContactRequestsRoute;
   "/printer/$id": typeof PrinterIdRoute;
   "/reviewer/$adminId": typeof ReviewerAdminIdRoute;
   "/": typeof HomeIndexRoute;
@@ -507,6 +516,7 @@ export interface FileRoutesById {
   "/auth/verify-2fa": typeof AuthVerify2faRoute;
   "/auth/verify-2fa-backup": typeof AuthVerify2faBackupRoute;
   "/auth/verify-email": typeof AuthVerifyEmailRoute;
+  "/dashboard/contact-requests": typeof DashboardContactRequestsRoute;
   "/printer/$id": typeof PrinterIdRoute;
   "/reviewer/$adminId": typeof ReviewerAdminIdRoute;
   "/_home/": typeof HomeIndexRoute;
@@ -568,6 +578,7 @@ export interface FileRouteTypes {
     | "/auth/verify-2fa"
     | "/auth/verify-2fa-backup"
     | "/auth/verify-email"
+    | "/dashboard/contact-requests"
     | "/printer/$id"
     | "/reviewer/$adminId"
     | "/auth/"
@@ -622,6 +633,7 @@ export interface FileRouteTypes {
     | "/auth/verify-2fa"
     | "/auth/verify-2fa-backup"
     | "/auth/verify-email"
+    | "/dashboard/contact-requests"
     | "/printer/$id"
     | "/reviewer/$adminId"
     | "/"
@@ -681,6 +693,7 @@ export interface FileRouteTypes {
     | "/auth/verify-2fa"
     | "/auth/verify-2fa-backup"
     | "/auth/verify-email"
+    | "/dashboard/contact-requests"
     | "/printer/$id"
     | "/reviewer/$adminId"
     | "/_home/"
@@ -900,6 +913,13 @@ declare module "@tanstack/react-router" {
       path: "/admin";
       fullPath: "/dashboard/admin";
       preLoaderRoute: typeof DashboardAdminRouteRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/contact-requests": {
+      id: "/dashboard/contact-requests";
+      path: "/contact-requests";
+      fullPath: "/dashboard/contact-requests";
+      preLoaderRoute: typeof DashboardContactRequestsRouteImport;
       parentRoute: typeof DashboardRouteRoute;
     };
     "/dashboard/reviewer": {
@@ -1257,6 +1277,7 @@ interface DashboardRouteRouteChildren {
   DashboardAdminRouteRoute: typeof DashboardAdminRouteRouteWithChildren;
   DashboardReviewerRouteRoute: typeof DashboardReviewerRouteRouteWithChildren;
   DashboardSettingsRouteRoute: typeof DashboardSettingsRouteRouteWithChildren;
+  DashboardContactRequestsRoute: typeof DashboardContactRequestsRoute;
   DashboardIndexRoute: typeof DashboardIndexRoute;
   DashboardJobSearchIndexRoute: typeof DashboardJobSearchIndexRoute;
   DashboardResumesIndexRoute: typeof DashboardResumesIndexRoute;
@@ -1268,6 +1289,7 @@ const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
   DashboardAdminRouteRoute: DashboardAdminRouteRouteWithChildren,
   DashboardReviewerRouteRoute: DashboardReviewerRouteRouteWithChildren,
   DashboardSettingsRouteRoute: DashboardSettingsRouteRouteWithChildren,
+  DashboardContactRequestsRoute: DashboardContactRequestsRoute,
   DashboardIndexRoute: DashboardIndexRoute,
   DashboardJobSearchIndexRoute: DashboardJobSearchIndexRoute,
   DashboardResumesIndexRoute: DashboardResumesIndexRoute,
