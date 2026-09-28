@@ -32,6 +32,7 @@ import { Route as AuthVerifyEmailRouteImport } from "./routes/auth/verify-email"
 import { Route as BuilderResumeIdRouteRouteImport } from "./routes/builder/$resumeId/route";
 import { Route as DashboardIndexRouteImport } from "./routes/dashboard/index";
 import { Route as DashboardAdminRouteRouteImport } from "./routes/dashboard/admin/route";
+import { Route as DashboardCompanyRouteRouteImport } from "./routes/dashboard/company/route";
 import { Route as DashboardContactRequestsRouteImport } from "./routes/dashboard/contact-requests";
 import { Route as DashboardReviewerRouteRouteImport } from "./routes/dashboard/reviewer/route";
 import { Route as DashboardSettingsRouteRouteImport } from "./routes/dashboard/settings/route";
@@ -183,6 +184,11 @@ const DashboardIndexRoute = DashboardIndexRouteImport.update({
 const DashboardAdminRouteRoute = DashboardAdminRouteRouteImport.update({
   id: "/admin",
   path: "/admin",
+  getParentRoute: () => DashboardRouteRoute,
+} as any);
+const DashboardCompanyRouteRoute = DashboardCompanyRouteRouteImport.update({
+  id: "/company",
+  path: "/company",
   getParentRoute: () => DashboardRouteRoute,
 } as any);
 const DashboardContactRequestsRoute =
@@ -384,6 +390,7 @@ export interface FileRoutesByFullPath {
   "/schema.json": typeof SchemaDotjsonRoute;
   "/builder/$resumeId": typeof BuilderResumeIdRouteRouteWithChildren;
   "/dashboard/admin": typeof DashboardAdminRouteRouteWithChildren;
+  "/dashboard/company": typeof DashboardCompanyRouteRoute;
   "/dashboard/reviewer": typeof DashboardReviewerRouteRouteWithChildren;
   "/dashboard/settings": typeof DashboardSettingsRouteRouteWithChildren;
   "/$username/$slug": typeof UsernameSlugRoute;
@@ -439,6 +446,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   "/schema.json": typeof SchemaDotjsonRoute;
   "/dashboard/admin": typeof DashboardAdminRouteRouteWithChildren;
+  "/dashboard/company": typeof DashboardCompanyRouteRoute;
   "/dashboard/reviewer": typeof DashboardReviewerRouteRouteWithChildren;
   "/dashboard/settings": typeof DashboardSettingsRouteRouteWithChildren;
   "/$username/$slug": typeof UsernameSlugRoute;
@@ -500,6 +508,7 @@ export interface FileRoutesById {
   "/schema.json": typeof SchemaDotjsonRoute;
   "/builder/$resumeId": typeof BuilderResumeIdRouteRouteWithChildren;
   "/dashboard/admin": typeof DashboardAdminRouteRouteWithChildren;
+  "/dashboard/company": typeof DashboardCompanyRouteRoute;
   "/dashboard/reviewer": typeof DashboardReviewerRouteRouteWithChildren;
   "/dashboard/settings": typeof DashboardSettingsRouteRouteWithChildren;
   "/$username/$slug": typeof UsernameSlugRoute;
@@ -562,6 +571,7 @@ export interface FileRouteTypes {
     | "/schema.json"
     | "/builder/$resumeId"
     | "/dashboard/admin"
+    | "/dashboard/company"
     | "/dashboard/reviewer"
     | "/dashboard/settings"
     | "/$username/$slug"
@@ -617,6 +627,7 @@ export interface FileRouteTypes {
   to:
     | "/schema.json"
     | "/dashboard/admin"
+    | "/dashboard/company"
     | "/dashboard/reviewer"
     | "/dashboard/settings"
     | "/$username/$slug"
@@ -677,6 +688,7 @@ export interface FileRouteTypes {
     | "/schema.json"
     | "/builder/$resumeId"
     | "/dashboard/admin"
+    | "/dashboard/company"
     | "/dashboard/reviewer"
     | "/dashboard/settings"
     | "/$username/$slug"
@@ -913,6 +925,13 @@ declare module "@tanstack/react-router" {
       path: "/admin";
       fullPath: "/dashboard/admin";
       preLoaderRoute: typeof DashboardAdminRouteRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/company": {
+      id: "/dashboard/company";
+      path: "/company";
+      fullPath: "/dashboard/company";
+      preLoaderRoute: typeof DashboardCompanyRouteRouteImport;
       parentRoute: typeof DashboardRouteRoute;
     };
     "/dashboard/contact-requests": {
@@ -1275,6 +1294,7 @@ const DashboardSettingsRouteRouteWithChildren =
 
 interface DashboardRouteRouteChildren {
   DashboardAdminRouteRoute: typeof DashboardAdminRouteRouteWithChildren;
+  DashboardCompanyRouteRoute: typeof DashboardCompanyRouteRoute;
   DashboardReviewerRouteRoute: typeof DashboardReviewerRouteRouteWithChildren;
   DashboardSettingsRouteRoute: typeof DashboardSettingsRouteRouteWithChildren;
   DashboardContactRequestsRoute: typeof DashboardContactRequestsRoute;
@@ -1287,6 +1307,7 @@ interface DashboardRouteRouteChildren {
 
 const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
   DashboardAdminRouteRoute: DashboardAdminRouteRouteWithChildren,
+  DashboardCompanyRouteRoute: DashboardCompanyRouteRoute,
   DashboardReviewerRouteRoute: DashboardReviewerRouteRouteWithChildren,
   DashboardSettingsRouteRoute: DashboardSettingsRouteRouteWithChildren,
   DashboardContactRequestsRoute: DashboardContactRequestsRoute,
