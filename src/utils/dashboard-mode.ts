@@ -3,11 +3,13 @@ import { getCookie, setCookie } from "@tanstack/react-start/server";
 import Cookies from "js-cookie";
 import z from "zod";
 
+import type { adminRoleEnum } from "@/integrations/drizzle/schema";
+
 const dashboardModeSchema = z.union([z.literal("reviewer"), z.literal("user")]);
 
 export type DashboardMode = z.infer<typeof dashboardModeSchema>;
 
-export type AdminRole = "skill_verdict_admin" | "reviewer_admin" | null;
+export type AdminRole = (typeof adminRoleEnum.enumValues)[number] | null;
 
 export const dashboardModeStorageKey = "dashboardMode";
 const defaultDashboardMode: DashboardMode = "reviewer";

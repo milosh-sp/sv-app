@@ -4,6 +4,7 @@ import { createContext, type PropsWithChildren, use, useEffect, useState } from 
 
 import { getAdminRoleQueryOptionsForUser } from "@/integrations/orpc/get-admin-role-query-options";
 import {
+  type AdminRole,
   type DashboardMode,
   getEffectiveDashboardMode,
   setDashboardModeServerFn,
@@ -15,7 +16,7 @@ type DashboardModeContextValue = {
   effectiveMode: DashboardMode;
   isPending: boolean;
   isReviewerPrivileged: boolean;
-  role: "skill_verdict_admin" | "reviewer_admin" | null;
+  role: AdminRole;
   setMode: (mode: DashboardMode) => Promise<void>;
 };
 

@@ -1,4 +1,4 @@
-import { defineRelations } from "drizzle-orm";
+import { defineRelations, sql } from "drizzle-orm";
 import * as pg from "drizzle-orm/pg-core";
 
 import { defaultResumeData, type ResumeData } from "../../schema/resume/data";
@@ -419,7 +419,11 @@ export const oauthConsent = pg.pgTable(
 
 // --- Verification Feature Enums ---
 
-export const adminRoleEnum = pg.pgEnum("admin_role", ["skill_verdict_admin", "reviewer_admin"]);
+export const adminRoleEnum = pg.pgEnum("admin_role", ["skill_verdict_admin", "reviewer_admin", "company"]);
+
+export const companyContactStatusEnum = pg.pgEnum("company_contact_status", ["pending", "accepted", "declined"]);
+
+export const companySavedListTypeEnum = pg.pgEnum("company_saved_list_type", ["favorite", "to_contact"]);
 
 export const verificationSectionTypeEnum = pg.pgEnum("verification_section_type", [
   "skill",
@@ -664,6 +668,65 @@ export const resumeVerificationSettings = pg.pgTable("resume_verification_settin
     .$onUpdate(() => /* @__PURE__ */ new Date()),
 });
 
+export const companyContactRequests = pg.pgTable(
+  "company_contact_requests",
+  {
+    id: pg
+      .uuid("id")
+      .notNull()
+      .primaryKey()
+      .$defaultFn(() => generateId()),
+    companyUserId: pg
+      .uuid("company_user_id")
+      .notNull()
+      .references(() => user.id, { onDelete: "cascade" }),
+    candidateUserId: pg
+      .uuid("candidate_user_id")
+      .notNull()
+      .references(() => user.id, { onDelete: "cascade" }),
+    resumeId: pg.uuid("resume_id").references(() => resume.id, { onDelete: "set null" }),
+    status: companyContactStatusEnum("status").notNull().default("pending"),
+    createdAt: pg.timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+    respondedAt: pg.timestamp("responded_at", { withTimezone: true }),
+  },
+  (t) => [
+    pg.index().on(t.companyUserId),
+    pg.index().on(t.candidateUserId),
+    pg.index().on(t.status),
+    pg
+      .uniqueIndex("company_contact_requests_pending_pair")
+      .on(t.companyUserId, t.candidateUserId)
+      .where(sql`status = 'pending'`),
+  ],
+);
+
+export const companySavedCandidates = pg.pgTable(
+  "company_saved_candidates",
+  {
+    id: pg
+      .uuid("id")
+      .notNull()
+      .primaryKey()
+      .$defaultFn(() => generateId()),
+    companyUserId: pg
+      .uuid("company_user_id")
+      .notNull()
+      .references(() => user.id, { onDelete: "cascade" }),
+    candidateUserId: pg
+      .uuid("candidate_user_id")
+      .notNull()
+      .references(() => user.id, { onDelete: "cascade" }),
+    resumeId: pg.uuid("resume_id").references(() => resume.id, { onDelete: "set null" }),
+    listType: companySavedListTypeEnum("list_type").notNull(),
+    createdAt: pg.timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [
+    pg.index().on(t.companyUserId),
+    pg.index().on(t.candidateUserId),
+    pg.uniqueIndex("company_saved_candidates_pair_list").on(t.companyUserId, t.candidateUserId, t.listType),
+  ],
+);
+
 export const relations = defineRelations(
   {
     user,
@@ -688,6 +751,8 @@ export const relations = defineRelations(
     verificationMetadata,
     verificationDocuments,
     resumeVerificationSettings,
+    companyContactRequests,
+    companySavedCandidates,
   },
   (r) => ({
     user: {
