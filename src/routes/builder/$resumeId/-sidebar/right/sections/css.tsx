@@ -46,6 +46,9 @@ function CSSSectionForm() {
     });
   };
 
+  // oxlint-disable-next-line react/incompatible-library -- react-hook-form watch
+  const cssEnabled = form.watch("enabled");
+
   return (
     <Form {...form}>
       <form onChange={form.handleSubmit(onSubmit)} className="mt-2 -mb-2 space-y-4">
@@ -73,7 +76,7 @@ function CSSSectionForm() {
           )}
         />
 
-        {form.watch("enabled") && (
+        {cssEnabled && (
           <FormField
             control={form.control}
             name="value"

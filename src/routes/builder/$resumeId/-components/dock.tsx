@@ -1,17 +1,17 @@
 import { t } from "@lingui/core/macro";
 import {
-  ArrowUUpLeftIcon,
-  ArrowUUpRightIcon,
-  CircleNotchIcon,
-  CubeFocusIcon,
-  DotsThreeVerticalIcon,
-  FileDocIcon,
-  FileJsIcon,
-  FilePdfIcon,
-  type Icon,
-  LinkSimpleIcon,
-  MagnifyingGlassMinusIcon,
-  MagnifyingGlassPlusIcon,
+    ArrowUUpLeftIcon,
+    ArrowUUpRightIcon,
+    CircleNotchIcon,
+    CubeFocusIcon,
+    DotsThreeVerticalIcon,
+    FileDocIcon,
+    FileJsIcon,
+    FilePdfIcon,
+    type Icon,
+    LinkSimpleIcon,
+    MagnifyingGlassMinusIcon,
+    MagnifyingGlassPlusIcon,
 } from "@phosphor-icons/react";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useParams } from "@tanstack/react-router";
@@ -26,11 +26,11 @@ import { AIChat } from "@/components/ai/chat";
 import { useTemporalStore } from "@/components/resume/store/resume";
 import { Button } from "@/components/ui/button";
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -113,7 +113,7 @@ export function BuilderDock() {
     } finally {
       toast.dismiss(toastId);
     }
-  }, [resume?.id, resume?.name, printResumeAsPDF]);
+  }, [resume, printResumeAsPDF]);
 
   if (isMobile) {
     return (

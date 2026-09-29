@@ -36,21 +36,21 @@ export type ExtendedIconProps = IconProps & {
 const CSS_RULE_SPLIT_PATTERN = /\n(?=\s*[.#a-zA-Z])/;
 const CSS_SELECTOR_PATTERN = /^([^{]+)(\{)/;
 
-function getTemplateComponent(template: Template) {
+function renderTemplatePage(template: Template, pageIndex: number, pageLayout: z.infer<typeof pageLayoutSchema>) {
   return match(template)
-    .with("azurill", () => AzurillTemplate)
-    .with("bronzor", () => BronzorTemplate)
-    .with("chikorita", () => ChikoritaTemplate)
-    .with("ditto", () => DittoTemplate)
-    .with("ditgar", () => DitgarTemplate)
-    .with("gengar", () => GengarTemplate)
-    .with("glalie", () => GlalieTemplate)
-    .with("kakuna", () => KakunaTemplate)
-    .with("lapras", () => LaprasTemplate)
-    .with("leafish", () => LeafishTemplate)
-    .with("onyx", () => OnyxTemplate)
-    .with("pikachu", () => PikachuTemplate)
-    .with("rhyhorn", () => RhyhornTemplate)
+    .with("azurill", () => <AzurillTemplate pageIndex={pageIndex} pageLayout={pageLayout} />)
+    .with("bronzor", () => <BronzorTemplate pageIndex={pageIndex} pageLayout={pageLayout} />)
+    .with("chikorita", () => <ChikoritaTemplate pageIndex={pageIndex} pageLayout={pageLayout} />)
+    .with("ditto", () => <DittoTemplate pageIndex={pageIndex} pageLayout={pageLayout} />)
+    .with("ditgar", () => <DitgarTemplate pageIndex={pageIndex} pageLayout={pageLayout} />)
+    .with("gengar", () => <GengarTemplate pageIndex={pageIndex} pageLayout={pageLayout} />)
+    .with("glalie", () => <GlalieTemplate pageIndex={pageIndex} pageLayout={pageLayout} />)
+    .with("kakuna", () => <KakunaTemplate pageIndex={pageIndex} pageLayout={pageLayout} />)
+    .with("lapras", () => <LaprasTemplate pageIndex={pageIndex} pageLayout={pageLayout} />)
+    .with("leafish", () => <LeafishTemplate pageIndex={pageIndex} pageLayout={pageLayout} />)
+    .with("onyx", () => <OnyxTemplate pageIndex={pageIndex} pageLayout={pageLayout} />)
+    .with("pikachu", () => <PikachuTemplate pageIndex={pageIndex} pageLayout={pageLayout} />)
+    .with("rhyhorn", () => <RhyhornTemplate pageIndex={pageIndex} pageLayout={pageLayout} />)
     .exhaustive();
 }
 
@@ -130,7 +130,6 @@ function PageContainer({ pageIndex, pageLayout, pageClassName, showPageNumbers =
 
   const pageNumber = useMemo(() => pageIndex + 1, [pageIndex]);
   const totalNumberOfPages = useMemo(() => metadata.layout.pages.length, [metadata.layout.pages]);
-  const TemplateComponent = useMemo(() => getTemplateComponent(metadata.template), [metadata.template]);
 
   return (
     <div data-page-index={pageIndex} className="relative">
@@ -145,7 +144,7 @@ function PageContainer({ pageIndex, pageLayout, pageClassName, showPageNumbers =
       )}
 
       <div className={cn(`page page-${pageIndex}`, styles.page, pageClassName)}>
-        <TemplateComponent pageIndex={pageIndex} pageLayout={pageLayout} />
+        {renderTemplatePage(metadata.template, pageIndex, pageLayout)}
       </div>
     </div>
   );

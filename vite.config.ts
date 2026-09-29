@@ -213,6 +213,9 @@ const config = defineConfig({
       "react/exhaustive-deps": "off",
       "jest/require-to-throw-message": "off",
       "vitest/require-to-throw-message": "off",
+      // Drizzle-chain mocks return `any` on purpose; type arguments would not make them safer.
+      "vitest/require-mock-type-parameters": "off",
+      "eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_", varsIgnorePattern: "^_" }],
       "typescript/consistent-type-imports": "error",
     },
   },

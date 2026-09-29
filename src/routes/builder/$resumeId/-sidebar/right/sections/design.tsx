@@ -220,6 +220,11 @@ function LevelSectionForm() {
     });
   };
 
+  // oxlint-disable-next-line react/incompatible-library -- react-hook-form watch
+  const levelType = form.watch("type");
+  // oxlint-disable-next-line react/incompatible-library -- react-hook-form watch
+  const levelIcon = form.watch("icon");
+
   return (
     <Form {...form}>
       <form onChange={form.handleSubmit(onSubmit)} className="space-y-4">
@@ -233,8 +238,8 @@ function LevelSectionForm() {
         >
           <LevelDisplay
             level={3}
-            type={form.watch("type")}
-            icon={form.watch("icon")}
+            type={levelType}
+            icon={levelIcon}
             className="w-full max-w-[220px] justify-center"
           />
         </div>

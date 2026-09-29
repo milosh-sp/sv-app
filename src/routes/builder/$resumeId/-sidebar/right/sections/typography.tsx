@@ -35,7 +35,9 @@ function TypographySectionForm() {
     defaultValues: typography,
   });
 
+  // oxlint-disable-next-line react/incompatible-library -- react-hook-form watch
   const bodyFontFamily = form.watch("body.fontFamily");
+  // oxlint-disable-next-line react/incompatible-library -- react-hook-form watch
   const headingFontFamily = form.watch("heading.fontFamily");
 
   const onSubmit = (data: FormValues) => {

@@ -1,14 +1,14 @@
 import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
 import {
-  CalendarBlankIcon,
-  CheckCircleIcon,
-  ClockIcon,
-  FileTextIcon,
-  LinkIcon,
-  VideoIcon,
-  WarningCircleIcon,
-  XCircleIcon,
+    CalendarBlankIcon,
+    CheckCircleIcon,
+    ClockIcon,
+    FileTextIcon,
+    LinkIcon,
+    VideoIcon,
+    WarningCircleIcon,
+    XCircleIcon,
 } from "@phosphor-icons/react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
@@ -368,13 +368,21 @@ export function DocumentPreview({
   const blobUrlRef = useRef<string | null>(null);
 
   const isExternalLink = documentType === "freelancer_link" || documentType === "assessment_solution_link";
+  const previewKey = expanded && !isExternalLink ? fileUrl : null;
+  const [appliedPreviewKey, setAppliedPreviewKey] = useState<string | null>(null);
+
+  if (previewKey !== appliedPreviewKey) {
+    setAppliedPreviewKey(previewKey);
+    if (previewKey) {
+      setRenderType("loading");
+      setObjectUrl(null);
+    }
+  }
 
   useEffect(() => {
     if (!expanded || isExternalLink) return;
 
     let cancelled = false;
-    setRenderType("loading");
-    setObjectUrl(null);
 
     void (async () => {
       try {

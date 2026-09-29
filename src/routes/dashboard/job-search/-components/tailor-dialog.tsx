@@ -12,13 +12,13 @@ import type { NewSkillInfo } from "@/schema/tailor";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
+    Dialog,
+    DialogClose,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
 } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Spinner } from "@/components/ui/spinner";
@@ -39,6 +39,10 @@ type DialogPhase =
   | { step: "select" }
   | { step: "tailoring" }
   | { step: "skill-sync"; newResumeId: string; newSkills: NewSkillInfo[]; sourceResumeId: string };
+
+function buildTailorSlug(name: string) {
+  return slugify(`${name}-${Date.now()}`);
+}
 
 export function TailorDialog({ job, open, onOpenChange }: Props) {
   const navigate = useNavigate();
@@ -71,7 +75,7 @@ export function TailorDialog({ job, open, onOpenChange }: Props) {
 
   const handleSelectResume = async (resumeId: string, resumeName: string) => {
     const tailorName = `${resumeName} - ${job.job_title}`;
-    const tailorSlug = slugify(`${tailorName}-${Date.now()}`);
+    const tailorSlug = buildTailorSlug(tailorName);
 
     // If AI is not enabled, fall back to duplicating and navigating to builder
     if (!aiEnabled) {

@@ -18,10 +18,10 @@ import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
 import { orpc } from "@/integrations/orpc/client";
 import {
-  defaultWorkAuthorizationData,
-  sponsorshipRequirementSchema,
-  workAuthorizationSchema,
-  workAuthorizationStatusSchema,
+    defaultWorkAuthorizationData,
+    sponsorshipRequirementSchema,
+    workAuthorizationSchema,
+    workAuthorizationStatusSchema,
 } from "@/schema/resume/data";
 
 import { DashboardHeader } from "../-components/header";
@@ -141,6 +141,7 @@ function RouteComponent() {
     setInitializedResumeId(selectedResume.id);
   }, [selectedResume, initializedResumeId, form]);
 
+  // oxlint-disable-next-line react/incompatible-library -- react-hook-form watch
   const watchedRegions = form.watch(regions);
   const regionOptions = useMemo(
     () =>

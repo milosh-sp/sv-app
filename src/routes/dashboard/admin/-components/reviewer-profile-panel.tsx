@@ -1,18 +1,18 @@
 import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import { Combobox } from "@/components/ui/combobox";
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { orpc } from "@/integrations/orpc/client";
@@ -181,6 +181,25 @@ type ProfileData = {
   reviewerSkills?: string[];
 } | null;
 
+function reviewerProfileFields(profile: ProfileData, userName: string) {
+  if (profile) {
+    return {
+      firstName: profile.firstName,
+      lastName: profile.lastName,
+      title: profile.title,
+      reviewerSkills: profile.reviewerSkills ?? [],
+    };
+  }
+
+  const nameParts = userName.trim().split(/\s+/);
+  return {
+    firstName: nameParts[0] ?? "",
+    lastName: nameParts.slice(1).join(" "),
+    title: "",
+    reviewerSkills: [] as string[],
+  };
+}
+
 function ReviewerProfileForm({
   adminId,
   userName,
@@ -211,27 +230,23 @@ function ReviewerProfileForm({
   }) => void;
 }) {
   const hasProfile = Boolean(profile);
+  const fields = reviewerProfileFields(profile, userName);
 
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [title, setTitle] = useState("");
-  const [reviewerSkills, setReviewerSkills] = useState<string[]>([]);
+  const [firstName, setFirstName] = useState(fields.firstName);
+  const [lastName, setLastName] = useState(fields.lastName);
+  const [title, setTitle] = useState(fields.title);
+  const [reviewerSkills, setReviewerSkills] = useState(fields.reviewerSkills);
+  const [prevProfile, setPrevProfile] = useState(profile);
+  const [prevUserName, setPrevUserName] = useState(userName);
 
-  useEffect(() => {
-    if (profile) {
-      setFirstName(profile.firstName);
-      setLastName(profile.lastName);
-      setTitle(profile.title);
-      setReviewerSkills(profile.reviewerSkills ?? []);
-      return;
-    }
-
-    const nameParts = userName.trim().split(/\s+/);
-    setFirstName(nameParts[0] ?? "");
-    setLastName(nameParts.slice(1).join(" "));
-    setTitle("");
-    setReviewerSkills([]);
-  }, [profile, userName]);
+  if (profile !== prevProfile || userName !== prevUserName) {
+    setPrevProfile(profile);
+    setPrevUserName(userName);
+    setFirstName(fields.firstName);
+    setLastName(fields.lastName);
+    setTitle(fields.title);
+    setReviewerSkills(fields.reviewerSkills);
+  }
 
   const skillOptions = useMemo(
     () => buildReviewerSkillOptions(profile?.reviewerSkills ?? reviewerSkills),
