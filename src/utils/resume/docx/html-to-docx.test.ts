@@ -140,4 +140,27 @@ describe("htmlToParagraphs", () => {
     const result = htmlToParagraphs("<p><u>under</u></p>");
     expect(result).toHaveLength(1);
   });
+
+  it("parses the remaining block and inline tags", () => {
+    const result = htmlToParagraphs(
+      [
+        "loose text",
+        "<div>A <code>code</code> <mark>mark</mark> <strike>gone</strike></div>",
+        "<blockquote>quoted</blockquote>",
+        "<blockquote></blockquote>",
+        "<pre>pre</pre>",
+        "<pre></pre>",
+        "<hr>",
+        "<h1>Title</h1>",
+        "<h1></h1>",
+        "<ul><li>parent<ul><li>child</li></ul></li></ul>",
+        "<ol><li><p>ordered</p></li></ol>",
+        "<span>fallback</span>",
+      ].join(""),
+      { font: "Calibri", size: 20, color: "111111", linkColor: "DC2626" },
+    );
+
+    expect(result.length).toBeGreaterThan(5);
+    expect(result.every((paragraph) => paragraph instanceof Paragraph)).toBe(true);
+  });
 });

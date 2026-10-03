@@ -2710,3 +2710,281 @@ describe("verificationService.overrideConcludedVerdict", () => {
     expect(result.id).toBe("req-1");
   });
 });
+
+describe("verificationService status and timeline reads", () => {
+  const submittedAt = new Date("2024-01-02T00:00:00.000Z");
+  const earlier = new Date("2024-01-01T00:00:00.000Z");
+
+  it("returns the latest status per item and identity, including assessment files", async () => {
+    mockWhere.mockImplementationOnce(() =>
+      Object.assign(Promise.resolve([]), {
+        returning: mockReturning,
+        limit: mockLimit,
+        orderBy: mockOrderBy,
+      }),
+    );
+    mockWhere.mockImplementationOnce(() =>
+      Object.assign(
+        Promise.resolve([
+          {
+            verificationRequestId: "req-new",
+            fileUrl: "uploads/instructions",
+            documentType: "assessment_instructions",
+            uploadedAt: earlier,
+          },
+          {
+            verificationRequestId: "req-new",
+            fileUrl: "uploads/solution",
+            documentType: "assessment_solution",
+            uploadedAt: earlier,
+          },
+          {
+            verificationRequestId: "req-new",
+            fileUrl: "https://example.com/solution",
+            documentType: "assessment_solution_link",
+            uploadedAt: submittedAt,
+          },
+        ]),
+        { returning: mockReturning, limit: mockLimit, orderBy: mockOrderBy },
+      ),
+    );
+    mockOrderBy.mockImplementationOnce(() =>
+      createThenableRows([
+        {
+          id: "req-new",
+          status: "claimed",
+          sectionType: "skill",
+          itemId: "skill-1",
+          submittedAt,
+          assessmentAcceptedAt: null,
+        },
+        {
+          id: "req-old",
+          status: "pending",
+          sectionType: "skill",
+          itemId: "skill-1",
+          submittedAt: earlier,
+          assessmentAcceptedAt: null,
+        },
+        {
+          id: "req-exp",
+          status: "pending",
+          sectionType: "experience",
+          itemId: "exp-1",
+          submittedAt,
+          assessmentAcceptedAt: null,
+        },
+      ]),
+    );
+
+    const statuses = await verificationService.getAllStatuses("user-1");
+    expect(statuses.map((row) => row.id)).toEqual(["req-new", "req-exp"]);
+    expect(statuses[0]).toMatchObject({
+      assessmentInstructionsUrl: "https://app.test/uploads/instructions",
+      assessmentSolutionFileUrl: "https://app.test/uploads/solution",
+      assessmentSolutionLinkUrl: "https://example.com/solution",
+    });
+
+    mockLimit.mockReturnValueOnce([{ id: "identity-1", status: "pending" }]);
+    await expect(verificationService.getIdentityStatus("user-1")).resolves.toMatchObject({ id: "identity-1" });
+    mockLimit.mockReturnValueOnce([]);
+    await expect(verificationService.getIdentityStatus("user-1")).resolves.toBeNull();
+
+    mockWhere.mockImplementationOnce(() =>
+      Object.assign(
+        Promise.resolve([
+          { id: "old", itemId: "item-1", submittedAt: earlier },
+          { id: "new", itemId: "item-1", submittedAt },
+        ]),
+        { returning: mockReturning, limit: mockLimit, orderBy: mockOrderBy },
+      ),
+    );
+    await expect(verificationService.getStatusByResumeId("resume-1")).resolves.toEqual([
+      { id: "new", itemId: "item-1", submittedAt },
+    ]);
+  });
+
+  it("lists timeline settings and toggles them", async () => {
+    mockWhere.mockImplementationOnce(() =>
+      Object.assign(Promise.resolve([]), { returning: mockReturning, limit: mockLimit, orderBy: mockOrderBy }),
+    );
+    await expect(verificationService.listTimelineSettingsForUser("user-1")).resolves.toEqual([]);
+
+    mockWhere
+      .mockImplementationOnce(() =>
+        Object.assign(Promise.resolve([{ id: "resume-1", name: "CV" }]), {
+          returning: mockReturning,
+          limit: mockLimit,
+          orderBy: mockOrderBy,
+        }),
+      )
+      .mockImplementationOnce(() =>
+        Object.assign(Promise.resolve([{ resumeId: "resume-1", showTimeline: true }]), {
+          returning: mockReturning,
+          limit: mockLimit,
+          orderBy: mockOrderBy,
+        }),
+      );
+    await expect(verificationService.listTimelineSettingsForUser("user-1")).resolves.toEqual([
+      { resumeId: "resume-1", name: "CV", showTimeline: true },
+    ]);
+
+    mockLimit.mockReturnValueOnce([]);
+    await expect(
+      verificationService.toggleTimeline({ userId: "user-1", resumeId: "missing", show: true }),
+    ).rejects.toThrow("Resume not found");
+
+    mockLimit.mockReturnValueOnce([{ id: "resume-1" }]).mockReturnValueOnce([{ id: "setting-1" }]);
+    mockReturning.mockResolvedValueOnce([{ resumeId: "resume-1", showTimeline: false }]);
+    await expect(
+      verificationService.toggleTimeline({ userId: "user-1", resumeId: "resume-1", show: false }),
+    ).resolves.toMatchObject({ showTimeline: false });
+
+    mockLimit.mockReturnValueOnce([{ id: "resume-1" }]).mockReturnValueOnce([]);
+    mockReturning.mockResolvedValueOnce([{ resumeId: "resume-1", showTimeline: true }]);
+    await expect(
+      verificationService.toggleTimeline({ userId: "user-1", resumeId: "resume-1", show: true }),
+    ).resolves.toMatchObject({ showTimeline: true });
+  });
+
+  it("cancels a pending identity request", async () => {
+    mockLimit.mockReturnValueOnce([]);
+    await expect(verificationService.cancelIdentity("user-1")).rejects.toThrow("No cancellable identity");
+
+    mockLimit.mockReturnValueOnce([{ id: "identity-1", status: "pending" }]);
+    await expect(verificationService.cancelIdentity("user-1")).resolves.toBeUndefined();
+    expect(mockDelete).toHaveBeenCalled();
+  });
+});
+
+describe("verificationService admin queues", () => {
+  const submittedAt = new Date("2024-03-01T00:00:00.000Z");
+
+  function mockCounts(unfiltered: number, filtered: number, withJoin = false) {
+    mockFrom.mockReturnValueOnce({ where: () => [{ total: unfiltered }] });
+    mockFrom.mockReturnValueOnce(
+      withJoin ? { innerJoin: () => ({ where: () => [{ total: filtered }] }) } : { where: () => [{ total: filtered }] },
+    );
+  }
+
+  it("lists experience and identity queues", async () => {
+    mockCounts(0, 0);
+    await expect(verificationService.listExperienceQueue({ page: 1, pageSize: 20 })).resolves.toMatchObject({
+      items: [],
+      total: 0,
+    });
+
+    const experienceRow = {
+      id: "req-1",
+      userId: "user-1",
+      resumeId: "resume-1",
+      sectionType: "experience",
+      itemId: "item-1",
+      itemLabel: "Engines",
+      status: "pending",
+      method: "document_upload",
+      submittedAt,
+    };
+    mockCounts(2, 1, true);
+    mockFrom.mockReturnValueOnce({
+      innerJoin: () => ({
+        where: () => ({
+          orderBy: () => ({ limit: () => ({ offset: () => [experienceRow] }) }),
+        }),
+      }),
+    });
+    mockFrom
+      .mockReturnValueOnce({ where: () => [{ id: "user-1", name: "Ada" }] })
+      .mockReturnValueOnce({
+        where: () => [
+          { id: "resume-1", userId: "user-1", name: "CV" },
+          { id: "resume-2", userId: "other", name: "Other" },
+        ],
+      })
+      .mockReturnValueOnce({
+        where: () => [
+          {
+            id: "doc-1",
+            verificationRequestId: "req-1",
+            fileUrl: "uploads/payslip",
+            documentType: "payslip",
+            uploadedAt: submittedAt,
+          },
+          {
+            id: "doc-2",
+            verificationRequestId: "req-1",
+            fileUrl: "uploads/contract",
+            documentType: "contract",
+            uploadedAt: submittedAt,
+          },
+        ],
+      });
+
+    const experience = await verificationService.listExperienceQueue({ page: 1, pageSize: 20, query: "ada" });
+    expect(experience.items[0]).toMatchObject({ id: "req-1", user: { name: "Ada" }, resume: { name: "CV" } });
+    expect(experience.items[0]?.documents).toHaveLength(2);
+
+    mockCounts(0, 0);
+    await expect(verificationService.listIdentityQueue({ page: 1, pageSize: 20 })).resolves.toMatchObject({ total: 0 });
+
+    const identityRow = {
+      ...experienceRow,
+      id: "identity-1",
+      sectionType: "identity",
+      resumeId: null,
+      calendarLinkSentAt: null,
+    };
+    mockCounts(1, 1);
+    mockFrom.mockReturnValueOnce({
+      where: () => ({
+        orderBy: () => ({ limit: () => ({ offset: () => [identityRow] }) }),
+      }),
+    });
+    mockFrom
+      .mockReturnValueOnce({ where: () => [] })
+      .mockReturnValueOnce({
+        where: () => ({
+          orderBy: () => [
+            { id: "resume-1", userId: "user-1", name: "Newest" },
+            { id: "resume-0", userId: "user-1", name: "Older" },
+          ],
+        }),
+      })
+      .mockReturnValueOnce({ where: () => [] });
+
+    const identity = await verificationService.listIdentityQueue({ page: 1, pageSize: 20 });
+    expect(identity.items[0]).toMatchObject({ id: "identity-1", resume: { name: "Newest" }, user: null });
+  });
+
+  it("reviews a pending identity request and rejects the others", async () => {
+    mockLimit.mockReturnValueOnce([]);
+    await expect(
+      verificationService.reviewIdentity({ requestId: "missing", adminId: "admin-1", action: "verified" }),
+    ).rejects.toThrow("not found");
+
+    mockLimit.mockReturnValueOnce([{ id: "req-1", status: "pending", sectionType: "skill" }]);
+    await expect(
+      verificationService.reviewIdentity({ requestId: "req-1", adminId: "admin-1", action: "verified" }),
+    ).rejects.toThrow("pending identity");
+
+    mockLimit.mockReturnValueOnce([
+      { id: "req-1", status: "pending", sectionType: "identity", userId: "user-1", itemLabel: "Ada" },
+    ]);
+    mockReturning.mockResolvedValueOnce([{ id: "req-1", status: "issue" }]);
+    mockLimit.mockReturnValueOnce([{ email: "ada@example.com" }]);
+    await expect(
+      verificationService.reviewIdentity({ requestId: "req-1", adminId: "admin-1", action: "issue", notes: "Blurry" }),
+    ).resolves.toMatchObject({ status: "issue" });
+
+    mockLimit.mockReturnValueOnce([
+      { id: "req-1", status: "pending", sectionType: "identity", userId: "user-1", itemLabel: "Ada" },
+    ]);
+    mockReturning.mockResolvedValueOnce([{ id: "req-1", status: "verified" }]);
+    mockLimit.mockImplementationOnce(() => {
+      throw new Error("mail down");
+    });
+    await expect(
+      verificationService.reviewIdentity({ requestId: "req-1", adminId: "admin-1", action: "verified" }),
+    ).resolves.toMatchObject({ status: "verified" });
+  });
+});

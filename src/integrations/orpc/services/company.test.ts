@@ -6,6 +6,7 @@ import { defaultResumeData } from "@/schema/resume/data";
 const state = vi.hoisted(() => ({
   selectQueue: [] as unknown[][],
   updateQueue: [] as unknown[][],
+  insertQueue: [] as unknown[][],
   selects: 0,
   sets: [] as unknown[],
 }));
@@ -14,6 +15,7 @@ const getGlobalAiCredentialsForService = vi.hoisted(() => vi.fn());
 const matchCandidates = vi.hoisted(() => vi.fn());
 const sendAccepted = vi.hoisted(() => vi.fn());
 const sendDeclined = vi.hoisted(() => vi.fn());
+const sendRequested = vi.hoisted(() => vi.fn());
 
 function chain(rows: unknown[]) {
   const self = {
@@ -43,7 +45,7 @@ vi.mock("@/integrations/drizzle/client", () => ({
       return chain(state.selectQueue.shift() ?? []);
     },
     update: () => chain(state.updateQueue.shift() ?? []),
-    insert: () => chain([]),
+    insert: () => chain(state.insertQueue.shift() ?? []),
     delete: () => chain([]),
   },
 }));
@@ -59,7 +61,7 @@ vi.mock("./ai", () => ({
 vi.mock("@/integrations/email/company-contact", () => ({
   sendCompanyContactAcceptedEmail: sendAccepted,
   sendCompanyContactDeclinedEmail: sendDeclined,
-  sendCompanyContactRequestedEmail: vi.fn(),
+  sendCompanyContactRequestedEmail: sendRequested,
 }));
 
 import { companyService } from "./company";
@@ -87,6 +89,7 @@ describe("companyService.matchCandidates", () => {
   beforeEach(() => {
     state.selectQueue = [];
     state.updateQueue = [];
+    state.insertQueue = [];
     state.selects = 0;
     state.sets = [];
     getGlobalAiCredentialsForService.mockReset();
@@ -174,6 +177,7 @@ describe("companyService.respondToContactRequest", () => {
   beforeEach(() => {
     state.selectQueue = [];
     state.updateQueue = [];
+    state.insertQueue = [];
     state.selects = 0;
     state.sets = [];
     sendAccepted.mockReset();
@@ -183,18 +187,16 @@ describe("companyService.respondToContactRequest", () => {
   it("rejects a request that does not belong to the candidate", async () => {
     state.selectQueue.push([]);
 
-    await expect(
-      companyService.respondToContactRequest({ ...input, decision: "accepted" }),
-    ).rejects.toMatchObject({ code: "NOT_FOUND" });
+    await expect(companyService.respondToContactRequest({ ...input, decision: "accepted" })).rejects.toMatchObject({
+      code: "NOT_FOUND",
+    });
     expect(state.sets).toEqual([]);
   });
 
   it("rejects a second response", async () => {
     state.selectQueue.push([{ id: "req-1", status: "declined", companyUserId: "company-1" }]);
 
-    await expect(
-      companyService.respondToContactRequest({ ...input, decision: "accepted" }),
-    ).rejects.toMatchObject({
+    await expect(companyService.respondToContactRequest({ ...input, decision: "accepted" })).rejects.toMatchObject({
       code: "CONFLICT",
       message: "This contact request was already answered.",
     });
@@ -225,5 +227,189 @@ describe("companyService.respondToContactRequest", () => {
     expect(state.sets[1]).toMatchObject({ status: "declined" });
     expect(sendDeclined).toHaveBeenCalledTimes(1);
     expect(sendAccepted).not.toHaveBeenCalled();
+  });
+});
+
+describe("companyService saved candidates and contact requests", () => {
+  beforeEach(() => {
+    state.selectQueue = [];
+    state.updateQueue = [];
+    state.insertQueue = [];
+    state.selects = 0;
+    state.sets = [];
+    sendRequested.mockReset();
+  });
+
+  it("lists saved candidates and toggles a saved row", async () => {
+    state.selectQueue.push([]);
+    await expect(companyService.listSaved("company-1")).resolves.toEqual([]);
+
+    const data = structuredClone(defaultResumeData);
+    data.basics.name = "";
+    const experienceItem = {
+      id: "exp-1",
+      hidden: false,
+      company: "Engines",
+      position: "Programmer",
+      location: "",
+      period: "",
+      website: { url: "", label: "" },
+      description: "",
+      roles: [],
+    };
+    data.sections.experience.items = [
+      experienceItem,
+      { ...experienceItem, id: "exp-2", hidden: true, company: "Hidden", position: "Ghost" },
+    ];
+    state.selectQueue.push([
+      {
+        candidateUserId: "cand-1",
+        resumeId: "resume-1",
+        listType: "favorite",
+        savedAt: new Date("2026-01-02T00:00:00.000Z"),
+        candidateName: "Ada",
+        candidateEmail: "ada@example.com",
+        username: "ada",
+      },
+      {
+        candidateUserId: "cand-1",
+        resumeId: null,
+        listType: "to_contact",
+        savedAt: new Date("2026-01-01T00:00:00.000Z"),
+        candidateName: "Ada",
+        candidateEmail: "ada@example.com",
+        username: "ada",
+      },
+    ]);
+    state.selectQueue.push(
+      [
+        { userId: "cand-1", itemLabel: "Maths" },
+        { userId: "cand-1", itemLabel: "Maths" },
+      ],
+      [{ userId: "cand-1", itemLabel: "Programmer" }],
+      [{ userId: "cand-1" }],
+      [
+        { id: "contact-1", candidateUserId: "cand-1", status: "accepted" },
+        { id: "contact-old", candidateUserId: "cand-1", status: "pending" },
+      ],
+      [
+        { candidateUserId: "cand-1", listType: "favorite" },
+        { candidateUserId: "cand-1", listType: "to_contact" },
+      ],
+      [{ id: "resume-1", slug: "cv", basics: data.basics, data }],
+    );
+
+    const saved = await companyService.listSaved("company-1", "favorite");
+    expect(saved[0]).toMatchObject({
+      displayName: "Ada",
+      headline: "",
+      identityVerified: true,
+      verifiedSkills: ["Maths"],
+      experienceTitles: ["Programmer @ Engines"],
+      candidateEmail: "ada@example.com",
+      isFavorite: true,
+      isToContact: true,
+      contactStatus: "accepted",
+    });
+    expect(saved[1]).toMatchObject({ resumeId: null, experienceTitles: [], slug: null });
+
+    await expect(
+      companyService.setSaved({
+        companyUserId: "company-1",
+        candidateUserId: "cand-1",
+        resumeId: "resume-1",
+        listType: "favorite",
+        saved: true,
+      }),
+    ).resolves.toEqual({ ok: true });
+    await expect(
+      companyService.setSaved({
+        companyUserId: "company-1",
+        candidateUserId: "cand-1",
+        listType: "to_contact",
+        saved: false,
+      }),
+    ).resolves.toEqual({ ok: true });
+  });
+
+  it("creates and lists contact requests", async () => {
+    await expect(
+      companyService.createContactRequest({
+        companyUserId: "company-1",
+        companyName: "Acme",
+        candidateUserId: "company-1",
+      }),
+    ).rejects.toMatchObject({ message: "Cannot contact yourself." });
+
+    state.selectQueue.push([]);
+    await expect(
+      companyService.createContactRequest({
+        companyUserId: "company-1",
+        companyName: "Acme",
+        candidateUserId: "cand-1",
+      }),
+    ).rejects.toMatchObject({ code: "NOT_FOUND" });
+
+    state.selectQueue.push([{ id: "cand-1", email: "ada@example.com" }]);
+    await expect(
+      companyService.createContactRequest({
+        companyUserId: "company-1",
+        companyName: "Acme",
+        candidateUserId: "cand-1",
+        resumeId: "resume-1",
+      }),
+    ).rejects.toMatchObject({ code: "CONFLICT" });
+
+    state.selectQueue.push([{ id: "cand-1", email: "ada@example.com" }]);
+    state.insertQueue.push([{ id: "contact-1" }]);
+    await expect(
+      companyService.createContactRequest({
+        companyUserId: "company-1",
+        companyName: "Acme",
+        candidateUserId: "cand-1",
+      }),
+    ).resolves.toEqual({ id: "contact-1", status: "pending" });
+    expect(sendRequested).toHaveBeenCalledWith(expect.objectContaining({ to: "ada@example.com", companyName: "Acme" }));
+
+    const createdAt = new Date("2026-02-01T00:00:00.000Z");
+    state.selectQueue.push([
+      {
+        id: "contact-1",
+        candidateUserId: "cand-1",
+        resumeId: "resume-1",
+        status: "accepted",
+        createdAt,
+        respondedAt: createdAt,
+        candidateName: "Ada",
+        candidateEmail: "ada@example.com",
+      },
+      {
+        id: "contact-2",
+        candidateUserId: "cand-2",
+        resumeId: null,
+        status: "pending",
+        createdAt,
+        respondedAt: null,
+        candidateName: "Bea",
+        candidateEmail: "bea@example.com",
+      },
+    ]);
+    const listed = await companyService.listContactRequests("company-1", { status: "accepted", query: "Ada" });
+    expect(listed.map((row) => row.candidateEmail)).toEqual(["ada@example.com", null]);
+
+    state.selectQueue.push([
+      {
+        id: "contact-1",
+        companyUserId: "company-1",
+        resumeId: "resume-1",
+        status: "pending",
+        createdAt,
+        respondedAt: null,
+        companyName: "Acme",
+        companyEmail: "acme@example.com",
+      },
+    ]);
+    const mine = await companyService.listMyContactRequests("cand-1", { status: "pending" });
+    expect(mine[0]).toMatchObject({ companyName: "Acme", companyEmail: null, status: "pending" });
   });
 });
