@@ -8,6 +8,8 @@ const { state, chain } = vi.hoisted(() => {
     selectQueue: [] as unknown[][],
     updateError: null as unknown,
     insertError: null as unknown,
+    deleteError: null as unknown,
+    updateRows: null as unknown[] | null,
     sets: [] as Array<Record<string, unknown>>,
     inserts: 0,
   };
@@ -40,6 +42,18 @@ const { state, chain } = vi.hoisted(() => {
           const error = state.insertError;
           state.insertError = null;
           return Promise.reject(error).then(onFulfilled, onRejected);
+        }
+
+        if (kind === "delete" && state.deleteError) {
+          const error = state.deleteError;
+          state.deleteError = null;
+          return Promise.reject(error).then(onFulfilled, onRejected);
+        }
+
+        if (kind === "update" && state.updateRows) {
+          const rows = state.updateRows;
+          state.updateRows = null;
+          return Promise.resolve(rows).then(onFulfilled, onRejected);
         }
 
         if (kind === "update") {
@@ -108,6 +122,8 @@ describe("resumeService", () => {
     state.selectQueue = [];
     state.updateError = null;
     state.insertError = null;
+    state.deleteError = null;
+    state.updateRows = null;
     state.sets = [];
     state.inserts = 0;
     jar.clear();
@@ -350,5 +366,53 @@ describe("resumeService", () => {
 
     state.selectQueue.push([{ isLocked: false }]);
     await expect(resumeService.delete({ id: "resume-1", userId: "user-1" })).resolves.toBeUndefined();
+
+    state.selectQueue.push([{ isLocked: false }]);
+    state.deleteError = new Error("storage down");
+    await expect(resumeService.delete({ id: "resume-1", userId: "user-1" })).rejects.toThrow("storage down");
+  });
+
+  it("rejects a missing resume on export, update, patch, and password check", async () => {
+    await expect(resumeService.getForPdfExport({ id: "missing" })).rejects.toMatchObject({ code: "NOT_FOUND" });
+
+    state.selectQueue.push([{ isLocked: false }]);
+    state.updateRows = [];
+    await expect(resumeService.update({ id: "resume-1", userId: "user-1", name: "Next" })).rejects.toMatchObject({
+      code: "NOT_FOUND",
+    });
+
+    state.selectQueue.push([{ isLocked: false }]);
+    const updated = await resumeService.update({
+      id: "resume-1",
+      userId: "user-1",
+      name: "Next",
+      data: defaultResumeData,
+    });
+    expect(updated).toMatchObject({ id: "resume-1" });
+    expect(state.sets.at(-1)).toMatchObject({
+      name: "Next",
+      workAuthEuStatus: defaultWorkAuthorizationData.eu.status,
+    });
+
+    await expect(
+      resumeService.patch({
+        id: "missing",
+        userId: "user-1",
+        operations: [{ op: "replace", path: "/summary/content", value: "<p>x</p>" }],
+      }),
+    ).rejects.toMatchObject({ code: "NOT_FOUND" });
+
+    state.selectQueue.push([{ data: structuredClone(defaultResumeData), isLocked: false }]);
+    await expect(
+      resumeService.patch({
+        id: "resume-1",
+        userId: "user-1",
+        operations: [{ op: "replace", path: "/summary/content", value: 1 }],
+      }),
+    ).rejects.toThrow("invalid resume data");
+
+    await expect(
+      resumeService.verifyPassword({ slug: "cv", username: "ada", password: "secret" }),
+    ).rejects.toMatchObject({ code: "NOT_FOUND" });
   });
 });
