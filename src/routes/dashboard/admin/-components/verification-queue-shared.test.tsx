@@ -1,5 +1,6 @@
 globalThis.IS_REACT_ACT_ENVIRONMENT = true;
 
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { act } from "react";
 import { createRoot } from "react-dom/client";
 import { describe, expect, it, vi } from "vite-plus/test";
@@ -11,7 +12,15 @@ vi.mock("@lingui/core/macro", () => ({
 vi.mock("@lingui/react/macro", () => ({
   Trans: ({ children }: { children: React.ReactNode }) => children,
 }));
-vi.mock("@/integrations/orpc/client", () => ({ orpc: {} }));
+vi.mock("@/integrations/orpc/client", () => ({
+  orpc: {
+    admin: {
+      verification: {
+        overrideConcludedVerdict: { mutationOptions: () => ({}) },
+      },
+    },
+  },
+}));
 vi.mock("@/components/resume/preview", () => ({ ResumePreview: () => null }));
 vi.mock("@/components/resume/store/resume", () => ({ useResumeStore: () => ({}) }));
 vi.mock("react-zoom-pan-pinch", () => ({
@@ -21,6 +30,7 @@ vi.mock("react-zoom-pan-pinch", () => ({
 
 import {
   ApplicantDetails,
+  DirectAdminReviewHistoryTab,
   DocumentPreview,
   MethodBadge,
   QueueEmptyState,
@@ -29,7 +39,10 @@ import {
   ReviewDecisionPanel,
   ReviewerDetails,
   StatusBadge,
+  VerdictReviewHistoryTab,
+  type DirectAdminReviewHistoryItem,
   type QueueUser,
+  type VerdictReviewHistoryItem,
 } from "./verification-queue-shared";
 
 async function textOf(node: React.ReactNode) {
@@ -242,5 +255,116 @@ describe("verification queue badges", () => {
     root.unmount();
     container.remove();
     vi.unstubAllGlobals();
+  });
+
+  it("lists completed reviews and expands a row without a resume preview", async () => {
+    const direct: DirectAdminReviewHistoryItem = {
+      id: "req-1",
+      sectionType: "experience",
+      itemId: "item-1",
+      itemLabel: "Acme",
+      status: "verified",
+      method: "document_upload",
+      submittedAt: new Date("2020-01-01T00:00:00.000Z"),
+      resolvedAt: new Date("2020-02-01T00:00:00.000Z"),
+      reviewerNote: "matches",
+      calendarLinkSentAt: new Date("2020-01-15T00:00:00.000Z"),
+      user: null,
+      resume: null,
+      documents: [
+        {
+          id: "doc-1",
+          fileUrl: "https://example.com/profile",
+          documentType: "assessment_solution_link",
+          uploadedAt: new Date("2020-01-01T00:00:00.000Z"),
+        },
+      ],
+      reviewedBy: { id: "admin", name: "Grace", email: "grace@example.com" },
+      reviewedAt: new Date("2020-02-01T00:00:00.000Z"),
+    };
+    const verdict: VerdictReviewHistoryItem = {
+      id: "req-2",
+      sectionType: "skill",
+      itemId: "item-2",
+      itemLabel: "TypeScript",
+      status: "issue",
+      submittedAt: new Date("2020-01-01T00:00:00.000Z"),
+      resolvedAt: null,
+      proposedVerdict: "verified",
+      reviewerNote: null,
+      parentItemLabel: "Languages",
+      user: null,
+      resume: null,
+      documents: [],
+      assessmentInstructionsUrl: "https://example.com/task",
+      reviewerName: "Grace",
+      reviewerTitle: "Reviewer",
+      reviewerPublicProfileUrl: "https://example.com/grace",
+      reviewerSkills: ["TypeScript"],
+      verdictNotes: "needs a metric",
+      verdictSubmittedAt: new Date("2020-03-01T00:00:00.000Z"),
+      reviewedBy: null,
+      reviewedAt: new Date("2020-03-02T00:00:00.000Z"),
+    };
+
+    await expect(
+      textOf(
+        <DirectAdminReviewHistoryTab items={[]} isLoading isError={false} emptyMessage="No experience reviews" />,
+      ),
+    ).resolves.toContain("Loading queue");
+    await expect(
+      textOf(
+        <DirectAdminReviewHistoryTab items={[]} isLoading={false} isError emptyMessage="No experience reviews" />,
+      ),
+    ).resolves.toContain("Failed to load history");
+    await expect(
+      textOf(
+        <VerdictReviewHistoryTab
+          items={[]}
+          isLoading={false}
+          isError={false}
+          emptyMessage="No verdicts"
+          hasActiveFilter
+        />,
+      ),
+    ).resolves.toContain("No completed reviews");
+
+    const container = document.createElement("div");
+    document.body.append(container);
+    const root = createRoot(container);
+    await act(async () => {
+      root.render(
+        <DirectAdminReviewHistoryTab
+          items={[direct]}
+          isLoading={false}
+          isError={false}
+          emptyMessage="No experience reviews"
+          resumeLabel="Resume"
+        />,
+      );
+    });
+    await act(async () => {
+      [...container.querySelectorAll("button")].find((button) => button.textContent?.includes("Details"))?.click();
+    });
+    expect(container.textContent).toContain("Unknown applicant");
+    expect(container.textContent).toContain("Open Link");
+    expect(container.textContent).toContain("matches");
+
+    const queryClient = new QueryClient();
+    await act(async () => {
+      root.render(
+        <QueryClientProvider client={queryClient}>
+          <VerdictReviewHistoryTab items={[verdict]} isLoading={false} isError={false} emptyMessage="No verdicts" />
+        </QueryClientProvider>,
+      );
+    });
+    await act(async () => {
+      [...container.querySelectorAll("button")].find((button) => button.textContent?.includes("Details"))?.click();
+    });
+    expect(container.textContent).toContain("needs a metric");
+    expect(container.textContent).toContain("Languages");
+
+    root.unmount();
+    container.remove();
   });
 });
