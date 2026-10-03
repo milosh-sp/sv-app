@@ -62,14 +62,14 @@ describe("getWorkAuthorizationConditions", () => {
   it("combines employer region, status, sponsorship, and freshness behind consent", () => {
     const conditions = getWorkAuthorizationConditions(
       {
-        workAuthRegions: ["usa"],
+        workAuthRegions: ["usa", "uk"],
         sponsorshipRequired: "no",
-        workAuthStatusByRegion: { usa: "citizen" },
+        workAuthStatusByRegion: { eu: "citizen", usa: "citizen", uk: "authorized" },
         authorizationFreshnessDays: 30,
       },
       true,
     );
 
-    expect(conditions).toHaveLength(5);
+    expect(conditions).toHaveLength(7);
   });
 });
