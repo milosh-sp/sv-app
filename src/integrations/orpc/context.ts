@@ -5,7 +5,7 @@ import { eq } from "drizzle-orm";
 
 import type { Locale } from "@/utils/locale";
 
-import { getEffectiveDashboardMode, parseDashboardModeFromCookieHeader } from "@/utils/dashboard-mode";
+import { type AdminRole, getEffectiveDashboardMode, parseDashboardModeFromCookieHeader } from "@/utils/dashboard-mode";
 import { env } from "@/utils/env";
 
 import { auth, verifyOAuthToken } from "../auth/config";
@@ -155,3 +155,23 @@ export const reviewerAdminProcedure = protectedProcedure.use(async ({ context, n
 
   return next({ context: { ...context, adminRole: "reviewer_admin" as const } });
 });
+
+const requireRoles = <const R extends NonNullable<AdminRole>>(...roles: R[]) =>
+  protectedProcedure.use(async ({ context, next }) => {
+    const [row] = await db
+      .select({ role: adminRoles.role })
+      .from(adminRoles)
+      .where(eq(adminRoles.userId, context.user.id))
+      .limit(1);
+
+    if (!row || !(roles as AdminRole[]).includes(row.role)) {
+      throw new ORPCError("FORBIDDEN", { message: `Role required: ${roles.join(" or ")}` });
+    }
+
+    return next({ context: { ...context, adminRole: row.role as R } });
+  });
+
+export const companyProcedure = requireRoles("company");
+
+/** Company accounts, or Skill Verdict admins (for debugging employer search). */
+export const companyOrSkillVerdictAdminProcedure = requireRoles("company", "skill_verdict_admin");

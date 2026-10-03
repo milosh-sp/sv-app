@@ -21,6 +21,7 @@ import type { JobResult } from "@/schema/jobs";
 import type { ResumeData } from "@/schema/resume/data";
 
 import chatSystemPromptTemplate from "@/integrations/ai/prompts/chat-system.md?raw";
+import companyMatchSystemPromptTemplate from "@/integrations/ai/prompts/company-match-system.md?raw";
 import docxParserSystemPrompt from "@/integrations/ai/prompts/docx-parser-system.md?raw";
 import docxParserUserPrompt from "@/integrations/ai/prompts/docx-parser-user.md?raw";
 import pdfParserSystemPrompt from "@/integrations/ai/prompts/pdf-parser-system.md?raw";
@@ -32,6 +33,7 @@ import {
   patchResumeDescription,
   patchResumeInputSchema,
 } from "@/integrations/ai/tools/patch-resume";
+import { type CompanyMatchOutput, companyMatchOutputSchema } from "@/schema/company-match";
 import { defaultResumeData, resumeDataSchema } from "@/schema/resume/data";
 import { type TailorOutput, tailorOutputSchema } from "@/schema/tailor";
 import { isObject } from "@/utils/sanitize";
@@ -508,8 +510,47 @@ async function tailorResume(input: TailorResumeInput): Promise<TailorOutput> {
   return tailorOutputSchema.parse(result.output);
 }
 
+export type CompanyMatchCandidateSummary = {
+  resumeId: string;
+  displayName: string;
+  headline: string;
+  verifiedSkills: string[];
+  experienceTitles: string[];
+};
+
+type MatchCandidatesInput = z.infer<typeof aiCredentialsSchema> & {
+  jobDescription: string;
+  candidates: CompanyMatchCandidateSummary[];
+};
+
+async function matchCandidates(input: MatchCandidatesInput): Promise<CompanyMatchOutput> {
+  const model = getModel(input);
+  const systemPrompt = companyMatchSystemPromptTemplate
+    .replace("{{JOB_DESCRIPTION}}", input.jobDescription)
+    .replace("{{CANDIDATES}}", JSON.stringify(input.candidates, null, 2));
+
+  const result = await generateText({
+    model,
+    instructions: systemPrompt,
+    output: Output.object({ schema: companyMatchOutputSchema }),
+    messages: [
+      {
+        role: "user",
+        content: "Rank these candidates against the job description and return match scores with short reasons.",
+      },
+    ],
+  });
+
+  if (result.output == null) {
+    throw new Error("AI returned no structured candidate match output.");
+  }
+
+  return companyMatchOutputSchema.parse(result.output);
+}
+
 export const aiService = {
   chat,
+  matchCandidates,
   parseDocx,
   parsePdf,
   reviewResume,

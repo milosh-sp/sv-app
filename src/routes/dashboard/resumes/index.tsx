@@ -38,6 +38,9 @@ export const Route = createFileRoute("/dashboard/resumes/")({
     if (role === "skill_verdict_admin") {
       throw redirect({ to: "/dashboard/admin/experience-queue", replace: true });
     }
+    if (role === "company") {
+      throw redirect({ to: "/dashboard/company/match", replace: true });
+    }
   },
   validateSearch: zodValidator(searchSchema),
   search: {

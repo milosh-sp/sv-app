@@ -2,7 +2,7 @@ import { describe, expect, it } from "vite-plus/test";
 
 import { defaultResumeData } from "@/schema/resume/data";
 
-import { deriveWorkAuthorizationIndexes } from "./resume-work-authorization";
+import { deriveWorkAuthorizationIndexes, getWorkAuthorizationConditions } from "./resume-work-authorization";
 
 describe("deriveWorkAuthorizationIndexes", () => {
   it("derives indexed fields from resume work authorization data", () => {
@@ -49,5 +49,27 @@ describe("deriveWorkAuthorizationIndexes", () => {
     const indexed = deriveWorkAuthorizationIndexes(data);
 
     expect(indexed.workAuthUpdatedAt).toBeNull();
+  });
+});
+
+describe("getWorkAuthorizationConditions", () => {
+  it("gates employer work-auth filters on consent, but not the unfiltered pool", () => {
+    expect(getWorkAuthorizationConditions({ workAuthRegions: [] }, true)).toHaveLength(0);
+    expect(getWorkAuthorizationConditions({ workAuthRegions: ["eu"] })).toHaveLength(1);
+    expect(getWorkAuthorizationConditions({ workAuthRegions: ["eu"] }, true)).toHaveLength(2);
+  });
+
+  it("combines employer region, status, sponsorship, and freshness behind consent", () => {
+    const conditions = getWorkAuthorizationConditions(
+      {
+        workAuthRegions: ["usa"],
+        sponsorshipRequired: "no",
+        workAuthStatusByRegion: { usa: "citizen" },
+        authorizationFreshnessDays: 30,
+      },
+      true,
+    );
+
+    expect(conditions).toHaveLength(5);
   });
 });

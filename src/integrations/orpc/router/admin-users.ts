@@ -31,7 +31,7 @@ const listUsersInputSchema = z.object({
       const t = s?.trim() ?? "";
       return t.length > 0 ? t : undefined;
     }),
-  roleFilter: z.enum(["all", "user", "skill_verdict_admin", "reviewer_admin"]).default("all"),
+  roleFilter: z.enum(["all", "user", ...adminRoleEnum.enumValues]).default("all"),
 });
 
 function searchOrCondition(query: string) {
@@ -85,8 +85,7 @@ export const adminUsersRouter = {
     const filters = [];
     if (query) filters.push(searchOrCondition(query));
     if (roleFilter === "user") filters.push(isNull(adminRoles.role));
-    if (roleFilter === "skill_verdict_admin") filters.push(eq(adminRoles.role, "skill_verdict_admin"));
-    if (roleFilter === "reviewer_admin") filters.push(eq(adminRoles.role, "reviewer_admin"));
+    else if (roleFilter !== "all") filters.push(eq(adminRoles.role, roleFilter));
     const where = filters.length > 0 ? and(...filters) : undefined;
 
     const [totalRow] = await db

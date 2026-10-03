@@ -4,24 +4,28 @@ import {
   adminRoleEnum,
   adminRoles,
   changeRequestStatusEnum,
+  companyContactRequests,
+  companyContactStatusEnum,
+  companySavedCandidates,
+  companySavedListTypeEnum,
   documentTypeEnum,
   metadataActionEnum,
+  resume,
   resumeVerificationSettings,
   reviewerProfileChangeRequests,
   reviewerProfiles,
+  user,
   verificationDocuments,
   verificationMetadata,
   verificationMethodEnum,
   verificationRequests,
   verificationSectionTypeEnum,
   verificationStatusEnum,
-  resume,
-  user,
 } from "./schema";
 
 describe("verification enums", () => {
   it("adminRoleEnum has correct values", () => {
-    expect(adminRoleEnum.enumValues).toEqual(["skill_verdict_admin", "reviewer_admin"]);
+    expect(adminRoleEnum.enumValues).toEqual(["skill_verdict_admin", "reviewer_admin", "company"]);
   });
 
   it("verificationSectionTypeEnum includes identity", () => {
@@ -81,6 +85,20 @@ describe("adminRoles table", () => {
 
   it("userId is not nullable", () => {
     expect(adminRoles.userId.notNull).toBe(true);
+  });
+});
+
+describe("company tables", () => {
+  it("has contact and saved enums", () => {
+    expect(companyContactStatusEnum.enumValues).toEqual(["pending", "accepted", "declined"]);
+    expect(companySavedListTypeEnum.enumValues).toEqual(["favorite", "to_contact"]);
+  });
+
+  it("has contact request and saved candidate tables", () => {
+    expect(companyContactRequests.companyUserId).toBeDefined();
+    expect(companyContactRequests.candidateUserId).toBeDefined();
+    expect(companyContactRequests.status).toBeDefined();
+    expect(companySavedCandidates.listType).toBeDefined();
   });
 });
 

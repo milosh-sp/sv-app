@@ -9,6 +9,8 @@ import { toast } from "sonner";
 import { useDebounceCallback } from "usehooks-ts";
 import z from "zod";
 
+import type { AdminRole } from "@/utils/dashboard-mode";
+
 import { Button } from "@/components/ui/button";
 import { Combobox, type ComboboxOption } from "@/components/ui/combobox";
 import { Input } from "@/components/ui/input";
@@ -22,7 +24,7 @@ const PAGE_SIZE = 20;
 
 const usersSearchSchema = z.object({
   q: z.string().optional().default(""),
-  role: z.enum(["all", "user", "skill_verdict_admin", "reviewer_admin"]).default("all"),
+  role: z.enum(["all", "user", "skill_verdict_admin", "reviewer_admin", "company"]).default("all"),
   page: z.coerce.number().int().min(1).default(1),
 });
 
@@ -30,6 +32,7 @@ const roleSelectOptions: ComboboxOption<string>[] = [
   { value: "__none__", label: "User" },
   { value: "skill_verdict_admin", label: "Skill Verdict Admin" },
   { value: "reviewer_admin", label: "Reviewer Admin" },
+  { value: "company", label: "Company" },
 ];
 
 const roleFilterOptions: ComboboxOption<string>[] = [
@@ -37,16 +40,16 @@ const roleFilterOptions: ComboboxOption<string>[] = [
   { value: "user", label: "User" },
   { value: "skill_verdict_admin", label: "Skill Verdict Admin" },
   { value: "reviewer_admin", label: "Reviewer Admin" },
+  { value: "company", label: "Company" },
 ];
 
-function roleToSelectValue(role: "skill_verdict_admin" | "reviewer_admin" | null): string {
+function roleToSelectValue(role: AdminRole): string {
   return role ?? "__none__";
 }
 
-function selectValueToRole(value: string | null): "skill_verdict_admin" | "reviewer_admin" | null {
+function selectValueToRole(value: string | null): AdminRole {
   if (!value || value === "__none__") return null;
-  if (value === "skill_verdict_admin" || value === "reviewer_admin") return value;
-  return null;
+  return roleSelectOptions.some((option) => option.value === value) ? (value as AdminRole) : null;
 }
 
 function formatDateTime(value: Date | string | null | undefined): string {
@@ -285,7 +288,7 @@ type UserRow = {
   username: string;
   displayUsername: string;
   createdAt: Date | string;
-  adminRole: "skill_verdict_admin" | "reviewer_admin" | null;
+  adminRole: AdminRole;
 };
 
 function UserRoleRow({
@@ -301,7 +304,7 @@ function UserRoleRow({
   disabled: boolean;
   expanded: boolean;
   onExpandedChange: (expanded: boolean) => void;
-  onSave: (role: "skill_verdict_admin" | "reviewer_admin" | null) => void;
+  onSave: (role: AdminRole) => void;
 }) {
   const serverValue = roleToSelectValue(user.adminRole);
   const [draft, setDraft] = useState(serverValue);
@@ -311,6 +314,7 @@ function UserRoleRow({
     setPrevServerValue(serverValue);
     setDraft(serverValue);
   }
+
   const isDirty = draft !== serverValue;
   const detailsQuery = useQuery({
     ...orpc.admin.users.getUserOverview.queryOptions({

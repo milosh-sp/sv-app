@@ -368,6 +368,16 @@ export function DocumentPreview({
   const blobUrlRef = useRef<string | null>(null);
 
   const isExternalLink = documentType === "freelancer_link" || documentType === "assessment_solution_link";
+  const previewKey = expanded && !isExternalLink ? fileUrl : null;
+  const [appliedPreviewKey, setAppliedPreviewKey] = useState<string | null>(null);
+
+  if (previewKey !== appliedPreviewKey) {
+    setAppliedPreviewKey(previewKey);
+    if (previewKey) {
+      setRenderType("loading");
+      setObjectUrl(null);
+    }
+  }
 
   useEffect(() => {
     if (!expanded || isExternalLink) return;

@@ -141,6 +141,11 @@ function RouteComponent() {
               <Trans>Reviewer Admin</Trans>
             </Badge>
           ))
+          .with("company", () => (
+            <Badge variant="secondary">
+              <Trans>Company</Trans>
+            </Badge>
+          ))
           .exhaustive();
 
   return (

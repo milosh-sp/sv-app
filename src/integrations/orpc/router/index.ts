@@ -4,6 +4,7 @@ import { adminUsersRouter } from "./admin-users";
 import { adminVerificationRouter } from "./admin-verification";
 import { aiRouter } from "./ai";
 import { authRouter } from "./auth";
+import { companyRouter } from "./company";
 import { flagsRouter } from "./flags";
 import { jobsRouter } from "./jobs";
 import { printerRouter } from "./printer";
@@ -16,6 +17,7 @@ import { verificationRouter } from "./verification";
 export default {
   ai: aiRouter,
   auth: authRouter,
+  company: companyRouter,
   flags: flagsRouter,
   jobs: jobsRouter,
   printer: printerRouter,
