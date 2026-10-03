@@ -99,6 +99,12 @@ describe("S3 storage", () => {
     await expect(storage.delete("uploads/a")).resolves.toBe(false);
   });
 
+  it("writes an object", async () => {
+    send.mockResolvedValueOnce(undefined);
+    await storage.write({ key: "uploads/a", data: new Uint8Array([1]), contentType: "text/plain" });
+    expect(send).toHaveBeenCalledWith(expect.objectContaining({ type: "put" }));
+  });
+
   it("reports whether the bucket accepts a write", async () => {
     send.mockResolvedValue(undefined);
     await expect(storage.healthcheck()).resolves.toMatchObject({ type: "s3", status: "healthy" });

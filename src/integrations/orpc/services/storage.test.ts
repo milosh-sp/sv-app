@@ -1,5 +1,5 @@
 // @vitest-environment node
-import { mkdtemp } from "node:fs/promises";
+import { mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { afterAll, beforeAll, describe, expect, it, vi } from "vite-plus/test";
@@ -24,13 +24,13 @@ vi.mock("sharp", () => ({
 }));
 
 import {
-    getStorageService,
-    inferContentType,
-    isImageFile,
-    processImageForUpload,
-    toPublicFileUrl,
-    toStorageKey,
-    uploadFile,
+  getStorageService,
+  inferContentType,
+  isImageFile,
+  processImageForUpload,
+  toPublicFileUrl,
+  toStorageKey,
+  uploadFile,
 } from "./storage";
 
 describe("storage file references", () => {
@@ -38,6 +38,7 @@ describe("storage file references", () => {
     expect(toStorageKey("uploads/user/pictures/1.webp")).toBe("uploads/user/pictures/1.webp");
     expect(toStorageKey("https://cdn.example.com/uploads/user/pictures/1.webp")).toBe("uploads/user/pictures/1.webp");
     expect(toStorageKey("notes.txt")).toBe("notes.txt");
+    expect(toStorageKey("http://%")).toBe("http://%");
   });
 
   it("builds a public URL and infers file types", () => {
@@ -74,6 +75,8 @@ describe("local storage", () => {
     expect(Array.from(read?.data ?? [])).toEqual([1, 2, 3]);
     expect(read?.contentType).toBe("application/octet-stream");
     await expect(storage.read("uploads/missing.txt")).resolves.toBeNull();
+    await storage.write({ key: "uploads/user/folder", data, contentType: "text/plain" });
+    await expect(storage.read("uploads/user")).rejects.toThrow();
     await expect(storage.list("uploads/missing")).resolves.toEqual([]);
     await expect(storage.list("uploads/user/notes.txt")).rejects.toThrow();
 
@@ -87,6 +90,10 @@ describe("local storage", () => {
     await expect(storage.delete("uploads")).resolves.toBe(false);
     await expect(storage.read("..")).rejects.toThrow("Invalid storage key");
     await expect(storage.healthcheck()).resolves.toMatchObject({ type: "local", status: "healthy" });
+    await rm(join(root, "data"), { recursive: true });
+    await writeFile(join(root, "data"), "not-a-directory");
+    await expect(storage.healthcheck()).resolves.toMatchObject({ type: "local", status: "unhealthy" });
+    await rm(join(root, "data"));
   });
 
   it("builds upload keys and rejects incomplete document uploads", async () => {
@@ -133,6 +140,9 @@ describe("local storage", () => {
     await expect(
       uploadFile({ userId: "user", resumeId: "resume", data: bytes, contentType: "application/pdf", type: "document" }),
     ).rejects.toThrow("itemId");
+    await expect(
+      uploadFile({ userId: "user", data: bytes, contentType: "application/pdf", type: "document" }),
+    ).rejects.toThrow("resumeId is required for document uploads");
   });
 
   it("keeps the original image when processing is disabled and converts it otherwise", async () => {
