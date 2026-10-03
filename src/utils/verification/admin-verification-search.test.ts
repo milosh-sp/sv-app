@@ -1,14 +1,15 @@
 import { describe, expect, it } from "vite-plus/test";
 
 import {
-    buildPendingVerdictsListInput,
-    buildVerdictHistoryListInput,
-    buildVerificationListInput,
-    defaultAdminExperienceSearch,
-    defaultAdminVerdictSearch,
-    defaultAdminVerificationSearch,
-    hasActiveAdminVerdictFilters,
-    hasActiveAdminVerificationFilters,
+  buildPendingVerdictsListInput,
+  buildVerdictHistoryListInput,
+  buildVerificationListInput,
+  defaultAdminExperienceSearch,
+  defaultAdminVerdictSearch,
+  defaultAdminVerificationSearch,
+  hasActiveAdminExperienceFilters,
+  hasActiveAdminVerdictFilters,
+  hasActiveAdminVerificationFilters,
 } from "./admin-verification-search";
 
 describe("admin verification search", () => {
@@ -38,9 +39,21 @@ describe("admin verification search", () => {
       types: ["project"],
     });
     expect(hasActiveAdminVerdictFilters({ ...defaultAdminVerdictSearch, proposed: ["issue"] }, "queue")).toBe(true);
-    expect(hasActiveAdminVerdictFilters({ ...defaultAdminVerdictSearch, proposed: ["issue"] }, "history")).toBe(
-      false,
-    );
+    expect(hasActiveAdminVerdictFilters({ ...defaultAdminVerdictSearch, proposed: ["issue"] }, "history")).toBe(false);
     expect(hasActiveAdminVerdictFilters(history, "history")).toBe(true);
+    expect(hasActiveAdminVerificationFilters({ ...defaultAdminVerificationSearch, q: " ada " }, "queue")).toBe(true);
+    expect(
+      hasActiveAdminVerificationFilters({ ...defaultAdminVerificationSearch, method: "document_upload" }, "queue"),
+    ).toBe(true);
+    expect(
+      hasActiveAdminExperienceFilters({ ...defaultAdminExperienceSearch, method: "freelancer_link" }, "queue"),
+    ).toBe(true);
+    expect(hasActiveAdminVerdictFilters(defaultAdminVerdictSearch, "history")).toBe(false);
+    expect(
+      hasActiveAdminVerdictFilters(
+        { ...defaultAdminVerdictSearch, types: ["skill"], statuses: ["verified"] },
+        "history",
+      ),
+    ).toBe(true);
   });
 });
