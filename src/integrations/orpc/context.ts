@@ -11,10 +11,13 @@ import { env } from "@/utils/env";
 import { auth, verifyOAuthToken } from "../auth/config";
 import { db } from "../drizzle/client";
 import { adminRoles, user } from "../drizzle/schema";
+import { isInternalServerCall } from "./helpers/server-call";
 
 interface ORPCContext {
   locale: Locale;
   reqHeaders?: Headers;
+  /** Set only by the in-process server client. HTTP requests cannot set this. */
+  internalCall?: boolean;
 }
 
 type AuthSource = "api-key" | "bearer" | "session";
@@ -112,15 +115,10 @@ export const protectedProcedure = publicProcedure.use(async ({ context, next }) 
  * Rejects requests from the browser with a 401 UNAUTHORIZED error.
  */
 export const serverOnlyProcedure = publicProcedure.use(async ({ context, next }) => {
-  const headers = context.reqHeaders ?? new Headers();
   const isDebugBypassEnabled = env.FLAG_DEBUG_PRINTER && process.env.NODE_ENV === "development";
 
-  // Check for the custom header that indicates this is a server-side call
-  // Server-side calls using createRouterClient have this header set
-  const isServerSideCall = isDebugBypassEnabled || headers.get("x-server-side-call") === "true";
-
-  // If the header is not present, this is a client-side HTTP request - reject it
-  if (!isServerSideCall) {
+  // A client-supplied header is not proof of an in-process call.
+  if (!isInternalServerCall(context, isDebugBypassEnabled)) {
     throw new ORPCError("UNAUTHORIZED", {
       message: "This endpoint can only be called from server-side code",
     });

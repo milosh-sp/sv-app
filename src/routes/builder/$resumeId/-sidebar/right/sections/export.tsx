@@ -5,7 +5,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useCallback } from "react";
 import { toast } from "sonner";
 
-import { useResumeStore } from "@/components/resume/store/resume";
+import { flushResumeSave, useResumeStore } from "@/components/resume/store/resume";
 import { Button } from "@/components/ui/button";
 import { orpc } from "@/integrations/orpc/client";
 import { downloadFromUrl, downloadWithAnchor, generateFilename } from "@/utils/file";
@@ -46,6 +46,7 @@ export function ExportSectionBuilder() {
     });
 
     try {
+      flushResumeSave();
       const { url } = await printResumeAsPDF({ id: resume.id });
       await downloadFromUrl(url, filename);
     } catch {

@@ -3,17 +3,17 @@ import type z from "zod";
 import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
 import {
-  CaretDownIcon,
-  CaretRightIcon,
-  CheckCircleIcon,
-  ClockIcon,
-  FileTextIcon,
-  LinkIcon,
-  PaperPlaneRightIcon,
-  SealCheckIcon,
-  UploadIcon,
-  WarningCircleIcon,
-  XCircleIcon,
+    CaretDownIcon,
+    CaretRightIcon,
+    CheckCircleIcon,
+    ClockIcon,
+    FileTextIcon,
+    LinkIcon,
+    PaperPlaneRightIcon,
+    SealCheckIcon,
+    UploadIcon,
+    WarningCircleIcon,
+    XCircleIcon,
 } from "@phosphor-icons/react";
 import { useMutation, useQuery, useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
@@ -789,6 +789,7 @@ function ExperienceItemRow({
   const [method, setMethod] = useState<"document_upload" | "freelancer_link" | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [freelancerUrl, setFreelancerUrl] = useState("");
+  const [documentPending, setDocumentPending] = useState(false);
 
   const uploadDocument = useMutation(orpc.verification.uploadDocument.mutationOptions());
   const requestExperience = useMutation(orpc.verification.requestExperience.mutationOptions());
@@ -802,6 +803,34 @@ function ExperienceItemRow({
     setMethod(null);
     setSelectedFile(null);
     setFreelancerUrl("");
+    setDocumentPending(false);
+  };
+
+  const uploadSelectedFile = () => {
+    if (!selectedFile) return;
+
+    const docType: "payslip" | "contract" = selectedFile.name.toLowerCase().includes("payslip")
+      ? "payslip"
+      : "contract";
+
+    uploadDocument.mutate(
+      {
+        resumeId,
+        itemId: item.id,
+        file: selectedFile,
+        documentType: docType,
+      },
+      {
+        onSuccess: () => {
+          toast.success(t`Experience verification requested for "${item.label}".`);
+          resetFlow();
+          onMutationSuccess();
+        },
+        onError: (error) => {
+          toast.error(error.message);
+        },
+      },
+    );
   };
 
   const handleFileSelected = (file: File) => {
@@ -826,6 +855,11 @@ function ExperienceItemRow({
   const handleSubmitExperience = () => {
     if (!method) return;
 
+    if (method === "document_upload" && documentPending) {
+      uploadSelectedFile();
+      return;
+    }
+
     requestExperience.mutate(
       {
         resumeId,
@@ -837,35 +871,14 @@ function ExperienceItemRow({
       {
         onSuccess: () => {
           if (method === "document_upload" && selectedFile) {
-            const docType: "payslip" | "contract" = selectedFile.name.toLowerCase().includes("payslip")
-              ? "payslip"
-              : "contract";
-
-            uploadDocument.mutate(
-              {
-                resumeId,
-                itemId: item.id,
-                file: selectedFile,
-                documentType: docType,
-              },
-              {
-                onSuccess: () => {
-                  toast.success(t`Experience verification requested for "${item.label}".`);
-                  resetFlow();
-                  onMutationSuccess();
-                },
-                onError: (error) => {
-                  toast.error(error.message);
-                  onMutationSuccess();
-                  resetFlow();
-                },
-              },
-            );
-          } else {
-            toast.success(t`Experience verification requested for "${item.label}".`);
-            resetFlow();
-            onMutationSuccess();
+            setDocumentPending(true);
+            uploadSelectedFile();
+            return;
           }
+
+          toast.success(t`Experience verification requested for "${item.label}".`);
+          resetFlow();
+          onMutationSuccess();
         },
         onError: (error) => {
           toast.error(error.message);

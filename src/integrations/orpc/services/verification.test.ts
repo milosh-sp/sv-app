@@ -451,8 +451,55 @@ describe("verificationService.getBadgeDetail", () => {
     expect(result).toBeNull();
   });
 
+  it("should return null when the badge is hidden", async () => {
+    mockLimit.mockReturnValueOnce([
+      {
+        id: "req-1",
+        status: "verified",
+        sectionType: "skill",
+        badgeVisible: false,
+        userId: "user-1",
+        resumeId: "resume-1",
+      },
+    ]);
+
+    const result = await verificationService.getBadgeDetail("req-1");
+
+    expect(result).toBeNull();
+  });
+
+  it("should return null when the resume is not public", async () => {
+    mockLimit
+      .mockReturnValueOnce([
+        {
+          id: "req-1",
+          status: "verified",
+          sectionType: "skill",
+          badgeVisible: true,
+          userId: "user-1",
+          resumeId: "resume-1",
+        },
+      ])
+      .mockReturnValueOnce([]);
+
+    const result = await verificationService.getBadgeDetail("req-1");
+
+    expect(result).toBeNull();
+  });
+
   it("should return identity label for identity type", async () => {
-    mockLimit.mockReturnValueOnce([{ id: "req-1", status: "verified", sectionType: "identity" }]);
+    mockLimit
+      .mockReturnValueOnce([
+        {
+          id: "req-1",
+          status: "verified",
+          sectionType: "identity",
+          badgeVisible: true,
+          userId: "user-1",
+          resumeId: null,
+        },
+      ])
+      .mockReturnValueOnce([{ id: "resume-1" }]);
 
     const result = await verificationService.getBadgeDetail("req-1");
 
@@ -460,7 +507,18 @@ describe("verificationService.getBadgeDetail", () => {
   });
 
   it("should return role label for experience type", async () => {
-    mockLimit.mockReturnValueOnce([{ id: "req-1", status: "verified", sectionType: "experience" }]);
+    mockLimit
+      .mockReturnValueOnce([
+        {
+          id: "req-1",
+          status: "verified",
+          sectionType: "experience",
+          badgeVisible: true,
+          userId: "user-1",
+          resumeId: "resume-1",
+        },
+      ])
+      .mockReturnValueOnce([{ id: "resume-1" }]);
 
     const result = await verificationService.getBadgeDetail("req-1");
 
@@ -468,14 +526,26 @@ describe("verificationService.getBadgeDetail", () => {
   });
 
   it("should return snapshot data for skill type", async () => {
-    mockLimit.mockReturnValueOnce([{ id: "req-1", status: "verified", sectionType: "skill" }]).mockReturnValueOnce([
-      {
-        reviewerSnapshotFirstName: "Jane",
-        reviewerSnapshotLastName: "Smith",
-        reviewerSnapshotTitle: "Senior Engineer at Meta",
-        reviewerPublicProfileUrl: "/reviewer/admin-1",
-      },
-    ]);
+    mockLimit
+      .mockReturnValueOnce([
+        {
+          id: "req-1",
+          status: "verified",
+          sectionType: "skill",
+          badgeVisible: true,
+          userId: "user-1",
+          resumeId: "resume-1",
+        },
+      ])
+      .mockReturnValueOnce([{ id: "resume-1" }])
+      .mockReturnValueOnce([
+        {
+          reviewerSnapshotFirstName: "Jane",
+          reviewerSnapshotLastName: "Smith",
+          reviewerSnapshotTitle: "Senior Engineer at Meta",
+          reviewerPublicProfileUrl: "/reviewer/admin-1",
+        },
+      ]);
 
     const result = await verificationService.getBadgeDetail("req-1");
 
@@ -487,14 +557,26 @@ describe("verificationService.getBadgeDetail", () => {
   });
 
   it("should return snapshot data for project type", async () => {
-    mockLimit.mockReturnValueOnce([{ id: "req-1", status: "verified", sectionType: "project" }]).mockReturnValueOnce([
-      {
-        reviewerSnapshotFirstName: "John",
-        reviewerSnapshotLastName: "Doe",
-        reviewerSnapshotTitle: "Staff Engineer",
-        reviewerPublicProfileUrl: "/reviewer/admin-2",
-      },
-    ]);
+    mockLimit
+      .mockReturnValueOnce([
+        {
+          id: "req-1",
+          status: "verified",
+          sectionType: "project",
+          badgeVisible: true,
+          userId: "user-1",
+          resumeId: "resume-1",
+        },
+      ])
+      .mockReturnValueOnce([{ id: "resume-1" }])
+      .mockReturnValueOnce([
+        {
+          reviewerSnapshotFirstName: "John",
+          reviewerSnapshotLastName: "Doe",
+          reviewerSnapshotTitle: "Staff Engineer",
+          reviewerPublicProfileUrl: "/reviewer/admin-2",
+        },
+      ]);
 
     const result = await verificationService.getBadgeDetail("req-1");
 
@@ -506,14 +588,26 @@ describe("verificationService.getBadgeDetail", () => {
   });
 
   it("should fall back to verdict_submitted snapshot when verified metadata lacks reviewer name", async () => {
-    mockLimit.mockReturnValueOnce([{ id: "req-1", status: "verified", sectionType: "skill" }]).mockReturnValueOnce([
-      {
-        reviewerSnapshotFirstName: null,
-        reviewerSnapshotLastName: null,
-        reviewerSnapshotTitle: null,
-        reviewerPublicProfileUrl: null,
-      },
-    ]);
+    mockLimit
+      .mockReturnValueOnce([
+        {
+          id: "req-1",
+          status: "verified",
+          sectionType: "skill",
+          badgeVisible: true,
+          userId: "user-1",
+          resumeId: "resume-1",
+        },
+      ])
+      .mockReturnValueOnce([{ id: "resume-1" }])
+      .mockReturnValueOnce([
+        {
+          reviewerSnapshotFirstName: null,
+          reviewerSnapshotLastName: null,
+          reviewerSnapshotTitle: null,
+          reviewerPublicProfileUrl: null,
+        },
+      ]);
 
     mockOrderBy.mockReturnValueOnce(createThenableRows()).mockReturnValueOnce(
       createThenableRows([

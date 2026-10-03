@@ -52,6 +52,10 @@ function stripPendingLikeStatuses<T extends { status: string }>(rows: T[]): T[] 
   return rows.filter((r) => !PENDING_LIKE_STATUSES.has(r.status));
 }
 
+function visibleBadges<T extends { badgeVisible: boolean }>(rows: T[]): T[] {
+  return rows.filter((row) => row.badgeVisible);
+}
+
 function dedupeLatestByItemId<T extends { itemId: string; submittedAt: Date }>(rows: T[]): T[] {
   const latestByItemId = new Map<string, T>();
   for (const row of rows) {
@@ -1505,7 +1509,7 @@ export const verificationService = {
       .from(verificationRequests)
       .where(eq(verificationRequests.resumeId, resumeId));
 
-    const dedupedSectionStatuses = dedupeLatestByItemId(sectionStatuses);
+    const dedupedSectionStatuses = visibleBadges(dedupeLatestByItemId(sectionStatuses));
 
     const [identityStatus] = await db
       .select({
@@ -1522,7 +1526,7 @@ export const verificationService = {
       .orderBy(desc(verificationRequests.submittedAt))
       .limit(1);
 
-    if (!identityStatus) {
+    if (!identityStatus?.badgeVisible) {
       return stripPendingLikeStatuses(dedupedSectionStatuses);
     }
 
@@ -1555,7 +1559,9 @@ export const verificationService = {
       .from(verificationRequests)
       .where(eq(verificationRequests.resumeId, resumeId));
 
+    const showHiddenBadges = options?.includePendingLike === true;
     const dedupedSectionStatuses = dedupeLatestByItemId(sectionStatuses);
+    const sectionRows = showHiddenBadges ? dedupedSectionStatuses : visibleBadges(dedupedSectionStatuses);
 
     const [identityStatus] = await db
       .select({
@@ -1572,13 +1578,14 @@ export const verificationService = {
       .orderBy(desc(verificationRequests.submittedAt))
       .limit(1);
 
-    if (!identityStatus) {
-      return options?.includePendingLike === false
-        ? stripPendingLikeStatuses(dedupedSectionStatuses)
-        : dedupedSectionStatuses;
+    const identityRow =
+      identityStatus && (showHiddenBadges || identityStatus.badgeVisible) ? identityStatus : undefined;
+
+    if (!identityRow) {
+      return options?.includePendingLike === false ? stripPendingLikeStatuses(sectionRows) : sectionRows;
     }
 
-    const combined = [...dedupedSectionStatuses, identityStatus];
+    const combined = [...sectionRows, identityRow];
     return options?.includePendingLike === false ? stripPendingLikeStatuses(combined) : combined;
   },
 
@@ -1773,14 +1780,29 @@ export const verificationService = {
         id: verificationRequests.id,
         status: verificationRequests.status,
         sectionType: verificationRequests.sectionType,
+        badgeVisible: verificationRequests.badgeVisible,
+        userId: verificationRequests.userId,
+        resumeId: verificationRequests.resumeId,
       })
       .from(verificationRequests)
       .where(eq(verificationRequests.id, requestId))
       .limit(1);
 
-    if (!request || request.status !== "verified") {
+    if (!request || request.status !== "verified" || !request.badgeVisible) {
       return null;
     }
+
+    const [publishedResume] = await db
+      .select({ id: resume.id })
+      .from(resume)
+      .where(
+        request.sectionType === "identity"
+          ? and(eq(resume.userId, request.userId), eq(resume.isPublic, true))
+          : and(eq(resume.id, request.resumeId ?? ""), eq(resume.isPublic, true)),
+      )
+      .limit(1);
+
+    if (!publishedResume) return null;
 
     if (request.sectionType === "identity") {
       return { type: "identity" as const, label: "Identity Verified" };

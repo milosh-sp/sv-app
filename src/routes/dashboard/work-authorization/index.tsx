@@ -18,10 +18,10 @@ import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
 import { orpc } from "@/integrations/orpc/client";
 import {
-  defaultWorkAuthorizationData,
-  sponsorshipRequirementSchema,
-  workAuthorizationSchema,
-  workAuthorizationStatusSchema,
+    defaultWorkAuthorizationData,
+    sponsorshipRequirementSchema,
+    workAuthorizationSchema,
+    workAuthorizationStatusSchema,
 } from "@/schema/resume/data";
 
 import { DashboardHeader } from "../-components/header";
@@ -106,9 +106,10 @@ function RouteComponent() {
   });
 
   const { data: resumes } = useQuery(orpc.resume.list.queryOptions({ input: { tags: [], sort: "lastUpdatedAt" } }));
+  const activeResumeId = selectedResumeId ?? resumes?.[0]?.id ?? null;
   const selectedResumeQuery = useQuery({
-    ...orpc.resume.getById.queryOptions({ input: { id: selectedResumeId ?? "" } }),
-    enabled: Boolean(selectedResumeId),
+    ...orpc.resume.getById.queryOptions({ input: { id: activeResumeId ?? "" } }),
+    enabled: Boolean(activeResumeId),
   });
 
   const selectedResume = selectedResumeQuery.data;
@@ -116,10 +117,6 @@ function RouteComponent() {
     () => (resumes ?? []).map((resume) => ({ value: resume.id, label: resume.name || resume.slug })),
     [resumes],
   );
-
-  if (!selectedResumeId && resumes && resumes.length > 0) {
-    setSelectedResumeId(resumes[0].id);
-  }
 
   useEffect(() => {
     if (!selectedResume) return;
@@ -156,7 +153,7 @@ function RouteComponent() {
 
   const selectedStatus = useWatch({ control: form.control, name: `${activeRegion}.status` as const });
   const isVisaSelection = selectedStatus === "visa_holder";
-  const isResumeLoading = Boolean(selectedResumeId) && selectedResumeQuery.isPending;
+  const isResumeLoading = Boolean(activeResumeId) && selectedResumeQuery.isPending;
 
   const { mutate: updateResume, isPending } = useMutation({
     ...orpc.resume.update.mutationOptions({ meta: { noInvalidate: true } }),
@@ -243,7 +240,7 @@ function RouteComponent() {
               <FormControl
                 render={
                   <Combobox
-                    value={selectedResumeId}
+                    value={activeResumeId}
                     options={resumeOptions}
                     placeholder={t`Select resume`}
                     onValueChange={(value) => setSelectedResumeId(value)}

@@ -201,6 +201,7 @@ function RouteComponent() {
   const matchMutation = useMutation({
     ...orpc.company.matchCandidates.mutationOptions(),
     onSuccess: (data) => setState((prev) => ({ ...prev, results: data, hasSearched: true })),
+    onError: () => setState((prev) => ({ ...prev, results: [], hasSearched: true })),
   });
 
   const handleSearch = (event: React.FormEvent) => {
