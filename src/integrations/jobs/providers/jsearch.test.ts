@@ -124,11 +124,16 @@ describe("JSearchProvider", () => {
 
       await provider.search({
         query: "engineer",
+        page: 2,
         num_pages: 2,
         date_posted: "week",
         country: "DE",
         remote_jobs_only: true,
         employment_types: "FULLTIME",
+        job_requirements: "under_3_years_experience",
+        radius: 25,
+        exclude_job_publishers: "Indeed",
+        categories: "engineering",
       });
 
       expect(mockFetch).toHaveBeenCalledOnce();
@@ -139,6 +144,32 @@ describe("JSearchProvider", () => {
       expect(callUrl).toContain("country=DE");
       expect(callUrl).toContain("remote_jobs_only=true");
       expect(callUrl).toContain("employment_types=FULLTIME");
+      expect(callUrl).toContain("page=2");
+      expect(callUrl).toContain("job_requirements=under_3_years_experience");
+      expect(callUrl).toContain("radius=25");
+      expect(callUrl).toContain("exclude_job_publishers=Indeed");
+      expect(callUrl).toContain("categories=engineering");
+    });
+
+    it("ignores quota headers that are not numbers", async () => {
+      mockFetch.mockResolvedValueOnce(mockOkResponse(mockSearchResponse, Number.NaN, 1));
+
+      const result = await provider.search({ query: "engineer" });
+
+      expect(result.rapidApiQuota).toBeUndefined();
+    });
+
+    it("gives up after repeated rate limits", async () => {
+      vi.useFakeTimers();
+      try {
+        mockFetch.mockResolvedValue(mockErrorResponse(429, "Too Many Requests"));
+        const pending = provider.search({ query: "test", num_pages: 1 });
+        const assertion = expect(pending).rejects.toThrow("Request failed after retries");
+        await vi.runAllTimersAsync();
+        await assertion;
+      } finally {
+        vi.useRealTimers();
+      }
     });
 
     it("should include correct headers", async () => {
