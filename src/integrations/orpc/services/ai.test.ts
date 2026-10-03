@@ -107,6 +107,22 @@ describe("aiService", () => {
     await expect(aiService.parseDocx({ ...credentials, file, mediaType: "application/msword" })).rejects.toThrow(
       "An unknown error occurred",
     );
+
+    generateText.mockResolvedValueOnce({ text: "[1]" });
+    await expect(aiService.parsePdf({ ...credentials, file })).rejects.toThrow();
+
+    generateText.mockResolvedValueOnce({
+      text: JSON.stringify({
+        basics: { name: null },
+        extra: { nested: true },
+        sections: {
+          experience: "skip",
+          skills: { items: "no" },
+          awards: { items: [{ title: 1 }, { title: "  " }, { title: "Ok", id: " " }] },
+        },
+      }),
+    });
+    await expect(aiService.parsePdf({ ...credentials, file })).rejects.toThrow();
   });
 
   it("reviews, tailors, matches, and streams a chat patch", async () => {
