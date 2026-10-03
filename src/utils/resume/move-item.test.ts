@@ -88,6 +88,7 @@ describe("resume section item moves", () => {
 
     expect(removeItemFromSource(resume, "exp-1", "experience", "missing-section")).toBeNull();
     expect(removeItemFromSource(resumeWithMoveTargets(), "missing-item", "experience")).toBeNull();
+    expect(removeItemFromSource(resumeWithMoveTargets(), "missing-item", "experience", "custom-b")).toBeNull();
   });
 
   it("adds an item to a custom section by id and to a standard section by type", () => {
