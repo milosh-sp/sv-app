@@ -1,3 +1,4 @@
+import Cookies from "js-cookie";
 import { readdirSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { describe, expect, it, vi } from "vite-plus/test";
@@ -8,7 +9,7 @@ vi.mock("@lingui/core/macro", () => ({
 }));
 
 // Import after mock setup
-const { isLocale, isRTL } = await import("./locale");
+const { getLocale, isLocale, isRTL } = await import("./locale");
 
 describe("isLocale", () => {
   it("should return true for valid locales", () => {
@@ -42,6 +43,19 @@ describe("isRTL", () => {
     expect(isRTL("en-US")).toBe(false);
     expect(isRTL("fr-FR")).toBe(false);
     expect(isRTL("zh-CN")).toBe(false);
+  });
+});
+
+describe("getLocale", () => {
+  it("reads a valid cookie and falls back otherwise", () => {
+    Cookies.set("locale", "de-DE");
+    expect(getLocale()).toBe("de-DE");
+
+    Cookies.set("locale", "nope");
+    expect(getLocale()).toBe("en-US");
+
+    Cookies.remove("locale");
+    expect(getLocale()).toBe("en-US");
   });
 });
 
