@@ -44,7 +44,7 @@ class AuthError extends Error {
   }
 }
 
-async function authenticateRequest(request: Request): Promise<void> {
+export async function authenticateRequest(request: Request): Promise<void> {
   // Try OAuth Bearer token first (for claude.ai and other MCP OAuth clients)
   const authHeader = request.headers.get("authorization");
 
