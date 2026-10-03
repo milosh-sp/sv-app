@@ -1,5 +1,11 @@
+// @vitest-environment node
 import { beforeEach, describe, expect, it, vi } from "vite-plus/test";
 
+import {
+  sendIdentityVerificationRequestedEmail,
+  sendSkillAssessmentAcceptedEmail,
+} from "@/integrations/email/verification";
+import { env } from "@/utils/env";
 import { deriveSkillKeywordId } from "@/utils/verification/skills";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -2986,5 +2992,516 @@ describe("verificationService admin queues", () => {
     await expect(
       verificationService.reviewIdentity({ requestId: "req-1", adminId: "admin-1", action: "verified" }),
     ).resolves.toMatchObject({ status: "verified" });
+  });
+});
+
+describe("verificationService uncovered branches", () => {
+  const reviewerProfile = {
+    firstName: "Jane",
+    lastName: "Smith",
+    title: "Engineer",
+    publicProfileUrl: "/reviewer/admin-1",
+    reviewerSkills: ["TypeScript"],
+  };
+  const pendingSkillRequest = {
+    id: "req-1",
+    userId: "user-1",
+    sectionType: "skill",
+    itemLabel: "TypeScript",
+    status: "pending",
+    claimedByAdminId: null,
+  };
+  const instructions = new File(["instructions"], "instructions.pdf", { type: "application/pdf" });
+
+  it("rejects a skill label that does not match the resume item", async () => {
+    mockLimit.mockReturnValueOnce([createResumeWithSkillKeyword()]);
+
+    await expect(
+      verificationService.requestSkill({
+        userId: "user-1",
+        resumeId: "resume-1",
+        itemId: skillKeywordId,
+        itemLabel: "Rust",
+      }),
+    ).rejects.toThrow("Skill label does not match the resume item");
+  });
+
+  it("rejects an assessment file of the wrong type and a claim with no reviewer", async () => {
+    await expect(
+      verificationService.submitAssessmentSolution({
+        userId: "user-1",
+        resumeId: "resume-1",
+        itemId: skillKeywordId,
+        file: new File(["notes"], "notes.txt", { type: "text/plain" }),
+      }),
+    ).rejects.toThrow("Only PDF, JPG, JPEG, PNG, and ZIP files are allowed");
+
+    mockOrderBy.mockReturnValueOnce(
+      Object.assign(Promise.resolve([]), {
+        limit: vi.fn().mockReturnValue([
+          {
+            id: "req-1",
+            userId: "user-1",
+            resumeId: "resume-1",
+            itemId: skillKeywordId,
+            itemLabel: "TypeScript",
+            sectionType: "skill",
+            status: "claimed",
+            claimedByAdminId: null,
+          },
+        ]),
+      }),
+    );
+
+    await expect(
+      verificationService.submitAssessmentSolution({
+        userId: "user-1",
+        resumeId: "resume-1",
+        itemId: skillKeywordId,
+        solutionUrl: "https://github.com/you/repo",
+      }),
+    ).rejects.toThrow("Assessment has no assigned reviewer");
+  });
+
+  it("sends the identity calendar email only when the user has an address", async () => {
+    const previous = env.CAL_COM_LINK;
+    env.CAL_COM_LINK = "https://cal.example/ada";
+
+    try {
+      mockLimit.mockReturnValueOnce([]).mockReturnValueOnce([{ email: "ada@example.com" }]);
+      mockReturning.mockResolvedValueOnce([{ id: "req-5", sectionType: "identity" }]);
+      await verificationService.requestIdentity("user-1");
+      expect(sendIdentityVerificationRequestedEmail).toHaveBeenCalledWith({
+        to: "ada@example.com",
+        calLink: "https://cal.example/ada",
+      });
+
+      mockLimit.mockReturnValueOnce([]).mockReturnValueOnce([{}]);
+      mockReturning.mockResolvedValueOnce([{ id: "req-6", sectionType: "identity" }]);
+      await expect(verificationService.requestIdentity("user-1")).resolves.toMatchObject({ id: "req-6" });
+    } finally {
+      env.CAL_COM_LINK = previous;
+    }
+  });
+
+  it("uses a generic reviewer label when no snapshot name exists", async () => {
+    mockLimit
+      .mockReturnValueOnce([
+        {
+          id: "req-1",
+          status: "verified",
+          sectionType: "skill",
+          badgeVisible: true,
+          userId: "user-1",
+          resumeId: "resume-1",
+        },
+      ])
+      .mockReturnValueOnce([{ id: "resume-1" }])
+      .mockReturnValueOnce([
+        {
+          reviewerSnapshotFirstName: null,
+          reviewerSnapshotLastName: null,
+          reviewerSnapshotTitle: null,
+          reviewerPublicProfileUrl: null,
+        },
+      ]);
+    mockOrderBy.mockReturnValueOnce(
+      createThenableRows([
+        {
+          reviewerSnapshotFirstName: "",
+          reviewerSnapshotLastName: null,
+          reviewerSnapshotTitle: null,
+          reviewerPublicProfileUrl: null,
+        },
+      ]),
+    );
+
+    await expect(verificationService.getBadgeDetail("req-1")).resolves.toEqual({
+      type: "reviewer",
+      label: "Verified",
+      profileUrl: null,
+    });
+  });
+
+  it("omits the title when the reviewer snapshot has only a first name", async () => {
+    mockLimit
+      .mockReturnValueOnce([
+        {
+          id: "req-1",
+          status: "verified",
+          sectionType: "project",
+          badgeVisible: true,
+          userId: "user-1",
+          resumeId: "resume-1",
+        },
+      ])
+      .mockReturnValueOnce([{ id: "resume-1" }])
+      .mockReturnValueOnce([
+        {
+          reviewerSnapshotFirstName: "Ada",
+          reviewerSnapshotLastName: null,
+          reviewerSnapshotTitle: null,
+          reviewerPublicProfileUrl: null,
+        },
+      ]);
+
+    await expect(verificationService.getBadgeDetail("req-1")).resolves.toEqual({
+      type: "reviewer",
+      label: "Ada",
+      profileUrl: null,
+    });
+  });
+
+  it("returns no history and labels an admin verifier when the reviewer name is missing", async () => {
+    mockFrom.mockReturnValueOnce({
+      where: vi.fn(() => ({ orderBy: vi.fn(() => []) })),
+    });
+    await expect(
+      verificationService.getHistory({ userId: "user-1", resumeId: "resume-1", itemId: "item-1" }),
+    ).resolves.toEqual([]);
+
+    const history = [{ id: "req-1", sectionType: "experience", status: "verified", itemLabel: "Acme" }];
+    for (const adminRole of ["skill_verdict_admin", "reviewer_admin", "company"] as const) {
+      mockFrom
+        .mockReturnValueOnce({ where: vi.fn(() => ({ orderBy: vi.fn(() => history) })) })
+        .mockReturnValueOnce({ where: vi.fn(() => [{ id: "req-1", sectionType: "experience" }]) })
+        .mockReturnValueOnce({
+          where: vi.fn(() => ({
+            orderBy: vi.fn(() => [
+              {
+                verificationRequestId: "req-1",
+                adminRole,
+                reviewerSnapshotFirstName: null,
+                reviewerSnapshotLastName: null,
+                reviewerPublicProfileUrl: null,
+              },
+            ]),
+          })),
+        });
+    }
+
+    const labels = ["Skill Verdict Admin", "Reviewer Admin", "Admin Reviewer"];
+    for (const label of labels) {
+      const result = await verificationService.getHistory({
+        userId: "user-1",
+        resumeId: "resume-1",
+        itemId: "item-1",
+      });
+      expect(result[0]?.verifiedBy).toBe(label);
+      expect(result[0]?.reviewerProfileUrl).toBeNull();
+    }
+  });
+
+  it("hides a public timeline that is private, disabled, or empty", async () => {
+    mockFrom.mockReturnValueOnce({ where: vi.fn(() => ({ limit: vi.fn(() => []) })) });
+    await expect(verificationService.getPublicTimeline({ resumeId: "resume-1" })).resolves.toEqual({
+      enabled: false,
+      entries: [],
+    });
+
+    mockFrom.mockReturnValueOnce({
+      where: vi.fn(() => ({ limit: vi.fn(() => [{ id: "resume-1", isPublic: false }]) })),
+    });
+    await expect(verificationService.getPublicTimeline({ resumeId: "resume-1" })).resolves.toEqual({
+      enabled: false,
+      entries: [],
+    });
+
+    mockFrom
+      .mockReturnValueOnce({ where: vi.fn(() => ({ limit: vi.fn(() => [{ id: "resume-1", isPublic: true }]) })) })
+      .mockReturnValueOnce({ where: vi.fn(() => ({ limit: vi.fn(() => []) })) });
+    await expect(verificationService.getPublicTimeline({ resumeId: "resume-1" })).resolves.toEqual({
+      enabled: false,
+      entries: [],
+    });
+
+    mockFrom
+      .mockReturnValueOnce({ where: vi.fn(() => ({ limit: vi.fn(() => [{ id: "resume-1", isPublic: true }]) })) })
+      .mockReturnValueOnce({ where: vi.fn(() => ({ limit: vi.fn(() => [{ showTimeline: true }]) })) })
+      .mockReturnValueOnce({ where: vi.fn(() => ({ orderBy: vi.fn(() => []) })) });
+    await expect(verificationService.getPublicTimeline({ resumeId: "resume-1" })).resolves.toEqual({
+      enabled: true,
+      entries: [],
+    });
+  });
+
+  it("keeps freelancer links as-is and refuses to download them", async () => {
+    const link = {
+      id: "doc-1",
+      fileUrl: "https://www.upwork.com/freelancers/~abc",
+      documentType: "freelancer_link",
+      uploadedAt: new Date(),
+    };
+    mockFrom
+      .mockReturnValueOnce({ where: vi.fn().mockReturnValue({ limit: vi.fn().mockReturnValue([{ id: "req-1" }]) }) })
+      .mockReturnValueOnce({ where: vi.fn().mockReturnValue([link]) });
+
+    await expect(verificationService.getDocuments("req-1")).resolves.toEqual([link]);
+
+    mockFrom.mockReturnValueOnce({
+      where: vi.fn().mockReturnValue({ limit: vi.fn().mockReturnValue([link]) }),
+    });
+    await expect(verificationService.downloadDocument("doc-1")).rejects.toThrow("External links cannot be downloaded");
+  });
+
+  it("rejects reviewer document access that is missing, wrong-typed, or unassigned", async () => {
+    mockLimit.mockReturnValueOnce([]);
+    await expect(
+      verificationService.downloadReviewerDocument({ requestId: "req-1", documentId: "doc-1", adminId: "admin-1" }),
+    ).rejects.toThrow("Verification request not found");
+
+    mockLimit.mockReturnValueOnce([
+      {
+        id: "req-1",
+        userId: "user-1",
+        sectionType: "experience",
+        itemLabel: "Acme",
+        status: "pending",
+        claimedByAdminId: null,
+      },
+    ]);
+    await expect(
+      verificationService.downloadReviewerDocument({ requestId: "req-1", documentId: "doc-1", adminId: "admin-1" }),
+    ).rejects.toThrow("Document access is limited to skill and project requests");
+
+    mockLimit.mockReturnValueOnce([
+      {
+        id: "req-1",
+        userId: "user-1",
+        sectionType: "skill",
+        itemLabel: "TypeScript",
+        status: "claimed",
+        claimedByAdminId: "other-admin",
+      },
+    ]);
+    await expect(
+      verificationService.downloadReviewerDocument({ requestId: "req-1", documentId: "doc-1", adminId: "admin-1" }),
+    ).rejects.toThrow("You do not have access to this document");
+
+    mockLimit
+      .mockReturnValueOnce([
+        {
+          id: "req-1",
+          userId: "user-1",
+          sectionType: "skill",
+          itemLabel: "Rust",
+          status: "pending",
+          claimedByAdminId: null,
+        },
+      ])
+      .mockReturnValueOnce([{ reviewerSkills: ["TypeScript"] }]);
+    await expect(
+      verificationService.downloadReviewerDocument({ requestId: "req-1", documentId: "doc-1", adminId: "admin-1" }),
+    ).rejects.toThrow("You do not have access to this document");
+
+    mockLimit
+      .mockReturnValueOnce([
+        {
+          id: "req-1",
+          userId: "user-1",
+          sectionType: "skill",
+          itemLabel: "TypeScript",
+          status: "pending",
+          claimedByAdminId: null,
+        },
+      ])
+      .mockReturnValueOnce([]);
+    await expect(
+      verificationService.downloadReviewerDocument({ requestId: "req-1", documentId: "doc-1", adminId: "admin-1" }),
+    ).rejects.toThrow("Reviewer profile not found");
+  });
+
+  it("downloads an assigned reviewer file and reports a missing or external one", async () => {
+    const assigned = {
+      id: "req-1",
+      userId: "user-1",
+      sectionType: "skill",
+      itemLabel: "TypeScript",
+      status: "claimed",
+      claimedByAdminId: "admin-1",
+    };
+
+    mockLimit.mockReturnValueOnce([assigned]).mockReturnValueOnce([
+      {
+        id: "doc-1",
+        verificationRequestId: "req-1",
+        fileUrl: "uploads/a.pdf",
+        documentType: "assessment_instructions",
+      },
+    ]);
+    mockStorageRead.mockResolvedValueOnce({ data: new Uint8Array([1]), size: 1 });
+    await expect(
+      verificationService.downloadReviewerDocument({ requestId: "req-1", documentId: "doc-1", adminId: "admin-1" }),
+    ).resolves.toMatchObject({ id: "doc-1", contentType: "application/octet-stream", size: 1 });
+
+    mockLimit.mockReturnValueOnce([assigned]).mockReturnValueOnce([
+      {
+        id: "doc-2",
+        fileUrl: "https://example.com/proof",
+        documentType: "assessment_solution_link",
+      },
+    ]);
+    await expect(
+      verificationService.downloadReviewerDocument({ requestId: "req-1", documentId: "doc-2", adminId: "admin-1" }),
+    ).rejects.toThrow("External links cannot be downloaded");
+
+    mockLimit
+      .mockReturnValueOnce([
+        {
+          id: "req-1",
+          userId: "user-1",
+          sectionType: "project",
+          itemLabel: "App",
+          status: "pending",
+          claimedByAdminId: null,
+        },
+      ])
+      .mockReturnValueOnce([{ reviewerSkills: [] }])
+      .mockReturnValueOnce([]);
+    await expect(
+      verificationService.downloadReviewerDocument({ requestId: "req-1", documentId: "doc-3", adminId: "admin-1" }),
+    ).rejects.toThrow("Document not found");
+
+    mockLimit.mockReturnValueOnce([assigned]).mockReturnValueOnce([
+      {
+        id: "doc-4",
+        fileUrl: "uploads/missing.pdf",
+        documentType: "assessment_instructions",
+      },
+    ]);
+    mockStorageRead.mockResolvedValueOnce(null);
+    await expect(
+      verificationService.downloadReviewerDocument({ requestId: "req-1", documentId: "doc-4", adminId: "admin-1" }),
+    ).rejects.toThrow("Document file not found in storage");
+  });
+
+  it("rolls back an accepted case when upload or recording fails, and skips a missing email", async () => {
+    mockLimit.mockReturnValueOnce([reviewerProfile]).mockReturnValueOnce([pendingSkillRequest]);
+    mockReturning.mockResolvedValueOnce([
+      {
+        id: "req-1",
+        userId: "user-1",
+        resumeId: "resume-1",
+        itemId: "item-1",
+        itemLabel: "TypeScript",
+        sectionType: "skill",
+      },
+    ]);
+    mockUploadFile.mockRejectedValueOnce(new Error("disk full"));
+    await expect(
+      verificationService.acceptCase({ requestId: "req-1", adminId: "admin-1", file: instructions }),
+    ).rejects.toThrow("Failed to upload assessment instructions");
+
+    mockLimit.mockReturnValueOnce([reviewerProfile]).mockReturnValueOnce([pendingSkillRequest]);
+    mockReturning.mockResolvedValueOnce([
+      {
+        id: "req-1",
+        userId: "user-1",
+        resumeId: null,
+        itemId: "item-1",
+        itemLabel: "TypeScript",
+        sectionType: "skill",
+      },
+    ]);
+    await expect(
+      verificationService.acceptCase({ requestId: "req-1", adminId: "admin-1", file: instructions }),
+    ).rejects.toThrow("Request is missing a resume");
+
+    mockLimit.mockReturnValueOnce([reviewerProfile]).mockReturnValueOnce([pendingSkillRequest]);
+    mockReturning.mockResolvedValueOnce([
+      {
+        id: "req-1",
+        userId: "user-1",
+        resumeId: "resume-1",
+        itemId: "item-1",
+        itemLabel: "TypeScript",
+        sectionType: "experience",
+      },
+    ]);
+    await expect(
+      verificationService.acceptCase({ requestId: "req-1", adminId: "admin-1", file: instructions }),
+    ).rejects.toThrow("Request must be a skill or project verification request");
+
+    mockLimit
+      .mockReturnValueOnce([{ ...reviewerProfile, reviewerSkills: ["Go"] }])
+      .mockReturnValueOnce([pendingSkillRequest]);
+    await expect(
+      verificationService.acceptCase({ requestId: "req-1", adminId: "admin-1", file: instructions }),
+    ).rejects.toThrow("This skill is not in your assigned reviewable skills");
+
+    mockLimit.mockReturnValueOnce([reviewerProfile]).mockReturnValueOnce([pendingSkillRequest]);
+    mockReturning.mockResolvedValueOnce([
+      {
+        id: "req-1",
+        userId: "user-1",
+        resumeId: "resume-1",
+        itemId: "item-1",
+        itemLabel: "TypeScript",
+        sectionType: "skill",
+      },
+    ]);
+    mockUploadFile.mockResolvedValueOnce({
+      key: "uploads/instructions.pdf",
+      url: "https://app.test/uploads/instructions.pdf",
+    });
+    mockTransaction.mockRejectedValueOnce(new Error("db down"));
+    await expect(
+      verificationService.acceptCase({ requestId: "req-1", adminId: "admin-1", file: instructions }),
+    ).rejects.toThrow("Failed to record assessment acceptance");
+    expect(mockStorageDelete).toHaveBeenCalledWith("uploads/instructions.pdf");
+
+    const claimed = {
+      id: "req-1",
+      userId: "user-1",
+      resumeId: "resume-1",
+      itemId: "item-1",
+      itemLabel: "TypeScript",
+      sectionType: "skill",
+      status: "claimed",
+    };
+    mockLimit
+      .mockReturnValueOnce([reviewerProfile])
+      .mockReturnValueOnce([pendingSkillRequest])
+      .mockReturnValueOnce([{ email: "ada@example.com" }]);
+    mockReturning.mockResolvedValueOnce([claimed]);
+    mockUploadFile.mockResolvedValueOnce({ key: "uploads/ok.pdf", url: "https://app.test/uploads/ok.pdf" });
+    mockTransaction.mockImplementationOnce(async (callback) =>
+      callback({
+        insert: vi.fn(() => ({ values: vi.fn().mockResolvedValue(undefined) })),
+        select: vi.fn(() => ({
+          from: vi.fn(() => ({
+            where: vi.fn(() => ({
+              limit: vi.fn().mockReturnValue([claimed]),
+            })),
+          })),
+        })),
+      }),
+    );
+    await expect(
+      verificationService.acceptCase({ requestId: "req-1", adminId: "admin-1", file: instructions, message: "Ready" }),
+    ).resolves.toMatchObject({ status: "claimed" });
+    expect(sendSkillAssessmentAcceptedEmail).toHaveBeenCalledWith(
+      expect.objectContaining({ to: "ada@example.com", itemLabel: "TypeScript", message: "Ready" }),
+    );
+  });
+
+  it("returns an empty reviewer queue when the profile has no skills or no matching requests", async () => {
+    mockFrom.mockReturnValueOnce({ where: vi.fn(() => ({ limit: vi.fn(() => []) })) });
+    await expect(verificationService.listQueue("admin-1")).resolves.toEqual([]);
+
+    mockFrom.mockReturnValueOnce({ where: vi.fn(() => ({ limit: vi.fn(() => [{ reviewerSkills: [] }]) })) });
+    await expect(verificationService.listQueue("admin-1")).resolves.toEqual([]);
+
+    mockFrom
+      .mockReturnValueOnce({ where: vi.fn(() => ({ limit: vi.fn(() => [{ reviewerSkills: ["TypeScript"] }]) })) })
+      .mockReturnValueOnce({ where: vi.fn(() => ({ orderBy: vi.fn(() => []) })) });
+    await expect(verificationService.listQueue("admin-1")).resolves.toEqual([]);
+  });
+
+  it("rejects a missing experience review", async () => {
+    mockLimit.mockReturnValueOnce([]);
+    await expect(
+      verificationService.reviewExperience({ requestId: "missing", adminId: "sva-1", action: "verified" }),
+    ).rejects.toThrow("Verification request not found");
   });
 });
