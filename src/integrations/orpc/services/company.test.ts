@@ -228,6 +228,26 @@ describe("companyService.respondToContactRequest", () => {
     expect(sendDeclined).toHaveBeenCalledTimes(1);
     expect(sendAccepted).not.toHaveBeenCalled();
   });
+
+  it("rejects a pending request whose company or update disappeared", async () => {
+    state.selectQueue.push([{ id: "req-1", status: "pending", companyUserId: "company-1" }]);
+    state.selectQueue.push([]);
+
+    await expect(companyService.respondToContactRequest({ ...input, decision: "accepted" })).rejects.toMatchObject({
+      code: "NOT_FOUND",
+      message: "Company account not found.",
+    });
+
+    state.selectQueue.push([{ id: "req-1", status: "pending", companyUserId: "company-1" }]);
+    state.selectQueue.push([{ name: "Acme", email: "acme@example.com" }]);
+    state.updateQueue.push([]);
+
+    await expect(companyService.respondToContactRequest({ ...input, decision: "declined" })).rejects.toMatchObject({
+      code: "CONFLICT",
+      message: "This contact request was already answered.",
+    });
+    expect(sendDeclined).not.toHaveBeenCalled();
+  });
 });
 
 describe("companyService saved candidates and contact requests", () => {

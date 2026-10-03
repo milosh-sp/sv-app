@@ -23,11 +23,21 @@ vi.mock("@/integrations/auth/config", () => ({
   verifyOAuthToken,
 }));
 
-import { companyProcedure, protectedProcedure, reviewerAdminProcedure, serverOnlyProcedure } from "./context";
+import {
+    companyOrSkillVerdictAdminProcedure,
+    companyProcedure,
+    protectedProcedure,
+    reviewerAdminProcedure,
+    serverOnlyProcedure,
+    skillVerdictAdminProcedure,
+} from "./context";
 
 const locale = "en-US" as const;
 
-function call<T>(procedure: { handler: (fn: () => T) => { callable: (options: object) => () => Promise<T> } }, context: object) {
+function call<T>(
+  procedure: { handler: (fn: () => T) => { callable: (options: object) => () => Promise<T> } },
+  context: object,
+) {
   return procedure.handler(() => "ok" as T).callable({ context })();
 }
 
@@ -57,9 +67,9 @@ describe("oRPC auth procedures", () => {
     verifyApiKey.mockResolvedValue({ valid: true, key: { referenceId: "user-1" } });
     rows.queue.push([{ id: "user-1", emailVerified: false }]);
 
-    await expect(
-      call(protectedProcedure, { locale, reqHeaders: new Headers({ "x-api-key": "key-1" }) }),
-    ).resolves.toBe("ok");
+    await expect(call(protectedProcedure, { locale, reqHeaders: new Headers({ "x-api-key": "key-1" }) })).resolves.toBe(
+      "ok",
+    );
   });
 
   it("blocks reviewer actions in user mode and allows reviewer mode", async () => {
@@ -106,5 +116,61 @@ describe("oRPC auth procedures", () => {
     ).rejects.toMatchObject({ code: "UNAUTHORIZED" });
 
     await expect(call(serverOnlyProcedure, { locale, internalCall: true })).resolves.toBe("ok");
+  });
+
+  it("accepts a bearer token and ignores a bad token, a bad session, and a bad api key", async () => {
+    verifyOAuthToken.mockResolvedValueOnce({ sub: "user-1" });
+    rows.queue.push([{ id: "user-1", emailVerified: true }]);
+    await expect(
+      call(protectedProcedure, { locale, reqHeaders: new Headers({ authorization: "Bearer tok" }) }),
+    ).resolves.toBe("ok");
+
+    verifyOAuthToken.mockResolvedValueOnce({});
+    await expect(
+      call(protectedProcedure, { locale, reqHeaders: new Headers({ authorization: "Bearer tok" }) }),
+    ).rejects.toMatchObject({ code: "UNAUTHORIZED" });
+
+    verifyOAuthToken.mockRejectedValueOnce(new Error("bad token"));
+    getSession.mockRejectedValueOnce(new Error("session down"));
+    await expect(
+      call(protectedProcedure, { locale, reqHeaders: new Headers({ authorization: "Bearer tok" }) }),
+    ).rejects.toMatchObject({ code: "UNAUTHORIZED" });
+
+    verifyApiKey.mockResolvedValueOnce({ valid: false, key: null });
+    await expect(
+      call(protectedProcedure, { locale, reqHeaders: new Headers({ "x-api-key": "key-1" }) }),
+    ).rejects.toMatchObject({ code: "UNAUTHORIZED" });
+
+    verifyApiKey.mockRejectedValueOnce(new Error("key down"));
+    await expect(
+      call(protectedProcedure, { locale, reqHeaders: new Headers({ "x-api-key": "key-1" }) }),
+    ).rejects.toMatchObject({ code: "UNAUTHORIZED" });
+
+    verifyApiKey.mockResolvedValueOnce({ valid: true, key: { referenceId: "missing" } });
+    rows.queue.push([]);
+    await expect(
+      call(protectedProcedure, { locale, reqHeaders: new Headers({ "x-api-key": "key-1" }) }),
+    ).rejects.toMatchObject({ code: "UNAUTHORIZED" });
+  });
+
+  it("requires a skill verdict admin, and lets that role use the company tools", async () => {
+    getSession.mockResolvedValue({ user: { id: "user-1", emailVerified: true } });
+    rows.queue.push([]);
+
+    await expect(call(skillVerdictAdminProcedure, { locale, reqHeaders: new Headers() })).rejects.toMatchObject({
+      code: "FORBIDDEN",
+    });
+
+    rows.queue.push([]);
+    await expect(call(reviewerAdminProcedure, { locale, reqHeaders: new Headers() })).rejects.toMatchObject({
+      code: "FORBIDDEN",
+      message: "Reviewer Admin role required",
+    });
+
+    rows.queue.push([{ role: "skill_verdict_admin" }]);
+    await expect(call(skillVerdictAdminProcedure, { locale, reqHeaders: new Headers() })).resolves.toBe("ok");
+
+    rows.queue.push([{ role: "skill_verdict_admin" }]);
+    await expect(call(companyOrSkillVerdictAdminProcedure, { locale, reqHeaders: new Headers() })).resolves.toBe("ok");
   });
 });

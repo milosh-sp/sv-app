@@ -119,6 +119,16 @@ describe("resumeService", () => {
     });
   });
 
+  it("counts a view for a public resume with no password", async () => {
+    state.selectQueue.push([publicResume]);
+
+    await expect(resumeService.getBySlug({ username: "ada", slug: "cv" })).resolves.toMatchObject({
+      id: "resume-1",
+      hasPassword: false,
+    });
+    expect(state.inserts).toBe(1);
+  });
+
   it("asks for the password when the grant cookie is missing", async () => {
     state.selectQueue.push([{ ...publicResume, passwordHash: "hashed:secret", hasPassword: true }]);
 
@@ -204,6 +214,13 @@ describe("resumeService", () => {
     });
 
     expect(result?.data.summary.content).toBe("<p>Next</p>");
+  });
+
+  it("rethrows an update failure that is not a duplicate slug", async () => {
+    state.selectQueue.push([{ isLocked: false }]);
+    state.updateError = new Error("db down");
+
+    await expect(resumeService.update({ id: "resume-1", userId: "user-1", name: "Next" })).rejects.toThrow("db down");
   });
 
   it("rejects a duplicate slug", async () => {

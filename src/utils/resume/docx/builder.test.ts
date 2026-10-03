@@ -414,8 +414,11 @@ describe("buildDocument", () => {
         languages: {
           title: "Languages",
           columns: 1,
-          hidden: true,
-          items: [{ id: "la1", hidden: false, language: "English", fluency: "Native", level: 5 }],
+          hidden: false,
+          items: [
+            { id: "la1", hidden: false, language: "English", fluency: "Native", level: 5 },
+            { id: "la2", hidden: false, language: "French", fluency: "", level: 1 },
+          ],
         },
         interests: {
           title: "Interests",
@@ -454,7 +457,7 @@ describe("buildDocument", () => {
               issuer: "Society",
               date: "1844",
               website: link,
-              description: "",
+              description: "<p>Fellow</p>",
             },
           ],
         },

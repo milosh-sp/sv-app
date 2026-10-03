@@ -7,10 +7,12 @@ vi.mock("./service", () => ({
 }));
 
 const {
-  sendVerificationVerifiedEmail,
-  sendVerificationRejectedEmail,
+  sendAssessmentSolutionSubmittedEmail,
+  sendSkillAssessmentAcceptedEmail,
   sendVerificationIssueEmail,
+  sendVerificationRejectedEmail,
   sendVerificationStatusEmail,
+  sendVerificationVerifiedEmail,
   sendVerdictAwaitingFinalApprovalEmail,
 } = await import("./verification");
 
@@ -140,5 +142,42 @@ describe("sendVerdictAwaitingFinalApprovalEmail", () => {
     expect(call.text).toContain("Jane Smith");
     expect(call.text).toContain("final approval stage");
     expect(call.text).toContain("https://app.test/dashboard/verification");
+  });
+});
+
+describe("assessment emails", () => {
+  it("includes a reviewer message and falls back when the applicant name is blank", async () => {
+    await sendSkillAssessmentAcceptedEmail({
+      to: "user@test.com",
+      itemLabel: "TypeScript",
+      reviewerName: "Jane",
+      message: "Please share a repo",
+      verificationDashboardUrl: "https://app.test/dashboard/verification",
+    });
+    expect(mockSendEmail.mock.calls[0]![0].text).toContain("Please share a repo");
+
+    await sendSkillAssessmentAcceptedEmail({
+      to: "user@test.com",
+      itemLabel: "TypeScript",
+      reviewerName: "Jane",
+      verificationDashboardUrl: "https://app.test/dashboard/verification",
+    });
+    expect(mockSendEmail.mock.calls[1]![0].text).not.toContain("Message from your reviewer");
+
+    await sendAssessmentSolutionSubmittedEmail({
+      to: "reviewer@test.com",
+      itemLabel: "TypeScript",
+      applicantName: "  ",
+      reviewerQueueUrl: "https://app.test/reviewer",
+    });
+    expect(mockSendEmail.mock.calls[2]![0].text).toContain("An applicant");
+
+    await sendAssessmentSolutionSubmittedEmail({
+      to: "reviewer@test.com",
+      itemLabel: "TypeScript",
+      applicantName: "Ada",
+      reviewerQueueUrl: "https://app.test/reviewer",
+    });
+    expect(mockSendEmail.mock.calls[3]![0].text).toContain("Ada submitted");
   });
 });

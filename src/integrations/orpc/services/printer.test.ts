@@ -127,6 +127,13 @@ describe("printerService", () => {
     uploadFile.mockClear();
     storage.list.mockResolvedValueOnce([]);
     await expect(printerService.getResumeScreenshot(input)).resolves.toBe("http://localhost:3000/uploads/file");
+
+    page.screenshot.mockRejectedValueOnce(new Error("screenshot failed"));
+    page.close.mockRejectedValueOnce(new Error("close failed"));
+    storage.list.mockResolvedValueOnce([]);
+    await expect(printerService.getResumeScreenshot(input)).rejects.toMatchObject({
+      code: "INTERNAL_SERVER_ERROR",
+    });
   });
 
   it("prints a margined page and a free-form page, and wraps navigation failures", async () => {
