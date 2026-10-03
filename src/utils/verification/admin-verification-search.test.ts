@@ -1,14 +1,14 @@
 import { describe, expect, it } from "vite-plus/test";
 
 import {
-  buildPendingVerdictsListInput,
-  buildVerificationListInput,
-  buildVerdictHistoryListInput,
-  defaultAdminExperienceSearch,
-  defaultAdminVerificationSearch,
-  defaultAdminVerdictSearch,
-  hasActiveAdminVerificationFilters,
-  hasActiveAdminVerdictFilters,
+    buildPendingVerdictsListInput,
+    buildVerdictHistoryListInput,
+    buildVerificationListInput,
+    defaultAdminExperienceSearch,
+    defaultAdminVerdictSearch,
+    defaultAdminVerificationSearch,
+    hasActiveAdminVerdictFilters,
+    hasActiveAdminVerificationFilters,
 } from "./admin-verification-search";
 
 describe("admin verification search", () => {

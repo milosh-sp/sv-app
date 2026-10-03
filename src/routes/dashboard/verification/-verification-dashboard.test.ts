@@ -12,14 +12,14 @@ vi.mock("@lingui/react/macro", () => ({
 import { hasAssessmentSolutionInput } from "@/utils/verification-assessment-solution";
 
 import {
-  blocksNewVerificationRequest,
-  canRetryVerification,
-  countVerifiedItems,
-  findVerificationItemStatus,
-  verificationDisplayStatus,
-  verificationDocumentRejection,
-  visibleExperienceItems,
-  visibleNamedItems,
+    blocksNewVerificationRequest,
+    canRetryVerification,
+    countVerifiedItems,
+    findVerificationItemStatus,
+    verificationDisplayStatus,
+    verificationDocumentRejection,
+    visibleExperienceItems,
+    visibleNamedItems,
 } from "./index";
 
 describe("verification dashboard rules", () => {

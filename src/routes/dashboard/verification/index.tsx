@@ -3,17 +3,17 @@ import type z from "zod";
 import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
 import {
-  CaretDownIcon,
-  CaretRightIcon,
-  CheckCircleIcon,
-  ClockIcon,
-  FileTextIcon,
-  LinkIcon,
-  PaperPlaneRightIcon,
-  SealCheckIcon,
-  UploadIcon,
-  WarningCircleIcon,
-  XCircleIcon,
+    CaretDownIcon,
+    CaretRightIcon,
+    CheckCircleIcon,
+    ClockIcon,
+    FileTextIcon,
+    LinkIcon,
+    PaperPlaneRightIcon,
+    SealCheckIcon,
+    UploadIcon,
+    WarningCircleIcon,
+    XCircleIcon,
 } from "@phosphor-icons/react";
 import { useMutation, useQuery, useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
