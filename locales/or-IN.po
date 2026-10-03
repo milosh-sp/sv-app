@@ -906,7 +906,7 @@ msgstr "କମାଣ୍ଡ୍ ପ୍ୟାଲେଟ୍ |"
 
 #: src/components/command-palette/index.tsx
 msgid "Command Palette - {currentPage}"
-msgstr "କମାଣ୍ଡ୍ ପ୍ୟାଲେଟ୍ - {କରେଣ୍ଟ୍ ପେଜ୍} |"
+msgstr "କମାଣ୍ଡ୍ ପ୍ୟାଲେଟ୍ - {currentPage}"
 
 #: src/routes/_home/-sections/footer.tsx
 msgid "Community"
@@ -3146,7 +3146,7 @@ msgstr "Page {0} of {totalPages} — {1} users"
 #. placeholder {0}: pageIndex + 1
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
 msgid "Page {0}: {sectionTitle}"
-msgstr "ପୃଷ୍ଠା {0}: {ବିଭାଗ ଟାଇଟଲ୍}"
+msgstr "ପୃଷ୍ଠା {0}: {sectionTitle}"
 
 #: src/routes/dashboard/job-search/index.tsx
 msgid "Page {currentPage}"

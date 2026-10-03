@@ -6,8 +6,8 @@ import { Trans } from "@lingui/react/macro";
 import { CheckCircleIcon, GlobeIcon, WarningCircleIcon } from "@phosphor-icons/react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useMemo, useState } from "react";
-import { useForm } from "react-hook-form";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { useForm, useWatch } from "react-hook-form";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
@@ -18,10 +18,10 @@ import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
 import { orpc } from "@/integrations/orpc/client";
 import {
-    defaultWorkAuthorizationData,
-    sponsorshipRequirementSchema,
-    workAuthorizationSchema,
-    workAuthorizationStatusSchema,
+  defaultWorkAuthorizationData,
+  sponsorshipRequirementSchema,
+  workAuthorizationSchema,
+  workAuthorizationStatusSchema,
 } from "@/schema/resume/data";
 
 import { DashboardHeader } from "../-components/header";
@@ -94,7 +94,7 @@ function normalizeRegionValues(values: FormValues[Region], region: Region): Form
 function RouteComponent() {
   const queryClient = useQueryClient();
   const [selectedResumeId, setSelectedResumeId] = useState<string | null>(null);
-  const [initializedResumeId, setInitializedResumeId] = useState<string | null>(null);
+  const initializedResumeIdRef = useRef<string | null>(null);
   const [activeRegion, setActiveRegion] = useState<Region>("eu");
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -117,15 +117,13 @@ function RouteComponent() {
     [resumes],
   );
 
-  useEffect(() => {
-    if (!selectedResumeId && resumes && resumes.length > 0) {
-      setSelectedResumeId(resumes[0].id);
-    }
-  }, [resumes, selectedResumeId]);
+  if (!selectedResumeId && resumes && resumes.length > 0) {
+    setSelectedResumeId(resumes[0].id);
+  }
 
   useEffect(() => {
     if (!selectedResume) return;
-    if (selectedResume.id === initializedResumeId) return;
+    if (selectedResume.id === initializedResumeIdRef.current) return;
 
     const workAuthorization = selectedResume.data.workAuthorization ?? defaultWorkAuthorizationData;
     const normalizedWorkAuthorization = {
@@ -138,11 +136,10 @@ function RouteComponent() {
       usa: normalizedWorkAuthorization.usa,
       uk: normalizedWorkAuthorization.uk,
     });
-    setInitializedResumeId(selectedResume.id);
-  }, [selectedResume, initializedResumeId, form]);
+    initializedResumeIdRef.current = selectedResume.id;
+  }, [selectedResume, form]);
 
-  // oxlint-disable-next-line react/incompatible-library -- react-hook-form watch
-  const watchedRegions = form.watch(regions);
+  const watchedRegions = useWatch({ control: form.control, name: regions });
   const regionOptions = useMemo(
     () =>
       regions.map((region, index) => {
@@ -157,7 +154,7 @@ function RouteComponent() {
     [watchedRegions],
   );
 
-  const selectedStatus = form.watch(`${activeRegion}.status` as const);
+  const selectedStatus = useWatch({ control: form.control, name: `${activeRegion}.status` as const });
   const isVisaSelection = selectedStatus === "visa_holder";
   const isResumeLoading = Boolean(selectedResumeId) && selectedResumeQuery.isPending;
 

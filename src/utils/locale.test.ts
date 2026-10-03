@@ -1,3 +1,5 @@
+import { readdirSync, readFileSync } from "node:fs";
+import { resolve } from "node:path";
 import { describe, expect, it, vi } from "vite-plus/test";
 
 // Mock @lingui/core/macro since the `msg` macro requires babel transformation
@@ -40,5 +42,34 @@ describe("isRTL", () => {
     expect(isRTL("en-US")).toBe(false);
     expect(isRTL("fr-FR")).toBe(false);
     expect(isRTL("zh-CN")).toBe(false);
+  });
+});
+
+// Plural categories legitimately differ per language, so only depth-0 argument names are compared.
+const topLevelArgs = (message: string) => {
+  const args: string[] = [];
+  let depth = 0;
+  for (let i = 0; i < message.length; i++) {
+    if (message[i] === "{") {
+      if (depth === 0) args.push(/^\{\s*([^\s,{}]+)/.exec(message.slice(i))?.[1] ?? "");
+      depth++;
+    } else if (message[i] === "}") depth--;
+  }
+  return args.sort();
+};
+
+describe("locale catalogs", () => {
+  const dir = resolve(process.cwd(), "locales");
+
+  it("should keep the same placeholders as the source message", () => {
+    const mismatches: string[] = [];
+    for (const file of readdirSync(dir).filter((f) => f.endsWith(".po"))) {
+      const catalog = readFileSync(resolve(dir, file), "utf8");
+      // ponytail: single-line msgid/msgstr pairs only; multi-line entries (just the header today) are skipped.
+      for (const [, id, str] of catalog.matchAll(/msgid "((?:[^"\\]|\\.)*)"\nmsgstr "((?:[^"\\]|\\.)*)"/g)) {
+        if (str && topLevelArgs(id).join() !== topLevelArgs(str).join()) mismatches.push(`${file}: ${str}`);
+      }
+    }
+    expect(mismatches).toEqual([]);
   });
 });

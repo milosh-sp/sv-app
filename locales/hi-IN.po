@@ -3146,7 +3146,7 @@ msgstr "Page {0} of {totalPages} — {1} users"
 #. placeholder {0}: pageIndex + 1
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
 msgid "Page {0}: {sectionTitle}"
-msgstr "पृष्ठ {0}: {अनुभागशीर्षक}"
+msgstr "पृष्ठ {0}: {sectionTitle}"
 
 #: src/routes/dashboard/job-search/index.tsx
 msgid "Page {currentPage}"

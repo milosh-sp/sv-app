@@ -425,6 +425,7 @@ export function DocumentPreview({
         blobUrlRef.current = null;
       }
       setObjectUrl(null);
+      setRenderType("loading");
     };
   }, [expanded, fileUrl, isExternalLink]);
 

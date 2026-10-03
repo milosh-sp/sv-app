@@ -7,12 +7,12 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Combobox } from "@/components/ui/combobox";
 import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle,
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { orpc } from "@/integrations/orpc/client";
@@ -181,25 +181,6 @@ type ProfileData = {
   reviewerSkills?: string[];
 } | null;
 
-function reviewerProfileFields(profile: ProfileData, userName: string) {
-  if (profile) {
-    return {
-      firstName: profile.firstName,
-      lastName: profile.lastName,
-      title: profile.title,
-      reviewerSkills: profile.reviewerSkills ?? [],
-    };
-  }
-
-  const nameParts = userName.trim().split(/\s+/);
-  return {
-    firstName: nameParts[0] ?? "",
-    lastName: nameParts.slice(1).join(" "),
-    title: "",
-    reviewerSkills: [] as string[],
-  };
-}
-
 function ReviewerProfileForm({
   adminId,
   userName,
@@ -230,22 +211,20 @@ function ReviewerProfileForm({
   }) => void;
 }) {
   const hasProfile = Boolean(profile);
-  const fields = reviewerProfileFields(profile, userName);
 
-  const [firstName, setFirstName] = useState(fields.firstName);
-  const [lastName, setLastName] = useState(fields.lastName);
-  const [title, setTitle] = useState(fields.title);
-  const [reviewerSkills, setReviewerSkills] = useState(fields.reviewerSkills);
-  const [prevProfile, setPrevProfile] = useState(profile);
-  const [prevUserName, setPrevUserName] = useState(userName);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [title, setTitle] = useState("");
+  const [reviewerSkills, setReviewerSkills] = useState<string[]>([]);
+  const [syncedFrom, setSyncedFrom] = useState<{ profile: ProfileData; userName: string } | null>(null);
 
-  if (profile !== prevProfile || userName !== prevUserName) {
-    setPrevProfile(profile);
-    setPrevUserName(userName);
-    setFirstName(fields.firstName);
-    setLastName(fields.lastName);
-    setTitle(fields.title);
-    setReviewerSkills(fields.reviewerSkills);
+  if (!syncedFrom || syncedFrom.profile !== profile || syncedFrom.userName !== userName) {
+    setSyncedFrom({ profile, userName });
+    const nameParts = userName.trim().split(/\s+/);
+    setFirstName(profile ? profile.firstName : (nameParts[0] ?? ""));
+    setLastName(profile ? profile.lastName : nameParts.slice(1).join(" "));
+    setTitle(profile ? profile.title : "");
+    setReviewerSkills(profile?.reviewerSkills ?? []);
   }
 
   const skillOptions = useMemo(

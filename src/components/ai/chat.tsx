@@ -7,12 +7,12 @@ import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
 import { eventIteratorToUnproxiedDataStream } from "@orpc/client";
 import {
-    CheckCircleIcon,
-    CircleNotchIcon,
-    PaperPlaneRightIcon,
-    SparkleIcon,
-    StopIcon,
-    TrashSimpleIcon,
+  CheckCircleIcon,
+  CircleNotchIcon,
+  PaperPlaneRightIcon,
+  SparkleIcon,
+  StopIcon,
+  TrashSimpleIcon,
 } from "@phosphor-icons/react";
 import { AnimatePresence, motion } from "motion/react";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -190,25 +190,27 @@ export function AIChat() {
   const [open, setOpen] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-  const [initialChat] = useState(() => {
+  const [{ initialMessages, initialToolCallIds }] = useState(() => {
     const stored = loadStoredMessages(resumeId);
-    const ids = new Set<string>();
+    const toolCallIds = new Set<string>();
 
     for (const message of stored) {
       if (message.role !== "assistant") continue;
       for (const part of message.parts) {
         if (part.type !== "tool-patch_resume") continue;
         const toolPart = part as any;
-        if (toolPart.state === "output-available") ids.add(toolPart.toolCallId as string);
+        if (toolPart.state === "output-available") {
+          toolCallIds.add(toolPart.toolCallId as string);
+        }
       }
     }
 
-    return { messages: stored, ids };
+    return { initialMessages: stored, initialToolCallIds: toolCallIds };
   });
-  const processedToolCallIds = useRef(initialChat.ids);
+  const processedToolCallIds = useRef(initialToolCallIds);
 
   const { messages, sendMessage, status, stop, setMessages } = useChat({
-    messages: initialChat.messages,
+    messages: initialMessages,
     transport: {
       async sendMessages(options) {
         return eventIteratorToUnproxiedDataStream(

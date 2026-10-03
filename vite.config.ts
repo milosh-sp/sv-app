@@ -16,9 +16,12 @@ const plugins = [
   viteReact(),
   ...(!isVitest
     ? [
-        lingui(),
+        lingui({ failOnCompileError: true }),
         tailwindcss(),
-        nitro({ plugins: ["plugins/1.migrate.ts"] }),
+        nitro({
+          plugins: ["plugins/1.migrate.ts"],
+          rolldownConfig: { checks: { moduleLevelDirective: false } },
+        }),
         babel({ plugins: ["@lingui/babel-plugin-lingui-macro"] }) as unknown as PluginOption,
         VitePWA({
           outDir: "public",
@@ -211,11 +214,10 @@ const config = defineConfig({
     ],
     rules: {
       "react/exhaustive-deps": "off",
+      "no-unused-vars": ["warn", { argsIgnorePattern: "^_", varsIgnorePattern: "^_" }],
       "jest/require-to-throw-message": "off",
       "vitest/require-to-throw-message": "off",
-      // Drizzle-chain mocks return `any` on purpose; type arguments would not make them safer.
       "vitest/require-mock-type-parameters": "off",
-      "eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_", varsIgnorePattern: "^_" }],
       "typescript/consistent-type-imports": "error",
     },
   },
@@ -237,6 +239,7 @@ const config = defineConfig({
   build: {
     sourcemap: true,
     chunkSizeWarningLimit: 10 * 1024, // 10mb
+    rolldownOptions: { checks: { pluginTimings: false } },
   },
 
   server: {

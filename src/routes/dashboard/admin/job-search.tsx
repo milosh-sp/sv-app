@@ -32,10 +32,11 @@ function AdminJobSearchForm() {
 
   const [apiKey, setApiKey] = useState("");
   const [testStatus, setTestStatus] = useState<TestStatus>("unverified");
-  const [hydratedSettings, setHydratedSettings] = useState<typeof settings>();
 
-  if (settings && !isLoading && settings !== hydratedSettings) {
-    setHydratedSettings(settings);
+  const [syncedSettings, setSyncedSettings] = useState<typeof settings>();
+
+  if (settings && settings !== syncedSettings) {
+    setSyncedSettings(settings);
     setTestStatus(settings.connectionTestOk ? "success" : "unverified");
     setApiKey("");
   }

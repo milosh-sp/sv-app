@@ -3,7 +3,7 @@ import type z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Trans } from "@lingui/react/macro";
 import { AnimatePresence, motion } from "motion/react";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 
 import { ColorPicker } from "@/components/input/color-picker";
 import { IconPicker } from "@/components/input/icon-picker";
@@ -213,17 +213,13 @@ function LevelSectionForm() {
     resolver: zodResolver(levelDesignSchema),
     defaultValues: levelDesign,
   });
+  const [levelType, levelIcon] = useWatch({ control: form.control, name: ["type", "icon"] });
 
   const onSubmit = (data: z.infer<typeof levelDesignSchema>) => {
     updateResumeData((draft) => {
       draft.metadata.design.level = data;
     });
   };
-
-  // oxlint-disable-next-line react/incompatible-library -- react-hook-form watch
-  const levelType = form.watch("type");
-  // oxlint-disable-next-line react/incompatible-library -- react-hook-form watch
-  const levelIcon = form.watch("icon");
 
   return (
     <Form {...form}>
@@ -236,12 +232,7 @@ function LevelSectionForm() {
           style={{ "--page-primary-color": colors.primary, backgroundColor: colors.background } as React.CSSProperties}
           className="flex items-center justify-center rounded-md p-6"
         >
-          <LevelDisplay
-            level={3}
-            type={levelType}
-            icon={levelIcon}
-            className="w-full max-w-[220px] justify-center"
-          />
+          <LevelDisplay level={3} type={levelType} icon={levelIcon} className="w-full max-w-[220px] justify-center" />
         </div>
 
         <div className="flex items-center gap-3">

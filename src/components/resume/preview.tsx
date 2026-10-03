@@ -3,7 +3,6 @@ import type z from "zod";
 import { Trans } from "@lingui/react/macro";
 import { IconContext, type IconProps } from "@phosphor-icons/react";
 import { useMemo } from "react";
-import { match } from "ts-pattern";
 
 import type { pageLayoutSchema } from "@/schema/resume/data";
 import type { Template } from "@/schema/templates";
@@ -36,23 +35,21 @@ export type ExtendedIconProps = IconProps & {
 const CSS_RULE_SPLIT_PATTERN = /\n(?=\s*[.#a-zA-Z])/;
 const CSS_SELECTOR_PATTERN = /^([^{]+)(\{)/;
 
-function renderTemplatePage(template: Template, pageIndex: number, pageLayout: z.infer<typeof pageLayoutSchema>) {
-  return match(template)
-    .with("azurill", () => <AzurillTemplate pageIndex={pageIndex} pageLayout={pageLayout} />)
-    .with("bronzor", () => <BronzorTemplate pageIndex={pageIndex} pageLayout={pageLayout} />)
-    .with("chikorita", () => <ChikoritaTemplate pageIndex={pageIndex} pageLayout={pageLayout} />)
-    .with("ditto", () => <DittoTemplate pageIndex={pageIndex} pageLayout={pageLayout} />)
-    .with("ditgar", () => <DitgarTemplate pageIndex={pageIndex} pageLayout={pageLayout} />)
-    .with("gengar", () => <GengarTemplate pageIndex={pageIndex} pageLayout={pageLayout} />)
-    .with("glalie", () => <GlalieTemplate pageIndex={pageIndex} pageLayout={pageLayout} />)
-    .with("kakuna", () => <KakunaTemplate pageIndex={pageIndex} pageLayout={pageLayout} />)
-    .with("lapras", () => <LaprasTemplate pageIndex={pageIndex} pageLayout={pageLayout} />)
-    .with("leafish", () => <LeafishTemplate pageIndex={pageIndex} pageLayout={pageLayout} />)
-    .with("onyx", () => <OnyxTemplate pageIndex={pageIndex} pageLayout={pageLayout} />)
-    .with("pikachu", () => <PikachuTemplate pageIndex={pageIndex} pageLayout={pageLayout} />)
-    .with("rhyhorn", () => <RhyhornTemplate pageIndex={pageIndex} pageLayout={pageLayout} />)
-    .exhaustive();
-}
+const templateComponents = {
+  azurill: AzurillTemplate,
+  bronzor: BronzorTemplate,
+  chikorita: ChikoritaTemplate,
+  ditto: DittoTemplate,
+  ditgar: DitgarTemplate,
+  gengar: GengarTemplate,
+  glalie: GlalieTemplate,
+  kakuna: KakunaTemplate,
+  lapras: LaprasTemplate,
+  leafish: LeafishTemplate,
+  onyx: OnyxTemplate,
+  pikachu: PikachuTemplate,
+  rhyhorn: RhyhornTemplate,
+} satisfies Record<Template, unknown>;
 
 type Props = React.ComponentProps<"div"> & {
   pageClassName?: string;
@@ -130,6 +127,7 @@ function PageContainer({ pageIndex, pageLayout, pageClassName, showPageNumbers =
 
   const pageNumber = useMemo(() => pageIndex + 1, [pageIndex]);
   const totalNumberOfPages = useMemo(() => metadata.layout.pages.length, [metadata.layout.pages]);
+  const TemplateComponent = templateComponents[metadata.template];
 
   return (
     <div data-page-index={pageIndex} className="relative">
@@ -144,7 +142,7 @@ function PageContainer({ pageIndex, pageLayout, pageClassName, showPageNumbers =
       )}
 
       <div className={cn(`page page-${pageIndex}`, styles.page, pageClassName)}>
-        {renderTemplatePage(metadata.template, pageIndex, pageLayout)}
+        <TemplateComponent pageIndex={pageIndex} pageLayout={pageLayout} />
       </div>
     </div>
   );

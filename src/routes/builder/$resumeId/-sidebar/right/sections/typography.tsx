@@ -2,7 +2,7 @@ import type z from "zod";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Trans } from "@lingui/react/macro";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 
 import { useResumeStore } from "@/components/resume/store/resume";
 import { FontFamilyCombobox, FontWeightCombobox, getNextWeights } from "@/components/typography/combobox";
@@ -35,10 +35,8 @@ function TypographySectionForm() {
     defaultValues: typography,
   });
 
-  // oxlint-disable-next-line react/incompatible-library -- react-hook-form watch
-  const bodyFontFamily = form.watch("body.fontFamily");
-  // oxlint-disable-next-line react/incompatible-library -- react-hook-form watch
-  const headingFontFamily = form.watch("heading.fontFamily");
+  const bodyFontFamily = useWatch({ control: form.control, name: "body.fontFamily" });
+  const headingFontFamily = useWatch({ control: form.control, name: "heading.fontFamily" });
 
   const onSubmit = (data: FormValues) => {
     updateResumeData((draft) => {

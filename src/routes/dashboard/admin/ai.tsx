@@ -71,10 +71,11 @@ function AdminAiForm() {
   const [apiKey, setApiKey] = useState("");
   const [baseURL, setBaseURL] = useState("");
   const [testStatus, setTestStatus] = useState<TestStatus>("unverified");
-  const [hydratedSettings, setHydratedSettings] = useState<typeof settings>();
 
-  if (settings && !isLoading && settings !== hydratedSettings) {
-    setHydratedSettings(settings);
+  const [syncedSettings, setSyncedSettings] = useState<typeof settings>();
+
+  if (settings && settings !== syncedSettings) {
+    setSyncedSettings(settings);
     setProvider(settings.provider);
     setModel(settings.model);
     setBaseURL(settings.baseURL);

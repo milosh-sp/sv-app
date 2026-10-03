@@ -3,7 +3,7 @@ import type z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Trans } from "@lingui/react/macro";
 import { lazy, Suspense } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 
 import { useResumeStore } from "@/components/resume/store/resume";
 import { useTheme } from "@/components/theme/provider";
@@ -39,15 +39,13 @@ function CSSSectionForm() {
     resolver: zodResolver(formSchema),
     defaultValues: css,
   });
+  const enabled = useWatch({ control: form.control, name: "enabled" });
 
   const onSubmit = (data: FormValues) => {
     updateResumeData((draft) => {
       draft.metadata.css = data;
     });
   };
-
-  // oxlint-disable-next-line react/incompatible-library -- react-hook-form watch
-  const cssEnabled = form.watch("enabled");
 
   return (
     <Form {...form}>
@@ -76,7 +74,7 @@ function CSSSectionForm() {
           )}
         />
 
-        {cssEnabled && (
+        {enabled && (
           <FormField
             control={form.control}
             name="value"

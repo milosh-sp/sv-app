@@ -906,7 +906,7 @@ msgstr "የትእዛዝ ቤተ-ስዕል"
 
 #: src/components/command-palette/index.tsx
 msgid "Command Palette - {currentPage}"
-msgstr "የትእዛዝ ቤተ-ስዕል - {currentpage}"
+msgstr "የትእዛዝ ቤተ-ስዕል - {currentPage}"
 
 #: src/routes/_home/-sections/footer.tsx
 msgid "Community"

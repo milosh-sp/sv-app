@@ -309,6 +309,12 @@ function UserRoleRow({
   const serverValue = roleToSelectValue(user.adminRole);
   const [draft, setDraft] = useState(serverValue);
   const [prevServerValue, setPrevServerValue] = useState(serverValue);
+
+  if (serverValue !== prevServerValue) {
+    setPrevServerValue(serverValue);
+    setDraft(serverValue);
+  }
+
   const isDirty = draft !== serverValue;
   const detailsQuery = useQuery({
     ...orpc.admin.users.getUserOverview.queryOptions({
@@ -317,11 +323,6 @@ function UserRoleRow({
     enabled: expanded,
   });
   const workAuthorization = detailsQuery.data?.workAuthorization ?? null;
-
-  if (serverValue !== prevServerValue) {
-    setPrevServerValue(serverValue);
-    setDraft(serverValue);
-  }
 
   const created =
     typeof user.createdAt === "string"
