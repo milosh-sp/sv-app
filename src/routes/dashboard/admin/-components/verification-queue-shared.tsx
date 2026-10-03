@@ -1,14 +1,14 @@
 import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
 import {
-    CalendarBlankIcon,
-    CheckCircleIcon,
-    ClockIcon,
-    FileTextIcon,
-    LinkIcon,
-    VideoIcon,
-    WarningCircleIcon,
-    XCircleIcon,
+  CalendarBlankIcon,
+  CheckCircleIcon,
+  ClockIcon,
+  FileTextIcon,
+  LinkIcon,
+  VideoIcon,
+  WarningCircleIcon,
+  XCircleIcon,
 } from "@phosphor-icons/react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";

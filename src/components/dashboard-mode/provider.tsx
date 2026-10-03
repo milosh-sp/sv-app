@@ -4,11 +4,11 @@ import { createContext, type PropsWithChildren, use, useState } from "react";
 
 import { getAdminRoleQueryOptionsForUser } from "@/integrations/orpc/get-admin-role-query-options";
 import {
-    type AdminRole,
-    type DashboardMode,
-    getEffectiveDashboardMode,
-    setDashboardModeServerFn,
-    writeDashboardModeToClientCookie,
+  type AdminRole,
+  type DashboardMode,
+  getEffectiveDashboardMode,
+  setDashboardModeServerFn,
+  writeDashboardModeToClientCookie,
 } from "@/utils/dashboard-mode";
 
 type DashboardModeContextValue = {
