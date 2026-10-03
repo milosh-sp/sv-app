@@ -74,8 +74,10 @@ export const useResumeStore = create<ResumeStore>()(
         set((state) => {
           state.resume = resume as Resume;
           state.isReady = resume !== null;
-          useResumeStore.temporal.getState().clear();
         });
+        // Clear after set. Zundo records the previous resume when set finishes,
+        // so a clear inside the producer leaves that resume on the undo stack.
+        useResumeStore.temporal.getState().clear();
       },
 
       updateResumeData: (fn) => {
