@@ -29,20 +29,20 @@ vi.mock("react-zoom-pan-pinch", () => ({
 }));
 
 import {
-  ApplicantDetails,
-  DirectAdminReviewHistoryTab,
-  DocumentPreview,
-  MethodBadge,
-  QueueEmptyState,
-  QueueErrorState,
-  QueueLoadingState,
-  ReviewDecisionPanel,
-  ReviewerDetails,
-  StatusBadge,
-  VerdictReviewHistoryTab,
-  type DirectAdminReviewHistoryItem,
-  type QueueUser,
-  type VerdictReviewHistoryItem,
+    ApplicantDetails,
+    DirectAdminReviewHistoryTab,
+    DocumentPreview,
+    MethodBadge,
+    QueueEmptyState,
+    QueueErrorState,
+    QueueLoadingState,
+    ReviewDecisionPanel,
+    ReviewerDetails,
+    StatusBadge,
+    VerdictReviewHistoryTab,
+    type DirectAdminReviewHistoryItem,
+    type QueueUser,
+    type VerdictReviewHistoryItem,
 } from "./verification-queue-shared";
 
 async function textOf(node: React.ReactNode) {

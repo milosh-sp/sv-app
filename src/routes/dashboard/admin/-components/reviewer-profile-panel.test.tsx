@@ -55,10 +55,10 @@ vi.mock("@/integrations/orpc/client", () => {
 import { toast } from "sonner";
 
 import {
-  getReviewerSetupStatus,
-  ReviewerProfileDialog,
-  ReviewerProfileDialogTrigger,
-  ReviewerSetupStatusBadge,
+    getReviewerSetupStatus,
+    ReviewerProfileDialog,
+    ReviewerProfileDialogTrigger,
+    ReviewerSetupStatusBadge,
 } from "./reviewer-profile-panel";
 
 const adminId = "00000000-0000-4000-8000-000000000001";
