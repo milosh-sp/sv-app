@@ -239,6 +239,10 @@ const config = defineConfig({
       reporter: ["text", "html"],
       include: ["src/**/*.{ts,tsx}"],
       exclude: ["src/**/*.test.{ts,tsx}", "src/routeTree.gen.ts"],
+      thresholds: {
+        statements: 50,
+        lines: 50,
+      },
     },
   },
 
