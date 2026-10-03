@@ -155,7 +155,9 @@ describe("SkillVerdictV4JSONImporter", () => {
     expect(parsed.sections.publications.items[0]).toMatchObject({ title: "Notes", publisher: "Taylor" });
     expect(parsed.sections.volunteer.items[0]).toMatchObject({ organization: "Society", location: "London" });
     expect(parsed.sections.references.items[0]).toMatchObject({ name: "Babbage", position: "Colleague" });
-    expect(parsed.customSections[0]?.items.map((item) => item.company)).toEqual(["#1"]);
+    expect(parsed.customSections[0]?.items.map((item) => ("company" in item ? item.company : undefined))).toEqual([
+      "#1",
+    ]);
     expect(parsed.metadata.template).toBe("onyx");
     expect(parsed.metadata.layout.pages[0]).toMatchObject({
       fullWidth: true,

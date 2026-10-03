@@ -4,8 +4,6 @@ import { describe, expect, it } from "vite-plus/test";
 
 import { useControlledState } from "./use-controlled-state";
 
-(globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true;
-
 function Probe({ value }: { value?: string }) {
   const [state] = useControlledState({ value, defaultValue: "fallback" });
   return <span>{state}</span>;

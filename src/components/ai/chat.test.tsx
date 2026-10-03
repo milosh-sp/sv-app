@@ -1,5 +1,3 @@
-globalThis.IS_REACT_ACT_ENVIRONMENT = true;
-
 import { act } from "react";
 import { createRoot } from "react-dom/client";
 import { beforeEach, describe, expect, it, vi } from "vite-plus/test";
@@ -7,7 +5,7 @@ import { beforeEach, describe, expect, it, vi } from "vite-plus/test";
 import { defaultResumeData } from "@/schema/resume/data";
 
 vi.mock("@lingui/core/macro", () => ({
-  t: (strings: TemplateStringsArray, ...values: unknown[]) =>
+  t: (strings: TemplateStringsArray, ...values: Array<string | number>) =>
     strings.reduce((result, part, index) => result + part + (values[index] ?? ""), ""),
 }));
 vi.mock("@lingui/react/macro", () => ({
@@ -51,10 +49,7 @@ vi.mock("@orpc/client", () => ({
   eventIteratorToUnproxiedDataStream: (value: unknown) => value,
 }));
 vi.mock("@ai-sdk/react", () => ({
-  useChat: (options: {
-    transport: NonNullable<typeof chat.transport>;
-    onError: (error: Error) => void;
-  }) => {
+  useChat: (options: { transport: NonNullable<typeof chat.transport>; onError: (error: Error) => void }) => {
     chat.transport = options.transport;
     chat.onError = options.onError;
     return chat;
@@ -153,6 +148,7 @@ describe("AI chat", () => {
     expect(toast.error).toHaveBeenCalledWith("Failed to apply resume changes", expect.any(Object));
 
     const input = container.querySelector("form input");
+    // oxlint-disable-next-line typescript/unbound-method -- native setter must be called with the input as this
     const setter = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value")?.set;
     await act(async () => {
       setter?.call(input, "  ");

@@ -1,12 +1,10 @@
-globalThis.IS_REACT_ACT_ENVIRONMENT = true;
-
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { act } from "react";
 import { createRoot } from "react-dom/client";
 import { describe, expect, it, vi } from "vite-plus/test";
 
 vi.mock("@lingui/core/macro", () => ({
-  t: (strings: TemplateStringsArray, ...values: unknown[]) =>
+  t: (strings: TemplateStringsArray, ...values: Array<string | number>) =>
     strings.reduce((result, part, index) => result + part + (values[index] ?? ""), ""),
 }));
 vi.mock("@lingui/react/macro", () => ({
@@ -96,7 +94,17 @@ describe("verification queue badges", () => {
     };
     await expect(textOf(<ApplicantDetails user={user} />)).resolves.toContain("ada@example.com");
     await expect(
-      textOf(<ApplicantDetails user={{ ...user, image: "https://example.com/a.png", emailVerified: false, twoFactorEnabled: true, lastActiveAt: new Date("2020-02-02T00:00:00.000Z") }} />),
+      textOf(
+        <ApplicantDetails
+          user={{
+            ...user,
+            image: "https://example.com/a.png",
+            emailVerified: false,
+            twoFactorEnabled: true,
+            lastActiveAt: new Date("2020-02-02T00:00:00.000Z"),
+          }}
+        />,
+      ),
     ).resolves.toContain("https://example.com/a.png");
 
     await expect(
@@ -211,19 +219,27 @@ describe("verification queue badges", () => {
     const root = createRoot(container);
     await act(async () => {
       root.render(
-        <DocumentPreview fileUrl="https://example.com/profile" documentType="freelancer_link" uploadedAt={new Date("2020-01-01T00:00:00.000Z")} />,
+        <DocumentPreview
+          fileUrl="https://example.com/profile"
+          documentType="freelancer_link"
+          uploadedAt={new Date("2020-01-01T00:00:00.000Z")}
+        />,
       );
     });
     expect(container.textContent).toContain("Open Profile");
 
-    fetchMock.mockResolvedValue({
-      ok: true,
-      headers: { get: () => "image/png" },
-      blob: async () => new Blob([Uint8Array.from([1, 2, 3, 4])], { type: "image/png" }),
-    } as Response);
+    fetchMock.mockResolvedValue(
+      new Response(Uint8Array.from([1, 2, 3, 4]), {
+        headers: { "content-type": "image/png" },
+      }),
+    );
     await act(async () => {
       root.render(
-        <DocumentPreview fileUrl="https://example.com/a.png" documentType="payslip" uploadedAt={new Date("2020-01-01T00:00:00.000Z")} />,
+        <DocumentPreview
+          fileUrl="https://example.com/a.png"
+          documentType="payslip"
+          uploadedAt={new Date("2020-01-01T00:00:00.000Z")}
+        />,
       );
     });
     await act(async () => {
@@ -234,14 +250,14 @@ describe("verification queue badges", () => {
     });
     expect(container.querySelector("img")).not.toBeNull();
 
-    fetchMock.mockResolvedValue({
-      ok: false,
-      headers: { get: () => null },
-      blob: async () => new Blob(),
-    } as Response);
+    fetchMock.mockResolvedValue(new Response(null, { status: 404 }));
     await act(async () => {
       root.render(
-        <DocumentPreview fileUrl="https://example.com/missing" documentType="contract" uploadedAt={new Date("2020-01-01T00:00:00.000Z")} />,
+        <DocumentPreview
+          fileUrl="https://example.com/missing"
+          documentType="contract"
+          uploadedAt={new Date("2020-01-01T00:00:00.000Z")}
+        />,
       );
     });
     await act(async () => {
@@ -308,14 +324,10 @@ describe("verification queue badges", () => {
     };
 
     await expect(
-      textOf(
-        <DirectAdminReviewHistoryTab items={[]} isLoading isError={false} emptyMessage="No experience reviews" />,
-      ),
+      textOf(<DirectAdminReviewHistoryTab items={[]} isLoading isError={false} emptyMessage="No experience reviews" />),
     ).resolves.toContain("Loading queue");
     await expect(
-      textOf(
-        <DirectAdminReviewHistoryTab items={[]} isLoading={false} isError emptyMessage="No experience reviews" />,
-      ),
+      textOf(<DirectAdminReviewHistoryTab items={[]} isLoading={false} isError emptyMessage="No experience reviews" />),
     ).resolves.toContain("Failed to load history");
     await expect(
       textOf(

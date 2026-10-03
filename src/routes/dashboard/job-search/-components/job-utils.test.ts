@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from "vite-plus/test";
 
 vi.mock("@lingui/core/macro", () => ({
-  t: (strings: TemplateStringsArray, ...values: unknown[]) =>
+  t: (strings: TemplateStringsArray, ...values: Array<string | number>) =>
     strings.reduce((result, part, index) => result + part + (values[index] ?? ""), ""),
 }));
 

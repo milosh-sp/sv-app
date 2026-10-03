@@ -3,17 +3,17 @@ import type z from "zod";
 import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
 import {
-    CaretDownIcon,
-    CaretRightIcon,
-    CheckCircleIcon,
-    ClockIcon,
-    FileTextIcon,
-    LinkIcon,
-    PaperPlaneRightIcon,
-    SealCheckIcon,
-    UploadIcon,
-    WarningCircleIcon,
-    XCircleIcon,
+  CaretDownIcon,
+  CaretRightIcon,
+  CheckCircleIcon,
+  ClockIcon,
+  FileTextIcon,
+  LinkIcon,
+  PaperPlaneRightIcon,
+  SealCheckIcon,
+  UploadIcon,
+  WarningCircleIcon,
+  XCircleIcon,
 } from "@phosphor-icons/react";
 import { useMutation, useQuery, useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
@@ -75,13 +75,15 @@ export function visibleNamedItems(items: { id: string; name: string; hidden: boo
 }
 
 export function visibleExperienceItems(items: { id: string; company: string; position: string; hidden: boolean }[]) {
-  return items.filter((item) => !item.hidden).map((item) => ({
-    id: item.id,
-    label: item.position ? `${item.company} — ${item.position}` : item.company,
-  }));
+  return items
+    .filter((item) => !item.hidden)
+    .map((item) => ({
+      id: item.id,
+      label: item.position ? `${item.company} — ${item.position}` : item.company,
+    }));
 }
 
-export function findVerificationItemStatus<T extends { itemId: string; resumeId: string }>(
+export function findVerificationItemStatus<T extends { itemId: string; resumeId: string | null }>(
   statuses: T[],
   itemId: string,
   resumeId: string | null,
@@ -1089,7 +1091,9 @@ function StatusBadge({ status }: { status: string }) {
   })();
 
   return (
-    <span className={`rounded-full px-2 py-0.5 text-xs capitalize ${colorClass}`}>{verificationDisplayStatus(status)}</span>
+    <span className={`rounded-full px-2 py-0.5 text-xs capitalize ${colorClass}`}>
+      {verificationDisplayStatus(status)}
+    </span>
   );
 }
 

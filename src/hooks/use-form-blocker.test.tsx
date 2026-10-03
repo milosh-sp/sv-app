@@ -1,11 +1,9 @@
-globalThis.IS_REACT_ACT_ENVIRONMENT = true;
-
 import { act } from "react";
 import { createRoot } from "react-dom/client";
 import { beforeEach, describe, expect, it, vi } from "vite-plus/test";
 
 vi.mock("@lingui/core/macro", () => ({
-  t: (strings: TemplateStringsArray, ...values: unknown[]) =>
+  t: (strings: TemplateStringsArray, ...values: Array<string | number>) =>
     strings.reduce((result, part, index) => result + part + (values[index] ?? ""), ""),
 }));
 
@@ -33,7 +31,10 @@ function Probe({
   onReady: (blocker: ReturnType<typeof useFormBlocker>) => void;
 }) {
   onReady(
-    useFormBlocker({ formState: { isDirty: dirty, isSubmitting: submitting } } as never, shouldBlock ? { shouldBlock } : undefined),
+    useFormBlocker(
+      { formState: { isDirty: dirty, isSubmitting: submitting } } as never,
+      shouldBlock ? { shouldBlock } : undefined,
+    ),
   );
   return null;
 }

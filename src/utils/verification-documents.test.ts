@@ -10,7 +10,9 @@ describe("validateVerificationDocumentFile", () => {
   it("accepts PDF, JPEG, and PNG under the size cap", () => {
     expect(() => validateVerificationDocumentFile(file("application/pdf", 1024))).not.toThrow();
     expect(() => validateVerificationDocumentFile(file("image/jpeg", 1024))).not.toThrow();
-    expect(() => validateVerificationDocumentFile(file("image/png", MAX_VERIFICATION_DOCUMENT_SIZE_BYTES))).not.toThrow();
+    expect(() =>
+      validateVerificationDocumentFile(file("image/png", MAX_VERIFICATION_DOCUMENT_SIZE_BYTES)),
+    ).not.toThrow();
   });
 
   it("rejects other types and files over the cap", () => {

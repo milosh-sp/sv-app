@@ -2,8 +2,16 @@
 import { afterEach, describe, expect, it, vi } from "vite-plus/test";
 
 const verifyAccessToken = vi.hoisted(() => vi.fn(async () => ({ sub: "user-1" })));
-const sendEmail = vi.hoisted(() => vi.fn(async () => undefined));
-const betterAuth = vi.hoisted(() => vi.fn((config: { trustedOrigins: string[]; advanced: { useSecureCookies: boolean }; emailVerification: { sendVerificationEmail: (input: { user: { email: string }; url: string }) => Promise<void> } }) => config));
+const sendEmail = vi.hoisted(() => vi.fn(async (_options: { text: string }) => undefined));
+const betterAuth = vi.hoisted(() =>
+  vi.fn(
+    (config: {
+      trustedOrigins: string[];
+      advanced: { useSecureCookies: boolean };
+      emailVerification: { sendVerificationEmail: (input: { user: { email: string }; url: string }) => Promise<void> };
+    }) => config,
+  ),
+);
 const rows = vi.hoisted(() => ({ value: [] as unknown[] }));
 
 vi.mock("better-auth/oauth2", () => ({ verifyAccessToken }));
@@ -61,9 +69,9 @@ async function loadConfig() {
 
 describe("OAuth audience and verification URL", () => {
   afterEach(() => {
-    if (originalAppUrl === undefined) delete process.env.APP_URL;
+    if (originalAppUrl === undefined) Reflect.deleteProperty(process.env, "APP_URL");
     else process.env.APP_URL = originalAppUrl;
-    env.APP_URL = originalAppUrl ?? env.APP_URL;
+    (env as { APP_URL: string }).APP_URL = originalAppUrl ?? env.APP_URL;
     if (originalBetterAuthUrl === undefined) delete process.env.BETTER_AUTH_URL;
     else process.env.BETTER_AUTH_URL = originalBetterAuthUrl;
   });
@@ -71,7 +79,7 @@ describe("OAuth audience and verification URL", () => {
   it("verifies a token against the four local audiences and keeps the verification link", async () => {
     delete process.env.BETTER_AUTH_URL;
     process.env.APP_URL = "http://localhost:3000";
-    env.APP_URL = "http://localhost:3000";
+    (env as { APP_URL: string }).APP_URL = "http://localhost:3000";
     const { verifyOAuthToken, config } = await loadConfig();
 
     await expect(verifyOAuthToken("token")).resolves.toEqual({ sub: "user-1" });
@@ -100,13 +108,13 @@ describe("OAuth audience and verification URL", () => {
         text: expect.stringContaining("token=abc"),
       }),
     );
-    expect(vi.mocked(sendEmail).mock.calls[0]?.[0].text).toContain("callbackURL=%2Fdashboard");
+    expect(vi.mocked(sendEmail).mock.calls[0]?.[0]?.text).toContain("callbackURL=%2Fdashboard");
   });
 
   it("omits the localhost alias when the app host is public", async () => {
     process.env.BETTER_AUTH_URL = "https://app.example.com";
     process.env.APP_URL = "https://app.example.com";
-    env.APP_URL = "https://app.example.com";
+    (env as { APP_URL: string }).APP_URL = "https://app.example.com";
     const { verifyOAuthToken, config } = await loadConfig();
 
     await verifyOAuthToken("token");

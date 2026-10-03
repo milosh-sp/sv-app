@@ -164,9 +164,9 @@ describe("JSearchProvider", () => {
       try {
         mockFetch.mockResolvedValue(mockErrorResponse(429, "Too Many Requests"));
         const pending = provider.search({ query: "test", num_pages: 1 });
-        const assertion = expect(pending).rejects.toThrow("Request failed after retries");
+        void pending.catch(() => undefined);
         await vi.runAllTimersAsync();
-        await assertion;
+        await expect(pending).rejects.toThrow("Request failed after retries");
       } finally {
         vi.useRealTimers();
       }

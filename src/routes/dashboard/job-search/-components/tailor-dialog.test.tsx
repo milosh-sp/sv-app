@@ -1,11 +1,9 @@
-globalThis.IS_REACT_ACT_ENVIRONMENT = true;
-
 import { act } from "react";
 import { createRoot } from "react-dom/client";
 import { beforeEach, describe, expect, it, vi } from "vite-plus/test";
 
 vi.mock("@lingui/core/macro", () => ({
-  t: (strings: TemplateStringsArray, ...values: unknown[]) =>
+  t: (strings: TemplateStringsArray, ...values: Array<string | number>) =>
     strings.reduce((result, part, index) => result + part + (values[index] ?? ""), ""),
 }));
 vi.mock("@lingui/react/macro", () => ({
@@ -36,7 +34,10 @@ vi.mock("@tanstack/react-query", () => ({
 }));
 vi.mock("@tanstack/react-router", () => ({ useNavigate: () => navigate }));
 vi.mock("@/integrations/ai/use-ai-integration", () => ({ useAiIntegration: () => ai }));
-vi.mock("@/integrations/orpc/client", () => ({ client, orpc: { resume: { list: { queryOptions: () => ({}) }, duplicate: { mutationOptions: () => ({}) } } } }));
+vi.mock("@/integrations/orpc/client", () => ({
+  client,
+  orpc: { resume: { list: { queryOptions: () => ({}) }, duplicate: { mutationOptions: () => ({}) } } },
+}));
 vi.mock("@/utils/resume/tailor", () => ({
   validateTailorOutput: () => ["headline was dropped"],
   tailorOutputToPatches: () => ({

@@ -12,10 +12,11 @@ vi.mock("@/integrations/auth/config", () => ({
 }));
 vi.mock("../services/statistics", () => ({ statisticsService }));
 
+import { callProcedure } from "../call-procedure";
 import { statisticsRouter } from "./statistics";
 
-function call<T>(procedure: { callable: (options: object) => (input?: object) => Promise<T> }) {
-  return procedure.callable({ context: { locale: "en-US", reqHeaders: new Headers() } })();
+function call<P extends object>(procedure: P) {
+  return callProcedure(procedure, { locale: "en-US", reqHeaders: new Headers() });
 }
 
 describe("statisticsRouter", () => {

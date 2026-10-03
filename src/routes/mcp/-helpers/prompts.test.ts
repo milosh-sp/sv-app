@@ -22,7 +22,12 @@ function capture() {
     registerPrompt: (name: string, _config: unknown, handler: PromptHandler) => {
       prompts.set(name, handler);
     },
-    registerResource: (name: string, template: { listCallback?: () => Promise<unknown> }, _config: unknown, read: Function) => {
+    registerResource: (
+      name: string,
+      template: { listCallback?: () => Promise<unknown> },
+      _config: unknown,
+      read: Function,
+    ) => {
       resources.push({ name, template, read });
     },
   };
@@ -66,7 +71,10 @@ describe("MCP prompts and resources", () => {
     const listed = (await resume?.template.listCallback?.()) as {
       resources: Array<{ description: string; uri: string }>;
     };
-    expect(listed.resources[0]).toMatchObject({ uri: "resume://resume-1", description: "Public | Locked | Tags: design" });
+    expect(listed.resources[0]).toMatchObject({
+      uri: "resume://resume-1",
+      description: "Public | Locked | Tags: design",
+    });
     expect(listed.resources[1]?.description).toBe("Private");
 
     list.mockRejectedValueOnce(new Error("down"));

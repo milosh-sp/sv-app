@@ -2,8 +2,8 @@
 import { beforeEach, describe, expect, it, vi } from "vite-plus/test";
 
 import {
-  sendIdentityVerificationRequestedEmail,
-  sendSkillAssessmentAcceptedEmail,
+    sendIdentityVerificationRequestedEmail,
+    sendSkillAssessmentAcceptedEmail,
 } from "@/integrations/email/verification";
 import { env } from "@/utils/env";
 import { deriveSkillKeywordId } from "@/utils/verification/skills";
@@ -3064,8 +3064,9 @@ describe("verificationService uncovered branches", () => {
   });
 
   it("sends the identity calendar email only when the user has an address", async () => {
-    const previous = env.CAL_COM_LINK;
-    env.CAL_COM_LINK = "https://cal.example/ada";
+    const calendarEnv = env as { CAL_COM_LINK?: string };
+    const previous = calendarEnv.CAL_COM_LINK;
+    calendarEnv.CAL_COM_LINK = "https://cal.example/ada";
 
     try {
       mockLimit.mockReturnValueOnce([]).mockReturnValueOnce([{ email: "ada@example.com" }]);
@@ -3080,7 +3081,7 @@ describe("verificationService uncovered branches", () => {
       mockReturning.mockResolvedValueOnce([{ id: "req-6", sectionType: "identity" }]);
       await expect(verificationService.requestIdentity("user-1")).resolves.toMatchObject({ id: "req-6" });
     } finally {
-      env.CAL_COM_LINK = previous;
+      calendarEnv.CAL_COM_LINK = previous;
     }
   });
 

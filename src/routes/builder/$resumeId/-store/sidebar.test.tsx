@@ -1,6 +1,4 @@
-globalThis.IS_REACT_ACT_ENVIRONMENT = true;
-
-import { act } from "react";
+import { act, useEffect } from "react";
 import { createRoot } from "react-dom/client";
 import { beforeEach, describe, expect, it, vi } from "vite-plus/test";
 
@@ -45,8 +43,10 @@ describe("builder sidebar", () => {
     const seen: { collapsed: boolean; max: string | number } = { collapsed: true, max: 0 };
     function Probe() {
       const sidebar = useBuilderSidebar();
-      seen.collapsed = sidebar.isCollapsed("left");
-      seen.max = sidebar.maxSidebarSize;
+      useEffect(() => {
+        seen.collapsed = sidebar.isCollapsed("left");
+        seen.max = sidebar.maxSidebarSize;
+      });
       return (
         <button
           type="button"
@@ -97,7 +97,10 @@ describe("builder sidebar", () => {
     let open = false;
     function Probe() {
       const sidebar = useBuilderSidebar((state) => state.toggleSidebar);
-      open = useBuilderSidebarStore((state) => state.leftSheetOpen);
+      const leftSheetOpen = useBuilderSidebarStore((state) => state.leftSheetOpen);
+      useEffect(() => {
+        open = leftSheetOpen;
+      });
       return (
         <button
           type="button"

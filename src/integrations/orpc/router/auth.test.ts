@@ -27,12 +27,13 @@ vi.mock("../services/auth", () => ({
   },
 }));
 
+import { callProcedure } from "../call-procedure";
 import { authRouter } from "./auth";
 
 const user = { id: "user-1", email: "ada@example.com", name: "Ada", emailVerified: true };
 
-function call<T>(procedure: { callable: (options: object) => (input?: object) => Promise<T> }, input?: object) {
-  return procedure.callable({ context: { locale: "en-US", reqHeaders: new Headers() } })(input);
+function call<P extends object>(procedure: P, input?: object) {
+  return callProcedure(procedure, { locale: "en-US", reqHeaders: new Headers() }, input);
 }
 
 describe("authRouter", () => {

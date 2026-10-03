@@ -22,6 +22,7 @@ function chain(rows: unknown[]) {
     from: () => self,
     where: () => self,
     limit: () => self,
+    // oxlint-disable-next-line unicorn/no-thenable -- drizzle query mocks are thenable on purpose
     then: (onFulfilled?: (value: unknown) => unknown, onRejected?: (error: unknown) => unknown) =>
       Promise.resolve(rows).then(onFulfilled, onRejected),
   };
@@ -37,19 +38,16 @@ vi.mock("@/integrations/auth/config", () => ({
 }));
 vi.mock("../services/reviewer-profile", () => ({ reviewerProfileService }));
 
+import { callProcedure } from "../call-procedure";
 import { adminReviewerProfilesRouter, publicReviewerProfileRouter, reviewerProfileRouter } from "./reviewer-profile";
 
 const adminId = "00000000-0000-4000-8000-000000000001";
 const reviewerId = "00000000-0000-4000-8000-000000000002";
 
-function call<T>(
-  procedure: { callable: (options: object) => (input?: object) => Promise<T> },
-  input?: object,
-  cookie?: string,
-) {
+function call<P extends object>(procedure: P, input?: object, cookie?: string) {
   const reqHeaders = new Headers();
   if (cookie) reqHeaders.set("cookie", cookie);
-  return procedure.callable({ context: { locale: "en-US", reqHeaders } })(input);
+  return callProcedure(procedure, { locale: "en-US", reqHeaders }, input);
 }
 
 describe("reviewer profile routers", () => {

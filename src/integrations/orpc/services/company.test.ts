@@ -31,6 +31,7 @@ function chain(rows: unknown[]) {
     values: () => self,
     returning: () => self,
     onConflictDoNothing: () => self,
+    // oxlint-disable-next-line unicorn/no-thenable -- drizzle query mocks are thenable on purpose
     then(onFulfilled: (value: unknown) => unknown, onRejected?: (error: unknown) => unknown) {
       return Promise.resolve(rows).then(onFulfilled, onRejected);
     },

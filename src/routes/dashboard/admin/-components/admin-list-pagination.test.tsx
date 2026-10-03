@@ -1,5 +1,3 @@
-globalThis.IS_REACT_ACT_ENVIRONMENT = true;
-
 import { act, type ReactElement } from "react";
 import { createRoot } from "react-dom/client";
 import { describe, expect, it, vi } from "vite-plus/test";

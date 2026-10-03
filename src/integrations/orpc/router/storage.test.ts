@@ -3,7 +3,9 @@ import { beforeEach, describe, expect, it, vi } from "vite-plus/test";
 
 const getSession = vi.hoisted(() => vi.fn());
 const storage = vi.hoisted(() => ({ delete: vi.fn() }));
-const uploadFile = vi.hoisted(() => vi.fn(async () => ({ url: "http://localhost/a.webp", key: "uploads/user-1/pictures/a.webp" })));
+const uploadFile = vi.hoisted(() =>
+  vi.fn(async () => ({ url: "http://localhost/a.webp", key: "uploads/user-1/pictures/a.webp" })),
+);
 const processImageForUpload = vi.hoisted(() =>
   vi.fn(async () => ({ data: new Uint8Array([1]), contentType: "image/webp" })),
 );
@@ -19,12 +21,13 @@ vi.mock("../services/storage", () => ({
   uploadFile,
 }));
 
+import { callProcedure } from "../call-procedure";
 import { storageRouter } from "./storage";
 
 const user = { id: "user-1", email: "ada@example.com", name: "Ada", emailVerified: true };
 
-function call<T>(procedure: { callable: (options: object) => (input?: object) => Promise<T> }, input?: object) {
-  return procedure.callable({ context: { locale: "en-US", reqHeaders: new Headers() } })(input);
+function call<P extends object>(procedure: P, input?: object) {
+  return callProcedure(procedure, { locale: "en-US", reqHeaders: new Headers() }, input);
 }
 
 describe("storageRouter", () => {
@@ -37,11 +40,15 @@ describe("storageRouter", () => {
 
   it("rejects an anonymous upload and stores the caller's picture", async () => {
     getSession.mockResolvedValueOnce(null);
-    await expect(call(storageRouter.uploadFile, new File(["x"], "a.png", { type: "image/png" }))).rejects.toMatchObject({
-      code: "UNAUTHORIZED",
-    });
+    await expect(call(storageRouter.uploadFile, new File(["x"], "a.png", { type: "image/png" }))).rejects.toMatchObject(
+      {
+        code: "UNAUTHORIZED",
+      },
+    );
 
-    await expect(call(storageRouter.uploadFile, new File(["x"], "a.png", { type: "image/png" }))).resolves.toMatchObject({
+    await expect(
+      call(storageRouter.uploadFile, new File(["x"], "a.png", { type: "image/png" })),
+    ).resolves.toMatchObject({
       contentType: "image/webp",
       path: "uploads/user-1/pictures/a.webp",
     });
@@ -53,7 +60,9 @@ describe("storageRouter", () => {
 
   it("deletes only files under the caller's prefix", async () => {
     storage.delete.mockResolvedValueOnce(true);
-    await expect(call(storageRouter.deleteFile, { filename: "uploads/user-1/pictures/a.webp" })).resolves.toBeUndefined();
+    await expect(
+      call(storageRouter.deleteFile, { filename: "uploads/user-1/pictures/a.webp" }),
+    ).resolves.toBeUndefined();
 
     await expect(call(storageRouter.deleteFile, { filename: "uploads/other/pictures/a.webp" })).rejects.toMatchObject({
       code: "FORBIDDEN",

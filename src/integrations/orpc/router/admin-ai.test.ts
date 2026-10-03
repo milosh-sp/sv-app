@@ -15,6 +15,7 @@ function chain(rows: unknown[]) {
     from: () => self,
     where: () => self,
     limit: () => self,
+    // oxlint-disable-next-line unicorn/no-thenable -- drizzle query mocks are thenable on purpose
     then: (onFulfilled?: (value: unknown) => unknown, onRejected?: (error: unknown) => unknown) =>
       Promise.resolve(rows).then(onFulfilled, onRejected),
   };
@@ -34,10 +35,13 @@ vi.mock("../services/global-ai-settings", () => ({
   upsertGlobalAiSettings,
 }));
 vi.mock("../services/ai", async () => {
-  const actual = await vi.importActual<typeof import("../services/ai")>("../services/ai");
+  const actual = await vi.importActual<typeof AiService>("../services/ai");
   return { ...actual, aiService: { testConnection } };
 });
 
+import type * as AiService from "../services/ai";
+
+import { callProcedure } from "../call-procedure";
 import { adminAiRouter } from "./admin-ai";
 
 const adminId = "00000000-0000-4000-8000-000000000001";
@@ -47,8 +51,8 @@ function asAdmin() {
   queue.rows.push([{ role: "skill_verdict_admin" }]);
 }
 
-function call<T>(procedure: { callable: (options: object) => (input?: object) => Promise<T> }, input?: object) {
-  return procedure.callable({ context: { locale: "en-US", reqHeaders: new Headers() } })(input);
+function call<P extends object>(procedure: P, input?: object) {
+  return callProcedure(procedure, { locale: "en-US", reqHeaders: new Headers() }, input);
 }
 
 describe("adminAiRouter", () => {
@@ -90,7 +94,10 @@ describe("adminAiRouter", () => {
   it("maps a provider failure and keeps a blank key from the saved row", async () => {
     asAdmin();
     testConnection.mockRejectedValueOnce(new AISDKError({ name: "AI_APICallError", message: "down" }));
-    await expect(call(adminAiRouter.testConnection, creds)).rejects.toMatchObject({ code: "BAD_GATEWAY", message: "down" });
+    await expect(call(adminAiRouter.testConnection, creds)).rejects.toMatchObject({
+      code: "BAD_GATEWAY",
+      message: "down",
+    });
 
     asAdmin();
     testConnection.mockRejectedValueOnce(new Error("unexpected"));
@@ -101,7 +108,12 @@ describe("adminAiRouter", () => {
     await expect(call(adminAiRouter.testStoredConnection)).rejects.toMatchObject({ code: "BAD_REQUEST" });
 
     asAdmin();
-    getGlobalAiSettingsRow.mockResolvedValueOnce({ provider: "nope", model: "m", apiKey: "stored", baseURL: "http://local" });
+    getGlobalAiSettingsRow.mockResolvedValueOnce({
+      provider: "nope",
+      model: "m",
+      apiKey: "stored",
+      baseURL: "http://local",
+    });
     testConnection.mockRejectedValueOnce(new OllamaError({ message: "offline" }));
     await expect(call(adminAiRouter.testStoredConnection)).rejects.toMatchObject({ code: "BAD_GATEWAY" });
     expect(testConnection).toHaveBeenLastCalledWith({
@@ -119,7 +131,9 @@ describe("adminAiRouter", () => {
 
     asAdmin();
     getGlobalAiSettingsRow.mockResolvedValueOnce(null);
-    await expect(call(adminAiRouter.setSettings, { ...creds, apiKey: " " })).rejects.toMatchObject({ code: "BAD_REQUEST" });
+    await expect(call(adminAiRouter.setSettings, { ...creds, apiKey: " " })).rejects.toMatchObject({
+      code: "BAD_REQUEST",
+    });
 
     asAdmin();
     getGlobalAiSettingsRow.mockResolvedValueOnce(null);

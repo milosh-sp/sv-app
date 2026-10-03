@@ -31,6 +31,7 @@ const { state, chain } = vi.hoisted(() => {
       },
       returning: () => self,
       onConflictDoUpdate: () => self,
+      // oxlint-disable-next-line unicorn/no-thenable -- drizzle query mocks are thenable on purpose
       then(onFulfilled: (value: unknown) => unknown, onRejected?: (error: unknown) => unknown) {
         if (kind === "update" && state.updateError) {
           const error = state.updateError;

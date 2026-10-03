@@ -13,6 +13,7 @@ function chain(rows: unknown[]) {
     orderBy: () => self,
     limit: () => self,
     offset: () => self,
+    // oxlint-disable-next-line unicorn/no-thenable -- drizzle query mocks are thenable on purpose
     then: (onFulfilled?: (value: unknown) => unknown, onRejected?: (error: unknown) => unknown) =>
       Promise.resolve(rows).then(onFulfilled, onRejected),
   };
@@ -36,6 +37,7 @@ vi.mock("@/integrations/auth/config", () => ({
 
 import { defaultWorkAuthorizationData } from "@/schema/resume/data";
 
+import { callProcedure } from "../call-procedure";
 import { adminUsersRouter } from "./admin-users";
 
 const adminId = "00000000-0000-4000-8000-000000000001";
@@ -46,8 +48,8 @@ function asAdmin() {
   queue.rows.push([{ role: "skill_verdict_admin" }]);
 }
 
-function call<T>(procedure: { callable: (options: object) => (input?: object) => Promise<T> }, input?: object) {
-  return procedure.callable({ context: { locale, reqHeaders: new Headers() } })(input);
+function call<P extends object>(procedure: P, input?: object) {
+  return callProcedure(procedure, { locale, reqHeaders: new Headers() }, input);
 }
 
 describe("adminUsersRouter", () => {

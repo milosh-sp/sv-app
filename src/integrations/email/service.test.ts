@@ -12,6 +12,12 @@ vi.mock("@/utils/env", () => ({ env: envState }));
 
 import { sendEmail } from "./service";
 
+function jsonBody() {
+  const init = vi.mocked(fetch).mock.calls[0]?.[1] as RequestInit | undefined;
+  if (!init || typeof init.body !== "string") throw new Error("expected a string request body");
+  return JSON.parse(init.body) as { from?: { name: string; email: string }; to: unknown };
+}
+
 describe("sendEmail", () => {
   beforeEach(() => {
     envState.EMAIL_DRIVER = undefined;
@@ -71,7 +77,7 @@ describe("sendEmail", () => {
     });
 
     expect(fetch).toHaveBeenCalledTimes(2);
-    const body = JSON.parse(String((vi.mocked(fetch).mock.calls[0]?.[1] as RequestInit).body));
+    const body = jsonBody();
     expect(body.from).toEqual({ name: "Skill Verdict", email: "mail@example.com" });
     expect(body.to).toEqual({ name: "Ada Lovelace", email: "ada@example.com" });
 
@@ -88,7 +94,7 @@ describe("sendEmail", () => {
 
     envState.RESEND_API_KEY = "key";
     await sendEmail({ to: "ada@example.com", subject: "Hi", text: "Hello" });
-    const body = JSON.parse(String((vi.mocked(fetch).mock.calls[0]?.[1] as RequestInit).body));
+    const body = jsonBody();
     expect(body.to).toEqual(["ada@example.com"]);
 
     vi.mocked(fetch).mockResolvedValueOnce({ ok: false, status: 500, text: async () => "down" } as Response);

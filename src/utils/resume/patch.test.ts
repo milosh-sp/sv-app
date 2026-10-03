@@ -62,32 +62,34 @@ describe("applyResumePatches", () => {
   });
 
   it("throws ResumePatchError with the failing operation index for a missing path", () => {
+    let error: unknown;
     try {
       applyResumePatches(resumeWithExperience(), [
         { op: "replace", path: "/summary/content", value: "<p>Ok</p>" },
         { op: "replace", path: "/does/not/exist", value: "x" },
       ]);
-      expect.unreachable();
-    } catch (error) {
-      expect(error).toBeInstanceOf(ResumePatchError);
-      expect((error as ResumePatchError).code).toBe("OPERATION_PATH_UNRESOLVABLE");
-      expect((error as ResumePatchError).index).toBe(1);
-      expect((error as ResumePatchError).operation).toMatchObject({ path: "/does/not/exist" });
+    } catch (caught) {
+      error = caught;
     }
+    expect(error).toBeInstanceOf(ResumePatchError);
+    expect((error as ResumePatchError).code).toBe("OPERATION_PATH_UNRESOLVABLE");
+    expect((error as ResumePatchError).index).toBe(1);
+    expect((error as ResumePatchError).operation).toMatchObject({ path: "/does/not/exist" });
   });
 
   it("throws ResumePatchError when a test operation does not match", () => {
+    let error: unknown;
     try {
       applyResumePatches(resumeWithExperience(), [
         { op: "replace", path: "/summary/content", value: "<p>Ok</p>" },
         { op: "test", path: "/summary/content", value: "<p>Wrong</p>" },
       ]);
-      expect.unreachable();
-    } catch (error) {
-      expect(error).toBeInstanceOf(ResumePatchError);
-      expect((error as ResumePatchError).code).toBe("TEST_OPERATION_FAILED");
-      expect((error as ResumePatchError).index).toBe(1);
+    } catch (caught) {
+      error = caught;
     }
+    expect(error).toBeInstanceOf(ResumePatchError);
+    expect((error as ResumePatchError).code).toBe("TEST_OPERATION_FAILED");
+    expect((error as ResumePatchError).index).toBe(1);
   });
 
   it("rejects a patch that clears a required experience field", () => {

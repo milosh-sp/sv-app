@@ -1,5 +1,3 @@
-globalThis.IS_REACT_ACT_ENVIRONMENT = true;
-
 import { act } from "react";
 import { createRoot } from "react-dom/client";
 import { describe, expect, it, vi } from "vite-plus/test";
@@ -13,6 +11,7 @@ import { ChipInput } from "./chip-input";
 function setInput(value: string) {
   const input = document.querySelector("input");
   if (!input) throw new Error("chip input missing");
+  // oxlint-disable-next-line typescript/unbound-method -- native setter must be called with the input as this
   const setter = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value")?.set;
   setter?.call(input, value);
   input.dispatchEvent(new Event("input", { bubbles: true }));

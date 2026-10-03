@@ -27,10 +27,7 @@ export function VerificationProvider({
   return <VerificationContext value={{ statuses }}>{children}</VerificationContext>;
 }
 
-export function findVerificationStatus(
-  statuses: VerificationStatus[],
-  itemId: string,
-): VerificationStatus | undefined {
+export function findVerificationStatus(statuses: VerificationStatus[], itemId: string): VerificationStatus | undefined {
   return statuses.find((status) => status.itemId === itemId);
 }
 

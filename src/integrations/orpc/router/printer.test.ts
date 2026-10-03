@@ -21,13 +21,14 @@ vi.mock("@/integrations/auth/config", () => ({
 vi.mock("../services/resume", () => ({ resumeService }));
 vi.mock("../services/printer", () => ({ printerService }));
 
+import { callProcedure } from "../call-procedure";
 import { printerRouter } from "./printer";
 
 const user = { id: "user-1", email: "ada@example.com", name: "Ada", emailVerified: true };
 const exported = { id: "resume-1", data: defaultResumeData, userId: "owner", updatedAt: new Date() };
 
-function call<T>(procedure: { callable: (options: object) => (input?: object) => Promise<T> }, input?: object) {
-  return procedure.callable({ context: { locale: "en-US", reqHeaders: new Headers() } })(input);
+function call<P extends object>(procedure: P, input?: object) {
+  return callProcedure(procedure, { locale: "en-US", reqHeaders: new Headers() }, input);
 }
 
 describe("printerRouter", () => {

@@ -26,19 +26,22 @@ vi.mock("@/integrations/auth/config", () => ({
 }));
 vi.mock("../services/global-ai-settings", () => ({ getGlobalAiCredentialsForService }));
 vi.mock("../services/ai", async () => {
-  const actual = await vi.importActual<typeof import("../services/ai")>("../services/ai");
+  const actual = await vi.importActual<typeof AiService>("../services/ai");
   return { ...actual, aiService };
 });
 vi.mock("../services/resume", () => ({ resumeService }));
 
+import type * as AiService from "../services/ai";
+
+import { callProcedure } from "../call-procedure";
 import { aiRouter } from "./ai";
 
 const user = { id: "user-1", email: "ada@example.com", name: "Ada", emailVerified: true };
 const file = { name: "resume.pdf", data: "Zg==" };
 const credentials = { provider: "openai", model: "gpt-test", apiKey: "key", baseURL: "" };
 
-function call<T>(procedure: { callable: (options: object) => (input?: object) => Promise<T> }, input?: object) {
-  return procedure.callable({ context: { locale: "en-US", reqHeaders: new Headers() } })(input);
+function call<P extends object>(procedure: P, input?: object) {
+  return callProcedure(procedure, { locale: "en-US", reqHeaders: new Headers() }, input);
 }
 
 describe("aiRouter", () => {
@@ -60,9 +63,9 @@ describe("aiRouter", () => {
     getGlobalAiCredentialsForService.mockResolvedValue(null);
     await expect(call(aiRouter.getAvailability)).resolves.toEqual({ configured: false, provider: null, model: null });
     await expect(call(aiRouter.parsePdf, { file })).rejects.toMatchObject({ code: "SERVICE_UNAVAILABLE" });
-    await expect(
-      call(aiRouter.parseDocx, { file, mediaType: "application/msword" }),
-    ).rejects.toMatchObject({ code: "SERVICE_UNAVAILABLE" });
+    await expect(call(aiRouter.parseDocx, { file, mediaType: "application/msword" })).rejects.toMatchObject({
+      code: "SERVICE_UNAVAILABLE",
+    });
   });
 
   it("maps provider and schema failures and reviews the caller's resume", async () => {
@@ -77,9 +80,9 @@ describe("aiRouter", () => {
     await expect(call(aiRouter.parsePdf, { file })).rejects.toMatchObject({ code: "BAD_GATEWAY", message: "down" });
 
     aiService.parseDocx.mockRejectedValueOnce(new ZodError([]));
-    await expect(
-      call(aiRouter.parseDocx, { file, mediaType: "application/msword" }),
-    ).rejects.toMatchObject({ code: "BAD_REQUEST" });
+    await expect(call(aiRouter.parseDocx, { file, mediaType: "application/msword" })).rejects.toMatchObject({
+      code: "BAD_REQUEST",
+    });
 
     aiService.parsePdf.mockRejectedValueOnce(new Error("unexpected"));
     await expect(call(aiRouter.parsePdf, { file })).rejects.toThrow("unexpected");

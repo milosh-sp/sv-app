@@ -21,9 +21,7 @@ describe("SkillVerdictJSONImporter", () => {
 
     const parsed = importer.parse(JSON.stringify(resume));
 
-    expect(parsed.metadata.layout.pages).toEqual([
-      { fullWidth: false, main: builtInSectionIds, sidebar: [] },
-    ]);
+    expect(parsed.metadata.layout.pages).toEqual([{ fullWidth: false, main: builtInSectionIds, sidebar: [] }]);
   });
 
   it("appends a missing skills section without reordering the imported layout", () => {

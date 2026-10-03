@@ -13,6 +13,7 @@ function chain(rows: unknown[]) {
     from: () => self,
     where: () => self,
     limit: () => self,
+    // oxlint-disable-next-line unicorn/no-thenable -- drizzle query mocks are thenable on purpose
     then: (onFulfilled?: (value: unknown) => unknown, onRejected?: (error: unknown) => unknown) =>
       Promise.resolve(rows).then(onFulfilled, onRejected),
   };
@@ -33,6 +34,7 @@ vi.mock("../services/global-job-search-settings", () => ({
 }));
 vi.mock("../services/jobs", () => ({ jobsService: { testConnection } }));
 
+import { callProcedure } from "../call-procedure";
 import { adminJobSearchRouter } from "./admin-job-search";
 
 const adminId = "00000000-0000-4000-8000-000000000001";
@@ -41,8 +43,8 @@ function asAdmin() {
   queue.rows.push([{ role: "skill_verdict_admin" }]);
 }
 
-function call<T>(procedure: { callable: (options: object) => (input?: object) => Promise<T> }, input?: object) {
-  return procedure.callable({ context: { locale: "en-US", reqHeaders: new Headers() } })(input);
+function call<P extends object>(procedure: P, input?: object) {
+  return callProcedure(procedure, { locale: "en-US", reqHeaders: new Headers() }, input);
 }
 
 describe("adminJobSearchRouter", () => {
@@ -102,7 +104,9 @@ describe("adminJobSearchRouter", () => {
 
     asAdmin();
     getGlobalJobSearchSettingsRow.mockResolvedValueOnce(null);
-    await expect(call(adminJobSearchRouter.setSettings, { apiKey: " " })).rejects.toMatchObject({ code: "BAD_REQUEST" });
+    await expect(call(adminJobSearchRouter.setSettings, { apiKey: " " })).rejects.toMatchObject({
+      code: "BAD_REQUEST",
+    });
 
     asAdmin();
     getGlobalJobSearchSettingsRow.mockResolvedValueOnce({ apiKey: "stored" });

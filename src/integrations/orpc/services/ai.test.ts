@@ -1,4 +1,6 @@
 // @vitest-environment node
+import type * as AiSdk from "ai";
+
 import { beforeEach, describe, expect, it, vi } from "vite-plus/test";
 
 const generateText = vi.hoisted(() => vi.fn());
@@ -13,7 +15,7 @@ function provider(name: string) {
 }
 
 vi.mock("ai", async () => {
-  const actual = await vi.importActual<typeof import("ai")>("ai");
+  const actual = await vi.importActual<typeof AiSdk>("ai");
   return {
     ...actual,
     generateText,

@@ -16,13 +16,14 @@ vi.mock("@/integrations/auth/config", () => ({
 vi.mock("../services/global-job-search-settings", () => ({ getGlobalJobSearchApiKeyForService }));
 vi.mock("../services/jobs", () => ({ jobsService }));
 
+import { callProcedure } from "../call-procedure";
 import { jobsRouter } from "./jobs";
 
 const user = { id: "user-1", email: "ada@example.com", name: "Ada", emailVerified: true };
 const params = { query: "engineer" };
 
-function call<T>(procedure: { callable: (options: object) => (input?: object) => Promise<T> }, input?: object) {
-  return procedure.callable({ context: { locale: "en-US", reqHeaders: new Headers() } })(input);
+function call<P extends object>(procedure: P, input?: object) {
+  return callProcedure(procedure, { locale: "en-US", reqHeaders: new Headers() }, input);
 }
 
 describe("jobsRouter", () => {

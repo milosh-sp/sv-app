@@ -44,18 +44,17 @@ vi.mock("@/integrations/drizzle/client", () => ({
 }));
 vi.mock("../services/resume", () => ({ resumeService }));
 
+import { callProcedure } from "../call-procedure";
 import { resumeRouter } from "./resume";
 
 const user = { id: "user-1", email: "ada@example.com", name: "Ada", emailVerified: true };
 
-function call<T>(procedure: { callable: (options: object) => (input?: object) => Promise<T> }, input?: object) {
-  return procedure.callable({ context: { locale: "en-US", reqHeaders: new Headers() } })(input);
+function call<P extends object>(procedure: P, input?: object) {
+  return callProcedure(procedure, { locale: "en-US", reqHeaders: new Headers() }, input);
 }
 
-function callInternal<T>(procedure: { callable: (options: object) => (input?: object) => Promise<T> }, input?: object) {
-  return procedure.callable({
-    context: { locale: "en-US", reqHeaders: new Headers(), internalCall: true },
-  })(input);
+function callInternal<P extends object>(procedure: P, input?: object) {
+  return callProcedure(procedure, { locale: "en-US", reqHeaders: new Headers(), internalCall: true }, input);
 }
 
 describe("resumeRouter", () => {
@@ -78,15 +77,21 @@ describe("resumeRouter", () => {
 
   it("passes sample data only when requested and keeps statistics internal", async () => {
     await call(resumeRouter.create, { name: "CV", slug: "cv", tags: [], withSampleData: false });
-    expect(resumeService.create).toHaveBeenLastCalledWith(expect.objectContaining({ userId: "user-1", data: undefined }));
+    expect(resumeService.create).toHaveBeenLastCalledWith(
+      expect.objectContaining({ userId: "user-1", data: undefined }),
+    );
 
     await call(resumeRouter.create, { name: "CV", slug: "cv", tags: [], withSampleData: true });
-    expect(resumeService.create).toHaveBeenLastCalledWith(expect.objectContaining({ userId: "user-1", data: expect.any(Object) }));
+    expect(resumeService.create).toHaveBeenLastCalledWith(
+      expect.objectContaining({ userId: "user-1", data: expect.any(Object) }),
+    );
 
     await expect(call(resumeRouter.statistics.increment, { id: "resume-1", views: true })).rejects.toMatchObject({
       code: "UNAUTHORIZED",
     });
-    await expect(callInternal(resumeRouter.statistics.increment, { id: "resume-1", views: true })).resolves.toBeUndefined();
+    await expect(
+      callInternal(resumeRouter.statistics.increment, { id: "resume-1", views: true }),
+    ).resolves.toBeUndefined();
     expect(resumeService.statistics.increment).toHaveBeenCalledWith({ id: "resume-1", views: true, downloads: false });
   });
 
@@ -95,8 +100,6 @@ describe("resumeRouter", () => {
 
     roleRows.value = [{ role: "company" }];
     await expect(call(resumeRouter.searchForEmployers, {})).resolves.toEqual([]);
-    expect(resumeService.searchForEmployers).toHaveBeenCalledWith(
-      expect.objectContaining({ workAuthRegions: [] }),
-    );
+    expect(resumeService.searchForEmployers).toHaveBeenCalledWith(expect.objectContaining({ workAuthRegions: [] }));
   });
 });

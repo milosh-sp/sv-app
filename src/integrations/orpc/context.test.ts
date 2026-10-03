@@ -24,18 +24,18 @@ vi.mock("@/integrations/auth/config", () => ({
 }));
 
 import {
-    companyOrSkillVerdictAdminProcedure,
-    companyProcedure,
-    protectedProcedure,
-    reviewerAdminProcedure,
-    serverOnlyProcedure,
-    skillVerdictAdminProcedure,
+  companyOrSkillVerdictAdminProcedure,
+  companyProcedure,
+  protectedProcedure,
+  reviewerAdminProcedure,
+  serverOnlyProcedure,
+  skillVerdictAdminProcedure,
 } from "./context";
 
 const locale = "en-US" as const;
 
 function call<T>(
-  procedure: { handler: (fn: () => T) => { callable: (options: object) => () => Promise<T> } },
+  procedure: { handler(fn: () => T): { callable(options: object): () => Promise<T> } },
   context: object,
 ) {
   return procedure.handler(() => "ok" as T).callable({ context })();

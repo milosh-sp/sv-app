@@ -32,6 +32,7 @@ function chain(rows: unknown[]) {
     from: () => self,
     where: () => self,
     limit: () => self,
+    // oxlint-disable-next-line unicorn/no-thenable -- drizzle query mocks are thenable on purpose
     then: (onFulfilled?: (value: unknown) => unknown, onRejected?: (error: unknown) => unknown) =>
       Promise.resolve(rows).then(onFulfilled, onRejected),
   };
@@ -48,14 +49,15 @@ vi.mock("@/integrations/auth/config", () => ({
 vi.mock("@/utils/printer-token", () => ({ verifyPrinterToken }));
 vi.mock("../services/verification", () => ({ verificationService }));
 
+import { callProcedure } from "../call-procedure";
 import { verificationRouter } from "./verification";
 
 const userId = "00000000-0000-4000-8000-000000000001";
 const resumeId = "00000000-0000-4000-8000-000000000020";
 const itemId = "00000000-0000-4000-8000-000000000021";
 
-function call<T>(procedure: { callable: (options: object) => (input?: object) => Promise<T> }, input?: object) {
-  return procedure.callable({ context: { locale: "en-US", reqHeaders: new Headers() } })(input);
+function call<P extends object>(procedure: P, input?: object) {
+  return callProcedure(procedure, { locale: "en-US", reqHeaders: new Headers() }, input);
 }
 
 describe("verificationRouter", () => {
@@ -112,12 +114,13 @@ describe("verificationRouter", () => {
   });
 
   it("returns the calendar link only when one is configured", async () => {
-    const previous = env.CAL_COM_LINK;
-    env.CAL_COM_LINK = "https://cal.example/ada";
+    const calendarEnv = env as { CAL_COM_LINK?: string };
+    const previous = calendarEnv.CAL_COM_LINK;
+    calendarEnv.CAL_COM_LINK = "https://cal.example/ada";
     await expect(call(verificationRouter.getCalLink)).resolves.toBe("https://cal.example/ada");
-    env.CAL_COM_LINK = undefined;
+    calendarEnv.CAL_COM_LINK = undefined;
     await expect(call(verificationRouter.getCalLink)).resolves.toBeNull();
-    env.CAL_COM_LINK = previous;
+    calendarEnv.CAL_COM_LINK = previous;
 
     await call(verificationRouter.listTimelineSettings);
     expect(verificationService.listTimelineSettingsForUser).toHaveBeenCalledWith(userId);

@@ -13,11 +13,11 @@ vi.mock("js-cookie", () => ({
 }));
 
 import {
-    dashboardModeStorageKey,
-    getEffectiveDashboardMode,
-    parseDashboardModeFromCookieHeader,
-    readDashboardModeFromClientCookie,
-    writeDashboardModeToClientCookie,
+  dashboardModeStorageKey,
+  getEffectiveDashboardMode,
+  parseDashboardModeFromCookieHeader,
+  readDashboardModeFromClientCookie,
+  writeDashboardModeToClientCookie,
 } from "./dashboard-mode";
 
 describe("dashboard mode", () => {

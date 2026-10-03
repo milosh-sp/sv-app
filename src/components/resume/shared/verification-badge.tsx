@@ -20,7 +20,7 @@ export function shouldShowVerificationBadge(status: string, badgeVisible: boolea
   return badgeVisible && status === "verified";
 }
 
-export function showsReviewerProfileLink(profileUrl: string | null | undefined): boolean {
+export function showsReviewerProfileLink(profileUrl: string | null | undefined): profileUrl is string {
   return Boolean(profileUrl);
 }
 
