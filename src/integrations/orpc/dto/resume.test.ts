@@ -35,3 +35,27 @@ describe("resumeDto work authorization filters", () => {
     expect(result.success).toBe(false);
   });
 });
+
+describe("resumeDto.patch", () => {
+  it("rejects an empty operations list", () => {
+    expect(resumeDto.patch.input.safeParse({ id: "resume-1", operations: [] }).success).toBe(false);
+  });
+
+  it("rejects a move operation without from", () => {
+    const result = resumeDto.patch.input.safeParse({
+      id: "resume-1",
+      operations: [{ op: "move", path: "/summary/content" }],
+    });
+
+    expect(result.success).toBe(false);
+  });
+
+  it("accepts a minimal replace", () => {
+    const parsed = resumeDto.patch.input.parse({
+      id: "resume-1",
+      operations: [{ op: "replace", path: "/summary/content", value: "<p>Hi</p>" }],
+    });
+
+    expect(parsed.operations).toEqual([{ op: "replace", path: "/summary/content", value: "<p>Hi</p>" }]);
+  });
+});
