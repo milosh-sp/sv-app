@@ -2615,7 +2615,7 @@ msgstr "ମାର୍ଜିନ୍ (ଉର୍ଦ୍ଧ୍ୱାଧର)"
 #. placeholder {0}: candidate.matchScore
 #: src/routes/dashboard/company/match.tsx
 msgid "Match score: {0}%"
-msgstr "ମ୍ୟାଚ୍ ସ୍କୋର: __PH0 __%"
+msgstr "ମ୍ୟାଚ୍ ସ୍କୋର: {0}%"
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Maximum Salary"

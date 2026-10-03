@@ -2615,7 +2615,7 @@ msgstr "Маргина (вертикална)"
 #. placeholder {0}: candidate.matchScore
 #: src/routes/dashboard/company/match.tsx
 msgid "Match score: {0}%"
-msgstr "Резултат утакмице: __ПХ0__%"
+msgstr "Резултат утакмице: {0}%"
 
 #: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Maximum Salary"
