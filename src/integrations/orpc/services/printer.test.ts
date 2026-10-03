@@ -31,7 +31,7 @@ const page = {
   emulateMediaType: vi.fn(),
   setViewport: vi.fn(),
   goto: vi.fn(),
-  waitForFunction: vi.fn(),
+  waitForFunction: vi.fn(async (fn: () => unknown) => fn()),
   evaluate: vi.fn(async (fn: (...args: never[]) => unknown, ...args: never[]) => fn(...args)),
   pdf: vi.fn(async () => new Uint8Array([1, 2, 3])),
   screenshot: vi.fn(async () => new Uint8Array([4])),
@@ -159,9 +159,24 @@ describe("printerService", () => {
     expect(connect).toHaveBeenCalledWith(expect.objectContaining({ browserURL: expect.stringContaining("http://") }));
 
     page.goto.mockRejectedValueOnce(new Error("navigation failed"));
+    page.close.mockRejectedValueOnce(new Error("close failed"));
     await expect(
       printerService.printResumeAsPDF({ id: "resume-1", userId: "user-1", data: resumeData("a4", "onyx") }),
     ).rejects.toMatchObject({ code: "INTERNAL_SERVER_ERROR" });
     expect(page.close).toHaveBeenCalled();
+
+    const freeForm = resumeData("free-form", "onyx");
+    freeForm.metadata.page.marginY = 12;
+    await printerService.printResumeAsPDF({ id: "resume-1", userId: "user-1", data: freeForm });
+
+    browser.connected = true;
+    const exit = vi.spyOn(process, "exit").mockImplementation(() => undefined as never);
+    process.emit("SIGINT");
+    await Promise.resolve();
+    process.emit("SIGTERM");
+    await Promise.resolve();
+    expect(browser.close).toHaveBeenCalled();
+    expect(exit).toHaveBeenCalledWith(0);
+    exit.mockRestore();
   });
 });
