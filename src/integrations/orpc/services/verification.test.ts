@@ -2,8 +2,8 @@
 import { beforeEach, describe, expect, it, vi } from "vite-plus/test";
 
 import {
-    sendIdentityVerificationRequestedEmail,
-    sendSkillAssessmentAcceptedEmail,
+  sendIdentityVerificationRequestedEmail,
+  sendSkillAssessmentAcceptedEmail,
 } from "@/integrations/email/verification";
 import { env } from "@/utils/env";
 import { deriveSkillKeywordId } from "@/utils/verification/skills";
