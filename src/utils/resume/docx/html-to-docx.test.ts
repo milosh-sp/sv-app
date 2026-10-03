@@ -141,6 +141,13 @@ describe("htmlToParagraphs", () => {
     expect(result).toHaveLength(1);
   });
 
+  it("skips comments, non-list children, and a bare list item", () => {
+    expect(htmlToParagraphs("<p>a<!-- note -->b</p>")).toHaveLength(1);
+    expect(htmlToParagraphs("<ul><div>skip</div><li>item</li></ul>")).toHaveLength(1);
+    expect(htmlToParagraphs("<li>orphan</li>")).toHaveLength(1);
+    expect(htmlToParagraphs("<li></li>")).toEqual([]);
+  });
+
   it("parses the remaining block and inline tags", () => {
     const result = htmlToParagraphs(
       [
