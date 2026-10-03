@@ -1,6 +1,16 @@
-import { describe, expect, it } from "vite-plus/test";
+// @vitest-environment node
+import { beforeEach, describe, expect, it, vi } from "vite-plus/test";
 
-import { canExportResume } from "./resume-access";
+const jar = vi.hoisted(() => new Map<string, string>());
+
+vi.mock("@tanstack/react-start/server", () => ({
+  getCookie: (name: string) => jar.get(name),
+  setCookie: (name: string, value: string) => {
+    jar.set(name, value);
+  },
+}));
+
+import { canExportResume, grantResumeAccess, hasResumeAccess } from "./resume-access";
 import { isInternalServerCall } from "./server-call";
 
 const base = {
@@ -29,6 +39,28 @@ describe("canExportResume", () => {
   it("hides a private resume from everyone else", () => {
     expect(canExportResume({ ...base, viewerId: "someone-else" })).toBe(false);
     expect(canExportResume(base)).toBe(false);
+  });
+});
+
+describe("resume password access", () => {
+  beforeEach(() => {
+    jar.clear();
+  });
+
+  it("allows a cookie that matches the granted token", () => {
+    grantResumeAccess("resume-1", "hash");
+
+    expect(hasResumeAccess("resume-1", "hash")).toBe(true);
+  });
+
+  it("rejects a wrong cookie, a missing cookie, and a resume with no password", () => {
+    grantResumeAccess("resume-1", "hash");
+    jar.set("resume_access_resume-1", "wrong");
+    expect(hasResumeAccess("resume-1", "hash")).toBe(false);
+
+    jar.clear();
+    expect(hasResumeAccess("resume-1", "hash")).toBe(false);
+    expect(hasResumeAccess("resume-1", null)).toBe(false);
   });
 });
 
