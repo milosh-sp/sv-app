@@ -39,7 +39,7 @@ describe("buildReviewerSkillOptions", () => {
   });
 
   it("should merge legacy extras not in catalog", () => {
-    const options = buildReviewerSkillOptions(["LegacySkill"]);
+    const options = buildReviewerSkillOptions(["  ", "LegacySkill", "LegacySkill"]);
     expect(options.some((opt) => opt.value === "LegacySkill")).toBe(true);
     expect(options.some((opt) => opt.value === "JavaScript")).toBe(true);
   });
@@ -93,8 +93,10 @@ describe("resolveCanonicalSkillLabel", () => {
   });
 
   it("should preserve unknown skills and unknown compounds", () => {
+    expect(resolveCanonicalSkillLabel("   ")).toBe("");
     expect(resolveCanonicalSkillLabel("LegacySkill")).toBe("LegacySkill");
     expect(resolveCanonicalSkillLabel("LegacySkill ES6")).toBe("LegacySkill ES6");
+    expect(resolveCanonicalSkillLabel("JavaScript, extra")).toBe("JavaScript");
   });
 
   it("should resolve screenshot skill aliases to canonical catalog labels", () => {
