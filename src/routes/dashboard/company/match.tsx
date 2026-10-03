@@ -6,24 +6,40 @@ import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "motion/react";
 import { useState } from "react";
 import { useLocalStorage } from "usehooks-ts";
-import z from "zod";
 
 import type { RouterOutput } from "@/integrations/orpc/client";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Combobox } from "@/components/ui/combobox";
+import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { Spinner } from "@/components/ui/spinner";
 import { Textarea } from "@/components/ui/textarea";
 import { orpc } from "@/integrations/orpc/client";
-import { companyDto } from "@/integrations/orpc/dto/company";
+import {
+  sponsorshipRequirementSchema,
+  workAuthorizationRegionSchema,
+  workAuthorizationStatusSchema,
+} from "@/schema/resume/data";
 
 import type { CandidateActionFlags } from "./-components/candidate-actions";
 
 import { DashboardHeader } from "../-components/header";
 import { CandidateCard } from "./-components/candidate-card";
 import { CandidateDetailSheet } from "./-components/candidate-detail-sheet";
+import {
+  type CompanyMatchFilters,
+  type WorkAuthRegion,
+  buildCompanyMatchInput,
+  emptyMatchPageState,
+  readMatchPageState,
+  setAuthorizationFreshnessDays,
+  setSponsorshipRequired,
+  setWorkAuthRegionStatus,
+  toggleWorkAuthRegion,
+} from "./-match-filters";
 
 export const Route = createFileRoute("/dashboard/company/match")({
   component: RouteComponent,
@@ -33,20 +49,16 @@ type MatchResult = RouterOutput["company"]["matchCandidates"][number];
 
 const MIN_JOB_DESCRIPTION_LENGTH = 20;
 
-const matchPageStateSchema = z.object({
-  jobDescription: z.string().max(20_000),
-  results: companyDto.matchCandidates.output,
-  hasSearched: z.boolean(),
-});
+const regionLabels = { eu: "EU", usa: "USA", uk: "UK" } as const satisfies Record<WorkAuthRegion, string>;
 
-type MatchPageState = z.infer<typeof matchPageStateSchema>;
-
-const emptyMatchPageState: MatchPageState = { jobDescription: "", results: [], hasSearched: false };
+function formatWorkAuthLabel(value: string) {
+  return value === "needs_sponsorship" ? "requires employer sponsorship" : value.replaceAll("_", " ");
+}
 
 // Module-level so the hook's memoized callbacks stay stable; a schema mismatch falls back to the empty state.
 const matchPageStorageOptions = {
   initializeWithValue: false,
-  deserializer: (raw: string) => matchPageStateSchema.parse(JSON.parse(raw)),
+  deserializer: readMatchPageState,
 };
 
 function MatchResultsSkeleton() {
@@ -79,10 +91,103 @@ function MatchError({ message }: { message: string }) {
   );
 }
 
+function WorkAuthFilters({
+  filters,
+  onChange,
+}: {
+  filters: CompanyMatchFilters;
+  onChange: (filters: CompanyMatchFilters) => void;
+}) {
+  const statusLabels = {
+    eu: t`EU status`,
+    usa: t`USA status`,
+    uk: t`UK status`,
+  } as const satisfies Record<WorkAuthRegion, string>;
+
+  return (
+    <fieldset className="space-y-3 rounded-md border p-3">
+      <legend className="px-1 text-sm font-medium">
+        <Trans>Work authorization</Trans>
+      </legend>
+      <p className="text-xs text-muted-foreground">
+        <Trans>Optional. A filter only includes candidates who agreed to share work authorization.</Trans>
+      </p>
+
+      <div className="flex flex-wrap gap-2" role="group" aria-label={t`Regions`}>
+        {workAuthorizationRegionSchema.options.map((region) => {
+          const selected = filters.workAuthRegions.includes(region);
+          return (
+            <Button
+              key={region}
+              type="button"
+              size="sm"
+              variant={selected ? "default" : "outline"}
+              aria-pressed={selected}
+              onClick={() => onChange(toggleWorkAuthRegion(filters, region))}
+            >
+              {regionLabels[region]}
+            </Button>
+          );
+        })}
+      </div>
+
+      <div className="grid gap-3 sm:grid-cols-2">
+        <div className="flex flex-col gap-y-2">
+          <Label htmlFor="sponsorship">
+            <Trans>Sponsorship</Trans>
+          </Label>
+          <Combobox
+            id="sponsorship"
+            options={sponsorshipRequirementSchema.options.map((value) => ({
+              value,
+              label: formatWorkAuthLabel(value),
+            }))}
+            value={filters.sponsorshipRequired ?? null}
+            showClear
+            placeholder={t`Any sponsorship`}
+            onValueChange={(value) => onChange(setSponsorshipRequired(filters, value))}
+          />
+        </div>
+
+        <div className="flex flex-col gap-y-2">
+          <Label htmlFor="work-auth-freshness">
+            <Trans>Updated within days</Trans>
+          </Label>
+          <Input
+            id="work-auth-freshness"
+            type="number"
+            min={1}
+            inputMode="numeric"
+            value={filters.authorizationFreshnessDays ?? ""}
+            onChange={(event) => onChange(setAuthorizationFreshnessDays(filters, event.target.value))}
+          />
+        </div>
+      </div>
+
+      {filters.workAuthRegions.map((region) => (
+        <div key={region} className="flex flex-col gap-y-2">
+          <Label htmlFor={`work-auth-status-${region}`}>{statusLabels[region]}</Label>
+          <Combobox
+            id={`work-auth-status-${region}`}
+            options={workAuthorizationStatusSchema.options.map((value) => ({
+              value,
+              label: formatWorkAuthLabel(value),
+            }))}
+            value={filters.workAuthStatusByRegion?.[region] ?? null}
+            showClear
+            placeholder={t`Any status`}
+            onValueChange={(value) => onChange(setWorkAuthRegionStatus(filters, region, value))}
+          />
+        </div>
+      ))}
+    </fieldset>
+  );
+}
+
 function RouteComponent() {
   const [state, setState] = useLocalStorage("company-match-state", emptyMatchPageState, matchPageStorageOptions);
   const [selectedResumeId, setSelectedResumeId] = useState<string | null>(null);
-  const { jobDescription, results, hasSearched } = state;
+  const { jobDescription, results, hasSearched, filters } = state;
   const selected = results.find((row) => row.resumeId === selectedResumeId) ?? null;
 
   // Saved lists and contact requests are per candidate, not per resume.
@@ -100,7 +205,7 @@ function RouteComponent() {
 
   const handleSearch = (event: React.FormEvent) => {
     event.preventDefault();
-    matchMutation.mutate({ jobDescription, workAuthRegions: [] });
+    matchMutation.mutate(buildCompanyMatchInput(jobDescription, filters));
   };
 
   return (
@@ -121,6 +226,8 @@ function RouteComponent() {
             className="min-h-40"
           />
         </div>
+
+        <WorkAuthFilters filters={filters} onChange={(next) => setState((prev) => ({ ...prev, filters: next }))} />
 
         <Button
           type="submit"
@@ -158,7 +265,9 @@ function RouteComponent() {
 
       {hasSearched && !matchMutation.isPending && results.length === 0 && (
         <p className="py-12 text-center text-muted-foreground">
-          <Trans>No matching vetted candidates found. Try adjusting the job description.</Trans>
+          <Trans>
+            No matching vetted candidates found. Try a different job description or work authorization filter.
+          </Trans>
         </p>
       )}
 

@@ -6,7 +6,7 @@ import {
   workAuthorizationStatusSchema,
 } from "@/schema/resume/data";
 
-const workAuthFiltersSchema = z.object({
+export const companyMatchFiltersSchema = z.object({
   workAuthRegions: z.array(workAuthorizationRegionSchema).optional().default([]),
   sponsorshipRequired: sponsorshipRequirementSchema.optional(),
   workAuthStatusByRegion: z
@@ -48,7 +48,7 @@ const matchResultSchema = candidateCardSchema.extend({
 
 export const companyDto = {
   matchCandidates: {
-    input: workAuthFiltersSchema.extend({
+    input: companyMatchFiltersSchema.extend({
       jobDescription: z.string().trim().min(20).max(20_000),
     }),
     output: z.array(matchResultSchema),

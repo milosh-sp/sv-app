@@ -15,6 +15,7 @@ import { generateId } from "@/utils/string";
 
 import { aiService } from "./ai";
 import { vettedEmployerVisibilityConditions } from "./company-vetted-pool";
+import { emailSharedOnAccept } from "./company-visibility";
 import { getGlobalAiCredentialsForService } from "./global-ai-settings";
 import { getWorkAuthorizationConditions, type WorkAuthorizationFilters } from "./resume-work-authorization";
 
@@ -140,6 +141,7 @@ async function loadVettedPool(filters: WorkAuthorizationFilters) {
       resumeId: schema.resume.id,
       candidateUserId: schema.resume.userId,
       username: schema.user.username,
+      email: schema.user.email,
       slug: schema.resume.slug,
       updatedAt: schema.resume.updatedAt,
       basics: sql<ResumeData["basics"]>`${schema.resume.data}->'basics'`,
@@ -224,7 +226,7 @@ export const companyService = {
           isToContact: listFlags.toContact.has(row.candidateUserId),
           contactStatus: contact?.status ?? null,
           contactRequestId: contact?.id ?? null,
-          candidateEmail: null as string | null,
+          candidateEmail: emailSharedOnAccept(contact?.status, row.email),
         };
       })
       .filter((row): row is NonNullable<typeof row> => row !== null)
@@ -242,6 +244,7 @@ export const companyService = {
         listType: schema.companySavedCandidates.listType,
         savedAt: schema.companySavedCandidates.createdAt,
         candidateName: schema.user.name,
+        candidateEmail: schema.user.email,
         username: schema.user.username,
       })
       .from(schema.companySavedCandidates)
@@ -293,7 +296,7 @@ export const companyService = {
         isToContact: listFlags.toContact.has(row.candidateUserId),
         contactStatus: contact?.status ?? null,
         contactRequestId: contact?.id ?? null,
-        candidateEmail: null as string | null,
+        candidateEmail: emailSharedOnAccept(contact?.status, row.candidateEmail),
         listType: row.listType,
         savedAt: row.savedAt,
       };
@@ -406,7 +409,7 @@ export const companyService = {
       candidateUserId: row.candidateUserId,
       resumeId: row.resumeId,
       candidateName: row.candidateName,
-      candidateEmail: row.status === "accepted" ? row.candidateEmail : null,
+      candidateEmail: emailSharedOnAccept(row.status, row.candidateEmail),
       status: row.status,
       createdAt: row.createdAt,
       respondedAt: row.respondedAt,
@@ -437,7 +440,7 @@ export const companyService = {
       id: row.id,
       companyUserId: row.companyUserId,
       companyName: row.companyName,
-      companyEmail: row.status === "accepted" ? row.companyEmail : null,
+      companyEmail: emailSharedOnAccept(row.status, row.companyEmail),
       resumeId: row.resumeId,
       status: row.status,
       createdAt: row.createdAt,

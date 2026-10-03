@@ -27,6 +27,9 @@ export function CandidateCard({ candidate, aside, children, skillLimit, onView, 
             <IdentityVerifiedBadge verified={candidate.identityVerified} />
           </div>
           {candidate.headline && <p className="truncate text-sm text-muted-foreground">{candidate.headline}</p>}
+          {candidate.candidateEmail && (
+            <p className="truncate text-sm text-muted-foreground">{candidate.candidateEmail}</p>
+          )}
         </div>
         {aside}
       </div>

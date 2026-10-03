@@ -40,6 +40,7 @@ export function CandidateDetailSheet<T extends Candidate>({
             </SheetHeader>
 
             <div className="space-y-4 px-4 pb-6">
+              {shown.candidateEmail && <p className="text-sm text-muted-foreground">{shown.candidateEmail}</p>}
               {renderExtra?.(shown)}
 
               <CandidateVerificationSummary
