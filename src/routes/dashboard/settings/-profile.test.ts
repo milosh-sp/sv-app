@@ -1,26 +1,27 @@
-import { describe, expect, it } from "vite-plus/test";
+import { describe, expect, it, vi } from "vite-plus/test";
 
-describe("IdentityVerificationBlock states", () => {
-  it("should have 4 defined states: not_requested, pending, verified, unavailable", () => {
-    const states = ["not_requested", "pending", "verified", "unavailable"];
-    expect(states).toHaveLength(4);
-    expect(states).toContain("not_requested");
-    expect(states).toContain("pending");
-    expect(states).toContain("verified");
-    expect(states).toContain("unavailable");
+vi.mock("@lingui/core/macro", () => ({
+  t: (strings: TemplateStringsArray) => strings.join(""),
+  msg: (strings: TemplateStringsArray) => ({ id: strings.join("") }),
+}));
+
+vi.mock("@lingui/react/macro", () => ({
+  Trans: ({ children }: { children?: unknown }) => children ?? null,
+}));
+
+import { identityVerificationPhase } from "./profile";
+
+describe("identity verification phase", () => {
+  it("maps claimed and verdict_pending onto the pending phase", () => {
+    expect(identityVerificationPhase("pending")).toBe("pending");
+    expect(identityVerificationPhase("claimed")).toBe("pending");
+    expect(identityVerificationPhase("verdict_pending")).toBe("pending");
   });
 
-  it("should map claimed and verdict_pending to pending display", () => {
-    const pendingLikeStatuses = ["pending", "claimed", "verdict_pending"];
-    for (const status of pendingLikeStatuses) {
-      expect(["pending", "claimed", "verdict_pending"]).toContain(status);
-    }
-  });
-
-  it("should allow retry for rejected and issue statuses", () => {
-    const retryableStatuses = ["rejected", "issue"];
-    for (const status of retryableStatuses) {
-      expect(["rejected", "issue"]).toContain(status);
-    }
+  it("keeps a first request, a verified identity, and a retry apart", () => {
+    expect(identityVerificationPhase("not_requested")).toBe("request");
+    expect(identityVerificationPhase("verified")).toBe("verified");
+    expect(identityVerificationPhase("rejected")).toBe("retry");
+    expect(identityVerificationPhase("issue")).toBe("retry");
   });
 });

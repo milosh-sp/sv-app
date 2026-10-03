@@ -16,16 +16,18 @@ type VerificationBadgeProps = {
   className?: string;
 };
 
+export function shouldShowVerificationBadge(status: string, badgeVisible: boolean): boolean {
+  return badgeVisible && status === "verified";
+}
+
+export function showsReviewerProfileLink(profileUrl: string | null | undefined): boolean {
+  return Boolean(profileUrl);
+}
+
 export function VerificationBadge({ requestId, status, badgeVisible, className }: VerificationBadgeProps) {
-  if (!badgeVisible) return null;
+  if (!shouldShowVerificationBadge(status, badgeVisible)) return null;
 
-  if (status === "rejected" || status === "issue") return null;
-
-  if (status === "verified") {
-    return <VerifiedBadge requestId={requestId} className={className} />;
-  }
-
-  return null;
+  return <VerifiedBadge requestId={requestId} className={className} />;
 }
 
 function VerifiedBadge({ requestId, className }: { requestId: string; className?: string }) {
@@ -85,7 +87,7 @@ function BadgeTooltipContent({ detail }: { detail: BadgeDetail }) {
   return (
     <span data-testid="tooltip-reviewer">
       {detail.label}
-      {detail.profileUrl && (
+      {showsReviewerProfileLink(detail.profileUrl) && (
         <>
           {" — "}
           <Link to={detail.profileUrl} className="underline" target="_blank" rel="noopener noreferrer">

@@ -2,51 +2,17 @@ import { describe, expect, it } from "vite-plus/test";
 
 import type { VerificationStatus } from "./verification-context";
 
-describe("Badge display rules", () => {
-  const statuses: VerificationStatus[] = [
-    { id: "1", sectionType: "skill", itemId: "s1", itemLabel: "TypeScript", status: "verified", badgeVisible: true },
-    { id: "2", sectionType: "skill", itemId: "s2", itemLabel: "React", status: "pending", badgeVisible: true },
-    { id: "3", sectionType: "experience", itemId: "e1", itemLabel: "Acme", status: "verified", badgeVisible: false },
-    { id: "4", sectionType: "project", itemId: "p1", itemLabel: "MyApp", status: "rejected", badgeVisible: true },
-    { id: "5", sectionType: "skill", itemId: "s3", itemLabel: "Go", status: "claimed", badgeVisible: true },
-    { id: "6", sectionType: "skill", itemId: "s4", itemLabel: "Rust", status: "verdict_pending", badgeVisible: true },
-  ];
+import { findVerificationStatus } from "./verification-context";
 
-  const shouldShowBadge = (status: VerificationStatus): string | null => {
-    if (!status.badgeVisible) return null;
-    if (status.status === "verified") return "checkmark";
-    if (["pending", "claimed", "verdict_pending"].includes(status.status)) return null;
-    return null;
-  };
+const statuses: VerificationStatus[] = [
+  { id: "1", sectionType: "skill", itemId: "s1", itemLabel: "TypeScript", status: "verified", badgeVisible: true },
+  { id: "3", sectionType: "experience", itemId: "e1", itemLabel: "Acme", status: "verified", badgeVisible: false },
+];
 
-  it("approved + visible = checkmark", () => {
-    expect(shouldShowBadge(statuses[0]!)).toBe("checkmark");
-  });
-
-  it("pending + visible = nothing", () => {
-    expect(shouldShowBadge(statuses[1]!)).toBeNull();
-  });
-
-  it("approved + invisible = nothing", () => {
-    expect(shouldShowBadge(statuses[2]!)).toBeNull();
-  });
-
-  it("rejected = nothing", () => {
-    expect(shouldShowBadge(statuses[3]!)).toBeNull();
-  });
-
-  it("claimed displays as nothing", () => {
-    expect(shouldShowBadge(statuses[4]!)).toBeNull();
-  });
-
-  it("verdict_pending displays as nothing", () => {
-    expect(shouldShowBadge(statuses[5]!)).toBeNull();
-  });
-
-  it("should find correct status by itemId", () => {
-    const findStatus = (itemId: string) => statuses.find((s) => s.itemId === itemId);
-    expect(findStatus("s1")?.status).toBe("verified");
-    expect(findStatus("e1")?.badgeVisible).toBe(false);
-    expect(findStatus("nonexistent")).toBeUndefined();
+describe("findVerificationStatus", () => {
+  it("finds a status by item id", () => {
+    expect(findVerificationStatus(statuses, "s1")?.status).toBe("verified");
+    expect(findVerificationStatus(statuses, "e1")?.badgeVisible).toBe(false);
+    expect(findVerificationStatus(statuses, "nonexistent")).toBeUndefined();
   });
 });

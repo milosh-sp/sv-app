@@ -1,240 +1,100 @@
-import { describe, expect, it } from "vite-plus/test";
+import { describe, expect, it, vi } from "vite-plus/test";
 
-describe("Verification Dashboard", () => {
-  const ALLOWED_TYPES = ["application/pdf", "image/jpeg", "image/jpg", "image/png"];
-  const MAX_FILE_SIZE = 5 * 1024 * 1024;
+vi.mock("@lingui/core/macro", () => ({
+  t: (strings: TemplateStringsArray) => strings.join(""),
+  msg: (strings: TemplateStringsArray) => ({ id: strings.join("") }),
+}));
 
-  describe("file upload validation", () => {
-    it("should accept PDF files", () => {
-      expect(ALLOWED_TYPES).toContain("application/pdf");
-    });
+vi.mock("@lingui/react/macro", () => ({
+  Trans: ({ children }: { children?: unknown }) => children ?? null,
+}));
 
-    it("should accept JPG/JPEG/PNG files", () => {
-      expect(ALLOWED_TYPES).toContain("image/jpeg");
-      expect(ALLOWED_TYPES).toContain("image/jpg");
-      expect(ALLOWED_TYPES).toContain("image/png");
-    });
+import { hasAssessmentSolutionInput } from "@/utils/verification-assessment-solution";
 
-    it("should reject non-allowed types", () => {
-      expect(ALLOWED_TYPES).not.toContain("application/zip");
-      expect(ALLOWED_TYPES).not.toContain("text/plain");
-    });
+import {
+  blocksNewVerificationRequest,
+  canRetryVerification,
+  countVerifiedItems,
+  findVerificationItemStatus,
+  verificationDisplayStatus,
+  verificationDocumentRejection,
+  visibleExperienceItems,
+  visibleNamedItems,
+} from "./index";
 
-    it("should have max file size of 5MB", () => {
-      expect(MAX_FILE_SIZE).toBe(5 * 1024 * 1024);
-    });
+describe("verification dashboard rules", () => {
+  it("rejects a document with the wrong type or a size over 5MB", () => {
+    expect(verificationDocumentRejection({ type: "application/pdf", size: 1024 })).toBeNull();
+    expect(verificationDocumentRejection({ type: "image/jpeg", size: 1024 })).toBeNull();
+    expect(verificationDocumentRejection({ type: "image/png", size: 5 * 1024 * 1024 })).toBeNull();
+    expect(verificationDocumentRejection({ type: "text/plain", size: 10 })).toBe("type");
+    expect(verificationDocumentRejection({ type: "application/pdf", size: 5 * 1024 * 1024 + 1 })).toBe("size");
   });
 
-  describe("status display mapping", () => {
-    const displayStatus = (status: string) => {
-      if (status === "claimed" || status === "verdict_pending") return "pending";
-      return status;
-    };
-
-    it("should display claimed as pending", () => {
-      expect(displayStatus("claimed")).toBe("pending");
-    });
-
-    it("should display verdict_pending as pending", () => {
-      expect(displayStatus("verdict_pending")).toBe("pending");
-    });
-
-    it("should display verified as verified", () => {
-      expect(displayStatus("verified")).toBe("verified");
-    });
-
-    it("should display rejected as rejected", () => {
-      expect(displayStatus("rejected")).toBe("rejected");
-    });
-
-    it("should display pending as pending", () => {
-      expect(displayStatus("pending")).toBe("pending");
-    });
+  it("labels claimed and verdict_pending reviews", () => {
+    expect(verificationDisplayStatus("claimed")).toBe("assessment in progress");
+    expect(verificationDisplayStatus("verdict_pending")).toBe("awaiting final review");
+    expect(verificationDisplayStatus("verified")).toBe("verified");
+    expect(verificationDisplayStatus("rejected")).toBe("rejected");
+    expect(verificationDisplayStatus("pending")).toBe("pending");
   });
 
-  describe("active request detection", () => {
-    const ACTIVE_STATUSES = ["pending", "claimed", "verdict_pending", "verified"];
-
-    const hasActiveRequest = (status: string | undefined) => status !== undefined && ACTIVE_STATUSES.includes(status);
-
-    it("should detect pending as active", () => {
-      expect(hasActiveRequest("pending")).toBe(true);
-    });
-
-    it("should detect claimed as active", () => {
-      expect(hasActiveRequest("claimed")).toBe(true);
-    });
-
-    it("should detect verdict_pending as active", () => {
-      expect(hasActiveRequest("verdict_pending")).toBe(true);
-    });
-
-    it("should detect verified as active", () => {
-      expect(hasActiveRequest("verified")).toBe(true);
-    });
-
-    it("should not detect rejected as active", () => {
-      expect(hasActiveRequest("rejected")).toBe(false);
-    });
-
-    it("should not detect issue as active", () => {
-      expect(hasActiveRequest("issue")).toBe(false);
-    });
-
-    it("should not detect undefined as active", () => {
-      expect(hasActiveRequest(undefined)).toBe(false);
-    });
+  it("blocks a new request unless the previous one can be retried", () => {
+    expect(blocksNewVerificationRequest("pending")).toBe(true);
+    expect(blocksNewVerificationRequest("claimed")).toBe(true);
+    expect(blocksNewVerificationRequest("verdict_pending")).toBe(true);
+    expect(blocksNewVerificationRequest("verified")).toBe(true);
+    expect(blocksNewVerificationRequest("rejected")).toBe(false);
+    expect(blocksNewVerificationRequest("issue")).toBe(false);
+    expect(blocksNewVerificationRequest(undefined)).toBe(false);
+    expect(canRetryVerification("rejected")).toBe(true);
+    expect(canRetryVerification("issue")).toBe(true);
+    expect(canRetryVerification("pending")).toBe(false);
+    expect(canRetryVerification(undefined)).toBe(false);
   });
 
-  describe("assessment solution submission validation", () => {
-    const hasSubmissionInput = (input: { file?: File | null; solutionUrl?: string }) =>
-      Boolean(input.file || input.solutionUrl?.trim());
-
-    it("requires at least one of file or solution URL", () => {
-      expect(hasSubmissionInput({})).toBe(false);
-      expect(hasSubmissionInput({ solutionUrl: "   " })).toBe(false);
-      expect(hasSubmissionInput({ file: new File(["a"], "solution.zip", { type: "application/zip" }) })).toBe(true);
-      expect(hasSubmissionInput({ solutionUrl: "https://github.com/you/repo" })).toBe(true);
-    });
+  it("requires a file or a solution url", () => {
+    expect(hasAssessmentSolutionInput({})).toBe(false);
+    expect(hasAssessmentSolutionInput({ solutionUrl: "   " })).toBe(false);
+    expect(hasAssessmentSolutionInput({ file: new File(["a"], "solution.zip", { type: "application/zip" }) })).toBe(
+      true,
+    );
+    expect(hasAssessmentSolutionInput({ solutionUrl: "https://github.com/you/repo" })).toBe(true);
   });
 
-  describe("retry eligibility", () => {
-    const RETRYABLE_STATUSES = ["rejected", "issue"];
+  it("lists visible projects and experience labels", () => {
+    expect(
+      visibleNamedItems([
+        { id: "p1", name: "Portfolio", hidden: false },
+        { id: "p2", name: "Hidden", hidden: true },
+      ]),
+    ).toEqual([{ id: "p1", label: "Portfolio" }]);
 
-    const canRetry = (status: string | undefined) => status !== undefined && RETRYABLE_STATUSES.includes(status);
-
-    it("should allow retry for rejected", () => {
-      expect(canRetry("rejected")).toBe(true);
-    });
-
-    it("should allow retry for issue", () => {
-      expect(canRetry("issue")).toBe(true);
-    });
-
-    it("should not allow retry for pending", () => {
-      expect(canRetry("pending")).toBe(false);
-    });
-
-    it("should not allow retry for verified", () => {
-      expect(canRetry("verified")).toBe(false);
-    });
-
-    it("should not allow retry for undefined (no previous request)", () => {
-      expect(canRetry(undefined)).toBe(false);
-    });
+    expect(
+      visibleExperienceItems([
+        { id: "e1", company: "Acme Corp", position: "Engineer", hidden: false },
+        { id: "e2", company: "Freelance", position: "", hidden: false },
+        { id: "e3", company: "Hidden Inc", position: "Intern", hidden: true },
+      ]),
+    ).toEqual([
+      { id: "e1", label: "Acme Corp — Engineer" },
+      { id: "e2", label: "Freelance" },
+    ]);
   });
 
-  describe("resume item extraction", () => {
-    const mockResumeData = {
-      sections: {
-        skills: {
-          items: [
-            { id: "s1", name: "TypeScript", hidden: false },
-            { id: "s2", name: "Python", hidden: true },
-            { id: "s3", name: "React", hidden: false },
-          ],
-        },
-        projects: {
-          items: [{ id: "p1", name: "Portfolio", hidden: false }],
-        },
-        experience: {
-          items: [
-            { id: "e1", company: "Acme Corp", position: "Engineer", hidden: false },
-            { id: "e2", company: "Freelance", position: "", hidden: false },
-            { id: "e3", company: "Hidden Inc", position: "Intern", hidden: true },
-          ],
-        },
-      },
-    };
-
-    it("should extract visible skills", () => {
-      const skills = mockResumeData.sections.skills.items
-        .filter((item) => !item.hidden)
-        .map((item) => ({ id: item.id, label: item.name }));
-
-      expect(skills).toHaveLength(2);
-      expect(skills[0]).toEqual({ id: "s1", label: "TypeScript" });
-      expect(skills[1]).toEqual({ id: "s3", label: "React" });
-    });
-
-    it("should exclude hidden items", () => {
-      const skills = mockResumeData.sections.skills.items.filter((item) => !item.hidden);
-
-      expect(skills).toHaveLength(2);
-      expect(skills.find((s) => s.id === "s2")).toBeUndefined();
-    });
-
-    it("should format experience labels with position", () => {
-      const experiences = mockResumeData.sections.experience.items
-        .filter((item) => !item.hidden)
-        .map((item) => ({
-          id: item.id,
-          label: item.position ? `${item.company} — ${item.position}` : item.company,
-        }));
-
-      expect(experiences).toHaveLength(2);
-      expect(experiences[0]).toEqual({ id: "e1", label: "Acme Corp — Engineer" });
-      expect(experiences[1]).toEqual({ id: "e2", label: "Freelance" });
-    });
-
-    it("should extract projects", () => {
-      const projects = mockResumeData.sections.projects.items
-        .filter((item) => !item.hidden)
-        .map((item) => ({ id: item.id, label: item.name }));
-
-      expect(projects).toHaveLength(1);
-      expect(projects[0]).toEqual({ id: "p1", label: "Portfolio" });
-    });
-  });
-
-  describe("status lookup from verification statuses", () => {
+  it("looks up a status on the selected resume and counts verified items", () => {
     const statuses = [
       { itemId: "s1", status: "verified", resumeId: "r1" },
-      { itemId: "p1", status: "pending", resumeId: "r1" },
-      { itemId: "e1", status: "rejected", resumeId: "r1" },
       { itemId: "s1", status: "pending", resumeId: "r2" },
     ];
 
-    const getStatusForItem = (itemId: string, resumeId: string) =>
-      statuses.find((s) => s.itemId === itemId && s.resumeId === resumeId);
+    expect(findVerificationItemStatus(statuses, "s1", "r1")?.status).toBe("verified");
+    expect(findVerificationItemStatus(statuses, "s1", "r2")?.status).toBe("pending");
+    expect(findVerificationItemStatus(statuses, "unknown", "r1")).toBeUndefined();
 
-    it("should find existing status for a resume item", () => {
-      const result = getStatusForItem("s1", "r1");
-      expect(result?.status).toBe("verified");
-    });
-
-    it("should return undefined for items without a status", () => {
-      const result = getStatusForItem("unknown", "r1");
-      expect(result).toBeUndefined();
-    });
-
-    it("should scope lookup to the selected resume", () => {
-      const r1 = getStatusForItem("s1", "r1");
-      const r2 = getStatusForItem("s1", "r2");
-
-      expect(r1?.status).toBe("verified");
-      expect(r2?.status).toBe("pending");
-    });
-  });
-
-  describe("verified count calculation", () => {
-    it("should count only verified items from the resume", () => {
-      const resumeItems = [
-        { id: "s1", label: "TypeScript" },
-        { id: "s2", label: "React" },
-        { id: "s3", label: "Go" },
-      ];
-
-      const statuses = [
-        { itemId: "s1", status: "verified" },
-        { itemId: "s2", status: "pending" },
-      ];
-
-      const getStatus = (itemId: string) => statuses.find((s) => s.itemId === itemId);
-
-      const verifiedCount = resumeItems.filter((item) => getStatus(item.id)?.status === "verified").length;
-
-      expect(verifiedCount).toBe(1);
-    });
+    const items = [{ id: "s1" }, { id: "s2" }, { id: "s3" }];
+    expect(
+      countVerifiedItems(items, (id) => statuses.find((status) => status.itemId === id && status.resumeId === "r1")),
+    ).toBe(1);
   });
 });
