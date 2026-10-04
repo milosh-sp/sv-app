@@ -58,6 +58,7 @@ vi.mock("@/components/ai/chat", () => ({
 }));
 
 import { useResumeStore } from "@/components/resume/store/resume";
+import { useDialogStore } from "@/dialogs/store";
 import { ConfirmDialogProvider } from "@/hooks/use-confirm";
 
 import { BuilderDock } from "./-components/dock";
@@ -73,6 +74,21 @@ function clickText(text: string) {
   if (!button) throw new Error(`missing button ${text}`);
   act(() => {
     button.click();
+  });
+}
+
+function clickMenu(label: string) {
+  const trigger = document.querySelector("[data-slot='dropdown-menu-trigger']");
+  if (!(trigger instanceof HTMLElement)) throw new Error("missing menu");
+  act(() => {
+    trigger.click();
+  });
+  const item = [...document.querySelectorAll("[data-slot='dropdown-menu-item']")].find((element) =>
+    element.textContent?.includes(label),
+  );
+  if (!(item instanceof HTMLElement)) throw new Error(`missing menu item ${label}`);
+  act(() => {
+    item.click();
   });
 }
 
@@ -128,10 +144,98 @@ describe("builder chrome", () => {
     clickText("Delete Page");
     expect(useResumeStore.getState().resume.data.metadata.layout.pages).toHaveLength(before);
 
+    const fullWidth = [...container.querySelectorAll("label")].find((label) => label.textContent?.includes("Full Width"));
+    const fullWidthControl = fullWidth?.querySelector("button, input");
+    if (fullWidthControl instanceof HTMLElement) {
+      act(() => {
+        fullWidthControl.click();
+      });
+    }
+
+    const titleButton = [...container.querySelectorAll("button")].find((button) =>
+      button.textContent?.includes(experience.company),
+    );
+    const trigger = titleButton?.parentElement?.querySelector("[data-slot='dropdown-menu-trigger']");
+    if (trigger instanceof HTMLElement) {
+      act(() => {
+        trigger.click();
+      });
+      const hide = [...document.querySelectorAll("[data-slot='dropdown-menu-item']")].find((item) =>
+        item.textContent?.includes("Hide"),
+      );
+      if (hide instanceof HTMLElement) {
+        act(() => {
+          hide.click();
+        });
+      }
+    }
+
+    const pictureInput = [...container.querySelectorAll("form input")].find(
+      (input) => input instanceof HTMLInputElement && input.type !== "file",
+    );
+    if (pictureInput instanceof HTMLInputElement) {
+      const set = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value")?.set;
+      if (set) Reflect.apply(set, pictureInput, ["120"]);
+      act(() => {
+        pictureInput.dispatchEvent(new Event("input", { bubbles: true }));
+        pictureInput.dispatchEvent(new Event("change", { bubbles: true }));
+      });
+    }
+
     act(() => {
       root.unmount();
     });
     container.remove();
+  });
+
+  it("hides, duplicates, and deletes an experience item", async () => {
+    const data = structuredClone(sampleResumeData);
+    const experience = data.sections.experience.items[0];
+    if (!experience) throw new Error("sample resume has no experience");
+    data.sections.experience.items = [experience];
+    useResumeStore.getState().initialize({
+      id: "resume-1",
+      name: data.basics.name,
+      slug: "sample",
+      tags: [],
+      data,
+      isLocked: false,
+    });
+
+    const unmount = await (async () => {
+      const container = document.createElement("div");
+      document.body.append(container);
+      const root = createRoot(container);
+      await act(async () => {
+        root.render(
+          <ConfirmDialogProvider>
+            <Reorder.Group values={[experience]} onReorder={() => undefined}>
+              <SectionItem type="experience" item={experience} title={experience.company} />
+            </Reorder.Group>
+          </ConfirmDialogProvider>,
+        );
+      });
+      return () => {
+        act(() => {
+          root.unmount();
+        });
+        container.remove();
+      };
+    })();
+
+    clickMenu("Hide");
+    expect(useResumeStore.getState().resume.data.sections.experience.items[0]?.hidden).toBe(true);
+    clickMenu("New page");
+    expect(useResumeStore.getState().resume.data.metadata.layout.pages.length).toBeGreaterThan(data.metadata.layout.pages.length);
+    clickMenu("Duplicate");
+    expect(useDialogStore.getState().activeDialog?.type).toBe("resume.sections.experience.create");
+    clickMenu("Delete");
+    const confirmDelete = [...document.querySelectorAll("button")].find((button) => button.textContent?.trim() === "Delete");
+    await act(async () => {
+      confirmDelete?.click();
+    });
+    expect(useResumeStore.getState().resume.data.sections.experience.items).toEqual([]);
+    unmount();
   });
 
   it("renders the desktop and mobile docks", async () => {
