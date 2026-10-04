@@ -80,5 +80,17 @@ describe("companyRouter", () => {
 
     await call(companyRouter.setSaved, { candidateUserId, listType: "favorite", saved: true });
     expect(companyService.setSaved).toHaveBeenCalledWith(expect.objectContaining({ companyUserId: "user-1" }));
+
+    await call(companyRouter.listSaved, {});
+    await call(companyRouter.createContactRequest, { candidateUserId });
+    await call(companyRouter.listContactRequests, {});
+    roleRows.value = [];
+    getSession.mockResolvedValue({ user });
+    await call(companyRouter.listMyContactRequests, {});
+    expect(companyService.listSaved).toHaveBeenCalled();
+    expect(companyService.createContactRequest).toHaveBeenCalledWith(
+      expect.objectContaining({ companyUserId: "user-1", companyName: "Ada", candidateUserId }),
+    );
+    expect(companyService.listMyContactRequests).toHaveBeenCalledWith("user-1", expect.any(Object));
   });
 });

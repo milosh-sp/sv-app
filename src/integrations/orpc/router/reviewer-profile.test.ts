@@ -98,6 +98,22 @@ describe("reviewer profile routers", () => {
     await call(reviewerProfileRouter.requestChange, { firstName: "Augusta" });
     expect(reviewerProfileService.requestChange).toHaveBeenCalledWith({ adminId, firstName: "Augusta" });
 
+    queue.rows.push([{ role: "skill_verdict_admin" }]);
+    await call(adminReviewerProfilesRouter.updateDirect, { adminId: reviewerId, firstName: "Ada" });
+    queue.rows.push([{ role: "skill_verdict_admin" }]);
+    await call(adminReviewerProfilesRouter.getByAdminId, { adminId: reviewerId });
+    queue.rows.push([{ role: "skill_verdict_admin" }]);
+    await call(adminReviewerProfilesRouter.list);
+    queue.rows.push([{ role: "skill_verdict_admin" }]);
+    await call(adminReviewerProfilesRouter.listChangeRequests);
+
+    queue.rows.push([{ role: "reviewer_admin" }]);
+    await call(reviewerProfileRouter.giveConsent);
+    queue.rows.push([{ role: "reviewer_admin" }]);
+    await call(reviewerProfileRouter.getChangeRequestStatus);
+    expect(reviewerProfileService.giveConsent).toHaveBeenCalledWith(adminId);
+    expect(reviewerProfileService.list).toHaveBeenCalled();
+
     getSession.mockResolvedValue(null);
     await call(publicReviewerProfileRouter.get, { adminId: reviewerId });
     expect(reviewerProfileService.getPublicProfile).toHaveBeenCalledWith(reviewerId);

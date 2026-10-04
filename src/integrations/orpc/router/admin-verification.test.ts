@@ -178,5 +178,21 @@ describe("adminVerificationRouter", () => {
     expect(verificationService.overrideConcludedVerdict).toHaveBeenCalledWith(
       expect.objectContaining({ adminId, reason: "appeal" }),
     );
+
+    asRole("reviewer_admin");
+    await call(adminVerificationRouter.listMyCaseHistory);
+    expect(verificationService.listMyCaseHistory).toHaveBeenCalledWith(adminId);
+
+    asRole("skill_verdict_admin");
+    await call(adminVerificationRouter.getDocuments, { requestId });
+    asRole("skill_verdict_admin");
+    await call(adminVerificationRouter.listExperienceHistory, {});
+    asRole("skill_verdict_admin");
+    await call(adminVerificationRouter.listPendingVerdicts, {});
+    asRole("skill_verdict_admin");
+    await call(adminVerificationRouter.listVerdictHistory, {});
+    asRole("skill_verdict_admin");
+    await call(adminVerificationRouter.listIdentityQueue, {});
+    expect(verificationService.listExperienceHistory).toHaveBeenCalledWith({ page: 1, pageSize: 20 });
   });
 });

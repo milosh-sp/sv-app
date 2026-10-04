@@ -107,6 +107,10 @@ describe("adminUsersRouter", () => {
     asAdmin();
     queue.rows.push([{ id: userId }]);
     await expect(call(adminUsersRouter.setUserAdminRole, { userId, role: "company" })).resolves.toEqual({ ok: true });
+
+    asAdmin();
+    queue.rows.push([{ id: userId }]);
+    await expect(call(adminUsersRouter.setUserAdminRole, { userId, role: null })).resolves.toEqual({ ok: true });
   });
 
   it("aggregates the latest resume, verification, and api key activity", async () => {
@@ -119,6 +123,15 @@ describe("adminUsersRouter", () => {
       updatedAt: new Date(Date.UTC(2020, 0, index + 1)),
       workAuthorization: index === 8 ? defaultWorkAuthorizationData : { broken: true },
     }));
+    resumes.push({
+      id: "resume-old",
+      name: "Old",
+      slug: "old",
+      isPublic: false,
+      isLocked: false,
+      updatedAt: new Date(Date.UTC(2019, 0, 1)),
+      workAuthorization: { broken: true },
+    });
     const verification = [
       ...["pending", "claimed", "verdict_pending", "rejected", "issue"].map((status, index) => ({
         id: `status-${index}`,
@@ -141,6 +154,16 @@ describe("adminUsersRouter", () => {
         resolvedAt: new Date(Date.UTC(2023, 1, index + 1)),
       })),
       {
+        id: "experience-old",
+        sectionType: "experience",
+        itemLabel: "Earlier",
+        status: "verified",
+        method: "document_upload",
+        reviewerNote: "ok",
+        submittedAt: new Date(Date.UTC(2021, 0, 1)),
+        resolvedAt: null,
+      },
+      {
         id: "identity-1",
         sectionType: "identity",
         itemLabel: "Ada",
@@ -149,6 +172,16 @@ describe("adminUsersRouter", () => {
         reviewerNote: "ok",
         submittedAt: new Date(Date.UTC(2022, 0, 1)),
         resolvedAt: new Date(Date.UTC(2022, 1, 1)),
+      },
+      {
+        id: "identity-2",
+        sectionType: "identity",
+        itemLabel: "Ada",
+        status: "verified",
+        method: "document_upload",
+        reviewerNote: "ok",
+        submittedAt: new Date(Date.UTC(2021, 6, 1)),
+        resolvedAt: null,
       },
     ];
     const documents = [
@@ -182,17 +215,25 @@ describe("adminUsersRouter", () => {
           lastViewedAt: new Date(Date.UTC(2024, 5, 1)),
           lastDownloadedAt: new Date(Date.UTC(2024, 5, 2)),
         },
+        {
+          views: 0,
+          downloads: 0,
+          lastViewedAt: new Date(Date.UTC(2024, 4, 1)),
+          lastDownloadedAt: new Date(Date.UTC(2024, 4, 1)),
+        },
+        { views: 0, downloads: 0, lastViewedAt: null, lastDownloadedAt: null },
       ],
       verification,
       [
         { enabled: true, requestCount: 3, lastRequest: new Date(Date.UTC(2024, 4, 1)) },
         { enabled: false, requestCount: 1, lastRequest: null },
+        { enabled: false, requestCount: 0, lastRequest: new Date(Date.UTC(2024, 3, 1)) },
       ],
       documents,
     );
 
     const overview = await call(adminUsersRouter.getUserOverview, { userId });
-    expect(overview.resumes).toMatchObject({ total: 9, hiddenCount: 1, totalViews: 5, totalDownloads: 5 });
+    expect(overview.resumes).toMatchObject({ total: 10, hiddenCount: 2, totalViews: 5, totalDownloads: 5 });
     expect(overview.resumes.items).toHaveLength(8);
     expect(overview.workAuthorization).toEqual(defaultWorkAuthorizationData);
     expect(overview.authProviders.providerIds).toEqual(["credential"]);
@@ -200,14 +241,14 @@ describe("adminUsersRouter", () => {
       pending: 1,
       claimed: 1,
       verdictPending: 1,
-      verified: 8,
+      verified: 10,
       rejected: 1,
       issue: 1,
     });
-    expect(overview.verification.approvedExperience.hiddenCount).toBe(1);
+    expect(overview.verification.approvedExperience.hiddenCount).toBe(2);
     expect(overview.verification.approvedIdentity?.documents).toHaveLength(11);
     expect(overview.verification.uploadedDocuments).toMatchObject({ hiddenCount: 1 });
-    expect(overview.apiKeys).toMatchObject({ total: 2, enabled: 1, totalRequestCount: 4 });
+    expect(overview.apiKeys).toMatchObject({ total: 3, enabled: 1, totalRequestCount: 4 });
 
     asAdmin();
     queue.rows.push(
@@ -229,5 +270,43 @@ describe("adminUsersRouter", () => {
     asAdmin();
     queue.rows.push([]);
     await expect(call(adminUsersRouter.getUserOverview, { userId })).rejects.toMatchObject({ code: "NOT_FOUND" });
+
+    asAdmin();
+    queue.rows.push(
+      [{ id: userId }],
+      [{}],
+      [{}],
+      [],
+      [],
+      [
+        {
+          id: "resume-blank",
+          name: "Blank",
+          slug: "blank",
+          isPublic: false,
+          isLocked: false,
+          updatedAt: new Date(Date.UTC(2024, 0, 1)),
+          workAuthorization: null,
+        },
+      ],
+      [],
+      [
+        {
+          id: "identity-empty",
+          sectionType: "identity",
+          itemLabel: "Ada",
+          status: "verified",
+          method: "document_upload",
+          reviewerNote: "",
+          submittedAt: new Date(Date.UTC(2022, 0, 1)),
+          resolvedAt: null,
+        },
+      ],
+      [],
+      [],
+    );
+    const emptyDocs = await call(adminUsersRouter.getUserOverview, { userId });
+    expect(emptyDocs.workAuthorization).toBeNull();
+    expect(emptyDocs.verification.approvedIdentity?.documents).toEqual([]);
   });
 });
