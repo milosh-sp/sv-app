@@ -130,4 +130,37 @@ describe("verificationRouter", () => {
       entries: [],
     });
   });
+
+  it("forwards the remaining owner and public verification calls", async () => {
+    const file = new File(["payslip"], "payslip.pdf", { type: "application/pdf" });
+
+    await call(verificationRouter.requestProject, { resumeId, itemId, itemLabel: "API" });
+    await call(verificationRouter.uploadDocument, { resumeId, itemId, file, documentType: "payslip" });
+    await call(verificationRouter.submitAssessmentSolution, {
+      resumeId,
+      itemId,
+      solutionUrl: "https://example.com/solution",
+    });
+    await call(verificationRouter.requestExperience, {
+      resumeId,
+      itemId,
+      itemLabel: "Engineer",
+      method: "document_upload",
+    });
+    await expect(call(verificationRouter.getStatus, { resumeId })).resolves.toEqual([]);
+    await expect(call(verificationRouter.getHistory, { resumeId, itemId })).resolves.toEqual([]);
+    await expect(call(verificationRouter.toggleBadge, { requestId: resumeId, visible: false })).resolves.toEqual({
+      ok: true,
+    });
+    await expect(call(verificationRouter.toggleTimeline, { resumeId, show: true })).resolves.toEqual({ ok: true });
+    await expect(call(verificationRouter.getAllStatuses)).resolves.toEqual([]);
+    await expect(call(verificationRouter.getIdentityStatus)).resolves.toBeNull();
+    await expect(call(verificationRouter.cancelIdentity)).resolves.toEqual({ ok: true });
+    await expect(call(verificationRouter.getBadgeDetail, { requestId: resumeId })).resolves.toBeNull();
+
+    expect(verificationService.requestProject).toHaveBeenCalledWith(
+      expect.objectContaining({ userId, resumeId, itemLabel: "API" }),
+    );
+    expect(verificationService.getBadgeDetail).toHaveBeenCalledWith(resumeId);
+  });
 });
