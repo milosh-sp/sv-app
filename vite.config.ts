@@ -238,10 +238,10 @@ const config = defineConfig({
       provider: "v8",
       reporter: ["text", "html"],
       include: ["src/**/*.{ts,tsx}"],
-      exclude: ["src/**/*.test.{ts,tsx}", "src/routeTree.gen.ts"],
+      exclude: ["src/**/*.test.{ts,tsx}", "src/routeTree.gen.ts", "src/vite-env.d.ts"],
       thresholds: {
-        statements: 87,
-        lines: 88,
+        statements: 88,
+        lines: 89,
       },
     },
   },
