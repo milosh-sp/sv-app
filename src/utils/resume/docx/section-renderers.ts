@@ -102,7 +102,7 @@ function locationAndPeriod(location: string, period: string): Paragraph | null {
       new TextRun({
         text: parts.join(" | "),
         italics: true,
-        color: textColor ?? "666666",
+        color: textColor || "666666",
         ...(bodyFont ? { font: bodyFont } : {}),
         ...(bodySize ? { size: bodySize } : {}),
       }),
@@ -122,7 +122,7 @@ function websiteParagraph(url: string, label: string): Paragraph | null {
         children: [
           new TextRun({
             text: label || safeUrl,
-            color: primaryColor ?? "0563C1",
+            color: primaryColor || "0563C1",
             underline: {},
             ...(bodyFont ? { font: bodyFont } : {}),
             ...(bodySize ? { size: bodySize } : {}),
