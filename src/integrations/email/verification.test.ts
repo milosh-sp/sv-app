@@ -8,6 +8,7 @@ vi.mock("./service", () => ({
 
 const {
   sendAssessmentSolutionSubmittedEmail,
+  sendIdentityVerificationRequestedEmail,
   sendSkillAssessmentAcceptedEmail,
   sendVerificationIssueEmail,
   sendVerificationRejectedEmail,
@@ -18,6 +19,21 @@ const {
 
 beforeEach(() => {
   vi.clearAllMocks();
+});
+
+describe("sendIdentityVerificationRequestedEmail", () => {
+  it("sends the scheduling link", async () => {
+    await sendIdentityVerificationRequestedEmail({
+      to: "ada@example.com",
+      calLink: "https://cal.example/ada",
+    });
+    expect(mockSendEmail).toHaveBeenCalledWith(
+      expect.objectContaining({
+        to: "ada@example.com",
+        text: expect.stringContaining("https://cal.example/ada"),
+      }),
+    );
+  });
 });
 
 describe("sendVerificationVerifiedEmail", () => {

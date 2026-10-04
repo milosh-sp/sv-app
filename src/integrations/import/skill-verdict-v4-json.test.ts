@@ -186,4 +186,57 @@ describe("SkillVerdictV4JSONImporter", () => {
       importer.parse(JSON.stringify({ ...v4Resume({ email: "ada@example.com" }), metadata: { notes: 1 } })),
     ).toThrow(Error);
   });
+
+  it("drops a hidden summary and a blank email", () => {
+    const hidden = importer.parse(
+      JSON.stringify({
+        ...v4Resume({ email: "" }),
+        sections: { summary: { visible: false, content: "<p>Hidden</p>" } },
+      }),
+    );
+    expect(hidden.basics.email).toBe("");
+    expect(hidden.metadata.layout.pages[0]?.main).not.toContain("summary");
+
+    const noPages = importer.parse(
+      JSON.stringify({
+        basics: { name: "Ada" },
+        sections: { summary: { visible: true, content: "<p>Math</p>" } },
+        metadata: { layout: [] },
+      }),
+    );
+    expect(noPages.metadata.layout.pages).toHaveLength(0);
+  });
+
+  it("defaults optional v4 fields when a section item only has its name", () => {
+    const parsed = importer.parse(
+      JSON.stringify({
+        basics: { customFields: [{ icon: "star" }] },
+        sections: {
+          profiles: { items: [{ network: "GitHub" }] },
+          experience: { items: [{ company: "Lab" }] },
+          education: { items: [{ institution: "UCL" }] },
+          projects: { items: [{ name: "Engine" }] },
+          skills: { items: [{ name: "Math" }] },
+          languages: { items: [{ name: "English" }] },
+          interests: { items: [{ name: "Chess" }] },
+          awards: { items: [{ title: "Prize" }] },
+          publications: { items: [{ name: "Paper" }] },
+          volunteer: { items: [{ organization: "RAS" }] },
+          references: { items: [{ name: "Charles" }] },
+          custom: { extra: { items: [{ name: "Note" }] } },
+        },
+        metadata: {
+          typography: { font: { variants: ["300"] } },
+          layout: [[]],
+        },
+      }),
+    );
+
+    expect(parsed.basics.name).toBe("");
+    expect(parsed.sections.profiles.items[0]?.username).toBe("");
+    expect(parsed.sections.experience.items[0]?.position).toBe("");
+    expect(parsed.sections.projects.items[0]?.description).toBe("");
+    expect(parsed.metadata.typography.heading.fontWeights).toEqual(["600"]);
+    expect(parsed.customSections[0]?.title).toBe("");
+  });
 });

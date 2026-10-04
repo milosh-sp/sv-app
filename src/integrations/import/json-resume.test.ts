@@ -49,6 +49,45 @@ describe("JSONResumeImporter", () => {
   it("throws when the JSON is invalid or fails the resume schema", () => {
     expect(() => importer.parse("{")).toThrow();
     expect(() => importer.parse(JSON.stringify({ basics: { email: "not-an-email" } }))).toThrow(Error);
+    const bare = importer.parse(JSON.stringify({ basics: { name: "Ada", location: { countryCode: "GB" } } }));
+    expect(bare.basics.location).toBe("GB");
+    const cityOnly = importer.parse(JSON.stringify({ basics: { name: "Ada", location: { city: "London" } } }));
+    expect(cityOnly.basics.location).toBe("London");
+    const empty = importer.parse(
+      JSON.stringify({ basics: { name: "Ada" }, work: [{ name: "Lab", highlights: [] }], skills: [{ name: "Math" }] }),
+    );
+    expect(empty.basics.location).toBe("");
+    expect(empty.sections.experience.items[0]?.description).not.toContain("<ul>");
+  });
+
+  it("fills blanks when optional JSON Resume fields are missing", () => {
+    const parsed = importer.parse(
+      JSON.stringify({
+        basics: { profiles: [{ network: "GitHub" }] },
+        work: [{ name: "Lab", endDate: "2020-03-04" }],
+        education: [{ institution: "UCL" }],
+        projects: [{ name: "Engine" }],
+        skills: [{ name: "Math" }],
+        languages: [{ language: "English" }],
+        interests: [{ name: "Chess" }],
+        awards: [{ title: "Prize" }],
+        certificates: [{ name: "Cert" }],
+        publications: [{ name: "Paper" }],
+        volunteer: [{ organization: "RAS" }],
+        references: [{ name: "Charles" }],
+      }),
+    );
+
+    expect(parsed.basics.name).toBe("");
+    expect(parsed.sections.experience.items[0]?.period).toBe("04/03/2020");
+    expect(parsed.sections.education.items[0]?.degree).toBe("");
+    expect(parsed.sections.languages.items[0]?.fluency).toBe("");
+    expect(parsed.sections.skills.items[0]?.keywords).toEqual([]);
+    expect(parsed.sections.awards.items[0]?.awarder).toBe("");
+    expect(parsed.sections.certifications.items[0]?.issuer).toBe("");
+    expect(parsed.sections.publications.items[0]?.publisher).toBe("");
+    expect(parsed.sections.publications.items[0]?.description).toBe("");
+    expect(parsed.sections.references.items[0]?.description).toBe("");
   });
 
   it("maps the remaining sections, dates, networks, and levels", () => {

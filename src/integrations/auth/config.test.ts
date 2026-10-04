@@ -4,13 +4,33 @@ import { afterEach, describe, expect, it, vi } from "vite-plus/test";
 const verifyAccessToken = vi.hoisted(() => vi.fn(async () => ({ sub: "user-1" })));
 const sendEmail = vi.hoisted(() => vi.fn(async (_options: { text: string }) => undefined));
 const betterAuth = vi.hoisted(() =>
-  vi.fn(
-    (config: {
-      trustedOrigins: string[];
-      advanced: { useSecureCookies: boolean };
-      emailVerification: { sendVerificationEmail: (input: { user: { email: string }; url: string }) => Promise<void> };
-    }) => config,
-  ),
+  vi.fn((config: {
+    trustedOrigins: string[];
+    advanced: { useSecureCookies: boolean };
+    emailVerification: { sendVerificationEmail: (input: { user: { email: string }; url: string }) => Promise<void> };
+    emailAndPassword: {
+      sendResetPassword: (input: { user: { email: string }; url: string }) => Promise<void>;
+      password: {
+        hash: (password: string) => Promise<string>;
+        verify: (input: { password: string; hash: string }) => Promise<boolean>;
+      };
+    };
+    user: {
+      changeEmail: {
+        sendChangeEmailConfirmation: (input: {
+          user: { email: string };
+          newEmail: string;
+          url: string;
+        }) => Promise<void>;
+      };
+    };
+    plugins: Array<{
+      usernameNormalization?: (value: string) => string;
+      displayUsernameNormalization?: (value: string) => string;
+      usernameValidator?: (username: string) => boolean;
+    }>;
+    socialProviders: { google: { enabled: boolean }; github: { enabled: boolean } };
+  }) => config),
 );
 const rows = vi.hoisted(() => ({ value: [] as unknown[] }));
 
@@ -34,6 +54,9 @@ vi.mock("better-auth/plugins/generic-oauth", () => ({
   genericOAuth: (options: { config: unknown[] }) => options,
 }));
 vi.mock("better-auth/plugins/two-factor", () => ({ twoFactor: () => ({ id: "two-factor" }) }));
+vi.mock("better-auth/plugins/username", () => ({
+  username: (options: object) => ({ id: "username", ...options }),
+}));
 vi.mock("@better-auth/api-key", () => ({ apiKey: () => ({ id: "api-key" }) }));
 vi.mock("@better-auth/infra", () => ({ dash: () => ({ id: "dash" }) }));
 vi.mock("@better-auth/oauth-provider", () => ({ oauthProvider: () => ({ id: "oauth-provider" }) }));
@@ -109,6 +132,13 @@ describe("OAuth audience and verification URL", () => {
       }),
     );
     expect(vi.mocked(sendEmail).mock.calls[0]?.[0]?.text).toContain("callbackURL=%2Fdashboard");
+
+    sendEmail.mockClear();
+    await config.emailVerification.sendVerificationEmail({
+      user: { email: "ada@example.com" },
+      url: "http://localhost:3000/api/auth/verify-email",
+    });
+    expect(vi.mocked(sendEmail).mock.calls[0]?.[0]?.text).not.toContain("token=");
   });
 
   it("omits the localhost alias when the app host is public", async () => {
@@ -221,9 +251,69 @@ describe("OAuth audience and verification URL", () => {
       username: "ada",
     });
 
+    await expect(custom.mapProfileToUser({ email: "ada@example.com" })).resolves.toMatchObject({
+      name: "ada",
+      username: "ada",
+    });
+
     delete process.env.OAUTH_CLIENT_ID;
     delete process.env.OAUTH_CLIENT_SECRET;
     delete process.env.OAUTH_DISCOVERY_URL;
     rows.value = [];
+  });
+
+  it("hashes a password, sends a reset email, and normalizes usernames", async () => {
+    const { config } = await loadConfig();
+    const password = config.emailAndPassword.password;
+    const hashed = await password.hash("secret1");
+    await expect(password.verify({ password: "secret1", hash: hashed })).resolves.toBe(true);
+
+    await config.emailAndPassword.sendResetPassword({
+      user: { email: "ada@example.com" },
+      url: "http://localhost:3000/reset",
+    });
+    await config.user.changeEmail.sendChangeEmailConfirmation({
+      user: { email: "ada@example.com" },
+      newEmail: "new@example.com",
+      url: "http://localhost:3000/change",
+    });
+    expect(sendEmail).toHaveBeenCalledWith(expect.objectContaining({ subject: "Reset your password" }));
+
+    const username = config.plugins.find((plugin) => plugin.usernameNormalization);
+    if (!username?.usernameNormalization || !username.displayUsernameNormalization || !username.usernameValidator) {
+      throw new Error("username plugin missing");
+    }
+    expect(username.usernameNormalization("Ada Lovelace")).toBe(username.displayUsernameNormalization("Ada Lovelace"));
+    expect(username.usernameValidator("ada.lovelace")).toBe(true);
+    expect(username.usernameValidator("Ada Lovelace")).toBe(false);
+  });
+
+  it("enables a provider when its client id and secret are both set", async () => {
+    process.env.GOOGLE_CLIENT_ID = "google-id";
+    process.env.GITHUB_CLIENT_ID = "github-id";
+    process.env.OAUTH_CLIENT_ID = "client";
+    process.env.OAUTH_AUTHORIZATION_URL = "https://idp.example.com/auth";
+    let { config } = await loadConfig();
+    expect(config.socialProviders.google.enabled).toBe(false);
+    expect(config.socialProviders.github.enabled).toBe(false);
+
+    process.env.GOOGLE_CLIENT_SECRET = "google-secret";
+    process.env.GITHUB_CLIENT_SECRET = "github-secret";
+    process.env.OAUTH_CLIENT_SECRET = "secret";
+    process.env.OAUTH_TOKEN_URL = "https://idp.example.com/token";
+    process.env.OAUTH_USER_INFO_URL = "https://idp.example.com/userinfo";
+    ({ config } = await loadConfig());
+    expect(config.socialProviders.google.enabled).toBe(true);
+    expect(config.socialProviders.github.enabled).toBe(true);
+
+    delete process.env.GOOGLE_CLIENT_ID;
+    delete process.env.GOOGLE_CLIENT_SECRET;
+    delete process.env.GITHUB_CLIENT_ID;
+    delete process.env.GITHUB_CLIENT_SECRET;
+    delete process.env.OAUTH_CLIENT_ID;
+    delete process.env.OAUTH_CLIENT_SECRET;
+    delete process.env.OAUTH_AUTHORIZATION_URL;
+    delete process.env.OAUTH_TOKEN_URL;
+    delete process.env.OAUTH_USER_INFO_URL;
   });
 });

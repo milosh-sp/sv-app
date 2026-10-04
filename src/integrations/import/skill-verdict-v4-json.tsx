@@ -35,10 +35,7 @@ const clampLevel = (level: number): number => clamp(level, 0, 5);
 
 const convertAndClampFontSize = (px: number): number => clampFontSize(pxToPt(px));
 
-const isValidEmail = (email: string): boolean => {
-  if (!email) return false;
-  return z.email().safeParse(email).success;
-};
+const isValidEmail = (email: string): boolean => z.email().safeParse(email).success;
 
 const sanitizeEmail = (email: string | undefined): string => {
   if (!email) return "";

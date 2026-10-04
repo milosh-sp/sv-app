@@ -35,4 +35,9 @@ describe("SkillVerdictJSONImporter", () => {
     expect(parsed.metadata.layout.pages[0]?.main).toEqual([...main, "skills"]);
     expect(parsed.metadata.layout.pages[0]?.sidebar).toEqual(page.sidebar);
   });
+
+  it("rejects a document that is not resume data", () => {
+    expect(() => importer.parse("{")).toThrow(SyntaxError);
+    expect(() => importer.parse(JSON.stringify({ picture: "nope" }))).toThrow(Error);
+  });
 });

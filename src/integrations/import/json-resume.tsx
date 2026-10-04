@@ -153,27 +153,22 @@ const jsonResumeSchema = z.looseObject({
 
 type JSONResume = z.infer<typeof jsonResumeSchema>;
 
-function pad2(part: string): string {
-  return part.length >= 2 ? part : `0${part}`;
-}
-
-/** JSON Resume ISO date strings → DD/MM/YYYY (01/MM/YYYY for year-month; year unchanged for YYYY-only). */
 function formatImportedIsoDate(date: string): string {
   const parts = date.split("-");
   if (parts.length === 3) {
     const [year, month, day] = parts;
-    return `${pad2(day)}/${pad2(month)}/${year}`;
+    return `${day}/${month}/${year}`;
   }
   if (parts.length === 2) {
     const [year, month] = parts;
-    return `01/${pad2(month)}/${year}`;
+    return `01/${month}/${year}`;
   }
   return date;
 }
 
 function formatPeriod(startDate?: string, endDate?: string): string {
   if (!startDate && !endDate) return "";
-  if (!startDate) return endDate ? formatImportedIsoDate(endDate) : "";
+  if (!startDate) return formatImportedIsoDate(endDate!);
   if (!endDate) return `${formatImportedIsoDate(startDate)} - Present`;
   return `${formatImportedIsoDate(startDate)} - ${formatImportedIsoDate(endDate)}`;
 }
@@ -203,21 +198,18 @@ function toHtmlDescription(summary?: string, highlights?: string[]): string {
 }
 
 // Helper function to convert array to HTML list
-function arrayToHtmlList(items?: string[]): string {
-  if (!items || items.length === 0) return "";
+function arrayToHtmlList(items: string[]): string {
   return `<ul>${items.map((item) => `<li>${item}</li>`).join("")}</ul>`;
 }
 
 // Helper function to format location object to string
-function formatLocation(location?: {
+function formatLocation(location: {
   address?: string;
   postalCode?: string;
   city?: string;
   countryCode?: string;
   region?: string;
 }): string {
-  if (!location) return "";
-
   const parts: string[] = [];
   if (location.city) parts.push(location.city);
   if (location.region) parts.push(location.region);
@@ -227,9 +219,7 @@ function formatLocation(location?: {
 }
 
 // Helper function to map network name to icon
-function getNetworkIcon(network?: string): IconName {
-  if (!network) return "star";
-
+function getNetworkIcon(network: string): IconName {
   const networkLower = network.toLowerCase();
   if (networkLower.includes("github")) return "github-logo";
   if (networkLower.includes("linkedin")) return "linkedin-logo";
@@ -349,7 +339,7 @@ export class JSONResumeImporter {
           .map((edu) => ({
             id: generateId(),
             hidden: false,
-            school: edu.institution || "",
+            school: edu.institution!,
             degree: [edu.studyType, edu.area].filter(Boolean).join(" in ") || "",
             area: edu.area || "",
             grade: edu.score || "",
@@ -370,7 +360,7 @@ export class JSONResumeImporter {
           .map((project) => ({
             id: generateId(),
             hidden: false,
-            name: project.name || "",
+            name: project.name!,
             period: formatPeriod(project.startDate, project.endDate),
             website: createUrl(project.url),
             description: toHtmlDescription(project.description, project.highlights),
@@ -388,7 +378,7 @@ export class JSONResumeImporter {
             id: generateId(),
             hidden: false,
             icon: "star",
-            name: skill.name || "",
+            name: skill.name!,
             proficiency: skill.level || "",
             level: parseLevel(skill.level),
             keywords: skill.keywords || [],
@@ -405,7 +395,7 @@ export class JSONResumeImporter {
           .map((lang) => ({
             id: generateId(),
             hidden: false,
-            language: lang.language || "",
+            language: lang.language!,
             fluency: lang.fluency || "",
             level: parseLevel(lang.fluency),
           })),
@@ -422,7 +412,7 @@ export class JSONResumeImporter {
             id: generateId(),
             hidden: false,
             icon: "star",
-            name: interest.name || "",
+            name: interest.name!,
             keywords: interest.keywords || [],
           })),
       };
@@ -437,7 +427,7 @@ export class JSONResumeImporter {
           .map((award) => ({
             id: generateId(),
             hidden: false,
-            title: award.title || "",
+            title: award.title!,
             awarder: award.awarder || "",
             date: formatSingleDate(award.date),
             website: { url: "", label: "" },
@@ -455,7 +445,7 @@ export class JSONResumeImporter {
           .map((cert) => ({
             id: generateId(),
             hidden: false,
-            title: cert.name || "",
+            title: cert.name!,
             issuer: cert.issuer || "",
             date: formatSingleDate(cert.date),
             website: createUrl(cert.url),
@@ -473,7 +463,7 @@ export class JSONResumeImporter {
           .map((pub) => ({
             id: generateId(),
             hidden: false,
-            title: pub.name || "",
+            title: pub.name!,
             publisher: pub.publisher || "",
             date: formatSingleDate(pub.releaseDate),
             website: createUrl(pub.url),
@@ -491,7 +481,7 @@ export class JSONResumeImporter {
           .map((vol) => ({
             id: generateId(),
             hidden: false,
-            organization: vol.organization || "",
+            organization: vol.organization!,
             location: "",
             period: formatPeriod(vol.startDate, vol.endDate),
             website: createUrl(vol.url),
@@ -527,8 +517,8 @@ export class JSONResumeImporter {
           .map((profile) => ({
             id: generateId(),
             hidden: false,
-            icon: getNetworkIcon(profile.network),
-            network: profile.network || "",
+            icon: getNetworkIcon(profile.network!),
+            network: profile.network!,
             username: profile.username || "",
             website: createUrl(profile.url, profile.username || profile.network),
           })),
