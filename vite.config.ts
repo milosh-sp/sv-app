@@ -240,8 +240,8 @@ const config = defineConfig({
       include: ["src/**/*.{ts,tsx}"],
       exclude: ["src/**/*.test.{ts,tsx}", "src/routeTree.gen.ts"],
       thresholds: {
-        statements: 80,
-        lines: 80,
+        statements: 83,
+        lines: 84,
       },
     },
   },

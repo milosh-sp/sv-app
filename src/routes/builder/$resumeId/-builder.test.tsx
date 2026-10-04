@@ -64,6 +64,9 @@ vi.mock("@/hooks/use-mobile", () => ({
 vi.mock("@/components/ai/chat", () => ({
   AIChat: () => <div>chat</div>,
 }));
+vi.mock("@/utils/resume/docx", () => ({
+  buildDocx: vi.fn(async () => new Blob(["docx"])),
+}));
 
 import { useResumeStore } from "@/components/resume/store/resume";
 import { useDialogStore } from "@/dialogs/store";
