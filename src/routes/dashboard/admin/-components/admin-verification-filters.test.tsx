@@ -10,15 +10,15 @@ vi.mock("@lingui/react/macro", () => ({
 }));
 
 import {
-  defaultAdminExperienceSearch,
-  defaultAdminVerdictSearch,
-  defaultAdminVerificationSearch,
+    defaultAdminExperienceSearch,
+    defaultAdminVerdictSearch,
+    defaultAdminVerificationSearch,
 } from "@/utils/verification/admin-verification-search";
 
 import {
-  AdminExperienceFilterBar,
-  AdminVerdictFilterBar,
-  AdminVerificationFilterBar,
+    AdminExperienceFilterBar,
+    AdminVerdictFilterBar,
+    AdminVerificationFilterBar,
 } from "./admin-verification-filters";
 
 function setInput(id: string, value: string) {
