@@ -75,6 +75,19 @@ describe("rich input", () => {
     expect(buttons().length).toBeGreaterThan(5);
     expect(document.body.textContent).toContain("Hello");
 
+    for (const trigger of [...document.querySelectorAll("[data-slot='dropdown-menu-trigger']")]) {
+      if (!(trigger instanceof HTMLElement)) continue;
+      act(() => {
+        trigger.click();
+      });
+      for (const item of [...document.querySelectorAll("[role='menuitem'], [role='menuitemcheckbox']")]) {
+        if (!(item instanceof HTMLElement)) continue;
+        await act(async () => {
+          item.click();
+        });
+      }
+    }
+
     const promptInput = () => document.querySelector("[role='alertdialog'] input");
     let link: HTMLButtonElement | undefined;
 

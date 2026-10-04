@@ -1,5 +1,5 @@
 import { getTableColumns, is } from "drizzle-orm";
-import { PgTable } from "drizzle-orm/pg-core";
+import { getTableConfig, PgTable } from "drizzle-orm/pg-core";
 import { describe, expect, it } from "vite-plus/test";
 
 import * as schema from "./schema";
@@ -294,6 +294,14 @@ describe("resume table work authorization columns", () => {
       if (typeof build === "function") build(columns ? table[columns] : {});
     }
     expect(defaults).toBeGreaterThan(0);
+
+    let references = 0;
+    for (const value of Object.values(schema)) {
+      if (!is(value, PgTable)) continue;
+      for (const key of getTableConfig(value).foreignKeys) key.reference();
+      references += getTableConfig(value).foreignKeys.length;
+    }
+    expect(references).toBeGreaterThan(0);
   });
 
   it("uses non-nullable defaults for searchable columns", () => {

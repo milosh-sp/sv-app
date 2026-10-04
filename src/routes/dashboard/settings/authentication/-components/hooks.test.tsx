@@ -85,10 +85,9 @@ describe("auth provider helpers", () => {
       );
     });
 
-    await act(async () => {
-      await authClient.listAccounts();
+    await vi.waitFor(() => {
+      expect(container.textContent).toContain("linked");
     });
-    expect(container.textContent).toContain("linked");
 
     const link = [...container.querySelectorAll("button")].find((button) => button.textContent === "link");
     await act(async () => {
