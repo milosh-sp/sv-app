@@ -117,6 +117,21 @@ describe("resumeRouter", () => {
     roleRows.value = [{ role: "company" }];
     await expect(call(resumeRouter.searchForEmployers, {})).resolves.toEqual([]);
     expect(resumeService.searchForEmployers).toHaveBeenCalledWith(expect.objectContaining({ workAuthRegions: [] }));
+
+    getSession.mockResolvedValueOnce(null);
+    resumeService.getBySlug.mockResolvedValueOnce(savedResume);
+    await expect(call(resumeRouter.getBySlug, { username: "ada", slug: "cv" })).resolves.toMatchObject({
+      id: "resume-1",
+    });
+    expect(resumeService.getBySlug).toHaveBeenCalledWith({ username: "ada", slug: "cv", currentUserId: undefined });
+
+    resumeService.getBySlug.mockResolvedValueOnce(savedResume);
+    await expect(call(resumeRouter.getBySlug, { username: "ada", slug: "cv" })).resolves.toMatchObject({
+      id: "resume-1",
+    });
+    expect(resumeService.getBySlug).toHaveBeenLastCalledWith(
+      expect.objectContaining({ username: "ada", slug: "cv", currentUserId: "user-1" }),
+    );
   });
 
   it("forwards owner mutations and keeps password checks public", async () => {

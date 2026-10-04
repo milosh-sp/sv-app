@@ -103,6 +103,22 @@ describe("adminJobSearchRouter", () => {
     await expect(call(adminJobSearchRouter.testStoredConnection)).resolves.toEqual({ success: true });
 
     asAdmin();
+    getGlobalJobSearchSettingsRow.mockResolvedValueOnce({ apiKey: "stored" });
+    testConnection.mockRejectedValueOnce(new Error("down"));
+    await expect(call(adminJobSearchRouter.testStoredConnection)).rejects.toMatchObject({
+      code: "BAD_GATEWAY",
+      message: "down",
+    });
+
+    asAdmin();
+    getGlobalJobSearchSettingsRow.mockResolvedValueOnce({ apiKey: "stored" });
+    testConnection.mockRejectedValueOnce("nope");
+    await expect(call(adminJobSearchRouter.testStoredConnection)).rejects.toMatchObject({
+      code: "BAD_GATEWAY",
+      message: "Connection test failed",
+    });
+
+    asAdmin();
     getGlobalJobSearchSettingsRow.mockResolvedValueOnce(null);
     await expect(call(adminJobSearchRouter.setSettings, { apiKey: " " })).rejects.toMatchObject({
       code: "BAD_REQUEST",
@@ -114,6 +130,14 @@ describe("adminJobSearchRouter", () => {
     await expect(call(adminJobSearchRouter.setSettings, { apiKey: "  " })).rejects.toMatchObject({
       code: "BAD_GATEWAY",
       message: "down",
+    });
+
+    asAdmin();
+    getGlobalJobSearchSettingsRow.mockResolvedValueOnce(null);
+    testConnection.mockRejectedValueOnce("nope");
+    await expect(call(adminJobSearchRouter.setSettings, { apiKey: "key" })).rejects.toMatchObject({
+      code: "BAD_GATEWAY",
+      message: "Connection test failed",
     });
     expect(upsertGlobalJobSearchSettings).toHaveBeenCalledWith("stored", false, adminId);
 

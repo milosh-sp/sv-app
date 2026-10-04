@@ -124,6 +124,22 @@ describe("adminAiRouter", () => {
     });
 
     asAdmin();
+    getGlobalAiSettingsRow.mockResolvedValueOnce({
+      provider: "anthropic",
+      model: "m",
+      apiKey: "stored",
+      baseURL: "http://local",
+    });
+    testConnection.mockRejectedValueOnce(new Error("unexpected"));
+    await expect(call(adminAiRouter.testStoredConnection)).rejects.toThrow("unexpected");
+    expect(testConnection).toHaveBeenLastCalledWith({
+      provider: "anthropic",
+      model: "m",
+      apiKey: "stored",
+      baseURL: "http://local",
+    });
+
+    asAdmin();
     getGlobalAiSettingsRow.mockResolvedValueOnce({ apiKey: "stored" });
     testConnection.mockResolvedValueOnce(true);
     await expect(call(adminAiRouter.setSettings, { ...creds, apiKey: "  " })).resolves.toEqual({ testOk: true });
@@ -140,5 +156,12 @@ describe("adminAiRouter", () => {
     testConnection.mockRejectedValueOnce(new AISDKError({ name: "AI_APICallError", message: "down" }));
     await expect(call(adminAiRouter.setSettings, creds)).rejects.toMatchObject({ code: "BAD_GATEWAY" });
     expect(upsertGlobalAiSettings).toHaveBeenCalledWith(expect.objectContaining({ apiKey: "key" }), false, adminId);
+
+    asAdmin();
+    upsertGlobalAiSettings.mockClear();
+    getGlobalAiSettingsRow.mockResolvedValueOnce(null);
+    testConnection.mockRejectedValueOnce(new Error("unexpected"));
+    await expect(call(adminAiRouter.setSettings, creds)).rejects.toThrow("unexpected");
+    expect(upsertGlobalAiSettings).not.toHaveBeenCalled();
   });
 });

@@ -82,10 +82,22 @@ describe("aiRouter", () => {
     aiService.parsePdf.mockRejectedValueOnce(new AISDKError({ name: "AI_APICallError", message: "down" }));
     await expect(call(aiRouter.parsePdf, { file })).rejects.toMatchObject({ code: "BAD_GATEWAY", message: "down" });
 
+    aiService.parsePdf.mockRejectedValueOnce(new ZodError([]));
+    await expect(call(aiRouter.parsePdf, { file })).rejects.toMatchObject({ code: "BAD_REQUEST" });
+
     aiService.parseDocx.mockRejectedValueOnce(new ZodError([]));
     await expect(call(aiRouter.parseDocx, { file, mediaType: "application/msword" })).rejects.toMatchObject({
       code: "BAD_REQUEST",
     });
+
+    aiService.parseDocx.mockRejectedValueOnce(new AISDKError({ name: "AI_APICallError", message: "down" }));
+    await expect(call(aiRouter.parseDocx, { file, mediaType: "application/msword" })).rejects.toMatchObject({
+      code: "BAD_GATEWAY",
+      message: "down",
+    });
+
+    aiService.parseDocx.mockRejectedValueOnce(new Error("unexpected"));
+    await expect(call(aiRouter.parseDocx, { file, mediaType: "application/msword" })).rejects.toThrow("unexpected");
 
     aiService.parsePdf.mockRejectedValueOnce(new Error("unexpected"));
     await expect(call(aiRouter.parsePdf, { file })).rejects.toThrow("unexpected");
@@ -97,6 +109,9 @@ describe("aiRouter", () => {
 
     aiService.reviewResume.mockRejectedValueOnce(new OllamaError({ message: "offline" }));
     await expect(call(aiRouter.reviewResume, { resumeId: "resume-1" })).rejects.toMatchObject({ code: "BAD_GATEWAY" });
+
+    aiService.reviewResume.mockRejectedValueOnce(new Error("unexpected"));
+    await expect(call(aiRouter.reviewResume, { resumeId: "resume-1" })).rejects.toThrow("unexpected");
   });
 
   it("chats and tailors through the global provider, and maps provider failures", async () => {
@@ -140,6 +155,14 @@ describe("aiRouter", () => {
         job: jobResultSchema.parse({ job_id: "job-1", job_title: "Engineer", employer_name: "Acme" }),
       }),
     ).rejects.toMatchObject({ code: "BAD_REQUEST" });
+
+    aiService.tailorResume.mockRejectedValueOnce(new Error("unexpected"));
+    await expect(
+      call(aiRouter.tailorResume, {
+        resumeData: defaultResumeData,
+        job: jobResultSchema.parse({ job_id: "job-1", job_title: "Engineer", employer_name: "Acme" }),
+      }),
+    ).rejects.toThrow("unexpected");
 
     getGlobalAiCredentialsForService.mockResolvedValueOnce(null);
     await expect(call(aiRouter.chat, { messages: [], resumeData: defaultResumeData })).rejects.toMatchObject({

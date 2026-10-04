@@ -370,7 +370,7 @@ export const resumeRouter = {
       operationId: "duplicateResume",
       summary: "Duplicate a resume",
       description:
-        "Creates a copy of an existing resume with the same data. Optionally override the name, slug, and tags for the duplicate. If not provided, the original resume's name, slug, and tags are used. Returns the ID of the duplicated resume. Requires authentication.",
+        "Creates a copy of an existing resume with the same data and the given name, slug, and tags. Returns the ID of the duplicated resume. Requires authentication.",
       successDescription: "The ID of the duplicated resume.",
     })
     .input(resumeDto.duplicate.input)
@@ -380,9 +380,9 @@ export const resumeRouter = {
 
       return await resumeService.create({
         userId: context.user.id,
-        name: input.name ?? original.name,
-        slug: input.slug ?? original.slug,
-        tags: input.tags ?? original.tags,
+        name: input.name,
+        slug: input.slug,
+        tags: input.tags,
         locale: context.locale,
         data: original.data,
       });

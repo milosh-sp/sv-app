@@ -183,6 +183,26 @@ describe("adminUsersRouter", () => {
         submittedAt: new Date(Date.UTC(2021, 6, 1)),
         resolvedAt: null,
       },
+      {
+        id: "identity-3",
+        sectionType: "identity",
+        itemLabel: "Ada",
+        status: "verified",
+        method: "document_upload",
+        reviewerNote: "ok",
+        submittedAt: new Date(Date.UTC(2020, 0, 1)),
+        resolvedAt: null,
+      },
+      {
+        id: "experience-older",
+        sectionType: "experience",
+        itemLabel: "Older",
+        status: "verified",
+        method: "document_upload",
+        reviewerNote: "ok",
+        submittedAt: new Date(Date.UTC(2020, 0, 1)),
+        resolvedAt: null,
+      },
     ];
     const documents = [
       ...Array.from({ length: 11 }, (_, index) => ({
@@ -241,11 +261,11 @@ describe("adminUsersRouter", () => {
       pending: 1,
       claimed: 1,
       verdictPending: 1,
-      verified: 10,
+      verified: 12,
       rejected: 1,
       issue: 1,
     });
-    expect(overview.verification.approvedExperience.hiddenCount).toBe(2);
+    expect(overview.verification.approvedExperience.hiddenCount).toBe(3);
     expect(overview.verification.approvedIdentity?.documents).toHaveLength(11);
     expect(overview.verification.uploadedDocuments).toMatchObject({ hiddenCount: 1 });
     expect(overview.apiKeys).toMatchObject({ total: 3, enabled: 1, totalRequestCount: 4 });
@@ -308,5 +328,11 @@ describe("adminUsersRouter", () => {
     const emptyDocs = await call(adminUsersRouter.getUserOverview, { userId });
     expect(emptyDocs.workAuthorization).toBeNull();
     expect(emptyDocs.verification.approvedIdentity?.documents).toEqual([]);
+
+    asAdmin();
+    queue.rows.push([{ id: userId }], [{}], [{}], [], [], [], [], [], []);
+    const noResumes = await call(adminUsersRouter.getUserOverview, { userId });
+    expect(noResumes.workAuthorization).toBeNull();
+    expect(noResumes.resumes.total).toBe(0);
   });
 });

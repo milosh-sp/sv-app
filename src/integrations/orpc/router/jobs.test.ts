@@ -54,10 +54,23 @@ describe("jobsRouter", () => {
     expect(jobsService.search).toHaveBeenCalledWith("key", params);
     expect(jobsService.applyPostFilters).toHaveBeenCalled();
 
+    jobsService.search.mockResolvedValueOnce({ data: [{ id: "job-2" }], rapidApiQuota: undefined });
+    await expect(call(jobsRouter.search, { params })).resolves.toEqual({
+      data: [{ id: "job-2" }],
+      rapidApiQuota: undefined,
+    });
+    expect(jobsService.applyPostFilters).toHaveBeenCalledTimes(1);
+
     jobsService.search.mockRejectedValueOnce("nope");
     await expect(call(jobsRouter.search, { params })).rejects.toMatchObject({
       code: "BAD_GATEWAY",
       message: "Search failed",
+    });
+
+    jobsService.search.mockRejectedValueOnce(new Error("down"));
+    await expect(call(jobsRouter.search, { params })).rejects.toMatchObject({
+      code: "BAD_GATEWAY",
+      message: "down",
     });
   });
 });

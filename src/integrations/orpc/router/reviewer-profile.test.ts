@@ -99,6 +99,19 @@ describe("reviewer profile routers", () => {
     expect(reviewerProfileService.requestChange).toHaveBeenCalledWith({ adminId, firstName: "Augusta" });
 
     queue.rows.push([{ role: "skill_verdict_admin" }]);
+    await expect(
+      call(adminReviewerProfilesRouter.create, {
+        adminId: reviewerId,
+        firstName: "Ada",
+        lastName: "Lovelace",
+        title: "Reviewer",
+      }),
+    ).resolves.toEqual({ id: "profile" });
+    expect(reviewerProfileService.create).toHaveBeenCalledWith(
+      expect.objectContaining({ adminId: reviewerId, firstName: "Ada", lastName: "Lovelace", title: "Reviewer" }),
+    );
+
+    queue.rows.push([{ role: "skill_verdict_admin" }]);
     await call(adminReviewerProfilesRouter.updateDirect, { adminId: reviewerId, firstName: "Ada" });
     queue.rows.push([{ role: "skill_verdict_admin" }]);
     await call(adminReviewerProfilesRouter.getByAdminId, { adminId: reviewerId });
