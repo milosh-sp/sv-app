@@ -4,6 +4,7 @@ import { OllamaError } from "ai-sdk-ollama";
 import { beforeEach, describe, expect, it, vi } from "vite-plus/test";
 import { ZodError } from "zod";
 
+import { jobResultSchema } from "@/schema/jobs";
 import { defaultResumeData } from "@/schema/resume/data";
 
 const getSession = vi.hoisted(() => vi.fn());
@@ -52,6 +53,8 @@ describe("aiRouter", () => {
     aiService.parsePdf.mockReset();
     aiService.parseDocx.mockReset();
     aiService.reviewResume.mockReset();
+    aiService.chat.mockReset();
+    aiService.tailorResume.mockReset();
     resumeService.getById.mockReset();
   });
 
@@ -94,5 +97,53 @@ describe("aiRouter", () => {
 
     aiService.reviewResume.mockRejectedValueOnce(new OllamaError({ message: "offline" }));
     await expect(call(aiRouter.reviewResume, { resumeId: "resume-1" })).rejects.toMatchObject({ code: "BAD_GATEWAY" });
+  });
+
+  it("chats and tailors through the global provider, and maps provider failures", async () => {
+    getGlobalAiCredentialsForService.mockResolvedValue(credentials);
+    const tailored = {
+      summary: { content: "<p>Tailored</p>" },
+      experiences: [],
+      references: [],
+      skills: [],
+    };
+    aiService.chat.mockResolvedValueOnce("stream");
+    aiService.tailorResume.mockResolvedValueOnce(tailored);
+
+    await expect(call(aiRouter.chat, { messages: [], resumeData: defaultResumeData })).resolves.toBe("stream");
+    await expect(
+      call(aiRouter.tailorResume, {
+        resumeData: defaultResumeData,
+        job: jobResultSchema.parse({ job_id: "job-1", job_title: "Engineer", employer_name: "Acme" }),
+      }),
+    ).resolves.toEqual(tailored);
+
+    aiService.chat.mockRejectedValueOnce(new AISDKError({ name: "AI_APICallError", message: "down" }));
+    await expect(call(aiRouter.chat, { messages: [], resumeData: defaultResumeData })).rejects.toMatchObject({
+      code: "BAD_GATEWAY",
+    });
+    aiService.chat.mockRejectedValueOnce(new Error("unexpected"));
+    await expect(call(aiRouter.chat, { messages: [], resumeData: defaultResumeData })).rejects.toThrow("unexpected");
+
+    aiService.tailorResume.mockRejectedValueOnce(new OllamaError({ message: "offline" }));
+    await expect(
+      call(aiRouter.tailorResume, {
+        resumeData: defaultResumeData,
+        job: jobResultSchema.parse({ job_id: "job-1", job_title: "Engineer", employer_name: "Acme" }),
+      }),
+    ).rejects.toMatchObject({ code: "BAD_GATEWAY" });
+
+    aiService.tailorResume.mockRejectedValueOnce(new ZodError([]));
+    await expect(
+      call(aiRouter.tailorResume, {
+        resumeData: defaultResumeData,
+        job: jobResultSchema.parse({ job_id: "job-1", job_title: "Engineer", employer_name: "Acme" }),
+      }),
+    ).rejects.toMatchObject({ code: "BAD_REQUEST" });
+
+    getGlobalAiCredentialsForService.mockResolvedValueOnce(null);
+    await expect(call(aiRouter.chat, { messages: [], resumeData: defaultResumeData })).rejects.toMatchObject({
+      code: "SERVICE_UNAVAILABLE",
+    });
   });
 });

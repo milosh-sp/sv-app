@@ -2,6 +2,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Reorder } from "motion/react";
 import { act } from "react";
 import { createRoot } from "react-dom/client";
+import { toast } from "sonner";
 import { describe, expect, it, vi } from "vite-plus/test";
 
 import { sampleResumeData } from "@/schema/resume/sample";
@@ -75,6 +76,7 @@ import { PictureSectionBuilder } from "./-sidebar/left/sections/picture";
 import { SectionItem } from "./-sidebar/left/shared/section-item";
 import { SectionDropdownMenu } from "./-sidebar/left/shared/section-menu";
 import { DesignSectionBuilder } from "./-sidebar/right/sections/design";
+import { ExportSectionBuilder } from "./-sidebar/right/sections/export";
 import { applyLayoutMove, LayoutPages } from "./-sidebar/right/sections/layout/pages";
 import { TypographySectionBuilder } from "./-sidebar/right/sections/typography";
 
@@ -324,9 +326,12 @@ describe("builder chrome", () => {
     act(() => {
       pictureBox()?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
     });
-    act(() => {
-      if (pictureBox() instanceof HTMLElement) pictureBox()?.click();
-    });
+    const picture = pictureBox();
+    if (picture instanceof HTMLElement) {
+      act(() => {
+        picture.click();
+      });
+    }
     const urlLabel = [...container.querySelectorAll("label")].find((label) => label.textContent?.trim() === "URL");
     const eye = urlLabel?.parentElement?.querySelector("button");
     if (eye instanceof HTMLButtonElement) {
@@ -541,6 +546,13 @@ describe("builder chrome", () => {
     const container = document.createElement("div");
     const root = createRoot(container);
 
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async () => new Response(new Blob(["%PDF"]))),
+    );
+    URL.createObjectURL = () => "blob:resume";
+    URL.revokeObjectURL = () => undefined;
+
     for (const isMobile of [false, true]) {
       mobile.value = isMobile;
       await act(async () => {
@@ -552,10 +564,138 @@ describe("builder chrome", () => {
       });
       expect(container.querySelectorAll("button").length).toBeGreaterThan(2);
       expect(container.textContent).toContain("chat");
+
+      for (const button of [...container.querySelectorAll("button")]) {
+        if (!(button instanceof HTMLButtonElement) || button.disabled) continue;
+        await act(async () => {
+          button.click();
+        });
+      }
+
+      const menu = container.querySelector("[data-slot='dropdown-menu-trigger']");
+      if (menu instanceof HTMLElement) {
+        act(() => {
+          menu.click();
+        });
+        for (const item of [...document.querySelectorAll("[data-slot='dropdown-menu-item']")]) {
+          if (!(item instanceof HTMLElement)) continue;
+          await act(async () => {
+            item.click();
+          });
+        }
+      }
     }
+
+    expect(vi.mocked(toast.success)).toHaveBeenCalled();
+    vi.unstubAllGlobals();
 
     act(() => {
       root.unmount();
     });
+  });
+
+  it("hides and deletes an item stored on a custom section", async () => {
+    const data = structuredClone(sampleResumeData);
+    const section = data.customSections[0];
+    const item = section?.items[0];
+    if (!section || !item || !("company" in item)) throw new Error("missing custom experience");
+    useResumeStore.getState().initialize({
+      id: "resume-1",
+      name: data.basics.name,
+      slug: "sample",
+      tags: [],
+      data,
+      isLocked: false,
+    });
+
+    const container = document.createElement("div");
+    document.body.append(container);
+    const root = createRoot(container);
+    await act(async () => {
+      root.render(
+        <ConfirmDialogProvider>
+          <Reorder.Group values={[item]} onReorder={() => undefined}>
+            <SectionItem type="experience" customSectionId={section.id} item={item} title={item.company} />
+          </Reorder.Group>
+        </ConfirmDialogProvider>,
+      );
+    });
+
+    const title = [...container.querySelectorAll("button")].find((button) =>
+      button.textContent?.includes(item.company),
+    );
+    if (!(title instanceof HTMLButtonElement)) throw new Error("missing item title");
+    act(() => {
+      title.click();
+    });
+    expect(useDialogStore.getState().activeDialog?.type).toBe("resume.sections.experience.update");
+
+    clickMenu("Duplicate", container);
+    expect(useDialogStore.getState().activeDialog?.type).toBe("resume.sections.experience.create");
+
+    clickMenu("Hide", container);
+    expect(useResumeStore.getState().resume.data.customSections[0]?.items[0]?.hidden).toBe(true);
+
+    clickMenu("Delete", container);
+    const confirm = [...document.querySelectorAll("button")].find((button) => button.textContent?.trim() === "Delete");
+    if (!(confirm instanceof HTMLButtonElement)) throw new Error("missing delete confirmation");
+    await act(async () => {
+      confirm.click();
+    });
+    expect(useResumeStore.getState().resume.data.customSections[0]?.items.some((entry) => entry.id === item.id)).toBe(
+      false,
+    );
+
+    act(() => {
+      root.unmount();
+    });
+    container.remove();
+  });
+
+  it("downloads json, docx, and pdf from the export section", async () => {
+    const data = structuredClone(sampleResumeData);
+    useResumeStore.getState().initialize({
+      id: "resume-1",
+      name: data.basics.name,
+      slug: "sample",
+      tags: [],
+      data,
+      isLocked: false,
+    });
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async () => new Response(new Blob(["%PDF"]))),
+    );
+    const createObjectURL = vi.fn(() => "blob:resume");
+    URL.createObjectURL = createObjectURL;
+    URL.revokeObjectURL = () => undefined;
+
+    const queryClient = new QueryClient({ defaultOptions: { mutations: { retry: false } } });
+    const container = document.createElement("div");
+    document.body.append(container);
+    const root = createRoot(container);
+    await act(async () => {
+      root.render(
+        <QueryClientProvider client={queryClient}>
+          <ExportSectionBuilder />
+        </QueryClientProvider>,
+      );
+    });
+
+    for (const label of ["JSON", "DOCX", "PDF"]) {
+      const button = [...container.querySelectorAll("button")].find((element) => element.textContent?.includes(label));
+      if (!(button instanceof HTMLButtonElement)) throw new Error(`missing ${label} export`);
+      await act(async () => {
+        button.click();
+      });
+    }
+
+    expect(createObjectURL).toHaveBeenCalled();
+
+    act(() => {
+      root.unmount();
+    });
+    container.remove();
+    vi.unstubAllGlobals();
   });
 });

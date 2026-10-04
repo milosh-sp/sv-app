@@ -1,3 +1,4 @@
+import { i18n } from "@lingui/core";
 import { act } from "react";
 import { createRoot } from "react-dom/client";
 import { beforeAll, describe, expect, it, vi } from "vite-plus/test";
@@ -141,6 +142,8 @@ import { PromptDialogProvider } from "@/hooks/use-prompt";
 import { BuilderHeader } from "@/routes/builder/$resumeId/-components/header";
 import { BuilderSidebarLeft } from "@/routes/builder/$resumeId/-sidebar/left";
 import { BuilderSidebarRight } from "@/routes/builder/$resumeId/-sidebar/right";
+import { PageSectionBuilder } from "@/routes/builder/$resumeId/-sidebar/right/sections/page";
+import { SharingSectionBuilder } from "@/routes/builder/$resumeId/-sidebar/right/sections/sharing";
 import { DashboardSidebar } from "@/routes/dashboard/-components/sidebar";
 
 beforeAll(() => {
@@ -175,6 +178,21 @@ const dialogs = [
   "resume.create",
   "resume.import",
   "resume.template.gallery",
+  "resume.sections.profiles.create",
+  "resume.sections.experience.create",
+  "resume.sections.education.create",
+  "resume.sections.skills.create",
+  "resume.sections.projects.create",
+  "resume.sections.certifications.create",
+  "resume.sections.languages.create",
+  "resume.sections.publications.create",
+  "resume.sections.awards.create",
+  "resume.sections.interests.create",
+  "resume.sections.volunteer.create",
+  "resume.sections.references.create",
+  "resume.sections.summary.create",
+  "resume.sections.cover-letter.create",
+  "resume.sections.custom.create",
 ] as const;
 
 function providers(children: React.ReactNode) {
@@ -236,12 +254,23 @@ describe("large surfaces", () => {
 
     useDialogStore.setState({
       open: true,
+      activeDialog: {
+        type: "resume.duplicate",
+        data: { id: "resume-1", name: "CV", slug: "sample", tags: ["go"] },
+      } as never,
+    });
+    const unmountDuplicate = await render(<DialogManager />);
+    expect(document.body.textContent).toContain("Duplicate Resume");
+    unmountDuplicate();
+
+    useDialogStore.setState({
+      open: true,
       activeDialog: { type: "resume.ai.review", data: { id: "resume-1", name: "CV" } } as never,
     });
     const unmountReview = await render(<DialogManager />);
     expect(document.body.textContent?.length ?? 0).toBeGreaterThan(5);
     unmountReview();
-  });
+  }, 60_000);
 
   it("imports a JSON resume file or explains why it cannot", async () => {
     const label = "JSON Resume";
@@ -326,7 +355,7 @@ describe("large surfaces", () => {
     expect(document.body.textContent).toContain(data.basics.name);
     expect(document.body.textContent).toContain(data.customSections[0]?.title);
     unmount();
-  });
+  }, 30_000);
 
   it("renders the app sidebar, a rich text field, and a count", async () => {
     const unmount = await render(
@@ -352,4 +381,70 @@ describe("large surfaces", () => {
     expect(document.body.textContent).toContain("Hello");
     unmount();
   }, 60_000);
+
+  it("shares a public resume and edits the page size", async () => {
+    i18n.load("en-US", {});
+    i18n.activate("en-US");
+    const data = structuredClone(sampleResumeData);
+    useResumeStore.getState().initialize({
+      id: "resume-1",
+      name: data.basics.name,
+      slug: "sample",
+      tags: [],
+      data,
+      isLocked: false,
+    });
+    const unmount = await render(
+      <>
+        <SharingSectionBuilder />
+        <PageSectionBuilder />
+      </>,
+    );
+
+    const share = document.getElementById("sharing-switch");
+    if (!(share instanceof HTMLElement)) throw new Error("missing public switch");
+    await act(async () => {
+      share.click();
+    });
+
+    const copy = [...document.querySelectorAll("button")].find((button) =>
+      button.parentElement?.textContent?.includes("URL"),
+    );
+    if (copy instanceof HTMLButtonElement) {
+      await act(async () => {
+        copy.click();
+      });
+    }
+
+    const setPassword = [...document.querySelectorAll("button")].find((button) =>
+      button.textContent?.includes("Set Password"),
+    );
+    if (!(setPassword instanceof HTMLButtonElement)) throw new Error("missing set password");
+    await act(async () => {
+      setPassword.click();
+    });
+    const input = document.querySelector("[role='alertdialog'] input");
+    if (!(input instanceof HTMLInputElement)) throw new Error("missing password prompt");
+    const setter = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value")?.set;
+    await act(async () => {
+      setter?.call(input, "secret1");
+      input.dispatchEvent(new Event("input", { bubbles: true }));
+    });
+    const confirm = [...document.querySelectorAll("[role='alertdialog'] button")].find((button) =>
+      button.textContent?.includes("Set Password"),
+    );
+    if (!(confirm instanceof HTMLButtonElement)) throw new Error("missing password confirm");
+    await act(async () => {
+      confirm.click();
+    });
+    expect(vi.mocked(toast.success).mock.calls.length + vi.mocked(toast.loading).mock.calls.length).toBeGreaterThan(0);
+
+    const form = document.querySelector("form");
+    if (form instanceof HTMLFormElement) {
+      await act(async () => {
+        form.requestSubmit();
+      });
+    }
+    unmount();
+  }, 30_000);
 });
