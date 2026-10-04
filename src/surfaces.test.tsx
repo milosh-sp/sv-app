@@ -439,12 +439,16 @@ describe("large surfaces", () => {
     });
     expect(vi.mocked(toast.success).mock.calls.length + vi.mocked(toast.loading).mock.calls.length).toBeGreaterThan(0);
 
-    const form = document.querySelector("form");
-    if (form instanceof HTMLFormElement) {
+    const margin = document.querySelector("input[type='number']");
+    if (margin instanceof HTMLInputElement) {
+      const setter = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value")?.set;
       await act(async () => {
-        form.requestSubmit();
+        setter?.call(margin, "12");
+        margin.dispatchEvent(new Event("input", { bubbles: true }));
+        margin.dispatchEvent(new Event("change", { bubbles: true }));
       });
     }
+    expect(useResumeStore.getState().resume.data.metadata.page.marginX).toBe(12);
     unmount();
   }, 30_000);
 });
