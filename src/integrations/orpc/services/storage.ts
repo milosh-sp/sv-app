@@ -87,7 +87,7 @@ export function toStorageKey(stored: string): string {
   if (stored.startsWith("http://") || stored.startsWith("https://")) {
     try {
       const pathname = new URL(stored).pathname;
-      return pathname.startsWith("/") ? pathname.slice(1) : pathname;
+      return pathname.slice(1);
     } catch {
       return stored;
     }
@@ -248,18 +248,14 @@ class S3StorageService implements StorageService {
   private readonly client: S3Client;
 
   constructor() {
-    if (!env.S3_ACCESS_KEY_ID || !env.S3_SECRET_ACCESS_KEY || !env.S3_BUCKET) {
-      throw new Error("S3 credentials are not set");
-    }
-
-    this.bucket = env.S3_BUCKET;
+    this.bucket = env.S3_BUCKET!;
     this.client = new S3Client({
       region: env.S3_REGION,
       endpoint: env.S3_ENDPOINT,
       forcePathStyle: env.S3_FORCE_PATH_STYLE,
       credentials: {
-        accessKeyId: env.S3_ACCESS_KEY_ID,
-        secretAccessKey: env.S3_SECRET_ACCESS_KEY,
+        accessKeyId: env.S3_ACCESS_KEY_ID!,
+        secretAccessKey: env.S3_SECRET_ACCESS_KEY!,
       },
     });
   }

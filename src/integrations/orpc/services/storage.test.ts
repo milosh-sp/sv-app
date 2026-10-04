@@ -1,5 +1,6 @@
 // @vitest-environment node
 import { mkdtemp, rm, writeFile } from "node:fs/promises";
+import fs from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { afterAll, beforeAll, describe, expect, it, vi } from "vite-plus/test";
@@ -22,6 +23,18 @@ vi.mock("sharp", () => ({
     }),
   }),
 }));
+
+const s3Send = vi.hoisted(() => vi.fn());
+
+vi.mock("@aws-sdk/client-s3", async (importOriginal) => {
+  const actual = (await importOriginal()) as Record<string, unknown>;
+  return {
+    ...actual,
+    S3Client: class {
+      send = s3Send;
+    },
+  };
+});
 
 import {
   getStorageService,
@@ -154,5 +167,36 @@ describe("local storage", () => {
       contentType: "image/webp",
       data: new Uint8Array(Buffer.from("webp")),
     });
+  });
+
+  it("reports a non-error storage failure as unknown", async () => {
+    const access = vi.spyOn(fs, "access").mockRejectedValueOnce("denied");
+    await expect(getStorageService().healthcheck()).resolves.toMatchObject({
+      type: "local",
+      status: "unhealthy",
+      error: "Unknown error",
+    });
+    access.mockRestore();
+  });
+});
+
+describe("s3 storage", () => {
+  it("reads an object that omits length and content type", async () => {
+    vi.resetModules();
+    envState.S3_ACCESS_KEY_ID = "key";
+    envState.S3_SECRET_ACCESS_KEY = "secret";
+    envState.S3_BUCKET = "bucket";
+    s3Send.mockResolvedValueOnce({
+      Body: { transformToByteArray: async () => new Uint8Array([1]) },
+    });
+    const { getStorageService: loadStorage } = await import("./storage");
+    const remote = loadStorage();
+    await expect(remote.read("uploads/notes.txt")).resolves.toMatchObject({
+      size: 0,
+      contentType: "application/octet-stream",
+      data: new Uint8Array([1]),
+    });
+    s3Send.mockResolvedValueOnce({});
+    await expect(remote.read("uploads/missing")).resolves.toBeNull();
   });
 });

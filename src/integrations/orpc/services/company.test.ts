@@ -165,6 +165,35 @@ describe("companyService.matchCandidates", () => {
     });
     expect(result.find((row) => row.resumeId === "resume-3")?.candidateEmail).toBeNull();
   });
+
+  it("labels a candidate with no name and skips blank experience titles", async () => {
+    getGlobalAiCredentialsForService.mockResolvedValue(creds);
+    const row = poolRow({ resumeId: "resume-1", candidateUserId: "cand-1", email: "ada@example.com", name: "" });
+    row.data.sections.experience.items = [
+      {
+        ...row.data.sections.experience.items[0]!,
+        hidden: false,
+        position: "",
+        company: "",
+      },
+    ];
+    state.selectQueue.push([row], [], [], [], [], [], []);
+    matchCandidates.mockResolvedValue({
+      matches: [{ resumeId: "resume-1", matchScore: 10, matchReason: "fit" }],
+    });
+
+    const result = await companyService.matchCandidates("company-1", filters);
+    expect(result[0]).toMatchObject({ displayName: "Candidate", experienceTitles: [] });
+
+    const blank = poolRow({ resumeId: "resume-2", candidateUserId: "cand-2", email: "bea@example.com", name: "Bea" });
+    blank.data.sections.experience.items = undefined as never;
+    state.selectQueue.push([blank], [], [], [], [], [], []);
+    matchCandidates.mockResolvedValue({
+      matches: [{ resumeId: "resume-2", matchScore: 1, matchReason: "fit" }],
+    });
+    const withoutItems = await companyService.matchCandidates("company-1", filters);
+    expect(withoutItems[0]?.experienceTitles).toEqual([]);
+  });
 });
 
 describe("companyService.respondToContactRequest", () => {
@@ -351,6 +380,36 @@ describe("companyService saved candidates and contact requests", () => {
         saved: false,
       }),
     ).resolves.toEqual({ ok: true });
+
+    state.selectQueue.push([
+      {
+        candidateUserId: "cand-2",
+        resumeId: null,
+        listType: "favorite",
+        savedAt: new Date("2026-01-03T00:00:00.000Z"),
+        candidateName: "Bea",
+        candidateEmail: "bea@example.com",
+        username: "bea",
+      },
+    ]);
+    state.selectQueue.push([], [], [], [], []);
+    const unbound = await companyService.listSaved("company-1");
+    expect(unbound[0]).toMatchObject({
+      resumeId: null,
+      verifiedSkills: [],
+      verifiedExperiences: [],
+      contactStatus: null,
+      contactRequestId: null,
+    });
+
+    await expect(
+      companyService.setSaved({
+        companyUserId: "company-1",
+        candidateUserId: "cand-2",
+        listType: "favorite",
+        saved: true,
+      }),
+    ).resolves.toEqual({ ok: true });
   });
 
   it("creates and lists contact requests", async () => {
@@ -432,5 +491,10 @@ describe("companyService saved candidates and contact requests", () => {
     ]);
     const mine = await companyService.listMyContactRequests("cand-1", { status: "pending" });
     expect(mine[0]).toMatchObject({ companyName: "Acme", companyEmail: null, status: "pending" });
+
+    state.selectQueue.push([]);
+    await expect(companyService.listContactRequests("company-1", {})).resolves.toEqual([]);
+    state.selectQueue.push([]);
+    await expect(companyService.listMyContactRequests("cand-1", {})).resolves.toEqual([]);
   });
 });

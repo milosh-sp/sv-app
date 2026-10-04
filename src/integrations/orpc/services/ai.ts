@@ -177,12 +177,10 @@ function mergeDefaults<T extends Record<string, unknown>, S extends Record<strin
 
     if (isObject(sourceValue) && isObject(targetValue)) {
       output[key] = mergeDefaults(targetValue as Record<string, unknown>, sourceValue as Record<string, unknown>);
-    } else if (isObject(sourceValue) && (targetValue === undefined || targetValue === null)) {
+    } else if (isObject(sourceValue) && targetValue === undefined) {
       // Fill with source object only if target does not have it
       output[key] = sourceValue;
     } else if (!isObject(sourceValue)) {
-      output[key] = sourceValue;
-    } else if (targetValue === undefined) {
       output[key] = sourceValue;
     }
   }

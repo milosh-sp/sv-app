@@ -256,7 +256,7 @@ export const printerService = {
           // This ensures each visual resume page starts a new PDF page
           for (const el of pageElements) {
             const element = el as HTMLElement;
-            const index = Number.parseInt(element.getAttribute("data-page-index") ?? "0", 10);
+            const index = Number.parseInt(element.getAttribute("data-page-index")!, 10);
 
             // Force a page break before each page except the first
             if (index > 0) {

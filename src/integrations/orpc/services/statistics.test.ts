@@ -70,4 +70,17 @@ describe("statisticsService", () => {
     await expect(statisticsService.user.getCount()).resolves.toBe(LAST_KNOWN_USERS);
     expect(fsMock.writeFile).not.toHaveBeenCalled();
   });
+
+  it("ignores a fresh cache that is empty or not a count, and a database count of nothing", async () => {
+    fsMock.stat.mockResolvedValue({ mtimeMs: freshMtime });
+    fsMock.readFile.mockResolvedValue("0");
+    from.mockResolvedValue([{ count: null }]);
+
+    await expect(statisticsService.user.getCount()).resolves.toBe(LAST_KNOWN_USERS);
+    expect(fsMock.writeFile).not.toHaveBeenCalled();
+
+    fsMock.readFile.mockResolvedValue("nope");
+    from.mockResolvedValue([{ count: 4 }]);
+    await expect(statisticsService.resume.getCount()).resolves.toBe(4);
+  });
 });

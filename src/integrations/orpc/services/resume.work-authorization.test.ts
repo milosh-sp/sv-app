@@ -50,6 +50,15 @@ describe("deriveWorkAuthorizationIndexes", () => {
 
     expect(indexed.workAuthUpdatedAt).toBeNull();
   });
+
+  it("ignores a region timestamp that is not a date", () => {
+    const data = structuredClone(defaultResumeData);
+    data.workAuthorization.eu.updatedAt = "not-a-date";
+    data.workAuthorization.usa.updatedAt = "";
+    data.workAuthorization.uk.updatedAt = "";
+
+    expect(deriveWorkAuthorizationIndexes(data).workAuthUpdatedAt).toBeNull();
+  });
 });
 
 describe("getWorkAuthorizationConditions", () => {
@@ -71,5 +80,18 @@ describe("getWorkAuthorizationConditions", () => {
     );
 
     expect(conditions).toHaveLength(7);
+  });
+
+  it("defaults sponsorship to every region and skips unset regional statuses", () => {
+    expect(getWorkAuthorizationConditions({ workAuthRegions: [], sponsorshipRequired: "yes" }).length).toBeGreaterThan(
+      0,
+    );
+    expect(
+      getWorkAuthorizationConditions({
+        workAuthRegions: ["eu"],
+        workAuthStatusByRegion: { eu: "citizen" },
+      }),
+    ).toHaveLength(2);
+    expect(getWorkAuthorizationConditions({ workAuthRegions: ["eu"], workAuthStatusByRegion: {} })).toHaveLength(1);
   });
 });

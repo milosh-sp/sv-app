@@ -203,6 +203,13 @@ describe("reviewerProfileService.updateDirect", () => {
 
     expect(result.reviewerSkills).toEqual(["C#", "Python"]);
   });
+
+  it("updates only the last name", async () => {
+    mockReturning.mockResolvedValueOnce([{ id: "profile-1", lastName: "Ada" }]);
+    await expect(reviewerProfileService.updateDirect({ adminId: "admin-1", lastName: "Ada" })).resolves.toMatchObject({
+      lastName: "Ada",
+    });
+  });
 });
 
 describe("reviewerProfileService.giveConsent", () => {
@@ -245,6 +252,19 @@ describe("reviewerProfileService.requestChange", () => {
 
     expect(result.requestedFirstName).toBe("NewFirst");
     expect(result.status).toBe("pending");
+  });
+
+  it("stores a title change without a first name", async () => {
+    mockFrom.mockReturnValueOnce({
+      where: vi.fn(() => ({ returning: mockReturning, limit: vi.fn(() => []) })),
+      limit: mockLimit,
+      orderBy: mockOrderBy,
+    });
+    mockReturning.mockResolvedValueOnce([{ id: "req-2", requestedFirstName: null, requestedTitle: "Lead" }]);
+
+    await expect(reviewerProfileService.requestChange({ adminId: "admin-1", title: "Lead" })).resolves.toMatchObject({
+      requestedTitle: "Lead",
+    });
   });
 
   it("should error if pending request already exists", async () => {
@@ -324,6 +344,30 @@ describe("reviewerProfileService.resolveChangeRequest", () => {
     });
 
     expect(result.status).toBe("rejected");
+  });
+
+  it("rejects a change without a written reason", async () => {
+    const request = {
+      id: "req-3",
+      adminId: "admin-1",
+      requestedFirstName: "NewFirst",
+      requestedTitle: null,
+      status: "pending",
+    };
+    mockFrom.mockReturnValueOnce({
+      where: vi.fn(() => ({ returning: mockReturning, limit: vi.fn(() => [request]) })),
+      limit: mockLimit,
+      orderBy: mockOrderBy,
+    });
+    mockReturning.mockResolvedValueOnce([{ ...request, status: "rejected", rejectionReason: null }]);
+
+    await expect(
+      reviewerProfileService.resolveChangeRequest({
+        requestId: "req-3",
+        action: "rejected",
+        resolvedByAdminId: "sva-1",
+      }),
+    ).resolves.toMatchObject({ status: "rejected" });
   });
 
   it("should error if request not found", async () => {

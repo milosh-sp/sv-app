@@ -2,6 +2,17 @@
 import { beforeEach, describe, expect, it, vi } from "vite-plus/test";
 
 import { defaultResumeData, defaultWorkAuthorizationData } from "@/schema/resume/data";
+import { applyResumePatches } from "@/utils/resume/patch";
+
+vi.mock("@/utils/resume/patch", async (importOriginal) => {
+  const actual = (await importOriginal()) as {
+    applyResumePatches: (data: unknown, operations: unknown) => unknown;
+  };
+  return {
+    ...actual,
+    applyResumePatches: vi.fn((data: unknown, operations: unknown) => actual.applyResumePatches(data, operations)),
+  };
+});
 
 const { state, chain } = vi.hoisted(() => {
   const state = {
@@ -415,5 +426,39 @@ describe("resumeService", () => {
     await expect(
       resumeService.verifyPassword({ slug: "cv", username: "ada", password: "secret" }),
     ).rejects.toMatchObject({ code: "NOT_FOUND" });
+  });
+
+  it("counts a download without a view and rejects a patch that is not an error object", async () => {
+    await resumeService.statistics.increment({ id: "resume-1" });
+    await resumeService.statistics.increment({ id: "resume-1", downloads: true });
+
+    state.selectQueue.push([]);
+    await expect(resumeService.update({ id: "missing", userId: "user-1", name: "Next" })).rejects.toMatchObject({
+      code: "NOT_FOUND",
+    });
+
+    await expect(resumeService.getForPdfExport({ id: "resume-1" })).rejects.toMatchObject({ code: "NOT_FOUND" });
+
+    state.selectQueue.push([
+      { id: "resume-1", data: defaultResumeData, userId: "owner", isPublic: true, password: null },
+    ]);
+    await expect(resumeService.getForPdfExport({ id: "resume-1" })).resolves.toMatchObject({ id: "resume-1" });
+
+    state.selectQueue.push([{ id: "resume-1", name: "CV", slug: "cv", isPublic: true }]);
+    await expect(
+      resumeService.getBySlug({ username: "ada", slug: "cv", currentUserId: "user-1" }),
+    ).resolves.toMatchObject({ id: "resume-1" });
+
+    state.selectQueue.push([{ data: structuredClone(defaultResumeData), isLocked: false }]);
+    vi.mocked(applyResumePatches).mockImplementationOnce(() => {
+      throw "bad patch";
+    });
+    await expect(
+      resumeService.patch({
+        id: "resume-1",
+        userId: "user-1",
+        operations: [{ op: "replace", path: "/summary/content", value: "<p>x</p>" }],
+      }),
+    ).rejects.toMatchObject({ message: "Failed to apply patch operations" });
   });
 });

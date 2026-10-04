@@ -72,7 +72,7 @@ describe("aiService", () => {
         experience: {
           items: [
             { company: "" },
-            { company: "Analytical Engines" },
+            { company: "Analytical Engines", id: "keep-me", website: { url: "https://example.com" } },
             "skip",
             { company: "Archive", id: "", hidden: "no" },
           ],
@@ -122,6 +122,27 @@ describe("aiService", () => {
           skills: { items: "no" },
           awards: { items: [{ title: 1 }, { title: "  " }, { title: "Ok", id: " " }] },
         },
+      }),
+    });
+    await expect(aiService.parsePdf({ ...credentials, file })).rejects.toThrow();
+
+    generateText.mockResolvedValueOnce({ text: JSON.stringify({ basics: { name: "Ada", headline: { text: "x" } } }) });
+    await expect(aiService.parsePdf({ ...credentials, file })).resolves.toMatchObject({
+      basics: { name: "Ada", headline: "" },
+    });
+
+    generateText.mockResolvedValueOnce({ text: "null" });
+    await expect(aiService.parsePdf({ ...credentials, file })).resolves.toMatchObject({
+      basics: { name: defaultResumeData.basics.name },
+    });
+
+    generateText.mockResolvedValueOnce({ text: "}{" });
+    await expect(aiService.parsePdf({ ...credentials, file })).rejects.toThrow();
+
+    generateText.mockResolvedValueOnce({
+      text: JSON.stringify({
+        sections: "nope",
+        awards: { items: [{ title: "Medal", id: "medal-1" }] },
       }),
     });
     await expect(aiService.parsePdf({ ...credentials, file })).rejects.toThrow();

@@ -30,8 +30,13 @@ vi.mock("@/integrations/drizzle/schema", () => ({
   },
 }));
 
-const { isGlobalAiAvailable, getGlobalAiSettingsRow, getPublicGlobalAiSettings, getGlobalAiCredentialsForService } =
-  await import("./global-ai-settings");
+const {
+  isGlobalAiAvailable,
+  getGlobalAiSettingsRow,
+  getPublicGlobalAiSettings,
+  getGlobalAiCredentialsForService,
+  upsertGlobalAiSettings,
+} = await import("./global-ai-settings");
 
 // A fully usable row returned from the database
 function makeRow(overrides: Record<string, unknown> = {}) {
@@ -169,5 +174,17 @@ describe("getGlobalAiCredentialsForService", () => {
     // aiCredentialsSchema.safeParse will fail on the bad provider → null returned.
     const result = await getGlobalAiCredentialsForService();
     expect(result).toBeNull();
+  });
+});
+
+describe("upsertGlobalAiSettings", () => {
+  it("writes the credentials and who updated them", async () => {
+    await upsertGlobalAiSettings(
+      { provider: "openai", model: "gpt-4o", apiKey: "sk-test", baseURL: "" },
+      true,
+      "user-1",
+    );
+    expect(mockInsert).toHaveBeenCalled();
+    expect(mockOnConflictDoUpdate).toHaveBeenCalled();
   });
 });

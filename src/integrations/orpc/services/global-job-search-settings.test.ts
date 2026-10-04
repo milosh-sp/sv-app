@@ -27,8 +27,12 @@ vi.mock("@/integrations/drizzle/schema", () => ({
   },
 }));
 
-const { getGlobalJobSearchSettingsRow, getPublicGlobalJobSearchSettings, getGlobalJobSearchApiKeyForService } =
-  await import("./global-job-search-settings");
+const {
+  getGlobalJobSearchSettingsRow,
+  getPublicGlobalJobSearchSettings,
+  getGlobalJobSearchApiKeyForService,
+  upsertGlobalJobSearchSettings,
+} = await import("./global-job-search-settings");
 
 function makeRow(overrides: Record<string, unknown> = {}) {
   return {
@@ -116,5 +120,13 @@ describe("getGlobalJobSearchApiKeyForService", () => {
   it("returns the API key when row is usable", async () => {
     mockLimit.mockReturnValue([makeRow({ apiKey: "rapid-key-123" })]);
     expect(await getGlobalJobSearchApiKeyForService()).toBe("rapid-key-123");
+  });
+});
+
+describe("upsertGlobalJobSearchSettings", () => {
+  it("writes the API key and who updated it", async () => {
+    await upsertGlobalJobSearchSettings("rapid-key-123", true, "user-1");
+    expect(mockInsert).toHaveBeenCalled();
+    expect(mockOnConflictDoUpdate).toHaveBeenCalled();
   });
 });

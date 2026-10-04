@@ -35,7 +35,6 @@ async function loadVerifiedLabelsByUserIds(
   sectionType: "skill" | "experience" | "project",
 ): Promise<Map<string, string[]>> {
   const map = new Map<string, string[]>();
-  if (userIds.length === 0) return map;
 
   const rows = await db
     .select({
@@ -62,7 +61,6 @@ async function loadVerifiedLabelsByUserIds(
 
 async function loadVerifiedIdentityUserIds(userIds: string[]): Promise<Set<string>> {
   const verified = new Set<string>();
-  if (userIds.length === 0) return verified;
 
   const rows = await db
     .select({ userId: schema.verificationRequests.userId })
@@ -82,7 +80,6 @@ async function loadVerifiedIdentityUserIds(userIds: string[]): Promise<Set<strin
 async function loadListFlags(companyUserId: string, candidateUserIds: string[]) {
   const favorite = new Set<string>();
   const toContact = new Set<string>();
-  if (candidateUserIds.length === 0) return { favorite, toContact };
 
   const rows = await db
     .select({
@@ -107,7 +104,6 @@ async function loadListFlags(companyUserId: string, candidateUserIds: string[]) 
 
 async function loadLatestContactByCandidate(companyUserId: string, candidateUserIds: string[]) {
   const map = new Map<string, { id: string; status: "pending" | "accepted" | "declined" }>();
-  if (candidateUserIds.length === 0) return map;
 
   const rows = await db
     .select({

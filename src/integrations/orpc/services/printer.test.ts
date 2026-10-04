@@ -179,4 +179,48 @@ describe("printerService", () => {
     expect(exit).toHaveBeenCalledWith(0);
     exit.mockRestore();
   });
+
+  it("prints a page with no margin when the printer host is the app itself", async () => {
+    const previous = envState.PRINTER_APP_URL;
+    envState.PRINTER_APP_URL = undefined as never;
+    document.body.innerHTML = `<div data-page-index="0"><div class="page-content"></div></div>`;
+    const data = resumeData("a4", "onyx");
+    data.metadata.page.marginX = 0;
+    data.metadata.page.marginY = 12;
+    await printerService.printResumeAsPDF({ id: "resume-1", userId: "user-1", data });
+    data.metadata.page.marginX = 12;
+    data.metadata.page.marginY = 0;
+    await printerService.printResumeAsPDF({ id: "resume-1", userId: "user-1", data });
+
+    browser.newPage.mockRejectedValueOnce(new Error("no page"));
+    await expect(printerService.printResumeAsPDF({ id: "resume-1", userId: "user-1", data })).rejects.toMatchObject({
+      code: "INTERNAL_SERVER_ERROR",
+    });
+
+    const now = Date.now();
+    storage.list.mockResolvedValueOnce([
+      `uploads/user-1/screenshots/resume-1/${now - 2_000}.webp`,
+      `uploads/user-1/screenshots/resume-1/${now - 1_000}.webp`,
+    ]);
+    await expect(
+      printerService.getResumeScreenshot({
+        id: "resume-1",
+        userId: "user-1",
+        data,
+        updatedAt: new Date(now),
+      }),
+    ).resolves.toContain(".webp");
+
+    browser.newPage.mockRejectedValueOnce(new Error("no page"));
+    storage.list.mockResolvedValueOnce([]);
+    await expect(
+      printerService.getResumeScreenshot({
+        id: "resume-1",
+        userId: "user-1",
+        data,
+        updatedAt: new Date(),
+      }),
+    ).rejects.toMatchObject({ code: "INTERNAL_SERVER_ERROR" });
+    envState.PRINTER_APP_URL = previous;
+  });
 });

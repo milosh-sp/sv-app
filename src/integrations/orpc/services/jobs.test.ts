@@ -193,13 +193,12 @@ describe("deduplicateJobs", () => {
     expect(jobsService.deduplicateJobs([])).toEqual([]);
   });
 
-  it("handles empty city (matches other empty cities)", () => {
+  it("treats a missing city as the same place", () => {
     const jobs = [
-      makeJob({ job_id: "1", job_title: "Dev", employer_name: "Co", job_city: "" }),
-      makeJob({ job_id: "2", job_title: "Dev", employer_name: "Co", job_city: "" }),
+      makeJob({ job_id: "1", job_title: "Dev", employer_name: "Co", job_city: undefined }),
+      makeJob({ job_id: "2", job_title: "Dev", employer_name: "Co", job_city: undefined }),
     ];
-    const result = jobsService.deduplicateJobs(jobs);
-    expect(result).toHaveLength(1);
+    expect(jobsService.deduplicateJobs(jobs)).toHaveLength(1);
   });
 });
 
@@ -363,5 +362,19 @@ describe("applyPostFilters", () => {
   it("handles empty jobs array", () => {
     const result = jobsService.applyPostFilters([], { includeKeywords: ["react"] });
     expect(result).toEqual([]);
+  });
+
+  it("keeps every job when keyword and company filters are only blank", () => {
+    const jobs = [
+      makeJob({ job_id: "min-only", job_min_salary: 50_000, job_max_salary: null }),
+      makeJob({ job_id: "max-only", job_min_salary: null, job_max_salary: 40_000 }),
+    ];
+    const result = jobsService.applyPostFilters(jobs, {
+      minSalary: 45_000,
+      includeKeywords: ["", "  "],
+      excludeKeywords: [" "],
+      excludeCompanies: ["   "],
+    });
+    expect(result.map((job) => job.job_id)).toEqual(["min-only"]);
   });
 });

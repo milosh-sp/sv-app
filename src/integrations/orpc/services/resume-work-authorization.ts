@@ -41,9 +41,7 @@ export const getWorkAuthorizationConditions = (filters: WorkAuthorizationFilters
     const sponsorshipConditions = regions.map((region) =>
       eq(getWorkAuthSponsorshipColumn(region), filters.sponsorshipRequired!),
     );
-    if (sponsorshipConditions.length > 0) {
-      conditions.push(or(...sponsorshipConditions));
-    }
+    conditions.push(or(...sponsorshipConditions));
   }
 
   if (filters.workAuthStatusByRegion) {
