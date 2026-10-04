@@ -652,6 +652,66 @@ describe("builder chrome", () => {
     container.remove();
   });
 
+  it("moves an experience item to a new page", async () => {
+    const data = structuredClone(sampleResumeData);
+    const item = data.sections.experience.items[0];
+    if (!item) throw new Error("missing experience");
+    useResumeStore.getState().initialize({
+      id: "resume-1",
+      name: data.basics.name,
+      slug: "sample",
+      tags: [],
+      data,
+      isLocked: false,
+    });
+
+    const container = document.createElement("div");
+    document.body.append(container);
+    const root = createRoot(container);
+    await act(async () => {
+      root.render(
+        <ConfirmDialogProvider>
+          <Reorder.Group values={[item]} onReorder={() => undefined}>
+            <SectionItem type="experience" item={item} title={item.company} />
+          </Reorder.Group>
+        </ConfirmDialogProvider>,
+      );
+    });
+
+    const trigger = container.querySelector("[data-slot='dropdown-menu-trigger']");
+    if (!(trigger instanceof HTMLElement)) throw new Error("missing item menu");
+    act(() => {
+      trigger.click();
+    });
+    const moveTo = [...document.querySelectorAll("[data-slot='dropdown-menu-sub-trigger']")].find((element) =>
+      element.textContent?.includes("Move to"),
+    );
+    if (!(moveTo instanceof HTMLElement)) {
+      throw new Error(document.body.textContent?.slice(0, 200) || "missing move menu");
+    }
+    act(() => {
+      moveTo.click();
+    });
+    const newPages = [...document.querySelectorAll("[data-slot='dropdown-menu-item']")].filter((element) =>
+      element.textContent?.includes("New Page"),
+    );
+    if (newPages.length === 0) throw new Error("missing new page");
+    for (const newPage of newPages) {
+      if (!(newPage instanceof HTMLElement)) continue;
+      act(() => {
+        newPage.click();
+      });
+    }
+    expect(useResumeStore.getState().resume.data.metadata.layout.pages.length).toBeGreaterThan(
+      data.metadata.layout.pages.length,
+    );
+
+    act(() => {
+      root.unmount();
+    });
+    container.remove();
+  });
+
   it("downloads json, docx, and pdf from the export section", async () => {
     const data = structuredClone(sampleResumeData);
     useResumeStore.getState().initialize({
