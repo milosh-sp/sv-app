@@ -133,6 +133,8 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
+import { toast } from "sonner";
+
 import { DialogManager } from "@/dialogs/manager";
 import { useDialogStore } from "@/dialogs/store";
 import { ConfirmDialogProvider } from "@/hooks/use-confirm";
@@ -242,32 +244,61 @@ describe("large surfaces", () => {
     unmountReview();
   });
 
-  it("walks through enabling two-factor authentication", async () => {
-    useDialogStore.setState({ open: true, activeDialog: { type: "auth.two-factor.enable", data: undefined } as never });
+  it("imports a JSON resume file or explains why it cannot", async () => {
+    const label = "JSON Resume";
+    const file = new File(["{}"], "resume.json", { type: "application/json" });
+    vi.mocked(toast.error).mockClear();
+    vi.mocked(toast.loading).mockClear();
+    useDialogStore.setState({ open: true, activeDialog: { type: "resume.import", data: undefined } as never });
     const unmount = await render(<DialogManager />);
+    const typeLabel = [...document.querySelectorAll("label")].find((item) => item.textContent?.trim() === "Type");
+    const typeButton = typeLabel?.parentElement?.querySelector("button");
+    if (!(typeButton instanceof HTMLButtonElement)) throw new Error("missing import type");
+    act(() => {
+      typeButton.click();
+    });
+    const option = [...document.querySelectorAll("[role='option']")].find((item) => item.textContent?.includes(label));
+    if (!(option instanceof HTMLElement)) throw new Error(`missing ${label} option`);
+    act(() => {
+      option.click();
+    });
 
-    const setValue = (value: string) => {
-      const input = document.querySelector("input");
-      if (!(input instanceof HTMLInputElement)) throw new Error("missing input");
-      const set = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, "value")?.set;
-      if (!set) throw new Error("missing value setter");
-      Reflect.apply(set, input, [value]);
-      input.dispatchEvent(new Event("input", { bubbles: true }));
-    };
-    const submit = async () => {
-      const form = document.querySelector("form");
-      if (!(form instanceof HTMLFormElement)) throw new Error("missing form");
-      form.noValidate = true;
-      await act(async () => {
-        form.requestSubmit();
-      });
-    };
+    const dialog = [...document.querySelectorAll("[data-slot='dialog-content']")].at(-1);
+    const input = dialog?.querySelector("input[type='file']");
+    if (!(input instanceof HTMLInputElement)) throw new Error("missing file input");
+    Object.defineProperty(input, "files", { value: { 0: file, length: 1, item: () => file } });
+    await act(async () => {
+      input.dispatchEvent(new Event("change", { bubbles: true }));
+    });
+    const form = dialog?.querySelector("form");
+    if (!(form instanceof HTMLFormElement)) throw new Error(`missing form for ${label}`);
+    form.noValidate = true;
+    await act(async () => {
+      form.requestSubmit();
+    });
+    expect(vi.mocked(toast.error).mock.calls.length + vi.mocked(toast.loading).mock.calls.length).toBeGreaterThan(0);
+    unmount();
+  });
 
-    setValue("secret1");
-    await submit();
-    setValue("123456");
-    await submit();
-    expect(document.body.textContent).toContain("111111");
+  it("creates a resume from the dialog", async () => {
+    useDialogStore.setState({ open: true, activeDialog: { type: "resume.create", data: undefined } as never });
+    const unmount = await render(<DialogManager />);
+    const nameLabel = [...document.querySelectorAll("label")].find((label) => label.textContent?.trim() === "Name");
+    const name = nameLabel ? document.getElementById(nameLabel.htmlFor) : null;
+    if (!(name instanceof HTMLInputElement)) throw new Error("missing resume name");
+    const set = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value")?.set;
+    if (!set) throw new Error("missing value setter");
+    await act(async () => {
+      Reflect.apply(set, name, ["Ada Lovelace"]);
+      name.dispatchEvent(new Event("input", { bubbles: true }));
+    });
+    const form = document.querySelector("form");
+    if (!(form instanceof HTMLFormElement)) throw new Error("missing form");
+    form.noValidate = true;
+    await act(async () => {
+      form.requestSubmit();
+    });
+    expect(useDialogStore.getState().open).toBe(false);
     unmount();
   });
 

@@ -170,17 +170,14 @@ describe("builder chrome", () => {
       }
     }
 
-    const pictureInput = [...container.querySelectorAll("form input")].find(
-      (input) => input instanceof HTMLInputElement && input.type !== "file",
-    );
-    if (pictureInput instanceof HTMLInputElement) {
-      const set = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value")?.set;
-      if (set) Reflect.apply(set, pictureInput, ["120"]);
+    const picture = container.querySelector("img");
+    if (picture?.parentElement instanceof HTMLElement) {
       act(() => {
-        pictureInput.dispatchEvent(new Event("input", { bubbles: true }));
-        pictureInput.dispatchEvent(new Event("change", { bubbles: true }));
+        picture.parentElement?.click();
       });
     }
+    clickText("Add a new custom section");
+    expect(useDialogStore.getState().activeDialog?.type).toBe("resume.sections.custom.create");
 
     act(() => {
       root.unmount();
