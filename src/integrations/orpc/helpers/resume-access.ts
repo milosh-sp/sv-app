@@ -18,6 +18,19 @@ const safeEquals = (value: string, expected: string) => {
   return timingSafeEqual(valueBuffer, expectedBuffer);
 };
 
+export function canExportResume(input: {
+  viewerId: string | null;
+  ownerId: string;
+  isPublic: boolean;
+  hasPassword: boolean;
+  hasPasswordAccess: boolean;
+}) {
+  if (input.viewerId !== null && input.viewerId === input.ownerId) return true;
+  if (!input.isPublic) return false;
+  if (!input.hasPassword) return true;
+  return input.hasPasswordAccess;
+}
+
 export const hasResumeAccess = (resumeId: string, passwordHash: string | null) => {
   if (!passwordHash) return false;
   const cookieName = getResumeAccessCookieName(resumeId);

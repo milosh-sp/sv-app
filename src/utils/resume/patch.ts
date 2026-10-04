@@ -72,13 +72,30 @@ function isJsonPatchError(error: unknown): error is JsonPatchError {
 /**
  * Converts a `JsonPatchError` into a clean `ResumePatchError` that omits the document tree.
  */
-function toResumePatchError(error: JsonPatchError): ResumePatchError {
+function sameOperation(left: Operation | undefined, right: Operation | undefined): boolean {
+  return JSON.stringify(left) === JSON.stringify(right);
+}
+
+/**
+ * `fast-json-patch` reports index 0 for some path errors even when a later
+ * operation failed. Trust the reported index when it points at the failing
+ * operation; otherwise find that operation in the sequence.
+ */
+function resolveOperationIndex(operations: Operation[], error: JsonPatchError): number {
+  const reported = error.index ?? 0;
+  const failed = error.operation as Operation | undefined;
+  if (!failed || sameOperation(operations[reported], failed)) return reported;
+
+  const match = operations.findIndex((operation) => sameOperation(operation, failed));
+  return match === -1 ? reported : match;
+}
+
+function toResumePatchError(operations: Operation[], error: JsonPatchError): ResumePatchError {
   const code = error.name;
   const message = patchErrorMessages[code] ?? error.message;
-  const index = error.index ?? 0;
   const operation = error.operation as Operation;
 
-  return new ResumePatchError(code, message, index, operation);
+  return new ResumePatchError(code, message, resolveOperationIndex(operations, error), operation);
 }
 
 /**
@@ -102,7 +119,7 @@ function toResumePatchError(error: JsonPatchError): ResumePatchError {
 export function applyResumePatches(data: ResumeData, operations: Operation[]): ResumeData {
   // Validate operations structurally before applying.
   const validationError = jsonpatch.validate(operations, data);
-  if (validationError) throw toResumePatchError(validationError);
+  if (validationError) throw toResumePatchError(operations, validationError);
 
   // Apply operations. applyPatch throws on `test` failures.
   let patched: ResumeData;
@@ -111,7 +128,7 @@ export function applyResumePatches(data: ResumeData, operations: Operation[]): R
     const result = jsonpatch.applyPatch(data, operations, false, false);
     patched = result.newDocument;
   } catch (error: unknown) {
-    if (isJsonPatchError(error)) throw toResumePatchError(error);
+    if (isJsonPatchError(error)) throw toResumePatchError(operations, error);
     throw error;
   }
 

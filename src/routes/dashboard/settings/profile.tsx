@@ -284,6 +284,15 @@ function RouteComponent() {
   );
 }
 
+export type IdentityVerificationPhase = "verified" | "pending" | "request" | "retry";
+
+export function identityVerificationPhase(status: string): IdentityVerificationPhase {
+  if (status === "verified") return "verified";
+  if (status === "pending" || status === "claimed" || status === "verdict_pending") return "pending";
+  if (status === "not_requested") return "request";
+  return "retry";
+}
+
 function IdentityVerificationBlock() {
   const { data: calLink } = useSuspenseQuery(orpc.verification.getCalLink.queryOptions());
   const { data: identityStatus, refetch } = useSuspenseQuery(orpc.verification.getIdentityStatus.queryOptions());
@@ -302,6 +311,7 @@ function IdentityVerificationBlock() {
   });
 
   const status: string = identityStatus?.status ?? "not_requested";
+  const phase = identityVerificationPhase(status);
 
   const handleRequest = () => {
     requestIdentity(undefined, {
@@ -318,14 +328,14 @@ function IdentityVerificationBlock() {
     });
   };
 
-  const statusBadge = match(status)
+  const statusBadge = match(phase)
     .with("verified", () => (
       <span className="flex items-center gap-x-1 text-xs font-medium text-green-700">
         <CheckIcon className="size-3.5" />
         <Trans>Verified</Trans>
       </span>
     ))
-    .with("pending", "claimed", "verdict_pending", () => (
+    .with("pending", () => (
       <span className="flex items-center gap-x-1 text-xs font-medium text-amber-600">
         <ClockIcon className="size-3.5" />
         <Trans>Pending</Trans>
@@ -346,8 +356,8 @@ function IdentityVerificationBlock() {
         {statusBadge}
       </h3>
 
-      {match(status)
-        .with("not_requested", () => (
+      {match(phase)
+        .with("request", () => (
           <div className="space-y-3">
             <p className="text-xs text-muted-foreground">
               <Trans>Verify your identity through a short video call. This adds trust to your resume.</Trans>
@@ -364,7 +374,7 @@ function IdentityVerificationBlock() {
             )}
           </div>
         ))
-        .with("pending", "claimed", "verdict_pending", () => (
+        .with("pending", () => (
           <div className="space-y-3" data-testid="identity-pending">
             <p className="text-xs text-muted-foreground">
               <Trans>
@@ -381,7 +391,7 @@ function IdentityVerificationBlock() {
             <Trans>Your identity has been verified and your profile is trusted.</Trans>
           </p>
         ))
-        .otherwise(() => (
+        .with("retry", () => (
           <div className="space-y-3">
             <p className="text-xs text-muted-foreground">
               <Trans>Your previous identity verification was unsuccessful. You may try again.</Trans>
@@ -393,7 +403,8 @@ function IdentityVerificationBlock() {
               </Button>
             )}
           </div>
-        ))}
+        ))
+        .exhaustive()}
     </div>
   );
 }

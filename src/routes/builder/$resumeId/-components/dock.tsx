@@ -13,8 +13,7 @@ import {
   MagnifyingGlassMinusIcon,
   MagnifyingGlassPlusIcon,
 } from "@phosphor-icons/react";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { useParams } from "@tanstack/react-router";
+import { useMutation } from "@tanstack/react-query";
 import { motion } from "motion/react";
 import { useMemo } from "react";
 import { useHotkeys } from "react-hotkeys-hook";
@@ -23,7 +22,7 @@ import { toast } from "sonner";
 import { useCopyToClipboard } from "usehooks-ts";
 
 import { AIChat } from "@/components/ai/chat";
-import { useTemporalStore } from "@/components/resume/store/resume";
+import { flushResumeSave, useResumeStore, useTemporalStore } from "@/components/resume/store/resume";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -43,19 +42,18 @@ import { cn } from "@/utils/style";
 export function BuilderDock() {
   const isMobile = useIsMobile();
   const { data: session } = authClient.useSession();
-  const params = useParams({ from: "/builder/$resumeId" });
 
   const [_, copyToClipboard] = useCopyToClipboard();
   const { zoomIn, zoomOut, centerView } = useControls();
 
-  const { data: resume } = useQuery(orpc.resume.getById.queryOptions({ input: { id: params.resumeId } }));
+  const resume = useResumeStore((state) => state.resume);
+  const undo = useResumeStore((state) => state.undo);
+  const redo = useResumeStore((state) => state.redo);
   const { mutateAsync: printResumeAsPDF, isPending: isPrinting } = useMutation(
     orpc.printer.printResumeAsPDF.mutationOptions(),
   );
 
-  const { undo, redo, pastStates, futureStates } = useTemporalStore((state) => ({
-    undo: state.undo,
-    redo: state.redo,
+  const { pastStates, futureStates } = useTemporalStore((state) => ({
     pastStates: state.pastStates,
     futureStates: state.futureStates,
   }));
@@ -99,6 +97,7 @@ export function BuilderDock() {
 
   const onDownloadPDF = async () => {
     if (!resume?.id) return;
+    flushResumeSave();
 
     const filename = generateFilename(resume.name, "pdf");
     const toastId = toast.loading(t`Please wait while your PDF is being generated...`, {

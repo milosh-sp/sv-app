@@ -163,10 +163,6 @@ function RouteComponent() {
   const filteredHistory = useMemo(() => filterQueueItems(history ?? [], selectedFilters), [history, selectedFilters]);
   const showFilterPanel = activeTabItems.length > 0 || hasActiveFilter;
 
-  if (queueError || casesError) {
-    return <QueueErrorState />;
-  }
-
   const hasProfile = !profileError && Boolean(profile);
   const hasConsent = Boolean(profile?.consentGiven);
   const hasAssignedSkills = (profile?.reviewerSkills?.length ?? 0) > 0;
@@ -239,7 +235,9 @@ function RouteComponent() {
         />
       )}
 
-      {activeTab === "queue" && (
+      {activeTab === "queue" && queueError && <QueueErrorState />}
+
+      {activeTab === "queue" && !queueError && (
         <QueueTab
           items={filteredQueue}
           isLoading={queueLoading}
@@ -249,7 +247,9 @@ function RouteComponent() {
         />
       )}
 
-      {activeTab === "cases" && (
+      {activeTab === "cases" && casesError && <QueueErrorState />}
+
+      {activeTab === "cases" && !casesError && (
         <MyCasesTab
           items={filteredMyCases}
           isLoading={casesLoading}

@@ -46,4 +46,20 @@ describe("printer-token", () => {
     expect(parsed?.resumeId).toBe(resumeId);
     expect(parsed?.verificationAudience).toBe("public");
   });
+
+  it("rejects a malformed, unsigned, or expired token", () => {
+    const sign = (payload: string) => {
+      const payloadBase64 = Buffer.from(payload).toString("base64url");
+      const signature = createHash("sha256").update(`${payloadBase64}.${env.AUTH_SECRET}`).digest("hex");
+      return `${payloadBase64}.${signature}`;
+    };
+
+    expect(() => verifyPrinterToken("nope")).toThrow("Invalid token format");
+    expect(() => verifyPrinterToken(`${sign("id:1")}x`)).toThrow("Invalid token signature");
+    expect(() => verifyPrinterToken(sign("onlyone"))).toThrow("Invalid token payload");
+    expect(() => verifyPrinterToken(sign(":123"))).toThrow("Invalid token payload");
+    expect(() => verifyPrinterToken(sign("id:nope"))).toThrow("Invalid timestamp");
+    expect(() => verifyPrinterToken(sign(`id:${Date.now() - 10 * 60 * 1000}`))).toThrow("Token expired");
+    expect(() => verifyPrinterToken(sign(`id:${Date.now() + 60_000}`))).toThrow("Token expired");
+  });
 });

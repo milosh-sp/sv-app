@@ -16,7 +16,7 @@ import { hashPassword, verifyPassword } from "@/utils/password";
 import { applyResumePatches, ResumePatchError } from "@/utils/resume/patch";
 import { generateId } from "@/utils/string";
 
-import { grantResumeAccess, hasResumeAccess } from "../helpers/resume-access";
+import { canExportResume, grantResumeAccess, hasResumeAccess } from "../helpers/resume-access";
 import { vettedEmployerVisibilityConditions } from "./company-vetted-pool";
 import {
   deriveWorkAuthorizationIndexes,
@@ -24,6 +24,22 @@ import {
   type WorkAuthorizationFilters,
 } from "./resume-work-authorization";
 import { getStorageService } from "./storage";
+
+async function embedResumePicture<T extends { data: ResumeData }>(resume: T) {
+  try {
+    if (!resume.data.picture.url) return;
+
+    // Convert picture URL to base64 data, so there's no fetching required on the client.
+    const url = resume.data.picture.url.replace(env.APP_URL, "http://localhost:3000");
+    const base64 = await fetch(url)
+      .then((res) => res.arrayBuffer())
+      .then((buffer) => Buffer.from(buffer).toString("base64"));
+
+    resume.data.picture.url = `data:image/jpeg;base64,${base64}`;
+  } catch {
+    // Ignore errors, as the picture is not always available
+  }
+}
 
 const tags = {
   list: async (input: { userId: string }) => {
@@ -52,6 +68,8 @@ const statistics = {
       .from(schema.resumeStatistics)
       .rightJoin(schema.resume, eq(schema.resumeStatistics.resumeId, schema.resume.id))
       .where(and(eq(schema.resume.id, input.id), eq(schema.resume.userId, input.userId)));
+
+    if (!statistics) throw new ORPCError("NOT_FOUND");
 
     return {
       isPublic: statistics.isPublic,
@@ -198,21 +216,38 @@ export const resumeService = {
 
     if (!resume) throw new ORPCError("NOT_FOUND");
 
-    try {
-      if (!resume.data.picture.url) throw new Error("Picture is not available");
-
-      // Convert picture URL to base64 data, so there's no fetching required on the client.
-      const url = resume.data.picture.url.replace(env.APP_URL, "http://localhost:3000");
-      const base64 = await fetch(url)
-        .then((res) => res.arrayBuffer())
-        .then((buffer) => Buffer.from(buffer).toString("base64"));
-
-      resume.data.picture.url = `data:image/jpeg;base64,${base64}`;
-    } catch {
-      // Ignore errors, as the picture is not always available
-    }
+    await embedResumePicture(resume);
 
     return resume;
+  },
+
+  getForPdfExport: async (input: { id: string; viewerId?: string }) => {
+    const [resume] = await db
+      .select({
+        id: schema.resume.id,
+        data: schema.resume.data,
+        userId: schema.resume.userId,
+        isPublic: schema.resume.isPublic,
+        password: schema.resume.password,
+      })
+      .from(schema.resume)
+      .where(eq(schema.resume.id, input.id));
+
+    if (!resume) throw new ORPCError("NOT_FOUND");
+
+    const allowed = canExportResume({
+      viewerId: input.viewerId ?? null,
+      ownerId: resume.userId,
+      isPublic: resume.isPublic,
+      hasPassword: resume.password !== null,
+      hasPasswordAccess: hasResumeAccess(resume.id, resume.password),
+    });
+
+    if (!allowed) throw new ORPCError("NOT_FOUND");
+
+    await embedResumePicture(resume);
+
+    return { id: resume.id, data: resume.data, userId: resume.userId };
   },
 
   getBySlug: async (input: { username: string; slug: string; currentUserId?: string }) => {
@@ -328,7 +363,8 @@ export const resumeService = {
       .from(schema.resume)
       .where(and(eq(schema.resume.id, input.id), eq(schema.resume.userId, input.userId)));
 
-    if (resume?.isLocked) throw new ORPCError("RESUME_LOCKED");
+    if (!resume) throw new ORPCError("NOT_FOUND");
+    if (resume.isLocked) throw new ORPCError("RESUME_LOCKED");
 
     const updateData: Partial<typeof schema.resume.$inferSelect> = {
       name: input.name,
@@ -361,6 +397,8 @@ export const resumeService = {
           isLocked: schema.resume.isLocked,
           hasPassword: sql<boolean>`${schema.resume.password} IS NOT NULL`,
         });
+
+      if (!resume) throw new ORPCError("NOT_FOUND");
 
       return resume;
     } catch (error) {
@@ -489,6 +527,7 @@ export const resumeService = {
     const deleteScreenshotsPromise = storageService.delete(`uploads/${input.userId}/screenshots/${input.id}`);
     const deletePdfsPromise = storageService.delete(`uploads/${input.userId}/pdfs/${input.id}`);
 
-    await Promise.allSettled([deleteResumePromise, deleteScreenshotsPromise, deletePdfsPromise]);
+    const [deleted] = await Promise.allSettled([deleteResumePromise, deleteScreenshotsPromise, deletePdfsPromise]);
+    if (deleted.status === "rejected") throw deleted.reason;
   },
 };

@@ -28,6 +28,7 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { orpc } from "@/integrations/orpc/client";
 import { formatDefaultDate } from "@/utils/format-date";
+import { hasAssessmentSolutionInput } from "@/utils/verification-assessment-solution";
 import { expandSkillItemsForVerification } from "@/utils/verification/skills";
 
 import { DashboardHeader } from "../-components/header";
@@ -47,6 +48,55 @@ const ALLOWED_SOLUTION_TYPES = [
   "application/x-zip-compressed",
 ];
 const MAX_SOLUTION_FILE_SIZE = 25 * 1024 * 1024;
+
+export function verificationDocumentRejection(file: { type: string; size: number }): "type" | "size" | null {
+  if (!ALLOWED_TYPES.includes(file.type)) return "type";
+  if (file.size > MAX_FILE_SIZE) return "size";
+  return null;
+}
+
+export function verificationDisplayStatus(status: string): string {
+  if (status === "claimed") return "assessment in progress";
+  if (status === "verdict_pending") return "awaiting final review";
+  return status;
+}
+
+export function canRetryVerification(status: string | undefined): boolean {
+  return status === "rejected" || status === "issue";
+}
+
+export function blocksNewVerificationRequest(status: string | undefined): boolean {
+  if (!status) return false;
+  return !canRetryVerification(status);
+}
+
+export function visibleNamedItems(items: { id: string; name: string; hidden: boolean }[]) {
+  return items.filter((item) => !item.hidden).map((item) => ({ id: item.id, label: item.name }));
+}
+
+export function visibleExperienceItems(items: { id: string; company: string; position: string; hidden: boolean }[]) {
+  return items
+    .filter((item) => !item.hidden)
+    .map((item) => ({
+      id: item.id,
+      label: item.position ? `${item.company} — ${item.position}` : item.company,
+    }));
+}
+
+export function findVerificationItemStatus<T extends { itemId: string; resumeId: string | null }>(
+  statuses: T[],
+  itemId: string,
+  resumeId: string | null,
+) {
+  return statuses.find((status) => status.itemId === itemId && status.resumeId === resumeId);
+}
+
+export function countVerifiedItems<T extends { id: string }>(
+  items: T[],
+  statusOf: (id: string) => { status: string } | undefined,
+) {
+  return items.filter((item) => statusOf(item.id)?.status === "verified").length;
+}
 
 type VerificationItem = {
   id: string;
@@ -100,14 +150,9 @@ function RouteComponent() {
 
   const { data: statuses } = useSuspenseQuery(orpc.verification.getAllStatuses.queryOptions());
 
-  const resumeStatuses = useMemo(
-    () => statuses.filter((s) => s.resumeId === activeResumeId),
-    [statuses, activeResumeId],
-  );
-
   const getStatusForItem = useCallback(
-    (itemId: string) => resumeStatuses.find((s) => s.itemId === itemId),
-    [resumeStatuses],
+    (itemId: string) => findVerificationItemStatus(statuses, itemId, activeResumeId),
+    [statuses, activeResumeId],
   );
 
   const skillGroups: SkillGroup[] = useMemo(() => {
@@ -126,23 +171,15 @@ function RouteComponent() {
 
   const projects: ResumeItem[] = useMemo(() => {
     if (!resumeData?.data?.sections?.projects?.items) return [];
-    return resumeData.data.sections.projects.items
-      .filter((item) => !item.hidden)
-      .map((item) => ({ id: item.id, label: item.name }));
+    return visibleNamedItems(resumeData.data.sections.projects.items);
   }, [resumeData]);
 
   const experiences: ResumeItem[] = useMemo(() => {
     if (!resumeData?.data?.sections?.experience?.items) return [];
-    return resumeData.data.sections.experience.items
-      .filter((item) => !item.hidden)
-      .map((item) => ({
-        id: item.id,
-        label: item.position ? `${item.company} — ${item.position}` : item.company,
-      }));
+    return visibleExperienceItems(resumeData.data.sections.experience.items);
   }, [resumeData]);
 
-  const countVerified = (items: ResumeItem[]) =>
-    items.filter((item) => getStatusForItem(item.id)?.status === "verified").length;
+  const countVerified = (items: ResumeItem[]) => countVerifiedItems(items, (id) => getStatusForItem(id));
 
   const invalidateStatuses = () => {
     void queryClient.invalidateQueries({
@@ -426,7 +463,7 @@ function SkillProjectItemRow({
   const submitAssessmentSolution = useMutation(orpc.verification.submitAssessmentSolution.mutationOptions());
   const isPending = requestSkill.isPending || requestProject.isPending || submitAssessmentSolution.isPending;
 
-  const canRetry = existingStatus && ["rejected", "issue"].includes(existingStatus.status);
+  const canRetry = canRetryVerification(existingStatus?.status);
   const hasSubmittedSolution = Boolean(
     existingStatus?.assessmentSolutionSubmittedAt ||
     existingStatus?.assessmentSolutionFileUrl ||
@@ -466,7 +503,7 @@ function SkillProjectItemRow({
 
   const handleSubmitSolution = () => {
     const trimmedUrl = solutionUrl.trim();
-    if (!solutionFile && !trimmedUrl) {
+    if (!hasAssessmentSolutionInput({ file: solutionFile ?? undefined, solutionUrl })) {
       toast.error(t`Provide a file or solution URL.`);
       return;
     }
@@ -789,27 +826,57 @@ function ExperienceItemRow({
   const [method, setMethod] = useState<"document_upload" | "freelancer_link" | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [freelancerUrl, setFreelancerUrl] = useState("");
+  const [documentPending, setDocumentPending] = useState(false);
 
   const uploadDocument = useMutation(orpc.verification.uploadDocument.mutationOptions());
   const requestExperience = useMutation(orpc.verification.requestExperience.mutationOptions());
 
   const isSubmitting = requestExperience.isPending || uploadDocument.isPending;
 
-  const canRetry = existingStatus && ["rejected", "issue"].includes(existingStatus.status);
+  const canRetry = canRetryVerification(existingStatus?.status);
 
   const resetFlow = () => {
     setStep("idle");
     setMethod(null);
     setSelectedFile(null);
     setFreelancerUrl("");
+    setDocumentPending(false);
+  };
+
+  const uploadSelectedFile = () => {
+    if (!selectedFile) return;
+
+    const docType: "payslip" | "contract" = selectedFile.name.toLowerCase().includes("payslip")
+      ? "payslip"
+      : "contract";
+
+    uploadDocument.mutate(
+      {
+        resumeId,
+        itemId: item.id,
+        file: selectedFile,
+        documentType: docType,
+      },
+      {
+        onSuccess: () => {
+          toast.success(t`Experience verification requested for "${item.label}".`);
+          resetFlow();
+          onMutationSuccess();
+        },
+        onError: (error) => {
+          toast.error(error.message);
+        },
+      },
+    );
   };
 
   const handleFileSelected = (file: File) => {
-    if (!ALLOWED_TYPES.includes(file.type)) {
+    const rejection = verificationDocumentRejection(file);
+    if (rejection === "type") {
       toast.error(t`Only PDF, JPG, JPEG, and PNG files are allowed.`);
       return;
     }
-    if (file.size > MAX_FILE_SIZE) {
+    if (rejection === "size") {
       toast.error(t`File size must be under 5MB.`);
       return;
     }
@@ -826,6 +893,11 @@ function ExperienceItemRow({
   const handleSubmitExperience = () => {
     if (!method) return;
 
+    if (method === "document_upload" && documentPending) {
+      uploadSelectedFile();
+      return;
+    }
+
     requestExperience.mutate(
       {
         resumeId,
@@ -837,35 +909,14 @@ function ExperienceItemRow({
       {
         onSuccess: () => {
           if (method === "document_upload" && selectedFile) {
-            const docType: "payslip" | "contract" = selectedFile.name.toLowerCase().includes("payslip")
-              ? "payslip"
-              : "contract";
-
-            uploadDocument.mutate(
-              {
-                resumeId,
-                itemId: item.id,
-                file: selectedFile,
-                documentType: docType,
-              },
-              {
-                onSuccess: () => {
-                  toast.success(t`Experience verification requested for "${item.label}".`);
-                  resetFlow();
-                  onMutationSuccess();
-                },
-                onError: (error) => {
-                  toast.error(error.message);
-                  onMutationSuccess();
-                  resetFlow();
-                },
-              },
-            );
-          } else {
-            toast.success(t`Experience verification requested for "${item.label}".`);
-            resetFlow();
-            onMutationSuccess();
+            setDocumentPending(true);
+            uploadSelectedFile();
+            return;
           }
+
+          toast.success(t`Experience verification requested for "${item.label}".`);
+          resetFlow();
+          onMutationSuccess();
         },
         onError: (error) => {
           toast.error(error.message);
@@ -1030,14 +1081,8 @@ function StatusIcon({ status }: { status: string | undefined }) {
 }
 
 function StatusBadge({ status }: { status: string }) {
-  const displayStatus = (s: string) => {
-    if (s === "claimed") return "assessment in progress";
-    if (s === "verdict_pending") return "awaiting final review";
-    return s;
-  };
-
   const colorClass = (() => {
-    const s = displayStatus(status);
+    const s = verificationDisplayStatus(status);
     if (s === "verified") return "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400";
     if (s === "pending") return "bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-400";
     if (s === "rejected") return "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400";
@@ -1045,7 +1090,11 @@ function StatusBadge({ status }: { status: string }) {
     return "bg-muted";
   })();
 
-  return <span className={`rounded-full px-2 py-0.5 text-xs capitalize ${colorClass}`}>{displayStatus(status)}</span>;
+  return (
+    <span className={`rounded-full px-2 py-0.5 text-xs capitalize ${colorClass}`}>
+      {verificationDisplayStatus(status)}
+    </span>
+  );
 }
 
 function VerificationHistory({ resumeId, itemId }: { resumeId: string; itemId: string }) {

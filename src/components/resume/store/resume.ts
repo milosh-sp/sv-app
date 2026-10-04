@@ -20,11 +20,14 @@ type Resume = Pick<RouterOutput["resume"]["getByIdForPrinter"], "id" | "name" | 
 type ResumeStoreState = {
   resume: Resume;
   isReady: boolean;
+  historyRevision: number;
 };
 
 type ResumeStoreActions = {
   initialize: (resume: Resume | null) => void;
   updateResumeData: (fn: (draft: WritableDraft<ResumeData>) => void) => void;
+  undo: () => void;
+  redo: () => void;
 };
 
 type ResumeStore = ResumeStoreState & ResumeStoreActions;
@@ -38,7 +41,25 @@ const _syncResume = (resume: Resume) => {
 
 const syncResume = debounce(_syncResume, 500, { signal });
 
+export function flushResumeSave() {
+  syncResume.cancel();
+  const resume = useResumeStore.getState().resume;
+  if (!resume?.id) return;
+  _syncResume(resume);
+}
+
 let errorToastId: string | number | undefined;
+
+function stepHistory(direction: "undo" | "redo") {
+  const temporalState = useResumeStore.temporal.getState();
+  if (direction === "undo") temporalState.undo();
+  else temporalState.redo();
+
+  useResumeStore.setState((state) => {
+    state.historyRevision += 1;
+  });
+  flushResumeSave();
+}
 
 type PartializedState = { resume: Resume | null };
 
@@ -47,13 +68,16 @@ export const useResumeStore = create<ResumeStore>()(
     immer((set) => ({
       resume: null as unknown as Resume,
       isReady: false,
+      historyRevision: 0,
 
       initialize: (resume) => {
         set((state) => {
           state.resume = resume as Resume;
           state.isReady = resume !== null;
-          useResumeStore.temporal.getState().clear();
         });
+        // Clear after set. Zundo records the previous resume when set finishes,
+        // so a clear inside the producer leaves that resume on the undo stack.
+        useResumeStore.temporal.getState().clear();
       },
 
       updateResumeData: (fn) => {
@@ -69,6 +93,9 @@ export const useResumeStore = create<ResumeStore>()(
           syncResume(current(state.resume));
         });
       },
+
+      undo: () => stepHistory("undo"),
+      redo: () => stepHistory("redo"),
     })),
     {
       partialize: (state) => ({ resume: state.resume }),

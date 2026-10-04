@@ -34,7 +34,13 @@ import {
   patchResumeInputSchema,
 } from "@/integrations/ai/tools/patch-resume";
 import { type CompanyMatchOutput, companyMatchOutputSchema } from "@/schema/company-match";
-import { defaultResumeData, resumeDataSchema } from "@/schema/resume/data";
+import {
+  customSectionsSchema,
+  defaultResumeData,
+  metadataSchema,
+  pictureSchema,
+  resumeDataSchema,
+} from "@/schema/resume/data";
 import { type TailorOutput, tailorOutputSchema } from "@/schema/tailor";
 import { isObject } from "@/utils/sanitize";
 
@@ -184,6 +190,11 @@ function mergeDefaults<T extends Record<string, unknown>, S extends Record<strin
   return output as T & S;
 }
 
+function parseImportedField<T>(schema: z.ZodType<T>, value: unknown, fallback: T): T {
+  const parsed = schema.safeParse(value);
+  return parsed.success ? parsed.data : fallback;
+}
+
 function logAndRethrow(context: string, error: unknown): never {
   if (error instanceof Error) {
     console.error(`${context}:`, error);
@@ -221,9 +232,9 @@ function parseAndValidateResumeJson(resultText: string): ResumeData {
 
     return resumeDataSchema.parse({
       ...normalizedData,
-      customSections: [],
-      picture: defaultResumeData.picture,
-      metadata: defaultResumeData.metadata,
+      customSections: parseImportedField(customSectionsSchema, normalizedData.customSections, []),
+      picture: parseImportedField(pictureSchema, normalizedData.picture, defaultResumeData.picture),
+      metadata: parseImportedField(metadataSchema, normalizedData.metadata, defaultResumeData.metadata),
     });
   } catch (error: unknown) {
     if (error instanceof ZodError) {
@@ -427,6 +438,8 @@ async function chat(input: ChatInput) {
   const model = getModel(input);
   const systemPrompt = buildChatSystemPrompt(input.resumeData);
 
+  let snapshot = input.resumeData;
+
   const result = streamText({
     model,
     system: systemPrompt,
@@ -435,7 +448,11 @@ async function chat(input: ChatInput) {
       patch_resume: tool({
         description: patchResumeDescription,
         inputSchema: patchResumeInputSchema,
-        execute: async ({ operations }) => executePatchResume(input.resumeData, operations),
+        execute: async ({ operations }) => {
+          const result = executePatchResume(snapshot, operations);
+          snapshot = result.data;
+          return { success: result.success, appliedOperations: result.appliedOperations };
+        },
       }),
     },
     stopWhen: stepCountIs(3),

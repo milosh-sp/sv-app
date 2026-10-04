@@ -13,13 +13,13 @@ export const printerRouter = {
       operationId: "exportResumePdf",
       summary: "Export resume as PDF",
       description:
-        "Generates a PDF from the specified resume and uploads it to storage. Returns a URL to download the generated PDF file. If the request is made by an unauthenticated user (e.g. via a public share link), the resume's download count is incremented. Authentication is optional.",
+        "Generates a PDF from the specified resume and uploads it to storage. Returns a URL to download the generated PDF file. The caller must own the resume, or the resume must be public (and unlocked with its password when one is set). An unauthenticated download of a public resume increments the download count.",
       successDescription: "The PDF was generated successfully. Returns a URL to download the file.",
     })
     .input(z.object({ id: z.string().describe("The unique identifier of the resume to export.") }))
     .output(z.object({ url: z.string().describe("The URL to download the generated PDF file.") }))
     .handler(async ({ input, context }) => {
-      const { id, data, userId } = await resumeService.getByIdForPrinter({ id: input.id, userId: context.user?.id });
+      const { id, data, userId } = await resumeService.getForPdfExport({ id: input.id, viewerId: context.user?.id });
       const url = await printerService.printResumeAsPDF({ id, data, userId }, context.user?.id);
 
       if (!context.user) {

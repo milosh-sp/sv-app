@@ -14,7 +14,7 @@ function errorMessage(error: unknown): string {
   return error instanceof Error ? error.message : String(error);
 }
 
-function errorHint(error: unknown): string {
+export function errorHint(error: unknown): string {
   const msg = errorMessage(error);
   if (msg.includes("slug already exists")) return "\n\nHint: The slug is already in use. Try a different one.";
   if (msg.includes("locked")) return "\n\nHint: This resume is locked. Use `unlock_resume` first.";

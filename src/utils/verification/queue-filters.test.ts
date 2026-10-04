@@ -1,13 +1,16 @@
 import { describe, expect, it } from "vite-plus/test";
 
 import {
+  buildAllowedFilterValues,
   buildFilterOptionsFromItems,
   buildReviewerQueueFilterOptions,
   filterQueueItems,
   filterQueueItemsBySkills,
+  hasActiveQueueFilters,
   PROJECT_QUEUE_FILTER_VALUE,
   sanitizeQueueFilters,
   sanitizeQueueSkillFilter,
+  shouldShowMultiSelectFilter,
   type QueueFilterAllowedValues,
 } from "./queue-filters";
 
@@ -130,6 +133,26 @@ describe("buildFilterOptionsFromItems", () => {
     const options = buildFilterOptionsFromItems(items, ["TypeScript"], "queue");
     expect(options.types.map((option) => option.value)).toEqual(["skill", "project"]);
   });
+
+  it("lists only the history statuses that appear, and ignores a blank status", () => {
+    const options = buildFilterOptionsFromItems(
+      [
+        { ...items[0], status: "verified" },
+        { ...items[1], status: "issue" },
+        { ...items[2], status: "" },
+      ],
+      [],
+      "history",
+    );
+    expect(options.statuses.map((option) => option.value)).toEqual(["verified", "issue"]);
+    expect(buildAllowedFilterValues(options).statuses).toEqual(["verified", "issue"]);
+    expect(shouldShowMultiSelectFilter(options.statuses)).toBe(true);
+    expect(shouldShowMultiSelectFilter([])).toBe(false);
+    expect(hasActiveQueueFilters({ skills: [], categories: [], statuses: [], proposed: [], types: [] })).toBe(false);
+    expect(
+      hasActiveQueueFilters({ skills: ["TypeScript"], categories: [], statuses: [], proposed: [], types: [] }),
+    ).toBe(true);
+  });
 });
 
 describe("sanitizeQueueSkillFilter", () => {
@@ -234,5 +257,17 @@ describe("filterQueueItems", () => {
     });
 
     expect(result.map((item) => item.id)).toEqual(["case-3"]);
+  });
+
+  it("filters by section type", () => {
+    const result = filterQueueItems(items, {
+      skills: [],
+      categories: [],
+      statuses: [],
+      proposed: [],
+      types: ["project"],
+    });
+
+    expect(result.map((item) => item.id)).toEqual(["project-1"]);
   });
 });

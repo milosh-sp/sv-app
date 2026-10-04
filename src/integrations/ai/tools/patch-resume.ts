@@ -20,6 +20,6 @@ Use the special "-" index to append to arrays (e.g. "/sections/experience/items/
 
 export function executePatchResume(resumeData: ResumeData, operations: Operation[]) {
   // Validates operations structurally and against the schema; throws on invalid
-  applyResumePatches(resumeData, operations);
-  return { success: true as const, appliedOperations: operations };
+  const data = applyResumePatches(resumeData, operations);
+  return { success: true as const, appliedOperations: operations, data };
 }

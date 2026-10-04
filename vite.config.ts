@@ -234,6 +234,16 @@ const config = defineConfig({
     environment: "jsdom",
     setupFiles: ["./vitest.setup.ts"],
     reporters: process.env.GITHUB_ACTIONS ? ["github-actions"] : ["dot"],
+    coverage: {
+      provider: "v8",
+      reporter: ["text", "html"],
+      include: ["src/**/*.{ts,tsx}"],
+      exclude: ["src/**/*.test.{ts,tsx}", "src/routeTree.gen.ts"],
+      thresholds: {
+        statements: 50,
+        lines: 50,
+      },
+    },
   },
 
   build: {

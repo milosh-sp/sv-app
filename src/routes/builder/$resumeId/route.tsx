@@ -61,9 +61,10 @@ function RouteComponent() {
   const initialize = useResumeStore((state) => state.initialize);
 
   useEffect(() => {
+    // ponytail: a focus refetch must not wipe edits still waiting on the debounced save
     initialize(resume);
     return () => initialize(null);
-  }, [resume, initialize]);
+  }, [resumeId, initialize]);
 
   if (!isReady) return <LoadingScreen />;
 
@@ -87,6 +88,7 @@ function BuilderLayout({ initialLayout, ...props }: BuilderLayoutProps) {
     maxSidebarSize: state.maxSidebarSize,
     collapsedSidebarSize: state.collapsedSidebarSize,
   }));
+  const historyRevision = useResumeStore((state) => state.historyRevision);
 
   const onLayoutChange = useDebounceCallback((layout: Layout) => {
     void setBuilderLayoutServerFn({
@@ -122,7 +124,7 @@ function BuilderLayout({ initialLayout, ...props }: BuilderLayoutProps) {
           defaultSize={leftSidebarSize}
           className="z-20 h-[calc(100svh-3.5rem)]"
         >
-          <BuilderSidebarLeft />
+          <BuilderSidebarLeft key={historyRevision} />
         </ResizablePanel>
         <ResizableSeparator withHandle className="z-50 border-s" />
         <ResizablePanel id="artboard" defaultSize={artboardSize} className="h-[calc(100svh-3.5rem)]">
@@ -139,7 +141,7 @@ function BuilderLayout({ initialLayout, ...props }: BuilderLayoutProps) {
           defaultSize={rightSidebarSize}
           className="z-20 h-[calc(100svh-3.5rem)]"
         >
-          <BuilderSidebarRight />
+          <BuilderSidebarRight key={historyRevision} />
         </ResizablePanel>
       </ResizableGroup>
     </div>
@@ -147,6 +149,7 @@ function BuilderLayout({ initialLayout, ...props }: BuilderLayoutProps) {
 }
 
 function MobileBuilderLayout(props: React.ComponentProps<"div">) {
+  const historyRevision = useResumeStore((state) => state.historyRevision);
   const leftSheetOpen = useBuilderSidebarStore((state) => state.leftSheetOpen);
   const rightSheetOpen = useBuilderSidebarStore((state) => state.rightSheetOpen);
   const setLeftSheetOpen = useBuilderSidebarStore((state) => state.setLeftSheetOpen);
@@ -171,7 +174,7 @@ function MobileBuilderLayout(props: React.ComponentProps<"div">) {
             </SheetTitle>
           </SheetHeader>
 
-          <BuilderSidebarLeft />
+          <BuilderSidebarLeft key={historyRevision} />
         </SheetContent>
       </Sheet>
 
@@ -186,7 +189,7 @@ function MobileBuilderLayout(props: React.ComponentProps<"div">) {
             </SheetTitle>
           </SheetHeader>
 
-          <BuilderSidebarRight />
+          <BuilderSidebarRight key={historyRevision} />
         </SheetContent>
       </Sheet>
     </div>

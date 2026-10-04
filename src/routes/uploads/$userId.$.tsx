@@ -1,11 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import { createHash } from "node:crypto";
 import { basename, extname, normalize } from "node:path";
 
 import { auth } from "@/integrations/auth/config";
 import { db } from "@/integrations/drizzle/client";
-import { adminRoles } from "@/integrations/drizzle/schema";
+import { adminRoles, resume } from "@/integrations/drizzle/schema";
+import { canExportResume, hasResumeAccess } from "@/integrations/orpc/helpers/resume-access";
 import { getStorageService, inferContentType } from "@/integrations/orpc/services/storage";
 import { env } from "@/utils/env";
 
@@ -58,10 +59,17 @@ async function handler({ request }: { request: Request }) {
 }
 
 async function canAccessUpload(request: Request, ownerUserId: string, filePath: string): Promise<boolean> {
-  // Verification evidence under /uploads/{userId}/documents/... should only be visible
-  // to the owner or an admin account.
-  if (!filePath.startsWith("documents/")) return true;
+  // Verification evidence and resume screenshots are only for the owner or an admin.
+  if (filePath.startsWith("documents/") || filePath.startsWith("screenshots/")) {
+    return viewerIsOwnerOrAdmin(request, ownerUserId);
+  }
 
+  if (filePath.startsWith("pdfs/")) return canAccessPdf(request, ownerUserId, filePath);
+
+  return true;
+}
+
+async function viewerIsOwnerOrAdmin(request: Request, ownerUserId: string): Promise<boolean> {
   const session = await auth.api.getSession({ headers: request.headers });
   const viewerId = session?.user?.id;
   if (!viewerId) return false;
@@ -73,6 +81,34 @@ async function canAccessUpload(request: Request, ownerUserId: string, filePath: 
     .where(eq(adminRoles.userId, viewerId))
     .limit(1);
   return Boolean(role);
+}
+
+async function canAccessPdf(request: Request, ownerUserId: string, filePath: string): Promise<boolean> {
+  const resumeId = filePath.split("/")[1];
+  if (!resumeId) return false;
+
+  const [row] = await db
+    .select({
+      id: resume.id,
+      userId: resume.userId,
+      isPublic: resume.isPublic,
+      password: resume.password,
+    })
+    .from(resume)
+    .where(and(eq(resume.id, resumeId), eq(resume.userId, ownerUserId)))
+    .limit(1);
+
+  if (!row) return false;
+
+  const session = await auth.api.getSession({ headers: request.headers });
+
+  return canExportResume({
+    viewerId: session?.user?.id ?? null,
+    ownerId: row.userId,
+    isPublic: row.isPublic,
+    hasPassword: row.password !== null,
+    hasPasswordAccess: hasResumeAccess(row.id, row.password),
+  });
 }
 
 /**

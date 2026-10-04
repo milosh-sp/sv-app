@@ -4,7 +4,7 @@ import { Trans } from "@lingui/react/macro";
 import { CaretDownIcon, MagicWandIcon, PencilSimpleLineIcon, PlusIcon, TestTubeIcon } from "@phosphor-icons/react";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { useForm, useFormContext, useWatch } from "react-hook-form";
 import { toast } from "sonner";
 import z from "zod";
@@ -38,6 +38,24 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
+function useMirrorSlug(form: ReturnType<typeof useForm<FormValues>>, name: string) {
+  const autoSlug = useRef<string | null>(null);
+
+  useEffect(() => {
+    const current = form.getValues("slug");
+    if (autoSlug.current === null) {
+      autoSlug.current = current;
+      return;
+    }
+
+    if (current !== autoSlug.current) return;
+
+    const next = slugify(name);
+    form.setValue("slug", next);
+    autoSlug.current = next;
+  }, [form, name]);
+}
+
 export function CreateResumeDialog(_: DialogProps<"resume.create">) {
   const closeDialog = useDialogStore((state) => state.closeDialog);
 
@@ -54,10 +72,7 @@ export function CreateResumeDialog(_: DialogProps<"resume.create">) {
   });
 
   const name = useWatch({ control: form.control, name: "name" });
-
-  useEffect(() => {
-    form.setValue("slug", slugify(name), { shouldDirty: true });
-  }, [form, name]);
+  useMirrorSlug(form, name);
 
   const { blockEvents } = useFormBlocker(form);
 
@@ -166,11 +181,7 @@ export function UpdateResumeDialog({ data }: DialogProps<"resume.update">) {
   });
 
   const name = useWatch({ control: form.control, name: "name" });
-
-  useEffect(() => {
-    if (!name) return;
-    form.setValue("slug", slugify(name), { shouldDirty: true });
-  }, [form, name]);
+  useMirrorSlug(form, name);
 
   const { blockEvents } = useFormBlocker(form);
 
@@ -237,11 +248,7 @@ export function DuplicateResumeDialog({ data }: DialogProps<"resume.duplicate">)
   });
 
   const name = useWatch({ control: form.control, name: "name" });
-
-  useEffect(() => {
-    if (!name) return;
-    form.setValue("slug", slugify(name), { shouldDirty: true });
-  }, [form, name]);
+  useMirrorSlug(form, name);
 
   const { blockEvents } = useFormBlocker(form);
 

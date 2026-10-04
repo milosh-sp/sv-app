@@ -1,78 +1,39 @@
-import { describe, expect, it } from "vite-plus/test";
+import { describe, expect, it, vi } from "vite-plus/test";
+
+vi.mock("@lingui/core/macro", () => ({
+  t: (strings: TemplateStringsArray) => strings.join(""),
+  msg: (strings: TemplateStringsArray) => ({ id: strings.join("") }),
+}));
+
+import { shouldShowVerificationBadge, showsReviewerProfileLink } from "./verification-badge";
 
 describe("VerificationBadge display rules", () => {
-  const shouldRender = (status: string, badgeVisible: boolean): string | null => {
-    if (!badgeVisible) return null;
-    if (status === "rejected" || status === "issue") return null;
-    if (status === "verified") return "checkmark";
-    if (status === "pending" || status === "claimed" || status === "verdict_pending") return null;
-    return null;
-  };
-
-  it("should show checkmark for verified with visible badge", () => {
-    expect(shouldRender("verified", true)).toBe("checkmark");
+  it("shows a checkmark only for a visible verified badge", () => {
+    expect(shouldShowVerificationBadge("verified", true)).toBe(true);
   });
 
-  it("should show nothing for pending with visible badge", () => {
-    expect(shouldRender("pending", true)).toBeNull();
+  it("shows nothing for pending, claimed, and verdict_pending", () => {
+    expect(shouldShowVerificationBadge("pending", true)).toBe(false);
+    expect(shouldShowVerificationBadge("claimed", true)).toBe(false);
+    expect(shouldShowVerificationBadge("verdict_pending", true)).toBe(false);
   });
 
-  it("should show nothing for claimed (displayed as pending to user)", () => {
-    expect(shouldRender("claimed", true)).toBeNull();
+  it("shows nothing for rejected, issue, and unknown statuses", () => {
+    expect(shouldShowVerificationBadge("rejected", true)).toBe(false);
+    expect(shouldShowVerificationBadge("issue", true)).toBe(false);
+    expect(shouldShowVerificationBadge("unknown", true)).toBe(false);
   });
 
-  it("should show nothing for verdict_pending (displayed as pending to user)", () => {
-    expect(shouldRender("verdict_pending", true)).toBeNull();
-  });
-
-  it("should show nothing for rejected", () => {
-    expect(shouldRender("rejected", true)).toBeNull();
-  });
-
-  it("should show nothing for issue", () => {
-    expect(shouldRender("issue", true)).toBeNull();
-  });
-
-  it("should show nothing when badgeVisible is false", () => {
-    expect(shouldRender("verified", false)).toBeNull();
-    expect(shouldRender("pending", false)).toBeNull();
-  });
-
-  it("should show nothing for unknown status", () => {
-    expect(shouldRender("unknown", true)).toBeNull();
+  it("shows nothing when the badge is hidden", () => {
+    expect(shouldShowVerificationBadge("verified", false)).toBe(false);
+    expect(shouldShowVerificationBadge("pending", false)).toBe(false);
   });
 });
 
 describe("Badge tooltip variants", () => {
-  it("should return identity label for identity type", () => {
-    const detail = { type: "identity" as const, label: "Identity Verified" };
-    expect(detail.type).toBe("identity");
-    expect(detail.label).toBe("Identity Verified");
-  });
-
-  it("should return experience label", () => {
-    const detail = { type: "experience" as const, label: "Verified by Skill Verdict Admin" };
-    expect(detail.type).toBe("experience");
-    expect(detail.label).toContain("Skill Verdict Admin");
-  });
-
-  it("should return reviewer label with profile link", () => {
-    const detail = {
-      type: "reviewer" as const,
-      label: "Jane Smith \u2014 Senior Engineer at Meta",
-      profileUrl: "/reviewer/admin-1",
-    };
-    expect(detail.type).toBe("reviewer");
-    expect(detail.label).toContain("Jane Smith");
-    expect(detail.profileUrl).toBe("/reviewer/admin-1");
-  });
-
-  it("should render reviewer without link when profileUrl is null", () => {
-    const detail = {
-      type: "reviewer" as const,
-      label: "Verified",
-      profileUrl: null,
-    };
-    expect(detail.profileUrl).toBeNull();
+  it("links a reviewer profile only when a profile url is present", () => {
+    expect(showsReviewerProfileLink("/reviewer/admin-1")).toBe(true);
+    expect(showsReviewerProfileLink(null)).toBe(false);
+    expect(showsReviewerProfileLink(undefined)).toBe(false);
   });
 });

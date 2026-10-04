@@ -56,7 +56,7 @@ const statisticsRouter = {
       return await resumeService.statistics.getById({ id: input.id, userId: context.user.id });
     }),
 
-  increment: publicProcedure
+  increment: serverOnlyProcedure
     .route({ tags: ["Internal"], operationId: "incrementResumeStatistics", summary: "Increment resume statistics" })
     .input(z.object({ id: z.string(), views: z.boolean().default(false), downloads: z.boolean().default(false) }))
     .handler(async ({ input }) => {

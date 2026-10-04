@@ -92,9 +92,11 @@ export function TailorDialog({ job, open, onOpenChange }: Props) {
     // AI-powered tailoring pipeline
     setPhase({ step: "tailoring" });
 
+    let newResumeId: string | undefined;
+
     try {
       // Step 1: Duplicate the resume
-      const newResumeId = await client.resume.duplicate({
+      newResumeId = await client.resume.duplicate({
         id: resumeId,
         name: tailorName,
         slug: tailorSlug,
@@ -139,6 +141,9 @@ export function TailorDialog({ job, open, onOpenChange }: Props) {
         navigateToBuilder(newResumeId);
       }
     } catch (error) {
+      if (newResumeId) {
+        await client.resume.delete({ id: newResumeId }).catch(() => undefined);
+      }
       const message = error instanceof Error ? error.message : "Unknown error";
       toast.error(t`Tailoring failed`, { description: message });
       setPhase({ step: "select" });

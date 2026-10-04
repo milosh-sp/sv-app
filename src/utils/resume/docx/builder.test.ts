@@ -305,4 +305,285 @@ describe("buildDocument", () => {
     expect(view[0]).toBe(0x50);
     expect(view[1]).toBe(0x4b);
   });
+
+  it("renders every section, a role, a link, and the template layouts", () => {
+    const link = { url: "https://ada.dev", label: "" };
+    const blank = { url: "", label: "" };
+    const data = makeResumeData({
+      basics: {
+        name: "Ada Lovelace",
+        headline: "Mathematician",
+        email: "ada@example.com",
+        phone: "123",
+        location: "London",
+        website: { url: "https://ada.dev", label: "" },
+        customFields: [
+          { id: "f1", icon: "", text: "", link: "" },
+          { id: "f2", icon: "", text: "Notes", link: "" },
+          { id: "f3", icon: "", text: "Site", link: "https://ada.dev" },
+          { id: "f4", icon: "", text: "Bad", link: "javascript:alert(1)" },
+        ],
+      },
+      summary: { title: "About", columns: 1, hidden: false, content: "<p>Notes</p>" },
+      sections: {
+        profiles: {
+          title: "Profiles",
+          columns: 1,
+          hidden: false,
+          items: [
+            { id: "pr1", hidden: true, icon: "", network: "Hidden", username: "", website: blank },
+            { id: "pr2", hidden: false, icon: "", network: "GitHub", username: "ada", website: link },
+          ],
+        },
+        experience: {
+          title: "Experience",
+          columns: 1,
+          hidden: false,
+          items: [
+            {
+              id: "ex1",
+              hidden: false,
+              company: "Engines",
+              position: "",
+              location: "London",
+              period: "1842-1843",
+              website: link,
+              description: "",
+              roles: [
+                { id: "r1", position: "Lead", period: "1843", description: "<p>Built it</p>" },
+                { id: "r2", position: "Assistant", period: "", description: "" },
+              ],
+            },
+            {
+              id: "ex2",
+              hidden: false,
+              company: "Archive",
+              position: "Writer",
+              location: "",
+              period: "",
+              website: blank,
+              description: "<p>Notes</p>",
+              roles: [],
+            },
+          ],
+        },
+        education: {
+          title: "Education",
+          columns: 1,
+          hidden: false,
+          items: [
+            {
+              id: "ed1",
+              hidden: false,
+              school: "University",
+              degree: "BA",
+              area: "Maths",
+              grade: "1st",
+              location: "London",
+              period: "1835",
+              website: link,
+              description: "<p>Studied</p>",
+            },
+          ],
+        },
+        projects: {
+          title: "Projects",
+          columns: 1,
+          hidden: false,
+          items: [
+            { id: "pj1", hidden: false, name: "Engine", period: "1842", website: link, description: "<p>Gears</p>" },
+          ],
+        },
+        skills: {
+          title: "Skills",
+          columns: 1,
+          hidden: false,
+          items: [
+            {
+              id: "sk1",
+              hidden: false,
+              icon: "",
+              name: "Analysis",
+              proficiency: "Expert",
+              level: 5,
+              keywords: ["proofs"],
+            },
+            { id: "sk2", hidden: false, icon: "", name: "Poetry", proficiency: "", level: 0, keywords: [] },
+          ],
+        },
+        languages: {
+          title: "Languages",
+          columns: 1,
+          hidden: false,
+          items: [
+            { id: "la1", hidden: false, language: "English", fluency: "Native", level: 5 },
+            { id: "la2", hidden: false, language: "French", fluency: "", level: 1 },
+          ],
+        },
+        interests: {
+          title: "Interests",
+          columns: 1,
+          hidden: false,
+          items: [
+            { id: "in1", hidden: false, icon: "", name: "Maths", keywords: ["algebra"] },
+            { id: "in2", hidden: false, icon: "", name: "Music", keywords: [] },
+          ],
+        },
+        awards: {
+          title: "Awards",
+          columns: 1,
+          hidden: false,
+          items: [
+            {
+              id: "aw1",
+              hidden: false,
+              title: "Medal",
+              awarder: "Royal",
+              date: "1843",
+              website: link,
+              description: "<p>For the notes</p>",
+            },
+          ],
+        },
+        certifications: {
+          title: "Certifications",
+          columns: 1,
+          hidden: false,
+          items: [
+            {
+              id: "ce1",
+              hidden: false,
+              title: "Fellow",
+              issuer: "Society",
+              date: "1844",
+              website: link,
+              description: "<p>Fellow</p>",
+            },
+          ],
+        },
+        publications: {
+          title: "Publications",
+          columns: 1,
+          hidden: false,
+          items: [
+            {
+              id: "pu1",
+              hidden: false,
+              title: "Sketch",
+              publisher: "Taylor",
+              date: "1843",
+              website: link,
+              description: "<p>Sketch</p>",
+            },
+          ],
+        },
+        volunteer: {
+          title: "Volunteer",
+          columns: 1,
+          hidden: false,
+          items: [
+            {
+              id: "vo1",
+              hidden: false,
+              organization: "Society",
+              location: "London",
+              period: "1840",
+              website: link,
+              description: "<p>Taught</p>",
+            },
+          ],
+        },
+        references: {
+          title: "References",
+          columns: 1,
+          hidden: false,
+          items: [
+            {
+              id: "rf1",
+              hidden: false,
+              name: "Babbage",
+              position: "Colleague",
+              website: link,
+              phone: "456",
+              description: "<p>Reliable</p>",
+            },
+          ],
+        },
+      },
+      customSections: [
+        {
+          id: "custom-summary",
+          title: "Extra",
+          columns: 1,
+          hidden: false,
+          type: "summary",
+          items: [{ id: "cs1", hidden: false, content: "<p>More</p>" }],
+        },
+        {
+          id: "custom-letter",
+          title: "Letter",
+          columns: 1,
+          hidden: false,
+          type: "cover-letter",
+          items: [{ id: "cl1", hidden: false, recipient: "<p>Taylor</p>", content: "<p>Dear sir</p>" }],
+        },
+        {
+          id: "custom-hidden",
+          title: "Hidden",
+          columns: 1,
+          hidden: true,
+          type: "projects",
+          items: [{ id: "ch1", hidden: false, name: "Nope", period: "", website: blank, description: "" }],
+        },
+        {
+          id: "custom-empty",
+          title: "Empty",
+          columns: 1,
+          hidden: false,
+          type: "projects",
+          items: [{ id: "ce2", hidden: true, name: "Gone", period: "", website: blank, description: "" }],
+        },
+      ],
+      metadata: {
+        ...defaultResumeData.metadata,
+        template: "chikorita",
+        layout: {
+          sidebarWidth: 30,
+          pages: [
+            {
+              fullWidth: false,
+              main: ["summary", "experience", "education", "projects", "custom-summary", "custom-letter", "missing"],
+              sidebar: ["profiles", "skills", "languages", "interests", "awards", "certifications"],
+            },
+            {
+              fullWidth: true,
+              main: ["publications", "volunteer", "references", "custom-hidden", "custom-empty"],
+              sidebar: [],
+            },
+          ],
+        },
+      },
+    });
+
+    expect(buildDocument(data)).toBeInstanceOf(Document);
+    expect(buildDocument({ ...data, metadata: { ...data.metadata, template: "ditgar" } })).toBeInstanceOf(Document);
+    expect(
+      buildDocument({
+        ...data,
+        metadata: {
+          ...data.metadata,
+          template: "missing" as typeof data.metadata.template,
+          page: { ...data.metadata.page, format: "letter" },
+          design: {
+            ...data.metadata.design,
+            colors: { primary: "not-a-color", text: "not-a-color", background: "not-a-color" },
+          },
+          typography: {
+            body: { ...data.metadata.typography.body, fontFamily: "" },
+            heading: { ...data.metadata.typography.heading, fontFamily: "" },
+          },
+        },
+      }),
+    ).toBeInstanceOf(Document);
+  });
 });

@@ -143,5 +143,10 @@ const setViewServerFn = createServerFn({ method: "POST" })
 const getViewServerFn = createServerFn({ method: "GET" }).handler(async () => {
   const view = getCookie(RESUMES_VIEW_COOKIE_NAME);
   if (!view) return "grid";
-  return viewSchema.parse(JSON.parse(view));
+
+  try {
+    return viewSchema.parse(JSON.parse(view));
+  } catch {
+    return "grid";
+  }
 });

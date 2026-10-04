@@ -362,4 +362,72 @@ describe("reviewerProfileService.resolveChangeRequest", () => {
       }),
     ).rejects.toThrow("Change request is not pending");
   });
+
+  it("approves a request that does not change the live profile", async () => {
+    const request = {
+      id: "req-4",
+      adminId: "admin-1",
+      requestedFirstName: null,
+      requestedTitle: null,
+      status: "pending",
+    };
+    mockFrom.mockReturnValueOnce({
+      where: vi.fn(() => ({ returning: mockReturning, limit: vi.fn(() => [request]) })),
+      limit: mockLimit,
+      orderBy: mockOrderBy,
+    });
+    mockReturning.mockResolvedValueOnce([{ ...request, status: "approved" }]);
+
+    await expect(
+      reviewerProfileService.resolveChangeRequest({
+        requestId: "req-4",
+        action: "approved",
+        resolvedByAdminId: "sva-1",
+      }),
+    ).resolves.toMatchObject({ status: "approved" });
+  });
+});
+
+describe("reviewerProfileService reads", () => {
+  const profile = { id: "profile-1", adminId: "admin-1", firstName: "Ada", title: "Reviewer" };
+
+  it("returns a profile or null, and errors when a required profile is missing", async () => {
+    await expect(reviewerProfileService.getByAdminIdOrNull("admin-1")).resolves.toBeNull();
+    mockLimit.mockReturnValueOnce([profile]);
+    await expect(reviewerProfileService.getByAdminIdOrNull("admin-1")).resolves.toEqual(profile);
+
+    await expect(reviewerProfileService.getByAdminId("missing")).rejects.toThrow("Reviewer profile not found");
+    mockLimit.mockReturnValueOnce([profile]);
+    await expect(reviewerProfileService.getByAdminId("admin-1")).resolves.toEqual(profile);
+
+    await expect(reviewerProfileService.getPublicProfile("missing")).rejects.toThrow("Reviewer profile not found");
+    mockLimit.mockReturnValueOnce([profile]);
+    await expect(reviewerProfileService.getPublicProfile("admin-1")).resolves.toEqual(profile);
+
+    mockReturning.mockResolvedValueOnce([]);
+    await expect(reviewerProfileService.updateDirect({ adminId: "missing", title: "Next" })).rejects.toThrow(
+      "Reviewer profile not found",
+    );
+
+    mockReturning.mockResolvedValueOnce([]);
+    await expect(reviewerProfileService.giveConsent("missing")).rejects.toThrow("Reviewer profile not found");
+  });
+
+  it("returns the latest change request, or null, and lists pending requests", async () => {
+    mockFrom.mockReturnValueOnce({
+      where: () => ({ orderBy: () => ({ limit: () => [] }) }),
+    });
+    await expect(reviewerProfileService.getChangeRequestStatus("admin-1")).resolves.toBeNull();
+
+    const request = { id: "req-1", status: "pending" };
+    mockFrom.mockReturnValueOnce({
+      where: () => ({ orderBy: () => ({ limit: () => [request] }) }),
+    });
+    await expect(reviewerProfileService.getChangeRequestStatus("admin-1")).resolves.toEqual(request);
+
+    mockFrom.mockReturnValueOnce({
+      where: async () => [request],
+    });
+    await expect(reviewerProfileService.listChangeRequests()).resolves.toEqual([request]);
+  });
 });

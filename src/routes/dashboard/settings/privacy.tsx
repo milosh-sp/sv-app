@@ -24,10 +24,14 @@ export const Route = createFileRoute("/dashboard/settings/privacy")({
   component: RouteComponent,
 });
 
+export function verifiedBadgeItems<T extends { status: string }>(statuses: T[]): T[] {
+  return statuses.filter((status) => status.status === "verified");
+}
+
 function RouteComponent() {
   const { data: statuses } = useSuspenseQuery(orpc.verification.getAllStatuses.queryOptions());
 
-  const approvedItems = statuses.filter((s) => s.status === "verified");
+  const approvedItems = verifiedBadgeItems(statuses);
 
   const { mutate: toggleBadge } = useMutation(orpc.verification.toggleBadge.mutationOptions());
 

@@ -1,3 +1,5 @@
+globalThis.IS_REACT_ACT_ENVIRONMENT = true;
+
 /**
  * Default process.env for `vp test` when no `.env` is present (e.g. GitHub Actions).
  * Does not override variables already set by the host or `.env` loading.

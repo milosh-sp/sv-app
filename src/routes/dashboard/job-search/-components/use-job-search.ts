@@ -64,6 +64,8 @@ export function useJobSearch() {
           },
           onError: (error) => {
             if (requestId !== requestIdRef.current) return;
+            setJobs([]);
+            setHasMore(false);
             setError(error.message);
             toast.error(error.message);
           },
