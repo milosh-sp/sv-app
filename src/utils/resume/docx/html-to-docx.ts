@@ -76,7 +76,7 @@ function collectInlineChildren(node: Node, style: InlineStyle): InlineChild[] {
 
   for (const child of node.childNodes) {
     if (child.nodeType === Node.TEXT_NODE) {
-      const text = child.textContent ?? "";
+      const text = child.textContent!.trim();
       if (text) {
         children.push(new TextRun({ text, ...style }));
       }
@@ -111,14 +111,7 @@ function collectInlineChildren(node: Node, style: InlineStyle): InlineChild[] {
   return children;
 }
 
-function processBlockElement(
-  el: Element,
-  style: InlineStyle,
-  paragraphs: Paragraph[],
-  listLevel?: number,
-  numberingRef?: string,
-  listIndex?: number,
-): void {
+function processBlockElement(el: Element, style: InlineStyle, paragraphs: Paragraph[], listLevel?: number): void {
   const tag = el.tagName;
 
   if (HEADING_MAP[tag]) {
@@ -132,20 +125,12 @@ function processBlockElement(
   if (tag === "P" || tag === "DIV") {
     const inlineChildren = collectInlineChildren(el, style);
     if (inlineChildren.length > 0) {
-      paragraphs.push(
-        new Paragraph({
-          children: inlineChildren,
-          ...(listLevel != null && numberingRef
-            ? { numbering: { reference: numberingRef, level: listLevel, instance: listIndex } }
-            : {}),
-        }),
-      );
+      paragraphs.push(new Paragraph({ children: inlineChildren }));
     }
     return;
   }
 
   if (tag === "UL" || tag === "OL") {
-    const isOrdered = tag === "OL";
     const level = listLevel != null ? listLevel + 1 : 0;
 
     for (const li of el.children) {
@@ -158,19 +143,17 @@ function processBlockElement(
       if (hasNestedBlocks) {
         for (const liChild of li.childNodes) {
           if (liChild.nodeType === Node.TEXT_NODE) {
-            const text = (liChild.textContent ?? "").trim();
+            const text = liChild.textContent!.trim();
             if (text) {
               paragraphs.push(
                 new Paragraph({
                   children: [new TextRun({ text, ...style })],
-                  ...(isOrdered && numberingRef
-                    ? { numbering: { reference: numberingRef, level, instance: listIndex } }
-                    : { bullet: { level } }),
+                  bullet: { level },
                 }),
               );
             }
           } else if (liChild.nodeType === Node.ELEMENT_NODE) {
-            processBlockElement(liChild as Element, style, paragraphs, level, numberingRef, listIndex);
+            processBlockElement(liChild as Element, style, paragraphs, level);
           }
         }
       } else {
@@ -179,9 +162,7 @@ function processBlockElement(
           paragraphs.push(
             new Paragraph({
               children: inlineChildren,
-              ...(isOrdered && numberingRef
-                ? { numbering: { reference: numberingRef, level, instance: listIndex } }
-                : { bullet: { level } }),
+              bullet: { level },
             }),
           );
         }
@@ -206,7 +187,7 @@ function processBlockElement(
   }
 
   if (tag === "PRE") {
-    const text = el.textContent ?? "";
+    const text = el.textContent!.trim();
     if (text) {
       paragraphs.push(
         new Paragraph({
@@ -266,7 +247,7 @@ export function htmlToParagraphs(html: string, styleConfig?: HtmlStyleConfig): P
 
   for (const child of doc.body.childNodes) {
     if (child.nodeType === Node.TEXT_NODE) {
-      const text = (child.textContent ?? "").trim();
+      const text = child.textContent!.trim();
       if (text) {
         paragraphs.push(new Paragraph({ children: [new TextRun({ text, ...baseStyle })] }));
       }

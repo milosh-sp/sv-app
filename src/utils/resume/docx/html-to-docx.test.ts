@@ -151,6 +151,7 @@ describe("htmlToParagraphs", () => {
   it("parses the remaining block and inline tags", () => {
     const result = htmlToParagraphs(
       [
+        "   ",
         "loose text",
         "<div>A <code>code</code> <mark>mark</mark> <strike>gone</strike></div>",
         "<blockquote>quoted</blockquote>",
@@ -161,7 +162,12 @@ describe("htmlToParagraphs", () => {
         "<h1>Title</h1>",
         "<h1></h1>",
         "<ul><li>parent<ul><li>child</li></ul></li></ul>",
-        "<ol><li><p>ordered</p></li></ol>",
+        "<ol><li><p></p>   <!--x--></li></ol>",
+        "<span></span>",
+        "<ul><li> </li><li></li></ul>",
+        "<p> </p>",
+        "<!--note--><p>Hi</p>",
+        "<p><a>nolink</a></p>",
         "<span>fallback</span>",
       ].join(""),
       { font: "Calibri", size: 20, color: "111111", linkColor: "DC2626" },
@@ -169,5 +175,6 @@ describe("htmlToParagraphs", () => {
 
     expect(result.length).toBeGreaterThan(5);
     expect(result.every((paragraph) => paragraph instanceof Paragraph)).toBe(true);
+    expect(htmlToParagraphs("<p>A</p>   <p>B</p>")).toHaveLength(2);
   });
 });
