@@ -429,6 +429,29 @@ describe("resume section dialogs", () => {
     unmount();
   });
 
+  it("updates an experience item that lives on a custom section", async () => {
+    const entry = cases.find((item) => item.section === "experience");
+    if (!entry?.section) throw new Error("missing experience");
+    const existing = entry.item("item-1");
+    prepare(entry);
+    useResumeStore.getState().updateResumeData((draft) => {
+      const section = draft.customSections[0];
+      if (section) section.items = [existing as never];
+    });
+    const unmount = await mount(<entry.update data={{ item: existing, customSectionId: "custom-1" }} />);
+    fillLabel("Company", "Edited");
+    await submitForm();
+    expect(useResumeStore.getState().resume.data.customSections[0]?.items[0]).toMatchObject({ company: "Edited" });
+    unmount();
+
+    prepare(entry, existing);
+    const missing = await mount(<entry.update data={{ item: existing, customSectionId: "missing" }} />);
+    fillLabel("Company", "Nope");
+    await submitForm();
+    expect(useResumeStore.getState().resume.data.sections.experience.items[0]).toMatchObject({ company: "Old" });
+    missing();
+  });
+
   it("creates and updates a custom section on the last page", async () => {
     const data = structuredClone(defaultResumeData);
     useResumeStore.getState().initialize({
