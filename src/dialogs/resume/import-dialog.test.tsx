@@ -136,6 +136,21 @@ describe("import resume dialog", () => {
     );
   });
 
+  it("imports a JSON Resume file and surfaces a non-error failure", async () => {
+    ai.canUse = true;
+    ai.isAvailabilityLoaded = true;
+    const file = new File([JSON.stringify({ basics: { name: "Ada Lovelace" } })], "cv.json", {
+      type: "application/json",
+    });
+    await submit("JSON Resume", file);
+    expect(importResume).toHaveBeenCalled();
+    expect(navigate).toHaveBeenCalled();
+
+    importResume.mockRejectedValueOnce("nope");
+    await submit("JSON Resume", file);
+    expect(vi.mocked(toast.error)).toHaveBeenCalled();
+  });
+
   it("stops a pdf import while AI is off or still loading", async () => {
     ai.isAvailabilityLoaded = false;
     ai.canUse = false;
