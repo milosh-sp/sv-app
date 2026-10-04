@@ -22,7 +22,10 @@ const resumeService = vi.hoisted(() => ({
   create: vi.fn(async () => "resume-1"),
   update: vi.fn(),
   patch: vi.fn(),
+  getByIdForPrinter: vi.fn(async () => ({ id: "resume-1" })),
   setLocked: vi.fn(async () => undefined),
+  setPassword: vi.fn(async () => undefined),
+  removePassword: vi.fn(async () => undefined),
   delete: vi.fn(async () => undefined),
   verifyPassword: vi.fn(async () => true),
 }));
@@ -44,8 +47,21 @@ vi.mock("@/integrations/drizzle/client", () => ({
 }));
 vi.mock("../services/resume", () => ({ resumeService }));
 
+import { defaultResumeData } from "@/schema/resume/data";
+
 import { callProcedure } from "../call-procedure";
 import { resumeRouter } from "./resume";
+
+const savedResume = {
+  id: "resume-1",
+  name: "CV",
+  slug: "cv",
+  tags: [] as string[],
+  isPublic: false,
+  isLocked: false,
+  hasPassword: false,
+  data: defaultResumeData,
+};
 
 const user = { id: "user-1", email: "ada@example.com", name: "Ada", emailVerified: true };
 
@@ -101,5 +117,77 @@ describe("resumeRouter", () => {
     roleRows.value = [{ role: "company" }];
     await expect(call(resumeRouter.searchForEmployers, {})).resolves.toEqual([]);
     expect(resumeService.searchForEmployers).toHaveBeenCalledWith(expect.objectContaining({ workAuthRegions: [] }));
+  });
+
+  it("forwards owner mutations and keeps password checks public", async () => {
+    resumeService.update.mockResolvedValue(savedResume);
+    resumeService.patch.mockResolvedValue(savedResume);
+    resumeService.getById.mockResolvedValue({ ...savedResume, userId: "user-1" } as never);
+
+    await expect(call(resumeRouter.import, { data: defaultResumeData })).resolves.toBe("resume-1");
+    expect(resumeService.create).toHaveBeenCalledWith(
+      expect.objectContaining({ userId: "user-1", tags: [], locale: "en-US", data: defaultResumeData }),
+    );
+
+    await expect(call(resumeRouter.update, { id: "resume-1", name: "Renamed", isPublic: true })).resolves.toMatchObject(
+      {
+        id: "resume-1",
+        name: "CV",
+      },
+    );
+    expect(resumeService.update).toHaveBeenCalledWith(
+      expect.objectContaining({ id: "resume-1", userId: "user-1", name: "Renamed", isPublic: true }),
+    );
+
+    const operations = [{ op: "replace" as const, path: "/summary/content", value: "<p>Hi</p>" }];
+    await expect(call(resumeRouter.patch, { id: "resume-1", operations })).resolves.toMatchObject({
+      hasPassword: false,
+    });
+    expect(resumeService.patch).toHaveBeenCalledWith({ id: "resume-1", userId: "user-1", operations });
+
+    await expect(call(resumeRouter.setLocked, { id: "resume-1", isLocked: true })).resolves.toBeUndefined();
+    expect(resumeService.setLocked).toHaveBeenCalledWith({ id: "resume-1", userId: "user-1", isLocked: true });
+
+    await expect(call(resumeRouter.setPassword, { id: "resume-1", password: "secret1" })).resolves.toBeUndefined();
+    expect(resumeService.setPassword).toHaveBeenCalledWith({ id: "resume-1", userId: "user-1", password: "secret1" });
+
+    await expect(call(resumeRouter.removePassword, { id: "resume-1" })).resolves.toBeUndefined();
+    expect(resumeService.removePassword).toHaveBeenCalledWith({ id: "resume-1", userId: "user-1" });
+
+    await expect(
+      call(resumeRouter.duplicate, { id: "resume-1", name: "Copy", slug: "copy", tags: ["design"] }),
+    ).resolves.toBe("resume-1");
+    expect(resumeService.create).toHaveBeenLastCalledWith(
+      expect.objectContaining({
+        userId: "user-1",
+        name: "Copy",
+        slug: "copy",
+        tags: ["design"],
+        data: savedResume.data,
+      }),
+    );
+
+    await expect(call(resumeRouter.delete, { id: "resume-1" })).resolves.toBeUndefined();
+    expect(resumeService.delete).toHaveBeenCalledWith({ id: "resume-1", userId: "user-1" });
+
+    await expect(call(resumeRouter.getById, { id: "resume-1" })).resolves.toMatchObject({ id: "resume-1" });
+    await expect(call(resumeRouter.tags.list)).resolves.toEqual(["design"]);
+    await expect(call(resumeRouter.statistics.getById, { id: "resume-1" })).resolves.toMatchObject({ views: 1 });
+
+    getSession.mockResolvedValueOnce(null);
+    await expect(call(resumeRouter.update, { id: "resume-1", name: "Nope" })).rejects.toMatchObject({
+      code: "UNAUTHORIZED",
+    });
+
+    getSession.mockResolvedValueOnce(null);
+    await expect(call(resumeRouter.verifyPassword, { username: "ada", slug: "cv", password: "secret1" })).resolves.toBe(
+      true,
+    );
+    expect(resumeService.verifyPassword).toHaveBeenCalledWith({ username: "ada", slug: "cv", password: "secret1" });
+
+    await expect(call(resumeRouter.getByIdForPrinter, { id: "resume-1" })).rejects.toMatchObject({
+      code: "UNAUTHORIZED",
+    });
+    await expect(callInternal(resumeRouter.getByIdForPrinter, { id: "resume-1" })).resolves.toEqual({ id: "resume-1" });
   });
 });

@@ -281,6 +281,19 @@ describe("verificationService.requestSkill", () => {
     ).rejects.toThrow("An active verification request already exists");
   });
 
+  it("rejects a skill request when the resume does not exist", async () => {
+    mockLimit.mockReturnValueOnce([]);
+
+    await expect(
+      verificationService.requestSkill({
+        userId: "user-1",
+        resumeId: "missing",
+        itemId: skillKeywordId,
+        itemLabel: "TypeScript",
+      }),
+    ).rejects.toThrow("Resume not found");
+  });
+
   it("should reject parent category ids when keywords exist", async () => {
     mockLimit.mockReturnValueOnce([createResumeWithSkillKeyword()]);
 

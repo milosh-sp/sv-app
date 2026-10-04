@@ -132,4 +132,61 @@ describe("useJobSearch", () => {
 
     view.unmount();
   });
+
+  it("submits a search, changes page, opens a job, and clears filters", async () => {
+    mutate.mockImplementation(() => undefined);
+    const view = mount();
+    let search = await view.render();
+    const event = { preventDefault: vi.fn() } as unknown as React.FormEvent;
+
+    await act(async () => {
+      search.handleSearch(event);
+    });
+    search = await view.render();
+    expect(event.preventDefault).toHaveBeenCalledOnce();
+    expect(search.hasSearched).toBe(true);
+    expect(search.currentPage).toBe(1);
+    expect(mutate).toHaveBeenCalled();
+
+    await act(async () => {
+      search.handlePageChange(3);
+    });
+    search = await view.render();
+    expect(search.currentPage).toBe(3);
+
+    const job = { id: "job-1" } as never;
+    await act(async () => {
+      search.handleJobClick(job);
+    });
+    search = await view.render();
+    expect(search.selectedJob).toEqual({ id: "job-1" });
+    expect(search.sheetOpen).toBe(true);
+
+    await act(async () => {
+      search.setFilters({
+        ...search.filters,
+        includeKeywords: ["rust", "go"],
+        remoteOnly: true,
+        employmentType: "FULLTIME",
+      });
+    });
+    search = await view.render();
+    await act(async () => {
+      search.removeFilter("includeKeywords");
+    });
+    search = await view.render();
+    expect(search.filters.includeKeywords).toEqual([]);
+    await act(async () => {
+      search.removeFilter("remoteOnly");
+    });
+    search = await view.render();
+    expect(search.filters.remoteOnly).toBe(false);
+    await act(async () => {
+      search.removeFilter("employmentType");
+    });
+    search = await view.render();
+    expect(search.filters.employmentType).toBeNull();
+
+    view.unmount();
+  });
 });

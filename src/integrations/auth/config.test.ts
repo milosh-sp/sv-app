@@ -28,7 +28,7 @@ vi.mock("better-auth/plugins", () => ({
   jwt: () => ({ id: "jwt" }),
   openAPI: () => ({ id: "openapi" }),
   twoFactor: () => ({ id: "two-factor" }),
-  username: () => ({ id: "username" }),
+  username: (options: object) => ({ id: "username", ...options }),
 }));
 vi.mock("better-auth/plugins/generic-oauth", () => ({
   genericOAuth: (options: { config: unknown[] }) => options,
@@ -134,5 +134,96 @@ describe("OAuth audience and verification URL", () => {
     );
     expect(config.trustedOrigins).toEqual(["https://app.example.com"]);
     expect(config.advanced.useSecureCookies).toBe(true);
+  });
+
+  it("maps social profiles and rejects a custom provider profile without an email", async () => {
+    process.env.OAUTH_CLIENT_ID = "client";
+    process.env.OAUTH_CLIENT_SECRET = "secret";
+    process.env.OAUTH_DISCOVERY_URL = "https://idp.example.com/.well-known/openid-configuration";
+    rows.value = [];
+    const { config } = await loadConfig();
+    const social = config as unknown as {
+      socialProviders: {
+        google: {
+          mapProfileToUser: (
+            profile: Record<string, string | undefined>,
+          ) => Promise<{ name: string; username: string }>;
+        };
+        github: {
+          mapProfileToUser: (
+            profile: Record<string, string | undefined>,
+          ) => Promise<{ id?: string; name: string; email: string }>;
+        };
+      };
+      plugins: Array<{
+        config?: Array<{ mapProfileToUser?: (profile: Record<string, string | undefined>) => Promise<unknown> }>;
+        usernameNormalization?: (value: string) => string;
+        displayUsernameNormalization?: (value: string) => string;
+      }>;
+    };
+
+    await expect(
+      social.socialProviders.google.mapProfileToUser({
+        email: "ada@example.com",
+        name: "Ada Lovelace",
+        picture: "https://example.com/a.png",
+      }),
+    ).resolves.toMatchObject({
+      name: "Ada Lovelace",
+      username: "ada",
+    });
+    await expect(social.socialProviders.google.mapProfileToUser({ email: "grace@example.com" })).resolves.toMatchObject(
+      {
+        name: "grace",
+        username: "grace",
+      },
+    );
+
+    await expect(
+      social.socialProviders.github.mapProfileToUser({
+        email: "ada@example.com",
+        login: "Ada",
+        id: "7",
+        avatar_url: "https://example.com/g.png",
+      }),
+    ).resolves.toMatchObject({ name: "Ada", username: "ada" });
+    await expect(social.socialProviders.github.mapProfileToUser({ id: "9" })).resolves.toMatchObject({ name: "9" });
+
+    rows.value = [
+      {
+        accountId: "acct-1",
+        email: "legacy@example.com",
+        emailVerified: false,
+        username: "ada",
+        displayUsername: "Ada",
+      },
+    ];
+    await expect(social.socialProviders.github.mapProfileToUser({ login: "ada", id: "7" })).resolves.toMatchObject({
+      id: "acct-1",
+      email: "legacy@example.com",
+      emailVerified: false,
+    });
+
+    const custom = social.plugins
+      .flatMap((plugin) => plugin.config ?? [])
+      .find((provider) => provider.mapProfileToUser);
+    if (!custom?.mapProfileToUser) throw new Error("custom oauth mapper missing");
+    await expect(custom.mapProfileToUser({})).rejects.toThrow(/email address/);
+    await expect(
+      custom.mapProfileToUser({
+        email: "ada@example.com",
+        preferred_username: "ada",
+        avatar_url: "https://example.com/c.png",
+      }),
+    ).resolves.toMatchObject({ username: "ada", image: "https://example.com/c.png" });
+    await expect(custom.mapProfileToUser({ email: "ada@example.com", name: "Ada" })).resolves.toMatchObject({
+      name: "Ada",
+      username: "ada",
+    });
+
+    delete process.env.OAUTH_CLIENT_ID;
+    delete process.env.OAUTH_CLIENT_SECRET;
+    delete process.env.OAUTH_DISCOVERY_URL;
+    rows.value = [];
   });
 });

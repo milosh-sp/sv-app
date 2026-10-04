@@ -83,4 +83,51 @@ describe("chip input", () => {
     root.unmount();
     container.remove();
   });
+
+  it("reorders chips when a drag ends on another chip", async () => {
+    const onChange = vi.fn();
+    const container = document.createElement("div");
+    document.body.append(container);
+    const root = createRoot(container);
+    await act(async () => {
+      root.render(<ChipInput value={["Rust", "Go"]} onChange={onChange} />);
+    });
+
+    const node = container.firstElementChild ?? container;
+    const key = Object.keys(node).find((name) => name.startsWith("__reactFiber$"));
+    const start = key
+      ? (
+          node as unknown as Record<
+            string,
+            {
+              child?: unknown;
+              sibling?: unknown;
+              memoizedProps?: { onDragEnd?: (event: { active: { id: string }; over: { id: string } | null }) => void };
+            }
+          >
+        )[key]
+      : undefined;
+    const stack = start ? [start] : [];
+    const seen = new Set<object>();
+    let onDragEnd: ((event: { active: { id: string }; over: { id: string } | null }) => void) | undefined;
+    while (stack.length > 0) {
+      const fiber = stack.pop();
+      if (!fiber || seen.has(fiber)) continue;
+      seen.add(fiber);
+      if (fiber.memoizedProps?.onDragEnd) onDragEnd = fiber.memoizedProps.onDragEnd;
+      if (fiber.child) stack.push(fiber.child as typeof fiber);
+      if (fiber.sibling) stack.push(fiber.sibling as typeof fiber);
+    }
+    if (!onDragEnd) throw new Error("missing drag end");
+    act(() => {
+      onDragEnd?.({ active: { id: "Rust" }, over: null });
+      onDragEnd?.({ active: { id: "Rust" }, over: { id: "Rust" } });
+      onDragEnd?.({ active: { id: "missing" }, over: { id: "Go" } });
+      onDragEnd?.({ active: { id: "Rust" }, over: { id: "Go" } });
+    });
+    expect(onChange).toHaveBeenCalledWith(["Go", "Rust"]);
+
+    root.unmount();
+    container.remove();
+  });
 });

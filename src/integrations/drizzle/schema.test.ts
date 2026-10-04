@@ -1,5 +1,8 @@
+import { getTableColumns, is } from "drizzle-orm";
+import { getTableConfig, PgTable } from "drizzle-orm/pg-core";
 import { describe, expect, it } from "vite-plus/test";
 
+import * as schema from "./schema";
 import {
   adminRoleEnum,
   adminRoles,
@@ -269,6 +272,36 @@ describe("resume table work authorization columns", () => {
     expect(resume.workAuthConsentToShare).toBeDefined();
     expect(resume.workAuthUpdatedAt).toBeDefined();
     expect(resume.workAuthSearchTokens).toBeDefined();
+  });
+
+  it("runs column defaults and index builders", () => {
+    let defaults = 0;
+    for (const value of Object.values(schema)) {
+      if (!is(value, PgTable)) continue;
+      for (const column of Object.values(getTableColumns(value))) {
+        const callable = column as { defaultFn?: () => unknown; onUpdateFn?: () => unknown };
+        if (callable.defaultFn) {
+          callable.defaultFn();
+          defaults += 1;
+        }
+        callable.onUpdateFn?.();
+      }
+      const symbols = Object.getOwnPropertySymbols(value);
+      const builder = symbols.find((symbol) => String(symbol).includes("ExtraConfigBuilder"));
+      const columns = symbols.find((symbol) => String(symbol).includes("ExtraConfigColumns"));
+      const table = value as unknown as Record<symbol, unknown>;
+      const build = builder ? table[builder] : undefined;
+      if (typeof build === "function") build(columns ? table[columns] : {});
+    }
+    expect(defaults).toBeGreaterThan(0);
+
+    let references = 0;
+    for (const value of Object.values(schema)) {
+      if (!is(value, PgTable)) continue;
+      for (const key of getTableConfig(value).foreignKeys) key.reference();
+      references += getTableConfig(value).foreignKeys.length;
+    }
+    expect(references).toBeGreaterThan(0);
   });
 
   it("uses non-nullable defaults for searchable columns", () => {
