@@ -96,6 +96,7 @@ describe("resolveCanonicalSkillLabel", () => {
     expect(resolveCanonicalSkillLabel("   ")).toBe("");
     expect(resolveCanonicalSkillLabel("LegacySkill")).toBe("LegacySkill");
     expect(resolveCanonicalSkillLabel("LegacySkill ES6")).toBe("LegacySkill ES6");
+    expect(resolveCanonicalSkillLabel("/")).toBe("/");
     expect(resolveCanonicalSkillLabel("JavaScript, extra")).toBe("JavaScript");
   });
 

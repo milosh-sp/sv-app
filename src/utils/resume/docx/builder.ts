@@ -128,11 +128,7 @@ function renderSection(sectionId: string, data: ResumeData, colorHex: string): P
   }
 
   if (BUILT_IN_SECTIONS.has(sectionId)) {
-    const section = data.sections[sectionId as SectionType];
-    if (section) {
-      return renderBuiltInSection(sectionId as SectionType, section, colorHex);
-    }
-    return [];
+    return renderBuiltInSection(sectionId as SectionType, data.sections[sectionId as SectionType], colorHex);
   }
 
   const customSection = data.customSections.find((cs) => cs.id === sectionId);

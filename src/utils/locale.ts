@@ -60,7 +60,13 @@ export const setLocaleServerFn = createServerFn({ method: "POST" })
   });
 
 const loadMessages = async (locale: Locale) => {
-  const { messages } = await (import(`../../locales/${locale}.po`) as Promise<{ messages: Messages }>);
+  const catalogs = {
+    "en-US": () => import("../../locales/en-US.po"),
+    "de-DE": () => import("../../locales/de-DE.po"),
+    "es-ES": () => import("../../locales/es-ES.po"),
+    "ru-RU": () => import("../../locales/ru-RU.po"),
+  } satisfies Record<Locale, () => Promise<{ messages: Messages }>>;
+  const { messages } = await catalogs[locale]();
   return messages;
 };
 

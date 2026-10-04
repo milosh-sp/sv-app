@@ -52,6 +52,12 @@ const items: TestItem[] = [
     parentItemLabel: "Projects",
     status: "pending",
   },
+  {
+    id: "skill-blank-parent",
+    sectionType: "skill",
+    itemLabel: "Orphan",
+    status: "pending",
+  },
 ];
 
 const myCaseItems: TestItem[] = [
@@ -117,6 +123,7 @@ describe("buildFilterOptionsFromItems", () => {
   it("includes category options when two or more categories exist", () => {
     const options = buildFilterOptionsFromItems(items, ["TypeScript"], "queue");
     expect(options.categories.map((option) => option.value)).toEqual(["Programming Languages", "Projects"]);
+    expect(buildAllowedFilterValues(options).categories).toEqual(["Programming Languages", "Projects"]);
   });
 
   it("always includes both my-case statuses when cases exist", () => {
@@ -127,11 +134,16 @@ describe("buildFilterOptionsFromItems", () => {
   it("includes proposed options present in my cases", () => {
     const options = buildFilterOptionsFromItems(myCaseItems, [], "cases");
     expect(options.proposed.map((option) => option.value)).toEqual(["verified", "rejected"]);
+    expect(buildAllowedFilterValues(options).proposed).toEqual(["verified", "rejected"]);
   });
 
   it("includes type options when both skills and projects exist", () => {
     const options = buildFilterOptionsFromItems(items, ["TypeScript"], "queue");
     expect(options.types.map((option) => option.value)).toEqual(["skill", "project"]);
+    expect(buildAllowedFilterValues(options)).toMatchObject({
+      types: ["skill", "project"],
+      skills: expect.arrayContaining(["TypeScript"]),
+    });
   });
 
   it("lists only the history statuses that appear, and ignores a blank status", () => {

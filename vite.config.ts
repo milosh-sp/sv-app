@@ -14,9 +14,9 @@ const isVitest = Boolean(process.env.VITEST);
 const plugins = [
   tanstackStart({ router: { semicolons: true, quoteStyle: "double" } }),
   viteReact(),
+  lingui({ failOnCompileError: true }),
   ...(!isVitest
     ? [
-        lingui({ failOnCompileError: true }),
         tailwindcss(),
         nitro({
           plugins: ["plugins/1.migrate.ts"],

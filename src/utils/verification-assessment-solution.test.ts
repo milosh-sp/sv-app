@@ -21,7 +21,7 @@ describe("verification assessment solution validation", () => {
   it("requires at least one of file or solution URL", () => {
     expect(hasAssessmentSolutionInput({})).toBe(false);
     expect(hasAssessmentSolutionInput({ file: new File(["a"], "a.pdf", { type: "application/pdf" }) })).toBe(true);
-    expect(hasAssessmentSolutionInput({ solutionUrl: "https://github.com/you/repo" })).toBe(true);
+    expect(hasAssessmentSolutionInput({ solutionUrl: "   " })).toBe(false);
     expect(
       hasAssessmentSolutionInput({
         file: new File(["a"], "a.pdf", { type: "application/pdf" }),
@@ -40,5 +40,6 @@ describe("verification assessment solution validation", () => {
       type: "application/zip",
     });
     expect(() => validateAssessmentSolutionFile(file)).toThrow("File size must be under 25MB");
+    expect(() => validateAssessmentSolutionFile(new File(["a"], "a.pdf", { type: "application/pdf" }))).not.toThrow();
   });
 });

@@ -188,6 +188,25 @@ describe("tailorOutputToPatches", () => {
     expect(opValue(summaryOp)).toBe("<p>Expert - Full Stack Developer</p>");
   });
 
+  it("skips blank descriptions and a missing roles list", () => {
+    const output: TailorOutput = {
+      ...emptyTailorOutput,
+      experiences: [{ index: 0, description: "", roles: undefined as never }],
+      references: [{ index: 0, description: "" }],
+    };
+    const { operations } = tailorOutputToPatches(output, makeResumeData());
+    expect(
+      operations.some((op) => String(op.path).includes("/experience/") || String(op.path).includes("/references/")),
+    ).toBe(false);
+    expect(validateTailorOutput(output, makeResumeData())).toEqual([]);
+
+    const validRole: TailorOutput = {
+      ...emptyTailorOutput,
+      experiences: [{ index: 0, description: "<p>Ok</p>", roles: [{ index: 0, description: "<p>Role</p>" }] }],
+    };
+    expect(validateTailorOutput(validRole, makeResumeData())).toEqual([]);
+  });
+
   it("skips summary patch when content is empty", () => {
     const { operations } = tailorOutputToPatches(emptyTailorOutput, makeResumeData());
 
@@ -359,19 +378,20 @@ describe("tailorOutputToPatches", () => {
         {
           name: "Full\u2013Stack Development",
           keywords: ["React \u2014 Frontend", "Node\u2019s Server"],
-          proficiency: "\u201CAdvanced\u201D",
+          proficiency: "",
           icon: "code",
-          isNew: false,
+          isNew: true,
         },
       ],
     };
 
-    const { operations } = tailorOutputToPatches(output, makeResumeData());
+    const { operations, newSkills } = tailorOutputToPatches(output, makeResumeData());
 
     const addOp = operations.find((op) => op.op === "add" && op.path === "/sections/skills/items/-");
     expect(opValue(addOp).name).toBe("Full-Stack Development");
     expect(opValue(addOp).keywords).toEqual(["React - Frontend", "Node's Server"]);
-    expect(opValue(addOp).proficiency).toBe('"Advanced"');
+    expect(opValue(addOp).proficiency).toBe("");
+    expect(newSkills[0]?.proficiency).toBe("");
   });
 
   it("returns newSkills only for skills marked isNew", () => {
@@ -568,6 +588,19 @@ describe("validateTailorOutput", () => {
 
     const errors = validateTailorOutput(output, makeResumeData());
     expect(errors.length).toBeGreaterThan(0);
+  });
+
+  it("treats a missing roles array as having no roles", () => {
+    const resume = makeResumeData();
+    resume.sections.experience.items[0] = { ...resume.sections.experience.items[0]!, roles: undefined as never };
+    const output: TailorOutput = {
+      ...emptyTailorOutput,
+      experiences: [{ index: 0, description: "<p>Ok</p>", roles: [{ index: 0, description: "<p>Role</p>" }] }],
+    };
+
+    expect(validateTailorOutput(output, resume)[0]).toContain("Role index 0");
+    const { operations } = tailorOutputToPatches(output, resume);
+    expect(operations.some((op) => String(op.path).includes("/roles/"))).toBe(false);
   });
 });
 

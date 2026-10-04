@@ -12,8 +12,15 @@ function makeResumeData(overrides?: Partial<ResumeData>): ResumeData {
 }
 
 describe("buildDocument", () => {
-  it("produces a valid Document from default resume data", () => {
-    const doc = buildDocument(defaultResumeData);
+  it("uses a4 dimensions for a free-form page", () => {
+    const doc = buildDocument(
+      makeResumeData({
+        metadata: {
+          ...defaultResumeData.metadata,
+          page: { ...defaultResumeData.metadata.page, format: "free-form" },
+        },
+      }),
+    );
     expect(doc).toBeInstanceOf(Document);
   });
 
@@ -22,6 +29,19 @@ describe("buildDocument", () => {
       basics: { ...defaultResumeData.basics, name: "John Doe" },
     });
     const doc = buildDocument(data);
+    expect(doc).toBeInstanceOf(Document);
+  });
+
+  it("skips an email or website the document cannot link", () => {
+    const doc = buildDocument(
+      makeResumeData({
+        basics: {
+          ...defaultResumeData.basics,
+          email: " ",
+          website: { url: "javascript:alert(1)", label: "bad" },
+        },
+      }),
+    );
     expect(doc).toBeInstanceOf(Document);
   });
 

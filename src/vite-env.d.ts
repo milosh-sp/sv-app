@@ -5,6 +5,10 @@ declare const __APP_VERSION__: string;
 declare var IS_REACT_ACT_ENVIRONMENT: boolean | undefined;
 
 declare module "*.css";
+declare module "*.po" {
+  const messages: Record<string, string>;
+  export { messages };
+}
 declare module "@fontsource/*" {}
 declare module "@fontsource-variable/*" {}
 

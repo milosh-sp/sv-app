@@ -161,8 +161,6 @@ export function removeItemFromSource(
 
   // Type assertion: when customSectionId is not provided, type is always a built-in SectionType
   const section = draft.sections[type as SectionType];
-  if (!("items" in section)) return null;
-
   const index = section.items.findIndex((item) => item.id === itemId);
   if (index === -1) return null;
 
@@ -187,9 +185,7 @@ export function addItemToSection(
   // Check if target is a standard section
   if (isStandardSectionId(targetSectionId) && targetSectionId === type) {
     const section = draft.sections[type as SectionType];
-    if ("items" in section) {
-      section.items.push(item as never);
-    }
+    section.items.push(item as never);
     return;
   }
 

@@ -1,3 +1,4 @@
+import { i18n } from "@lingui/core";
 import Cookies from "js-cookie";
 import { readdirSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
@@ -9,7 +10,7 @@ vi.mock("@lingui/core/macro", () => ({
 }));
 
 // Import after mock setup
-const { getLocale, isLocale, isRTL } = await import("./locale");
+const { getLocale, isLocale, isRTL, loadLocale } = await import("./locale");
 
 describe("isLocale", () => {
   it("should return true for valid locales", () => {
@@ -56,6 +57,18 @@ describe("getLocale", () => {
 
     Cookies.remove("locale");
     expect(getLocale()).toBe("en-US");
+  });
+});
+
+describe("loadLocale", () => {
+  it("activates the default catalog and merges a translation over it", async () => {
+    await loadLocale("en-US");
+    await loadLocale("nope");
+    expect(i18n.locale).toBe("en-US");
+    await loadLocale("de-DE");
+    await loadLocale("es-ES");
+    await loadLocale("ru-RU");
+    expect(i18n.locale).toBe("ru-RU");
   });
 });
 

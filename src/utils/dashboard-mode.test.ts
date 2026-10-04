@@ -12,8 +12,16 @@ vi.mock("js-cookie", () => ({
   },
 }));
 
+vi.mock("@tanstack/react-start/server", () => ({
+  getCookie: (name: string) => cookieJar.get(name),
+  setCookie: (name: string, value: string) => {
+    cookieJar.set(name, value);
+  },
+}));
+
 import {
   dashboardModeStorageKey,
+  getDashboardMode,
   getEffectiveDashboardMode,
   parseDashboardModeFromCookieHeader,
   readDashboardModeFromClientCookie,
@@ -50,5 +58,14 @@ describe("dashboard mode", () => {
     expect(readDashboardModeFromClientCookie()).toBe("reviewer");
     writeDashboardModeToClientCookie("user");
     expect(readDashboardModeFromClientCookie()).toBe("user");
+  });
+
+  it("reads the server cookie and falls back when it is missing or junk", async () => {
+    cookieJar.clear();
+    await expect(getDashboardMode()).resolves.toBe("reviewer");
+    cookieJar.set(dashboardModeStorageKey, "nope");
+    await expect(getDashboardMode()).resolves.toBe("reviewer");
+    cookieJar.set(dashboardModeStorageKey, "user");
+    await expect(getDashboardMode()).resolves.toBe("user");
   });
 });

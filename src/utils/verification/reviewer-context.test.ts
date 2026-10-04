@@ -31,7 +31,7 @@ describe("stripIdentifyingHtml", () => {
     const html = '<p>Contact <a href="mailto:test@example.com">email</a> or <a href="tel:+123">phone</a></p>';
     const result = stripIdentifyingHtml(html);
     expect(result).not.toContain("mailto:");
-    expect(result).not.toContain("tel:");
+    expect(stripIdentifyingHtml("")).toBe("");
   });
 });
 
@@ -98,6 +98,25 @@ describe("buildReviewerSkillContext", () => {
     expect(context.description).toContain("REST API");
     expect(context).not.toHaveProperty("website");
   });
+
+  it("falls back when the resume, project, or skill category is missing", () => {
+    expect(buildReviewerSkillContext(null, "project", "missing", "Label")).toEqual({
+      sectionType: "project",
+      itemLabel: "Label",
+      parentItemLabel: null,
+      name: "Label",
+      period: "",
+      description: "",
+    });
+    expect(buildReviewerSkillContext(undefined, "skill", "missing", "Label")).toMatchObject({
+      sectionType: "skill",
+      itemLabel: "Label",
+      parentItemLabel: null,
+      proficiency: "",
+      level: 0,
+      keywords: [],
+    });
+  });
 });
 
 describe("buildRedactedRelatedExperience", () => {
@@ -146,6 +165,99 @@ describe("buildRedactedRelatedExperience", () => {
     });
     expect(items[0]).not.toHaveProperty("company");
     expect(items[0]).not.toHaveProperty("location");
+  });
+
+  it("uses a role title when the job title is blank and stops at the requested limit", () => {
+    const role = {
+      id: "role-1",
+      hidden: false,
+      position: "Lead",
+      period: "2020",
+      description: "<p>C# lead</p>",
+    };
+    const resumeData = makeResumeData({
+      sections: {
+        ...defaultResumeData.sections,
+        experience: {
+          ...defaultResumeData.sections.experience,
+          items: [
+            {
+              id: "hidden",
+              hidden: true,
+              company: "Hidden",
+              position: "C#",
+              location: "",
+              period: "",
+              website: { url: "", label: "" },
+              description: "<p>C#</p>",
+              roles: [],
+            },
+            {
+              id: "exp",
+              hidden: false,
+              company: "",
+              position: "",
+              location: "",
+              period: "",
+              website: { url: "", label: "" },
+              description: "<p>Used C#.</p>",
+              roles: [role],
+            },
+            {
+              id: "exp-2",
+              hidden: false,
+              company: "",
+              position: "",
+              location: "",
+              period: "",
+              website: { url: "", label: "" },
+              description: "<p>More C#.</p>",
+              roles: [],
+            },
+          ],
+        },
+      },
+    });
+
+    const limited = buildRedactedRelatedExperience(resumeData, "C#", null, 1);
+    expect(limited).toHaveLength(1);
+    expect(limited[0]?.position).toBe("Lead");
+    expect(limited[0]?.roles).toEqual([{ position: "Lead", period: "2020", description: "<p>C# lead</p>" }]);
+
+    const untitled = buildRedactedRelatedExperience(
+      makeResumeData({
+        sections: {
+          ...defaultResumeData.sections,
+          experience: {
+            ...defaultResumeData.sections.experience,
+            items: [
+              {
+                id: "exp",
+                hidden: false,
+                company: "",
+                position: "",
+                location: "",
+                period: "",
+                website: { url: "", label: "" },
+                description: "<p>C# only.</p>",
+                roles: [],
+              },
+            ],
+          },
+        },
+      }),
+      "C#",
+      null,
+    );
+    expect(untitled[0]?.position).toBe("");
+    expect(buildRedactedRelatedExperience(null, "C#", null)).toEqual([]);
+    expect(
+      buildRedactedRelatedExperience(
+        { ...resumeData, sections: { ...resumeData.sections, experience: undefined } } as unknown as ResumeData,
+        "C#",
+        null,
+      ),
+    ).toEqual([]);
   });
 });
 

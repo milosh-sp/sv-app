@@ -89,6 +89,12 @@ describe("resume section item moves", () => {
     expect(removeItemFromSource(resume, "exp-1", "experience", "missing-section")).toBeNull();
     expect(removeItemFromSource(resumeWithMoveTargets(), "missing-item", "experience")).toBeNull();
     expect(removeItemFromSource(resumeWithMoveTargets(), "missing-item", "experience", "custom-b")).toBeNull();
+
+    const withCustomItem = resumeWithMoveTargets();
+    withCustomItem.customSections[1]!.items = [{ ...experienceItem, id: "custom-item" }];
+    expect(removeItemFromSource(withCustomItem, "custom-item", "experience", "custom-b")).toMatchObject({
+      id: "custom-item",
+    });
   });
 
   it("adds an item to a custom section by id and to a standard section by type", () => {
@@ -100,6 +106,8 @@ describe("resume section item moves", () => {
 
     addItemToSection(resume, { ...experienceItem, id: "exp-2" }, "experience", "experience");
     expect(resume.sections.experience.items.map((item) => item.id)).toEqual(["exp-2"]);
+    addItemToSection(resume, experienceItem, "missing-custom", "experience");
+    expect(resume.customSections.find((section) => section.id === "custom-b")?.items).toHaveLength(1);
   });
 
   it("creates a custom section on the target page main column", () => {
@@ -111,6 +119,10 @@ describe("resume section item moves", () => {
     expect(resume.customSections.find((section) => section.id === sectionId)?.items).toEqual([experienceItem]);
     expect(resume.metadata.layout.pages[1]?.main).toContain(sectionId);
     expect(resume.metadata.layout.pages).toHaveLength(pageCount);
+
+    const orphan = createCustomSectionWithItem(resume, { ...experienceItem, id: "exp-9" }, "experience", "Later", 99);
+    expect(resume.customSections.some((section) => section.id === orphan)).toBe(true);
+    expect(resume.metadata.layout.pages.some((page) => page.main.includes(orphan))).toBe(false);
   });
 
   it("appends a page whose main column holds only the new section", () => {

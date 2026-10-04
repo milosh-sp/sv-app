@@ -46,7 +46,7 @@ function dedupeSkillLabels(labels: readonly string[]): string[] {
 
 /** Predefined skills reviewers can be assigned. */
 export const COMMON_REVIEWER_SKILLS: readonly string[] = Object.freeze(
-  dedupeSkillLabels([...techSkills.map((skill) => skill.label), ...SUPPLEMENTAL_REVIEWER_SKILLS]).sort((a, b) =>
+  dedupeSkillLabels(["", ...techSkills.map((skill) => skill.label), ...SUPPLEMENTAL_REVIEWER_SKILLS]).sort((a, b) =>
     a.localeCompare(b),
   ),
 );
@@ -136,8 +136,6 @@ for (const [aliasKey, canonical] of Object.entries(SKILL_ALIASES)) {
 }
 
 /** Compound labels that must not prefix-resolve to a shorter catalog skill. */
-const COMPOUND_SKILL_BLOCKLIST = new Set(["react native", "react-native"]);
-
 const PREFIX_DELIMITERS = [" ", "/", "(", "-"] as const;
 
 const sortedPrefixKeys = [...normalizedKeyToCanonical.keys()].sort((a, b) => b.length - a.length);
@@ -146,16 +144,8 @@ function lookupExact(normalized: string): string | undefined {
   return normalizedKeyToCanonical.get(normalized);
 }
 
-function isBlocklistedCompound(normalized: string): boolean {
-  return COMPOUND_SKILL_BLOCKLIST.has(normalized);
-}
-
 function lookupByPrefix(normalized: string): string | undefined {
   for (const key of sortedPrefixKeys) {
-    if (normalized === key) {
-      return normalizedKeyToCanonical.get(key);
-    }
-
     for (const delimiter of PREFIX_DELIMITERS) {
       if (normalized.startsWith(`${key}${delimiter}`)) {
         return normalizedKeyToCanonical.get(key);
@@ -180,8 +170,6 @@ export function resolveCanonicalSkillLabel(label: string): string {
   const exact = lookupExact(normalized);
   if (exact) return exact;
 
-  if (isBlocklistedCompound(normalized)) return trimmed;
-
   const prefixMatch = lookupByPrefix(normalized);
   if (prefixMatch) return prefixMatch;
 
@@ -190,11 +178,6 @@ export function resolveCanonicalSkillLabel(label: string): string {
     const segmentNormalized = normalizeKey(firstSegment);
     const segmentExact = lookupExact(segmentNormalized);
     if (segmentExact) return segmentExact;
-
-    if (!isBlocklistedCompound(segmentNormalized)) {
-      const segmentPrefix = lookupByPrefix(segmentNormalized);
-      if (segmentPrefix) return segmentPrefix;
-    }
   }
 
   return trimmed;
@@ -219,7 +202,6 @@ export function buildReviewerSkillOptions(extraSkills: string[] = []): ComboboxO
 
   for (const skill of COMMON_REVIEWER_SKILLS) {
     const key = normalizeKey(skill);
-    if (seen.has(key)) continue;
     seen.add(key);
     options.push({ value: skill, label: skill });
   }

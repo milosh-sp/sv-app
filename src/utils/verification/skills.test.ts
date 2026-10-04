@@ -83,7 +83,7 @@ describe("expandSkillItemsForVerification", () => {
   it("dedupes keywords that normalize to the same value", () => {
     const item: SkillItem = {
       ...categoryWithKeywords,
-      keywords: ["C#", " c# ", "C++"],
+      keywords: ["C#", " c# ", "C++", ""],
     };
 
     const units = expandSkillItemsForVerification([item]);

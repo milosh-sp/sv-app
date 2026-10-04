@@ -76,26 +76,21 @@ function sameOperation(left: Operation | undefined, right: Operation | undefined
   return JSON.stringify(left) === JSON.stringify(right);
 }
 
-/**
- * `fast-json-patch` reports index 0 for some path errors even when a later
- * operation failed. Trust the reported index when it points at the failing
- * operation; otherwise find that operation in the sequence.
- */
 function resolveOperationIndex(operations: Operation[], error: JsonPatchError): number {
-  const reported = error.index ?? 0;
+  const reported = error.index!;
   const failed = error.operation as Operation | undefined;
   if (!failed || sameOperation(operations[reported], failed)) return reported;
-
-  const match = operations.findIndex((operation) => sameOperation(operation, failed));
-  return match === -1 ? reported : match;
+  return operations.findIndex((operation) => sameOperation(operation, failed));
 }
 
 function toResumePatchError(operations: Operation[], error: JsonPatchError): ResumePatchError {
   const code = error.name;
-  const message = patchErrorMessages[code] ?? error.message;
-  const operation = error.operation as Operation;
-
-  return new ResumePatchError(code, message, resolveOperationIndex(operations, error), operation);
+  return new ResumePatchError(
+    code,
+    patchErrorMessages[code]!,
+    resolveOperationIndex(operations, error),
+    error.operation as Operation,
+  );
 }
 
 /**
