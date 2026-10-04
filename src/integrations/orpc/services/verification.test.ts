@@ -4,8 +4,11 @@ import { beforeEach, describe, expect, it, vi } from "vite-plus/test";
 import {
   sendIdentityVerificationRequestedEmail,
   sendSkillAssessmentAcceptedEmail,
+  sendVerificationStatusEmail,
 } from "@/integrations/email/verification";
 import { env } from "@/utils/env";
+import { validateAssessmentSolutionFile } from "@/utils/verification-assessment-solution";
+import { validateVerificationDocumentFile } from "@/utils/verification-documents";
 import { deriveSkillKeywordId } from "@/utils/verification/skills";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -76,6 +79,26 @@ vi.mock("./storage", () => ({
   },
   toPublicFileUrl: (key: string) => `https://app.test/${key}`,
 }));
+
+vi.mock("@/utils/verification-assessment-solution", async (importOriginal) => {
+  const actual = (await importOriginal()) as {
+    validateAssessmentSolutionFile: (file: File) => void;
+  };
+  return {
+    ...actual,
+    validateAssessmentSolutionFile: vi.fn((file: File) => actual.validateAssessmentSolutionFile(file)),
+  };
+});
+
+vi.mock("@/utils/verification-documents", async (importOriginal) => {
+  const actual = (await importOriginal()) as {
+    validateVerificationDocumentFile: (file: File) => void;
+  };
+  return {
+    ...actual,
+    validateVerificationDocumentFile: vi.fn((file: File) => actual.validateVerificationDocumentFile(file)),
+  };
+});
 
 vi.mock("@/integrations/email/verification", () => ({
   sendAssessmentSolutionSubmittedEmail: vi.fn(),
@@ -3517,5 +3540,1176 @@ describe("verificationService uncovered branches", () => {
     await expect(
       verificationService.reviewExperience({ requestId: "missing", adminId: "sva-1", action: "verified" }),
     ).rejects.toThrow("Verification request not found");
+  });
+});
+
+describe("verificationService remaining outcomes", () => {
+  const submittedAt = new Date("2024-04-01T00:00:00.000Z");
+  const older = new Date("2024-03-01T00:00:00.000Z");
+  const reviewerProfile = {
+    firstName: "Jane",
+    lastName: "Smith",
+    title: "Engineer",
+    publicProfileUrl: "/reviewer/admin-1",
+    reviewerSkills: ["TypeScript"],
+    consentGiven: true,
+  };
+  const keywordResume = {
+    id: "resume-1",
+    userId: "user-1",
+    name: "CV",
+    data: {
+      sections: {
+        skills: {
+          items: [
+            {
+              id: skillParentId,
+              hidden: false,
+              icon: "code",
+              name: "Languages",
+              proficiency: "Expert",
+              level: 5,
+              keywords: ["TypeScript"],
+            },
+            {
+              id: "plain-skill",
+              hidden: false,
+              icon: "",
+              name: "Go",
+              proficiency: "Advanced",
+              level: 4,
+              keywords: [],
+            },
+          ],
+        },
+      },
+    },
+  };
+
+  function countQueries(unfiltered: number, filtered: number, withJoin = false) {
+    mockFrom.mockReturnValueOnce({ where: () => [{ total: unfiltered }] });
+    mockFrom.mockReturnValueOnce(
+      withJoin ? { innerJoin: () => ({ where: () => [{ total: filtered }] }) } : { where: () => [{ total: filtered }] },
+    );
+  }
+
+  function pageQuery(rows: unknown[], withJoin = false) {
+    const page = {
+      where: () => ({
+        orderBy: () => ({
+          limit: () => ({ offset: () => rows }),
+        }),
+      }),
+    };
+    mockFrom.mockReturnValueOnce(withJoin ? { innerJoin: () => page } : page);
+  }
+
+  it("refuses a badge toggle, a bad accept, and a verdict for a missing request", async () => {
+    mockLimit.mockReturnValueOnce([{ status: "verified", userId: "other-user" }]);
+    await expect(
+      verificationService.toggleBadge({ userId: "user-1", requestId: "req-1", visible: true }),
+    ).rejects.toThrow("Not authorized");
+
+    vi.mocked(validateVerificationDocumentFile).mockImplementationOnce(() => {
+      throw "bad file";
+    });
+    await expect(
+      verificationService.acceptCase({
+        requestId: "req-1",
+        adminId: "admin-1",
+        file: new File(["x"], "notes.txt", { type: "text/plain" }),
+      }),
+    ).rejects.toThrow("Invalid document file");
+
+    await expect(
+      verificationService.acceptCase({
+        requestId: "req-1",
+        adminId: "admin-1",
+        file: new File(["x"], "notes.txt", { type: "text/plain" }),
+      }),
+    ).rejects.toThrow("Only PDF, JPG, JPEG, and PNG files are allowed");
+
+    mockLimit
+      .mockReturnValueOnce([reviewerProfile])
+      .mockReturnValueOnce([
+        { id: "req-1", userId: "user-1", sectionType: "skill", itemLabel: "TypeScript", status: "pending" },
+      ])
+      .mockReturnValueOnce([]);
+    mockReturning.mockResolvedValueOnce([]);
+    await expect(
+      verificationService.acceptCase({
+        requestId: "req-1",
+        adminId: "admin-1",
+        file: new File(["instructions"], "instructions.pdf", { type: "application/pdf" }),
+      }),
+    ).rejects.toThrow("Verification request not found");
+
+    mockLimit.mockReturnValueOnce([reviewerProfile]).mockReturnValueOnce([]);
+    await expect(
+      verificationService.submitVerdict({ requestId: "missing", adminId: "admin-1", verdict: "verified" }),
+    ).rejects.toThrow("Verification request not found");
+
+    mockLimit
+      .mockReturnValueOnce([reviewerProfile])
+      .mockReturnValueOnce([{ userId: "user-1" }])
+      .mockReturnValueOnce([]);
+    mockReturning.mockResolvedValueOnce([]);
+    await expect(
+      verificationService.submitVerdict({ requestId: "req-1", adminId: "admin-1", verdict: "issue" }),
+    ).rejects.toThrow("Verification request not found");
+  });
+
+  it("emails the applicant when an experience review or verdict override finishes", async () => {
+    mockLimit.mockReturnValueOnce([
+      { id: "req-1", status: "pending", sectionType: "experience", userId: "user-1", itemLabel: "Acme" },
+    ]);
+    mockReturning.mockResolvedValueOnce([{ id: "req-1", status: "issue" }]);
+    mockLimit.mockReturnValueOnce([{ email: "ada@example.com" }]);
+    await expect(
+      verificationService.reviewExperience({ requestId: "req-1", adminId: "sva-1", action: "issue", notes: "Blurry" }),
+    ).resolves.toMatchObject({ status: "issue" });
+    expect(sendVerificationStatusEmail).toHaveBeenCalledWith(
+      "issue",
+      expect.objectContaining({ to: "ada@example.com", itemLabel: "Acme" }),
+    );
+
+    mockLimit.mockReturnValueOnce([
+      { id: "req-2", status: "pending", sectionType: "experience", userId: "user-1", itemLabel: "Beta" },
+    ]);
+    mockReturning.mockResolvedValueOnce([{ id: "req-2", status: "verified" }]);
+    mockLimit.mockReturnValueOnce([{}]);
+    await expect(
+      verificationService.reviewExperience({ requestId: "req-2", adminId: "sva-1", action: "verified" }),
+    ).resolves.toMatchObject({ status: "verified" });
+
+    mockReturning.mockResolvedValueOnce([{ id: "req-1", userId: "user-1", itemLabel: "Go", sectionType: "skill" }]);
+    mockLimit.mockReturnValueOnce([{ email: "ada@example.com" }]);
+    await expect(
+      verificationService.overrideVerdict({
+        requestId: "req-1",
+        adminId: "sva-1",
+        action: "rejected",
+        reason: "Insufficient evidence",
+      }),
+    ).resolves.toMatchObject({ id: "req-1" });
+    expect(sendVerificationStatusEmail).toHaveBeenCalledWith(
+      "rejected",
+      expect.objectContaining({ to: "ada@example.com", itemLabel: "Go" }),
+    );
+
+    mockReturning.mockResolvedValueOnce([]);
+    mockLimit.mockReturnValueOnce([{ id: "req-1", status: "verdict_pending" }]);
+    await expect(
+      verificationService.overrideVerdict({
+        requestId: "req-1",
+        adminId: "sva-1",
+        action: "verified",
+        reason: "Lost the race",
+      }),
+    ).rejects.toThrow("Verdict was already finalized");
+
+    mockLimit.mockReturnValueOnce([
+      { id: "req-1", status: "verified", sectionType: "skill", userId: "user-1", itemLabel: "Go" },
+    ]);
+    mockReturning.mockResolvedValueOnce([]);
+    await expect(
+      verificationService.overrideConcludedVerdict({
+        requestId: "req-1",
+        adminId: "sva-1",
+        action: "rejected",
+        reason: "Changed underneath",
+      }),
+    ).rejects.toThrow("Verdict status changed before override could be applied");
+  });
+
+  it("keeps the newer solution time when a file and an older link are submitted together", async () => {
+    const newer = new Date("2026-06-09T12:00:00.000Z");
+    mockOrderBy.mockReturnValueOnce(
+      Object.assign(Promise.resolve([]), {
+        limit: vi.fn().mockReturnValue([
+          {
+            id: "req-1",
+            userId: "user-1",
+            resumeId: "resume-1",
+            itemId: skillKeywordId,
+            itemLabel: "TypeScript",
+            sectionType: "skill",
+            status: "claimed",
+            claimedByAdminId: "reviewer-1",
+          },
+        ]),
+      }),
+    );
+    mockUploadFile.mockResolvedValueOnce({ key: "uploads/user-1/solution.pdf" });
+    mockReturning
+      .mockResolvedValueOnce([
+        { fileUrl: "uploads/user-1/solution.pdf", documentType: "assessment_solution", uploadedAt: newer },
+      ])
+      .mockResolvedValueOnce([
+        { fileUrl: " https://github.com/you/repo ", documentType: "assessment_solution_link", uploadedAt: older },
+      ]);
+    mockLimit.mockReturnValueOnce([]).mockReturnValueOnce([{}]).mockReturnValueOnce([{}]);
+
+    const result = await verificationService.submitAssessmentSolution({
+      userId: "user-1",
+      resumeId: "resume-1",
+      itemId: skillKeywordId,
+      file: new File(["pdf"], "solution.pdf", { type: "application/pdf" }),
+      solutionUrl: " https://github.com/you/repo ",
+    });
+
+    expect(result.assessmentSolutionSubmittedAt).toEqual(newer);
+    expect(result.assessmentSolutionLinkUrl).toBe(" https://github.com/you/repo ");
+  });
+
+  it("stores an upload with no content type as a generic document", async () => {
+    mockOrderBy.mockReturnValueOnce(
+      Object.assign(Promise.resolve([]), {
+        limit: vi.fn().mockReturnValue([{ id: "req-exp-1" }]),
+      }),
+    );
+    mockUploadFile.mockResolvedValueOnce({ key: "uploads/blank" });
+    mockReturning.mockResolvedValueOnce([
+      { id: "doc-1", fileUrl: "uploads/blank", documentType: "contract", uploadedAt: submittedAt },
+    ]);
+
+    await verificationService.uploadDocument({
+      userId: "user-1",
+      resumeId: "resume-1",
+      itemId: "item-1",
+      file: new File(["contract"], "contract.bin", { type: "" }),
+      documentType: "contract",
+    });
+
+    expect(mockUploadFile).toHaveBeenCalledWith(expect.objectContaining({ contentType: "application/octet-stream" }));
+  });
+
+  it("filters the experience queue and attaches the matching resume, user, and documents", async () => {
+    const rows = [
+      {
+        id: "req-1",
+        userId: "user-1",
+        resumeId: "resume-1",
+        sectionType: "experience",
+        itemId: "item-1",
+        itemLabel: "Acme",
+        status: "pending",
+        method: "document_upload",
+        submittedAt,
+      },
+      {
+        id: "req-2",
+        userId: "user-2",
+        resumeId: "resume-2",
+        sectionType: "experience",
+        itemId: "item-2",
+        itemLabel: "Solo",
+        status: "pending",
+        method: "freelancer_link",
+        submittedAt,
+      },
+    ];
+    countQueries(3, 2, true);
+    pageQuery(rows, true);
+    mockFrom
+      .mockReturnValueOnce({ where: () => [{ id: "user-1", name: "Ada", email: "ada@example.com" }] })
+      .mockReturnValueOnce({
+        where: () => [
+          { id: "resume-1", userId: "user-1", name: "CV" },
+          { id: "resume-2", userId: "other", name: "Not mine" },
+        ],
+      })
+      .mockReturnValueOnce({
+        where: () => [
+          {
+            id: "doc-1",
+            verificationRequestId: "req-1",
+            fileUrl: "uploads/payslip",
+            documentType: "payslip",
+            uploadedAt: submittedAt,
+          },
+          {
+            id: "doc-2",
+            verificationRequestId: "req-1",
+            fileUrl: "https://example.com/work",
+            documentType: "freelancer_link",
+            uploadedAt: older,
+          },
+        ],
+      });
+
+    const result = await verificationService.listExperienceQueue({
+      page: 1,
+      pageSize: 20,
+      query: "ada",
+      method: "document_upload",
+    });
+
+    expect(result.total).toBe(2);
+    expect(result.items[0]).toMatchObject({
+      user: { name: "Ada" },
+      resume: { name: "CV" },
+      documents: [
+        { fileUrl: "https://app.test/uploads/payslip", documentType: "payslip" },
+        { fileUrl: "https://example.com/work", documentType: "freelancer_link" },
+      ],
+    });
+    expect(result.items[1]).toMatchObject({ user: null, resume: null, documents: [] });
+  });
+
+  it("skips the resume lookup when every experience row is unbound", async () => {
+    countQueries(1, 1);
+    pageQuery([
+      {
+        id: "req-1",
+        userId: "user-1",
+        resumeId: null,
+        sectionType: "experience",
+        itemId: "item-1",
+        itemLabel: "Solo",
+        status: "pending",
+        method: null,
+        submittedAt,
+      },
+    ]);
+    mockFrom.mockReturnValueOnce({ where: () => [] }).mockReturnValueOnce({ where: () => [] });
+
+    const result = await verificationService.listExperienceQueue({ page: 1, pageSize: 20 });
+    expect(result.items[0]).toMatchObject({ resume: null, user: null });
+  });
+
+  it("keeps the newest identity resume and groups repeated documents", async () => {
+    countQueries(1, 1);
+    pageQuery([
+      {
+        id: "identity-1",
+        userId: "user-1",
+        resumeId: null,
+        sectionType: "identity",
+        itemId: "user-1",
+        itemLabel: "Identity",
+        status: "pending",
+        method: "identity_call",
+        submittedAt,
+        calendarLinkSentAt: null,
+      },
+    ]);
+    mockFrom
+      .mockReturnValueOnce({ where: () => [{ id: "user-1", name: "Ada" }] })
+      .mockReturnValueOnce({
+        where: () => ({
+          orderBy: () => [
+            { id: "resume-new", userId: "user-1", name: "Newest" },
+            { id: "resume-old", userId: "user-1", name: "Older" },
+          ],
+        }),
+      })
+      .mockReturnValueOnce({
+        where: () => [
+          {
+            id: "doc-1",
+            verificationRequestId: "identity-1",
+            fileUrl: "uploads/id",
+            documentType: "payslip",
+            uploadedAt: submittedAt,
+          },
+          {
+            id: "doc-2",
+            verificationRequestId: "identity-1",
+            fileUrl: "uploads/id-2",
+            documentType: "contract",
+            uploadedAt: older,
+          },
+        ],
+      });
+
+    const result = await verificationService.listIdentityQueue({ page: 1, pageSize: 20, method: "identity_call" });
+    expect(result.items[0]).toMatchObject({
+      user: { name: "Ada" },
+      resume: { name: "Newest" },
+      calendarLinkSentAt: null,
+    });
+    expect(result.items[0]?.documents).toHaveLength(2);
+  });
+
+  it("enriches pending verdicts with parent labels, instructions, and the first reviewer note", async () => {
+    const rows = [
+      {
+        id: "req-skill",
+        userId: "user-1",
+        resumeId: "resume-1",
+        sectionType: "skill",
+        itemId: skillKeywordId,
+        itemLabel: "TypeScript",
+        status: "verdict_pending",
+        submittedAt,
+        proposedVerdict: "verified",
+        reviewerNote: null,
+        assessmentAcceptedAt: submittedAt,
+        claimedByAdminId: "admin-1",
+      },
+      {
+        id: "req-plain",
+        userId: "user-1",
+        resumeId: "resume-1",
+        sectionType: "skill",
+        itemId: "plain-skill",
+        itemLabel: "Go",
+        status: "verdict_pending",
+        submittedAt,
+        proposedVerdict: "issue",
+        reviewerNote: "note",
+        assessmentAcceptedAt: null,
+        claimedByAdminId: null,
+      },
+      {
+        id: "req-other",
+        userId: "user-2",
+        resumeId: "resume-2",
+        sectionType: "project",
+        itemId: "project-1",
+        itemLabel: "Portfolio",
+        status: "verdict_pending",
+        submittedAt,
+        proposedVerdict: null,
+        reviewerNote: null,
+        assessmentAcceptedAt: null,
+        claimedByAdminId: "missing-admin",
+      },
+    ];
+    countQueries(4, 3, true);
+    pageQuery(rows, true);
+    mockFrom
+      .mockReturnValueOnce({ where: () => [{ adminId: "admin-1", reviewerSkills: ["TypeScript"] }] })
+      .mockReturnValueOnce({
+        where: () => ({
+          orderBy: () => [
+            {
+              verificationRequestId: "req-skill",
+              reviewerSnapshotFirstName: null,
+              reviewerSnapshotLastName: "Skip",
+              reviewerSnapshotTitle: null,
+              reviewerPublicProfileUrl: null,
+              notes: "older",
+              actedAt: older,
+            },
+            {
+              verificationRequestId: "req-skill",
+              reviewerSnapshotFirstName: "Jane",
+              reviewerSnapshotLastName: "Reviewer",
+              reviewerSnapshotTitle: "Engineer",
+              reviewerPublicProfileUrl: "/reviewer/admin-1",
+              notes: "latest",
+              actedAt: submittedAt,
+            },
+          ],
+        }),
+      })
+      .mockReturnValueOnce({ where: () => [{ id: "user-1", name: "Ada" }] })
+      .mockReturnValueOnce({
+        where: () => [
+          keywordResume,
+          { id: "resume-2", userId: "someone-else", name: "Other", data: keywordResume.data },
+        ],
+      })
+      .mockReturnValueOnce({
+        where: () => [
+          {
+            id: "instr",
+            verificationRequestId: "req-skill",
+            fileUrl: "uploads/instructions.pdf",
+            documentType: "assessment_instructions",
+            uploadedAt: submittedAt,
+          },
+          {
+            id: "extra",
+            verificationRequestId: "req-skill",
+            fileUrl: "uploads/extra.pdf",
+            documentType: "payslip",
+            uploadedAt: older,
+          },
+        ],
+      });
+
+    const result = await verificationService.listPendingVerdicts({
+      page: 1,
+      pageSize: 20,
+      query: "ada",
+      method: "document_upload",
+      proposed: ["verified", "issue"],
+      types: ["skill", "project"],
+    });
+
+    expect(result.items).toHaveLength(3);
+    expect(result.items[0]).toMatchObject({
+      parentItemLabel: "Languages",
+      assessmentInstructionsUrl: "https://app.test/uploads/instructions.pdf",
+      reviewerName: "Skip",
+      reviewerSkills: ["TypeScript"],
+      user: { name: "Ada" },
+    });
+    expect(result.items[0]?.documents).toHaveLength(2);
+    expect(result.items[1]).toMatchObject({ parentItemLabel: null, reviewerName: null, reviewerSkills: [] });
+    expect(result.items[2]).toMatchObject({ resume: null, user: null, reviewerSkills: [] });
+  });
+
+  it("returns an empty verdict page when the count is ahead of the rows", async () => {
+    countQueries(2, 2);
+    pageQuery([]);
+    const result = await verificationService.listPendingVerdicts({ page: 2, pageSize: 20 });
+    expect(result).toMatchObject({ items: [], total: 2, totalUnfiltered: 2 });
+  });
+
+  it("names a public experience verdict from the reviewer's last name", async () => {
+    mockFrom
+      .mockReturnValueOnce({ where: () => ({ limit: () => [{ id: "resume-1", isPublic: true }] }) })
+      .mockReturnValueOnce({ where: () => ({ limit: () => [{ showTimeline: true }] }) })
+      .mockReturnValueOnce({
+        where: () => ({
+          orderBy: () => [
+            {
+              id: "req-exp",
+              sectionType: "experience",
+              itemLabel: "Acme",
+              status: "verified",
+              submittedAt,
+              resolvedAt: submittedAt,
+            },
+          ],
+        }),
+      })
+      .mockReturnValueOnce({ where: () => [{ id: "req-exp", sectionType: "experience" }] })
+      .mockReturnValueOnce({
+        where: () => ({
+          orderBy: () => [
+            {
+              verificationRequestId: "req-exp",
+              adminRole: "skill_verdict_admin",
+              reviewerSnapshotFirstName: null,
+              reviewerSnapshotLastName: "Reviewer",
+              reviewerPublicProfileUrl: null,
+            },
+          ],
+        }),
+      });
+
+    const result = await verificationService.getPublicTimeline({ resumeId: "resume-1" });
+    expect(result.entries[0]?.verifiedBy).toBe("Reviewer");
+  });
+
+  it("shows instructions and redacts a skill the reviewer can see", async () => {
+    mockFrom
+      .mockReturnValueOnce({ where: () => ({ limit: () => [{ reviewerSkills: ["TypeScript"] }] }) })
+      .mockReturnValueOnce({
+        where: () => ({
+          orderBy: () => [
+            {
+              id: "req-skill",
+              userId: "user-1",
+              resumeId: "resume-1",
+              sectionType: "skill",
+              itemId: skillKeywordId,
+              itemLabel: "TypeScript",
+              status: "pending",
+              submittedAt,
+            },
+            {
+              id: "req-project",
+              userId: "user-1",
+              resumeId: null,
+              sectionType: "project",
+              itemId: "project-1",
+              itemLabel: "Portfolio",
+              status: "pending",
+              submittedAt,
+            },
+            {
+              id: "req-mismatch",
+              userId: "user-1",
+              resumeId: "resume-2",
+              sectionType: "skill",
+              itemId: skillKeywordId,
+              itemLabel: "TypeScript",
+              status: "pending",
+              submittedAt,
+            },
+          ],
+        }),
+      })
+      .mockReturnValueOnce({
+        where: () => [
+          { ...keywordResume, id: "resume-1", userId: "user-1" },
+          { id: "resume-2", userId: "other", data: keywordResume.data },
+        ],
+      })
+      .mockReturnValueOnce({
+        where: () => [
+          {
+            id: "instr",
+            verificationRequestId: "req-skill",
+            fileUrl: "uploads/instructions.pdf",
+            documentType: "assessment_instructions",
+            uploadedAt: submittedAt,
+          },
+          {
+            id: "extra",
+            verificationRequestId: "req-skill",
+            fileUrl: "https://example.com/notes",
+            documentType: "assessment_solution_link",
+            uploadedAt: older,
+          },
+        ],
+      });
+
+    const result = await verificationService.listQueue("admin-1");
+    expect(result).toHaveLength(3);
+    expect(result[0]?.assessmentInstructionsUrl).toBe("/api/reviewer/documents/req-skill/instr");
+    expect(result[0]?.parentItemLabel).toBe("Languages");
+    expect(result[0]?.documents).toHaveLength(2);
+    expect(result[1]?.relatedExperience).toEqual([]);
+    expect(result[2]?.skillContext.sectionType).toBe("skill");
+    expect(result[2]?.parentItemLabel).toBeNull();
+  });
+
+  it("covers the other side of queue, verdict, and printer branches", async () => {
+    vi.mocked(validateAssessmentSolutionFile).mockImplementationOnce(() => {
+      throw "bad solution";
+    });
+    await expect(
+      verificationService.submitAssessmentSolution({
+        userId: "user-1",
+        resumeId: "resume-1",
+        itemId: skillKeywordId,
+        file: new File(["pdf"], "solution.pdf", { type: "application/pdf" }),
+      }),
+    ).rejects.toThrow("Invalid solution file");
+
+    mockLimit.mockReturnValueOnce([
+      {
+        id: "req-1",
+        status: "verdict_pending",
+        userId: "user-1",
+        itemLabel: "Go",
+        sectionType: "skill",
+        proposedVerdict: "issue",
+      },
+    ]);
+    mockReturning.mockResolvedValueOnce([
+      { id: "req-1", userId: "user-1", itemLabel: "Go", sectionType: "skill", proposedVerdict: "issue" },
+    ]);
+    mockLimit.mockReturnValueOnce([{}]);
+    await expect(verificationService.confirmVerdict({ requestId: "req-1", adminId: "sva-1" })).resolves.toMatchObject({
+      proposedVerdict: "issue",
+    });
+
+    mockOrderBy.mockReturnValueOnce(
+      createThenableRows([
+        { reviewerSnapshotFirstName: null, reviewerSnapshotLastName: "Skip" },
+        {
+          reviewerSnapshotFirstName: "Jane",
+          reviewerSnapshotLastName: null,
+          reviewerSnapshotTitle: null,
+          reviewerPublicProfileUrl: null,
+        },
+      ]),
+    );
+    mockLimit
+      .mockReturnValueOnce([
+        { id: "req-1", status: "rejected", sectionType: "skill", userId: "user-1", itemLabel: "Go" },
+      ])
+      .mockReturnValueOnce([{ email: "ada@example.com" }]);
+    mockReturning.mockResolvedValueOnce([{ id: "req-1", userId: "user-1", itemLabel: "Go", sectionType: "skill" }]);
+    await expect(
+      verificationService.overrideConcludedVerdict({
+        requestId: "req-1",
+        adminId: "sva-1",
+        action: "verified",
+        reason: "Named reviewer",
+      }),
+    ).resolves.toMatchObject({ id: "req-1" });
+
+    countQueries(1, 1);
+    pageQuery([
+      {
+        id: "req-open",
+        userId: "user-1",
+        resumeId: null,
+        sectionType: "skill",
+        itemId: "item-1",
+        itemLabel: "Go",
+        status: "verdict_pending",
+        submittedAt,
+        proposedVerdict: "verified",
+        reviewerNote: null,
+        assessmentAcceptedAt: null,
+        claimedByAdminId: null,
+      },
+    ]);
+    mockFrom
+      .mockReturnValueOnce({ where: () => ({ orderBy: () => [] }) })
+      .mockReturnValueOnce({ where: () => [] })
+      .mockReturnValueOnce({ where: () => [] });
+    const unbound = await verificationService.listPendingVerdicts({ page: 1, pageSize: 20 });
+    expect(unbound.items[0]).toMatchObject({ resume: null, reviewerName: null });
+
+    mockFrom
+      .mockReturnValueOnce({ where: () => ({ limit: () => [{ reviewerSkills: ["TypeScript"] }] }) })
+      .mockReturnValueOnce({
+        where: () => ({
+          orderBy: () => [
+            {
+              id: "req-project",
+              userId: "user-1",
+              resumeId: null,
+              sectionType: "project",
+              itemId: "project-1",
+              itemLabel: "Portfolio",
+              status: "pending",
+              submittedAt,
+            },
+          ],
+        }),
+      })
+      .mockReturnValueOnce({ where: () => [] });
+    const queue = await verificationService.listQueue("admin-1");
+    expect(queue[0]?.relatedExperience).toEqual([]);
+
+    countQueries(0, 0, true);
+    const emptyHistory = await verificationService.listVerdictHistory({ page: 1, pageSize: 20, query: "ada" });
+    expect(emptyHistory.items).toEqual([]);
+
+    countQueries(2, 2);
+    pageQuery([]);
+    const blankPage = await verificationService.listVerdictHistory({
+      page: 2,
+      pageSize: 20,
+      statuses: ["verified"],
+      types: ["skill"],
+      method: "document_upload",
+    });
+    expect(blankPage).toMatchObject({ items: [], total: 2 });
+
+    const historyRow = {
+      id: "req-1",
+      userId: "user-1",
+      resumeId: "resume-1",
+      sectionType: "skill",
+      itemId: "item-1",
+      itemLabel: "Go",
+      status: "verified",
+      submittedAt,
+      resolvedAt: submittedAt,
+      proposedVerdict: "verified",
+      reviewerNote: null,
+      assessmentAcceptedAt: null,
+      claimedByAdminId: "admin-missing",
+    };
+    countQueries(1, 1, true);
+    pageQuery([historyRow], true);
+    mockFrom
+      .mockReturnValueOnce({ where: () => [] })
+      .mockReturnValueOnce({
+        where: () => ({
+          orderBy: () => [
+            {
+              verificationRequestId: "req-1",
+              reviewerSnapshotFirstName: "Jane",
+              reviewerSnapshotLastName: "Reviewer",
+              reviewerSnapshotTitle: "Engineer",
+              reviewerPublicProfileUrl: "/reviewer/admin-1",
+              notes: "first",
+              actedAt: submittedAt,
+            },
+            {
+              verificationRequestId: "req-1",
+              reviewerSnapshotFirstName: "Other",
+              reviewerSnapshotLastName: "Person",
+              reviewerSnapshotTitle: null,
+              reviewerPublicProfileUrl: null,
+              notes: "second",
+              actedAt: older,
+            },
+          ],
+        }),
+      })
+      .mockReturnValueOnce({ where: () => [] })
+      .mockReturnValueOnce({ where: () => [] })
+      .mockReturnValueOnce({ where: () => [] })
+      .mockReturnValueOnce({
+        where: () => ({
+          orderBy: () => [
+            { verificationRequestId: "req-1", adminId: "sva-1", actedAt: submittedAt },
+            { verificationRequestId: "req-1", adminId: "sva-2", actedAt: older },
+          ],
+        }),
+      })
+      .mockReturnValueOnce({ where: () => [] });
+    const history = await verificationService.listVerdictHistory({ page: 1, pageSize: 20, query: "ada" });
+    expect(history.items[0]).toMatchObject({ reviewerName: "Jane Reviewer", reviewerSkills: [], reviewedBy: null });
+
+    const experienceRow = {
+      id: "req-exp",
+      userId: "user-1",
+      resumeId: null,
+      sectionType: "experience",
+      itemId: "item-1",
+      itemLabel: "Acme",
+      status: "verified",
+      method: "document_upload",
+      submittedAt,
+      resolvedAt: submittedAt,
+      reviewerNote: null,
+    };
+    countQueries(1, 1);
+    pageQuery([experienceRow]);
+    mockFrom
+      .mockReturnValueOnce({ where: () => [] })
+      .mockReturnValueOnce({ where: () => [] })
+      .mockReturnValueOnce({
+        where: () => ({
+          orderBy: () => [{ verificationRequestId: "req-exp", adminId: "sva-missing", actedAt: submittedAt }],
+        }),
+      })
+      .mockReturnValueOnce({ where: () => [] });
+    const experienceHistory = await verificationService.listExperienceHistory({
+      page: 1,
+      pageSize: 20,
+      statuses: ["verified"],
+      method: "document_upload",
+    });
+    expect(experienceHistory.items[0]?.reviewedBy).toBeNull();
+
+    mockFrom
+      .mockReturnValueOnce({ where: () => ({ limit: () => [{ userId: "user-1" }] }) })
+      .mockReturnValueOnce({ where: () => [] })
+      .mockReturnValueOnce({ where: () => ({ orderBy: () => ({ limit: () => [] }) }) });
+    await expect(verificationService.getPrinterStatus("resume-1")).resolves.toEqual([]);
+
+    mockFrom
+      .mockReturnValueOnce({ where: () => ({ limit: () => [{ id: "resume-1", isPublic: true }] }) })
+      .mockReturnValueOnce({ where: () => ({ limit: () => [{ showTimeline: true }] }) })
+      .mockReturnValueOnce({
+        where: () => ({
+          orderBy: () => [
+            {
+              id: "req-skill",
+              sectionType: "skill",
+              itemLabel: "Go",
+              status: "verified",
+              submittedAt,
+              resolvedAt: submittedAt,
+            },
+          ],
+        }),
+      })
+      .mockReturnValueOnce({ where: () => [{ id: "req-skill", sectionType: "skill" }] })
+      .mockReturnValueOnce({
+        where: () => ({
+          orderBy: () => [
+            { verificationRequestId: "req-skill", reviewerSnapshotFirstName: null, reviewerSnapshotLastName: null },
+            {
+              verificationRequestId: "req-skill",
+              reviewerSnapshotFirstName: "Jane",
+              reviewerSnapshotLastName: "Reviewer",
+              reviewerSnapshotTitle: null,
+              reviewerPublicProfileUrl: "/reviewer/admin-1",
+            },
+          ],
+        }),
+      })
+      .mockReturnValueOnce({
+        where: () => ({
+          orderBy: () => [
+            {
+              verificationRequestId: "req-skill",
+              adminRole: "reviewer_admin",
+              reviewerSnapshotFirstName: "Jane",
+              reviewerSnapshotLastName: "Reviewer",
+              reviewerPublicProfileUrl: "/reviewer/admin-1",
+            },
+            {
+              verificationRequestId: "req-skill",
+              adminRole: "company",
+              reviewerSnapshotFirstName: null,
+              reviewerSnapshotLastName: null,
+              reviewerPublicProfileUrl: null,
+            },
+          ],
+        }),
+      });
+    const timeline = await verificationService.getPublicTimeline({ resumeId: "resume-1" });
+    expect(timeline.entries[0]?.verifiedBy).toBe("Jane Reviewer");
+
+    mockFrom.mockReturnValueOnce({
+      where: () => ({
+        orderBy: () => [
+          {
+            id: "req-verified",
+            sectionType: "skill",
+            itemLabel: "Go",
+            status: "verified",
+            submittedAt,
+            resolvedAt: submittedAt,
+          },
+          {
+            id: "req-pending",
+            sectionType: "skill",
+            itemLabel: "Go",
+            status: "pending",
+            submittedAt,
+            resolvedAt: null,
+          },
+        ],
+      }),
+    });
+    mockFrom
+      .mockReturnValueOnce({
+        where: () => [
+          { id: "req-verified", sectionType: "experience" },
+          { id: "req-pending", sectionType: "experience" },
+        ],
+      })
+      .mockReturnValueOnce({ where: () => ({ orderBy: () => [] }) });
+    const itemHistory = await verificationService.getHistory({
+      userId: "user-1",
+      resumeId: "resume-1",
+      itemId: "item-1",
+    });
+    expect(itemHistory[0]?.verifiedBy).toBeNull();
+    expect(itemHistory[1]?.verifiedBy).toBeNull();
+
+    mockFrom
+      .mockReturnValueOnce({
+        where: () => [
+          { id: "resume-1", name: "CV" },
+          { id: "resume-2", name: "Notes" },
+        ],
+      })
+      .mockReturnValueOnce({ where: () => [{ resumeId: "resume-1", showTimeline: true }] });
+    const settings = await verificationService.listTimelineSettingsForUser("user-1");
+    expect(settings).toEqual([
+      { resumeId: "resume-1", name: "CV", showTimeline: true },
+      { resumeId: "resume-2", name: "Notes", showTimeline: false },
+    ]);
+
+    mockLimit.mockReturnValueOnce([reviewerProfile]).mockReturnValueOnce([{ userId: "user-1" }]);
+    mockReturning.mockResolvedValueOnce([
+      { id: "req-1", userId: "user-1", itemLabel: "Go", sectionType: "skill", status: "verdict_pending" },
+    ]);
+    mockLimit.mockReturnValueOnce([{}]);
+    await expect(
+      verificationService.submitVerdict({ requestId: "req-1", adminId: "admin-1", verdict: "rejected" }),
+    ).resolves.toMatchObject({ status: "verdict_pending" });
+
+    const calendarEnv = env as { CAL_COM_LINK?: string };
+    const previousLink = calendarEnv.CAL_COM_LINK;
+    calendarEnv.CAL_COM_LINK = undefined;
+    mockLimit.mockReturnValueOnce([]);
+    mockReturning.mockResolvedValueOnce([{ id: "req-id" }]);
+    await expect(verificationService.requestIdentity("user-1")).resolves.toMatchObject({ id: "req-id" });
+    calendarEnv.CAL_COM_LINK = previousLink;
+
+    mockFrom.mockReturnValueOnce({
+      where: () => ({ limit: () => [{ id: "doc-1", fileUrl: "uploads/file", documentType: "contract" }] }),
+    });
+    mockStorageRead.mockResolvedValueOnce({ data: new Uint8Array([1]), size: 1, contentType: undefined });
+    await expect(verificationService.downloadDocument("doc-1")).resolves.toMatchObject({
+      contentType: "application/octet-stream",
+    });
+
+    mockFrom.mockReturnValueOnce({ where: () => [] }).mockReturnValueOnce({ where: () => [] });
+    await expect(verificationService.listExperienceQueue({ page: 1, pageSize: 20 })).resolves.toMatchObject({
+      total: 0,
+      totalUnfiltered: 0,
+    });
+
+    mockFrom
+      .mockReturnValueOnce({ where: () => [{ total: 1 }] })
+      .mockReturnValueOnce({ innerJoin: () => ({ where: () => [] }) });
+    await expect(
+      verificationService.listExperienceQueue({ page: 1, pageSize: 20, query: "missing" }),
+    ).resolves.toMatchObject({ total: 0, totalUnfiltered: 1 });
+
+    mockFrom
+      .mockReturnValueOnce({
+        where: () => [
+          {
+            id: "claimed",
+            sectionType: "skill",
+            itemId: "a",
+            itemLabel: "Go",
+            status: "claimed",
+            badgeVisible: true,
+            submittedAt,
+            assessmentAcceptedAt: null,
+          },
+          {
+            id: "verified",
+            sectionType: "skill",
+            itemId: "b",
+            itemLabel: "Rust",
+            status: "verified",
+            badgeVisible: true,
+            submittedAt,
+            assessmentAcceptedAt: submittedAt,
+          },
+          {
+            id: "claimed-plain",
+            sectionType: "project",
+            itemId: "c",
+            itemLabel: "Portfolio",
+            status: "claimed",
+            badgeVisible: true,
+            submittedAt,
+            assessmentAcceptedAt: null,
+          },
+        ],
+      })
+      .mockReturnValueOnce({
+        where: () => [
+          {
+            verificationRequestId: "claimed",
+            fileUrl: "uploads/new",
+            documentType: "assessment_solution",
+            uploadedAt: submittedAt,
+          },
+          {
+            verificationRequestId: "claimed",
+            fileUrl: "uploads/old",
+            documentType: "assessment_solution",
+            uploadedAt: older,
+          },
+          {
+            verificationRequestId: "claimed",
+            fileUrl: "uploads/instructions",
+            documentType: "assessment_instructions",
+            uploadedAt: submittedAt,
+          },
+        ],
+      })
+      .mockReturnValueOnce({ where: () => ({ orderBy: () => ({ limit: () => [] }) }) });
+    const statuses = await verificationService.getStatus({ userId: "user-1", resumeId: "resume-1" });
+    expect(statuses[0]?.assessmentSolutionSubmittedAt).toEqual(submittedAt);
+    expect(statuses[1]?.assessmentInstructionsUrl).toBeNull();
+    expect(statuses[2]?.assessmentInstructionsUrl).toBeNull();
+
+    mockFrom
+      .mockReturnValueOnce({ where: () => ({ limit: () => [{ userId: "user-1" }] }) })
+      .mockReturnValueOnce({
+        where: () => [
+          {
+            id: "req-1",
+            sectionType: "skill",
+            itemId: "a",
+            itemLabel: "Go",
+            status: "pending",
+            badgeVisible: false,
+            submittedAt,
+          },
+        ],
+      })
+      .mockReturnValueOnce({
+        where: () => ({
+          orderBy: () => ({
+            limit: () => [
+              {
+                id: "identity",
+                sectionType: "identity",
+                itemId: "user-1",
+                itemLabel: "Identity",
+                status: "verified",
+                badgeVisible: true,
+                submittedAt,
+              },
+            ],
+          }),
+        }),
+      });
+    await expect(verificationService.getPrinterStatus("resume-1", { includePendingLike: false })).resolves.toHaveLength(
+      1,
+    );
+
+    mockFrom
+      .mockReturnValueOnce({ where: () => ({ limit: () => [{ userId: "user-1" }] }) })
+      .mockReturnValueOnce({
+        where: () => [
+          {
+            id: "req-1",
+            sectionType: "skill",
+            itemId: "a",
+            itemLabel: "Go",
+            status: "pending",
+            badgeVisible: false,
+            submittedAt,
+          },
+        ],
+      })
+      .mockReturnValueOnce({ where: () => ({ orderBy: () => ({ limit: () => [] }) }) });
+    await expect(verificationService.getPrinterStatus("resume-1", { includePendingLike: true })).resolves.toHaveLength(
+      1,
+    );
+
+    mockFrom
+      .mockReturnValueOnce({ where: () => ({ limit: () => [{ id: "resume-1", isPublic: true }] }) })
+      .mockReturnValueOnce({ where: () => ({ limit: () => [{ showTimeline: true }] }) })
+      .mockReturnValueOnce({
+        where: () => ({
+          orderBy: () => [
+            {
+              id: "req-named",
+              sectionType: "experience",
+              itemLabel: "Acme",
+              status: "verified",
+              submittedAt,
+              resolvedAt: submittedAt,
+            },
+            {
+              id: "req-plain",
+              sectionType: "experience",
+              itemLabel: "Beta",
+              status: "verified",
+              submittedAt,
+              resolvedAt: null,
+            },
+          ],
+        }),
+      })
+      .mockReturnValueOnce({
+        where: () => [
+          { id: "req-named", sectionType: "experience" },
+          { id: "req-plain", sectionType: "experience" },
+        ],
+      })
+      .mockReturnValueOnce({
+        where: () => ({
+          orderBy: () => [
+            {
+              verificationRequestId: "req-named",
+              adminRole: "skill_verdict_admin",
+              reviewerSnapshotFirstName: "Ada",
+              reviewerSnapshotLastName: null,
+              reviewerPublicProfileUrl: "/reviewer/ada",
+            },
+          ],
+        }),
+      });
+    const named = await verificationService.getPublicTimeline({ resumeId: "resume-1" });
+    expect(named.entries[0]?.reviewerProfileUrl).toBe("/reviewer/ada");
+    expect(named.entries[1]?.verifiedBy).toBeNull();
+
+    mockLimit.mockReturnValueOnce([
+      {
+        status: "verified",
+        badgeVisible: true,
+        sectionType: "skill",
+        userId: "user-1",
+        resumeId: null,
+      },
+    ]);
+    mockLimit.mockReturnValueOnce([]);
+    await expect(verificationService.getBadgeDetail("req-1")).resolves.toBeNull();
+
+    await verificationService.listIdentityHistory({ page: 1, pageSize: 20, statuses: ["verified"] });
+    await verificationService.listIdentityHistory({ page: 1, pageSize: 20, statuses: [] });
   });
 });

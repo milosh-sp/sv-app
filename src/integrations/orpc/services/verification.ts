@@ -142,7 +142,7 @@ function buildReviewerBadgeFromSnapshot(snapshot: ReviewerAttributionSnapshot) {
 
   return {
     type: "reviewer" as const,
-    label: label ?? "Verified",
+    label: label!,
     profileUrl: snapshot.reviewerPublicProfileUrl,
   };
 }
@@ -286,10 +286,6 @@ async function countVerificationRequests(
   const [unfilteredRow] = await db.select({ total: count() }).from(verificationRequests).where(baseWhere);
   const totalUnfiltered = unfilteredRow?.total ?? 0;
 
-  if (!filteredWhere) {
-    return { total: totalUnfiltered, totalUnfiltered };
-  }
-
   if (needsUserJoin) {
     const [filteredRow] = await db
       .select({ total: count() })
@@ -360,13 +356,11 @@ function toPaginatedResult<T>(
 }
 
 async function enrichSkillProjectRequests(requests: SkillProjectRequestRow[]) {
-  if (requests.length === 0) return [];
-
   const requestIds = requests.map((r) => r.id);
   const userIds = [...new Set(requests.map((r) => r.userId))];
   const resumeIds = [...new Set(requests.map((r) => r.resumeId).filter((id): id is string => id != null))];
 
-  const users = userIds.length > 0 ? await db.select().from(user).where(inArray(user.id, userIds)) : [];
+  const users = await db.select().from(user).where(inArray(user.id, userIds));
 
   const resumeRows =
     resumeIds.length > 0
@@ -589,7 +583,7 @@ async function enrichExperienceRequests(requests: ExperienceRequestRow[]) {
   const userIds = [...new Set(requests.map((r) => r.userId))];
   const resumeIds = [...new Set(requests.map((r) => r.resumeId).filter((id): id is string => id != null))];
 
-  const users = userIds.length > 0 ? await db.select().from(user).where(inArray(user.id, userIds)) : [];
+  const users = await db.select().from(user).where(inArray(user.id, userIds));
 
   const resumeRows =
     resumeIds.length > 0
@@ -667,27 +661,24 @@ async function enrichIdentityRequests(requests: IdentityRequestRow[]) {
   const requestIds = requests.map((r) => r.id);
   const userIds = [...new Set(requests.map((r) => r.userId))];
 
-  const users = userIds.length > 0 ? await db.select().from(user).where(inArray(user.id, userIds)) : [];
+  const users = await db.select().from(user).where(inArray(user.id, userIds));
 
-  const allResumeRows =
-    userIds.length > 0
-      ? await db
-          .select({
-            id: resume.id,
-            name: resume.name,
-            slug: resume.slug,
-            tags: resume.tags,
-            isPublic: resume.isPublic,
-            isLocked: resume.isLocked,
-            data: resume.data,
-            userId: resume.userId,
-            createdAt: resume.createdAt,
-            updatedAt: resume.updatedAt,
-          })
-          .from(resume)
-          .where(inArray(resume.userId, userIds))
-          .orderBy(desc(resume.updatedAt))
-      : [];
+  const allResumeRows = await db
+    .select({
+      id: resume.id,
+      name: resume.name,
+      slug: resume.slug,
+      tags: resume.tags,
+      isPublic: resume.isPublic,
+      isLocked: resume.isLocked,
+      data: resume.data,
+      userId: resume.userId,
+      createdAt: resume.createdAt,
+      updatedAt: resume.updatedAt,
+    })
+    .from(resume)
+    .where(inArray(resume.userId, userIds))
+    .orderBy(desc(resume.updatedAt));
 
   const latestResumeByUserId = new Map<string, (typeof allResumeRows)[number]>();
   for (const row of allResumeRows) {
@@ -739,10 +730,6 @@ async function enrichIdentityRequests(requests: IdentityRequestRow[]) {
 }
 
 async function buildDirectAdminReviewAttributionMap(verificationRequestIds: string[]) {
-  if (verificationRequestIds.length === 0) {
-    return new Map<string, DirectAdminReviewAttribution>();
-  }
-
   const metadataRows = await db
     .select({
       verificationRequestId: verificationMetadata.verificationRequestId,
@@ -935,7 +922,7 @@ async function buildReviewerAttributionDetailsMap(requestIds: string[]) {
       continue;
     }
     detailsByRequestId.set(metadata.verificationRequestId, {
-      verifiedBy: buildReviewerVerifiedByLabel(metadata) ?? "",
+      verifiedBy: buildReviewerVerifiedByLabel(metadata)!,
       reviewerProfileUrl: metadata.reviewerPublicProfileUrl,
     });
   }
@@ -944,10 +931,6 @@ async function buildReviewerAttributionDetailsMap(requestIds: string[]) {
 }
 
 async function buildVerifierAttributionMap(verificationRequestIds: string[]) {
-  if (verificationRequestIds.length === 0) {
-    return new Map<string, VerifierAttribution>();
-  }
-
   const requestRows = await db
     .select({
       id: verificationRequests.id,
@@ -1237,7 +1220,7 @@ export const verificationService = {
         resumeId: input.resumeId,
         itemId: input.itemId,
         data,
-        contentType: input.file.type || "application/octet-stream",
+        contentType: input.file.type,
         type: "document",
       });
 
@@ -1675,8 +1658,8 @@ export const verificationService = {
 
       return {
         ...entry,
-        verifiedBy: entry.status === "verified" ? (attribution?.verifiedBy ?? null) : null,
-        reviewerProfileUrl: entry.status === "verified" ? (attribution?.reviewerProfileUrl ?? null) : null,
+        verifiedBy: attribution?.verifiedBy ?? null,
+        reviewerProfileUrl: attribution?.reviewerProfileUrl ?? null,
       };
     });
 
@@ -1994,7 +1977,7 @@ export const verificationService = {
         resumeId: claimed.resumeId,
         itemId: claimed.itemId,
         data,
-        contentType: input.file.type || "application/octet-stream",
+        contentType: input.file.type,
         type: "document",
       });
     } catch {
@@ -2365,12 +2348,10 @@ export const verificationService = {
       notes: input.notes ?? null,
     });
 
-    if (isFinalStatus(input.action)) {
-      await sendFinalStatusEmail(
-        { userId: request.userId!, itemLabel: request.itemLabel!, sectionType: request.sectionType! },
-        input.action,
-      );
-    }
+    await sendFinalStatusEmail(
+      { userId: request.userId!, itemLabel: request.itemLabel!, sectionType: request.sectionType! },
+      input.action,
+    );
 
     return updated!;
   },
@@ -2606,12 +2587,10 @@ export const verificationService = {
       notes: input.reason,
     });
 
-    if (isFinalStatus(input.action)) {
-      await sendFinalStatusEmail(
-        { userId: updated.userId, itemLabel: updated.itemLabel, sectionType: updated.sectionType },
-        input.action,
-      );
-    }
+    await sendFinalStatusEmail(
+      { userId: updated.userId, itemLabel: updated.itemLabel, sectionType: updated.sectionType },
+      input.action,
+    );
 
     return updated;
   },
@@ -2724,7 +2703,7 @@ export const verificationService = {
 
         return {
           ...item,
-          resolvedAt: requests.find((r) => r.id === item.id)?.resolvedAt ?? null,
+          resolvedAt: item.resolvedAt,
           reviewerName,
           reviewerTitle: metadata?.reviewerSnapshotTitle ?? null,
           reviewerPublicProfileUrl: metadata?.reviewerPublicProfileUrl ?? null,
@@ -2966,12 +2945,10 @@ export const verificationService = {
       notes: input.notes ?? null,
     });
 
-    if (isFinalStatus(input.action)) {
-      await sendFinalStatusEmail(
-        { userId: request.userId, itemLabel: request.itemLabel, sectionType: request.sectionType },
-        input.action,
-      );
-    }
+    await sendFinalStatusEmail(
+      { userId: request.userId, itemLabel: request.itemLabel, sectionType: request.sectionType },
+      input.action,
+    );
 
     return updated!;
   },
