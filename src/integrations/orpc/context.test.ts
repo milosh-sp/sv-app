@@ -5,6 +5,7 @@ const rows = vi.hoisted(() => ({ queue: [] as unknown[][] }));
 const getSession = vi.hoisted(() => vi.fn());
 const verifyApiKey = vi.hoisted(() => vi.fn());
 const verifyOAuthToken = vi.hoisted(() => vi.fn());
+const envFlags = vi.hoisted(() => ({ FLAG_DEBUG_PRINTER: false }));
 
 vi.mock("@/integrations/drizzle/client", () => ({
   db: {
@@ -21,6 +22,13 @@ vi.mock("@/integrations/drizzle/client", () => ({
 vi.mock("@/integrations/auth/config", () => ({
   auth: { api: { getSession, verifyApiKey } },
   verifyOAuthToken,
+}));
+vi.mock("@/utils/env", () => ({
+  env: {
+    get FLAG_DEBUG_PRINTER() {
+      return envFlags.FLAG_DEBUG_PRINTER;
+    },
+  },
 }));
 
 import {
@@ -93,6 +101,9 @@ describe("oRPC auth procedures", () => {
         reqHeaders: new Headers({ cookie: "dashboardMode=reviewer" }),
       }),
     ).resolves.toBe("ok");
+
+    rows.queue.push([{ role: "reviewer_admin" }]);
+    await expect(call(reviewerAdminProcedure, { locale })).resolves.toBe("ok");
   });
 
   it("requires the company role", async () => {
@@ -116,6 +127,16 @@ describe("oRPC auth procedures", () => {
     ).rejects.toMatchObject({ code: "UNAUTHORIZED" });
 
     await expect(call(serverOnlyProcedure, { locale, internalCall: true })).resolves.toBe("ok");
+
+    envFlags.FLAG_DEBUG_PRINTER = true;
+    const previousNodeEnv = process.env.NODE_ENV;
+    process.env.NODE_ENV = "development";
+    await expect(call(serverOnlyProcedure, { locale })).resolves.toBe("ok");
+
+    process.env.NODE_ENV = "test";
+    await expect(call(serverOnlyProcedure, { locale })).rejects.toMatchObject({ code: "UNAUTHORIZED" });
+    process.env.NODE_ENV = previousNodeEnv;
+    envFlags.FLAG_DEBUG_PRINTER = false;
   });
 
   it("accepts a bearer token and ignores a bad token, a bad session, and a bad api key", async () => {
@@ -124,6 +145,12 @@ describe("oRPC auth procedures", () => {
     await expect(
       call(protectedProcedure, { locale, reqHeaders: new Headers({ authorization: "Bearer tok" }) }),
     ).resolves.toBe("ok");
+
+    verifyOAuthToken.mockResolvedValueOnce({ sub: "missing" });
+    rows.queue.push([]);
+    await expect(
+      call(protectedProcedure, { locale, reqHeaders: new Headers({ authorization: "Bearer missing" }) }),
+    ).rejects.toMatchObject({ code: "UNAUTHORIZED" });
 
     verifyOAuthToken.mockResolvedValueOnce({});
     await expect(

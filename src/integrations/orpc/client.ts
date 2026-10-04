@@ -38,7 +38,7 @@ export const getORPCClient = createIsomorphicFn()
       fetch: (request, init) => fetch(request, { ...init, credentials: "include" }),
       plugins: [
         new BatchLinkPlugin({
-          mode: typeof window === "undefined" ? "buffered" : "streaming",
+          mode: "streaming",
           groups: [{ condition: () => true, context: {} }],
         }),
       ],
