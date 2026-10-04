@@ -63,6 +63,51 @@ const createDroppableId = (pageIndex: number, columnId: ColumnId): string => {
   return `page-${pageIndex}-${columnId}`;
 };
 
+type LayoutPage = { fullWidth: boolean; main: string[]; sidebar: string[] };
+
+function findContainer(pages: LayoutPage[], id: string): PageLocation | null {
+  const location = parseDroppableId(id);
+  if (location) return location;
+
+  for (let pageIndex = 0; pageIndex < pages.length; pageIndex++) {
+    const page = pages[pageIndex];
+    if (page.main.includes(id)) return { pageIndex, columnId: "main" };
+    if (page.sidebar.includes(id)) return { pageIndex, columnId: "sidebar" };
+  }
+
+  return null;
+}
+
+export function applyLayoutMove(pages: LayoutPage[], activeId: string, overId: string): LayoutPage[] {
+  if (activeId === overId) return pages;
+
+  const activeLocation = findContainer(pages, activeId);
+  const overLocation = parseDroppableId(overId) ?? findContainer(pages, overId);
+  if (!activeLocation || !overLocation) return pages;
+
+  const next = pages.map((page) => ({ ...page, main: [...page.main], sidebar: [...page.sidebar] }));
+
+  if (activeLocation.pageIndex === overLocation.pageIndex && activeLocation.columnId === overLocation.columnId) {
+    const items = next[activeLocation.pageIndex][activeLocation.columnId];
+    const oldIdx = items.indexOf(activeId);
+    let newIdx = items.indexOf(overId);
+    if (oldIdx === -1 || oldIdx === newIdx) return pages;
+    if (newIdx === -1) newIdx = items.length - 1;
+    next[activeLocation.pageIndex][activeLocation.columnId] = arrayMove(items, oldIdx, newIdx);
+    return next;
+  }
+
+  const from = next[activeLocation.pageIndex][activeLocation.columnId];
+  const to = next[overLocation.pageIndex][overLocation.columnId];
+  const fromIdx = from.indexOf(activeId);
+  if (fromIdx === -1) return pages;
+  let toIdx = to.indexOf(overId);
+  if (toIdx === -1) toIdx = to.length;
+  from.splice(fromIdx, 1);
+  to.splice(Math.min(toIdx, to.length), 0, activeId);
+  return next;
+}
+
 export function LayoutPages() {
   const [activeId, setActiveId] = useState<string | null>(null);
 
@@ -74,86 +119,19 @@ export function LayoutPages() {
 
   const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 6 } }));
 
-  /**
-   * Returns the page index and column that contains the given section id.
-   */
-  const findContainer = useCallback(
-    (id: string): PageLocation | null => {
-      // Check if it's a droppable ID
-      const location = parseDroppableId(id);
-      if (location) return location;
-
-      // Search through all pages
-      for (let pageIndex = 0; pageIndex < layout.pages.length; pageIndex++) {
-        const page = layout.pages[pageIndex];
-        if (page.main.includes(id)) return { pageIndex, columnId: "main" };
-        if (page.sidebar.includes(id)) return { pageIndex, columnId: "sidebar" };
-      }
-
-      return null;
-    },
-    [layout.pages],
-  );
-
   const handleDragStart = useCallback((event: DragStartEvent) => setActiveId(String(event.active.id)), []);
 
   const handleDragEnd = useCallback(
     ({ active, over }: DragEndEvent) => {
       setActiveId(null);
       if (!over) return;
-
-      const activeIdStr = String(active.id);
-      const overIdStr = String(over.id);
-
-      if (activeIdStr === overIdStr) return;
-
-      const activeLocation = findContainer(activeIdStr);
-      const overLocation = parseDroppableId(overIdStr) ?? findContainer(overIdStr);
-
-      if (!activeLocation || !overLocation) return;
-
-      // Same location, reorder within column
-      if (activeLocation.pageIndex === overLocation.pageIndex && activeLocation.columnId === overLocation.columnId) {
-        const page = layout.pages[activeLocation.pageIndex];
-        const items = page[activeLocation.columnId];
-        const oldIdx = items.indexOf(activeIdStr);
-        let newIdx = items.indexOf(overIdStr);
-        if (oldIdx === -1 || oldIdx === newIdx) return;
-        if (newIdx === -1) newIdx = items.length - 1;
-
-        updateResumeData((draft) => {
-          const colOrder = draft.metadata.layout.pages[activeLocation.pageIndex][activeLocation.columnId];
-          draft.metadata.layout.pages[activeLocation.pageIndex][activeLocation.columnId] = arrayMove(
-            colOrder,
-            oldIdx,
-            newIdx,
-          );
-        });
-        return;
-      }
-
-      // Different location, move between columns/pages
-      const fromPage = layout.pages[activeLocation.pageIndex];
-      const toPage = layout.pages[overLocation.pageIndex];
-      const fromItems = fromPage[activeLocation.columnId];
-      const toItems = toPage[overLocation.columnId];
-      const fromIdx = fromItems.indexOf(activeIdStr);
-      if (fromIdx === -1) return;
-
-      let toIdx = toItems.indexOf(overIdStr);
-      if (toIdx === -1) toIdx = toItems.length;
-
+      const next = applyLayoutMove(layout.pages, String(active.id), String(over.id));
+      if (next === layout.pages) return;
       updateResumeData((draft) => {
-        const fromPageDraft = draft.metadata.layout.pages[activeLocation.pageIndex];
-        const toPageDraft = draft.metadata.layout.pages[overLocation.pageIndex];
-        const from = fromPageDraft[activeLocation.columnId];
-        const to = toPageDraft[overLocation.columnId];
-
-        from.splice(fromIdx, 1);
-        to.splice(Math.min(toIdx, to.length), 0, activeIdStr);
+        draft.metadata.layout.pages = next;
       });
     },
-    [findContainer, layout.pages, updateResumeData],
+    [layout.pages, updateResumeData],
   );
 
   const handleAddPage = useCallback(() => {

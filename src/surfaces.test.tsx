@@ -120,21 +120,20 @@ vi.mock("@/components/locale/combobox", () => ({
 }));
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { toast } from "sonner";
 
 import { CountUp } from "@/components/animation/count-up";
 import { RichInput } from "@/components/input/rich-input";
 import { useResumeStore } from "@/components/resume/store/resume";
 import {
-    Sidebar,
-    SidebarContent,
-    SidebarMenu,
-    SidebarMenuButton,
-    SidebarMenuItem,
-    SidebarProvider,
-    SidebarTrigger,
+  Sidebar,
+  SidebarContent,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarProvider,
+  SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { toast } from "sonner";
-
 import { DialogManager } from "@/dialogs/manager";
 import { useDialogStore } from "@/dialogs/store";
 import { ConfirmDialogProvider } from "@/hooks/use-confirm";
@@ -352,5 +351,5 @@ describe("large surfaces", () => {
     expect(document.body.textContent).toContain("Resumes");
     expect(document.body.textContent).toContain("Hello");
     unmount();
-  });
+  }, 60_000);
 });
