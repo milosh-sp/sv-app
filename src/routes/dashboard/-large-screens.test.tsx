@@ -86,8 +86,8 @@ function endpoint(path: string[]): Record<string, unknown> {
 }
 
 const api = vi.hoisted(() => ({
-  orpc: null as ReturnType<typeof endpoint>,
-  client: null as ReturnType<typeof endpoint>,
+  orpc: null as unknown as ReturnType<typeof endpoint>,
+  client: null as unknown as ReturnType<typeof endpoint>,
 }));
 
 vi.mock("@lingui/core/macro", () => ({
@@ -123,10 +123,15 @@ vi.mock("@/integrations/ai/use-ai-integration", () => ({
 }));
 
 const auth = vi.hoisted(() => ({
-  enable: vi.fn(async () => ({
-    data: { totpURI: "otpauth://totp/Skill?secret=ABCDEF", backupCodes: ["111111", "222222"] },
-    error: null as { message: string } | null,
-  })),
+  enable: vi.fn(
+    async (): Promise<{
+      data: { totpURI: string; backupCodes: string[] } | null;
+      error: { message: string } | null;
+    }> => ({
+      data: { totpURI: "otpauth://totp/Skill?secret=ABCDEF", backupCodes: ["111111", "222222"] },
+      error: null,
+    }),
+  ),
   verifyTotp: vi.fn(async () => ({ error: null as { message: string } | null })),
 }));
 
@@ -463,7 +468,7 @@ const applicant = {
   updatedAt: new Date("2020-01-03T00:00:00.000Z"),
 };
 
-type Screen = React.ComponentType & { preload?: () => Promise<unknown> };
+type Screen = React.ComponentType & { preload?: () => Promise<unknown> | undefined };
 
 async function renderRoute(route: { options: { component?: Screen } }) {
   const Screen = route.options.component;
@@ -923,7 +928,7 @@ describe("large dashboard screens", () => {
       headers: { get: () => "application/octet-stream" },
       blob: async () => new Blob([pdfBytes]),
     }));
-    globalThis.fetch = fetchMock as typeof fetch;
+    globalThis.fetch = fetchMock as unknown as typeof fetch;
     const unmountPreview = await render(
       <DocumentPreview
         fileUrl="https://example.com/solution.pdf"

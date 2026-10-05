@@ -6,7 +6,7 @@ import { resumeDataSchema } from "@/schema/resume/data";
 import { sampleResumeData } from "@/schema/resume/sample";
 import { techSkills } from "@/utils/verification/tech-skills";
 
-function duplicates(values: string[]): string[] {
+function duplicates(values: readonly string[]): string[] {
   const seen = new Set<string>();
   const dupes = new Set<string>();
   for (const value of values) {
