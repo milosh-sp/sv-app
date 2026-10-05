@@ -230,6 +230,13 @@ describe("JSearchProvider", () => {
       }
     });
 
+    it("wraps a non-error rejection and gives up", async () => {
+      mockFetch.mockRejectedValueOnce("offline");
+
+      await expect(provider.search({ query: "test", num_pages: 1 })).rejects.toThrow("offline");
+      expect(mockFetch).toHaveBeenCalledTimes(1);
+    });
+
     it("should throw error on non-200 response without retrying", async () => {
       mockFetch.mockResolvedValue(mockErrorResponse(500, "Internal Server Error"));
 
