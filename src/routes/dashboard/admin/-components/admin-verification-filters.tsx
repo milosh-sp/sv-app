@@ -184,24 +184,22 @@ export function AdminExperienceFilterBar({
           }}
         />
 
-        {tab === "queue" || tab === "history" ? (
-          <div className="space-y-1.5">
-            <p className="text-xs font-medium text-muted-foreground">
-              <Trans>Method</Trans>
-            </p>
-            <Combobox
-              value={search.method}
-              options={EXPERIENCE_METHOD_OPTIONS}
-              placeholder={t`All methods`}
-              onValueChange={(value) => {
-                onSearchChange({
-                  method: (value ?? "all") as AdminVerificationMethod | "all",
-                  page: 1,
-                });
-              }}
-            />
-          </div>
-        ) : null}
+        <div className="space-y-1.5">
+          <p className="text-xs font-medium text-muted-foreground">
+            <Trans>Method</Trans>
+          </p>
+          <Combobox
+            value={search.method}
+            options={EXPERIENCE_METHOD_OPTIONS}
+            placeholder={t`All methods`}
+            onValueChange={(value) => {
+              onSearchChange({
+                method: (value ?? "all") as AdminVerificationMethod | "all",
+                page: 1,
+              });
+            }}
+          />
+        </div>
 
         {tab === "history" && (
           <div className="space-y-1.5">

@@ -124,4 +124,96 @@ describe("resume menus", () => {
     });
     container.remove();
   });
+
+  it("cancels a delete, unlocks without confirming, and reports a successful delete", async () => {
+    const queryClient = new QueryClient({ defaultOptions: { mutations: { retry: false } } });
+    const container = document.createElement("div");
+    document.body.append(container);
+    const root = createRoot(container);
+    const locked = { id: "resume-1", name: "Ada", slug: "ada", isLocked: true, tags: [] } as never;
+    const unlocked = { id: "resume-2", name: "Grace", slug: "grace", isLocked: false, tags: [] } as never;
+    await act(async () => {
+      root.render(
+        <QueryClientProvider client={queryClient}>
+          <ConfirmDialogProvider>
+            <ResumeDropdownMenu resume={locked}>
+              <button type="button">Menu</button>
+            </ResumeDropdownMenu>
+            <ResumeContextMenu resume={unlocked}>
+              <button type="button">Context</button>
+            </ResumeContextMenu>
+          </ConfirmDialogProvider>
+        </QueryClientProvider>,
+      );
+    });
+
+    await openAndClick("Unlock");
+    if (setLocked.mock.calls.length === 0) throw new Error(document.body.innerText.slice(0, 400));
+
+    const openContext = async (label: string) => {
+      const trigger = document.querySelector("[data-slot='context-menu-trigger']");
+      act(() => {
+        trigger?.dispatchEvent(new MouseEvent("contextmenu", { bubbles: true }));
+      });
+      const item = [...document.querySelectorAll("[data-slot='context-menu-item']")].find((element) =>
+        element.textContent?.includes(label),
+      );
+      if (!(item instanceof HTMLElement)) throw new Error(`missing context ${label}: ${document.body.innerText.slice(0, 300)}`);
+      await act(async () => {
+        item.click();
+      });
+    };
+
+    await openContext("Update");
+    await openContext("Duplicate");
+    await openContext("AI review");
+    await openContext("Lock");
+    const cancelLock = [...document.querySelectorAll("button")].find((button) => button.textContent?.trim() === "Cancel");
+    await act(async () => {
+      cancelLock?.click();
+    });
+
+    deleteResume.mockImplementation(async () => undefined);
+    await openContext("Delete");
+    const cancel = [...document.querySelectorAll("button")].find((button) => button.textContent?.trim() === "Cancel");
+    await act(async () => {
+      cancel?.click();
+    });
+    await openContext("Delete");
+    const confirm = [...document.querySelectorAll("button")].find((button) => button.textContent?.trim() === "Confirm");
+    if (!(confirm instanceof HTMLButtonElement)) throw new Error(document.body.innerText.slice(0, 500));
+    await act(async () => {
+      confirm.click();
+      await Promise.resolve();
+    });
+    expect(vi.mocked(toast.success)).toHaveBeenCalled();
+
+    await act(async () => {
+      root.render(
+        <QueryClientProvider client={queryClient}>
+          <ConfirmDialogProvider>
+            <ResumeDropdownMenu resume={unlocked}>
+              <button type="button">Menu</button>
+            </ResumeDropdownMenu>
+          </ConfirmDialogProvider>
+        </QueryClientProvider>,
+      );
+    });
+    await openAndClick("Delete");
+    const cancelDelete = [...document.querySelectorAll("button")].find((button) => button.textContent?.trim() === "Cancel");
+    await act(async () => {
+      cancelDelete?.click();
+    });
+    await openAndClick("Delete");
+    const confirmDelete = [...document.querySelectorAll("button")].find((button) => button.textContent?.trim() === "Confirm");
+    await act(async () => {
+      confirmDelete?.click();
+      await Promise.resolve();
+    });
+
+    act(() => {
+      root.unmount();
+    });
+    container.remove();
+  });
 });

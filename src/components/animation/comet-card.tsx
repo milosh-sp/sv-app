@@ -42,9 +42,7 @@ export const CometCard = ({
   const glareBackground = useMotionTemplate`radial-gradient(circle at ${glareX}% ${glareY}%, rgba(255, 255, 255, 0.9) 10%, rgba(255, 255, 255, 0.75) 20%, rgba(255, 255, 255, 0) 80%)`;
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!ref.current) return;
-
-    const rect = ref.current.getBoundingClientRect();
+    const rect = ref.current!.getBoundingClientRect();
 
     const width = rect.width;
     const height = rect.height;

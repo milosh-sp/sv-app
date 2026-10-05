@@ -19,6 +19,7 @@ const queries = vi.hoisted(() => ({
         }
       | undefined,
   },
+  verification: [] as unknown[] | undefined,
 }));
 
 vi.mock("@lingui/core/macro", () => ({
@@ -28,8 +29,10 @@ vi.mock("@lingui/react/macro", () => ({
   Trans: ({ children }: { children?: React.ReactNode }) => children ?? null,
 }));
 vi.mock("@tanstack/react-query", () => ({
-  useQuery: (options: { enabled?: boolean }) =>
-    options.enabled === undefined ? queries.resume : { isPending: false, isError: false, data: [] },
+  useQuery: (options: { enabled?: boolean }) => {
+    if (options.enabled === undefined) return queries.resume;
+    return { isPending: false, isError: false, data: queries.verification };
+  },
 }));
 vi.mock("@tanstack/react-router", () => ({
   Link: ({ children }: { children?: React.ReactNode }) => <a>{children}</a>,
@@ -80,6 +83,12 @@ describe("candidate resume preview", () => {
     });
     expect(useResumeStore.getState().resume?.id).toBe("resume-1");
     expect(container.textContent).toContain("preview");
+    queries.verification = undefined;
+    await act(async () => {
+      root.render(<CandidateResumePreview username="ada" slug="sample" />);
+    });
+    expect(container.textContent).toContain("preview");
+    queries.verification = [];
 
     queries.resume = { isPending: false, isError: true, data: undefined };
     await act(async () => {

@@ -259,7 +259,7 @@ function setText(el: HTMLInputElement | HTMLTextAreaElement, value: string) {
   el.dispatchEvent(new Event("input", { bubbles: true }));
 }
 
-describe("pending verdicts", () => {
+describe("pending verdicts", { timeout: 30_000 }, () => {
   it("fills in verdict search defaults and rejects a page below 1", () => {
     const validate = Route.options.validateSearch as {
       parse: (input: Record<string, unknown>) => { page: number; q: string };

@@ -46,7 +46,6 @@ export function SectionDropdownMenu({ type }: Props) {
   );
 
   const onAddItem = () => {
-    if (type === "summary") return;
     openDialog(`resume.sections.${type}.create`, undefined);
   };
 
@@ -70,9 +69,9 @@ export function SectionDropdownMenu({ type }: Props) {
 
     updateResumeData((draft) => {
       if (type === "summary") {
-        draft.summary.title = newTitle ?? "";
+        draft.summary.title = newTitle;
       } else {
-        draft.sections[type].title = newTitle ?? "";
+        draft.sections[type].title = newTitle;
       }
     });
   };

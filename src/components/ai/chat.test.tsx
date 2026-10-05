@@ -11,8 +11,19 @@ vi.mock("@lingui/core/macro", () => ({
 vi.mock("@lingui/react/macro", () => ({
   Trans: ({ children }: { children: React.ReactNode }) => children,
 }));
+const popover = vi.hoisted(() => ({ onOpenChange: null as null | ((open: boolean) => void) }));
+
 vi.mock("@/components/ui/popover", () => ({
-  Popover: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
+  Popover: ({
+    children,
+    onOpenChange,
+  }: {
+    children: React.ReactNode;
+    onOpenChange?: (open: boolean) => void;
+  }) => {
+    popover.onOpenChange = onOpenChange ?? null;
+    return <div>{children}</div>;
+  },
   PopoverTrigger: ({ render }: { render: React.ReactElement }) => render,
   PopoverContent: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
 }));
@@ -172,6 +183,74 @@ describe("AI chat", () => {
 
     container.querySelector<HTMLButtonElement>("[title='Clear chat history']")?.click();
     expect(chat.setMessages).toHaveBeenCalledWith([]);
+
+    root.unmount();
+    container.remove();
+  });
+
+  it("covers stored tool ids, in-progress tools, and a non-error patch failure", async () => {
+    localStorage.setItem(
+      "ai-chat-messages:resume-1",
+      JSON.stringify([
+        { id: "stored-user", role: "user", parts: [{ type: "text", text: "stored" }] },
+        {
+          id: "stored-assistant",
+          role: "assistant",
+          parts: [
+            { type: "text", text: "kept" },
+            { type: "tool-patch_resume", state: "output-available", toolCallId: "stored-call" },
+            { type: "tool-patch_resume", state: "input-available", toolCallId: "stored-pending" },
+          ],
+        },
+      ]),
+    );
+    chat.status = "submitted";
+    chat.messages = [
+      { id: "empty", role: "assistant", parts: [] },
+      { id: "user-2", role: "user", parts: [{ type: "reasoning", text: "hidden" }] },
+      {
+        id: "assistant-3",
+        role: "assistant",
+        parts: [
+          { type: "text", text: "Working" },
+          { type: "step-start" },
+          { type: "tool-patch_resume", state: "input-available", toolCallId: "live" },
+          { type: "tool-patch_resume", state: "output-available", toolCallId: "failed", output: { success: false } },
+          {
+            type: "tool-patch_resume",
+            state: "output-available",
+            toolCallId: "thrown",
+            output: { success: true, appliedOperations: [{ op: "replace", path: "/basics/name", value: "Ada" }] },
+          },
+        ],
+      },
+    ];
+    resumeState.updateResumeData.mockImplementation(() => {
+      throw "boom";
+    });
+
+    const container = document.createElement("div");
+    document.body.append(container);
+    const root = createRoot(container);
+    await act(async () => {
+      root.render(<AIChat />);
+    });
+    expect(container.textContent).toContain("Applying changes...");
+    expect(container.textContent).toContain("Thinking...");
+    expect(toast.error).toHaveBeenCalledWith("Failed to apply resume changes", { description: "Unknown error" });
+
+    await act(async () => {
+      popover.onOpenChange?.(true);
+      container.querySelector<HTMLButtonElement>("form button")?.click();
+    });
+    expect(chat.stop).toHaveBeenCalled();
+
+    chat.status = "ready";
+    chat.messages = [];
+    await act(async () => {
+      root.render(<AIChat />);
+    });
+    expect(container.textContent).toContain("Ask me to update your resume...");
 
     root.unmount();
     container.remove();

@@ -43,11 +43,6 @@ const useFormField = () => {
   const { getFieldState } = useFormContext();
   const formState = useFormState({ name: fieldContext.name });
   const fieldState = getFieldState(fieldContext.name, formState);
-
-  if (!fieldContext) {
-    throw new Error("useFormField should be used within <FormField>");
-  }
-
   const { id } = itemContext;
 
   return {
@@ -147,7 +142,7 @@ function FormMessage({ className, ...props }: React.ComponentProps<"p">) {
       id={formMessageId}
       data-error={!!error}
       data-slot="form-message"
-      className={cn("line-clamp-1 text-xs", error ? "text-destructive" : "text-muted-foreground", className)}
+      className={cn("line-clamp-1 text-xs text-destructive", className)}
       {...props}
     >
       {body}

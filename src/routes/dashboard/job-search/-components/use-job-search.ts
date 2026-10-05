@@ -94,9 +94,7 @@ export function useJobSearch() {
 
   const removeFilter = (key: keyof FilterState, value?: string) => {
     if (key === "includeKeywords" || key === "excludeKeywords" || key === "excludeCompanies") {
-      const currentValues = filters[key];
-      if (!Array.isArray(currentValues)) return;
-      const nextValues = value ? currentValues.filter((item) => item !== value) : [];
+      const nextValues = value ? filters[key].filter((item) => item !== value) : [];
       setFilters({ ...filters, [key]: nextValues });
       return;
     }

@@ -180,6 +180,152 @@ describe("reviewer profile panel", () => {
       container.querySelector("button")?.click();
     });
     expect(document.body.textContent).toContain("Edit reviewer profile");
+    await act(async () => {
+      root.render(<ReviewerProfileDialogTrigger adminId={adminId} userName="Ada" hasProfile={false} />);
+    });
+    expect(container.textContent).toContain("Create profile");
+    await act(async () => {
+      root.render(<ReviewerProfileDialogTrigger adminId={adminId} userName="Ada" />);
+    });
+    expect(container.textContent).toContain("Reviewer profile");
+    root.unmount();
+    container.remove();
+  });
+
+  it("saves blank fields, reports update errors, and shows pending labels", async () => {
+    const container = document.createElement("div");
+    document.body.append(container);
+    const root = createRoot(container);
+    const onOpenChange = vi.fn();
+
+    expect(getReviewerSetupStatus({})).toBe("no_skills");
+    await act(async () => {
+      root.render(<ReviewerSetupStatusBadge status="no_profile" />);
+    });
+    expect(container.textContent).toBe("No profile");
+
+    profileQuery.data = null;
+    pending.create = true;
+    await act(async () => {
+      root.render(<ReviewerProfileDialog adminId={adminId} userName=" " open onOpenChange={onOpenChange} />);
+    });
+    expect(document.body.textContent).toContain("Creating…");
+    pending.create = false;
+    await act(async () => {
+      root.render(<ReviewerProfileDialog adminId={adminId} userName=" " open onOpenChange={onOpenChange} />);
+    });
+    await act(async () => {
+      [...document.querySelectorAll("button")]
+        .find((button) => button.textContent?.includes("Create reviewer profile"))
+        ?.click();
+    });
+    expect(createMutate.mock.calls.at(-1)?.[0]).toMatchObject({
+      firstName: "Reviewer",
+      lastName: "Admin",
+      title: "Reviewer",
+    });
+
+    profileQuery.data = { firstName: "Ada", lastName: "Lovelace", title: "Staff", reviewerSkills: ["Rust", "Go"] };
+    pending.update = true;
+    await act(async () => {
+      root.render(
+        <ReviewerProfileDialog adminId={adminId} userName="Ada Lovelace" open onOpenChange={onOpenChange} />,
+      );
+    });
+    expect(document.body.textContent).toContain("Saving…");
+    expect(document.body.textContent).toContain("2 skills selected.");
+    pending.update = false;
+    await act(async () => {
+      root.render(
+        <ReviewerProfileDialog
+          adminId={adminId}
+          userName="Ada Lovelace"
+          open
+          onOpenChange={onOpenChange}
+          currentUserId="someone-else"
+        />,
+      );
+    });
+
+    const inputs = [...document.querySelectorAll("input")].filter((input) => input instanceof HTMLInputElement);
+    const setValue = (input: HTMLInputElement, value: string) => {
+      Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value")?.set?.call(input, value);
+      input.dispatchEvent(new Event("input", { bubbles: true }));
+      input.dispatchEvent(new Event("change", { bubbles: true }));
+    };
+    await act(async () => {
+      if (inputs[0]) setValue(inputs[0], "");
+      if (inputs[1]) setValue(inputs[1], "");
+      if (inputs[2]) setValue(inputs[2], "");
+    });
+
+    type Fiber = {
+      child?: Fiber;
+      sibling?: Fiber;
+      return?: Fiber;
+      memoizedProps?: { onValueChange?: (value: unknown) => void };
+    };
+    const dialog = document.body;
+    const host = dialog.querySelector("[data-slot='dialog-content']") ?? container;
+    const fiberKey = Object.getOwnPropertyNames(host).find((name) => name.startsWith("__reactFiber$"));
+    let start = fiberKey ? (host as unknown as Record<string, Fiber>)[fiberKey] : undefined;
+    while (start?.return) start = start.return;
+    const stack = start ? [start] : [];
+    const seen = new Set<unknown>();
+    const walked = new Set<Fiber>();
+    while (stack.length > 0) {
+      const fiber = stack.pop();
+      if (!fiber || walked.has(fiber)) continue;
+      walked.add(fiber);
+      const onValueChange = fiber.memoizedProps?.onValueChange;
+      const options = (fiber.memoizedProps as { options?: Array<{ value: string }> } | undefined)?.options;
+      if (
+        typeof onValueChange === "function" &&
+        !seen.has(onValueChange) &&
+        options?.some((option) => option.value === "Rust")
+      ) {
+        seen.add(onValueChange);
+        onValueChange(null);
+        onValueChange(["Rust"]);
+      }
+      if (fiber.child) stack.push(fiber.child);
+      if (fiber.sibling) stack.push(fiber.sibling);
+    }
+
+    await act(async () => {
+      [...document.querySelectorAll("button")].find((button) => button.textContent === "Cancel")?.click();
+    });
+    expect(onOpenChange).toHaveBeenCalledWith(false);
+    await act(async () => {
+      [...document.querySelectorAll("button")]
+        .find((button) => button.textContent?.includes("Save reviewer profile"))
+        ?.click();
+    });
+    const updated = updateMutate.mock.calls.at(-1);
+    expect(updated?.[0]).toMatchObject({ reviewerSkills: ["Rust"] });
+    expect(updated?.[0]).not.toHaveProperty("firstName");
+    updated?.[1].onError(new Error("conflict"));
+    expect(toast.error).toHaveBeenCalledWith("conflict");
+    updated?.[1].onSuccess();
+    expect(toast.success).toHaveBeenCalledWith("Reviewer profile updated.");
+
+    profileQuery.data = null;
+    await act(async () => {
+      root.render(<ReviewerProfileDialog adminId={adminId} userName="Ada" open onOpenChange={onOpenChange} />);
+    });
+    const first = [...document.querySelectorAll("input")].find((input) => input instanceof HTMLInputElement);
+    if (first instanceof HTMLInputElement) {
+      await act(async () => {
+        setValue(first, "");
+      });
+    }
+    await act(async () => {
+      [...document.querySelectorAll("button")]
+        .find((button) => button.textContent?.includes("Create reviewer profile"))
+        ?.click();
+    });
+    expect(createMutate.mock.calls.at(-1)?.[0]).toMatchObject({ firstName: "Ada", lastName: "Admin" });
+
     root.unmount();
     container.remove();
   });

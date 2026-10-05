@@ -103,4 +103,116 @@ describe("enable two-factor dialog", () => {
     });
     container.remove();
   });
+
+  it("blocks a dirty form on each step and ignores a secret that is not a URL", async () => {
+    Object.assign(navigator, { clipboard: { writeText: vi.fn(async () => undefined) } });
+    const container = document.createElement("div");
+    document.body.append(container);
+    const root = createRoot(container);
+    await act(async () => {
+      root.render(
+        <ConfirmDialogProvider>
+          <Dialog open>
+            <EnableTwoFactorDialog />
+          </Dialog>
+        </ConfirmDialogProvider>,
+      );
+    });
+
+    await escapeDialog();
+    const toggle = document.querySelector("button[type='button']");
+    if (!(toggle instanceof HTMLButtonElement)) throw new Error("missing password toggle");
+    await act(async () => {
+      toggle.click();
+    });
+    const revealed = document.querySelector("input");
+    if (!(revealed instanceof HTMLInputElement)) throw new Error("missing password");
+    expect(revealed.type).toBe("text");
+
+    await act(async () => {
+      setInput("secret1");
+    });
+    await escapeDialog();
+    await stay();
+
+    enable.mockResolvedValueOnce({
+      data: { totpURI: "otpauth://totp/Skill?secret=ABC123", backupCodes: ["111111"] },
+      error: null,
+    });
+    await submit();
+    expect(document.body.textContent).toContain("Setup Authenticator App");
+    await escapeDialog();
+    await act(async () => {
+      setInput("123456");
+    });
+    await escapeDialog();
+    await act(async () => {
+      setInput("654321");
+    });
+    await escapeDialog();
+    await stay();
+
+    verifyTotp.mockResolvedValueOnce({ error: null });
+    await submit();
+    expect(document.body.textContent).toContain("111111");
+    await escapeDialog();
+
+    await act(async () => {
+      root.unmount();
+    });
+    container.remove();
+
+    enable.mockResolvedValueOnce({
+      data: { totpURI: "not a url", backupCodes: ["111111"] },
+      error: null,
+    });
+    const again = document.createElement("div");
+    document.body.append(again);
+    const next = createRoot(again);
+    await act(async () => {
+      next.render(
+        <ConfirmDialogProvider>
+          <Dialog open>
+            <EnableTwoFactorDialog />
+          </Dialog>
+        </ConfirmDialogProvider>,
+      );
+    });
+    setInput("secret1");
+    await submit();
+    expect(document.body.textContent).toContain("Setup Authenticator App");
+    expect(document.querySelector("input[readonly]")).toBeNull();
+    await act(async () => {
+      next.unmount();
+    });
+    again.remove();
+  });
 });
+
+type Fiber = { return: Fiber | null; memoizedProps: Record<string, unknown> | null };
+
+async function escapeDialog() {
+  const content = document.querySelector("[data-slot='dialog-content']");
+  if (!(content instanceof HTMLElement)) throw new Error("missing dialog");
+  const key = Object.keys(content).find((name) => name.startsWith("__reactFiber$"));
+  let fiber: Fiber | null = key ? (content as unknown as Record<string, Fiber>)[key] : null;
+  while (fiber) {
+    const handler = fiber.memoizedProps?.onEscapeKeyDown;
+    if (typeof handler === "function" && handler.toString().includes("shouldBlock")) {
+      await act(async () => {
+        handler({ preventDefault() {} });
+      });
+      return;
+    }
+    fiber = fiber.return;
+  }
+  throw new Error("missing escape handler");
+}
+
+async function stay() {
+  const button = [...document.querySelectorAll("button")].find((item) => item.textContent?.trim() === "Stay");
+  if (!(button instanceof HTMLButtonElement)) throw new Error("missing stay");
+  await act(async () => {
+    button.click();
+  });
+}

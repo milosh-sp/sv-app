@@ -3,6 +3,8 @@ import { beforeEach, describe, expect, it, vi } from "vite-plus/test";
 
 const verifyOAuthToken = vi.hoisted(() => vi.fn());
 const verifyApiKey = vi.hoisted(() => vi.fn());
+const connect = vi.hoisted(() => vi.fn());
+const handleRequest = vi.hoisted(() => vi.fn());
 
 vi.mock("@/integrations/auth/config", () => ({
   auth: { api: { verifyApiKey } },
@@ -14,8 +16,27 @@ vi.mock("@/integrations/orpc/client", () => ({
   client: {},
 }));
 
+vi.mock("@modelcontextprotocol/sdk/server/mcp.js", () => ({
+  McpServer: class {
+    connect = connect;
+  },
+}));
+
+vi.mock("@modelcontextprotocol/sdk/server/webStandardStreamableHttp.js", () => ({
+  WebStandardStreamableHTTPServerTransport: class {
+    handleRequest = handleRequest;
+  },
+}));
+
+vi.mock("./-helpers/resources", () => ({ registerResources: vi.fn() }));
+vi.mock("./-helpers/prompts", () => ({ registerPrompts: vi.fn() }));
+vi.mock("./-helpers/tools", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("./-helpers/tools")>();
+  return { ...actual, registerTools: vi.fn() };
+});
+
 import { errorHint } from "./-helpers/tools";
-import { authenticateRequest } from "./index";
+import { Route, authenticateRequest } from "./index";
 
 describe("authenticateRequest", () => {
   beforeEach(() => {
@@ -62,5 +83,60 @@ describe("errorHint", () => {
 
   it("adds no hint for an unknown error", () => {
     expect(errorHint(new Error("boom"))).toBe("");
+  });
+});
+
+type Handler = (args: { request: Request }) => Promise<Response>;
+
+function mcpHandler() {
+  const handlers = Route.options.server?.handlers as unknown as { ANY?: Handler } | undefined;
+  const handler = handlers?.ANY;
+  if (!handler) throw new Error("mcp handler missing");
+  return handler;
+}
+
+describe("mcp route handler", () => {
+  beforeEach(() => {
+    connect.mockReset();
+    connect.mockResolvedValue(undefined);
+    handleRequest.mockReset();
+    handleRequest.mockResolvedValue(new Response("ok"));
+    verifyOAuthToken.mockReset();
+    verifyApiKey.mockReset();
+  });
+
+  it("serves an authenticated request and rejects a token without a subject", async () => {
+    verifyOAuthToken.mockResolvedValueOnce({});
+    verifyApiKey.mockResolvedValueOnce({ valid: false });
+    const handler = mcpHandler();
+    const denied = await handler({
+      request: new Request("http://localhost/mcp", {
+        headers: { authorization: "Bearer token", "x-api-key": "key" },
+      }),
+    });
+    expect(denied.status).toBe(401);
+
+    verifyOAuthToken.mockResolvedValueOnce({ sub: "user-1" });
+    const ok = await handler({
+      request: new Request("http://localhost/mcp", { headers: { authorization: "Bearer token" } }),
+    });
+    expect(ok.status).toBe(200);
+    expect(await ok.text()).toBe("ok");
+  });
+
+  it("returns the transport error for an Error and a thrown string", async () => {
+    verifyApiKey.mockResolvedValue({ valid: true });
+    const handler = mcpHandler();
+    connect.mockRejectedValueOnce(new Error("boom"));
+    const failed = await handler({
+      request: new Request("http://localhost/mcp", { headers: { "x-api-key": "key" } }),
+    });
+    expect(await failed.json()).toMatchObject({ error: { message: expect.stringContaining("boom") } });
+
+    connect.mockRejectedValueOnce("nope");
+    const plain = await handler({
+      request: new Request("http://localhost/mcp", { headers: { "x-api-key": "key" } }),
+    });
+    expect(await plain.json()).toMatchObject({ error: { message: expect.stringContaining("nope") } });
   });
 });

@@ -62,4 +62,37 @@ describe("health handler", () => {
     expect(body.printer.error).toBe("printer down");
     expect(body.storage.error).toBe("disk");
   });
+
+  it("uses error messages and reports a hung check as a timeout", async () => {
+    execute.mockRejectedValueOnce(new Error("db down"));
+    printerHealth.mockRejectedValueOnce("printer");
+    storageHealth.mockRejectedValueOnce(new Error("storage down"));
+
+    const typed = await getHandler()();
+    const typedBody = (await typed.json()) as {
+      database: { error: string };
+      printer: { error: string };
+      storage: { error: string };
+    };
+    expect(typedBody.database.error).toBe("db down");
+    expect(typedBody.printer.error).toBe("Unknown error");
+    expect(typedBody.storage.error).toBe("storage down");
+
+    storageHealth.mockRejectedValueOnce("disk gone");
+    const plain = await getHandler()();
+    const plainBody = (await plain.json()) as { storage: { error: string } };
+    expect(plainBody.storage.error).toBe("Unknown error");
+
+    vi.useFakeTimers();
+    execute.mockImplementation(() => new Promise(() => undefined));
+    printerHealth.mockImplementation(() => new Promise(() => undefined));
+    storageHealth.mockImplementation(() => new Promise(() => undefined));
+    const pending = getHandler()();
+    await vi.advanceTimersByTimeAsync(1_500);
+    const timedOut = await pending;
+    vi.useRealTimers();
+    const timedBody = (await timedOut.json()) as { database: { error: string } };
+    expect(timedOut.status).toBe(503);
+    expect(timedBody.database.error).toContain("Timed out");
+  });
 });

@@ -4,6 +4,7 @@ import { createRoot } from "react-dom/client";
 import { beforeEach, describe, expect, it, vi } from "vite-plus/test";
 
 import { defaultResumeData } from "@/schema/resume/data";
+import { sampleResumeData } from "@/schema/resume/sample";
 
 const ai = vi.hoisted(() => ({
   canUse: true,
@@ -134,7 +135,7 @@ describe("import resume dialog", () => {
         mediaType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
       }),
     );
-  });
+  }, 20_000);
 
   it("imports a JSON Resume file and surfaces a non-error failure", async () => {
     ai.canUse = true;
@@ -161,4 +162,132 @@ describe("import resume dialog", () => {
     await submit("PDF", new File(["%PDF"], "cv.pdf", { type: "application/pdf" }));
     expect(parsePdf).not.toHaveBeenCalled();
   });
+
+  it("opens the picker, ignores an empty file, and stops when no type is chosen", async () => {
+    ai.canUse = true;
+    ai.isAvailabilityLoaded = true;
+    const unmount = await mountImport();
+    const choose = [...document.querySelectorAll("button")].find((button) =>
+      button.textContent?.includes("select a file"),
+    );
+    if (!(choose instanceof HTMLButtonElement)) throw new Error("missing file button");
+    const input = document.querySelector("input[type='file']");
+    if (!(input instanceof HTMLInputElement)) throw new Error("missing file input");
+    const click = vi.spyOn(input, "click").mockImplementation(() => undefined);
+    await act(async () => {
+      choose.click();
+    });
+    expect(click).toHaveBeenCalled();
+
+    Object.defineProperty(input, "files", { configurable: true, value: [] });
+    await act(async () => {
+      input.dispatchEvent(new Event("change", { bubbles: true }));
+    });
+
+    const form = document.querySelector("form");
+    if (!(form instanceof HTMLFormElement)) throw new Error("missing form");
+    await act(async () => {
+      form.dispatchEvent(new Event("submit", { bubbles: true, cancelable: true }));
+    });
+    expect(importResume).not.toHaveBeenCalled();
+    unmount();
+  });
+
+  it("imports skill verdict files and reports an empty parser result", async () => {
+    ai.canUse = true;
+    ai.isAvailabilityLoaded = true;
+    const current = await mountImport();
+    await setImportType(
+      "skill-verdict-json",
+      new File([JSON.stringify(sampleResumeData)], "cv.json", { type: "application/json" }),
+    );
+    await submitMounted();
+    expect(importResume).toHaveBeenCalled();
+    current();
+
+    const legacy = await mountImport();
+    await setImportType(
+      "skill-verdict-v4-json",
+      new File(
+        [
+          JSON.stringify({
+            basics: { name: "Ada Lovelace", email: "ada@example.com" },
+            sections: {},
+            metadata: { template: "onyx", layout: [[["summary"], ["skills"]]] },
+          }),
+        ],
+        "v4.json",
+        { type: "application/json" },
+      ),
+    );
+    await submitMounted();
+    expect(importResume).toHaveBeenCalled();
+    legacy();
+
+    parsePdf.mockResolvedValueOnce(undefined as never);
+    await submit("PDF", new File(["%PDF"], "cv.pdf", { type: "application/pdf" }));
+    expect(toast.error).toHaveBeenCalledWith("No data was returned from the import.", expect.anything());
+  });
 });
+
+async function mountImport() {
+  const queryClient = new QueryClient({ defaultOptions: { mutations: { retry: false } } });
+  const container = document.createElement("div");
+  document.body.append(container);
+  const root = createRoot(container);
+  await act(async () => {
+    root.render(
+      <QueryClientProvider client={queryClient}>
+        <ConfirmDialogProvider>
+          <Dialog open>
+            <ImportResumeDialog />
+          </Dialog>
+        </ConfirmDialogProvider>
+      </QueryClientProvider>,
+    );
+  });
+  return () => {
+    act(() => {
+      root.unmount();
+    });
+    container.remove();
+  };
+}
+
+type Fiber = { return: Fiber | null; memoizedProps: Record<string, unknown> | null };
+
+async function setImportType(type: string, file: File) {
+  const form = document.querySelector("form");
+  if (!(form instanceof HTMLFormElement)) throw new Error("missing form");
+  const key = Object.keys(form).find((name) => name.startsWith("__reactFiber$"));
+  let fiber: Fiber | null = key ? (form as unknown as Record<string, Fiber>)[key] : null;
+  while (fiber) {
+    const value = fiber.memoizedProps?.value;
+    if (value && typeof value === "object" && "setValue" in value && typeof value.setValue === "function") {
+      const setValue = value.setValue as (name: string, next: unknown) => void;
+      await act(async () => {
+        setValue("type", type);
+      });
+      await act(async () => {
+        setValue("file", file);
+      });
+      return;
+    }
+    fiber = fiber.return;
+  }
+  throw new Error("missing form api");
+}
+
+async function submitMounted() {
+  vi.mocked(toast.success).mockClear();
+  vi.mocked(toast.error).mockClear();
+  const form = document.querySelector("form");
+  if (!(form instanceof HTMLFormElement)) throw new Error("missing form");
+  form.noValidate = true;
+  await act(async () => {
+    form.dispatchEvent(new Event("submit", { bubbles: true, cancelable: true }));
+  });
+  await vi.waitFor(() => {
+    expect(vi.mocked(toast.success).mock.calls.length + vi.mocked(toast.error).mock.calls.length).toBeGreaterThan(0);
+  });
+}

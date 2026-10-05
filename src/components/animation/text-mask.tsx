@@ -19,13 +19,11 @@ export const TextMaskEffect = ({ text, duration = 6, className, "aria-hidden": a
   const [maskPosition, setMaskPosition] = useState({ cx: "50%", cy: "50%" });
 
   useEffect(() => {
-    if (svgRef.current && cursor.x !== null && cursor.y !== null) {
-      const svgRect = svgRef.current.getBoundingClientRect();
-      const cxPercentage = ((cursor.x - svgRect.left) / svgRect.width) * 100;
-      const cyPercentage = ((cursor.y - svgRect.top) / svgRect.height) * 100;
+    const svgRect = svgRef.current!.getBoundingClientRect();
+    const cxPercentage = ((cursor.x - svgRect.left) / svgRect.width) * 100;
+    const cyPercentage = ((cursor.y - svgRect.top) / svgRect.height) * 100;
 
-      setMaskPosition({ cx: `${cxPercentage}%`, cy: `${cyPercentage}%` });
-    }
+    setMaskPosition({ cx: `${cxPercentage}%`, cy: `${cyPercentage}%` });
   }, [cursor]);
 
   return (

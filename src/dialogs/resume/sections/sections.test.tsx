@@ -321,6 +321,43 @@ async function submitForm() {
   });
 }
 
+type Fiber = { return: Fiber | null; memoizedProps: Record<string, unknown> | null };
+
+function sliderChange(dialog: HTMLElement): (value: unknown) => void {
+  const key = Object.keys(dialog).find((item) => item.startsWith("__reactFiber$"));
+  const start = key ? (dialog as unknown as Record<string, Fiber & { child?: Fiber | null }>)[key] : null;
+  const queue: Array<Fiber & { child?: Fiber | null; sibling?: Fiber | null }> = start ? [start] : [];
+  const seen = new Set<Fiber>();
+  let handler: ((value: unknown) => void) | undefined;
+  while (queue.length > 0) {
+    const current = queue.shift();
+    if (!current || seen.has(current)) continue;
+    seen.add(current);
+    const props = current.memoizedProps;
+    if (props?.min === 0 && props.max === 5 && typeof props.onValueChange === "function") {
+      const next = props.onValueChange as (value: unknown) => void;
+      if (!handler || next.toString().includes("isArray")) handler = next;
+    }
+    if (current.child) queue.push(current.child);
+    if (current.sibling) queue.push(current.sibling);
+  }
+  if (!handler) throw new Error("missing slider");
+  return handler;
+}
+
+function findProp(element: Element, name: string, source: string): (...args: unknown[]) => void {
+  const key = Object.keys(element).find((item) => item.startsWith("__reactFiber$"));
+  let fiber: Fiber | null = key ? (element as unknown as Record<string, Fiber>)[key] : null;
+  while (fiber) {
+    const handler = fiber.memoizedProps?.[name];
+    if (typeof handler === "function" && handler.toString().includes(source)) {
+      return handler as (...args: unknown[]) => void;
+    }
+    fiber = fiber.return;
+  }
+  throw new Error(`missing ${name}`);
+}
+
 function prepare(entry: DialogCase, existing?: Record<string, unknown>) {
   const data = structuredClone(defaultResumeData);
   data.customSections = [
@@ -482,5 +519,206 @@ describe("resume section dialogs", () => {
       useResumeStore.getState().resume.data.customSections.find((section) => section.id === created.id)?.title,
     ).toBe("Freelance");
     unmountUpdate();
+  });
+
+  it.each(builtInCases)("$name covers a missing section and a missing item", async (entry) => {
+    prepare(entry);
+    const missingCreate = await mount(<entry.create data={{ customSectionId: "missing" }} />);
+    fillLabel(entry.label, "Ghost");
+    await submitForm();
+    expect(readItems(entry, false)).toEqual([]);
+    expect(useResumeStore.getState().resume.data.customSections[0]?.items ?? []).toEqual([]);
+    missingCreate();
+
+    const existing = entry.item("item-1");
+    prepare(entry);
+    useResumeStore.getState().updateResumeData((draft) => {
+      const section = draft.customSections[0];
+      if (section) section.items = [existing as never];
+    });
+    const customUpdate = await mount(<entry.update data={{ item: existing, customSectionId: "custom-1" }} />);
+    fillLabel(entry.label, "Edited");
+    await submitForm();
+    expect(useResumeStore.getState().resume.data.customSections[0]?.items[0]).toMatchObject({
+      [entry.field]: "Edited",
+    });
+    customUpdate();
+
+    prepare(entry);
+    useResumeStore.getState().updateResumeData((draft) => {
+      const section = draft.customSections[0];
+      if (section) section.items = [entry.item("other") as never];
+    });
+    const missingItem = await mount(<entry.update data={{ item: existing, customSectionId: "custom-1" }} />);
+    await submitForm();
+    expect(useResumeStore.getState().resume.data.customSections[0]?.items[0]).toMatchObject({ id: "other" });
+    missingItem();
+
+    prepare(entry, existing);
+    const missingSection = await mount(<entry.update data={{ item: existing, customSectionId: "missing" }} />);
+    await submitForm();
+    expect(readItems(entry, false)[0]).toMatchObject({ [entry.field]: "Old" });
+    missingSection();
+
+    prepare(entry, entry.item("other"));
+    const builtIn = await mount(<entry.update data={{ item: existing }} />);
+    await submitForm();
+    expect(readItems(entry, false)[0]).toMatchObject({ id: "other", [entry.field]: "Old" });
+    builtIn();
+  });
+
+  it.each(customOnlyCases)("$name ignores a missing section and a missing item", async (entry) => {
+    prepare(entry);
+    const missingCreate = await mount(<entry.create data={{ customSectionId: "missing" }} />);
+    fillRich("Ghost");
+    await submitForm();
+    expect(useResumeStore.getState().resume.data.customSections[0]?.items ?? []).toEqual([]);
+    missingCreate();
+
+    const existing = entry.item("item-1");
+    prepare(entry);
+    useResumeStore.getState().updateResumeData((draft) => {
+      const section = draft.customSections[0];
+      if (section) section.items = [existing as never];
+    });
+    const customUpdate = await mount(<entry.update data={{ item: existing, customSectionId: "custom-1" }} />);
+    fillRich("Edited");
+    await submitForm();
+    expect(useResumeStore.getState().resume.data.customSections[0]?.items[0]).toMatchObject({
+      [entry.field]: "Edited",
+    });
+    customUpdate();
+
+    prepare(entry);
+    useResumeStore.getState().updateResumeData((draft) => {
+      const section = draft.customSections[0];
+      if (section) section.items = [entry.item("other") as never];
+    });
+    const missingItem = await mount(<entry.update data={{ item: existing, customSectionId: "custom-1" }} />);
+    await submitForm();
+    expect(useResumeStore.getState().resume.data.customSections[0]?.items[0]).toMatchObject({ id: "other" });
+    missingItem();
+
+    prepare(entry);
+    const missingSection = await mount(<entry.update data={{ item: existing, customSectionId: "missing" }} />);
+    await submitForm();
+    expect(useResumeStore.getState().resume.data.customSections[0]?.items ?? []).toEqual([]);
+    missingSection();
+
+    prepare(entry);
+    const plainCreate = await mount(<entry.create />);
+    fillRich("Nowhere");
+    await submitForm();
+    expect(useResumeStore.getState().resume.data.customSections[0]?.items ?? []).toEqual([]);
+    plainCreate();
+
+    prepare(entry, existing);
+    const plainUpdate = await mount(<entry.update data={{ item: existing }} />);
+    fillRich("Ignored");
+    await submitForm();
+    expect(readItems(entry, true)[0]).toMatchObject({ [entry.field]: "Old" });
+    plainUpdate();
+  });
+
+  it("leaves the layout alone when a custom section is created with no pages", async () => {
+    const data = structuredClone(defaultResumeData);
+    data.metadata.layout.pages = [];
+    useResumeStore.getState().initialize({
+      id: "resume-1",
+      name: "CV",
+      slug: "cv",
+      tags: [],
+      data,
+      isLocked: false,
+    });
+    useDialogStore.getState().openDialog("resume.create", undefined);
+
+    const unmountCreate = await mount(<CreateCustomSectionDialog data={undefined} />);
+    fillLabel("Title", "Orphan");
+    await submitForm();
+    expect(useResumeStore.getState().resume.data.customSections.at(-1)?.title).toBe("Orphan");
+    expect(useResumeStore.getState().resume.data.metadata.layout.pages).toEqual([]);
+    unmountCreate();
+
+    useDialogStore.getState().openDialog("resume.create", undefined);
+    const unmountUpdate = await mount(
+      <UpdateCustomSectionDialog
+        data={{ id: "gone", type: "experience", title: "Gone", columns: 1, hidden: false, items: [] }}
+      />,
+    );
+    fillLabel("Title", "Still gone");
+    await submitForm();
+    expect(useResumeStore.getState().resume.data.customSections.some((section) => section.id === "gone")).toBe(false);
+    unmountUpdate();
+  });
+
+  it("edits experience roles and tolerates an item with no roles", async () => {
+    const entry = cases.find((item) => item.section === "experience");
+    if (!entry) throw new Error("missing experience");
+    const existing = entry.item("item-1");
+    prepare(entry, existing);
+    const bare = await mount(<entry.update data={{ item: { ...existing, roles: undefined } }} />);
+    expect(document.body.textContent).toContain("Add Role");
+    bare();
+
+    prepare(entry);
+    const unmount = await mount(<entry.create />);
+    const add = [...document.querySelectorAll("button")].find((button) => button.textContent?.includes("Add Role"));
+    if (!(add instanceof HTMLButtonElement)) throw new Error("missing add role");
+    await act(async () => {
+      add.click();
+    });
+    expect(document.body.textContent).toContain("Overall Title");
+    expect(document.body.textContent).toContain("Overall Period");
+
+    const reorder = [...document.querySelectorAll("button")].find((button) => button.textContent?.includes("Reorder"));
+    if (!(reorder instanceof HTMLButtonElement)) throw new Error("missing reorder");
+    await act(async () => {
+      findProp(reorder, "onPointerDown", "preventDefault")(new PointerEvent("pointerdown") as never);
+    });
+    await act(async () => {
+      findProp(reorder, "onReorder", "setValue")([{ id: "role-1", position: "Lead", period: "2020", description: "" }]);
+    });
+
+    await act(async () => {
+      add.click();
+    });
+    const remove = [...document.querySelectorAll("button")].find((button) => button.textContent?.includes("Remove"));
+    if (!(remove instanceof HTMLButtonElement)) throw new Error("missing remove");
+    await act(async () => {
+      remove.click();
+    });
+    unmount();
+  });
+
+  it("rejects an empty interest, profile, or skill name and moves both sliders", async () => {
+    for (const entry of cases.filter((item) => ["interests", "profiles", "skills"].includes(item.section ?? ""))) {
+      prepare(entry);
+      const unmount = await mount(<entry.create />);
+      await submitForm();
+      const label = entry.section === "profiles" ? "Network" : "Name";
+      const match = [...document.querySelectorAll("label")].find((element) => element.textContent?.trim() === label);
+      let node = match ? document.getElementById(match.htmlFor) : null;
+      while (node && !/\bitems-(end|center)\b/.test(node.className)) node = node.parentElement;
+      expect(node?.className).toContain("items-center");
+      unmount();
+    }
+
+    for (const entry of cases.filter((item) => item.section === "languages" || item.section === "skills")) {
+      prepare(entry);
+      const unmount = await mount(<entry.create />);
+      const dialog = document.querySelector("[data-slot='dialog-content']");
+      if (!(dialog instanceof HTMLElement)) throw new Error("missing dialog");
+      const onValueChange = sliderChange(dialog);
+      await act(async () => {
+        onValueChange([3]);
+      });
+      expect(document.body.textContent).toContain("3 / 5");
+      await act(async () => {
+        onValueChange(4);
+      });
+      expect(document.body.textContent).toContain("4 / 5");
+      unmount();
+    }
   });
 });

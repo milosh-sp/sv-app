@@ -48,7 +48,7 @@ const parseDroppableId = (id: string): PageLocation | null => {
   if (id.startsWith("page-")) {
     const parts = id.split("-");
     if (parts.length >= 3) {
-      const pageIndex = Number.parseInt(parts[1] ?? "0", 10);
+      const pageIndex = Number.parseInt(parts[1]!, 10);
       const columnId = parts[2] as ColumnId;
       if (!Number.isNaN(pageIndex) && (columnId === "main" || columnId === "sidebar")) {
         return { pageIndex, columnId };
@@ -271,7 +271,6 @@ function PageContainer({
           pageIndex={pageIndex}
           columnId="main"
           items={page.main}
-          disabled={false}
           className={cn(sidebarPosition === "left" ? "order-2" : "order-1")}
         />
 
@@ -294,31 +293,23 @@ type LayoutColumnProps = {
   columnId: ColumnId;
   items: string[];
   hideLabel?: boolean;
-  disabled?: boolean;
   className?: string;
 };
 
-function LayoutColumn({
-  pageIndex,
-  columnId,
-  items,
-  hideLabel = false,
-  disabled = false,
-  className,
-}: LayoutColumnProps) {
+function LayoutColumn({ pageIndex, columnId, items, hideLabel = false, className }: LayoutColumnProps) {
   const droppableId = createDroppableId(pageIndex, columnId);
-  const { setNodeRef, isOver } = useDroppable({ id: droppableId, disabled });
+  const { setNodeRef, isOver } = useDroppable({ id: droppableId });
 
   return (
     <SortableContext id={droppableId} items={items} strategy={verticalListSortingStrategy}>
-      <div className={cn("space-y-1.5", disabled && "opacity-50", className)}>
+      <div className={cn("space-y-1.5", className)}>
         {!hideLabel && <div className="ps-4 text-xs font-medium @md:row-start-1">{getColumnLabel(columnId)}</div>}
 
         <div
           ref={setNodeRef}
           className={cn(
             "space-y-2.5 rounded-md border border-dashed p-3 pb-8 transition-colors",
-            isOver && !disabled ? "border-primary/60 bg-primary/5" : "bg-background/40",
+            isOver ? "border-primary/60 bg-primary/5" : "bg-background/40",
           )}
         >
           {items.map((id) => (

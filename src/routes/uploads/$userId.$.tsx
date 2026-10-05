@@ -37,7 +37,7 @@ async function handler({ request }: { request: Request }) {
 
   if (!storedFile) return new Response("Not Found", { status: 404 });
 
-  const filename = filePath.split("/").pop() ?? filePath;
+  const filename = basename(filePath);
   const ext = extname(filename).toLowerCase();
   const contentType = storedFile.contentType ?? inferContentType(filename);
   const etag = createEtag(storedFile);
@@ -84,8 +84,7 @@ async function viewerIsOwnerOrAdmin(request: Request, ownerUserId: string): Prom
 }
 
 async function canAccessPdf(request: Request, ownerUserId: string, filePath: string): Promise<boolean> {
-  const resumeId = filePath.split("/")[1];
-  if (!resumeId) return false;
+  const resumeId = filePath.slice(filePath.indexOf("/") + 1).split("/")[0];
 
   const [row] = await db
     .select({

@@ -109,8 +109,7 @@ export function ImportResumeDialog(_: DialogProps<"resume.import">) {
   }, [form.resetField, type]);
 
   const onSelectFile = () => {
-    if (!inputRef.current) return;
-    inputRef.current.click();
+    inputRef.current!.click();
   };
 
   const onUploadFile = (e: React.ChangeEvent<HTMLInputElement>) => {

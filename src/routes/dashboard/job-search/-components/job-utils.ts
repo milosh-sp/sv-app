@@ -25,8 +25,8 @@ export function formatSalary(
 
   if (min && max) return `${formatCurrency(min)} - ${formatCurrency(max)}${period ? ` / ${period}` : ""}`;
   if (min) return `${formatCurrency(min)}+${period ? ` / ${period}` : ""}`;
-  if (!max) return "";
-  return `Up to ${formatCurrency(max)}${period ? ` / ${period}` : ""}`;
+  // min is falsy here, so max is set: both-empty already returned above.
+  return `Up to ${formatCurrency(max as number)}${period ? ` / ${period}` : ""}`;
 }
 
 export function formatPostedDate(timestamp: number | null): string {

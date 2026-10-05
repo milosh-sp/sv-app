@@ -221,7 +221,7 @@ function ReviewerProfileForm({
   if (!syncedFrom || syncedFrom.profile !== profile || syncedFrom.userName !== userName) {
     setSyncedFrom({ profile, userName });
     const nameParts = userName.trim().split(/\s+/);
-    setFirstName(profile ? profile.firstName : (nameParts[0] ?? ""));
+    setFirstName(profile ? profile.firstName : nameParts[0]);
     setLastName(profile ? profile.lastName : nameParts.slice(1).join(" "));
     setTitle(profile ? profile.title : "");
     setReviewerSkills(profile?.reviewerSkills ?? []);

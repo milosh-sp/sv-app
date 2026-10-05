@@ -124,4 +124,39 @@ describe("oauth authorize", () => {
     expect(issued.status).toBe(302);
     expect(issued.headers.get("location")).toContain("state=abc");
   });
+
+  it("drops signature params, names a blank client, and ignores file fields", async () => {
+    getSession.mockResolvedValue(null);
+    const { GET, POST } = handlers();
+    const login = await GET({
+      request: new Request(
+        "http://localhost:3000/auth/oauth?client_id=client&redirect_uri=https://app.example/callback&exp=1&sig=2",
+      ),
+    });
+    const callback = new URL(login.headers.get("location") ?? "", "http://localhost:3000").searchParams.get(
+      "callbackURL",
+    );
+    expect(callback).not.toContain("exp=");
+    expect(callback).not.toContain("sig=");
+
+    getSession.mockResolvedValue(session);
+    limit.mockResolvedValue([{ ...client, name: "", skipConsent: false }]);
+    const unnamed = await GET({
+      request: new Request(
+        "http://localhost:3000/auth/oauth?client_id=client&redirect_uri=https://app.example/callback",
+      ),
+    });
+    const page = await unnamed.text();
+    expect(page).toContain("Scopes: none");
+    expect(page).toContain("Authorize client");
+
+    const form = new FormData();
+    form.set("client_id", "client");
+    form.set("redirect_uri", "https://app.example/callback");
+    form.set("file", new File(["x"], "a.txt"));
+    const posted = await POST({
+      request: new Request("http://localhost:3000/auth/oauth", { method: "POST", body: form }),
+    });
+    expect(posted.status).toBe(302);
+  });
 });

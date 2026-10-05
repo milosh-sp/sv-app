@@ -11,7 +11,7 @@ import {
 } from "@phosphor-icons/react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { createFileRoute, stripSearchParams, useNavigate } from "@tanstack/react-router";
-import { useMemo, useRef, useState } from "react";
+import { useMemo, useState } from "react";
 import { toast } from "sonner";
 import z from "zod";
 
@@ -439,7 +439,7 @@ function ReviewerSetupBanner({ hasProfile, hasConsent }: { hasProfile: boolean; 
                 and create your public reviewer profile before accepting cases.
               </Trans>
             </p>
-          ) : !hasConsent ? (
+          ) : (
             <>
               <p className="text-xs text-muted-foreground">
                 <Trans>
@@ -457,7 +457,7 @@ function ReviewerSetupBanner({ hasProfile, hasConsent }: { hasProfile: boolean; 
                 {giveConsent.isPending ? <Trans>Recording...</Trans> : <Trans>Give consent</Trans>}
               </Button>
             </>
-          ) : null}
+          )}
         </div>
       </div>
     </div>
@@ -593,16 +593,16 @@ function AcceptCaseDialog({
   onOpenChange: (open: boolean) => void;
 }) {
   const queryClient = useQueryClient();
-  const fileInputRef = useRef<HTMLInputElement>(null);
   const [file, setFile] = useState<File | null>(null);
   const [message, setMessage] = useState("");
+  const [fileInputKey, setFileInputKey] = useState(0);
 
   const acceptCase = useMutation(orpc.admin.verification.acceptCase.mutationOptions());
 
   const reset = () => {
     setFile(null);
     setMessage("");
-    if (fileInputRef.current) fileInputRef.current.value = "";
+    setFileInputKey((key) => key + 1);
   };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -630,15 +630,10 @@ function AcceptCaseDialog({
   };
 
   const handleAccept = () => {
-    if (!file) {
-      toast.error(t`Assessment instructions file is required.`);
-      return;
-    }
-
     acceptCase.mutate(
       {
         requestId: item.id,
-        file,
+        file: file as File,
         message: message.trim() || undefined,
       },
       {
@@ -685,7 +680,7 @@ function AcceptCaseDialog({
               <Trans>Instructions file</Trans> <span className="text-destructive">*</span>
             </p>
             <input
-              ref={fileInputRef}
+              key={fileInputKey}
               type="file"
               accept={ALLOWED_TYPES.join(",")}
               className="block w-full text-xs file:mr-3 file:rounded-md file:border-0 file:bg-muted file:px-3 file:py-1.5 file:text-xs"

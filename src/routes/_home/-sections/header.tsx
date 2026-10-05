@@ -16,10 +16,8 @@ export function Header() {
   const springY = useSpring(y, { stiffness: 300, damping: 40 });
 
   useEffect(() => {
-    if (typeof window === "undefined") return;
-
     function onScroll() {
-      const current = window.scrollY ?? 0;
+      const current = window.scrollY;
       if (!ticking.current) {
         window.requestAnimationFrame(() => {
           if (current > 32 && current > lastScroll.current) {

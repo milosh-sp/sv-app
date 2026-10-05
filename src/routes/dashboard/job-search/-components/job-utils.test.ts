@@ -13,7 +13,9 @@ describe("job formatting", () => {
     expect(formatSalary(0, 0, "USD", null)).toBe("");
     expect(formatSalary(80_000, 120_000, "USD", "year")).toBe("$80,000 - $120,000 / year");
     expect(formatSalary(80_000, null, null, null)).toBe("$80,000+");
+    expect(formatSalary(80_000, null, "USD", "year")).toBe("$80,000+ / year");
     expect(formatSalary(null, 90_000, "EUR", "month")).toBe("Up to €90,000 / month");
+    expect(formatSalary(null, 90_000, "USD", null)).toBe("Up to $90,000");
     expect(formatSalary(10, 20, "not-a-currency", null)).toBe("not-a-currency 10 - not-a-currency 20");
   });
 

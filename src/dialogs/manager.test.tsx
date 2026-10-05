@@ -160,6 +160,12 @@ describe("DialogManager", () => {
     });
     expect(document.body.textContent).toContain("custom section");
 
+    useDialogStore.setState({ open: true, activeDialog: null });
+    await act(async () => {
+      root.render(<DialogManager />);
+    });
+    expect(document.querySelector("[data-slot='dialog-content']")).toBeNull();
+
     await act(async () => {
       root.unmount();
     });

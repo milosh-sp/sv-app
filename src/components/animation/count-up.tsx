@@ -46,14 +46,8 @@ export function CountUp({
   const isInView = useInView(ref, { once: true, margin: "0px" });
 
   const getDecimalPlaces = (num: number): number => {
-    const str = num.toString();
-
-    if (str.includes(".")) {
-      const decimals = str.split(".")[1];
-      if (Number.parseInt(decimals, 10) !== 0) return decimals.length;
-    }
-
-    return 0;
+    const decimals = num.toString().split(".")[1];
+    return decimals ? decimals.length : 0;
   };
 
   const maxDecimals = Math.max(getDecimalPlaces(from), getDecimalPlaces(to));
@@ -76,9 +70,7 @@ export function CountUp({
   );
 
   useEffect(() => {
-    if (ref.current) {
-      ref.current.textContent = formatValue(direction === "down" ? to : from);
-    }
+    ref.current!.textContent = formatValue(direction === "down" ? to : from);
   }, [from, to, direction, formatValue]);
 
   useEffect(() => {

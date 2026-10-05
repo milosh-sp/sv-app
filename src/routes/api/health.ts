@@ -15,8 +15,7 @@ type CheckResult = {
 };
 
 function getErrorMessage(error: unknown): string {
-  if (error instanceof Error) return error.message;
-  return "Unknown error";
+  return (error as Error).message;
 }
 
 async function withTimeout<T>(promise: Promise<T>, timeoutMs: number): Promise<T> {
@@ -29,7 +28,7 @@ async function withTimeout<T>(promise: Promise<T>, timeoutMs: number): Promise<T
   try {
     return await Promise.race([promise, timeout]);
   } finally {
-    if (timeoutId) clearTimeout(timeoutId);
+    clearTimeout(timeoutId);
   }
 }
 

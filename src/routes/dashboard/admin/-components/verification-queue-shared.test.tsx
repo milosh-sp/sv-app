@@ -10,21 +10,46 @@ vi.mock("@lingui/core/macro", () => ({
 vi.mock("@lingui/react/macro", () => ({
   Trans: ({ children }: { children: React.ReactNode }) => children,
 }));
+const override = vi.hoisted(() => ({
+  mode: "ok" as "ok" | "error" | "hang",
+  release: null as null | (() => void),
+}));
+const resumeState = vi.hoisted(() => ({
+  isReady: false,
+  initialize: vi.fn(),
+}));
+
+vi.mock("sonner", () => ({ toast: { error: vi.fn(), success: vi.fn() } }));
 vi.mock("@/integrations/orpc/client", () => ({
   orpc: {
     admin: {
       verification: {
-        overrideConcludedVerdict: { mutationOptions: () => ({}) },
+        overrideConcludedVerdict: {
+          mutationOptions: () => ({
+            mutationFn: async () => {
+              if (override.mode === "error") throw new Error("override failed");
+              if (override.mode === "hang") await new Promise<void>((resolve) => (override.release = resolve));
+            },
+          }),
+        },
+        listVerdictHistory: { key: () => ["verdict-history"] },
+        listPendingVerdicts: { key: () => ["pending-verdicts"] },
       },
     },
   },
 }));
-vi.mock("@/components/resume/preview", () => ({ ResumePreview: () => null }));
-vi.mock("@/components/resume/store/resume", () => ({ useResumeStore: () => ({}) }));
+vi.mock("@/components/resume/preview", () => ({ ResumePreview: () => <p>resume-preview</p> }));
+vi.mock("@/components/resume/store/resume", () => ({
+  useResumeStore: (selector: (state: typeof resumeState) => unknown) => selector(resumeState),
+}));
 vi.mock("react-zoom-pan-pinch", () => ({
   TransformComponent: ({ children }: { children: React.ReactNode }) => children,
   TransformWrapper: ({ children }: { children: React.ReactNode }) => children,
 }));
+
+import { toast } from "sonner";
+
+import { sampleResumeData } from "@/schema/resume/sample";
 
 import {
   ApplicantDetails,
@@ -34,6 +59,7 @@ import {
   QueueEmptyState,
   QueueErrorState,
   QueueLoadingState,
+  QueueResumePreview,
   ReviewDecisionPanel,
   ReviewerDetails,
   StatusBadge,
@@ -378,5 +404,290 @@ describe("verification queue badges", () => {
 
     root.unmount();
     container.remove();
+  });
+
+  it("previews resumes and documents, and overrides concluded verdicts", async () => {
+    resumeState.isReady = false;
+    resumeState.initialize.mockClear();
+    const resume = {
+      id: "resume-1",
+      name: "CV",
+      slug: "cv",
+      tags: [],
+      data: sampleResumeData,
+      isLocked: false,
+    };
+    const container = document.createElement("div");
+    document.body.append(container);
+    const root = createRoot(container);
+    await act(async () => {
+      root.render(<QueueResumePreview resume={resume} />);
+    });
+    expect(container.textContent).toContain("Loading preview");
+    expect(resumeState.initialize).toHaveBeenCalledWith(expect.objectContaining({ id: "resume-1" }));
+    resumeState.isReady = true;
+    await act(async () => {
+      root.render(<QueueResumePreview resume={resume} />);
+    });
+    expect(container.textContent).toContain("resume-preview");
+    root.unmount();
+    expect(resumeState.initialize).toHaveBeenCalledWith(null);
+    container.remove();
+
+    URL.createObjectURL = () => "blob:doc";
+    URL.revokeObjectURL = () => undefined;
+    const fetchMock = vi.fn<typeof fetch>();
+    vi.stubGlobal("fetch", fetchMock);
+    const bytes = (header: number[]) => new Blob([Uint8Array.from(header)]);
+    const response = (header: number[], type = "application/octet-stream") =>
+      new Response(bytes(header), { headers: { "content-type": type } });
+
+    const view = document.createElement("div");
+    document.body.append(view);
+    const preview = createRoot(view);
+    const show = async (fileUrl: string, type = "payslip") => {
+      await act(async () => {
+        preview.render(
+          <DocumentPreview fileUrl={fileUrl} documentType={type} uploadedAt={new Date("2020-01-01T00:00:00.000Z")} />,
+        );
+      });
+      await act(async () => {
+        [...view.querySelectorAll("button")].find((button) => button.textContent === "Preview")?.click();
+      });
+      await act(async () => {
+        await new Promise((resolve) => setTimeout(resolve, 20));
+      });
+    };
+
+    fetchMock.mockResolvedValue(response([0xff, 0xd8, 0xff, 0xd9], "image/jpeg"));
+    await show("https://example.com/a.jpg");
+    expect(view.textContent, view.innerHTML).toContain("payslip");
+    expect(view.querySelector("img")).not.toBeNull();
+    await act(async () => {
+      [...view.querySelectorAll("button")].find((button) => button.textContent === "Hide")?.click();
+    });
+
+    fetchMock.mockResolvedValue(response([0x89, 0x50, 0x4e, 0x47]));
+    await show("https://example.com/a.png");
+    fetchMock.mockResolvedValue(response([0x25, 0x50, 0x44, 0x46]));
+    await show("https://example.com/a.pdf");
+    fetchMock.mockResolvedValue(response([1, 2, 3, 4], "application/pdf"));
+    await show("https://example.com/typed.pdf");
+    fetchMock.mockRejectedValue(new Error("network"));
+    await show("https://example.com/down");
+    expect(view.textContent).toContain("Failed to load document");
+
+    let release: (value: Response) => void = () => undefined;
+    fetchMock.mockReturnValue(new Promise<Response>((resolve) => (release = resolve)));
+    await act(async () => {
+      preview.render(
+        <DocumentPreview
+          fileUrl="https://example.com/slow"
+          documentType="contract"
+          uploadedAt={new Date("2020-01-01T00:00:00.000Z")}
+        />,
+      );
+    });
+    await act(async () => {
+      [...view.querySelectorAll("button")].find((button) => button.textContent === "Preview")?.click();
+    });
+    preview.unmount();
+    await act(async () => {
+      release(response([1, 2, 3, 4], "image/png"));
+      await Promise.resolve();
+    });
+    view.remove();
+    vi.unstubAllGlobals();
+
+    const user: QueueUser = {
+      id: "user-1",
+      name: "Ada",
+      email: "ada@example.com",
+      emailVerified: true,
+      username: "ada",
+      displayUsername: "Ada",
+      image: null,
+      twoFactorEnabled: false,
+      lastActiveAt: null,
+      createdAt: new Date("2020-01-02T00:00:00.000Z"),
+      updatedAt: new Date("2020-01-03T00:00:00.000Z"),
+    };
+    const direct: DirectAdminReviewHistoryItem = {
+      id: "req-1",
+      sectionType: "experience",
+      itemId: "item-1",
+      itemLabel: "Acme",
+      status: "rejected",
+      method: "document_upload",
+      submittedAt: new Date("2020-01-01T00:00:00.000Z"),
+      resolvedAt: null,
+      reviewerNote: null,
+      calendarLinkSentAt: null,
+      user,
+      resume,
+      documents: [],
+      reviewedBy: null,
+      reviewedAt: new Date("2020-02-01T00:00:00.000Z"),
+    };
+    const bare: DirectAdminReviewHistoryItem = { ...direct, id: "req-bare", reviewedAt: null, user: null, resume: null };
+    const host = document.createElement("div");
+    document.body.append(host);
+    const history = createRoot(host);
+    await act(async () => {
+      history.render(
+        <DirectAdminReviewHistoryTab
+          items={[]}
+          isLoading={false}
+          isError={false}
+          emptyMessage="No experience reviews"
+          hasActiveFilter
+          filteredEmptyMessage="Nothing matched"
+        />,
+      );
+    });
+    expect(host.textContent).toContain("Nothing matched");
+    await act(async () => {
+      history.render(
+        <DirectAdminReviewHistoryTab
+          items={[direct, bare]}
+          isLoading={false}
+          isError={false}
+          emptyMessage="No experience reviews"
+        />,
+      );
+    });
+    await act(async () => {
+      [...host.querySelectorAll("button")].find((button) => button.textContent?.includes("Details"))?.click();
+    });
+    expect(host.textContent).toContain("ada@example.com");
+    expect(host.textContent).toContain("CV / resume");
+    expect(host.textContent).toContain("Skill Verdict Admin");
+    await act(async () => {
+      [...host.querySelectorAll("button")].find((button) => button.textContent?.includes("Collapse"))?.click();
+    });
+
+    const verdict: VerdictReviewHistoryItem = {
+      id: "req-2",
+      sectionType: "project",
+      itemId: "item-2",
+      itemLabel: "Portfolio",
+      status: "verified",
+      submittedAt: new Date("2020-01-01T00:00:00.000Z"),
+      resolvedAt: null,
+      proposedVerdict: "rejected",
+      reviewerNote: null,
+      parentItemLabel: null,
+      user,
+      resume,
+      documents: [
+        {
+          id: "doc-i",
+          fileUrl: "https://example.com/i",
+          documentType: "assessment_instructions",
+          uploadedAt: new Date("2020-01-01T00:00:00.000Z"),
+        },
+        {
+          id: "doc-s",
+          fileUrl: "https://example.com/s",
+          documentType: "assessment_solution_link",
+          uploadedAt: new Date("2020-01-01T00:00:00.000Z"),
+        },
+      ],
+      assessmentInstructionsUrl: "https://example.com/task",
+      reviewerName: "Grace",
+      reviewerTitle: null,
+      reviewerPublicProfileUrl: null,
+      reviewerSkills: [],
+      verdictNotes: null,
+      verdictSubmittedAt: null,
+      reviewedBy: null,
+      reviewedAt: null,
+    };
+    const issue: VerdictReviewHistoryItem = {
+      ...verdict,
+      id: "req-3",
+      itemLabel: "Issue item",
+      proposedVerdict: "issue",
+      status: "issue",
+      documents: [],
+      assessmentInstructionsUrl: null,
+      resume: null,
+      user: null,
+    };
+    const unknown: VerdictReviewHistoryItem = { ...issue, id: "req-4", itemLabel: "Unknown", proposedVerdict: "maybe" };
+    const client = new QueryClient({ defaultOptions: { queries: { retry: false }, mutations: { retry: false } } });
+    await act(async () => {
+      history.render(
+        <QueryClientProvider client={client}>
+          <VerdictReviewHistoryTab
+            items={[verdict, issue, unknown]}
+            isLoading={false}
+            isError={false}
+            emptyMessage="No verdicts"
+          />
+        </QueryClientProvider>,
+      );
+    });
+    await act(async () => {
+      [...host.querySelectorAll("button")].find((button) => button.textContent?.includes("Details"))?.click();
+    });
+    expect(host.textContent).toContain("Proposed: Fail");
+    expect(host.textContent).toContain("Open Link");
+    const row = [...host.querySelectorAll("p")].find((el) => el.textContent === "Portfolio")?.closest("div.rounded-lg");
+    if (!row) throw new Error("missing verdict row");
+    await act(async () => {
+      [...row.querySelectorAll("button")].find((button) => button.textContent === "Override")?.click();
+    });
+    await act(async () => {
+      [...row.querySelectorAll("button")].find((button) => button.textContent === "rejected")?.click();
+      [...row.querySelectorAll("button")].find((button) => button.textContent === "issue")?.click();
+      [...row.querySelectorAll("button")].find((button) => button.textContent === "verified")?.click();
+      [...row.querySelectorAll("button")].find((button) => button.textContent === "rejected")?.click();
+    });
+    const reason = row.querySelector("textarea");
+    if (!(reason instanceof HTMLTextAreaElement)) throw new Error("missing reason");
+    const setText = (value: string) => {
+      Object.getOwnPropertyDescriptor(HTMLTextAreaElement.prototype, "value")?.set?.call(reason, value);
+      reason.dispatchEvent(new Event("input", { bubbles: true }));
+      reason.dispatchEvent(new Event("change", { bubbles: true }));
+    };
+    await act(async () => {
+      setText("wrong file");
+      [...row.querySelectorAll("button")].find((button) => button.textContent === "Submit Override")?.click();
+    });
+    await act(async () => {
+      setText("   ");
+      [...row.querySelectorAll("button")].find((button) => button.textContent === "Confirm")?.click();
+    });
+    expect(vi.mocked(toast.error)).toHaveBeenCalledWith("A reason is required to override.");
+    await act(async () => {
+      setText("wrong file");
+    });
+    override.mode = "error";
+    await act(async () => {
+      [...row.querySelectorAll("button")].find((button) => button.textContent === "Confirm")?.click();
+    });
+    expect(vi.mocked(toast.error)).toHaveBeenCalledWith("override failed");
+    await act(async () => {
+      [...row.querySelectorAll("button")].find((button) => button.textContent === "Submit Override")?.click();
+      [...row.querySelectorAll("button")].find((button) => button.textContent === "Back")?.click();
+    });
+    await act(async () => {
+      [...row.querySelectorAll("button")].find((button) => button.textContent === "Submit Override")?.click();
+    });
+    override.mode = "ok";
+    await act(async () => {
+      [...row.querySelectorAll("button")].find((button) => button.textContent === "Override")?.click();
+      [...row.querySelectorAll("button")].find((button) => button.textContent === "rejected")?.click();
+    });
+    await act(async () => {
+      setText("wrong file");
+      [...row.querySelectorAll("button")].find((button) => button.textContent === "Submit Override")?.click();
+      [...row.querySelectorAll("button")].find((button) => button.textContent === "Confirm")?.click();
+    });
+    expect(vi.mocked(toast.success)).toHaveBeenCalledWith("Verdict overridden successfully.");
+
+    history.unmount();
+    host.remove();
   });
 });

@@ -40,11 +40,16 @@ describe("builder sidebar", () => {
     useBuilderSidebarStore.getState().setLeftSidebar({ current: left } as never);
     useBuilderSidebarStore.getState().setRightSidebar({ current: right } as never);
 
-    const seen: { collapsed: boolean; max: string | number } = { collapsed: true, max: 0 };
+    const seen: { collapsed: boolean; right: boolean; max: string | number } = {
+      collapsed: true,
+      right: true,
+      max: 0,
+    };
     function Probe() {
       const sidebar = useBuilderSidebar();
       useEffect(() => {
         seen.collapsed = sidebar.isCollapsed("left");
+        seen.right = sidebar.isCollapsed("right");
         seen.max = sidebar.maxSidebarSize;
       });
       return (
@@ -69,6 +74,7 @@ describe("builder sidebar", () => {
     });
     expect(seen.max).toBe("28%");
     expect(seen.collapsed).toBe(true);
+    expect(seen.right).toBe(false);
 
     await act(async () => {
       container.querySelector("button")?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
@@ -87,6 +93,9 @@ describe("builder sidebar", () => {
       root.render(<Probe />);
     });
     expect(seen.collapsed).toBe(false);
+    await act(async () => {
+      container.querySelector("button")?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+    });
 
     root.unmount();
     container.remove();

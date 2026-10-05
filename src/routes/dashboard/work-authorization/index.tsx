@@ -216,10 +216,6 @@ function RouteComponent() {
     );
   };
 
-  const onInvalidSubmit = () => {
-    toast.error(t`Please complete the required work authorization fields before saving.`);
-  };
-
   return (
     <div className="space-y-4">
       <DashboardHeader icon={GlobeIcon} title={t`Work Authorization`} />
@@ -232,7 +228,7 @@ function RouteComponent() {
         </div>
       ) : (
         <Form {...form}>
-          <form className="grid gap-6" onSubmit={form.handleSubmit(onSubmit, onInvalidSubmit)}>
+          <form className="grid gap-6" onSubmit={form.handleSubmit(onSubmit)}>
             <FormItem>
               <FormLabel>
                 <Trans>Resume</Trans>

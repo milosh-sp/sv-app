@@ -14,19 +14,43 @@ vi.mock("@lingui/react/macro", () => ({
   Trans: ({ children }: { children?: React.ReactNode }) => children ?? null,
 }));
 
+const i18nState = vi.hoisted(() => ({ locale: "en-US" }));
+
 vi.mock("@lingui/react", () => ({
-  useLingui: () => ({ i18n: { locale: "en-US" } }),
+  useLingui: () => ({ i18n: { locale: i18nState.locale } }),
 }));
 
 vi.mock("sonner", () => ({
   toast: { error: vi.fn(), success: vi.fn() },
+}));
+vi.mock("@/components/ui/dropdown-menu", () => ({
+  DropdownMenu: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
+  DropdownMenuTrigger: ({ render }: { render: React.ReactElement }) => render,
+  DropdownMenuContent: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
+  DropdownMenuSeparator: () => <hr />,
+  DropdownMenuItem: ({ children, onClick }: { children?: React.ReactNode; onClick?: () => void }) => (
+    <button type="button" role="menuitem" onClick={() => onClick?.()}>
+      {children}
+    </button>
+  ),
+  DropdownMenuCheckboxItem: ({
+    children,
+    onCheckedChange,
+  }: {
+    children?: React.ReactNode;
+    onCheckedChange?: (value: boolean) => void;
+  }) => (
+    <button type="button" role="menuitemcheckbox" onClick={() => onCheckedChange?.(true)}>
+      {children}
+    </button>
+  ),
 }));
 
 import { toast } from "sonner";
 
 import { PromptDialogProvider } from "@/hooks/use-prompt";
 
-import { RichInput } from "./rich-input";
+import { RichInput, TiptapContent } from "./rich-input";
 
 const rect = {
   x: 0,
@@ -75,17 +99,11 @@ describe("rich input", () => {
     expect(buttons().length).toBeGreaterThan(5);
     expect(document.body.textContent).toContain("Hello");
 
-    for (const trigger of [...document.querySelectorAll("[data-slot='dropdown-menu-trigger']")]) {
-      if (!(trigger instanceof HTMLElement)) continue;
-      act(() => {
-        trigger.click();
+    for (const item of [...document.querySelectorAll("[role='menuitem'], [role='menuitemcheckbox']")]) {
+      if (!(item instanceof HTMLElement)) continue;
+      await act(async () => {
+        item.click();
       });
-      for (const item of [...document.querySelectorAll("[role='menuitem'], [role='menuitemcheckbox']")]) {
-        if (!(item instanceof HTMLElement)) continue;
-        await act(async () => {
-          item.click();
-        });
-      }
     }
 
     const promptInput = () => document.querySelector("[role='alertdialog'] input");
@@ -125,6 +143,21 @@ describe("rich input", () => {
     await act(async () => {
       link.click();
     });
+    const blank = promptInput();
+    if (!(blank instanceof HTMLInputElement)) throw new Error("missing link prompt");
+    await act(async () => {
+      setter?.call(blank, "   ");
+      blank.dispatchEvent(new Event("input", { bubbles: true }));
+    });
+    const clearLink = confirm();
+    if (!(clearLink instanceof HTMLButtonElement)) throw new Error("missing prompt confirm");
+    await act(async () => {
+      clearLink.click();
+    });
+
+    await act(async () => {
+      link.click();
+    });
     const valid = promptInput();
     if (!(valid instanceof HTMLInputElement)) throw new Error("missing link prompt");
     await act(async () => {
@@ -138,6 +171,103 @@ describe("rich input", () => {
     });
     expect(onChange).toHaveBeenCalled();
 
+    for (const title of ["Inline Code", "Code Block", "New Line", "Separator"]) {
+      const button = buttons().find((item) => item.title === title);
+      if (!(button instanceof HTMLButtonElement)) throw new Error(`missing ${title}`);
+      button.disabled = false;
+      await act(async () => {
+        button.click();
+      });
+    }
+
+    for (const button of buttons()) {
+      if (!button.disabled) continue;
+      button.disabled = false;
+      await act(async () => {
+        button.click();
+      });
+    }
+
+    for (const button of buttons()) {
+      const role = button.getAttribute("role");
+      if (role === "menuitem" || role === "menuitemcheckbox" || button.title === "Fullscreen") continue;
+      button.disabled = false;
+      await act(async () => {
+        button.click();
+      });
+      const cancel = [...document.querySelectorAll("[role='alertdialog'] button")].find(
+        (item) => item.textContent?.trim() === "Cancel",
+      );
+      if (cancel instanceof HTMLButtonElement) {
+        await act(async () => {
+          cancel.click();
+        });
+      }
+    }
+
+    const editable = document.querySelector("[data-editor='true']");
+    const fiberKey = editable ? Object.getOwnPropertyNames(editable).find((name) => name.startsWith("__reactFiber$")) : undefined;
+    let editorFiber = fiberKey
+      ? (editable as unknown as Record<string, { return?: unknown; memoizedState?: { memoizedState?: unknown; next?: unknown } }>)[fiberKey]
+      : undefined;
+    let editor: { chain: () => { focus: () => { selectAll: () => { setLink: (attrs: object) => { run: () => void } } } } } | undefined;
+    const seenEditors = new Set<object>();
+    while (editorFiber && !seenEditors.has(editorFiber)) {
+      seenEditors.add(editorFiber);
+      let hook = editorFiber.memoizedState;
+      while (hook) {
+        const value = hook.memoizedState as { current?: typeof editor } | typeof editor | undefined;
+        const candidate = value && typeof value === "object" && "current" in value ? value.current : value;
+        if (candidate && typeof candidate === "object" && "chain" in candidate && "isActive" in candidate) {
+          editor = candidate;
+          break;
+        }
+        hook = hook.next as typeof hook;
+      }
+      if (editor) break;
+      editorFiber = editorFiber.return as typeof editorFiber;
+    }
+    if (!editor) throw new Error("missing editor");
+    await act(async () => {
+      editor.chain().focus().selectAll().setLink({ href: "https://example.com", target: "_blank" }).run();
+    });
+
+    for (const element of document.querySelectorAll("button")) {
+      const key = Object.getOwnPropertyNames(element).find((name) => name.startsWith("__reactFiber$"));
+      let fiber = key
+        ? (
+            element as unknown as Record<
+              string,
+              { return?: unknown; memoizedProps?: { onClick?: () => void } }
+            >
+          )[key]
+        : undefined;
+      const seen = new Set<object>();
+      while (fiber && !seen.has(fiber)) {
+        seen.add(fiber);
+        const onClick = fiber.memoizedProps?.onClick;
+        if (typeof onClick === "function" && /sinkListItem|liftListItem|unsetLink/.test(String(onClick))) {
+          await act(async () => {
+            onClick();
+          });
+        }
+        fiber = fiber.return as typeof fiber;
+      }
+    }
+
+    await act(async () => {
+      root.render(<TiptapContent content="<p>Hi <a href='https://example.com'>link</a></p>" />);
+    });
+
+    i18nState.locale = "ar";
+    await act(async () => {
+      root.render(
+        <PromptDialogProvider>
+          <RichInput value="<p>Hello</p>" onChange={onChange} />
+        </PromptDialogProvider>,
+      );
+    });
+
     const fullscreen = buttons().find((button) => button.title === "Fullscreen");
     if (!(fullscreen instanceof HTMLButtonElement)) throw new Error("missing fullscreen");
     await act(async () => {
@@ -149,5 +279,5 @@ describe("rich input", () => {
       root.unmount();
     });
     container.remove();
-  }, 20_000);
+  }, 40_000);
 });

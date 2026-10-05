@@ -116,4 +116,89 @@ describe("admin verification filters", () => {
     root.unmount();
     container.remove();
   });
+
+  it("syncs a committed query and clears nullable combobox values", async () => {
+    const onSearchChange = vi.fn();
+    const container = document.createElement("div");
+    document.body.append(container);
+    const root = createRoot(container);
+    const experience = { ...defaultAdminExperienceSearch, q: "ada", statuses: ["issue" as const] };
+    const verdict = { ...defaultAdminVerdictSearch, q: "ada", proposed: ["verified" as const], types: ["skill" as const] };
+
+    await act(async () => {
+      root.render(
+        <>
+          <AdminExperienceFilterBar tab="queue" search={experience} onSearchChange={onSearchChange} onReset={vi.fn()} />
+          <AdminVerdictFilterBar tab="queue" search={verdict} onSearchChange={onSearchChange} onReset={vi.fn()} />
+          <AdminVerdictFilterBar
+            tab="history"
+            search={{ ...defaultAdminVerdictSearch, q: "ada", statuses: ["rejected"] }}
+            onSearchChange={onSearchChange}
+            onReset={vi.fn()}
+          />
+        </>,
+      );
+    });
+
+    await act(async () => {
+      root.render(
+        <>
+          <AdminExperienceFilterBar
+            tab="queue"
+            search={{ ...experience, q: "grace" }}
+            onSearchChange={onSearchChange}
+            onReset={vi.fn()}
+          />
+          <AdminVerdictFilterBar tab="queue" search={{ ...verdict, q: "grace" }} onSearchChange={onSearchChange} onReset={vi.fn()} />
+          <AdminVerdictFilterBar
+            tab="history"
+            search={{ ...defaultAdminVerdictSearch, q: "grace", statuses: ["rejected"] }}
+            onSearchChange={onSearchChange}
+            onReset={vi.fn()}
+          />
+        </>,
+      );
+    });
+    const inputs = [...container.querySelectorAll("input")].filter((input) => input.id.includes("search"));
+    expect(inputs.every((input) => input.value === "grace")).toBe(true);
+
+    type Fiber = {
+      child?: Fiber;
+      sibling?: Fiber;
+      return?: Fiber;
+      memoizedProps?: { onValueChange?: (value: unknown) => void };
+    };
+    const host = container.firstElementChild;
+    if (!(host instanceof HTMLElement)) throw new Error("missing filter");
+    const fiberKey = Object.keys(host).find((name) => name.startsWith("__reactFiber$"));
+    let start = fiberKey ? (host as unknown as Record<string, Fiber>)[fiberKey] : undefined;
+    while (start?.return) start = start.return;
+    const stack = start ? [start] : [];
+    const seen = new Set<unknown>();
+    const walked = new Set<Fiber>();
+    while (stack.length > 0) {
+      const fiber = stack.pop();
+      if (!fiber || walked.has(fiber)) continue;
+      walked.add(fiber);
+      const onValueChange = fiber.memoizedProps?.onValueChange;
+      if (typeof onValueChange === "function" && !seen.has(onValueChange)) {
+        seen.add(onValueChange);
+        act(() => {
+          onValueChange("freelancer_link");
+          onValueChange(null);
+          onValueChange(["rejected"]);
+          onValueChange(undefined);
+        });
+      }
+      if (fiber.child) stack.push(fiber.child);
+      if (fiber.sibling) stack.push(fiber.sibling);
+    }
+    expect(onSearchChange).toHaveBeenCalledWith(expect.objectContaining({ method: "all", page: 1 }));
+    expect(onSearchChange).toHaveBeenCalledWith(expect.objectContaining({ statuses: [], page: 1 }));
+    expect(onSearchChange).toHaveBeenCalledWith(expect.objectContaining({ proposed: [], page: 1 }));
+    expect(onSearchChange).toHaveBeenCalledWith(expect.objectContaining({ types: [], page: 1 }));
+
+    root.unmount();
+    container.remove();
+  });
 });

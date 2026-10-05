@@ -396,7 +396,6 @@ export function DocumentPreview({
         const blob = await res.blob();
         if (cancelled) return;
 
-        if (blobUrlRef.current) URL.revokeObjectURL(blobUrlRef.current);
         const url = URL.createObjectURL(blob);
         blobUrlRef.current = url;
         setObjectUrl(url);

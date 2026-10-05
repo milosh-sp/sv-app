@@ -24,8 +24,7 @@ export const Route = createFileRoute("/printer/$id")({
     try {
       // Verify the token and ensure it matches the resume ID
       const payload = verifyPrinterToken(search.token);
-      if (!payload) throw new Error();
-      const { resumeId: tokenResumeId } = payload;
+      const tokenResumeId = payload!.resumeId;
       if (tokenResumeId !== params.id) throw new Error();
     } catch {
       // Invalid or missing token - throw error to be caught by error handler

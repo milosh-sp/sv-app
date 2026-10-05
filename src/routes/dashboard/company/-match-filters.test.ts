@@ -61,6 +61,28 @@ test("setSponsorshipRequired and setAuthorizationFreshnessDays clear empty value
   expect(clearedFreshness.authorizationFreshnessDays).toBeUndefined();
 });
 
+test("readMatchPageState rejects a saved search that is not the page schema", () => {
+  expect(readMatchPageState("{}")).toEqual(emptyMatchPageState);
+});
+
+test("work authorization helpers keep only selected region statuses", () => {
+  const filters = {
+    workAuthRegions: ["eu", "uk"] as const,
+    workAuthStatusByRegion: { eu: "citizen" as const, uk: "visa_holder" as const, usa: "citizen" as const },
+  };
+  expect(buildCompanyMatchInput(jobDescription, filters).workAuthStatusByRegion).toEqual({
+    eu: "citizen",
+    uk: "visa_holder",
+  });
+
+  const onlyUsa = setWorkAuthRegionStatus(emptyCompanyMatchFilters, "usa", "citizen");
+  const onlyUk = setWorkAuthRegionStatus(emptyCompanyMatchFilters, "uk", "visa_holder");
+  expect(onlyUsa.workAuthStatusByRegion).toEqual({ usa: "citizen" });
+  expect(onlyUk.workAuthStatusByRegion).toEqual({ uk: "visa_holder" });
+  expect(setWorkAuthRegionStatus(onlyUsa, "usa", null).workAuthStatusByRegion).toBeUndefined();
+  expect(setAuthorizationFreshnessDays(emptyCompanyMatchFilters, "  ").authorizationFreshnessDays).toBeUndefined();
+});
+
 test("readMatchPageState fills filters missing from older saved searches", () => {
   const raw = JSON.stringify({ jobDescription: "hello", results: [], hasSearched: true });
   const withEmptyFilters = JSON.stringify({ jobDescription: "hello", results: [], hasSearched: true, filters: {} });

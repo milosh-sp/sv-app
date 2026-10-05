@@ -260,7 +260,6 @@ export function SectionItem<T extends CustomSectionItem | SectionItemType>({
       } else {
         // Type assertion: when customSectionId is not provided, type is always a built-in SectionType
         const section = draft.sections[type as SectionType];
-        if (!("items" in section)) return;
         const index = section.items.findIndex((_item) => _item.id === item.id);
         if (index === -1) return;
         section.items[index].hidden = !section.items[index].hidden;
@@ -296,7 +295,6 @@ export function SectionItem<T extends CustomSectionItem | SectionItemType>({
       } else {
         // Type assertion: when customSectionId is not provided, type is always a built-in SectionType
         const section = draft.sections[type as SectionType];
-        if (!("items" in section)) return;
         const index = section.items.findIndex((_item) => _item.id === item.id);
         if (index === -1) return;
         section.items.splice(index, 1);

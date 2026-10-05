@@ -85,4 +85,31 @@ describe("upload file handler", () => {
     expect(pdf.headers.get("content-disposition")).toContain("attachment");
     expect(pdf.headers.get("etag")).toBe('W/"1"');
   });
+
+  it("rejects traversal, a sliced buffer, and a pdf the viewer cannot open", async () => {
+    const handler = getHandler();
+    expect((await handler({ request: new Request("http://localhost:3000/uploads/user-1//secret.png") })).status).toBe(
+      403,
+    );
+    expect((await handler({ request: new Request("http://localhost:3000/uploads/user-1/") })).status).toBe(400);
+    expect(
+      (await handler({ request: new Request("http://localhost:3000/uploads/user-1/pdfs/missing/cv.pdf") })).status,
+    ).toBe(403);
+
+    const view = new Uint8Array(new ArrayBuffer(8), 2, 3);
+    read.mockResolvedValueOnce({ data: view, size: 3 });
+    const inferred = await handler({ request: new Request("http://localhost:3000/uploads/user-1/pictures/photo.png") });
+    expect(inferred.headers.get("content-type")).toBe("image/png");
+
+    getSession.mockResolvedValue({ user: { id: "other" } });
+    limit.mockResolvedValueOnce([]);
+    expect(
+      (await handler({ request: new Request("http://localhost:3000/uploads/user-1/documents/id.png") })).status,
+    ).toBe(403);
+    limit.mockResolvedValueOnce([{ role: "reviewer_admin" }]);
+    read.mockResolvedValueOnce(file);
+    expect(
+      (await handler({ request: new Request("http://localhost:3000/uploads/user-1/documents/id.png") })).status,
+    ).toBe(200);
+  });
 });

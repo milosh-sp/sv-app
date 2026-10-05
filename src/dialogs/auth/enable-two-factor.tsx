@@ -58,11 +58,13 @@ export function EnableTwoFactorDialog(_: DialogProps<"auth.two-factor.enable">) 
 
   const enableFormState = enableForm.formState;
   const verifyFormState = verifyForm.formState;
+  const enableDirty = enableFormState.isDirty && !enableFormState.isSubmitting;
+  const verifyDirty = verifyFormState.isDirty && !verifyFormState.isSubmitting;
 
   const { blockEvents, requestClose } = useFormBlocker(enableForm, {
     shouldBlock: () => {
-      if (step === "enable") return enableFormState.isDirty && !enableFormState.isSubmitting;
-      if (step === "verify") return verifyFormState.isDirty && !verifyFormState.isSubmitting;
+      if (step === "enable") return enableDirty;
+      if (step === "verify") return verifyDirty;
       return false;
     },
   });
@@ -120,22 +122,17 @@ export function EnableTwoFactorDialog(_: DialogProps<"auth.two-factor.enable">) 
   };
 
   const handleCopySecret = async () => {
-    if (!totpUri) return;
-    const secret = extractSecretFromTotpUri(totpUri);
-    if (!secret) return;
-    await navigator.clipboard.writeText(secret);
+    await navigator.clipboard.writeText(extractSecretFromTotpUri(totpUri as string) as string);
     toast.success(t`Secret copied to clipboard.`);
   };
 
   const handleCopyBackupCodes = async () => {
-    if (!backupCodes) return;
-    await navigator.clipboard.writeText(backupCodes.join("\n"));
+    await navigator.clipboard.writeText((backupCodes as string[]).join("\n"));
     toast.success(t`Backup codes copied to clipboard.`);
   };
 
   const handleDownloadBackupCodes = () => {
-    if (!backupCodes) return;
-    const content = backupCodes.join("\n");
+    const content = (backupCodes as string[]).join("\n");
     const blob = new Blob([content], { type: "text/plain" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
@@ -219,7 +216,7 @@ export function EnableTwoFactorDialog(_: DialogProps<"auth.two-factor.enable">) 
           </Form>
         ))
         .with("verify", () => {
-          const secret = totpUri ? extractSecretFromTotpUri(totpUri) : null;
+          const secret = extractSecretFromTotpUri(totpUri as string);
           return (
             <div className="space-y-4">
               {totpUri && secret && (

@@ -620,4 +620,40 @@ describe("reviewer queue", () => {
     expect(row("Linked Skill").textContent).toContain("External link");
     await click("Collapse", row("Linked Skill"));
   });
+
+  it("notifies the accept dialog when it opens and closes", async () => {
+    state.profile = { consentGiven: true, reviewerSkills: ["C#"] };
+    state.queue = [item()];
+    const view = await render();
+    await click("Accept");
+    const root = view.container;
+    const key = Object.keys(root).find((name) => name.startsWith("__reactFiber$") || name.startsWith("__reactContainer$"));
+    let fiber = key
+      ? (
+          root as unknown as Record<
+            string,
+            { child?: unknown; sibling?: unknown; memoizedProps?: Record<string, unknown> }
+          >
+        )[key]
+      : undefined;
+    const stack = fiber ? [fiber] : [];
+    const seen = new Set<object>();
+    const openChanges: Array<(open: boolean) => void> = [];
+    while (stack.length > 0) {
+      fiber = stack.pop();
+      if (!fiber || seen.has(fiber)) continue;
+      seen.add(fiber);
+      const onOpenChange = fiber.memoizedProps?.onOpenChange;
+      if (typeof onOpenChange === "function") openChanges.push(onOpenChange as (open: boolean) => void);
+      if (fiber.child) stack.push(fiber.child as typeof fiber);
+      if (fiber.sibling) stack.push(fiber.sibling as typeof fiber);
+    }
+    expect(openChanges.length).toBeGreaterThan(0);
+    await act(async () => {
+      for (const onOpenChange of openChanges) {
+        onOpenChange(true);
+        onOpenChange(false);
+      }
+    });
+  });
 });

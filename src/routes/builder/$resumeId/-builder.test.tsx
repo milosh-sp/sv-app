@@ -9,6 +9,21 @@ import { describe, expect, it, vi } from "vite-plus/test";
 import { sampleResumeData } from "@/schema/resume/sample";
 
 const mobile = vi.hoisted(() => ({ value: false }));
+const droppableOver = vi.hoisted(() => ({ value: false }));
+const sessionState = vi.hoisted(() => ({
+  data: { user: { username: "ada", name: "Ada Lovelace" } } as {
+    user: { username?: string; name?: string; image?: string };
+  } | null,
+}));
+const statisticsState = vi.hoisted(() => ({
+  current: {
+    isPublic: false,
+    views: 2,
+    downloads: 1,
+    lastViewedAt: undefined as Date | undefined,
+    lastDownloadedAt: undefined as Date | undefined,
+  },
+}));
 const navigate = vi.hoisted(() => vi.fn(async () => undefined));
 const cookies = vi.hoisted(() => new Map<string, string>());
 const printResume = vi.hoisted(() => vi.fn(async () => ({ url: "https://example.com/cv.pdf" })));
@@ -33,6 +48,8 @@ vi.mock("@lingui/core/macro", () => ({
     return strings.reduce((result, part, index) => result + part + (values[index] ?? ""), "");
   },
   msg: (strings: TemplateStringsArray) => ({ id: strings.join("") }),
+  plural: (value: number, forms: { one?: string; other?: string }) =>
+    (value === 1 ? forms.one : forms.other)?.replace("#", String(value)) ?? "",
 }));
 
 vi.mock("@lingui/react", () => ({
@@ -66,7 +83,7 @@ vi.mock("@/integrations/orpc/client", () => ({
         getById: {
           queryOptions: () => ({
             queryKey: ["resume", "statistics"],
-            queryFn: async () => ({ isPublic: false, views: 2, downloads: 1 }),
+            queryFn: async () => statisticsState.current,
           }),
         },
       },
@@ -111,9 +128,19 @@ vi.mock("react-zoom-pan-pinch", () => ({
 }));
 
 vi.mock("@tanstack/react-router", async (importOriginal) => {
-  const actual = (await importOriginal()) as Record<string, unknown>;
+  const actual = (await importOriginal()) as Record<string, unknown> & {
+    createFileRoute: (path: string) => (options: unknown) => { options: unknown };
+  };
   return {
     ...actual,
+    createFileRoute: (path: string) => (options: unknown) => {
+      const route = actual.createFileRoute(path)(options);
+      const hotRouter = ((window as unknown as { __TSR_ROUTER__?: { routesById: Record<string, unknown> } }).__TSR_ROUTER__ ??= {
+        routesById: {},
+      });
+      hotRouter.routesById[path] = route;
+      return route;
+    },
     Link: ({ children }: { children?: React.ReactNode }) => <a>{children}</a>,
     Outlet: () => <div>outlet</div>,
     useNavigate: () => navigate,
@@ -204,8 +231,19 @@ vi.mock("./-sidebar/right/sections/css-editor", () => ({
 }));
 
 vi.mock("@/integrations/auth/client", () => ({
-  authClient: { useSession: () => ({ data: { user: { username: "ada", name: "Ada Lovelace" } } }) },
+  authClient: { useSession: () => ({ data: sessionState.data }) },
 }));
+
+vi.mock("@dnd-kit/core", async (importOriginal) => {
+  const actual = (await importOriginal()) as typeof import("@dnd-kit/core");
+  return {
+    ...actual,
+    useDroppable: (args: Parameters<typeof actual.useDroppable>[0]) => {
+      const result = actual.useDroppable(args);
+      return { ...result, isOver: droppableOver.value || result.isOver };
+    },
+  };
+});
 
 vi.mock("@/hooks/use-mobile", () => ({
   useIsMobile: () => mobile.value,
@@ -229,13 +267,16 @@ import { PromptDialogProvider } from "@/hooks/use-prompt";
 import { buildDocx } from "@/utils/resume/docx";
 
 import { BuilderDock } from "./-components/dock";
+import { BuilderHeader } from "./-components/header";
+import { BuilderSidebarLeft } from "./-sidebar/left";
 import { BasicsSectionBuilder } from "./-sidebar/left/sections/basics";
 import { CustomSectionBuilder } from "./-sidebar/left/sections/custom";
 import { ExperienceSectionBuilder } from "./-sidebar/left/sections/experience";
 import { PictureSectionBuilder } from "./-sidebar/left/sections/picture";
 import { SummarySectionBuilder } from "./-sidebar/left/sections/summary";
-import { SectionItem } from "./-sidebar/left/shared/section-item";
+import { SectionAddItemButton, SectionItem } from "./-sidebar/left/shared/section-item";
 import { SectionDropdownMenu } from "./-sidebar/left/shared/section-menu";
+import { BuilderSidebarRight } from "./-sidebar/right";
 import { CSSSectionBuilder } from "./-sidebar/right/sections/css";
 import { DesignSectionBuilder } from "./-sidebar/right/sections/design";
 import { ExportSectionBuilder } from "./-sidebar/right/sections/export";
@@ -434,6 +475,13 @@ describe("builder chrome", () => {
     const ontoSection = applyLayoutMove(pages, "education", "skills");
     expect(ontoSection[0]?.sidebar).toContain("education");
     expect(ontoSection[1]?.main).toEqual([]);
+
+    expect(applyLayoutMove(pages, "page-x", "experience")).toBe(pages);
+    expect(applyLayoutMove(pages, "page-nope-main", "experience")).toBe(pages);
+    expect(applyLayoutMove(pages, "page-0-main", "summary")).toBe(pages);
+    const shifted = applyLayoutMove(pages, "summary", "page-0-main");
+    expect(shifted[0]?.main.at(-1)).toBe("summary");
+    expect(applyLayoutMove(pages, "page-0-sidebar", "education")).toBe(pages);
   });
 
   it("renders the sidebar editors and adds or deletes a layout page", async () => {
@@ -1633,4 +1681,961 @@ describe("builder chrome", () => {
     });
     container.remove();
   }, 30_000);
+
+  it("covers the remaining builder branches", async () => {
+    const data = structuredClone(sampleResumeData);
+    const experience = data.sections.experience.items[0];
+    const project = data.sections.projects.items[0];
+    const certification = data.sections.certifications.items[0];
+    if (!experience || !project || !certification) throw new Error("sample resume is missing items");
+    experience.position = "";
+    project.period = "";
+    project.website.label = "";
+    certification.issuer = "";
+    certification.date = "";
+    data.picture.url = "";
+    data.metadata.css.enabled = true;
+    data.metadata.template = "bronzor";
+    const bare = (id: string) => ({ id, hidden: false });
+    data.customSections = [
+      {
+        title: "Long summary",
+        columns: 1,
+        hidden: false,
+        id: "gap-summary",
+        type: "summary",
+        items: [
+          { id: "sum-long", hidden: false, content: `<p>${"word ".repeat(20)}</p>` },
+          { id: "sum-short", hidden: false, content: "<p>Hi</p>" },
+          { id: "sum-empty", hidden: false, content: "<p></p>" },
+          bare("sum-bare"),
+        ],
+      },
+      {
+        title: "Letter",
+        columns: 1,
+        hidden: false,
+        id: "gap-letter",
+        type: "cover-letter",
+        items: [
+          { id: "let-short", hidden: false, recipient: "<p>Hi</p>", content: "<p>Thanks</p>" },
+          { id: "let-empty", hidden: false, recipient: "<p></p>", content: "<p></p>" },
+          bare("let-bare"),
+        ],
+      },
+      ...(["profiles", "experience", "education", "projects", "skills", "languages", "interests", "awards", "certifications", "publications", "volunteer", "references"] as const).map(
+        (type) => ({
+          title: type,
+          columns: 1,
+          hidden: false,
+          id: `gap-${type}`,
+          type,
+          items: [bare(`bare-${type}`)],
+        }),
+      ),
+    ] as typeof data.customSections;
+
+    localStorage.removeItem("section-store");
+    useSectionStore.setState({ sections: {} });
+    useResumeStore.getState().initialize({
+      id: "resume-1",
+      name: data.basics.name,
+      slug: "sample",
+      tags: [],
+      data,
+      isLocked: false,
+    });
+    useResumeStore.getState().updateResumeData((draft) => {
+      draft.basics.name = "One";
+    });
+    useResumeStore.getState().updateResumeData((draft) => {
+      draft.basics.name = "Two";
+    });
+    i18n.load("en-US", {});
+    i18n.activate("en-US");
+    Element.prototype.scrollIntoView = () => undefined;
+    Element.prototype.getAnimations = () => [];
+    window.ResizeObserver = class {
+      observe() {}
+      unobserve() {}
+      disconnect() {}
+    } as unknown as typeof ResizeObserver;
+    window.IntersectionObserver = class {
+      observe() {}
+      unobserve() {}
+      disconnect() {}
+      takeRecords() {
+        return [];
+      }
+    } as unknown as typeof IntersectionObserver;
+    Object.assign(navigator, { clipboard: { writeText: vi.fn(async () => undefined) } });
+    URL.createObjectURL = () => "blob:resume";
+    URL.revokeObjectURL = () => undefined;
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async () => new Response(new Blob(["%PDF"]))),
+    );
+
+    const queryClient = new QueryClient({ defaultOptions: { queries: { retry: false }, mutations: { retry: false } } });
+    const container = document.createElement("div");
+    document.body.append(container);
+    let root = createRoot(container);
+    const providers = (children: React.ReactNode) => (
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider theme="light">
+          <DashboardModeProvider dashboardMode="user">
+            <PromptDialogProvider>
+              <ConfirmDialogProvider>{children}</ConfirmDialogProvider>
+            </PromptDialogProvider>
+          </DashboardModeProvider>
+        </ThemeProvider>
+      </QueryClientProvider>
+    );
+
+    droppableOver.value = true;
+    await act(async () => {
+      root.render(
+        providers(
+          <>
+            <BuilderSidebarLeft />
+            <BuilderSidebarRight />
+            <LayoutPages />
+          </>,
+        ),
+      );
+    });
+
+    const setValue = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value")?.set;
+    for (const input of container.querySelectorAll("input[type='number']")) {
+      if (!(input instanceof HTMLInputElement) || !setValue) continue;
+      act(() => {
+        setValue.call(input, "");
+        input.dispatchEvent(new Event("input", { bubbles: true }));
+      });
+    }
+
+    const pictureClick = container.querySelector("[class*='group/picture']");
+    const pictureProps = pictureClick
+      ? Object.keys(pictureClick).find((name) => name.startsWith("__reactProps"))
+      : undefined;
+    const selectPicture = pictureProps
+      ? (pictureClick as unknown as Record<string, { onClick?: () => void }>)[pictureProps]?.onClick
+      : undefined;
+    act(() => {
+      selectPicture?.();
+    });
+
+    for (const button of container.querySelectorAll("button")) {
+      const painted = button.querySelector("[style*='background']");
+      if (!(button instanceof HTMLButtonElement) || !painted) continue;
+      act(() => {
+        button.click();
+      });
+    }
+    const templateButton = container.querySelector("img")?.closest("button");
+    if (templateButton instanceof HTMLButtonElement) {
+      act(() => {
+        templateButton.click();
+      });
+    }
+
+    for (const fn of fiberFns(container, "onValueChange")) {
+      await act(async () => {
+        for (const arg of [null, "", "Inter", "icon", "2", [22]]) {
+          try {
+            await fn(arg);
+          } catch {
+            // Some combobox callbacks reject an empty value.
+          }
+        }
+      });
+    }
+    for (const fn of fiberFns(container, "onChange")) {
+      await act(async () => {
+        try {
+          await fn("rgba(1, 2, 3, 1)");
+        } catch {
+          // Input handlers expect an event.
+        }
+        try {
+          await fn(undefined);
+        } catch {
+          // Input handlers expect an event.
+        }
+      });
+    }
+    await act(async () => {
+      for (const fn of fiberFns(container, "onDragStart")) fn({ active: { id: "summary" } });
+    });
+    await act(async () => {
+      root.render(
+        providers(
+          <>
+            <BuilderSidebarLeft />
+            <BuilderSidebarRight />
+            <LayoutPages />
+          </>,
+        ),
+      );
+    });
+    for (const fn of fiberFns(container, "onDragEnd")) {
+      await act(async () => {
+        fn({ active: { id: "summary" }, over: null });
+        fn({ active: { id: "summary" }, over: { id: "summary" } });
+      });
+    }
+    for (const fn of fiberFns(container, "onDragCancel")) fn();
+    const scrollClicks = fiberFns(container, "onClick").filter((fn) =>
+      Function.prototype.toString.call(fn).includes("scrollToSection"),
+    );
+    for (const fn of scrollClicks) fn();
+
+    const customSections = useResumeStore.getState().resume.data.customSections;
+    const summarySection = customSections.find((section) => section.id === "gap-summary");
+    if (!summarySection) throw new Error("missing gap summary");
+    clickText("Add a custom field");
+    const linkButton = [...container.querySelectorAll("button")].find((button) => button.querySelector("svg") && button.className.includes("ms-1"));
+    if (linkButton instanceof HTMLButtonElement) {
+      act(() => {
+        linkButton.click();
+      });
+    }
+    const linkInput = document.querySelector("input[type='url']");
+    if (linkInput instanceof HTMLInputElement && setValue) {
+      act(() => {
+        setValue.call(linkInput, "https://example.com/field");
+        linkInput.dispatchEvent(new Event("input", { bubbles: true }));
+      });
+    }
+    const fieldDrag = [...container.querySelectorAll("button")].find((button) => button.className.includes("touch-none"));
+    if (fieldDrag instanceof HTMLElement) {
+      fieldDrag.dispatchEvent(new PointerEvent("pointerdown", { bubbles: true, pointerId: 1, clientX: 0, clientY: 0 }));
+    }
+    for (const fn of fiberFns(container, "onReorder")) {
+      const source = Function.prototype.toString.call(fn);
+      await act(async () => {
+        if (source.includes("customFields")) {
+          fn([{ id: "missing-field", icon: "acorn", text: "", link: "" }]);
+        } else if (source.includes("customSections")) {
+          fn([...summarySection.items].reverse());
+        }
+      });
+    }
+    const removeField = [...container.querySelectorAll("button")].find(
+      (button) => button.className.includes("ghost") && button.querySelector("svg") && !button.textContent?.trim() && button.className.includes("icon"),
+    );
+    for (const fn of fiberFns(container, "onClick")) {
+      if (!Function.prototype.toString.call(fn).includes("handleRemove")) continue;
+      await act(async () => {
+        fn();
+      });
+    }
+    void removeField;
+    useResumeStore.getState().updateResumeData((draft) => {
+      for (const section of draft.customSections) section.id = `moved-${section.id}`;
+    });
+    for (const fn of fiberFns(container, "onReorder")) {
+      if (!Function.prototype.toString.call(fn).includes("customSections")) continue;
+      await act(async () => {
+        fn(summarySection.items);
+      });
+    }
+    for (const fn of fiberFns(container, "onValueChange")) {
+      if (!Function.prototype.toString.call(fn).includes("parseInt")) continue;
+      await act(async () => {
+        fn("3");
+      });
+    }
+
+    useResumeStore.getState().updateResumeData((draft) => {
+      draft.picture.url = "https://cdn.example.com/pic.png";
+      draft.metadata.layout.pages = [{ fullWidth: false, main: ["summary"], sidebar: ["skills"] }];
+      for (const section of Object.values(draft.sections)) section.items = [];
+      draft.customSections = [];
+    });
+    droppableOver.value = false;
+    await act(async () => {
+      root.render(providers(<LayoutPages />));
+    });
+    for (const fn of fiberFns(container, "onDelete")) {
+      act(() => {
+        fn(0);
+      });
+    }
+    useResumeStore.getState().updateResumeData((draft) => {
+      draft.metadata.layout.pages = [
+        { fullWidth: false, main: ["summary"], sidebar: [] },
+        { fullWidth: false, main: ["skills"], sidebar: ["languages"] },
+      ];
+    });
+    await act(async () => {
+      root.render(providers(<LayoutPages />));
+    });
+    const deletes = fiberFns(container, "onDelete");
+    if (deletes[1]) {
+      act(() => {
+        deletes[1]?.(1);
+      });
+    } else if (deletes[0]) {
+      act(() => {
+        deletes[0]?.(1);
+      });
+    }
+    useResumeStore.getState().updateResumeData((draft) => {
+      draft.metadata.layout.pages = [];
+    });
+    await act(async () => {
+      root.render(providers(<LayoutPages />));
+    });
+    expect(container.textContent).toBe("");
+
+    useResumeStore.getState().updateResumeData((draft) => {
+      draft.picture.url = "https://cdn.example.com/pic.png";
+    });
+    await act(async () => {
+      root.render(providers(<PictureSectionBuilder />));
+    });
+    act(() => {
+      const foreign = container.querySelector("[class*='group/picture']");
+      if (foreign instanceof HTMLElement) foreign.click();
+    });
+    useResumeStore.getState().updateResumeData((draft) => {
+      draft.picture.url = "https://example.com/";
+      draft.metadata.layout.pages = data.metadata.layout.pages;
+    });
+    await act(async () => {
+      root.render(providers(<PictureSectionBuilder />));
+    });
+    await act(async () => {
+      await Promise.resolve();
+    });
+    const deletePicture = container.querySelector("[class*='group/picture']");
+    act(() => {
+      if (deletePicture instanceof HTMLElement) deletePicture.click();
+    });
+    const pictureInput = container.querySelector("input[type='file']");
+    if (pictureInput instanceof HTMLInputElement) {
+      const file = new File(["img"], "photo.png", { type: "image/png" });
+      Object.defineProperty(pictureInput, "files", {
+        configurable: true,
+        value: { 0: file, length: 1, item: () => file },
+      });
+      pictureInput.dispatchEvent(new Event("change", { bubbles: true }));
+      root.unmount();
+      await act(async () => {
+        await new Promise((resolve) => setTimeout(resolve, 0));
+      });
+      container.replaceChildren();
+      root = createRoot(container);
+    }
+
+    const item = structuredClone(experience);
+    item.id = "gap-exp";
+    item.position = "Engineer";
+    useResumeStore.getState().updateResumeData((draft) => {
+      draft.sections.experience.items = [item];
+      draft.customSections = [
+        {
+          title: "Moved",
+          columns: 1,
+          hidden: false,
+          id: "gap-custom-exp",
+          type: "experience",
+          items: [structuredClone(item)],
+        },
+      ];
+    });
+    const stored = useResumeStore.getState().resume.data.sections.experience.items[0];
+    const customItem = useResumeStore.getState().resume.data.customSections[0]?.items[0];
+    if (!stored || !customItem) throw new Error("missing experience rows");
+    await act(async () => {
+      root.render(
+        providers(
+          <>
+            <Reorder.Group values={[stored]} onReorder={() => undefined}>
+              <SectionItem type="experience" item={stored} title={stored.company} />
+            </Reorder.Group>
+            <Reorder.Group values={[customItem]} onReorder={() => undefined}>
+              <SectionItem
+                type="experience"
+                customSectionId="gap-custom-exp"
+                item={customItem}
+                title={stored.company}
+              />
+            </Reorder.Group>
+            <SectionDropdownMenu type="summary" />
+            <SectionDropdownMenu type="experience" />
+            <CustomSectionBuilder />
+            <SectionAddItemButtonProbe />
+          </>,
+        ),
+      );
+    });
+
+    const dragHandle = container.querySelector(".cursor-ns-resize");
+    if (dragHandle instanceof HTMLElement) {
+      dragHandle.dispatchEvent(new PointerEvent("pointerdown", { bubbles: true, pointerId: 1, clientX: 1, clientY: 1 }));
+    }
+
+    await driveMenu(container, true, "Hide");
+    await renameSection(container, true, "Renamed summary");
+    await driveMenu(container, true, "Reset", "Cancel");
+    await driveMenu(container, true, "Reset", "Reset");
+    await driveMenu(container, false, "Rename", "Cancel");
+    await renameSection(container, false, useResumeStore.getState().resume.data.sections.experience.title);
+    await renameSection(container, false, "Work");
+    await driveMenu(container, false, "Reset", "Cancel");
+    await driveMenu(container, true, "Columns");
+    await driveMenu(container, false, "Columns");
+    clickText("Add award");
+    clickText("Add experience");
+    const customTitle = [...container.querySelectorAll("button")].find((button) => button.textContent?.includes("Moved"));
+    const customMenu = customTitle?.parentElement?.querySelector("[data-slot='dropdown-menu-trigger']");
+    if (customMenu instanceof HTMLElement) {
+      act(() => {
+        customMenu.click();
+      });
+      const remove = [...document.querySelectorAll("[data-slot='dropdown-menu-item']")].find((element) =>
+        element.textContent?.includes("Delete"),
+      );
+      await act(async () => {
+        if (remove instanceof HTMLElement) remove.click();
+      });
+      const cancel = [...document.querySelectorAll("button")].find((button) => button.textContent?.trim() === "Cancel");
+      await act(async () => {
+        cancel?.click();
+      });
+      act(() => {
+        customMenu.click();
+      });
+      const columnTrigger = [...document.querySelectorAll("[data-slot='dropdown-menu-sub-trigger']")].find((element) =>
+        element.textContent?.includes("Columns"),
+      );
+      if (columnTrigger instanceof HTMLElement) {
+        act(() => {
+          columnTrigger.click();
+        });
+      }
+      for (const fn of fiberFns(document.body, "onValueChange")) {
+        if (!Function.prototype.toString.call(fn).includes("parseInt")) continue;
+        const setColumns = fn;
+        await act(async () => {
+          setColumns("2");
+        });
+        useResumeStore.getState().updateResumeData((draft) => {
+          for (const section of draft.customSections) section.id = `gone-${section.id}`;
+        });
+        await act(async () => {
+          setColumns("3");
+        });
+      }
+    }
+    for (const fn of fiberFns(container, "onValueChange")) {
+      if (!Function.prototype.toString.call(fn).includes("parseInt")) continue;
+      await act(async () => {
+        fn("2");
+      });
+    }
+
+    clickMenu("Delete", container);
+    const cancelDelete = [...document.querySelectorAll("button")].find((button) => button.textContent?.trim() === "Cancel");
+    await act(async () => {
+      cancelDelete?.click();
+    });
+    clickMenu("Delete", container);
+    const confirmDelete = [...document.querySelectorAll("button")].find((button) => button.textContent?.trim() === "Delete");
+    await act(async () => {
+      confirmDelete?.click();
+    });
+
+    const itemMenu = container.querySelector("[data-slot='dropdown-menu-trigger']");
+    if (itemMenu instanceof HTMLElement) {
+      act(() => {
+        itemMenu.click();
+      });
+    }
+    const moveTo = [...document.querySelectorAll("[data-slot='dropdown-menu-sub-trigger']")].find((element) =>
+      element.textContent?.includes("Move to"),
+    );
+    if (moveTo instanceof HTMLElement) {
+      act(() => {
+        moveTo.click();
+      });
+    }
+    const columns = [...document.querySelectorAll("[data-slot='dropdown-menu-sub-trigger']")].find((element) =>
+      element.textContent?.includes("Columns"),
+    );
+    if (columns instanceof HTMLElement) {
+      act(() => {
+        columns.dispatchEvent(new MouseEvent("mouseenter", { bubbles: true }));
+        columns.click();
+      });
+      for (const radio of document.querySelectorAll("[data-slot='dropdown-menu-radio-item']")) {
+        if (!(radio instanceof HTMLElement)) continue;
+        act(() => {
+          radio.click();
+        });
+      }
+    }
+    const savedClicks = fiberFns(document.body, "onClick").filter((fn) => {
+      const source = Function.prototype.toString.call(fn);
+      if (source.includes("confirm(")) return false;
+      return (
+        source.includes("removedItem") ||
+        source.includes("handleMoveToSection") ||
+        source.includes("handleNewSectionOnPage") ||
+        source.includes("customSectionId") ||
+        source.includes("parseInt")
+      );
+    });
+    for (const fn of savedClicks) {
+      await act(async () => {
+        try {
+          await Promise.race([Promise.resolve(fn()), new Promise((resolve) => setTimeout(resolve, 20))]);
+        } catch {
+          // Move handlers close over the item that is still in the store.
+        }
+      });
+    }
+    for (const fn of fiberFns(document.body, "onValueChange")) {
+      if (!Function.prototype.toString.call(fn).includes("parseInt")) continue;
+      await act(async () => {
+        fn("2");
+      });
+    }
+    useResumeStore.getState().updateResumeData((draft) => {
+      draft.sections.experience.items = [];
+      draft.customSections = [];
+      for (const section of Object.values(draft.sections)) section.items = [];
+    });
+    for (const fn of savedClicks) {
+      await act(async () => {
+        try {
+          await Promise.race([Promise.resolve(fn()), new Promise((resolve) => setTimeout(resolve, 20))]);
+        } catch {
+          // The item is gone, so the handler returns early.
+        }
+      });
+    }
+    await act(async () => {
+      root.render(providers(<BuilderSidebarLeft />));
+    });
+
+    statisticsState.current = {
+      isPublic: true,
+      views: 4,
+      downloads: 2,
+      lastViewedAt: new Date("2024-01-02T00:00:00Z"),
+      lastDownloadedAt: undefined,
+    };
+    await act(async () => {
+      root.render(providers(<BuilderSidebarRight />));
+    });
+    statisticsState.current = {
+      ...statisticsState.current,
+      lastViewedAt: undefined,
+      lastDownloadedAt: new Date("2024-02-03T00:00:00Z"),
+    };
+    await act(async () => {
+      root.render(providers(<BuilderSidebarRight />));
+    });
+
+    sessionState.data = null;
+    await act(async () => {
+      root.render(
+        providers(
+          <>
+            <BuilderDock />
+            <BuilderSidebarRight />
+          </>,
+        ),
+      );
+    });
+    sessionState.data = { user: { name: "Ada" } };
+    await act(async () => {
+      root.render(providers(<BuilderDock />));
+    });
+    sessionState.data = { user: { username: "ada", name: "Ada Lovelace" } };
+
+    const savedResumeData = useResumeStore.getState().resume.data;
+    useResumeStore.setState((state) => {
+      state.resume.slug = "";
+      state.resume.id = "";
+      state.resume.data = undefined as never;
+    });
+    await act(async () => {
+      root.render(providers(<BuilderDock />));
+    });
+    for (const button of [...container.querySelectorAll("button")]) {
+      if (!(button instanceof HTMLButtonElement) || button.disabled) continue;
+      await act(async () => {
+        button.click();
+      });
+    }
+    useResumeStore.setState((state) => {
+      state.resume.slug = "sample";
+      state.resume.id = "resume-1";
+      state.resume.data = savedResumeData;
+    });
+
+    let releasePdf: (value: { url: string }) => void = () => undefined;
+    printResume.mockImplementationOnce(
+      () =>
+        new Promise((resolve) => {
+          releasePdf = resolve;
+        }),
+    );
+    mobile.value = false;
+    await act(async () => {
+      root.render(providers(<BuilderDock />));
+    });
+    document.dispatchEvent(new KeyboardEvent("keydown", { code: "KeyZ", key: "z", ctrlKey: true, bubbles: true }));
+    document.dispatchEvent(new KeyboardEvent("keydown", { code: "KeyZ", key: "z", metaKey: true, bubbles: true }));
+    const pdfButton = [...container.querySelectorAll("button")].at(-1);
+    await act(async () => {
+      if (pdfButton instanceof HTMLButtonElement) pdfButton.click();
+    });
+    expect(document.querySelector(".animate-spin")).toBeTruthy();
+    await act(async () => {
+      releasePdf({ url: "https://example.com/cv.pdf" });
+    });
+    document.dispatchEvent(new KeyboardEvent("keydown", { code: "KeyY", key: "y", ctrlKey: true, bubbles: true }));
+    document.dispatchEvent(
+      new KeyboardEvent("keydown", { code: "KeyZ", key: "z", ctrlKey: true, shiftKey: true, bubbles: true }),
+    );
+
+    mobile.value = true;
+    printResume.mockResolvedValueOnce({ url: "https://example.com/cv.pdf" });
+    await act(async () => {
+      root.render(providers(<BuilderDock />));
+    });
+    for (const button of [...container.querySelectorAll("button")]) {
+      if (!(button instanceof HTMLButtonElement) || button.disabled) continue;
+      await act(async () => {
+        button.click();
+      });
+    }
+    const more = container.querySelector("[data-slot='dropdown-menu-trigger']");
+    if (more instanceof HTMLElement) {
+      act(() => {
+        more.click();
+      });
+    }
+    const dockClicks = fiberFns(document.body, "onClick").filter((fn) => {
+      const source = Function.prototype.toString.call(fn);
+      return source.includes("0.1") || source.includes("onCopyUrl") || source.includes("onDownload");
+    });
+    for (const fn of dockClicks) {
+      await act(async () => {
+        await fn();
+      });
+    }
+
+    vi.mocked(buildDocx).mockRejectedValueOnce(new Error("docx failed"));
+    let releaseExport: (value: { url: string }) => void = () => undefined;
+    printResume.mockImplementationOnce(
+      () =>
+        new Promise((resolve) => {
+          releaseExport = resolve;
+        }),
+    );
+    mobile.value = false;
+    await act(async () => {
+      root.render(providers(<ExportSectionBuilder />));
+    });
+    const exportPdf = [...container.querySelectorAll("button")].find((element) => element.textContent?.includes("PDF"));
+    await act(async () => {
+      if (exportPdf instanceof HTMLButtonElement) exportPdf.click();
+    });
+    await act(async () => {
+      releaseExport({ url: "https://example.com/cv.pdf" });
+    });
+    printResume.mockRejectedValueOnce(new Error("pdf failed"));
+    await act(async () => {
+      root.render(providers(<ExportSectionBuilder />));
+    });
+    for (const label of ["DOCX", "PDF"]) {
+      const button = [...container.querySelectorAll("button")].find((element) => element.textContent?.includes(label));
+      await act(async () => {
+        if (button instanceof HTMLButtonElement) button.click();
+      });
+    }
+
+    useResumeStore.getState().initialize({
+      id: "resume-1",
+      name: "Ada",
+      slug: "sample",
+      tags: [],
+      data: useResumeStore.getState().resume.data,
+      isLocked: false,
+    });
+    await act(async () => {
+      root.render(providers(<BuilderHeader />));
+    });
+    const headerMenu = container.querySelector("[data-slot='dropdown-menu-trigger']");
+    if (headerMenu instanceof HTMLElement) {
+      act(() => {
+        headerMenu.click();
+      });
+      const remove = [...document.querySelectorAll("[data-slot='dropdown-menu-item']")].find((element) =>
+        element.textContent?.includes("Delete"),
+      );
+      await act(async () => {
+        if (remove instanceof HTMLElement) remove.click();
+      });
+      const cancel = [...document.querySelectorAll("button")].find((button) => button.textContent?.trim() === "Cancel");
+      await act(async () => {
+        cancel?.click();
+      });
+    }
+
+    sharingResume.isPublic = true;
+    sharingResume.hasPassword = false;
+    await act(async () => {
+      root.render(providers(<BuilderSidebarRight />));
+    });
+    const copy = container.querySelector("#sharing-url")?.parentElement?.querySelector("button");
+    await act(async () => {
+      if (copy instanceof HTMLButtonElement) copy.click();
+    });
+    const setPassword = [...container.querySelectorAll("button")].find((button) =>
+      button.textContent?.includes("Set Password"),
+    );
+    if (setPassword instanceof HTMLButtonElement) {
+      await act(async () => {
+        setPassword.click();
+      });
+      const cancel = [...document.querySelectorAll("[role='alertdialog'] button")].find((button) =>
+        button.textContent?.includes("Cancel"),
+      );
+      await act(async () => {
+        if (cancel instanceof HTMLElement) cancel.click();
+      });
+      await act(async () => {
+        setPassword.click();
+      });
+      const promptInput = document.querySelector("[role='alertdialog'] input");
+      if (promptInput instanceof HTMLInputElement && setValue) {
+        await act(async () => {
+          setValue.call(promptInput, "   ");
+          promptInput.dispatchEvent(new Event("input", { bubbles: true }));
+        });
+      }
+      const confirmBlank = [...document.querySelectorAll("[role='alertdialog'] button")].find((button) =>
+        button.textContent?.includes("Set Password"),
+      );
+      await act(async () => {
+        if (confirmBlank instanceof HTMLElement) confirmBlank.click();
+      });
+      await act(async () => {
+        setPassword.click();
+      });
+      const promptSecret = document.querySelector("[role='alertdialog'] input");
+      if (promptSecret instanceof HTMLInputElement && setValue) {
+        await act(async () => {
+          setValue.call(promptSecret, "secret1");
+          promptSecret.dispatchEvent(new Event("input", { bubbles: true }));
+        });
+      }
+      setResumePassword.mockRejectedValueOnce(new ORPCError("BAD_REQUEST", { message: "weak" }));
+      const confirmSecret = [...document.querySelectorAll("[role='alertdialog'] button")].find((button) =>
+        button.textContent?.includes("Set Password"),
+      );
+      await act(async () => {
+        if (confirmSecret instanceof HTMLElement) confirmSecret.click();
+      });
+      await act(async () => {
+        setPassword.click();
+      });
+      const promptAgain = document.querySelector("[role='alertdialog'] input");
+      if (promptAgain instanceof HTMLInputElement && setValue) {
+        await act(async () => {
+          setValue.call(promptAgain, "secret1");
+          promptAgain.dispatchEvent(new Event("input", { bubbles: true }));
+        });
+      }
+      setResumePassword.mockRejectedValueOnce(new Error("offline"));
+      const confirmGeneric = [...document.querySelectorAll("[role='alertdialog'] button")].find((button) =>
+        button.textContent?.includes("Set Password"),
+      );
+      await act(async () => {
+        if (confirmGeneric instanceof HTMLElement) confirmGeneric.click();
+      });
+      await act(async () => {
+        setPassword.click();
+      });
+      const promptOk = document.querySelector("[role='alertdialog'] input");
+      if (promptOk instanceof HTMLInputElement && setValue) {
+        await act(async () => {
+          setValue.call(promptOk, "secret1");
+          promptOk.dispatchEvent(new Event("input", { bubbles: true }));
+        });
+      }
+      setResumePassword.mockResolvedValueOnce({});
+      const confirmOk = [...document.querySelectorAll("[role='alertdialog'] button")].find((button) =>
+        button.textContent?.includes("Set Password"),
+      );
+      await act(async () => {
+        if (confirmOk instanceof HTMLElement) confirmOk.click();
+      });
+    }
+    sharingResume.hasPassword = true;
+    await act(async () => {
+      root.render(providers(<BuilderSidebarRight />));
+    });
+    const removePassword = [...container.querySelectorAll("button")].find((button) =>
+      button.textContent?.includes("Remove Password"),
+    );
+    if (removePassword instanceof HTMLButtonElement) {
+      await act(async () => {
+        removePassword.click();
+      });
+      const cancel = [...document.querySelectorAll("button")].find((button) => button.textContent?.trim() === "Cancel");
+      await act(async () => {
+        cancel?.click();
+      });
+      await act(async () => {
+        removePassword.click();
+      });
+      removeResumePassword.mockRejectedValueOnce(new ORPCError("BAD_REQUEST", { message: "kept" }));
+      const confirmError = [...document.querySelectorAll("button")].find((button) => button.textContent?.trim() === "Confirm");
+      await act(async () => {
+        confirmError?.click();
+      });
+      await act(async () => {
+        removePassword.click();
+      });
+      removeResumePassword.mockResolvedValueOnce({});
+      const confirmOk = [...document.querySelectorAll("button")].find((button) => button.textContent?.trim() === "Confirm");
+      await act(async () => {
+        confirmOk?.click();
+      });
+    }
+    const share = container.querySelector("#sharing-switch");
+    updateResume.mockRejectedValueOnce(new Error("offline"));
+    await act(async () => {
+      if (share instanceof HTMLElement) share.click();
+    });
+
+    useResumeStore.getState().initialize(null);
+    (BuilderRoute as unknown as { useLoaderData: () => unknown }).useLoaderData = () => ({
+      layout: { left: 14, artboard: 72, right: 14 },
+      name: "Ada",
+    });
+    (BuilderRoute as unknown as { useParams: () => { resumeId: string } }).useParams = () => ({ resumeId: "resume-1" });
+    (BuilderIndexRoute as unknown as { useParams: () => { resumeId: string } }).useParams = () => ({
+      resumeId: "resume-1",
+    });
+    const Layout = BuilderRoute.options.component as React.ComponentType;
+    const Artboard = BuilderIndexRoute.options.component as React.ComponentType;
+    await act(async () => {
+      root.render(providers(<><Layout /><Artboard /></>));
+    });
+    document.dispatchEvent(new KeyboardEvent("keydown", { code: "KeyS", key: "s", ctrlKey: true, bubbles: true }));
+    document.dispatchEvent(new KeyboardEvent("keydown", { code: "KeyS", key: "s", metaKey: true, bubbles: true }));
+
+    const beforeLoad = BuilderRoute.options.beforeLoad as (args: unknown) => Promise<unknown>;
+    await beforeLoad({
+      context: { session: { user: { emailVerified: true } } },
+      location: { href: "/builder/resume-1" },
+    });
+    await expect(
+      beforeLoad({
+        context: { session: { user: { emailVerified: false } } },
+        location: { href: "/builder/resume-1" },
+      }),
+    ).rejects.toBeTruthy();
+    await expect(beforeLoad({ context: {}, location: { href: "/builder/resume-1" } })).rejects.toBeTruthy();
+    cookies.delete("builder_layout");
+    cookies.set("builder_layout", JSON.stringify({ left: 0, artboard: 0, right: 0 }));
+    const loadBuilder = BuilderRoute.options.loader as (args: unknown) => Promise<{ layout: { left: number } }>;
+    const zero = await loadBuilder({ params: { resumeId: "resume-1" }, context: { queryClient } });
+    expect(zero.layout).toMatchObject({ left: expect.any(Number), artboard: expect.any(Number), right: expect.any(Number) });
+
+    act(() => {
+      root.unmount();
+    });
+    for (const fn of scrollClicks) fn();
+    selectPicture?.();
+    container.remove();
+    droppableOver.value = false;
+    mobile.value = false;
+    statisticsState.current = { isPublic: false, views: 2, downloads: 1, lastViewedAt: undefined, lastDownloadedAt: undefined };
+  }, 120_000);
+
 });
+
+function fiberFns(root: ParentNode, prop: string) {
+  const fns: Array<(...args: any[]) => unknown> = [];
+  const seen = new Set<unknown>();
+  for (const fiber of collectFibers(root)) {
+    const value = fiber.memoizedProps?.[prop];
+    if (typeof value !== "function" || seen.has(value)) continue;
+    seen.add(value);
+    fns.push(value as (...args: any[]) => unknown);
+  }
+  return fns;
+}
+
+function SectionAddItemButtonProbe() {
+  return (
+    <>
+      <SectionAddItemButton type="awards">Add award</SectionAddItemButton>
+      <SectionAddItemButton type="experience" customSectionId="gap-custom-exp">
+        Add experience
+      </SectionAddItemButton>
+    </>
+  );
+}
+
+async function driveMenu(root: ParentNode, summary: boolean, label: string, confirmLabel?: string) {
+  let matched = false;
+  for (const trigger of root.querySelectorAll("[data-slot='dropdown-menu-trigger']")) {
+    if (!(trigger instanceof HTMLElement)) continue;
+    const before = new Set(document.querySelectorAll("[data-slot='dropdown-menu-item']"));
+    act(() => {
+      trigger.click();
+    });
+    const items = [...document.querySelectorAll("[data-slot='dropdown-menu-item']")].filter((element) => !before.has(element));
+    if (!items.some((element) => element.textContent?.includes("Rename"))) continue;
+    const hasAdd = items.some((element) => element.textContent?.includes("Add a new item"));
+    if (hasAdd !== !summary) continue;
+    matched = true;
+    const item = items.find((element) => element.textContent?.includes(label));
+    const sub = [...document.querySelectorAll("[data-slot='dropdown-menu-sub-trigger']")].find((element) =>
+      element.textContent?.includes(label),
+    );
+    await act(async () => {
+      if (item instanceof HTMLElement) item.click();
+      if (sub instanceof HTMLElement) {
+        sub.dispatchEvent(new PointerEvent("pointerenter", { bubbles: true }));
+        sub.click();
+      }
+    });
+    break;
+  }
+  if (!matched) throw new Error(`missing ${summary ? "summary" : "experience"} menu`);
+  if (!confirmLabel) return;
+  const button = [...document.querySelectorAll("button")].find((element) => element.textContent?.trim() === confirmLabel);
+  await act(async () => {
+    button?.click();
+  });
+}
+
+async function renameSection(root: ParentNode, summary: boolean, next: string) {
+  await driveMenu(root, summary, "Rename");
+  const input = document.querySelector("[role='alertdialog'] input");
+  const setValue = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value")?.set;
+  if (input instanceof HTMLInputElement && setValue) {
+    await act(async () => {
+      setValue.call(input, next);
+      input.dispatchEvent(new Event("input", { bubbles: true }));
+    });
+  }
+  const confirm = [...document.querySelectorAll("[role='alertdialog'] button")].find((button) =>
+    button.textContent?.includes("Confirm"),
+  );
+  await act(async () => {
+    if (confirm instanceof HTMLElement) confirm.click();
+  });
+}

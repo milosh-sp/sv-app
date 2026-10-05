@@ -189,4 +189,57 @@ describe("useJobSearch", () => {
 
     view.unmount();
   });
+
+  it("drops one keyword, ignores a stale error, and builds the other chips", async () => {
+    const calls: SearchCallbacks[] = [];
+    mutate.mockImplementation((_input: unknown, options: SearchCallbacks) => {
+      calls.push(options);
+    });
+    const view = mount();
+    let search = await view.render();
+
+    await act(async () => {
+      search.setFilters({
+        ...search.filters,
+        includeKeywords: ["rust", "go"],
+        excludeKeywords: ["java"],
+        excludeCompanies: ["Acme"],
+        directApplyOnly: true,
+        jobRequirements: "under_3_years_experience",
+        datePosted: "week",
+      });
+    });
+    search = await view.render();
+    expect(search.activeFilterChips.some((chip) => chip.key === "directApplyOnly")).toBe(true);
+    expect(search.activeFilterChips.some((chip) => chip.key === "excludeCompanies")).toBe(true);
+
+    await act(async () => {
+      search.removeFilter("includeKeywords", "rust");
+    });
+    search = await view.render();
+    expect(search.filters.includeKeywords).toEqual(["go"]);
+
+    await act(async () => {
+      search.setFilters({ ...search.filters, datePosted: "all" });
+    });
+    search = await view.render();
+    await act(async () => {
+      search.setFilters({ ...search.filters, datePosted: null });
+    });
+
+    await act(async () => {
+      search.executeSearch(1);
+      search.executeSearch(2);
+    });
+    await act(async () => {
+      calls[0]?.onSuccess({ data: [{ id: "only" }] });
+      calls[0]?.onError(new Error("stale"));
+      calls.at(-1)?.onError(new Error("fresh"));
+    });
+    search = await view.render();
+    expect(search.error).toBe("fresh");
+    expect(search.quota).toBeNull();
+
+    view.unmount();
+  });
 });

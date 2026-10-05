@@ -56,8 +56,6 @@ function PictureSectionForm() {
   };
 
   const onDeletePicture = () => {
-    if (!picture.url) return;
-
     const appOrigin = window.location.origin;
     const pictureOrigin = new URL(picture.url).origin;
 

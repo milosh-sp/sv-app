@@ -56,6 +56,35 @@ describe("create api key dialog", () => {
       );
     });
 
+    const expires = [...document.querySelectorAll("label")].find((label) => label.textContent?.trim() === "Expires in");
+    const expiresButton = expires?.htmlFor ? document.getElementById(expires.htmlFor) : null;
+    if (!(expiresButton instanceof HTMLElement)) throw new Error("missing expires");
+    const fiberKey = Object.keys(expiresButton).find((name) => name.startsWith("__reactFiber$"));
+    let fiber = fiberKey
+      ? (
+          expiresButton as unknown as Record<
+            string,
+            { return: unknown; memoizedProps?: Record<string, unknown> } | null
+          >
+        )[fiberKey]
+      : null;
+    let onValueChange: ((value: number | null) => void) | undefined;
+    while (fiber) {
+      const handler = fiber.memoizedProps?.onValueChange;
+      const options = fiber.memoizedProps?.options;
+      if (typeof handler === "function" && Array.isArray(options)) {
+        onValueChange = handler as (value: number | null) => void;
+        break;
+      }
+      fiber = fiber.return as typeof fiber;
+    }
+    if (!onValueChange) throw new Error("missing expires handler");
+    await act(async () => {
+      onValueChange?.(3600 * 24 * 90);
+      onValueChange?.(null);
+    });
+    expect(document.body.textContent).toContain("3 months");
+
     createKey.mockResolvedValueOnce({ data: null, error: { message: "limit" } });
     setInput("CI");
     const form = document.querySelector("form");

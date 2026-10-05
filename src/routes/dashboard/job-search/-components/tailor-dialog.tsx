@@ -151,9 +151,7 @@ export function TailorDialog({ job, open, onOpenChange }: Props) {
   };
 
   const handleSkillSync = async () => {
-    if (phase.step !== "skill-sync") return;
-
-    const { newResumeId, newSkills, sourceResumeId } = phase;
+    const { newResumeId, newSkills, sourceResumeId } = phase as Extract<DialogPhase, { step: "skill-sync" }>;
     const skillsToSync = Array.from(selectedSkills).map((i) => newSkills[i]);
 
     if (skillsToSync.length > 0) {
@@ -173,9 +171,9 @@ export function TailorDialog({ job, open, onOpenChange }: Props) {
   };
 
   const handleSkipSync = () => {
-    if (phase.step !== "skill-sync") return;
+    const { newResumeId } = phase as Extract<DialogPhase, { step: "skill-sync" }>;
     toast.success(t`Resume tailored successfully`);
-    navigateToBuilder(phase.newResumeId);
+    navigateToBuilder(newResumeId);
   };
 
   const toggleSkill = (index: number) => {

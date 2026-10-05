@@ -54,7 +54,7 @@ function selectValueToRole(value: string | null): AdminRole {
 
 function formatDateTime(value: Date | string | null | undefined): string {
   if (!value) return "—";
-  const parsed = typeof value === "string" ? new Date(value) : value instanceof Date ? value : new Date(String(value));
+  const parsed = typeof value === "string" ? new Date(value) : value;
   if (Number.isNaN(parsed.getTime())) return "—";
   return parsed.toLocaleString(undefined, {
     dateStyle: "medium",
@@ -77,8 +77,7 @@ function formatSponsorshipLabel(value: string | null | undefined): string {
   return value.replaceAll("_", " ");
 }
 
-function truncateText(value: string | null | undefined, maxLength = 80): string {
-  if (!value) return "";
+function truncateText(value: string, maxLength = 80): string {
   return value.length > maxLength ? `${value.slice(0, maxLength - 1)}…` : value;
 }
 
@@ -224,10 +223,7 @@ function RouteComponent() {
                 disabled={setRole.isPending}
                 expanded={expandedUserId === u.id}
                 onExpandedChange={(expanded) => {
-                  setExpandedUserId((prev) => {
-                    if (!expanded) return prev === u.id ? null : prev;
-                    return u.id;
-                  });
+                  setExpandedUserId(expanded ? u.id : null);
                 }}
                 onSave={(role) => {
                   setRole.mutate({ userId: u.id, role });
@@ -324,12 +320,7 @@ function UserRoleRow({
   });
   const workAuthorization = detailsQuery.data?.workAuthorization ?? null;
 
-  const created =
-    typeof user.createdAt === "string"
-      ? new Date(user.createdAt)
-      : user.createdAt instanceof Date
-        ? user.createdAt
-        : new Date(String(user.createdAt));
+  const created = typeof user.createdAt === "string" ? new Date(user.createdAt) : user.createdAt;
 
   return (
     <li className="p-4">

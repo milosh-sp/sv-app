@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import { describe, expect, it, vi } from "vite-plus/test";
 
 const monacoState = vi.hoisted(() => ({
+  enabled: true,
   providers: [] as Array<{
     provideCompletionItems: (
       model: {
@@ -15,15 +16,18 @@ const monacoState = vi.hoisted(() => ({
 }));
 
 vi.mock("@monaco-editor/react", () => ({
-  useMonaco: () => ({
-    languages: {
-      CompletionItemKind: { Class: 7 },
-      registerCompletionItemProvider: (_language: string, provider: (typeof monacoState.providers)[number]) => {
-        monacoState.providers.push(provider);
-        return { dispose: vi.fn() };
-      },
-    },
-  }),
+  useMonaco: () =>
+    monacoState.enabled
+      ? {
+          languages: {
+            CompletionItemKind: { Class: 7 },
+            registerCompletionItemProvider: (_language: string, provider: (typeof monacoState.providers)[number]) => {
+              monacoState.providers.push(provider);
+              return { dispose: vi.fn() };
+            },
+          },
+        }
+      : null,
   default: () => <div>editor</div>,
 }));
 
@@ -62,6 +66,12 @@ describe("css editor completions", () => {
         position,
       ).suggestions,
     ).toEqual([]);
+
+    monacoState.enabled = false;
+    await act(async () => {
+      root.render(<CSSMonacoEditor theme="light" defaultValue="" onChange={() => undefined} />);
+    });
+    monacoState.enabled = true;
 
     act(() => {
       root.unmount();

@@ -106,6 +106,32 @@ describe("auth provider helpers", () => {
     });
     expect(vi.mocked(toast.error)).toHaveBeenCalledWith("still linked", { id: "toast" });
 
+    authClient.listAccounts.mockResolvedValueOnce({ data: null });
+    authClient.linkSocial.mockResolvedValueOnce({ error: { message: "blocked" } });
+    await act(async () => {
+      link?.click();
+    });
+    expect(vi.mocked(toast.error)).toHaveBeenCalledWith("blocked", { id: "toast" });
+
+    authClient.unlinkAccount.mockResolvedValueOnce({ error: null });
+    await act(async () => {
+      unlink?.click();
+    });
+    expect(vi.mocked(toast.dismiss)).toHaveBeenCalled();
+
+    authClient.listAccounts.mockImplementation(async () => ({ data: null }));
+    const again = new QueryClient({ defaultOptions: { queries: { retry: false } } });
+    await act(async () => {
+      root.render(
+        <QueryClientProvider client={again}>
+          <Harness />
+        </QueryClientProvider>,
+      );
+    });
+    await act(async () => {
+      await again.refetchQueries();
+    });
+
     act(() => {
       root.unmount();
     });

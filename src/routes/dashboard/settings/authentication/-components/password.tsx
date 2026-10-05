@@ -1,6 +1,6 @@
 import { Trans } from "@lingui/react/macro";
 import { PasswordIcon, PencilSimpleLineIcon } from "@phosphor-icons/react";
-import { Link, useNavigate } from "@tanstack/react-router";
+import { Link } from "@tanstack/react-router";
 import { motion } from "motion/react";
 import { useCallback, useMemo } from "react";
 import { match } from "ts-pattern";
@@ -11,19 +11,14 @@ import { useDialogStore } from "@/dialogs/store";
 import { useAuthAccounts } from "./hooks";
 
 export function PasswordSection() {
-  const navigate = useNavigate();
   const { openDialog } = useDialogStore();
   const { hasAccount } = useAuthAccounts();
 
   const hasPassword = useMemo(() => hasAccount("credential"), [hasAccount]);
 
   const handleUpdatePassword = useCallback(() => {
-    if (hasPassword) {
-      openDialog("auth.change-password", undefined);
-    } else {
-      void navigate({ to: "/auth/forgot-password" });
-    }
-  }, [hasPassword, navigate, openDialog]);
+    openDialog("auth.change-password", undefined);
+  }, [openDialog]);
 
   return (
     <motion.div

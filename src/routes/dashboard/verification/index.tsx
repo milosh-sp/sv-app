@@ -127,8 +127,6 @@ type SkillGroup = {
 };
 
 //TODO: Projects verification UI is not enabled yet
-const showProjectsFeature = false;
-
 function RouteComponent() {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
@@ -168,11 +166,6 @@ function RouteComponent() {
   }, [resumeData]);
 
   const verifiableSkills = useMemo(() => skillGroups.flatMap((group) => group.units), [skillGroups]);
-
-  const projects: ResumeItem[] = useMemo(() => {
-    if (!resumeData?.data?.sections?.projects?.items) return [];
-    return visibleNamedItems(resumeData.data.sections.projects.items);
-  }, [resumeData]);
 
   const experiences: ResumeItem[] = useMemo(() => {
     if (!resumeData?.data?.sections?.experience?.items) return [];
@@ -265,19 +258,6 @@ function RouteComponent() {
               onMutationSuccess={invalidateStatuses}
             />
 
-            {showProjectsFeature && (
-              <VerificationSection
-                title={t`Projects`}
-                sectionType="project"
-                resumeId={activeResumeId}
-                items={projects}
-                getStatusForItem={getStatusForItem}
-                verifiedCount={countVerified(projects)}
-                totalCount={projects.length}
-                onMutationSuccess={invalidateStatuses}
-              />
-            )}
-
             <ExperienceVerificationSection
               title={t`Work Experience`}
               resumeId={activeResumeId}
@@ -368,7 +348,6 @@ function SkillVerificationSection({
                       <SkillProjectItemRow
                         key={unit.itemId}
                         item={{ id: unit.itemId, label: unit.itemLabel }}
-                        sectionType="skill"
                         resumeId={resumeId}
                         existingStatus={getStatusForItem(unit.itemId)}
                         onMutationSuccess={onMutationSuccess}
@@ -385,69 +364,13 @@ function SkillVerificationSection({
   );
 }
 
-// --- Projects Section ---
-
-type VerificationSectionProps = {
-  title: string;
-  sectionType: "skill" | "project";
-  resumeId: string;
-  items: ResumeItem[];
-  getStatusForItem: (itemId: string) => VerificationItem | undefined;
-  verifiedCount: number;
-  totalCount: number;
-  onMutationSuccess: () => void;
-};
-
-function VerificationSection({
-  title,
-  sectionType,
-  resumeId,
-  items,
-  getStatusForItem,
-  verifiedCount,
-  totalCount,
-  onMutationSuccess,
-}: VerificationSectionProps) {
-  return (
-    <div className="rounded-lg border p-4">
-      <div className="mb-3 flex items-center justify-between">
-        <h3 className="text-sm font-medium">{title}</h3>
-        <span className="text-xs text-muted-foreground">
-          {verifiedCount}/{totalCount} <Trans>verified</Trans>
-        </span>
-      </div>
-
-      {items.length === 0 ? (
-        <p className="text-xs text-muted-foreground">
-          <Trans>No items in this section. Add some to your resume first.</Trans>
-        </p>
-      ) : (
-        <div className="space-y-2">
-          {items.map((item) => (
-            <SkillProjectItemRow
-              key={item.id}
-              item={item}
-              sectionType={sectionType}
-              resumeId={resumeId}
-              existingStatus={getStatusForItem(item.id)}
-              onMutationSuccess={onMutationSuccess}
-            />
-          ))}
-        </div>
-      )}
-    </div>
-  );
-}
-
 function SkillProjectItemRow({
   item,
-  sectionType,
   resumeId,
   existingStatus,
   onMutationSuccess,
 }: {
   item: ResumeItem;
-  sectionType: "skill" | "project";
   resumeId: string;
   existingStatus: VerificationItem | undefined;
   onMutationSuccess: () => void;
@@ -459,9 +382,8 @@ function SkillProjectItemRow({
   const [solutionUrl, setSolutionUrl] = useState("");
 
   const requestSkill = useMutation(orpc.verification.requestSkill.mutationOptions());
-  const requestProject = useMutation(orpc.verification.requestProject.mutationOptions());
   const submitAssessmentSolution = useMutation(orpc.verification.submitAssessmentSolution.mutationOptions());
-  const isPending = requestSkill.isPending || requestProject.isPending || submitAssessmentSolution.isPending;
+  const isPending = requestSkill.isPending || submitAssessmentSolution.isPending;
 
   const canRetry = canRetryVerification(existingStatus?.status);
   const hasSubmittedSolution = Boolean(
@@ -529,8 +451,7 @@ function SkillProjectItemRow({
   };
 
   const handleRequest = () => {
-    const mutate = sectionType === "skill" ? requestSkill.mutate : requestProject.mutate;
-    mutate(
+    requestSkill.mutate(
       { resumeId, itemId: item.id, itemLabel: item.label },
       {
         onSuccess: () => {
@@ -989,7 +910,7 @@ function ExperienceItemRow({
             <Trans>Select a payslip, contract, or other proof of employment (PDF, JPG, PNG, max 5MB).</Trans>
           </p>
           <div className="flex items-center gap-2">
-            <FileUploadButton onUpload={handleFileSelected} isUploading={false} />
+            <FileUploadButton onUpload={handleFileSelected} />
             <Button size="sm" variant="ghost" className="h-8 text-xs" onClick={resetFlow}>
               <Trans>Cancel</Trans>
             </Button>
@@ -1159,7 +1080,7 @@ function VerificationHistory({ resumeId, itemId }: { resumeId: string; itemId: s
   );
 }
 
-function FileUploadButton({ onUpload, isUploading }: { onUpload: (file: File) => void; isUploading: boolean }) {
+function FileUploadButton({ onUpload }: { onUpload: (file: File) => void }) {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleChange = useCallback(
@@ -1179,11 +1100,10 @@ function FileUploadButton({ onUpload, isUploading }: { onUpload: (file: File) =>
         variant="outline"
         size="sm"
         className="h-8 text-xs"
-        disabled={isUploading}
         onClick={() => inputRef.current?.click()}
       >
         <UploadIcon className="mr-1.5 size-3.5" />
-        {isUploading ? <Trans>Uploading...</Trans> : <Trans>Choose File</Trans>}
+        <Trans>Choose File</Trans>
       </Button>
     </>
   );

@@ -97,8 +97,6 @@ function BuilderLayout({ initialLayout, ...props }: BuilderLayoutProps) {
   }, 200);
 
   useEffect(() => {
-    if (!leftSidebarRef || !rightSidebarRef) return;
-
     setLeftSidebar(leftSidebarRef);
     setRightSidebar(rightSidebarRef);
   }, [leftSidebarRef, rightSidebarRef, setLeftSidebar, setRightSidebar]);

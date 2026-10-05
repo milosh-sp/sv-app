@@ -80,8 +80,6 @@ export function SharingSectionBuilder() {
   }, [prompt, resume.id, setPassword]);
 
   const onRemovePassword = useCallback(async () => {
-    if (!resume.hasPassword) return;
-
     const confirmation = await confirm(t`Are you sure you want to remove password protection?`, {
       description: t`Anyone who has the resume's public URL will be able to view and download your resume without entering a password.`,
       confirmText: t`Confirm`,
@@ -98,7 +96,7 @@ export function SharingSectionBuilder() {
       const message = error instanceof ORPCError ? error.message : t`Something went wrong. Please try again.`;
       toast.error(message, { id: toastId });
     }
-  }, [confirm, resume.id, resume.hasPassword, removePassword]);
+  }, [confirm, resume.id, removePassword]);
 
   const isPasswordProtected = resume.hasPassword;
 

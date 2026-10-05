@@ -1,3 +1,5 @@
+import { act, createElement } from "react";
+import { createRoot } from "react-dom/client";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vite-plus/test";
 
 import { defaultResumeData } from "@/schema/resume/data";
@@ -16,7 +18,7 @@ vi.mock("sonner", () => ({
   toast: { error: vi.fn() },
 }));
 
-import { flushResumeSave, useResumeStore } from "./resume";
+import { flushResumeSave, useResumeStore, useTemporalStore } from "./resume";
 
 function readyResume(isLocked: boolean) {
   return {
@@ -70,6 +72,32 @@ describe("resume editor store", () => {
     expect(update).toHaveBeenCalledTimes(1);
   });
 
+  it("restores a redone edit and reads temporal history", () => {
+    useResumeStore.getState().initialize(readyResume(false));
+    useResumeStore.getState().updateResumeData((draft) => {
+      draft.summary.content = "<p>Next</p>";
+    });
+    useResumeStore.getState().undo();
+    useResumeStore.getState().redo();
+
+    expect(useResumeStore.getState().resume.data.summary.content).toBe("<p>Next</p>");
+
+    function Probe() {
+      const past = useTemporalStore((state) => state.pastStates.length);
+      return createElement("span", null, String(past));
+    }
+
+    const container = document.createElement("div");
+    const root = createRoot(container);
+    act(() => {
+      root.render(createElement(Probe));
+    });
+    expect(container.textContent).not.toBe("");
+    act(() => {
+      root.unmount();
+    });
+  });
+
   it("restores the previous resume on undo and saves it", () => {
     useResumeStore.getState().initialize(readyResume(false));
 
@@ -84,6 +112,17 @@ describe("resume editor store", () => {
       id: "resume-1",
       data: { summary: { content: "" } },
     });
+  });
+
+  it("does not edit or save when no resume is loaded", () => {
+    useResumeStore.getState().initialize(null);
+    flushResumeSave();
+    useResumeStore.getState().updateResumeData(() => {
+      throw new Error("should not edit");
+    });
+
+    expect(update).not.toHaveBeenCalled();
+    expect(useResumeStore.getState().isReady).toBe(false);
   });
 
   it("clears readiness and history when initialized with nothing", () => {

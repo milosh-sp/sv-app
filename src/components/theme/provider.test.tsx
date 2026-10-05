@@ -24,6 +24,12 @@ function Probe() {
       <button type="button" onClick={() => theme.setTheme("light", { playSound: false })}>
         quiet
       </button>
+      <button type="button" onClick={() => theme.setTheme("light")}>
+        loud-light
+      </button>
+      <button type="button" onClick={() => theme.toggleTheme()}>
+        toggle-default
+      </button>
       <button type="button" onClick={() => theme.toggleTheme({ playSound: false })}>
         toggle
       </button>
@@ -66,6 +72,19 @@ describe("theme provider", () => {
 
     await click("quiet");
     expect(setThemeServerFn).toHaveBeenCalledWith({ data: "light" });
+    await click("loud-light");
+    expect(play).toHaveBeenCalled();
+    await click("toggle");
+
+    await act(async () => {
+      root.render(
+        <ThemeProvider theme="dark">
+          <Probe />
+        </ThemeProvider>,
+      );
+    });
+    await click("toggle-default");
+    expect(setThemeServerFn).toHaveBeenCalledWith({ data: "light" });
 
     play.mockRejectedValueOnce(new Error("no audio"));
     await click("dark");
@@ -77,5 +96,21 @@ describe("theme provider", () => {
     });
     container.remove();
     vi.unstubAllGlobals();
+  });
+
+  it("throws outside the provider", async () => {
+    function Bare() {
+      useTheme();
+      return null;
+    }
+
+    const container = document.createElement("div");
+    const root = createRoot(container);
+    await expect(
+      act(async () => {
+        root.render(<Bare />);
+      }),
+    ).rejects.toThrow("useTheme must be used within a ThemeProvider");
+    root.unmount();
   });
 });
