@@ -1,11 +1,18 @@
+import { createElement } from "react";
+import { renderToString } from "react-dom/server";
 import { describe, expect, it } from "vite-plus/test";
 
-import { getIsMobile, MOBILE_BREAKPOINT, MOBILE_QUERY } from "./use-mobile";
+import { getIsMobile, MOBILE_BREAKPOINT, MOBILE_QUERY, useIsMobile } from "./use-mobile";
+
+function ServerProbe() {
+  return createElement("span", null, String(useIsMobile()));
+}
 
 describe("mobile breakpoint helpers", () => {
   it("matches the builder mobile breakpoint", () => {
     expect(MOBILE_BREAKPOINT).toBe(768);
     expect(MOBILE_QUERY).toBe("(max-width: 767px)");
+    expect(renderToString(createElement(ServerProbe))).toContain("false");
   });
 
   it.each([

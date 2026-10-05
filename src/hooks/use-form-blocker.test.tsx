@@ -83,6 +83,7 @@ describe("unsaved form navigation block", () => {
     const event = new KeyboardEvent("keydown", { key: "Escape", cancelable: true });
     blocker!.blockEvents.onEscapeKeyDown(event);
     blocker!.blockEvents.onPointerDownOutside(event);
+    blocker!.blockEvents.onInteractOutside(event);
     expect(event.defaultPrevented).toBe(true);
 
     confirm.mockResolvedValueOnce(true);
@@ -95,6 +96,8 @@ describe("unsaved form navigation block", () => {
       root.render(<Probe dirty={false} shouldBlock={() => false} onReady={(value) => (blocker = value)} />);
     });
     const outside = new Event("pointerdown", { cancelable: true });
+    blocker!.blockEvents.onEscapeKeyDown(outside as KeyboardEvent);
+    blocker!.blockEvents.onPointerDownOutside(outside);
     blocker!.blockEvents.onInteractOutside(outside);
     expect(outside.defaultPrevented).toBe(false);
 

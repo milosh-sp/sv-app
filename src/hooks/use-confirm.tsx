@@ -21,8 +21,10 @@ interface ConfirmOptions {
 interface ConfirmState extends ConfirmOptions {
   open: boolean;
   title: string;
-  resolve: ((value: boolean) => void) | null;
+  resolve: (value: boolean) => void;
 }
+
+const noop = () => undefined;
 
 type ConfirmContextType = {
   confirm: (title: string, options?: ConfirmOptions) => Promise<boolean>;
@@ -33,7 +35,7 @@ const ConfirmContext = React.createContext<ConfirmContextType | null>(null);
 export function ConfirmDialogProvider({ children }: { children: React.ReactNode }) {
   const [state, setState] = React.useState<ConfirmState>({
     open: false,
-    resolve: null,
+    resolve: noop,
     title: "",
     description: undefined,
     confirmText: undefined,
@@ -54,15 +56,13 @@ export function ConfirmDialogProvider({ children }: { children: React.ReactNode 
   }, []);
 
   const handleConfirm = React.useCallback(() => {
-    if (state.resolve) state.resolve(true);
-
-    setState((prev) => ({ ...prev, open: false, resolve: null }));
+    state.resolve(true);
+    setState((prev) => ({ ...prev, open: false, resolve: noop }));
   }, [state.resolve]);
 
   const handleCancel = React.useCallback(() => {
-    if (state.resolve) state.resolve(false);
-
-    setState((prev) => ({ ...prev, open: false, resolve: null }));
+    state.resolve(false);
+    setState((prev) => ({ ...prev, open: false, resolve: noop }));
   }, [state.resolve]);
 
   return (

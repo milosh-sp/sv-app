@@ -42,6 +42,11 @@ describe("confirm dialog", () => {
     });
     await expect(declined).resolves.toBe(false);
 
+    await act(async () => {
+      document.querySelector<HTMLElement>("[data-slot='alert-dialog-action']")?.click();
+      document.querySelector<HTMLElement>("[data-slot='alert-dialog-cancel']")?.click();
+    });
+
     root.unmount();
     container.remove();
   });

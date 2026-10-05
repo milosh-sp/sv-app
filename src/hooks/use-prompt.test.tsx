@@ -1,6 +1,6 @@
 import { act } from "react";
 import { createRoot } from "react-dom/client";
-import { describe, expect, it, vi } from "vite-plus/test";
+import { afterEach, describe, expect, it, vi } from "vite-plus/test";
 
 vi.mock("@lingui/core/macro", () => ({
   t: (strings: TemplateStringsArray, ...values: Array<string | number>) =>
@@ -40,6 +40,10 @@ function setInput(value: string) {
 }
 
 describe("prompt dialog", () => {
+  afterEach(() => {
+    vi.useRealTimers();
+  });
+
   it("returns the submitted value and null on cancel", async () => {
     const view = await renderPrompt();
 
@@ -57,7 +61,8 @@ describe("prompt dialog", () => {
       await Promise.resolve();
     });
     await act(async () => {
-      setInput("CV");
+      const input = setInput("CV");
+      input.dispatchEvent(new KeyboardEvent("keydown", { key: "a", bubbles: true }));
     });
     await act(async () => {
       document.querySelector("input")?.dispatchEvent(new KeyboardEvent("keydown", { key: "Enter", bubbles: true }));
@@ -73,8 +78,28 @@ describe("prompt dialog", () => {
     });
     await expect(cancelled).resolves.toBeNull();
 
+    await act(async () => {
+      document.querySelector<HTMLElement>("[data-slot='alert-dialog-action']")?.click();
+      document.querySelector<HTMLElement>("[data-slot='alert-dialog-cancel']")?.click();
+    });
+
     view.root.unmount();
     view.container.remove();
+  });
+
+  it("skips focusing an input that is already gone", async () => {
+    vi.useFakeTimers();
+    const view = await renderPrompt();
+    const pending = view.prompt("Rename");
+    await act(async () => {
+      await Promise.resolve();
+    });
+    view.root.unmount();
+    await act(async () => {
+      vi.runAllTimers();
+    });
+    view.container.remove();
+    await expect(Promise.race([pending, Promise.resolve("still-open")])).resolves.toBe("still-open");
   });
 
   it("throws outside the provider", async () => {

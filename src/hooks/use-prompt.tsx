@@ -26,8 +26,10 @@ type PromptState = PromptOptions & {
   open: boolean;
   title: string;
   value: string;
-  resolve: ((value: string | null) => void) | null;
+  resolve: (value: string | null) => void;
 };
+
+const noop = () => undefined;
 
 type PromptContextType = {
   prompt: (title: string, options?: PromptOptions) => Promise<string | null>;
@@ -40,7 +42,7 @@ export function PromptDialogProvider({ children }: { children: React.ReactNode }
 
   const [state, setState] = React.useState<PromptState>({
     open: false,
-    resolve: null,
+    resolve: noop,
     title: "",
     value: "",
     description: undefined,
@@ -79,15 +81,13 @@ export function PromptDialogProvider({ children }: { children: React.ReactNode }
   }, []);
 
   const handleConfirm = React.useCallback(() => {
-    if (state.resolve) state.resolve(state.value);
-
-    setState((prev) => ({ ...prev, open: false, resolve: null }));
+    state.resolve(state.value);
+    setState((prev) => ({ ...prev, open: false, resolve: noop }));
   }, [state.resolve, state.value]);
 
   const handleCancel = React.useCallback(() => {
-    if (state.resolve) state.resolve(null);
-
-    setState((prev) => ({ ...prev, open: false, resolve: null }));
+    state.resolve(null);
+    setState((prev) => ({ ...prev, open: false, resolve: noop }));
   }, [state.resolve]);
 
   const handleValueChange = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {

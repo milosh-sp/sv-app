@@ -25,6 +25,11 @@ describe("useControlledState", () => {
     expect(el.textContent).toBe("b");
 
     await act(async () => {
+      root.render(<Probe />);
+    });
+    expect(el.textContent).toBe("b");
+
+    await act(async () => {
       root.unmount();
     });
   });
